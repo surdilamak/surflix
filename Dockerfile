@@ -16,6 +16,8 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/package.json ./package.json
 RUN npm install --no-audit --no-fund
+# Install sharp explicitly (Next.js image optimization needs it)
+RUN npm install sharp --no-audit --no-fund
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 RUN npx prisma generate
@@ -45,6 +47,11 @@ COPY --from=builder --chown=surflix:nodejs /app/node_modules/.prisma ./node_modu
 COPY --from=builder --chown=surflix:nodejs /app/node_modules/@prisma ./node_modules/@prisma
 COPY --from=builder --chown=surflix:nodejs /app/node_modules/prisma ./node_modules/prisma
 
+# Copy server-side deps yang Next.js standalone gak auto-trace
+COPY --from=builder --chown=surflix:nodejs /app/node_modules/bcryptjs ./node_modules/bcryptjs
+COPY --from=builder --chown=surflix:nodejs /app/node_modules/sharp ./node_modules/sharp
+COPY --from=builder --chown=surflix:nodejs /app/node_modules/@img ./node_modules/@img
+
 # Data dir for SQLite
 RUN mkdir -p /data && chown -R surflix:nodejs /data
 VOLUME ["/data"]
@@ -54,5 +61,4 @@ EXPOSE 3000
 
 ENTRYPOINT ["/sbin/tini", "--"]
 
-# Run prisma db push (uses local prisma binary, not download new version) then start server
 CMD ["sh", "-c", "node node_modules/prisma/build/index.js db push --accept-data-loss && node server.js"]
