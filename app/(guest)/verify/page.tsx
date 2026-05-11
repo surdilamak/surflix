@@ -6,12 +6,29 @@
  */
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Icons } from '@/components/ui/icons';
 
+// Wrap inner component dengan Suspense karena useSearchParams butuh suspense boundary
 export default function VerifyPage() {
+  return (
+    <Suspense fallback={<LoadingState />}>
+      <VerifyInner />
+    </Suspense>
+  );
+}
+
+function LoadingState() {
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center px-4">
+      <Icons.Loader2 className="h-10 w-10 animate-spin text-white/50" />
+    </div>
+  );
+}
+
+function VerifyInner() {
   const router = useRouter();
   const params = useSearchParams();
   const token = params.get('token');
@@ -44,9 +61,7 @@ export default function VerifyPage() {
         return;
       }
 
-      // Save session token
       sessionStorage.setItem('surflix_guest_token', data.token);
-      // Update guest info di localStorage
       localStorage.setItem(
         'surflix_guest_info',
         JSON.stringify({ name: data.guest.name, email: data.guest.email })
