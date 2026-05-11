@@ -1,36 +1,84 @@
 /**
- * GET /api/library
+ * GET /api/library?email=...
  *
- * Get list media yang udah available di Jellyfin (status=5)
- * via Jellyseerr's /media endpoint.
+ * Return:
+ * - personal: film yang guest tsb request & status=AVAILABLE
+ * - community: film yang guest lain request & status=AVAILABLE
  */
 
-import { NextResponse } from 'next/server';
-import { jellyseerr } from '@/lib/jellyseerr';
+import { NextRequest, NextResponse } from 'next/server';
+import { prisma } from '@/lib/db';
 
-let cache: { data: any; expiresAt: number } | null = null;
-const CACHE_TTL = 30 * 60 * 1000; // 30 menit
-
-export async function GET() {
-  if (cache && cache.expiresAt > Date.now()) {
-    return NextResponse.json(cache.data);
-  }
+export async function GET(req: NextRequest) {
+  const { searchParams } = new URL(req.url);
+  const email = searchParams.get('email')?.toLowerCase();
 
   try {
-    // Jellyseerr endpoint /media?filter=available
-    // Tapi /media gak return TMDB metadata lengkap, jadi kita kombinasiin
-    // dengan trending + filter status=5
-    const trending = await jellyseerr.getTrending(1);
-    const available = trending.results.filter(
-      (item) => item.mediaInfo?.status === 5 || item.mediaInfo?.status === 4
-    );
+    // Query 1: Personal library (kalau email provided)
+    let personalRequests: any[] = [];
+    if (email) {
+      personalRequests = await prisma.request.findMany({
+        where: {
+          status: 'AVAILABLE',
+          guest: { email },
+        },
+        orderBy: { availableAt: 'desc' },
+        select: {
+          id: true,
+          tmdbId: true,
+          mediaType: true,
+          title: true,
+          posterPath: true,
+          backdropPath: true,
+          overview: true,
+          releaseDate: true,
+          rating: true,
+          availableAt: true,
+        },
+      });
+    }
 
-    const response = { results: available };
-    cache = { data: response, expiresAt: Date.now() + CACHE_TTL };
+    // Query 2: Community library (film yang udah available, exclude punya user kalau email ada)
+    const personalTmdbIds = new Set(personalRequests.map((r) => `${r.mediaType}-${r.tmdbId}`));
 
-    return NextResponse.json(response);
+    const communityRequestsRaw = await prisma.request.findMany({
+      where: {
+        status: 'AVAILABLE',
+        ...(email ? { guest: { email: { not: email } } } : {}),
+      },
+      orderBy: { availableAt: 'desc' },
+      select: {
+        id: true,
+        tmdbId: true,
+        mediaType: true,
+        title: true,
+        posterPath: true,
+        backdropPath: true,
+        overview: true,
+        releaseDate: true,
+        rating: true,
+        availableAt: true,
+      },
+      take: 50, // ambil 50, dedupe nanti
+    });
+
+    // Dedupe by tmdbId+mediaType (multiple guests bisa request film yang sama)
+    const seen = new Set<string>();
+    const communityItems = communityRequestsRaw.filter((item) => {
+      const key = `${item.mediaType}-${item.tmdbId}`;
+      // Skip jika udah ada di personal
+      if (personalTmdbIds.has(key)) return false;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+
+    return NextResponse.json({
+      personal: personalRequests,
+      community: communityItems.slice(0, 30),
+    });
   } catch (err: any) {
     console.error('[Library API] Error:', err.message);
-    return NextResponse.json({ results: [] });
+    return NextResponse.json({ personal: [], community: [] });
   }
 }

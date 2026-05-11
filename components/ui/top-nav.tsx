@@ -1,6 +1,6 @@
 /**
- * Top Navigation Bar — desktop (tabs inline)
- * Mobile pakai bottom tab bar, lihat BottomTabBar.tsx
+ * Top Navigation Bar — desktop
+ * New order: Home / Trending / Library / Browse / My Requests
  */
 'use client';
 
@@ -10,7 +10,8 @@ import { cn } from '@/lib/utils';
 import { Icons } from './icons';
 
 const tabs = [
-  { href: '/', label: 'Trending', icon: Icons.Flame },
+  { href: '/', label: 'Home', icon: Icons.Sparkles },
+  { href: '/trending', label: 'Trending', icon: Icons.Flame },
   { href: '/library', label: 'Library', icon: Icons.Library },
   { href: '/browse', label: 'Browse', icon: Icons.Search },
   { href: '/requests', label: 'My Requests', icon: Icons.ListChecks },
@@ -29,7 +30,6 @@ export function TopNav({ guestName, pendingCount = 0 }: TopNavProps) {
       <div className="bg-black/70">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3">
           <div className="flex items-center gap-7">
-            {/* Logo */}
             <Link href="/" className="flex items-center gap-2">
               <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-br from-surflix-500 to-ios-orange">
                 <Icons.Waves className="h-3.5 w-3.5 text-white" />
@@ -37,7 +37,6 @@ export function TopNav({ guestName, pendingCount = 0 }: TopNavProps) {
               <span className="text-base font-semibold tracking-tighter">Surflix</span>
             </Link>
 
-            {/* Tabs */}
             <nav className="flex gap-0.5">
               {tabs.map((tab) => {
                 const active = pathname === tab.href;
