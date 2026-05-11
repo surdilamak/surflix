@@ -1,23 +1,20 @@
 /**
- * Guest layout — apply ke semua halaman public
- * Includes TopNav (desktop) + BottomTabBar (mobile)
+ * Guest layout — TopNav + content + Footer + BottomTabBar
  */
 'use client';
 
 import { useEffect, useState } from 'react';
 import { TopNav } from '@/components/ui/top-nav';
 import { BottomTabBar } from '@/components/ui/bottom-tab-bar';
-
-const GUEST_INFO_KEY = 'surflix_guest_info';
+import { Footer } from '@/components/ui/footer';
 
 export default function GuestLayout({ children }: { children: React.ReactNode }) {
   const [guestName, setGuestName] = useState<string | null>(null);
   const [pendingCount, setPendingCount] = useState(0);
 
   useEffect(() => {
-    // Get guest info dari localStorage
     if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem(GUEST_INFO_KEY);
+      const saved = localStorage.getItem('surflix_guest_info');
       if (saved) {
         try {
           const { name } = JSON.parse(saved);
@@ -28,9 +25,10 @@ export default function GuestLayout({ children }: { children: React.ReactNode })
   }, []);
 
   return (
-    <div className="min-h-screen bg-black pb-20 md:pb-0">
+    <div className="flex min-h-screen flex-col bg-black pb-20 md:pb-0">
       <TopNav guestName={guestName} pendingCount={pendingCount} />
-      <main>{children}</main>
+      <main className="flex-1">{children}</main>
+      <Footer />
       <BottomTabBar pendingCount={pendingCount} />
     </div>
   );

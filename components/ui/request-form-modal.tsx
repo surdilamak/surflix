@@ -1,6 +1,6 @@
 /**
- * Request Form Modal — minta nama + email guest sebelum submit request
- * Pakai localStorage untuk inget guest info di session berikutnya
+ * Request Form Modal — name only (cookie-based identification)
+ * No email field — guest cuma input nama, identified via cookie/localStorage
  */
 'use client';
 
@@ -8,7 +8,6 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Icons } from './icons';
 import { JellyseerrMediaItem } from '@/lib/jellyseerr';
-import { isValidEmail } from '@/lib/utils';
 
 interface RequestFormModalProps {
   item: JellyseerrMediaItem | null;
@@ -21,19 +20,16 @@ const GUEST_INFO_KEY = 'surflix_guest_info';
 
 export function RequestFormModal({ item, open, onClose, onSuccess }: RequestFormModalProps) {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Restore guest info dari localStorage
   useEffect(() => {
     if (open && typeof window !== 'undefined') {
       const saved = localStorage.getItem(GUEST_INFO_KEY);
       if (saved) {
         try {
-          const { name: n, email: e } = JSON.parse(saved);
+          const { name: n } = JSON.parse(saved);
           if (n) setName(n);
-          if (e) setEmail(e);
         } catch {}
       }
     }
@@ -46,8 +42,8 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
       setError('Nama wajib diisi');
       return;
     }
-    if (!isValidEmail(email)) {
-      setError('Email gak valid');
+    if (name.trim().length < 2) {
+      setError('Nama minimal 2 karakter');
       return;
     }
     if (!item) return;
@@ -60,7 +56,6 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           guestName: name.trim(),
-          guestEmail: email.trim().toLowerCase(),
           tmdbId: item.id,
           mediaType: item.mediaType,
           title: item.title || item.name,
@@ -80,8 +75,11 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
         return;
       }
 
-      // Save guest info buat next time
-      localStorage.setItem(GUEST_INFO_KEY, JSON.stringify({ name, email }));
+      // Save guest name + ID to localStorage
+      localStorage.setItem(GUEST_INFO_KEY, JSON.stringify({
+        name: name.trim(),
+        guestId: data.guestId, // server returns unique guestId
+      }));
 
       onSuccess();
     } catch (err) {
@@ -135,25 +133,13 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Budi"
+                  placeholder="Misal: Budi"
                   className="input-ios w-full"
                   maxLength={50}
-                />
-              </div>
-
-              <div>
-                <label className="mb-1.5 block text-xs font-medium text-white/60">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="budi@example.com"
-                  className="input-ios w-full"
+                  autoFocus
                 />
                 <p className="mt-1.5 text-[10px] text-white/40">
-                  Notif "Available" akan dikirim ke email ini
+                  Cuma nama doang. Kita inget lo via cookie browser ini.
                 </p>
               </div>
 

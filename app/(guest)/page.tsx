@@ -1,11 +1,5 @@
 /**
- * Home Page (/) — Request-first design
- *
- * Layout:
- * 1. Big greeting + search bar
- * 2. Quick filter chips (genres, eras, media types)
- * 3. "Most Requested by Friends" (hidden kalau DB kosong)
- * 4. "Trending This Week" preview (link ke /trending buat full view)
+ * Home Page (/) — Request-first design with library stats
  */
 'use client';
 
@@ -24,6 +18,11 @@ interface MostRequestedItem extends JellyseerrMediaItem {
   requestCount?: number;
 }
 
+interface LibraryStats {
+  moviesCount: number;
+  seriesCount: number;
+}
+
 export default function HomePage() {
   const router = useRouter();
 
@@ -32,6 +31,7 @@ export default function HomePage() {
 
   const [trending, setTrending] = useState<JellyseerrMediaItem[]>([]);
   const [mostRequested, setMostRequested] = useState<MostRequestedItem[]>([]);
+  const [stats, setStats] = useState<LibraryStats | null>(null);
   const [loadingTrending, setLoadingTrending] = useState(true);
 
   const [selectedItem, setSelectedItem] = useState<JellyseerrMediaItem | null>(null);
@@ -49,9 +49,9 @@ export default function HomePage() {
         } catch {}
       }
     }
-
     loadTrending();
     loadMostRequested();
+    loadStats();
   }, []);
 
   async function loadTrending() {
@@ -76,9 +76,17 @@ export default function HomePage() {
         const data = await res.json();
         setMostRequested(data.results || []);
       }
-    } catch {
-      setMostRequested([]);
-    }
+    } catch {}
+  }
+
+  async function loadStats() {
+    try {
+      const res = await fetch('/api/library-stats');
+      if (res.ok) {
+        const data = await res.json();
+        setStats({ moviesCount: data.moviesCount, seriesCount: data.seriesCount });
+      }
+    } catch {}
   }
 
   function handleSearchSubmit() {
@@ -134,14 +142,26 @@ export default function HomePage() {
                   onClick={handleSearchSubmit}
                   className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-surflix-500 px-4 py-1.5 text-sm font-medium text-white transition-all hover:bg-surflix-600"
                 >
-                  <span className="inline-flex items-center gap-1">
-                    Search
-                    <Icons.ArrowRight className="h-3.5 w-3.5" />
-                  </span>
+                  <span className="inline-flex items-center gap-1">Search<Icons.ArrowRight className="h-3.5 w-3.5" /></span>
                 </button>
               )}
             </div>
           </div>
+
+          {/* Library Stats */}
+          {stats && (stats.moviesCount > 0 || stats.seriesCount > 0) && (
+            <div className="mt-4 flex flex-wrap gap-2 text-xs text-white/50">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.04] px-2.5 py-1">
+                <Icons.Film className="h-3 w-3" />
+                {stats.moviesCount} {stats.moviesCount === 1 ? 'movie' : 'movies'}
+              </span>
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.04] px-2.5 py-1">
+                <Icons.Tv className="h-3 w-3" />
+                {stats.seriesCount} {stats.seriesCount === 1 ? 'series' : 'series'}
+              </span>
+              <span className="text-white/30">— available di Jellyfin</span>
+            </div>
+          )}
         </div>
 
         {/* Quick filter categories */}
@@ -165,17 +185,13 @@ export default function HomePage() {
             </div>
             <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
               {mostRequested.slice(0, 6).map((item) => (
-                <PosterCard
-                  key={`${item.mediaType}-${item.id}`}
-                  item={item}
-                  onClick={() => openDetail(item)}
-                />
+                <PosterCard key={`${item.mediaType}-${item.id}`} item={item} onClick={() => openDetail(item)} />
               ))}
             </div>
           </section>
         )}
 
-        {/* Trending Section — preview, link ke /trending */}
+        {/* Trending Section */}
         <section>
           <div className="mb-3 flex items-center justify-between">
             <h2 className="text-lg font-semibold tracking-tight md:text-xl">
@@ -193,37 +209,16 @@ export default function HomePage() {
           ) : (
             <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
               {trending.map((item) => (
-                <PosterCard
-                  key={`${item.mediaType}-${item.id}`}
-                  item={item}
-                  onClick={() => openDetail(item)}
-                />
+                <PosterCard key={`${item.mediaType}-${item.id}`} item={item} onClick={() => openDetail(item)} />
               ))}
             </div>
           )}
         </section>
       </div>
 
-      <DetailModal
-        item={selectedItem}
-        open={detailOpen}
-        onClose={() => setDetailOpen(false)}
-        onRequest={handleRequestClick}
-      />
-
-      <RequestFormModal
-        item={selectedItem}
-        open={requestOpen}
-        onClose={() => setRequestOpen(false)}
-        onSuccess={handleRequestSuccess}
-      />
-
-      <Toast
-        message={toast?.message || ''}
-        variant={toast?.variant}
-        open={!!toast}
-        onClose={() => setToast(null)}
-      />
+      <DetailModal item={selectedItem} open={detailOpen} onClose={() => setDetailOpen(false)} onRequest={handleRequestClick} />
+      <RequestFormModal item={selectedItem} open={requestOpen} onClose={() => setRequestOpen(false)} onSuccess={handleRequestSuccess} />
+      <Toast message={toast?.message || ''} variant={toast?.variant} open={!!toast} onClose={() => setToast(null)} />
     </>
   );
 }

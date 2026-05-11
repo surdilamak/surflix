@@ -1,16 +1,15 @@
 /**
  * POST /api/request
  *
- * Guest submit request film/series.
+ * Guest submit request film/series — name only, no email.
+ * Identification via guestId (returned in response, saved to localStorage).
+ *
  * Flow:
  * 1. Validate input + rate limit per IP
- * 2. Upsert guest (by email)
- * 3. Cek udah ada di Jellyseerr/library belum (anti-duplikat)
+ * 2. Upsert guest (by guestId from cookie/body, or create new)
+ * 3. Cek udah ada di Jellyseerr/library belum
  * 4. Simpan ke DB dengan status PENDING_ADMIN
  * 5. Send Telegram notif ke admin
- *
- * NOTE: Request belum di-forward ke Jellyseerr di sini.
- *       Itu terjadi pas admin approve via /api/admin/approve.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -19,11 +18,11 @@ import { prisma } from '@/lib/db';
 import { jellyseerr, JELLYSEERR_STATUS } from '@/lib/jellyseerr';
 import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 import { notifyNewRequest } from '@/lib/telegram';
-import { isValidEmail, getYear } from '@/lib/utils';
+import { getYear } from '@/lib/utils';
 
 const requestSchema = z.object({
-  guestName: z.string().min(1).max(50),
-  guestEmail: z.string().email(),
+  guestName: z.string().min(2).max(50),
+  guestId: z.string().optional(),
   tmdbId: z.number().int().positive(),
   mediaType: z.enum(['movie', 'tv']),
   title: z.string().min(1),
@@ -37,7 +36,6 @@ const requestSchema = z.object({
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);
 
-  // Rate limit: max 10 request/jam per IP
   const limit = await checkRateLimit({ ipAddress: ip, endpoint: 'request' });
   if (!limit.allowed) {
     return NextResponse.json(
@@ -53,11 +51,7 @@ export async function POST(req: NextRequest) {
   try {
     body = requestSchema.parse(await req.json());
   } catch (err) {
-    return NextResponse.json({ error: 'Input gak valid', details: err }, { status: 400 });
-  }
-
-  if (!isValidEmail(body.guestEmail)) {
-    return NextResponse.json({ error: 'Email gak valid' }, { status: 400 });
+    return NextResponse.json({ error: 'Input gak valid' }, { status: 400 });
   }
 
   // 1. Cek di Jellyseerr — udah ada di library?
@@ -76,21 +70,35 @@ export async function POST(req: NextRequest) {
       );
     }
   } catch (err) {
-    // Kalau Jellyseerr gak respond, lanjut aja, biar admin yang verify
     console.warn('[Request API] Jellyseerr check failed, proceeding anyway');
   }
 
-  // 2. Upsert guest
-  const guest = await prisma.guest.upsert({
-    where: { email: body.guestEmail.toLowerCase() },
-    update: { name: body.guestName, lastActive: new Date() },
-    create: {
-      email: body.guestEmail.toLowerCase(),
-      name: body.guestName,
-    },
-  });
+  // 2. Get or create guest
+  let guest;
+  if (body.guestId) {
+    // Returning guest - update name kalau berubah
+    guest = await prisma.guest.findUnique({ where: { id: body.guestId } });
+    if (guest) {
+      guest = await prisma.guest.update({
+        where: { id: body.guestId },
+        data: { name: body.guestName, lastActive: new Date() },
+      });
+    }
+  }
 
-  // 3. Cek duplikat di DB kita (orang yang sama, request film yang sama)
+  if (!guest) {
+    // New guest - email field di-store sebagai unique key, kita pake guestId#timestamp
+    // Karena email field di schema masih unique-required, kita generate dummy email
+    const uniqueEmail = `guest-${Date.now()}-${Math.random().toString(36).substring(2, 8)}@cookie.local`;
+    guest = await prisma.guest.create({
+      data: {
+        name: body.guestName,
+        email: uniqueEmail,
+      },
+    });
+  }
+
+  // 3. Cek duplikat di DB kita
   const existing = await prisma.request.findFirst({
     where: {
       guestId: guest.id,
@@ -127,7 +135,7 @@ export async function POST(req: NextRequest) {
   await prisma.eventLog.create({
     data: {
       type: 'request.created',
-      payload: JSON.stringify({ requestId: newRequest.id, ip, guestEmail: guest.email }),
+      payload: JSON.stringify({ requestId: newRequest.id, ip, guestName: guest.name }),
     },
   });
 
@@ -144,6 +152,7 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({
     success: true,
     requestId: newRequest.id,
+    guestId: guest.id,
     message: 'Request lo udah masuk. Admin akan review dalam 1-3 hari.',
   });
 }
