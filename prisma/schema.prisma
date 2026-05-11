@@ -1,0 +1,135 @@
+// Surflix Database Schema
+// Stack: SQLite + Prisma
+// Run: npx prisma db push
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// =====================================================
+// GUEST: orang-orang yang request film
+// Diidentifikasi via email + nama (no password)
+// Magic link untuk akses halaman "My Requests"
+// =====================================================
+model Guest {
+  id         String   @id @default(cuid())
+  name       String
+  email      String   @unique
+  createdAt  DateTime @default(now())
+  lastActive DateTime @default(now())
+
+  requests     Request[]
+  magicTokens  MagicToken[]
+
+  @@index([email])
+}
+
+// =====================================================
+// MAGIC TOKEN: untuk passwordless login guest
+// Token dikirim via email, expired 30 menit
+// =====================================================
+model MagicToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  guestId   String
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
+
+  guest Guest @relation(fields: [guestId], references: [id], onDelete: Cascade)
+
+  @@index([token])
+  @@index([expiresAt])
+}
+
+// =====================================================
+// REQUEST: permintaan film/series dari guest
+// =====================================================
+model Request {
+  id        String        @id @default(cuid())
+  guestId   String
+
+  // TMDB metadata (cached supaya gak perlu re-fetch)
+  tmdbId       Int
+  mediaType    String   // "movie" | "tv"
+  title        String
+  posterPath   String?
+  backdropPath String?
+  overview     String?
+  releaseDate  String?
+  rating       Float?
+
+  // Status workflow
+  status       RequestStatus @default(PENDING_ADMIN)
+  adminNote    String?
+
+  // Link ke Jellyseerr setelah di-approve
+  jellyseerrRequestId Int?
+  jellyseerrMediaId   Int?
+
+  // Timestamps untuk timeline
+  requestedAt DateTime  @default(now())
+  approvedAt  DateTime?
+  rejectedAt  DateTime?
+  availableAt DateTime?
+
+  guest Guest @relation(fields: [guestId], references: [id], onDelete: Cascade)
+
+  @@index([guestId])
+  @@index([status])
+  @@index([tmdbId, mediaType])
+  @@index([requestedAt])
+}
+
+enum RequestStatus {
+  PENDING_ADMIN    // baru di-submit guest, nunggu approval gw
+  REJECTED         // di-reject admin
+  APPROVED         // di-approve, lagi di-forward ke Jellyseerr
+  PROCESSING       // udah di Jellyseerr, lagi proses download (Radarr/Sonarr)
+  PARTIALLY_AVAILABLE // sebagian episode udah ada (untuk series)
+  AVAILABLE        // udah ready di Jellyfin
+  FAILED           // gagal di-process Jellyseerr/Radarr
+}
+
+// =====================================================
+// ADMIN: cuma lo (atau co-admin kalau perlu nanti)
+// =====================================================
+model Admin {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+  lastLoginAt  DateTime?
+}
+
+// =====================================================
+// RATE LIMIT: track IP per hour
+// =====================================================
+model RateLimit {
+  id        String   @id @default(cuid())
+  ipAddress String
+  endpoint  String   // misal "request" atau "magic-link"
+  count     Int      @default(1)
+  windowStart DateTime @default(now())
+
+  @@unique([ipAddress, endpoint, windowStart])
+  @@index([ipAddress, endpoint])
+}
+
+// =====================================================
+// EVENT LOG: audit trail buat debugging
+// =====================================================
+model EventLog {
+  id        String   @id @default(cuid())
+  type      String   // "request.created", "request.approved", dll
+  payload   String   // JSON stringified
+  createdAt DateTime @default(now())
+
+  @@index([type])
+  @@index([createdAt])
+}

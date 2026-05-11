@@ -1,0 +1,113 @@
+# =====================================================
+# Surflix · Docker Compose
+# Deploy ke Unraid (atau Docker host manapun)
+#
+# Cara pakai:
+# 1. Copy .env.example ke .env, isi semua values
+# 2. docker compose up -d --build
+#
+# Asumsi: Jellyseerr udah jalan di container 'jellyseerr'
+#         dalam network yang sama (atau adjust JELLYSEERR_URL)
+# =====================================================
+
+services:
+  surflix:
+    build: .
+    container_name: surflix
+    restart: unless-stopped
+
+    ports:
+      # Expose ke host port 3737 (ganti kalau bentrok)
+      # Reverse proxy akan forward request.surdilamak.my.id ke sini
+      - "3737:3000"
+
+    environment:
+      # Load semua dari .env
+      NODE_ENV: production
+      DATABASE_URL: file:/data/surflix.db
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL}
+      NEXT_PUBLIC_APP_NAME: ${NEXT_PUBLIC_APP_NAME:-Surflix}
+      NEXT_PUBLIC_JELLYFIN_URL: ${NEXT_PUBLIC_JELLYFIN_URL}
+
+      # Jellyseerr (internal Docker network)
+      JELLYSEERR_URL: ${JELLYSEERR_URL:-http://jellyseerr:5055}
+      JELLYSEERR_API_KEY: ${JELLYSEERR_API_KEY}
+
+      # Auth
+      SESSION_SECRET: ${SESSION_SECRET}
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH}
+
+      # Email
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      EMAIL_FROM: ${EMAIL_FROM}
+
+      # Telegram
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_ADMIN_CHAT_ID: ${TELEGRAM_ADMIN_CHAT_ID}
+
+      # Rate limit
+      RATE_LIMIT_MAX: ${RATE_LIMIT_MAX:-10}
+      RATE_LIMIT_WINDOW_MS: ${RATE_LIMIT_WINDOW_MS:-3600000}
+
+      # Webhook
+      WEBHOOK_SECRET: ${WEBHOOK_SECRET}
+
+    volumes:
+      # Persistent SQLite database
+      - ./data:/data
+      # Optional: kalau mau persist Prisma migrations history
+      # - ./prisma/migrations:/app/prisma/migrations
+
+    networks:
+      - surflix-net
+      # Pastikan Jellyseerr juga di network ini, atau lo bisa pake
+      # external network yang sama (lihat catatan di bawah)
+
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+    labels:
+      # Untuk Traefik (kalau lo pakai), uncomment baris di bawah:
+      # - "traefik.enable=true"
+      # - "traefik.http.routers.surflix.rule=Host(`request.surdilamak.my.id`)"
+      # - "traefik.http.routers.surflix.entrypoints=websecure"
+      # - "traefik.http.routers.surflix.tls.certresolver=letsencrypt"
+      # - "traefik.http.services.surflix.loadbalancer.server.port=3000"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+networks:
+  surflix-net:
+    driver: bridge
+
+# =====================================================
+# CATATAN UNTUK UNRAID
+# =====================================================
+#
+# 1. JELLYSEERR NETWORK
+#    Kalau Jellyseerr lo udah jalan di network sendiri, ada 2 opsi:
+#
+#    Opsi A — Join Jellyseerr ke network surflix-net:
+#      docker network connect surflix_surflix-net jellyseerr
+#
+#    Opsi B — Pake Jellyseerr network sebagai external:
+#      Edit networks block di atas jadi:
+#        networks:
+#          jellyseerr_default:
+#            external: true
+#      Dan ubah JELLYSEERR_URL ke http://jellyseerr:5055
+#
+# 2. REVERSE PROXY (SWAG / Nginx Proxy Manager)
+#    Tambahin config baru untuk request.surdilamak.my.id
+#    → forward ke http://<unraid-ip>:3737
+#
+# 3. SSL
+#    Auto-handled by reverse proxy lo (LetsEncrypt via SWAG/NPM)
+#
+# 4. BACKUP
+#    Backup folder ./data untuk save SQLite database.
+#    Bisa pake CA Backup plugin di Unraid.

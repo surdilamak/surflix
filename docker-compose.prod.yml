@@ -1,0 +1,76 @@
+# =====================================================
+# Surflix · Production Compose (pakai pre-built image)
+#
+# Dipakai di Unraid. Image-nya udah di-build di GitHub Actions
+# dan di-push ke GHCR (GitHub Container Registry).
+#
+# Cara pakai:
+#   1. Download file ini + .env.example
+#   2. Copy .env.example → .env, isi values
+#   3. docker compose -f docker-compose.prod.yml up -d
+#
+# Update ke versi terbaru:
+#   docker compose -f docker-compose.prod.yml pull
+#   docker compose -f docker-compose.prod.yml up -d
+# =====================================================
+
+services:
+  surflix:
+    # Ganti 'idrus/surflix' sesuai username GitHub lo
+    image: ghcr.io//surflix:latest
+    container_name: surflix
+    restart: unless-stopped
+    pull_policy: always
+
+    ports:
+      - "3737:3000"
+
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: file:/data/surflix.db
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL}
+      NEXT_PUBLIC_APP_NAME: ${NEXT_PUBLIC_APP_NAME:-Surflix}
+      NEXT_PUBLIC_JELLYFIN_URL: ${NEXT_PUBLIC_JELLYFIN_URL}
+
+      JELLYSEERR_URL: ${JELLYSEERR_URL:-http://jellyseerr:5055}
+      JELLYSEERR_API_KEY: ${JELLYSEERR_API_KEY}
+
+      SESSION_SECRET: ${SESSION_SECRET}
+      ADMIN_USERNAME: ${ADMIN_USERNAME}
+      ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH}
+
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      EMAIL_FROM: ${EMAIL_FROM}
+
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_ADMIN_CHAT_ID: ${TELEGRAM_ADMIN_CHAT_ID}
+
+      RATE_LIMIT_MAX: ${RATE_LIMIT_MAX:-10}
+      RATE_LIMIT_WINDOW_MS: ${RATE_LIMIT_WINDOW_MS:-3600000}
+
+      WEBHOOK_SECRET: ${WEBHOOK_SECRET}
+
+    volumes:
+      - ./data:/data
+
+    networks:
+      - surflix-net
+      # Uncomment + ganti dengan nama network Jellyseerr lo:
+      # - jellyseerr_default
+
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+networks:
+  surflix-net:
+    driver: bridge
+  # Uncomment kalau pake external network Jellyseerr:
+  # jellyseerr_default:
+  #   external: true
