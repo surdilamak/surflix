@@ -137,7 +137,7 @@ export default function LibraryPage() {
           >
             <span className="inline-flex items-center gap-1.5">
               <Icons.ExternalLink className="h-3 w-3" />
-              <span className="hidden sm:inline">Open</span> Jellyfin
+              <span className="hidden sm:inline">Open</span> Surflix
             </span>
           </a>
         )}
@@ -152,7 +152,7 @@ export default function LibraryPage() {
           <div className="mb-4 rounded-ios-lg border border-ios-green/20 bg-ios-green/5 p-3">
             <p className="text-xs text-white/80">
               <Icons.CheckCircle2 className="mr-1.5 inline h-3.5 w-3.5 text-ios-green" />
-              Ini film yang lo request via Surflix & udah ready di Jellyfin
+              Ini film yang lo request via Surflix & udah ready
             </p>
           </div>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5">
@@ -175,7 +175,7 @@ export default function LibraryPage() {
                 </span>
               </h2>
               <p className="mb-3 text-xs text-white/40">
-                Film yang ke-request guest lain & udah ada di Jellyfin
+                Film yang ke-request guest lain & udah ada di Surflix
               </p>
               <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5">
                 {communityItems.slice(0, 10).map((item) => (

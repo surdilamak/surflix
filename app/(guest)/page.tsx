@@ -159,7 +159,7 @@ export default function HomePage() {
                 <Icons.Tv className="h-3 w-3" />
                 {stats.seriesCount} {stats.seriesCount === 1 ? 'series' : 'series'}
               </span>
-              <span className="text-white/30">— available di Jellyfin</span>
+              <span className="text-white/30">— available di Surflix</span>
             </div>
           )}
         </div>

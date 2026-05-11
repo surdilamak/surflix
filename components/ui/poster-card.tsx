@@ -60,7 +60,7 @@ export function PosterCard({ item, onClick, size = 'md', showProgress, progress 
         {status.variant === 'available' && (
           <div className="absolute right-1.5 top-1.5 badge-available">
             <Icons.Check className="h-2.5 w-2.5" />
-            <span>In Library</span>
+            <span>In Surflix</span>
           </div>
         )}
         {status.variant === 'pending' && (

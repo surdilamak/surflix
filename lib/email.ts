@@ -128,10 +128,10 @@ export async function sendAvailableNotification(params: {
     <p style="font-size: 14px; color: #30D158; margin: 0 0 8px; font-weight: 500;">🎉 Available Now</p>
     <h1 style="font-size: 22px; font-weight: 600; margin: 0 0 12px;">${params.title}</h1>
     <p style="font-size: 14px; color: rgba(255,255,255,0.7); margin: 0 0 24px;">
-      Hi ${params.guestName}, ${params.title} udah ready buat ditonton di Jellyfin!
+      Hi ${params.guestName}, ${params.title} udah ready buat ditonton di Surflix!
     </p>
     <a href="${JELLYFIN_URL}" style="display: inline-block; background: #fff; color: #000; padding: 12px 24px; border-radius: 100px; text-decoration: none; font-weight: 600; font-size: 14px;">
-      Tonton di Jellyfin →
+      Tonton di Surflix →
     </a>
   </div>
 </body>
@@ -141,7 +141,7 @@ export async function sendAvailableNotification(params: {
   await r.emails.send({
     from: EMAIL_FROM,
     to: params.to,
-    subject: `🎉 ${params.title} udah ready!`,
+    subject: `🎉 ${params.title} udah ready di Surflix!`,
     html,
   });
 }

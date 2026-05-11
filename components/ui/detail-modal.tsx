@@ -1,6 +1,11 @@
 /**
- * Detail Modal — separate mobile bottom sheet vs desktop centered modal
- * Fix bug: previously hybrid CSS caused modal to appear at bottom on desktop
+ * Detail Modal v3 — bulletproof centering
+ *
+ * Strategy: pakai flex container full screen + items-center justify-center
+ * (lebih reliable daripada position absolute + transform translate)
+ *
+ * Mobile: full-width bottom sheet (sticks to bottom)
+ * Desktop: flex-centered modal
  */
 'use client';
 
@@ -45,63 +50,53 @@ export function DetailModal({ item, open, onClose, onRequest }: DetailModalProps
     <AnimatePresence>
       {open && (
         <>
-          {/* Backdrop overlay */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={onClose}
-            className="fixed inset-0 z-[100] bg-black/70 backdrop-blur-sm"
-          />
-
-          {/* MOBILE: Bottom Sheet (only on small screens) */}
-          <motion.div
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '100%' }}
-            transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-            className="fixed inset-x-0 bottom-0 z-[101] max-h-[90vh] overflow-y-auto rounded-t-ios-xl bg-bg-surface md:hidden"
-          >
-            <div className="sticky top-0 z-10 flex justify-center bg-bg-surface pt-2">
-              <div className="h-1 w-9 rounded-full bg-white/30" />
-            </div>
-            <ModalContent
-              item={item}
-              title={title}
-              year={year}
-              backdrop={backdrop}
-              rating={rating}
-              isAvailable={isAvailable}
-              isProcessing={isProcessing}
-              onClose={onClose}
-              onRequest={onRequest}
+          {/* === MOBILE: Bottom Sheet === */}
+          <div className="fixed inset-0 z-[100] flex items-end md:hidden">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={onClose}
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             />
-          </motion.div>
+            <motion.div
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '100%' }}
+              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+              className="relative z-10 max-h-[90vh] w-full overflow-y-auto rounded-t-ios-xl bg-bg-surface"
+            >
+              <div className="sticky top-0 z-10 flex justify-center bg-bg-surface pt-2">
+                <div className="h-1 w-9 rounded-full bg-white/30" />
+              </div>
+              <ModalContent {...{ item, title, year, backdrop, rating, isAvailable, isProcessing, onClose, onRequest }} />
+            </motion.div>
+          </div>
 
-          {/* DESKTOP: Centered Modal (only on md+ screens) */}
-          <motion.div
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.95, opacity: 0 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed left-1/2 top-1/2 z-[101] hidden w-[calc(100%-2rem)] max-w-2xl -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-ios-xl bg-bg-surface md:block"
-            style={{ maxHeight: 'calc(100vh - 2rem)' }}
-          >
-            <div className="max-h-[calc(100vh-2rem)] overflow-y-auto">
-              <ModalContent
-                item={item}
-                title={title}
-                year={year}
-                backdrop={backdrop}
-                rating={rating}
-                isAvailable={isAvailable}
-                isProcessing={isProcessing}
-                onClose={onClose}
-                onRequest={onRequest}
-              />
-            </div>
-          </motion.div>
+          {/* === DESKTOP: Centered Modal (FLEX-BASED) === */}
+          <div className="fixed inset-0 z-[100] hidden items-center justify-center p-4 md:flex">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={onClose}
+              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            />
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="relative z-10 w-full max-w-2xl overflow-hidden rounded-ios-xl bg-bg-surface"
+              style={{ maxHeight: 'calc(100vh - 2rem)' }}
+            >
+              <div style={{ maxHeight: 'calc(100vh - 2rem)' }} className="overflow-y-auto">
+                <ModalContent {...{ item, title, year, backdrop, rating, isAvailable, isProcessing, onClose, onRequest }} />
+              </div>
+            </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>
@@ -129,17 +124,13 @@ function ModalContent({
   onClose: () => void;
   onRequest: (item: JellyseerrMediaItem) => void;
 }) {
+  const jellyfinUrl = process.env.NEXT_PUBLIC_JELLYFIN_URL || '#';
+
   return (
     <>
       <div className="relative h-[200px] md:h-[240px]">
         {backdrop ? (
-          <Image
-            src={backdrop}
-            alt={title}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 100vw, 600px"
-          />
+          <Image src={backdrop} alt={title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 600px" />
         ) : (
           <div className="h-full w-full bg-gradient-to-br from-purple-900/50 via-blue-900/50 to-red-900/50" />
         )}
@@ -164,15 +155,10 @@ function ModalContent({
       <div className="space-y-4 p-4 md:p-5">
         <div className="flex gap-2">
           {isAvailable ? (
-            <a
-              href={process.env.NEXT_PUBLIC_JELLYFIN_URL}
-              target="_blank"
-              rel="noopener"
-              className="btn-primary flex-1 text-center"
-            >
+            <a href={jellyfinUrl} target="_blank" rel="noopener" className="btn-primary flex-1 text-center">
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.Play className="h-4 w-4" />
-                Watch on Jellyfin
+                Watch on Surflix
               </span>
             </a>
           ) : isProcessing ? (
@@ -219,7 +205,7 @@ function ModalContent({
           <div className="flex items-start gap-2 rounded-ios-lg border border-ios-blue/30 bg-ios-blue/10 p-3">
             <Icons.Info className="mt-px h-4 w-4 flex-shrink-0 text-ios-blue" />
             <p className="text-[11px] leading-relaxed text-white/85 md:text-xs">
-              Request akan direview admin sebelum diproses. Notifikasi via email saat available di Jellyfin.
+              Request akan direview admin sebelum diproses. Status akan ke-update di tab "My Requests".
             </p>
           </div>
         )}

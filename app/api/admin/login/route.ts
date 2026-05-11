@@ -1,8 +1,8 @@
 /**
  * POST /api/admin/login
  *
- * Admin login dengan username + password (bcrypt-hashed di env).
- * Pakai iron-session untuk persistent cookie.
+ * DB-based admin auth. On startup, admin di-bootstrap dari env vars.
+ * Multiple admins bisa di-add via /admin/settings (later).
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -10,13 +10,22 @@ import { z } from 'zod';
 import bcrypt from 'bcryptjs';
 import { getSession } from '@/lib/session';
 import { prisma } from '@/lib/db';
+import { bootstrapAdmin } from '@/lib/admin-bootstrap';
 
 const schema = z.object({
   username: z.string().min(1),
   password: z.string().min(1),
 });
 
+let bootstrapped = false;
+
 export async function POST(req: NextRequest) {
+  // Bootstrap admin on first request (lazy init)
+  if (!bootstrapped) {
+    await bootstrapAdmin();
+    bootstrapped = true;
+  }
+
   let body;
   try {
     body = schema.parse(await req.json());
@@ -24,35 +33,35 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Input gak valid' }, { status: 400 });
   }
 
-  // Compare with env vars (single admin setup)
-  const expectedUsername = process.env.ADMIN_USERNAME;
-  const expectedHash = process.env.ADMIN_PASSWORD_HASH;
+  const admin = await prisma.admin.findUnique({
+    where: { username: body.username },
+  });
 
-  if (!expectedUsername || !expectedHash) {
-    return NextResponse.json({ error: 'Admin belum di-setup' }, { status: 500 });
-  }
-
-  if (body.username !== expectedUsername) {
+  if (!admin) {
     return NextResponse.json({ error: 'Username atau password salah' }, { status: 401 });
   }
 
-  const valid = await bcrypt.compare(body.password, expectedHash);
+  const valid = await bcrypt.compare(body.password, admin.passwordHash);
   if (!valid) {
     return NextResponse.json({ error: 'Username atau password salah' }, { status: 401 });
   }
 
-  // Set session
+  // Update last login
+  await prisma.admin.update({
+    where: { id: admin.id },
+    data: { lastLoginAt: new Date() },
+  });
+
   const session = await getSession();
-  session.adminId = expectedUsername;
-  session.username = expectedUsername;
+  session.adminId = admin.id;
+  session.username = admin.username;
   session.isLoggedIn = true;
   await session.save();
 
-  // Optional: track last login in DB (kalau lo punya admin record)
   await prisma.eventLog.create({
     data: {
       type: 'admin.login',
-      payload: JSON.stringify({ username: expectedUsername, at: new Date() }),
+      payload: JSON.stringify({ username: admin.username, at: new Date() }),
     },
   });
 

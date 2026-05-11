@@ -196,7 +196,7 @@ function RequestRowItem({ request }: { request: RequestRow }) {
 function getStatusConfig(status: string) {
   switch (status) {
     case 'AVAILABLE':
-      return { label: 'Available', icon: Icons.Check, badgeClass: 'bg-ios-green/20 text-ios-green', borderClass: 'border-ios-green/30', hint: 'Udah ready di Jellyfin' };
+      return { label: 'Available', icon: Icons.Check, badgeClass: 'bg-ios-green/20 text-ios-green', borderClass: 'border-ios-green/30', hint: 'Udah ready di Surflix' };
     case 'PROCESSING':
       return { label: 'Downloading', icon: Icons.Download, badgeClass: 'bg-ios-blue/20 text-ios-blue', borderClass: 'border-ios-blue/30', hint: 'Lagi di-download' };
     case 'APPROVED':
