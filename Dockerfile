@@ -14,7 +14,7 @@ COPY package.json package-lock.json* ./
 COPY prisma ./prisma
 
 # Install deps (npm ci untuk reproducible install)
-RUN npm ci --only=production --no-audit --no-fund
+RUN npm install --omit=dev --no-audit --no-fund
 
 # ===== Stage 2: Builder =====
 FROM node:20-alpine AS builder
@@ -26,7 +26,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/package.json ./package.json
 
 # Install dev deps untuk build
-RUN npm ci --no-audit --no-fund
+RUN npm install --no-audit --no-fund
 
 # Copy source code
 COPY . .
