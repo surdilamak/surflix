@@ -9,7 +9,7 @@ import {
   Download, Info, X, Play, Star, ChevronRight, ChevronDown,
   ChevronLeft, AlertCircle, ExternalLink, LogOut, Mail, Film,
   Tv, Waves, Eye, EyeOff, Bell, MoreHorizontal, Loader2,
-  CheckCircle2, XCircle, Sparkles, ArrowRight, ArrowLeft,
+  CheckCircle2, XCircle, Sparkles, ArrowRight, ArrowLeft, Calendar,
 } from 'lucide-react';
 
 export const Icons = {
@@ -17,7 +17,7 @@ export const Icons = {
   Download, Info, X, Play, Star, ChevronRight, ChevronDown,
   ChevronLeft, AlertCircle, ExternalLink, LogOut, Mail, Film,
   Tv, Waves, Eye, EyeOff, Bell, MoreHorizontal, Loader2,
-  CheckCircle2, XCircle, Sparkles, ArrowRight, ArrowLeft,
+  CheckCircle2, XCircle, Sparkles, ArrowRight, ArrowLeft, Calendar,
 };
 
 export type IconName = keyof typeof Icons;

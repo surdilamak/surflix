@@ -1,15 +1,11 @@
 /**
- * Detail Modal v3 — bulletproof centering
+ * Detail Modal v4 — flex-based centering + rich metadata
  *
- * Strategy: pakai flex container full screen + items-center justify-center
- * (lebih reliable daripada position absolute + transform translate)
- *
- * Mobile: full-width bottom sheet (sticks to bottom)
- * Desktop: flex-centered modal
+ * On open, fetches full metadata from /api/detail (Director, Cast, Genres, etc).
  */
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { tmdbImage, getYear, jellyseerrStatusLabel } from '@/lib/utils';
@@ -23,7 +19,23 @@ interface DetailModalProps {
   onRequest: (item: JellyseerrMediaItem) => void;
 }
 
+interface DetailData {
+  director?: string | null;
+  creators?: string[] | null;
+  cast?: Array<{ name: string; character: string; profilePath?: string }>;
+  genres?: string[];
+  runtime?: number;
+  productionCompanies?: string[];
+  networks?: string[];
+  numberOfSeasons?: number;
+  numberOfEpisodes?: number;
+  tagline?: string;
+}
+
 export function DetailModal({ item, open, onClose, onRequest }: DetailModalProps) {
+  const [detail, setDetail] = useState<DetailData | null>(null);
+  const [loadingDetail, setLoadingDetail] = useState(false);
+
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden';
@@ -34,6 +46,22 @@ export function DetailModal({ item, open, onClose, onRequest }: DetailModalProps
       document.body.style.overflow = '';
     };
   }, [open]);
+
+  // Fetch detail metadata when modal opens
+  useEffect(() => {
+    if (!item || !open) {
+      setDetail(null);
+      return;
+    }
+    setLoadingDetail(true);
+    fetch(`/api/detail?type=${item.mediaType}&id=${item.id}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data) setDetail(data);
+      })
+      .catch(() => {})
+      .finally(() => setLoadingDetail(false));
+  }, [item, open]);
 
   if (!item) return null;
 
@@ -50,7 +78,7 @@ export function DetailModal({ item, open, onClose, onRequest }: DetailModalProps
     <AnimatePresence>
       {open && (
         <>
-          {/* === MOBILE: Bottom Sheet === */}
+          {/* MOBILE: Bottom Sheet */}
           <div className="fixed inset-0 z-[100] flex items-end md:hidden">
             <motion.div
               initial={{ opacity: 0 }}
@@ -70,11 +98,11 @@ export function DetailModal({ item, open, onClose, onRequest }: DetailModalProps
               <div className="sticky top-0 z-10 flex justify-center bg-bg-surface pt-2">
                 <div className="h-1 w-9 rounded-full bg-white/30" />
               </div>
-              <ModalContent {...{ item, title, year, backdrop, rating, isAvailable, isProcessing, onClose, onRequest }} />
+              <ModalContent {...{ item, title, year, backdrop, rating, isAvailable, isProcessing, onClose, onRequest, detail, loadingDetail }} />
             </motion.div>
           </div>
 
-          {/* === DESKTOP: Centered Modal (FLEX-BASED) === */}
+          {/* DESKTOP: Centered Modal (FLEX-BASED) */}
           <div className="fixed inset-0 z-[100] hidden items-center justify-center p-4 md:flex">
             <motion.div
               initial={{ opacity: 0 }}
@@ -93,7 +121,7 @@ export function DetailModal({ item, open, onClose, onRequest }: DetailModalProps
               style={{ maxHeight: 'calc(100vh - 2rem)' }}
             >
               <div style={{ maxHeight: 'calc(100vh - 2rem)' }} className="overflow-y-auto">
-                <ModalContent {...{ item, title, year, backdrop, rating, isAvailable, isProcessing, onClose, onRequest }} />
+                <ModalContent {...{ item, title, year, backdrop, rating, isAvailable, isProcessing, onClose, onRequest, detail, loadingDetail }} />
               </div>
             </motion.div>
           </div>
@@ -113,17 +141,9 @@ function ModalContent({
   isProcessing,
   onClose,
   onRequest,
-}: {
-  item: JellyseerrMediaItem;
-  title: string;
-  year: string;
-  backdrop: string | null;
-  rating: string | null;
-  isAvailable: boolean;
-  isProcessing: boolean;
-  onClose: () => void;
-  onRequest: (item: JellyseerrMediaItem) => void;
-}) {
+  detail,
+  loadingDetail,
+}: any) {
   const jellyfinUrl = process.env.NEXT_PUBLIC_JELLYFIN_URL || '#';
 
   return (
@@ -145,14 +165,19 @@ function ModalContent({
 
         <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
           <h2 className="text-xl font-semibold tracking-tighter md:text-2xl">{title}</h2>
+          {detail?.tagline && (
+            <p className="mt-0.5 text-[11px] italic text-white/60 md:text-xs">{detail.tagline}</p>
+          )}
           <p className="mt-1 text-xs text-white/65 md:text-sm">
             {year} · {item.mediaType === 'movie' ? 'Movie' : 'Series'}
+            {detail?.runtime && ` · ${formatRuntime(detail.runtime)}`}
             {rating && ` · ★ ${rating}`}
           </p>
         </div>
       </div>
 
       <div className="space-y-4 p-4 md:p-5">
+        {/* Action button */}
         <div className="flex gap-2">
           {isAvailable ? (
             <a href={jellyfinUrl} target="_blank" rel="noopener" className="btn-primary flex-1 text-center">
@@ -178,28 +203,59 @@ function ModalContent({
           )}
         </div>
 
+        {/* Overview */}
         {item.overview && (
           <p className="text-[13px] leading-relaxed text-white/85 md:text-sm">{item.overview}</p>
         )}
 
-        <div className="rounded-ios-lg bg-white/[0.04]">
-          <div className="flex justify-between border-b border-white/[0.06] px-3 py-2.5 text-xs md:text-sm">
-            <span className="text-white/50">Type</span>
-            <span className="font-medium">{item.mediaType === 'movie' ? 'Movie' : 'TV Series'}</span>
+        {/* Genres */}
+        {detail?.genres && detail.genres.length > 0 && (
+          <div className="flex flex-wrap gap-1.5">
+            {detail.genres.map((g: string) => (
+              <span key={g} className="rounded-full bg-white/[0.06] px-2.5 py-1 text-[10px] font-medium text-white/70 md:text-xs">
+                {g}
+              </span>
+            ))}
           </div>
-          {year && (
-            <div className="flex justify-between border-b border-white/[0.06] px-3 py-2.5 text-xs md:text-sm">
-              <span className="text-white/50">Release</span>
-              <span className="font-medium">{year}</span>
-            </div>
+        )}
+
+        {/* Metadata Table */}
+        <div className="rounded-ios-lg bg-white/[0.04] text-xs md:text-sm">
+          {(detail?.director || detail?.creators) && (
+            <MetadataRow
+              label={item.mediaType === 'tv' ? 'Creators' : 'Director'}
+              value={detail.director || detail.creators?.join(', ')}
+            />
           )}
-          {rating && (
-            <div className="flex justify-between px-3 py-2.5 text-xs md:text-sm">
-              <span className="text-white/50">Rating</span>
-              <span className="font-medium">★ {rating}</span>
-            </div>
+          {detail?.cast && detail.cast.length > 0 && (
+            <MetadataRow
+              label="Cast"
+              value={detail.cast.map((c: any) => c.name).join(', ')}
+            />
           )}
+          {item.mediaType === 'tv' && detail?.numberOfSeasons !== undefined && (
+            <MetadataRow
+              label="Seasons"
+              value={`${detail.numberOfSeasons} season${detail.numberOfSeasons !== 1 ? 's' : ''} · ${detail.numberOfEpisodes || '?'} episodes`}
+            />
+          )}
+          {detail?.networks && detail.networks.length > 0 && (
+            <MetadataRow label="Network" value={detail.networks.join(', ')} />
+          )}
+          {detail?.productionCompanies && detail.productionCompanies.length > 0 && item.mediaType === 'movie' && (
+            <MetadataRow label="Studio" value={detail.productionCompanies.join(', ')} />
+          )}
+          <MetadataRow label="Type" value={item.mediaType === 'movie' ? 'Movie' : 'TV Series'} />
+          {year && <MetadataRow label="Release" value={year} />}
+          {rating && <MetadataRow label="Rating" value={`★ ${rating}`} last />}
         </div>
+
+        {loadingDetail && (
+          <div className="flex items-center justify-center gap-2 text-xs text-white/40">
+            <Icons.Loader2 className="h-3 w-3 animate-spin" />
+            Loading metadata...
+          </div>
+        )}
 
         {!isAvailable && !isProcessing && (
           <div className="flex items-start gap-2 rounded-ios-lg border border-ios-blue/30 bg-ios-blue/10 p-3">
@@ -212,4 +268,20 @@ function ModalContent({
       </div>
     </>
   );
+}
+
+function MetadataRow({ label, value, last }: { label: string; value: string; last?: boolean }) {
+  return (
+    <div className={`flex justify-between px-3 py-2.5 ${!last ? 'border-b border-white/[0.06]' : ''}`}>
+      <span className="flex-shrink-0 text-white/50">{label}</span>
+      <span className="ml-3 text-right font-medium leading-tight">{value}</span>
+    </div>
+  );
+}
+
+function formatRuntime(minutes: number): string {
+  if (minutes < 60) return `${minutes}min`;
+  const hrs = Math.floor(minutes / 60);
+  const mins = minutes % 60;
+  return mins > 0 ? `${hrs}h ${mins}m` : `${hrs}h`;
 }

@@ -54,7 +54,7 @@ export async function POST(req: NextRequest) {
     where: {
       tmdbId,
       mediaType,
-      status: { in: ['APPROVED', 'PROCESSING', 'PARTIALLY_AVAILABLE'] },
+      status: { in: ['APPROVED', 'ON_SCHEDULE', 'PROCESSING', 'PARTIALLY_AVAILABLE'] },
     },
     include: { guest: true },
   });
@@ -64,6 +64,23 @@ export async function POST(req: NextRequest) {
   }
 
   switch (event) {
+    case 'MEDIA_APPROVED':
+    case 'MEDIA_AUTO_APPROVED':
+      // Jellyseerr approved → ON_SCHEDULE (waiting for Radarr/Sonarr to start)
+      for (const r of requests) {
+        if (r.status === 'APPROVED') {
+          await prisma.request.update({
+            where: { id: r.id },
+            data: { status: 'ON_SCHEDULE' },
+          });
+        }
+      }
+      break;
+
+    case 'MEDIA_PENDING':
+      // Pending in Jellyseerr (before approval there) - keep our status
+      break;
+
     case 'MEDIA_AVAILABLE':
       for (const r of requests) {
         await prisma.request.update({
@@ -102,7 +119,17 @@ export async function POST(req: NextRequest) {
       break;
 
     default:
-      // Event lain (MEDIA_APPROVED, MEDIA_PENDING, dll) — gak kita handle dulu
+      // Other events (DOWNLOAD_STARTED dll) — opportunistic upgrade to PROCESSING
+      if (event.includes('DOWNLOAD') || event.includes('GRABBED')) {
+        for (const r of requests) {
+          if (r.status === 'ON_SCHEDULE' || r.status === 'APPROVED') {
+            await prisma.request.update({
+              where: { id: r.id },
+              data: { status: 'PROCESSING' },
+            });
+          }
+        }
+      }
       break;
   }
 

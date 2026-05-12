@@ -1,13 +1,23 @@
 /**
- * Footer — info & rules
+ * Footer — info, rules, library stats
  */
 'use client';
 
+import { useEffect, useState } from 'react';
 import { Icons } from './icons';
 
 export function Footer() {
-  // env var dibaca runtime, fallback ke '#' kalau kosong
   const jellyfinUrl = process.env.NEXT_PUBLIC_JELLYFIN_URL || '#';
+  const [stats, setStats] = useState<{ moviesCount: number; seriesCount: number } | null>(null);
+
+  useEffect(() => {
+    fetch('/api/library-stats')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data) setStats({ moviesCount: data.moviesCount, seriesCount: data.seriesCount });
+      })
+      .catch(() => {});
+  }, []);
 
   return (
     <footer className="mt-auto border-t border-white/[0.06] bg-black/40 px-4 py-6 md:px-5 md:py-8">
@@ -20,7 +30,13 @@ export function Footer() {
             </div>
             <div>
               <p className="text-sm font-semibold tracking-tighter">Surflix</p>
-              <p className="text-[10px] text-white/40">Personal media request hub</p>
+              {stats && (stats.moviesCount > 0 || stats.seriesCount > 0) ? (
+                <p className="text-[10px] text-white/40">
+                  {stats.moviesCount.toLocaleString()} movies · {stats.seriesCount.toLocaleString()} series
+                </p>
+              ) : (
+                <p className="text-[10px] text-white/40">Personal media request hub</p>
+              )}
             </div>
           </div>
 

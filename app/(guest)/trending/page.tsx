@@ -1,7 +1,5 @@
 /**
- * Trending Page (/trending)
- * Hero #1 + grid trending mingguan (TMDB)
- * Pindahan dari old home page.
+ * Trending Page (/trending) — with Load More pagination
  */
 'use client';
 
@@ -18,7 +16,10 @@ import { Icons } from '@/components/ui/icons';
 
 export default function TrendingPage() {
   const [items, setItems] = useState<JellyseerrMediaItem[]>([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const [selectedItem, setSelectedItem] = useState<JellyseerrMediaItem | null>(null);
@@ -27,22 +28,34 @@ export default function TrendingPage() {
   const [toast, setToast] = useState<{ message: string; variant: 'success' | 'error' } | null>(null);
 
   useEffect(() => {
-    loadTrending();
+    loadTrending(1, false);
   }, []);
 
-  async function loadTrending() {
-    setLoading(true);
+  async function loadTrending(pageNum: number, append: boolean) {
+    if (append) setLoadingMore(true);
+    else setLoading(true);
     setError(null);
     try {
-      const res = await fetch('/api/trending');
+      const res = await fetch(`/api/trending?page=${pageNum}`);
       if (!res.ok) throw new Error('Failed to load');
       const data = await res.json();
-      setItems(data.results);
+      if (append) {
+        setItems((prev) => [...prev, ...data.results]);
+      } else {
+        setItems(data.results);
+      }
+      setHasMore(data.hasMore);
+      setPage(pageNum);
     } catch {
-      setError('Gagal load trending. Coba refresh halaman.');
+      if (!append) setError('Gagal load trending. Coba refresh halaman.');
     } finally {
       setLoading(false);
+      setLoadingMore(false);
     }
+  }
+
+  function loadMore() {
+    loadTrending(page + 1, true);
   }
 
   function openDetail(item: JellyseerrMediaItem) {
@@ -80,7 +93,7 @@ export default function TrendingPage() {
           icon="AlertCircle"
           title="Gak bisa load trending"
           description={error || 'Belum ada data trending'}
-          action={{ label: 'Coba lagi', onClick: loadTrending }}
+          action={{ label: 'Coba lagi', onClick: () => loadTrending(1, false) }}
         />
       </div>
     );
@@ -105,6 +118,7 @@ export default function TrendingPage() {
               Trending This Week
             </span>
           </h2>
+          <span className="text-xs text-white/40">{items.length} items</span>
         </div>
 
         <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5">
@@ -116,6 +130,28 @@ export default function TrendingPage() {
             />
           ))}
         </div>
+
+        {hasMore && (
+          <div className="mt-6 flex justify-center">
+            <button
+              onClick={loadMore}
+              disabled={loadingMore}
+              className="btn-secondary px-6 disabled:opacity-50"
+            >
+              {loadingMore ? (
+                <span className="inline-flex items-center gap-1.5">
+                  <Icons.Loader2 className="h-3.5 w-3.5 animate-spin" />
+                  Loading more...
+                </span>
+              ) : (
+                <span className="inline-flex items-center gap-1.5">
+                  Load more trending
+                  <Icons.ChevronDown className="h-3.5 w-3.5" />
+                </span>
+              )}
+            </button>
+          </div>
+        )}
       </div>
 
       <DetailModal

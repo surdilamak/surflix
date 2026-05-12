@@ -1,5 +1,6 @@
 // Surflix Database Schema
 // Stack: SQLite + Prisma
+// Run: npx prisma db push
 
 generator client {
   provider = "prisma-client-js"
@@ -10,6 +11,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// =====================================================
+// GUEST: orang-orang yang request film
+// Diidentifikasi via email + nama (no password)
+// Magic link untuk akses halaman "My Requests"
+// =====================================================
 model Guest {
   id         String   @id @default(cuid())
   name       String
@@ -23,6 +29,10 @@ model Guest {
   @@index([email])
 }
 
+// =====================================================
+// MAGIC TOKEN: untuk passwordless login guest
+// Token dikirim via email, expired 30 menit
+// =====================================================
 model MagicToken {
   id        String   @id @default(cuid())
   token     String   @unique
@@ -37,12 +47,16 @@ model MagicToken {
   @@index([expiresAt])
 }
 
+// =====================================================
+// REQUEST: permintaan film/series dari guest
+// =====================================================
 model Request {
-  id        String   @id @default(cuid())
+  id        String        @id @default(cuid())
   guestId   String
 
+  // TMDB metadata (cached supaya gak perlu re-fetch)
   tmdbId       Int
-  mediaType    String
+  mediaType    String   // "movie" | "tv"
   title        String
   posterPath   String?
   backdropPath String?
@@ -50,12 +64,15 @@ model Request {
   releaseDate  String?
   rating       Float?
 
+  // Status workflow (String, value bisa: PENDING_ADMIN, REJECTED, APPROVED, ON_SCHEDULE, PROCESSING, PARTIALLY_AVAILABLE, AVAILABLE, FAILED)
   status       String   @default("PENDING_ADMIN")
   adminNote    String?
 
+  // Link ke Jellyseerr setelah di-approve
   jellyseerrRequestId Int?
   jellyseerrMediaId   Int?
 
+  // Timestamps untuk timeline
   requestedAt DateTime  @default(now())
   approvedAt  DateTime?
   rejectedAt  DateTime?
@@ -69,6 +86,21 @@ model Request {
   @@index([requestedAt])
 }
 
+// =====================================================
+// REQUEST STATUS VALUES (just for documentation):
+// PENDING_ADMIN    : baru di-submit guest, nunggu approval admin
+// REJECTED         : di-reject admin
+// APPROVED         : di-approve, lagi di-forward ke Jellyseerr
+// ON_SCHEDULE      : udah di Jellyseerr, nunggu Radarr/Sonarr schedule download
+// PROCESSING       : Radarr/Sonarr lagi active download
+// PARTIALLY_AVAILABLE : sebagian episode udah ada (untuk series)
+// AVAILABLE        : udah ready di Jellyfin
+// FAILED           : gagal di-process
+// =====================================================
+
+// =====================================================
+// ADMIN: cuma lo (atau co-admin kalau perlu nanti)
+// =====================================================
 model Admin {
   id           String   @id @default(cuid())
   username     String   @unique
@@ -77,21 +109,27 @@ model Admin {
   lastLoginAt  DateTime?
 }
 
+// =====================================================
+// RATE LIMIT: track IP per hour
+// =====================================================
 model RateLimit {
-  id          String   @id @default(cuid())
-  ipAddress   String
-  endpoint    String
-  count       Int      @default(1)
+  id        String   @id @default(cuid())
+  ipAddress String
+  endpoint  String   // misal "request" atau "magic-link"
+  count     Int      @default(1)
   windowStart DateTime @default(now())
 
   @@unique([ipAddress, endpoint, windowStart])
   @@index([ipAddress, endpoint])
 }
 
+// =====================================================
+// EVENT LOG: audit trail buat debugging
+// =====================================================
 model EventLog {
   id        String   @id @default(cuid())
-  type      String
-  payload   String
+  type      String   // "request.created", "request.approved", dll
+  payload   String   // JSON stringified
   createdAt DateTime @default(now())
 
   @@index([type])

@@ -79,11 +79,16 @@ class JellyseerrClient {
 
   /**
    * Search movie/TV via Jellyseerr (yang udah include TMDB metadata + library status)
+   * Pakai paramsSerializer yang benar buat encode spasi dan reserved chars
    */
   async search(query: string, page = 1): Promise<JellyseerrSearchResult> {
-    const { data } = await this.client.get('/search', {
-      params: { query, page, language: 'en' },
+    // Build query string manual biar pasti ke-encode dengan benar
+    const params = new URLSearchParams({
+      query: query.trim(),
+      page: page.toString(),
+      language: 'en',
     });
+    const { data } = await this.client.get(`/search?${params.toString()}`);
     return data;
   }
 
@@ -98,12 +103,24 @@ class JellyseerrClient {
   }
 
   /**
-   * Discover movies (filter by genre, year, etc)
+   * Upcoming movies — TMDB upcoming endpoint via Jellyseerr discover
+   */
+  async getUpcomingMovies(page = 1): Promise<JellyseerrSearchResult> {
+    const { data } = await this.client.get('/discover/movies/upcoming', {
+      params: { page, language: 'en' },
+    });
+    return data;
+  }
+
+  /**
+   * Discover movies (filter by genre, year, network, etc)
    */
   async discoverMovies(params: {
     page?: number;
     genre?: number;
     year?: number;
+    studio?: number;     // production company (e.g. 2=Disney, 420=Marvel)
+    network?: number;    // streaming network for TV (n/a for movies but kept consistent)
     sortBy?: string;
   } = {}): Promise<JellyseerrSearchResult> {
     const { data } = await this.client.get('/discover/movies', {
@@ -113,12 +130,14 @@ class JellyseerrClient {
   }
 
   /**
-   * Discover TV
+   * Discover TV (filter by genre, year, network)
    */
   async discoverTv(params: {
     page?: number;
     genre?: number;
     year?: number;
+    network?: number;    // streaming network (e.g. 213=Netflix, 49=HBO)
+    sortBy?: string;
   } = {}): Promise<JellyseerrSearchResult> {
     const { data } = await this.client.get('/discover/tv', {
       params: { language: 'en', ...params },
@@ -173,6 +192,26 @@ class JellyseerrClient {
   async getRequests(params: { take?: number; skip?: number; filter?: string } = {}) {
     const { data } = await this.client.get('/request', { params });
     return data;
+  }
+
+  /**
+   * Get media library counts (movies, series, total) dari Jellyseerr
+   * Endpoint /settings/jobs gak ada, tapi /status atau /media bisa di-aggregate
+   */
+  async getMediaCount(): Promise<{ movies: number; tv: number; total: number }> {
+    try {
+      // Use /media endpoint dengan filter
+      const [movies, tv] = await Promise.all([
+        this.client.get('/media', { params: { filter: 'available', mediaType: 'movie', take: 1 } }),
+        this.client.get('/media', { params: { filter: 'available', mediaType: 'tv', take: 1 } }),
+      ]);
+      const moviesCount = movies.data?.pageInfo?.results || 0;
+      const tvCount = tv.data?.pageInfo?.results || 0;
+      return { movies: moviesCount, tv: tvCount, total: moviesCount + tvCount };
+    } catch (err: any) {
+      console.error('[getMediaCount] Failed:', err.message);
+      return { movies: 0, tv: 0, total: 0 };
+    }
   }
 
   /**

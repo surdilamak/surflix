@@ -199,6 +199,8 @@ function getStatusConfig(status: string) {
       return { label: 'Available', icon: Icons.Check, badgeClass: 'bg-ios-green/20 text-ios-green', borderClass: 'border-ios-green/30', hint: 'Udah ready di Surflix' };
     case 'PROCESSING':
       return { label: 'Downloading', icon: Icons.Download, badgeClass: 'bg-ios-blue/20 text-ios-blue', borderClass: 'border-ios-blue/30', hint: 'Lagi di-download' };
+    case 'ON_SCHEDULE':
+      return { label: 'On Schedule', icon: Icons.Calendar, badgeClass: 'bg-ios-blue/20 text-ios-blue', borderClass: 'border-ios-blue/30', hint: 'Queued, nunggu giliran download' };
     case 'APPROVED':
       return { label: 'Approved', icon: Icons.Check, badgeClass: 'bg-ios-blue/20 text-ios-blue', borderClass: 'border-ios-blue/30', hint: 'Approved, lagi forward ke Jellyseerr' };
     case 'PENDING_ADMIN':

@@ -66,11 +66,11 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 3. Update DB
+  // 3. Update DB — set ON_SCHEDULE karena udah masuk Jellyseerr tapi belum dimulai download
   const updated = await prisma.request.update({
     where: { id: body.requestId },
     data: {
-      status: 'PROCESSING',
+      status: 'ON_SCHEDULE',
       approvedAt: new Date(),
       jellyseerrRequestId: jellyseerrResponse.id,
       jellyseerrMediaId: jellyseerrResponse.media?.id,

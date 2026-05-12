@@ -1,5 +1,5 @@
 /**
- * Home Page (/) — Request-first design with library stats
+ * Home Page (/) — Request-first with library stats + upcoming section
  */
 'use client';
 
@@ -31,8 +31,10 @@ export default function HomePage() {
 
   const [trending, setTrending] = useState<JellyseerrMediaItem[]>([]);
   const [mostRequested, setMostRequested] = useState<MostRequestedItem[]>([]);
+  const [upcoming, setUpcoming] = useState<JellyseerrMediaItem[]>([]);
   const [stats, setStats] = useState<LibraryStats | null>(null);
   const [loadingTrending, setLoadingTrending] = useState(true);
+  const [loadingUpcoming, setLoadingUpcoming] = useState(true);
 
   const [selectedItem, setSelectedItem] = useState<JellyseerrMediaItem | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
@@ -52,12 +54,13 @@ export default function HomePage() {
     loadTrending();
     loadMostRequested();
     loadStats();
+    loadUpcoming();
   }, []);
 
   async function loadTrending() {
     setLoadingTrending(true);
     try {
-      const res = await fetch('/api/trending');
+      const res = await fetch('/api/trending?page=1');
       if (res.ok) {
         const data = await res.json();
         setTrending(data.results.slice(0, 6));
@@ -77,6 +80,21 @@ export default function HomePage() {
         setMostRequested(data.results || []);
       }
     } catch {}
+  }
+
+  async function loadUpcoming() {
+    setLoadingUpcoming(true);
+    try {
+      const res = await fetch('/api/upcoming');
+      if (res.ok) {
+        const data = await res.json();
+        setUpcoming((data.results || []).slice(0, 6));
+      }
+    } catch {
+      setUpcoming([]);
+    } finally {
+      setLoadingUpcoming(false);
+    }
   }
 
   async function loadStats() {
@@ -150,14 +168,14 @@ export default function HomePage() {
 
           {/* Library Stats */}
           {stats && (stats.moviesCount > 0 || stats.seriesCount > 0) && (
-            <div className="mt-4 flex flex-wrap gap-2 text-xs text-white/50">
+            <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-white/50">
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.04] px-2.5 py-1">
                 <Icons.Film className="h-3 w-3" />
-                {stats.moviesCount} {stats.moviesCount === 1 ? 'movie' : 'movies'}
+                {stats.moviesCount.toLocaleString()} {stats.moviesCount === 1 ? 'movie' : 'movies'}
               </span>
               <span className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.04] px-2.5 py-1">
                 <Icons.Tv className="h-3 w-3" />
-                {stats.seriesCount} {stats.seriesCount === 1 ? 'series' : 'series'}
+                {stats.seriesCount.toLocaleString()} {stats.seriesCount === 1 ? 'series' : 'series'}
               </span>
               <span className="text-white/30">— available di Surflix</span>
             </div>
@@ -172,7 +190,7 @@ export default function HomePage() {
           <QuickFilterChips />
         </section>
 
-        {/* Most Requested by Friends — hidden kalau kosong */}
+        {/* Most Requested by Friends */}
         {mostRequested.length > 0 && (
           <section className="mb-8 md:mb-10">
             <div className="mb-3 flex items-center justify-between">
@@ -192,7 +210,7 @@ export default function HomePage() {
         )}
 
         {/* Trending Section */}
-        <section>
+        <section className="mb-8 md:mb-10">
           <div className="mb-3 flex items-center justify-between">
             <h2 className="text-lg font-semibold tracking-tight md:text-xl">
               <span className="inline-flex items-center gap-1.5">
@@ -214,6 +232,30 @@ export default function HomePage() {
             </div>
           )}
         </section>
+
+        {/* Upcoming Section */}
+        {(loadingUpcoming || upcoming.length > 0) && (
+          <section>
+            <div className="mb-3 flex items-center justify-between">
+              <h2 className="text-lg font-semibold tracking-tight md:text-xl">
+                <span className="inline-flex items-center gap-1.5">
+                  <Icons.Calendar className="h-4 w-4 text-ios-orange" />
+                  Coming Soon
+                </span>
+              </h2>
+              <span className="text-xs text-white/40">Belum rilis</span>
+            </div>
+            {loadingUpcoming ? (
+              <PosterGridSkeleton count={6} />
+            ) : (
+              <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
+                {upcoming.map((item) => (
+                  <PosterCard key={`${item.mediaType}-${item.id}`} item={item} onClick={() => openDetail(item)} />
+                ))}
+              </div>
+            )}
+          </section>
+        )}
       </div>
 
       <DetailModal item={selectedItem} open={detailOpen} onClose={() => setDetailOpen(false)} onRequest={handleRequestClick} />

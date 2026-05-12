@@ -38,13 +38,13 @@ export function jellyseerrStatusLabel(status: number | undefined): {
 } {
   switch (status) {
     case 5:
-      return { label: 'In Library', variant: 'available' };
+      return { label: 'In Surflix', variant: 'available' };
     case 4:
       return { label: 'Partial', variant: 'available' };
     case 3:
       return { label: 'Downloading', variant: 'processing' };
     case 2:
-      return { label: 'Pending', variant: 'pending' };
+      return { label: 'On Schedule', variant: 'pending' };
     default:
       return { label: '', variant: 'none' };
   }

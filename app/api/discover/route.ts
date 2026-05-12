@@ -1,8 +1,12 @@
 /**
- * GET /api/discover?type=movie&genre=28&year=2024
+ * GET /api/discover?type=movie&genre=28&year=2024&network=213&page=1
  *
- * Discover endpoint untuk browse by category.
- * Uses Jellyseerr discover API which proxies TMDB.
+ * Filter combinations:
+ * - type: movie | tv
+ * - genre: TMDB genre ID
+ * - year: release year (single)
+ * - network: TMDB network ID (for TV) or studio ID (for movies)
+ * - page: pagination
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -12,18 +16,24 @@ export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const type = searchParams.get('type') || 'movie';
   const genre = searchParams.get('genre');
-  const year = searchParams.get('year'); // could be "2024" or "2024,2025"
+  const year = searchParams.get('year');
+  const network = searchParams.get('network');
   const page = parseInt(searchParams.get('page') || '1');
 
   try {
     const params: any = { page };
-
     if (genre) params.genre = parseInt(genre);
-
-    // If year has multiple values, pick first one (Jellyseerr accepts single year)
     if (year) {
       const firstYear = year.split(',')[0].trim();
       if (firstYear) params.year = parseInt(firstYear);
+    }
+    if (network) {
+      // Untuk TV: network parameter, untuk movies: studio parameter
+      if (type === 'tv') {
+        params.network = parseInt(network);
+      } else {
+        params.studio = parseInt(network);
+      }
     }
 
     let data;
@@ -37,6 +47,7 @@ export async function GET(req: NextRequest) {
       results: data.results || [],
       page: data.page,
       totalPages: data.totalPages,
+      hasMore: (data.page || 1) < (data.totalPages || 1),
     });
   } catch (err: any) {
     console.error('[Discover API] Error:', err.message);
