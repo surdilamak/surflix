@@ -81,14 +81,10 @@ class JellyseerrClient {
    * Search movie/TV via Jellyseerr (yang udah include TMDB metadata + library status)
    * Pakai paramsSerializer yang benar buat encode spasi dan reserved chars
    */
-  async search(query: string, page = 1): Promise<JellyseerrSearchResult> {
-    // Build query string manual biar pasti ke-encode dengan benar
-    const params = new URLSearchParams({
-      query: query.trim(),
-      page: page.toString(),
-      language: 'en',
-    });
-    const { data } = await this.client.get(`/search?${params.toString()}`);
+async search(query: string, page = 1): Promise<JellyseerrSearchResult> {
+    const encodedQuery = encodeURIComponent(query.trim());
+    const url = `/search?query=${encodedQuery}&page=${page}&language=en`;
+    const { data } = await this.client.get(url);
     return data;
   }
 
