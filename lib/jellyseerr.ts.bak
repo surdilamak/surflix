@@ -81,8 +81,15 @@ class JellyseerrClient {
    * Search movie/TV via Jellyseerr (yang udah include TMDB metadata + library status)
    * Pakai paramsSerializer yang benar buat encode spasi dan reserved chars
    */
-  async search(query: string, page = 1): Promise<JellyseerrSearchResult> {
-    // Build query string manual biar pasti ke-encode dengan benar
+async search(query: string, page = 1): Promise<JellyseerrSearchResult> {
+    const params = new URLSearchParams({
+      query: query.trim(),
+      page: page.toString(),
+      language: 'en',
+    });
+    const { data } = await this.client.get(`/search?${params.toString()}`);
+    return data;
+  }    // Build query string manual biar pasti ke-encode dengan benar
     const params = new URLSearchParams({
       query: query.trim(),
       page: page.toString(),
@@ -195,41 +202,23 @@ class JellyseerrClient {
   }
 
   /**
-   * Get media library counts dengan multiple fallback strategy.
-   * 1. Try /media endpoint
-   * 2. Fallback ke /request with filter=available
-   * 3. Final fallback ke local DB
+   * Get media library counts (movies, series, total) dari Jellyseerr
+   * Endpoint /settings/jobs gak ada, tapi /status atau /media bisa di-aggregate
    */
   async getMediaCount(): Promise<{ movies: number; tv: number; total: number }> {
-    // Strategy 1: /media endpoint (butuh admin)
     try {
+      // Use /media endpoint dengan filter
       const [movies, tv] = await Promise.all([
         this.client.get('/media', { params: { filter: 'available', mediaType: 'movie', take: 1 } }),
         this.client.get('/media', { params: { filter: 'available', mediaType: 'tv', take: 1 } }),
       ]);
       const moviesCount = movies.data?.pageInfo?.results || 0;
       const tvCount = tv.data?.pageInfo?.results || 0;
-      if (moviesCount > 0 || tvCount > 0) {
-        return { movies: moviesCount, tv: tvCount, total: moviesCount + tvCount };
-      }
-    } catch (err: any) {
-      console.warn('[getMediaCount] /media failed:', err.response?.status || err.message);
-    }
-
-    // Strategy 2: /request endpoint
-    try {
-      const [movies, tv] = await Promise.all([
-        this.client.get('/request', { params: { filter: 'available', mediaType: 'movie', take: 1 } }),
-        this.client.get('/request', { params: { filter: 'available', mediaType: 'tv', take: 1 } }),
-      ]);
-      const moviesCount = movies.data?.pageInfo?.results || 0;
-      const tvCount = tv.data?.pageInfo?.results || 0;
       return { movies: moviesCount, tv: tvCount, total: moviesCount + tvCount };
     } catch (err: any) {
-      console.warn('[getMediaCount] /request failed:', err.response?.status || err.message);
+      console.error('[getMediaCount] Failed:', err.message);
+      return { movies: 0, tv: 0, total: 0 };
     }
-
-    return { movies: 0, tv: 0, total: 0 };
   }
 
   /**

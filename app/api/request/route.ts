@@ -23,6 +23,7 @@ import { getYear } from '@/lib/utils';
 const requestSchema = z.object({
   guestName: z.string().min(2).max(50),
   guestId: z.string().optional(),
+  guestNote: z.string().max(200).optional(),
   tmdbId: z.number().int().positive(),
   mediaType: z.enum(['movie', 'tv']),
   title: z.string().min(1),
@@ -127,6 +128,7 @@ export async function POST(req: NextRequest) {
       overview: body.overview,
       releaseDate: body.releaseDate,
       rating: body.rating,
+      guestNote: body.guestNote,
       status: 'PENDING_ADMIN',
     },
   });

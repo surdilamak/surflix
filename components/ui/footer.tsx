@@ -1,13 +1,15 @@
 /**
  * Footer — info, rules, library stats
+ * Uses runtime config from /api/config (works in Next.js standalone)
  */
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useAppConfig } from '@/lib/hooks/use-app-config';
 import { Icons } from './icons';
 
 export function Footer() {
-  const jellyfinUrl = process.env.NEXT_PUBLIC_JELLYFIN_URL || '#';
+  const config = useAppConfig();
   const [stats, setStats] = useState<{ moviesCount: number; seriesCount: number } | null>(null);
 
   useEffect(() => {
@@ -19,11 +21,12 @@ export function Footer() {
       .catch(() => {});
   }, []);
 
+  const jellyfinUrl = config?.jellyfinUrl;
+
   return (
     <footer className="mt-auto border-t border-white/[0.06] bg-black/40 px-4 py-6 md:px-5 md:py-8">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-          {/* Logo + tagline */}
           <div className="flex items-center gap-2.5">
             <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-br from-surflix-500 to-ios-orange">
               <Icons.Waves className="h-3.5 w-3.5 text-white" />
@@ -40,7 +43,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Rules + Link */}
           <div className="flex flex-col gap-1.5 text-[11px] text-white/50 md:items-end">
             <div className="flex items-start gap-1.5">
               <Icons.Info className="mt-px h-3 w-3 flex-shrink-0 text-ios-orange" />
@@ -49,7 +51,7 @@ export function Footer() {
                 Dilarang request film/series Indonesia
               </p>
             </div>
-            {jellyfinUrl !== '#' && (
+            {jellyfinUrl && (
               <a
                 href={jellyfinUrl}
                 target="_blank"

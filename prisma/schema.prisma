@@ -67,6 +67,7 @@ model Request {
   // Status workflow (String, value bisa: PENDING_ADMIN, REJECTED, APPROVED, ON_SCHEDULE, PROCESSING, PARTIALLY_AVAILABLE, AVAILABLE, FAILED)
   status       String   @default("PENDING_ADMIN")
   adminNote    String?
+  guestNote    String?  // catatan dari guest (opsional: minta subtitle, replace file jelek, dll)
 
   // Link ke Jellyseerr setelah di-approve
   jellyseerrRequestId Int?

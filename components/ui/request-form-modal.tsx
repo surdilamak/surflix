@@ -1,6 +1,10 @@
 /**
- * Request Form Modal — name only (cookie-based identification)
- * No email field — guest cuma input nama, identified via cookie/localStorage
+ * Request Form Modal — name + optional notes
+ *
+ * Notes field examples:
+ * - "Tolong sertakan subtitle Bahasa Indonesia"
+ * - "File film yang ada sekarang jelek, mohon di-replace"
+ * - "Episode terakhir hilang, request ulang"
  */
 'use client';
 
@@ -18,10 +22,20 @@ interface RequestFormModalProps {
 
 const GUEST_INFO_KEY = 'surflix_guest_info';
 
+// Quick note suggestions
+const NOTE_SUGGESTIONS = [
+  { icon: '📝', label: 'Tambah subtitle Indonesia', value: 'Tolong sertakan subtitle Bahasa Indonesia' },
+  { icon: '🎯', label: 'Tambah subtitle English', value: 'Tolong sertakan subtitle English' },
+  { icon: '🔄', label: 'File jelek, replace', value: 'File film yang ada sekarang kualitasnya jelek, mohon di-replace' },
+  { icon: '📦', label: 'Quality 1080p+', value: 'Mohon kualitas 1080p atau lebih tinggi' },
+];
+
 export function RequestFormModal({ item, open, onClose, onSuccess }: RequestFormModalProps) {
   const [name, setName] = useState('');
+  const [note, setNote] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showNoteField, setShowNoteField] = useState(false);
 
   useEffect(() => {
     if (open && typeof window !== 'undefined') {
@@ -32,6 +46,9 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
           if (n) setName(n);
         } catch {}
       }
+      // Reset note when reopening
+      setNote('');
+      setShowNoteField(false);
     }
   }, [open]);
 
@@ -56,6 +73,7 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           guestName: name.trim(),
+          guestNote: note.trim() || undefined,
           tmdbId: item.id,
           mediaType: item.mediaType,
           title: item.title || item.name,
@@ -75,10 +93,9 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
         return;
       }
 
-      // Save guest name + ID to localStorage
       localStorage.setItem(GUEST_INFO_KEY, JSON.stringify({
         name: name.trim(),
-        guestId: data.guestId, // server returns unique guestId
+        guestId: data.guestId,
       }));
 
       onSuccess();
@@ -86,6 +103,11 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
       setError('Network error, coba lagi');
       setLoading(false);
     }
+  }
+
+  function applySuggestion(value: string) {
+    setNote(value);
+    setShowNoteField(true);
   }
 
   if (!item) return null;
@@ -107,11 +129,13 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
             animate={{ scale: 1, opacity: 1, y: 0 }}
             exit={{ scale: 0.95, opacity: 0, y: 20 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed left-1/2 top-1/2 z-[111] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 rounded-ios-xl bg-bg-surface p-5"
+            className="fixed left-1/2 top-1/2 z-[111] max-h-[90vh] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-ios-xl bg-bg-surface p-5"
           >
             <div className="mb-4 flex items-start justify-between">
               <div>
-                <p className="mb-1 text-xs font-medium text-surflix-500">Request {item.mediaType === 'movie' ? 'Movie' : 'Series'}</p>
+                <p className="mb-1 text-xs font-medium text-surflix-500">
+                  Request {item.mediaType === 'movie' ? 'Movie' : 'Series'}
+                </p>
                 <h3 className="text-lg font-semibold leading-tight tracking-tight">
                   {item.title || item.name}
                 </h3>
@@ -126,9 +150,7 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
 
             <div className="space-y-3">
               <div>
-                <label className="mb-1.5 block text-xs font-medium text-white/60">
-                  Nama lo
-                </label>
+                <label className="mb-1.5 block text-xs font-medium text-white/60">Nama lo</label>
                 <input
                   type="text"
                   value={name}
@@ -138,10 +160,60 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
                   maxLength={50}
                   autoFocus
                 />
-                <p className="mt-1.5 text-[10px] text-white/40">
-                  Cuma nama doang. Kita inget lo via cookie browser ini.
-                </p>
               </div>
+
+              {/* Notes section */}
+              {!showNoteField ? (
+                <div>
+                  <button
+                    onClick={() => setShowNoteField(true)}
+                    className="flex w-full items-center justify-between rounded-ios-lg border border-dashed border-white/15 bg-white/[0.02] px-3 py-2.5 text-left text-xs text-white/60 transition-colors hover:bg-white/[0.04]"
+                  >
+                    <span className="inline-flex items-center gap-1.5">
+                      <Icons.Plus className="h-3 w-3" />
+                      Tambah catatan khusus (opsional)
+                    </span>
+                    <Icons.ChevronRight className="h-3 w-3" />
+                  </button>
+
+                  {/* Quick suggestions */}
+                  <div className="mt-2 flex flex-wrap gap-1.5">
+                    {NOTE_SUGGESTIONS.map((s) => (
+                      <button
+                        key={s.value}
+                        onClick={() => applySuggestion(s.value)}
+                        className="rounded-full bg-white/[0.04] px-2.5 py-1 text-[10px] text-white/55 transition-colors hover:bg-white/[0.08] hover:text-white/80"
+                      >
+                        {s.icon} {s.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ) : (
+                <div>
+                  <div className="mb-1.5 flex items-center justify-between">
+                    <label className="text-xs font-medium text-white/60">Catatan khusus</label>
+                    <button
+                      onClick={() => { setShowNoteField(false); setNote(''); }}
+                      className="text-[10px] text-white/40 hover:text-white/70"
+                    >
+                      Hapus
+                    </button>
+                  </div>
+                  <textarea
+                    value={note}
+                    onChange={(e) => setNote(e.target.value)}
+                    placeholder="Misal: Tolong sertakan subtitle Bahasa Indonesia"
+                    className="input-ios w-full resize-none"
+                    maxLength={200}
+                    rows={3}
+                    autoFocus
+                  />
+                  <p className="mt-1 text-[10px] text-white/40 text-right">
+                    {note.length}/200
+                  </p>
+                </div>
+              )}
 
               {error && (
                 <div className="flex items-start gap-2 rounded-ios-lg border border-ios-red/30 bg-ios-red/10 p-2.5">
@@ -164,6 +236,10 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
                   'Submit Request'
                 )}
               </button>
+
+              <p className="text-center text-[10px] text-white/40">
+                Kita inget lo via cookie browser ini, gak perlu email.
+              </p>
             </div>
           </motion.div>
         </>

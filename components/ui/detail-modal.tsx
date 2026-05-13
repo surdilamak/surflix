@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { tmdbImage, getYear, jellyseerrStatusLabel } from '@/lib/utils';
+import { useAppConfig } from '@/lib/hooks/use-app-config';
 import { Icons } from './icons';
 import { JellyseerrMediaItem } from '@/lib/jellyseerr';
 
@@ -144,7 +145,8 @@ function ModalContent({
   detail,
   loadingDetail,
 }: any) {
-  const jellyfinUrl = process.env.NEXT_PUBLIC_JELLYFIN_URL || '#';
+  const config = useAppConfig();
+  const jellyfinUrl = config?.jellyfinUrl || '#';
 
   return (
     <>

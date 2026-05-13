@@ -11,6 +11,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useAppConfig } from '@/lib/hooks/use-app-config';
 import { PosterCard } from '@/components/ui/poster-card';
 import { DetailModal } from '@/components/ui/detail-modal';
 import { PosterGridSkeleton } from '@/components/ui/skeleton';
@@ -34,6 +35,7 @@ interface LibraryItem {
 type Mode = 'loading' | 'personal' | 'community' | 'empty';
 
 export default function LibraryPage() {
+  const config = useAppConfig();
   const [mode, setMode] = useState<Mode>('loading');
   const [personalItems, setPersonalItems] = useState<LibraryItem[]>([]);
   const [communityItems, setCommunityItems] = useState<LibraryItem[]>([]);
@@ -128,9 +130,9 @@ export default function LibraryPage() {
             {mode === 'loading' && 'Loading...'}
           </p>
         </div>
-        {process.env.NEXT_PUBLIC_JELLYFIN_URL && (
+        {config?.jellyfinUrl && (
           <a
-            href={process.env.NEXT_PUBLIC_JELLYFIN_URL}
+            href={config.jellyfinUrl}
             target="_blank"
             rel="noopener"
             className="btn-secondary text-xs"

@@ -287,6 +287,17 @@ function RequestCard({
             <p className="mb-3 line-clamp-2 text-[11px] leading-relaxed text-white/60">{r.overview}</p>
           )}
 
+          {/* Guest note (if any) */}
+          {(r as any).guestNote && (
+            <div className="mb-3 flex items-start gap-2 rounded-ios-lg border border-ios-blue/30 bg-ios-blue/5 p-2.5">
+              <Icons.Info className="mt-0.5 h-3 w-3 flex-shrink-0 text-ios-blue" />
+              <p className="text-[11px] leading-relaxed text-white/85">
+                <span className="font-medium text-ios-blue">Catatan: </span>
+                {(r as any).guestNote}
+              </p>
+            </div>
+          )}
+
           {/* Actions */}
           {rejecting ? (
             <div className="space-y-2">
