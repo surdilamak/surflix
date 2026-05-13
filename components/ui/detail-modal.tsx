@@ -1,7 +1,12 @@
 /**
- * Detail Modal v4 — flex-based centering + rich metadata
+ * Detail Modal v5 — bulletproof responsive
  *
- * On open, fetches full metadata from /api/detail (Director, Cast, Genres, etc).
+ * Pattern: single container with responsive alignment.
+ * - Mobile (< md): justify-center + items-end → bottom sheet
+ * - Desktop (>= md): justify-center + items-center → centered modal
+ *
+ * No separate components, no display switches between mobile/desktop renders
+ * (yang ngebreak transition state).
  */
 'use client';
 
@@ -36,7 +41,19 @@ interface DetailData {
 export function DetailModal({ item, open, onClose, onRequest }: DetailModalProps) {
   const [detail, setDetail] = useState<DetailData | null>(null);
   const [loadingDetail, setLoadingDetail] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
+  // Detect mobile via media query (runs only on client)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const mq = window.matchMedia('(max-width: 767px)');
+    setIsMobile(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
+  // Lock body scroll when open
   useEffect(() => {
     if (open) {
       document.body.style.overflow = 'hidden';
@@ -48,7 +65,7 @@ export function DetailModal({ item, open, onClose, onRequest }: DetailModalProps
     };
   }, [open]);
 
-  // Fetch detail metadata when modal opens
+  // Fetch metadata when modal opens
   useEffect(() => {
     if (!item || !open) {
       setDetail(null);
@@ -78,55 +95,57 @@ export function DetailModal({ item, open, onClose, onRequest }: DetailModalProps
   return (
     <AnimatePresence>
       {open && (
-        <>
-          {/* MOBILE: Bottom Sheet */}
-          <div className="fixed inset-0 z-[100] flex items-end md:hidden">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              onClick={onClose}
-              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-            />
-            <motion.div
-              initial={{ y: '100%' }}
-              animate={{ y: 0 }}
-              exit={{ y: '100%' }}
-              transition={{ type: 'spring', damping: 30, stiffness: 300 }}
-              className="relative z-10 max-h-[90vh] w-full overflow-y-auto rounded-t-ios-xl bg-bg-surface"
-            >
-              <div className="sticky top-0 z-10 flex justify-center bg-bg-surface pt-2">
-                <div className="h-1 w-9 rounded-full bg-white/30" />
-              </div>
-              <ModalContent {...{ item, title, year, backdrop, rating, isAvailable, isProcessing, onClose, onRequest, detail, loadingDetail }} />
-            </motion.div>
-          </div>
+        <div
+          className={`fixed inset-0 z-[100] flex justify-center ${
+            isMobile ? 'items-end' : 'items-center md:p-4'
+          }`}
+        >
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={onClose}
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+          />
 
-          {/* DESKTOP: Centered Modal (FLEX-BASED) */}
-          <div className="fixed inset-0 z-[100] hidden items-center justify-center p-4 md:flex">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              onClick={onClose}
-              className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-            />
-            <motion.div
-              initial={{ scale: 0.95, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.95, opacity: 0 }}
-              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="relative z-10 w-full max-w-2xl overflow-hidden rounded-ios-xl bg-bg-surface"
-              style={{ maxHeight: 'calc(100vh - 2rem)' }}
-            >
-              <div style={{ maxHeight: 'calc(100vh - 2rem)' }} className="overflow-y-auto">
-                <ModalContent {...{ item, title, year, backdrop, rating, isAvailable, isProcessing, onClose, onRequest, detail, loadingDetail }} />
-              </div>
-            </motion.div>
-          </div>
-        </>
+          {/* Modal Content */}
+          <motion.div
+            initial={isMobile ? { y: '100%' } : { scale: 0.95, opacity: 0 }}
+            animate={isMobile ? { y: 0 } : { scale: 1, opacity: 1 }}
+            exit={isMobile ? { y: '100%' } : { scale: 0.95, opacity: 0 }}
+            transition={{ type: 'spring', damping: isMobile ? 30 : 25, stiffness: 300 }}
+            className={`relative z-10 w-full overflow-hidden bg-bg-surface ${
+              isMobile
+                ? 'max-h-[90vh] rounded-t-ios-xl'
+                : 'max-w-2xl rounded-ios-xl'
+            }`}
+            style={{ maxHeight: isMobile ? '90vh' : 'calc(100vh - 2rem)' }}
+          >
+            <div className="overflow-y-auto" style={{ maxHeight: 'inherit' }}>
+              {isMobile && (
+                <div className="sticky top-0 z-10 flex justify-center bg-bg-surface pt-2">
+                  <div className="h-1 w-9 rounded-full bg-white/30" />
+                </div>
+              )}
+
+              <ModalContent
+                item={item}
+                title={title}
+                year={year}
+                backdrop={backdrop}
+                rating={rating}
+                isAvailable={isAvailable}
+                isProcessing={isProcessing}
+                onClose={onClose}
+                onRequest={onRequest}
+                detail={detail}
+                loadingDetail={loadingDetail}
+              />
+            </div>
+          </motion.div>
+        </div>
       )}
     </AnimatePresence>
   );
@@ -161,6 +180,7 @@ function ModalContent({
         <button
           onClick={onClose}
           className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-ios transition-all hover:bg-black/80"
+          aria-label="Close"
         >
           <Icons.X className="h-4 w-4" />
         </button>
@@ -179,7 +199,6 @@ function ModalContent({
       </div>
 
       <div className="space-y-4 p-4 md:p-5">
-        {/* Action button */}
         <div className="flex gap-2">
           {isAvailable ? (
             <a href={jellyfinUrl} target="_blank" rel="noopener" className="btn-primary flex-1 text-center">
@@ -205,12 +224,10 @@ function ModalContent({
           )}
         </div>
 
-        {/* Overview */}
         {item.overview && (
           <p className="text-[13px] leading-relaxed text-white/85 md:text-sm">{item.overview}</p>
         )}
 
-        {/* Genres */}
         {detail?.genres && detail.genres.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {detail.genres.map((g: string) => (
@@ -221,7 +238,6 @@ function ModalContent({
           </div>
         )}
 
-        {/* Metadata Table */}
         <div className="rounded-ios-lg bg-white/[0.04] text-xs md:text-sm">
           {(detail?.director || detail?.creators) && (
             <MetadataRow

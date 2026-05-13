@@ -1,48 +1,61 @@
 /**
- * Toast / Snackbar — iOS-style notification at top of screen
+ * Toast — center horizontal, top-anchored, both mobile & desktop
+ *
+ * Position: top center via flex container (gak pakai left-1/2 + transform)
+ * Animation: slide down from top + fade
  */
 'use client';
 
+import { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Icons } from './icons';
-
-type ToastVariant = 'success' | 'error' | 'info';
+import { cn } from '@/lib/utils';
 
 interface ToastProps {
   message: string;
-  variant?: ToastVariant;
+  variant?: 'success' | 'error' | 'info';
   open: boolean;
   onClose: () => void;
+  duration?: number;
 }
 
-export function Toast({ message, variant = 'success', open, onClose }: ToastProps) {
-  const variantStyles = {
-    success: { color: 'text-ios-green', icon: Icons.CheckCircle2 },
-    error: { color: 'text-ios-red', icon: Icons.XCircle },
-    info: { color: 'text-ios-blue', icon: Icons.Info },
-  };
+export function Toast({
+  message,
+  variant = 'success',
+  open,
+  onClose,
+  duration = 4000,
+}: ToastProps) {
+  useEffect(() => {
+    if (open && duration > 0) {
+      const t = setTimeout(onClose, duration);
+      return () => clearTimeout(t);
+    }
+  }, [open, duration, onClose]);
 
-  const { color, icon: Icon } = variantStyles[variant];
+  const icon = {
+    success: <Icons.CheckCircle2 className="h-4 w-4 text-ios-green" />,
+    error: <Icons.XCircle className="h-4 w-4 text-ios-red" />,
+    info: <Icons.Info className="h-4 w-4 text-ios-blue" />,
+  }[variant];
 
   return (
     <AnimatePresence>
       {open && (
-        <motion.div
-          initial={{ y: -50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: -50, opacity: 0 }}
-          transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-          className="fixed left-1/2 top-4 z-[200] -translate-x-1/2"
-          style={{ paddingTop: 'env(safe-area-inset-top, 0)' }}
-        >
-          <button
-            onClick={onClose}
-            className="flex items-center gap-2.5 rounded-full border border-white/10 bg-bg-surface/95 px-4 py-2.5 shadow-lg backdrop-blur-ios"
+        <div className="pointer-events-none fixed inset-x-0 top-4 z-[200] flex justify-center px-4">
+          <motion.div
+            initial={{ y: -50, opacity: 0, scale: 0.95 }}
+            animate={{ y: 0, opacity: 1, scale: 1 }}
+            exit={{ y: -50, opacity: 0, scale: 0.95 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+            className={cn(
+              'pointer-events-auto flex max-w-sm items-center gap-2.5 rounded-full border border-white/10 bg-bg-surface/95 px-4 py-2.5 shadow-2xl backdrop-blur-ios'
+            )}
           >
-            <Icon className={`h-4 w-4 flex-shrink-0 ${color}`} />
+            {icon}
             <span className="text-[13px] font-medium text-white">{message}</span>
-          </button>
-        </motion.div>
+          </motion.div>
+        </div>
       )}
     </AnimatePresence>
   );
