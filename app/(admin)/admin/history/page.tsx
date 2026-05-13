@@ -113,6 +113,7 @@ export default function AdminHistoryPage() {
               <Link href="/admin" className="tab">Dashboard</Link>
               <Link href="/admin/pending" className="tab">Pending</Link>
               <Link href="/admin/history" className="tab tab-active">History</Link>
+              <Link href="/admin/settings" className="tab">Settings</Link>
             </nav>
           </div>
           <button onClick={handleLogout} className="text-xs text-white/40 hover:text-white">

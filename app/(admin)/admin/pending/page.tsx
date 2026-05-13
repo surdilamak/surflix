@@ -138,6 +138,7 @@ export default function AdminPendingPage() {
                 )}
               </Link>
               <Link href="/admin/history" className="tab">History</Link>
+              <Link href="/admin/settings" className="tab">Settings</Link>
             </nav>
           </div>
           <button onClick={handleLogout} className="text-xs text-white/40 hover:text-white">

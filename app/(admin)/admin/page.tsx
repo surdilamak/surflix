@@ -103,6 +103,7 @@ export default function AdminDashboard() {
                 )}
               </Link>
               <Link href="/admin/history" className="tab">History</Link>
+              <Link href="/admin/settings" className="tab">Settings</Link>
             </nav>
           </div>
           <div className="flex items-center gap-2">

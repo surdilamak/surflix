@@ -149,6 +149,9 @@ export async function POST(req: NextRequest) {
     title: body.title,
     mediaType: body.mediaType,
     year: getYear(body.releaseDate),
+    posterPath: body.posterPath,
+    overview: body.overview,
+    guestNote: body.guestNote,
   }).catch((err) => console.error('[Telegram notify failed]', err));
 
   return NextResponse.json({
