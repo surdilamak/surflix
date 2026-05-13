@@ -1,13 +1,14 @@
 /**
  * GET /api/config
  *
- * Public config yang client bisa fetch saat runtime.
- * Solusi buat Next.js standalone mode yang sometimes strip NEXT_PUBLIC_* vars.
- *
- * Cache aman karena values jarang berubah.
+ * Public runtime config. force-dynamic biar Next.js evaluate env setiap request.
+ * (Default behavior cache di build time, yang bikin env empty.)
  */
 
 import { NextResponse } from 'next/server';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 export async function GET() {
   return NextResponse.json({
