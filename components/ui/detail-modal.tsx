@@ -126,13 +126,14 @@ export function DetailModal({ item, open, onClose, onRequest, onRequestImproveme
             }`}
             style={{ maxHeight: isMobile ? '90vh' : 'calc(100vh - 2rem)' }}
           >
-            <div className="overflow-y-auto" style={{ maxHeight: 'inherit' }}>
-              {isMobile && (
-                <div className="sticky top-0 z-10 flex justify-center bg-bg-surface pt-2">
-                  <div className="h-1 w-9 rounded-full bg-white/30" />
-                </div>
-              )}
+            {/* Drag handle (mobile only) — absolute overlay supaya image bisa fill ke top */}
+            {isMobile && (
+              <div className="pointer-events-none absolute inset-x-0 top-2 z-20 flex justify-center">
+                <div className="h-1 w-9 rounded-full bg-white/60 shadow-[0_1px_3px_rgba(0,0,0,0.4)]" />
+              </div>
+            )}
 
+            <div className="overflow-y-auto" style={{ maxHeight: 'inherit' }}>
               <ModalContent
                 item={item}
                 title={title}

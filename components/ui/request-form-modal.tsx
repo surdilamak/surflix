@@ -124,13 +124,14 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
             className="fixed inset-0 z-[110] bg-black/70 backdrop-blur-sm"
           />
 
-          <motion.div
-            initial={{ scale: 0.95, opacity: 0, y: 20 }}
-            animate={{ scale: 1, opacity: 1, y: 0 }}
-            exit={{ scale: 0.95, opacity: 0, y: 20 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed left-1/2 top-1/2 z-[111] max-h-[90vh] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 -translate-y-1/2 overflow-y-auto rounded-ios-xl bg-bg-surface p-5"
-          >
+          <div className="fixed inset-0 z-[111] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0, y: 20 }}
+              transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+              className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-ios-xl bg-bg-surface p-5"
+            >
             <div className="mb-4 flex items-start justify-between">
               <div>
                 <p className="mb-1 text-xs font-medium text-surflix-500">
@@ -241,7 +242,8 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
                 Kita inget lo via cookie browser ini, gak perlu email.
               </p>
             </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </>
       )}
     </AnimatePresence>
