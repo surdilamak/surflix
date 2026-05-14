@@ -5,6 +5,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { Icons } from './icons';
@@ -30,11 +31,18 @@ export function TopNav({ guestName, pendingCount = 0 }: TopNavProps) {
       <div className="bg-black/70">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-3">
           <div className="flex items-center gap-7">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-br from-surflix-500 to-ios-orange">
-                <Icons.Waves className="h-3.5 w-3.5 text-white" />
-              </div>
-              <span className="text-base font-semibold tracking-tighter">Surflix</span>
+            <Link href="/" className="flex flex-col items-start leading-none">
+              <Image
+                src="/logo-wordmark.png"
+                alt="Surflix"
+                width={102}
+                height={28}
+                priority
+                className="h-7 w-auto"
+              />
+              <span className="mt-1 text-[9px] font-medium uppercase tracking-[0.22em] text-white/40">
+                Request Hub
+              </span>
             </Link>
 
             <nav className="flex gap-0.5">

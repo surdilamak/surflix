@@ -8,6 +8,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { Icons } from '@/components/ui/icons';
 
@@ -61,9 +62,14 @@ export default function AdminLoginPage() {
       >
         {/* Logo */}
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-surflix-500 to-ios-orange">
-            <Icons.Waves className="h-6 w-6 text-white" />
-          </div>
+          <Image
+            src="/logo-mark.png"
+            alt="Surflix"
+            width={56}
+            height={56}
+            priority
+            className="mx-auto mb-3 h-14 w-14"
+          />
           <h1 className="text-2xl font-semibold tracking-tighter">Surflix Admin</h1>
           <p className="mt-1 text-sm text-white/50">Sign in untuk manage requests</p>
         </div>

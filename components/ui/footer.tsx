@@ -5,6 +5,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import { useAppConfig } from '@/lib/hooks/use-app-config';
 import { Icons } from './icons';
 
@@ -27,20 +28,22 @@ export function Footer() {
     <footer className="mt-auto border-t border-white/[0.06] bg-black/40 px-4 py-6 md:px-5 md:py-8">
       <div className="mx-auto max-w-7xl">
         <div className="flex flex-col items-start gap-4 md:flex-row md:items-center md:justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-br from-surflix-500 to-ios-orange">
-              <Icons.Waves className="h-3.5 w-3.5 text-white" />
-            </div>
-            <div>
-              <p className="text-sm font-semibold tracking-tighter">Surflix</p>
-              {stats && (stats.moviesCount > 0 || stats.seriesCount > 0) ? (
-                <p className="text-[10px] text-white/40">
-                  {stats.moviesCount.toLocaleString()} movies · {stats.seriesCount.toLocaleString()} series
-                </p>
-              ) : (
-                <p className="text-[10px] text-white/40">Personal media request hub</p>
-              )}
-            </div>
+          <div className="flex flex-col items-start gap-0.5">
+            <Image
+              src="/logo-wordmark.png"
+              alt="Surflix"
+              width={116}
+              height={32}
+              className="h-8 w-auto"
+            />
+            <p className="text-[9px] font-medium uppercase tracking-[0.22em] text-white/40">
+              Request Hub
+            </p>
+            {stats && (stats.moviesCount > 0 || stats.seriesCount > 0) && (
+              <p className="mt-1 text-[10px] text-white/40">
+                {stats.moviesCount.toLocaleString()} movies · {stats.seriesCount.toLocaleString()} series
+              </p>
+            )}
           </div>
 
           <div className="flex flex-col gap-1.5 text-[11px] text-white/50 md:items-end">

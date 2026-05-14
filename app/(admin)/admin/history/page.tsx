@@ -12,6 +12,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Icons } from '@/components/ui/icons';
 import { EmptyState } from '@/components/ui/empty-state';
 import { cn } from '@/lib/utils';
@@ -104,9 +105,7 @@ export default function AdminHistoryPage() {
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
-              <div className="flex h-6 w-6 items-center justify-center rounded-lg bg-gradient-to-br from-surflix-500 to-ios-orange">
-                <Icons.Waves className="h-3.5 w-3.5 text-white" />
-              </div>
+              <Image src="/logo-mark.png" alt="Surflix" width={24} height={24} className="h-6 w-6" />
               <span className="text-base font-semibold tracking-tighter">Surflix Admin</span>
             </div>
             <nav className="hidden gap-1 md:flex">
