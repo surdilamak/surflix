@@ -63,13 +63,19 @@ async function handleCallbackQuery(callbackQuery: any) {
     return NextResponse.json({ ok: false });
   }
 
-  const [action, requestId] = callbackData.split(':');
+  const [action, entityId] = callbackData.split(':');
 
-  if (!requestId) {
+  if (!entityId) {
     await answerCallbackQuery(callbackQuery.id, 'Invalid action');
     return NextResponse.json({ ok: false });
   }
 
+  // === REMARK actions (improvement requests from guests for available/processing films) ===
+  if (action === 'remark-review' || action === 'remark-resolve') {
+    return handleRemarkAction(action, entityId, callbackQuery, chatId, messageId);
+  }
+
+  const requestId = entityId;
   // Lookup request
   const request = await prisma.request.findUnique({
     where: { id: requestId },
@@ -201,6 +207,100 @@ async function handleCallbackQuery(callbackQuery: any) {
   }
 
   return NextResponse.json({ ok: true });
+}
+
+async function handleRemarkAction(
+  action: string,
+  remarkId: string,
+  callbackQuery: any,
+  chatId: number | string,
+  messageId: number
+) {
+  const remark = await prisma.remark.findUnique({
+    where: { id: remarkId },
+    include: { guest: true },
+  });
+
+  if (!remark) {
+    await answerCallbackQuery(callbackQuery.id, 'Remark gak ketemu');
+    return NextResponse.json({ ok: false });
+  }
+
+  const newStatus = action === 'remark-resolve' ? 'RESOLVED' : 'REVIEWED';
+
+  // Idempotent: kalau udah resolved, gak bisa "downgrade" ke reviewed
+  if (remark.status === 'RESOLVED' && newStatus === 'REVIEWED') {
+    await answerCallbackQuery(callbackQuery.id, 'Udah resolved sebelumnya');
+    return NextResponse.json({ ok: true });
+  }
+  if (remark.status === newStatus) {
+    await answerCallbackQuery(callbackQuery.id, `Udah di-${newStatus.toLowerCase()}`);
+    return NextResponse.json({ ok: true });
+  }
+
+  await prisma.remark.update({
+    where: { id: remarkId },
+    data: {
+      status: newStatus,
+      reviewedAt: remark.reviewedAt ?? new Date(),
+      resolvedAt: newStatus === 'RESOLVED' ? new Date() : undefined,
+      adminNote: `${newStatus} via Telegram`,
+    },
+  });
+
+  await prisma.eventLog.create({
+    data: {
+      type: newStatus === 'RESOLVED' ? 'remark.resolved' : 'remark.reviewed',
+      payload: JSON.stringify({ remarkId, via: 'telegram', title: remark.title }),
+    },
+  });
+
+  // Edit message — strip buttons, append status footer
+  const typeIcon = remark.mediaType === 'movie' ? '🎬' : '📺';
+  const typeLabel = remark.mediaType === 'movie' ? 'Movie' : 'TV Series';
+  const statusBadge =
+    newStatus === 'RESOLVED' ? '✅ <b>RESOLVED</b>' : '👁 <b>REVIEWED</b>';
+
+  const newCaption = [
+    `💬 <b>Improvement Request</b>`,
+    '',
+    `<b>${escapeHtmlSafe(remark.title)}</b>`,
+    `${typeIcon} ${typeLabel} · ${remark.mediaStatus}`,
+    `By <b>${escapeHtmlSafe(remark.guest.name)}</b>`,
+    '',
+    `📝 <i>${escapeHtmlSafe(remark.note)}</i>`,
+    '',
+    statusBadge,
+  ].join('\n');
+
+  try {
+    await fetch(
+      `https://api.telegram.org/bot${process.env.TELEGRAM_BOT_TOKEN}/editMessageCaption`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: String(chatId),
+          message_id: messageId,
+          caption: newCaption,
+          parse_mode: 'HTML',
+          reply_markup:
+            newStatus === 'REVIEWED'
+              ? { inline_keyboard: [[{ text: '✅ Mark Resolved', callback_data: `remark-resolve:${remarkId}` }]] }
+              : { inline_keyboard: [] },
+        }),
+      }
+    );
+  } catch (err) {
+    console.error('[Remark Telegram] edit failed:', err);
+  }
+
+  await answerCallbackQuery(callbackQuery.id, newStatus === 'RESOLVED' ? 'Resolved' : 'Reviewed');
+  return NextResponse.json({ ok: true });
+}
+
+function escapeHtmlSafe(text: string): string {
+  return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 async function handleMessage(message: any) {

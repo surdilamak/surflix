@@ -21,6 +21,7 @@ import { JellyseerrMediaItem } from '@/lib/jellyseerr';
 import { PosterCard } from '@/components/ui/poster-card';
 import { DetailModal } from '@/components/ui/detail-modal';
 import { RequestFormModal } from '@/components/ui/request-form-modal';
+import { RemarkFormModal } from '@/components/ui/remark-form-modal';
 import { Toast } from '@/components/ui/toast';
 import { PosterGridSkeleton } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/ui/empty-state';
@@ -90,6 +91,7 @@ function BrowseInner() {
   const [selectedItem, setSelectedItem] = useState<JellyseerrMediaItem | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
   const [requestOpen, setRequestOpen] = useState(false);
+  const [remarkOpen, setRemarkOpen] = useState(false);
   const [toast, setToast] = useState<{ message: string; variant: 'success' | 'error' } | null>(null);
 
   const heading = (() => {
@@ -244,6 +246,18 @@ function BrowseInner() {
   function handleRequestSuccess() {
     setRequestOpen(false);
     setToast({ message: 'Request lo udah masuk! Admin akan review dalam 1-3 hari.', variant: 'success' });
+    setTimeout(() => setToast(null), 4500);
+  }
+
+  function handleRemarkClick(item: JellyseerrMediaItem) {
+    setSelectedItem(item);
+    setDetailOpen(false);
+    setRemarkOpen(true);
+  }
+
+  function handleRemarkSuccess() {
+    setRemarkOpen(false);
+    setToast({ message: 'Catatan lo udah masuk. Makasih ya!', variant: 'success' });
     setTimeout(() => setToast(null), 4500);
   }
 
@@ -430,6 +444,7 @@ function BrowseInner() {
         open={detailOpen}
         onClose={() => setDetailOpen(false)}
         onRequest={handleRequestClick}
+        onRequestImprovement={handleRemarkClick}
       />
 
       <RequestFormModal
@@ -437,6 +452,13 @@ function BrowseInner() {
         open={requestOpen}
         onClose={() => setRequestOpen(false)}
         onSuccess={handleRequestSuccess}
+      />
+
+      <RemarkFormModal
+        item={selectedItem}
+        open={remarkOpen}
+        onClose={() => setRemarkOpen(false)}
+        onSuccess={handleRemarkSuccess}
       />
 
       <Toast

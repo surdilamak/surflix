@@ -23,6 +23,9 @@ interface DetailModalProps {
   open: boolean;
   onClose: () => void;
   onRequest: (item: JellyseerrMediaItem) => void;
+  // Optional — kalau di-pass, button "Request Improvement" muncul untuk film yang
+  // sudah AVAILABLE/PROCESSING (mis. minta subtitle Indo, replace file jelek).
+  onRequestImprovement?: (item: JellyseerrMediaItem) => void;
 }
 
 interface DetailData {
@@ -38,7 +41,7 @@ interface DetailData {
   tagline?: string;
 }
 
-export function DetailModal({ item, open, onClose, onRequest }: DetailModalProps) {
+export function DetailModal({ item, open, onClose, onRequest, onRequestImprovement }: DetailModalProps) {
   const [detail, setDetail] = useState<DetailData | null>(null);
   const [loadingDetail, setLoadingDetail] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -140,6 +143,7 @@ export function DetailModal({ item, open, onClose, onRequest }: DetailModalProps
                 isProcessing={isProcessing}
                 onClose={onClose}
                 onRequest={onRequest}
+                onRequestImprovement={onRequestImprovement}
                 detail={detail}
                 loadingDetail={loadingDetail}
               />
@@ -161,6 +165,7 @@ function ModalContent({
   isProcessing,
   onClose,
   onRequest,
+  onRequestImprovement,
   detail,
   loadingDetail,
 }: any) {
@@ -199,26 +204,40 @@ function ModalContent({
       </div>
 
       <div className="space-y-4 p-4 md:p-5">
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2">
           {isAvailable ? (
-            <a href={jellyfinUrl} target="_blank" rel="noopener" className="btn-primary flex-1 text-center">
+            <a href={jellyfinUrl} target="_blank" rel="noopener" className="btn-primary w-full text-center">
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.Play className="h-4 w-4" />
                 Watch on Surflix
               </span>
             </a>
           ) : isProcessing ? (
-            <button disabled className="flex-1 cursor-not-allowed rounded-full bg-ios-blue/30 py-2.5 text-sm font-medium text-ios-blue">
+            <button disabled className="w-full cursor-not-allowed rounded-full bg-ios-blue/30 py-2.5 text-sm font-medium text-ios-blue">
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.Download className="h-4 w-4" />
                 Downloading
               </span>
             </button>
           ) : (
-            <button onClick={() => onRequest(item)} className="btn-primary flex-1">
+            <button onClick={() => onRequest(item)} className="btn-primary w-full">
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.Plus className="h-4 w-4" />
                 Request {item.mediaType === 'movie' ? 'Movie' : 'Series'}
+              </span>
+            </button>
+          )}
+
+          {/* Secondary CTA: Request Improvement — untuk film yang udah AVAILABLE/PROCESSING.
+              Use case: minta subtitle, complaint kualitas, episode hilang, dll. */}
+          {(isAvailable || isProcessing) && onRequestImprovement && (
+            <button
+              onClick={() => onRequestImprovement(item)}
+              className="w-full rounded-full border border-white/15 bg-white/[0.04] py-2.5 text-sm font-medium text-white/80 transition-colors hover:border-white/25 hover:bg-white/[0.08] hover:text-white"
+            >
+              <span className="inline-flex items-center justify-center gap-1.5">
+                <Icons.MessageSquare className="h-4 w-4" />
+                Request Improvement
               </span>
             </button>
           )}

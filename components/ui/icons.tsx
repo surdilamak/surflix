@@ -10,6 +10,7 @@ import {
   ChevronLeft, AlertCircle, ExternalLink, LogOut, Mail, Film,
   Tv, Waves, Eye, EyeOff, Bell, MoreHorizontal, Loader2,
   CheckCircle2, XCircle, Sparkles, ArrowRight, ArrowLeft, Calendar,
+  MessageSquare,
 } from 'lucide-react';
 
 export const Icons = {
@@ -18,6 +19,7 @@ export const Icons = {
   ChevronLeft, AlertCircle, ExternalLink, LogOut, Mail, Film,
   Tv, Waves, Eye, EyeOff, Bell, MoreHorizontal, Loader2,
   CheckCircle2, XCircle, Sparkles, ArrowRight, ArrowLeft, Calendar,
+  MessageSquare,
 };
 
 export type IconName = keyof typeof Icons;

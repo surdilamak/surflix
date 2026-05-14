@@ -24,6 +24,7 @@ model Guest {
   lastActive DateTime @default(now())
 
   requests     Request[]
+  remarks      Remark[]
   magicTokens  MagicToken[]
 
   @@index([email])
@@ -98,6 +99,47 @@ model Request {
 // AVAILABLE        : udah ready di Jellyfin
 // FAILED           : gagal di-process
 // =====================================================
+
+// =====================================================
+// REMARK: catatan/improvement request dari guest untuk film yang
+// sudah ada di library (AVAILABLE) atau lagi di-download (PROCESSING).
+// Contoh: "tolong tambah subtitle Indo", "file jelek, replace please".
+// Beda dari Request: Remark gak perlu approve/reject flow, cuma
+// informational ke admin untuk action manual (replace file, add srt, dll).
+// =====================================================
+model Remark {
+  id        String   @id @default(cuid())
+  guestId   String
+
+  // TMDB metadata (snapshot saat remark dibuat)
+  tmdbId       Int
+  mediaType    String   // "movie" | "tv"
+  title        String
+  posterPath   String?
+
+  // Snapshot state media pas remark dibuat — biar admin tau context
+  // "AVAILABLE" atau "PROCESSING" (atau "PARTIALLY_AVAILABLE")
+  mediaStatus  String
+
+  // Catatan dari guest (WAJIB untuk remark, beda dari Request.guestNote yang optional)
+  note         String
+
+  // Status workflow: PENDING (baru masuk) → REVIEWED (admin udah liat) → RESOLVED (admin udah action) atau DISMISSED
+  status       String   @default("PENDING")
+  adminNote    String?
+
+  // Timestamps
+  createdAt   DateTime  @default(now())
+  reviewedAt  DateTime?
+  resolvedAt  DateTime?
+
+  guest Guest @relation(fields: [guestId], references: [id], onDelete: Cascade)
+
+  @@index([guestId])
+  @@index([status])
+  @@index([tmdbId, mediaType])
+  @@index([createdAt])
+}
 
 // =====================================================
 // ADMIN: cuma lo (atau co-admin kalau perlu nanti)

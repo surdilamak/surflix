@@ -9,6 +9,7 @@ import { JellyseerrMediaItem } from '@/lib/jellyseerr';
 import { PosterCard } from '@/components/ui/poster-card';
 import { DetailModal } from '@/components/ui/detail-modal';
 import { RequestFormModal } from '@/components/ui/request-form-modal';
+import { RemarkFormModal } from '@/components/ui/remark-form-modal';
 import { Toast } from '@/components/ui/toast';
 import { PosterGridSkeleton } from '@/components/ui/skeleton';
 import { QuickFilterChips } from '@/components/ui/quick-filter-chips';
@@ -39,6 +40,7 @@ export default function HomePage() {
   const [selectedItem, setSelectedItem] = useState<JellyseerrMediaItem | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
   const [requestOpen, setRequestOpen] = useState(false);
+  const [remarkOpen, setRemarkOpen] = useState(false);
   const [toast, setToast] = useState<{ message: string; variant: 'success' | 'error' } | null>(null);
 
   useEffect(() => {
@@ -129,6 +131,18 @@ export default function HomePage() {
     setToast({ message: 'Request lo udah masuk! Admin akan review dalam 1-3 hari.', variant: 'success' });
     setTimeout(() => setToast(null), 4500);
     setTimeout(loadMostRequested, 1500);
+  }
+
+  function handleRemarkClick(item: JellyseerrMediaItem) {
+    setSelectedItem(item);
+    setDetailOpen(false);
+    setRemarkOpen(true);
+  }
+
+  function handleRemarkSuccess() {
+    setRemarkOpen(false);
+    setToast({ message: 'Catatan lo udah masuk. Makasih ya!', variant: 'success' });
+    setTimeout(() => setToast(null), 4500);
   }
 
   const greeting = guestName ? `Hi ${guestName.split(' ')[0]} 👋` : 'Mau request film apa?';
@@ -258,8 +272,15 @@ export default function HomePage() {
         )}
       </div>
 
-      <DetailModal item={selectedItem} open={detailOpen} onClose={() => setDetailOpen(false)} onRequest={handleRequestClick} />
+      <DetailModal
+        item={selectedItem}
+        open={detailOpen}
+        onClose={() => setDetailOpen(false)}
+        onRequest={handleRequestClick}
+        onRequestImprovement={handleRemarkClick}
+      />
       <RequestFormModal item={selectedItem} open={requestOpen} onClose={() => setRequestOpen(false)} onSuccess={handleRequestSuccess} />
+      <RemarkFormModal item={selectedItem} open={remarkOpen} onClose={() => setRemarkOpen(false)} onSuccess={handleRemarkSuccess} />
       <Toast message={toast?.message || ''} variant={toast?.variant} open={!!toast} onClose={() => setToast(null)} />
     </>
   );

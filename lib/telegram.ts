@@ -191,6 +191,67 @@ export async function notifyNewRequest(params: {
 }
 
 /**
+ * Notify admin tentang remark (improvement request) baru
+ * Beda dari notifyNewRequest: gak ada Approve/Reject button (remark butuh action manual),
+ * cuma tombol "Open in Surflix" buat liat detail.
+ */
+export async function notifyNewRemark(params: {
+  remarkId: string;
+  guestName: string;
+  title: string;
+  mediaType: 'movie' | 'tv';
+  year?: string;
+  posterPath?: string | null;
+  mediaStatus: string; // AVAILABLE | PROCESSING | PARTIALLY_AVAILABLE
+  note: string;
+}) {
+  if (!isConfigured()) return;
+
+  const typeLabel = params.mediaType === 'movie' ? 'Movie' : 'TV Series';
+  const typeIcon = params.mediaType === 'movie' ? '🎬' : '📺';
+
+  const statusBadge =
+    params.mediaStatus === 'AVAILABLE' ? '✅ Available' :
+    params.mediaStatus === 'PROCESSING' ? '⏳ Downloading' :
+    params.mediaStatus === 'PARTIALLY_AVAILABLE' ? '🟡 Partially available' :
+    params.mediaStatus;
+
+  const caption = [
+    `💬 <b>Improvement Request</b>`,
+    '',
+    `<b>${escapeHtml(params.title)}</b>${params.year ? ` (${params.year})` : ''}`,
+    `${typeIcon} ${typeLabel} · ${statusBadge}`,
+    `By <b>${escapeHtml(params.guestName)}</b>`,
+    '',
+    `📝 <i>${escapeHtml(params.note)}</i>`,
+  ].join('\n');
+
+  const buttons: InlineButton[][] = [
+    [
+      { text: '✓ Mark Reviewed', callback_data: `remark-review:${params.remarkId}` },
+      { text: '✅ Mark Resolved', callback_data: `remark-resolve:${params.remarkId}` },
+    ],
+  ];
+
+  const poster = tmdbImage(params.posterPath, 'w500');
+
+  if (poster) {
+    await sendPhoto({
+      chatId: TELEGRAM_ADMIN_CHAT_ID,
+      photoUrl: poster,
+      caption,
+      buttons,
+    });
+  } else {
+    await sendMessage({
+      chatId: TELEGRAM_ADMIN_CHAT_ID,
+      text: caption,
+      buttons,
+    });
+  }
+}
+
+/**
  * Notify admin kalau ada request yang gagal di Jellyseerr
  */
 export async function notifyRequestFailed(params: {

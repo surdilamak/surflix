@@ -14,6 +14,8 @@ import Link from 'next/link';
 import { useAppConfig } from '@/lib/hooks/use-app-config';
 import { PosterCard } from '@/components/ui/poster-card';
 import { DetailModal } from '@/components/ui/detail-modal';
+import { RemarkFormModal } from '@/components/ui/remark-form-modal';
+import { Toast } from '@/components/ui/toast';
 import { PosterGridSkeleton } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Icons } from '@/components/ui/icons';
@@ -43,6 +45,20 @@ export default function LibraryPage() {
 
   const [selectedItem, setSelectedItem] = useState<JellyseerrMediaItem | null>(null);
   const [detailOpen, setDetailOpen] = useState(false);
+  const [remarkOpen, setRemarkOpen] = useState(false);
+  const [toast, setToast] = useState<{ message: string; variant: 'success' | 'error' } | null>(null);
+
+  function handleRemarkClick(item: JellyseerrMediaItem) {
+    setSelectedItem(item);
+    setDetailOpen(false);
+    setRemarkOpen(true);
+  }
+
+  function handleRemarkSuccess() {
+    setRemarkOpen(false);
+    setToast({ message: 'Catatan lo udah masuk. Makasih ya!', variant: 'success' });
+    setTimeout(() => setToast(null), 4500);
+  }
 
   useEffect(() => {
     loadLibrary();
@@ -237,6 +253,21 @@ export default function LibraryPage() {
         open={detailOpen}
         onClose={() => setDetailOpen(false)}
         onRequest={() => {}}
+        onRequestImprovement={handleRemarkClick}
+      />
+
+      <RemarkFormModal
+        item={selectedItem}
+        open={remarkOpen}
+        onClose={() => setRemarkOpen(false)}
+        onSuccess={handleRemarkSuccess}
+      />
+
+      <Toast
+        message={toast?.message || ''}
+        variant={toast?.variant}
+        open={!!toast}
+        onClose={() => setToast(null)}
       />
     </div>
   );
