@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import './globals.css';
 
-const SITE_URL = 'https://request.surflix.my.id';
-const SITE_TITLE = 'Surflix · Request Hub';
+const SITE_URL = 'https://surflix.my.id';
+const SITE_TITLE = 'Surflix · Personal Media Hub';
 const SITE_DESCRIPTION =
   "Your personal media butler. Request a movie, sit back, and we'll have it ready before the popcorn even cools.";
 

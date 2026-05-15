@@ -35,8 +35,9 @@
          │
          ▼
 ┌─────────────────┐
-│  Live di        │  https://request.surflix.my.id
-│  production     │
+│  Live di        │  https://surflix.my.id (Landing)
+│  production     │  → request.surflix.my.id (Hub)
+│                 │  → streaming.surflix.my.id (Jellyfin)
 └─────────────────┘
 ```
 
@@ -84,7 +85,7 @@ SESSION_SECRET=anyrandomstring
 ADMIN_USERNAME=test
 ADMIN_PASSWORD_HASH=<bcrypt-hash-of-your-test-password>
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXT_PUBLIC_JELLYFIN_URL=https://www.surflix.my.id
+NEXT_PUBLIC_JELLYFIN_URL=https://streaming.surflix.my.id
 ```
 
 ### 3. Commit Convention

@@ -202,10 +202,13 @@ services:
 ```
 
 ### Reverse Proxy (Nginx Proxy Manager on Unraid)
-- `https://request.surflix.my.id` → Unraid `192.168.68.8:3737` (Surflix)
-- `https://www.surflix.my.id` → Unraid `192.168.68.8:8096` (Jellyfin, whitelabeled)
+- `https://surflix.my.id` (apex) → Unraid `192.168.68.8:3737` (Surflix, renders Landing via middleware)
+- `https://www.surflix.my.id` → Unraid `192.168.68.8:3737` (Surflix, renders Landing via middleware)
+- `https://request.surflix.my.id` → Unraid `192.168.68.8:3737` (Surflix, Request Hub UI)
+- `https://streaming.surflix.my.id` → Unraid `192.168.68.8:8096` (Jellyfin, whitelabeled)
 - All `/api/*` paths exposed (including `/api/telegram/webhook`)
 - HTTPS termination at NPM (apps run HTTP internally)
+- Cloudflare Tunnel (`cloudflared`) is the public ingress — wildcard `*.surflix.my.id` + apex `surflix.my.id` both forward to NPM
 - Legacy `*.surdilamak.my.id` subdomains: keep as 301 redirects in NPM if still in DNS
 
 ### Docker Image Build

@@ -1,9 +1,17 @@
 /**
  * Middleware — hostname-based routing
  *
- * Apex domain (surflix.my.id, NO www/request subdomain) → rewrite to /landing
- * Subdomain `request.surflix.my.id` → pass through (Request Hub UI)
- * Old apex `surdilamak.my.id` → also routed to /landing for legacy users
+ * Landing page hostnames (rewrites `/` → `/landing`):
+ * - surflix.my.id (apex)
+ * - www.surflix.my.id
+ *
+ * Pass-through hostnames (render Request Hub or other routes normally):
+ * - request.surflix.my.id (Request Hub UI)
+ *
+ * Streaming: streaming.surflix.my.id → Jellyfin (not this app, handled by NPM)
+ *
+ * Legacy domains (also rewritten to landing for transition):
+ * - surdilamak.my.id, www.surdilamak.my.id
  *
  * Static assets (/_next, /api, /favicon, etc.) — bypass via matcher config.
  */
@@ -12,6 +20,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 
 const APEX_HOSTNAMES = new Set([
   'surflix.my.id',
+  'www.surflix.my.id',
   // Legacy support — if anyone still hits these via DNS redirect
   'surdilamak.my.id',
   'www.surdilamak.my.id',
