@@ -33,7 +33,7 @@ Sebelum start, lo butuh:
 3. **Telegram bot**:
    - Chat `@BotFather`, ketik `/newbot`, ikutin instruksi, save token-nya
    - Chat `@userinfobot` buat dapet chat ID lo
-4. **Domain** — `request.surdilamak.my.id` di-point ke Unraid server lo
+4. **Domain** — `request.surflix.my.id` di-point ke Unraid server lo
 
 ### 2. Generate Password Hash
 
@@ -64,7 +64,7 @@ docker compose logs -f surflix
 
 #### SWAG / Nginx Proxy Manager
 Tambahin proxy host baru:
-- Domain: `request.surdilamak.my.id`
+- Domain: `request.surflix.my.id`
 - Forward: `http://<unraid-ip>:3737`
 - SSL: Auto (LetsEncrypt)
 
@@ -74,7 +74,7 @@ Labels udah disiapin di docker-compose.yml, tinggal uncomment.
 ### 6. Jellyseerr Webhook Setup
 
 Di Jellyseerr → Settings → Notifications → Webhook:
-- **Webhook URL**: `https://request.surdilamak.my.id/api/webhooks/jellyseerr`
+- **Webhook URL**: `https://request.surflix.my.id/api/webhooks/jellyseerr`
 - **Authorization Header**: `Bearer <WEBHOOK_SECRET>` (sama dengan di .env)
 - **Notification Types**: enable Media Available, Media Failed, Media Partially Available
 

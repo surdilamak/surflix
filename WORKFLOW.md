@@ -35,7 +35,7 @@
          │
          ▼
 ┌─────────────────┐
-│  Live di        │  https://request.surdilamak.my.id
+│  Live di        │  https://request.surflix.my.id
 │  production     │
 └─────────────────┘
 ```
@@ -84,7 +84,7 @@ SESSION_SECRET=anyrandomstring
 ADMIN_USERNAME=test
 ADMIN_PASSWORD_HASH=<bcrypt-hash-of-your-test-password>
 NEXT_PUBLIC_APP_URL=http://localhost:3000
-NEXT_PUBLIC_JELLYFIN_URL=https://jellyfin.surdilamak.my.id
+NEXT_PUBLIC_JELLYFIN_URL=https://www.surflix.my.id
 ```
 
 ### 3. Commit Convention
@@ -155,11 +155,11 @@ docker-compose -f docker-compose.prod.yml restart
 
 ```bash
 # Check webhook status via Surflix admin
-curl -s https://request.surdilamak.my.id/api/telegram/setup \
+curl -s https://request.surflix.my.id/api/telegram/setup \
   -H "Cookie: surflix_admin_session=<session-cookie>"
 
 # Re-register webhook (after URL change or token rotation)
-curl -X POST https://request.surdilamak.my.id/api/telegram/setup \
+curl -X POST https://request.surflix.my.id/api/telegram/setup \
   -H "Cookie: surflix_admin_session=<session-cookie>"
 
 # Or just klik tombol "Register Webhook" di /admin/settings
@@ -258,7 +258,7 @@ Common causes:
 curl -s https://api.telegram.org/bot<TOKEN>/getWebhookInfo
 
 # Verify:
-# - URL points to https://request.surdilamak.my.id/api/telegram/webhook?secret=...
+# - URL points to https://request.surflix.my.id/api/telegram/webhook?secret=...
 # - No "last_error_message"
 # - "pending_update_count": 0
 
@@ -289,7 +289,7 @@ Lihat `.env.example` di repo.
 - `SESSION_SECRET` — 32+ char random string
 - `ADMIN_USERNAME` — bootstrap admin
 - `ADMIN_PASSWORD_HASH` — bcrypt hash (escape `$` to `$$` in Docker Compose)
-- `NEXT_PUBLIC_APP_URL` — public HTTPS URL (e.g. `https://request.surdilamak.my.id`)
+- `NEXT_PUBLIC_APP_URL` — public HTTPS URL (e.g. `https://request.surflix.my.id`)
 - `NEXT_PUBLIC_JELLYFIN_URL` — public Jellyfin URL
 - `WEBHOOK_SECRET` — for Telegram webhook & Jellyseerr webhook auth
 

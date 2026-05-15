@@ -25,7 +25,7 @@ Cara paling proper buat deploy Surflix: pakai GitHub untuk source code + GHCR (G
                                            ▼
                               ┌─────────────────────────┐
                               │  Unraid Server          │
-                              │  request.surdilamak...  │
+                              │  request.surflix.my.id  │
                               └─────────────────────────┘
 ```
 

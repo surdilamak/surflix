@@ -201,10 +201,12 @@ services:
       # ... env from .env file
 ```
 
-### Reverse Proxy
-- `https://request.surdilamak.my.id` → Unraid `192.168.68.8:3737`
+### Reverse Proxy (Nginx Proxy Manager on Unraid)
+- `https://request.surflix.my.id` → Unraid `192.168.68.8:3737` (Surflix)
+- `https://www.surflix.my.id` → Unraid `192.168.68.8:8096` (Jellyfin, whitelabeled)
 - All `/api/*` paths exposed (including `/api/telegram/webhook`)
-- HTTPS termination at reverse proxy (Surflix runs HTTP internally)
+- HTTPS termination at NPM (apps run HTTP internally)
+- Legacy `*.surdilamak.my.id` subdomains: keep as 301 redirects in NPM if still in DNS
 
 ### Docker Image Build
 - Multi-stage: deps → builder → runner

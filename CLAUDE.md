@@ -8,11 +8,13 @@
 **Surflix** adalah custom request platform buat self-hosted Jellyfin media server. Idrus build ini sebagai alternative dari UI default Jellyseerr, dengan design yang lebih premium dan UX yang lebih ramah untuk guest (keluarga, teman) yang gak mau ngurus akun.
 
 ### Live Deployment
-- **Public URL**: `https://request.surdilamak.my.id`
-- **Jellyfin URL**: `https://jellyfin.surdilamak.my.id`
+- **Public URL**: `https://request.surflix.my.id`
+- **Jellyfin URL**: `https://www.surflix.my.id` (whitelabeled, separate `~/Developer/jellyfin-whitelabel/` project)
 - **Repo**: `github.com/surdilamak/surflix`
 - **Docker Image**: `ghcr.io/surdilamak/surflix:latest` (public, amd64 only)
 - **Self-hosted di**: Unraid server `192.168.68.8`, port `3737`
+- **Reverse proxy**: Nginx Proxy Manager (handles SSL + routing both subdomains)
+- **Legacy URLs** (pre-2026-05-15 rebrand): `request.surdilamak.my.id` & `jellyfin.surdilamak.my.id` — keep as 301 redirects if still in DNS
 
 ### Owner / Admin
 - **Name**: Idrus (works at Accenture as UI/UX consultant)
@@ -186,7 +188,7 @@ docker-compose -f docker-compose.prod.yml up -d
 **Fix needed**: Regenerate API key dari Settings → General Jellyseerr UI dengan admin permission.
 
 ### 2. APP_URL di .env Sometimes Salah
-**Root cause**: Variable bisa keisi sama `http://192.168.68.8:3737` (IP host) instead of `https://request.surdilamak.my.id` (public URL).
+**Root cause**: Variable bisa keisi sama `http://192.168.68.8:3737` (IP host) instead of `https://request.surflix.my.id` (public URL).
 **Fix**: Pastiin always pakai public HTTPS URL.
 
 ### 3. Email (Resend) NOT Configured
