@@ -39,11 +39,18 @@ export default function LandingPage() {
 
   return (
     <div className="relative flex min-h-screen flex-col bg-black">
-      {/* Ambient gradient bg */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute -top-32 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-surflix-500/20 blur-[120px]" />
-        <div className="absolute bottom-0 left-0 h-[400px] w-[400px] rounded-full bg-ios-orange/10 blur-[120px]" />
-      </div>
+      {/* Ambient gradient bg (radial-gradient, NOT filter:blur — Safari iOS has render
+          bugs with large blur values that cause infinite loading) */}
+      <div
+        className="pointer-events-none absolute inset-0 -z-10"
+        style={{
+          background: `
+            radial-gradient(ellipse 700px 500px at 50% 0%, rgba(255, 107, 53, 0.22), transparent 60%),
+            radial-gradient(ellipse 500px 400px at 0% 100%, rgba(255, 107, 53, 0.12), transparent 65%),
+            radial-gradient(ellipse 600px 500px at 100% 100%, rgba(230, 57, 70, 0.10), transparent 60%)
+          `,
+        }}
+      />
 
       {/* Hero */}
       <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col px-5 py-10 md:py-16">
