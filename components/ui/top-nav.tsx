@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { useAppConfig } from '@/lib/hooks/use-app-config';
 import { Icons } from './icons';
 
 const tabs = [
@@ -25,6 +26,8 @@ interface TopNavProps {
 
 export function TopNav({ guestName, pendingCount = 0 }: TopNavProps) {
   const pathname = usePathname();
+  const config = useAppConfig();
+  const jellyfinUrl = config?.jellyfinUrl || 'https://www.surflix.my.id';
 
   return (
     <header className="sticky top-0 z-50 hidden border-b border-white/[0.08] backdrop-blur-ios md:block">
@@ -71,7 +74,18 @@ export function TopNav({ guestName, pendingCount = 0 }: TopNavProps) {
             </nav>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
+            {/* Cross-link: Watch on Surflix → Jellyfin */}
+            <a
+              href={jellyfinUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full border border-surflix-500/30 bg-surflix-500/10 px-3 py-1.5 text-xs font-medium text-surflix-500 transition-colors hover:bg-surflix-500/20"
+            >
+              <Icons.Play className="h-3 w-3" />
+              Watch on Surflix
+            </a>
+
             {guestName ? (
               <div className="flex items-center gap-2">
                 <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-ios-orange to-surflix-500 text-xs font-medium text-white">
