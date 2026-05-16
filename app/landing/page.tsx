@@ -69,7 +69,7 @@ export default function LandingPage() {
             className="h-12 w-auto md:h-14"
           />
           <p className="mt-3 text-[11px] font-medium uppercase tracking-[0.25em] text-white/40 md:text-xs">
-            Personal Media Hub
+            Bioskop di rumah aja
           </p>
         </motion.div>
 
@@ -87,18 +87,18 @@ export default function LandingPage() {
               <Icons.Play className="h-7 w-7 md:h-8 md:w-8" />
             </div>
             <h2 className="text-2xl font-semibold tracking-tighter md:text-3xl">
-              Watch on Surflix
+              Mulai Nonton
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-white/60 md:text-base">
-              Stream movies & series from the family library. Open the Jellyfin player.
+              Buka library film & series — langsung play, tanpa ribet, tanpa iklan.
             </p>
             {stats && (stats.moviesCount > 0 || stats.seriesCount > 0) && (
               <p className="mt-3 text-[11px] text-white/40 md:text-xs">
-                {stats.moviesCount.toLocaleString()} movies · {stats.seriesCount.toLocaleString()} series
+                {stats.moviesCount.toLocaleString()} film · {stats.seriesCount.toLocaleString()} series
               </p>
             )}
             <div className="mt-6 flex items-center gap-1.5 text-sm font-medium text-surflix-500 md:mt-8">
-              Open library
+              Buka library
               <Icons.ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </div>
           </motion.a>
@@ -115,16 +115,16 @@ export default function LandingPage() {
               <Icons.Plus className="h-7 w-7 md:h-8 md:w-8" />
             </div>
             <h2 className="text-2xl font-semibold tracking-tighter md:text-3xl">
-              Request Content
+              Request Film
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-white/60 md:text-base">
-              Can't find what you want? Request new movies or series — we'll add them to the library.
+              Gak nemu film yang lo mau tonton? Request aja di sini, nanti gw tambahin ke library.
             </p>
             <p className="mt-3 text-[11px] text-white/40 md:text-xs">
-              Free to request · Admin reviews within 1-3 days
+              Gratis · Direview 1-3 hari
             </p>
             <div className="mt-6 flex items-center gap-1.5 text-sm font-medium text-ios-blue md:mt-8">
-              Open request hub
+              Buka request hub
               <Icons.ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </div>
           </motion.a>
@@ -137,7 +137,7 @@ export default function LandingPage() {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="mt-12 flex flex-col items-center gap-1 text-center text-[11px] text-white/30 md:mt-16 md:text-xs"
         >
-          <p>Self-hosted at home · Maintained with love by Idrus</p>
+          <p>Self-hosted di rumah · Dirawat sama Idrus</p>
           <p className="text-white/20">
             Powered by Jellyfin · Built with Next.js
           </p>

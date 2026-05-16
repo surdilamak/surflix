@@ -46,9 +46,12 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
           if (n) setName(n);
         } catch {}
       }
-      // Reset note when reopening
+      // Reset transient state when reopening — onSuccess never resets loading,
+      // so without this the submit button stays stuck in loading on the next open.
       setNote('');
       setShowNoteField(false);
+      setLoading(false);
+      setError(null);
     }
   }, [open]);
 

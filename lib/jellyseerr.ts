@@ -78,17 +78,12 @@ class JellyseerrClient {
   }
 
   /**
-   * Search movie/TV via Jellyseerr (yang udah include TMDB metadata + library status)
-   * Pakai paramsSerializer yang benar buat encode spasi dan reserved chars
+   * Search movie/TV/person via Jellyseerr.
+   * URLSearchParams encodes spaces as `+` which Jellyseerr rejects — must use %20 via encodeURIComponent.
    */
   async search(query: string, page = 1): Promise<JellyseerrSearchResult> {
-    // Build query string manual biar pasti ke-encode dengan benar
-    const params = new URLSearchParams({
-      query: query.trim(),
-      page: page.toString(),
-      language: 'en',
-    });
-    const { data } = await this.client.get(`/search?${params.toString()}`);
+    const url = `/search?query=${encodeURIComponent(query.trim())}&page=${page}&language=en`;
+    const { data } = await this.client.get(url);
     return data;
   }
 
@@ -150,6 +145,18 @@ class JellyseerrClient {
    */
   async getMediaDetail(mediaType: 'movie' | 'tv', tmdbId: number) {
     const { data } = await this.client.get(`/${mediaType}/${tmdbId}`);
+    return data;
+  }
+
+  /**
+   * Fetch combined movie + TV credits for a person (director/actor lookup).
+   * Returns both `cast` (acting credits) and `crew` (directing/writing/producing).
+   */
+  async getPersonCombinedCredits(personId: number): Promise<{
+    cast: JellyseerrMediaItem[];
+    crew: Array<JellyseerrMediaItem & { job?: string }>;
+  }> {
+    const { data } = await this.client.get(`/person/${personId}/combined_credits`);
     return data;
   }
 

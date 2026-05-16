@@ -49,6 +49,7 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
       }
       setNote('');
       setError(null);
+      setLoading(false);
     }
   }, [open]);
 
