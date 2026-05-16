@@ -16,14 +16,18 @@
 
 services:
   surflix:
-    # Ganti 'idrus/surflix' sesuai username GitHub lo
-    image: ghcr.io//surflix:latest
+    image: ghcr.io/surdilamak/surflix:latest
     container_name: surflix
     restart: unless-stopped
     pull_policy: always
 
     ports:
       - "3737:3000"
+
+    # Required so JELLYSEERR_URL=http://host.docker.internal:5055 resolves to the
+    # Unraid host (Jellyseerr runs in a separate container exposed on the host).
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
     environment:
       NODE_ENV: production
