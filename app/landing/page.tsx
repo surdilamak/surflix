@@ -38,17 +38,31 @@ export default function LandingPage() {
   const requestUrl = 'https://request.surflix.my.id';
 
   return (
-    <div className="relative flex min-h-screen flex-col bg-black">
-      {/* Ambient gradient bg — radial-gradient (not filter:blur, Safari iOS render bug).
-          Orange glow on left (matches Watch card), purple on right (matches Request card). */}
+    <div className="relative flex min-h-screen flex-col" style={{ backgroundColor: '#0a0612' }}>
+      {/* Ambient gradient mesh — radial-gradient only (Safari iOS bans filter:blur,
+          per safari-ios-blur-bug memory + commit 8a1f4f1). High-opacity multi-color
+          blobs to actually read as atmospheric, not flat black.
+          Orange/pink left = Watch card side · Purple/indigo right = Request card side. */}
       <div
         className="pointer-events-none absolute inset-0 -z-10"
         style={{
           background: `
-            radial-gradient(ellipse 700px 500px at 15% 30%, rgba(255, 159, 10, 0.22), transparent 60%),
-            radial-gradient(ellipse 700px 500px at 85% 70%, rgba(191, 90, 242, 0.18), transparent 60%),
-            radial-gradient(ellipse 500px 400px at 50% 110%, rgba(255, 159, 10, 0.08), transparent 65%)
+            radial-gradient(ellipse 1200px 900px at 5% 15%, rgba(255, 140, 50, 0.55), transparent 50%),
+            radial-gradient(ellipse 1100px 900px at 95% 85%, rgba(168, 85, 247, 0.50), transparent 50%),
+            radial-gradient(ellipse 900px 700px at 50% 105%, rgba(255, 90, 60, 0.30), transparent 55%),
+            radial-gradient(ellipse 800px 600px at 70% 5%, rgba(236, 72, 153, 0.28), transparent 50%),
+            radial-gradient(ellipse 700px 600px at 15% 95%, rgba(99, 102, 241, 0.25), transparent 55%)
           `,
+        }}
+      />
+
+      {/* Film grain — subtle SVG noise overlay for cinematic texture. */}
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.10]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml;utf8,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundRepeat: 'repeat',
+          backgroundSize: '180px 180px',
         }}
       />
 
@@ -69,7 +83,7 @@ export default function LandingPage() {
             className="h-12 w-auto md:h-14"
           />
           <p className="mt-3 text-[11px] font-medium uppercase tracking-[0.25em] text-white/40 md:text-xs">
-            Bioskop di rumah aja
+            A Cinephile's Sanctuary
           </p>
         </motion.div>
 
@@ -87,10 +101,10 @@ export default function LandingPage() {
               <Film className="h-7 w-7 md:h-8 md:w-8" strokeWidth={1.75} />
             </div>
             <h2 className="text-2xl font-semibold tracking-tighter md:text-3xl">
-              Press Play
+              Streaming
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-white/60 md:text-[15px]">
-              Buka library film & series. Klik, langsung nonton.
+              Koleksi pribadi yang dikumpulin tahun ke tahun, film favorit, hidden gems, comfort movies. Tinggal klik.
             </p>
             {stats && (stats.moviesCount > 0 || stats.seriesCount > 0) && (
               <p className="mt-3 text-[11px] text-white/40 md:text-xs">
@@ -115,13 +129,13 @@ export default function LandingPage() {
               <Sparkles className="h-7 w-7 md:h-8 md:w-8" strokeWidth={1.75} />
             </div>
             <h2 className="text-2xl font-semibold tracking-tighter md:text-3xl">
-              Drop a Wish
+              Request Hub
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-white/60 md:text-[15px]">
-              Gak nemu yang lo cari? Request aja, nanti ditambahin ke library.
+              Ada film yang lo kangenin atau pengen dibahas bareng? Drop request lo, gw tambahin biar bisa ditonton sama keluarga.
             </p>
             <p className="mt-3 text-[11px] text-white/40 md:text-xs">
-              Gratis · Direview 1-3 hari
+              Direview 1-3 hari kalo lagi free
             </p>
             <div className="mt-5 flex items-center gap-1.5 text-sm font-medium text-ios-purple md:mt-6">
               Buka request hub
@@ -130,16 +144,26 @@ export default function LandingPage() {
           </motion.a>
         </div>
 
+        {/* Disclaimer — sets the personal, non-commercial tone for guests */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mx-auto mt-10 max-w-2xl text-center text-[13px] leading-relaxed text-white/50 md:mt-14 md:text-sm"
+        >
+          Quick context: Surflix isn't a streaming service, it's a private movie sanctuary yang gw build buat friends & family who genuinely love films. Whether lo di sini buat nostalgia film favorit, casual movie marathon, atau lagi cari bahan buat review, tempat ini dimanage personally, dirawat dengan cinta, no ads, no tracking, no corporate BS. Stay a while.
+        </motion.p>
+
         {/* Footer info */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.4 }}
-          className="mt-10 flex flex-col items-center gap-1 text-center text-[11px] text-white/30 md:mt-14 md:text-xs"
+          className="mt-6 flex flex-col items-center gap-1 text-center text-[11px] text-white/30 md:mt-8 md:text-xs"
         >
           <p>Self-hosted at surdi Homelab</p>
           <p className="text-white/20">
-            Powered by Jellyfin · Built with Next.js
+            Powered by surdi's data center · Modern tech stack · Est. 2022
           </p>
         </motion.div>
       </div>
