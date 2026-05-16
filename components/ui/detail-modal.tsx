@@ -207,7 +207,12 @@ function ModalContent({
       <div className="space-y-4 p-4 md:p-5">
         <div className="flex flex-col gap-2">
           {isAvailable ? (
-            <a href={jellyfinUrl} target="_blank" rel="noopener" className="btn-primary w-full text-center">
+            <a
+              href={jellyfinUrl}
+              target="_blank"
+              rel="noopener"
+              className="w-full rounded-full bg-ios-orange px-5 py-2.5 text-center text-sm font-semibold tracking-tight text-black transition-all hover:bg-ios-orange/90 active:scale-95"
+            >
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.Play className="h-4 w-4" />
                 Watch on Surflix

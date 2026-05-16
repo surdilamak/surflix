@@ -75,12 +75,13 @@ export function TopNav({ guestName, pendingCount = 0 }: TopNavProps) {
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Cross-link: Watch on Surflix → Jellyfin */}
+            {/* Cross-link: Watch on Surflix → Jellyfin. Orange (ios-orange) to
+                visually pair with the landing page's orange Watch card. */}
             <a
               href={jellyfinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full border border-surflix-500/30 bg-surflix-500/10 px-3 py-1.5 text-xs font-medium text-surflix-500 transition-colors hover:bg-surflix-500/20"
+              className="inline-flex items-center gap-1.5 rounded-full border border-ios-orange/30 bg-ios-orange/10 px-3 py-1.5 text-xs font-medium text-ios-orange transition-colors hover:bg-ios-orange/20"
             >
               <Icons.Play className="h-3 w-3" />
               Watch on Surflix
