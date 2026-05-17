@@ -37,7 +37,7 @@ export function Hero({ item, rank = 1, onRequest, onDetail }: HeroProps) {
           sizes="100vw"
         />
       ) : (
-        <div className="h-full w-full bg-gradient-to-br from-purple-900/40 via-blue-900/40 to-red-900/40" />
+        <div className="h-full w-full bg-gradient-to-br from-white/[0.04] via-white/[0.02] to-white/[0.04]" />
       )}
 
       {/* Gradient overlays */}

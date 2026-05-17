@@ -75,13 +75,15 @@ export function TopNav({ guestName, pendingCount = 0 }: TopNavProps) {
           </div>
 
           <div className="flex items-center gap-3">
-            {/* Cross-link: Watch on Surflix → Jellyfin. Orange (ios-orange) to
-                visually pair with the landing page's orange Watch card. */}
+            {/* Cross-link: Watch on Surflix → Jellyfin. Neutral white-based
+                surface (matches landing card chrome); orange lives in the icon
+                + label so the brand identity reads through type, not the
+                container. */}
             <a
               href={jellyfinUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 rounded-full border border-ios-orange/30 bg-ios-orange/10 px-3 py-1.5 text-xs font-medium text-ios-orange transition-colors hover:bg-ios-orange/20"
+              className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.02] px-3 py-1.5 text-xs font-medium text-ios-orange/90 transition-colors hover:border-white/15 hover:bg-white/[0.05]"
             >
               <Icons.Play className="h-3 w-3" />
               Watch on Surflix
@@ -89,7 +91,7 @@ export function TopNav({ guestName, pendingCount = 0 }: TopNavProps) {
 
             {guestName ? (
               <div className="flex items-center gap-2">
-                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-ios-orange to-surflix-500 text-xs font-medium text-white">
+                <div className="flex h-7 w-7 items-center justify-center rounded-full bg-ios-orange/15 text-xs font-medium text-ios-orange/90">
                   {guestName.charAt(0).toUpperCase()}
                 </div>
                 <span className="hidden text-sm text-white/70 sm:inline">{guestName}</span>
