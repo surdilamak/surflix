@@ -12,9 +12,9 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useAppConfig } from '@/lib/hooks/use-app-config';
-import { Film, Sparkles, ArrowRight } from 'lucide-react';
+import { Film, Sparkles, ArrowRight, Coffee, X } from 'lucide-react';
 
 interface LibraryStats {
   moviesCount: number;
@@ -24,6 +24,7 @@ interface LibraryStats {
 export default function LandingPage() {
   const config = useAppConfig();
   const [stats, setStats] = useState<LibraryStats | null>(null);
+  const [coffeeOpen, setCoffeeOpen] = useState(false);
 
   useEffect(() => {
     fetch('/api/library-stats')
@@ -148,16 +149,88 @@ export default function LandingPage() {
           Surflix isn't a streaming service, it's a private movie sanctuary yang gw build buat friends & family who genuinely love films. Dimanage personally, tended like a garden, no ads, no tracking. Stay a while.
         </motion.p>
 
+        {/* Coffee jar — gentle, optional gesture. Sits between disclaimer and
+            footer so it reads as a soft P.S., not a paywall. Tone is
+            understated: "the jar is open if you want it", never pushy. */}
+        <motion.div
+          initial={{ opacity: 0, y: 8 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.5 }}
+          className="mx-auto mt-12 flex max-w-md flex-col items-center text-center md:mt-16"
+        >
+          <p className="text-[13px] leading-relaxed text-white/45 md:text-[14px]">
+            Servers hum, storage fills up, and curation happens at strange hours. If Surflix has earned a quiet corner of your week, the coffee jar is open.
+          </p>
+          <button
+            type="button"
+            onClick={() => setCoffeeOpen(true)}
+            className="mt-5 inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.02] px-4 py-2 text-[13px] font-medium text-ios-orange/90 transition-colors hover:border-white/15 hover:bg-white/[0.05]"
+          >
+            <Coffee className="h-4 w-4" strokeWidth={1.75} />
+            Buy me a coffee
+          </button>
+        </motion.div>
+
         {/* Footer — infra + founding year. Stats live above as social proof. */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-14 text-center text-[11px] text-white/25 md:mt-20"
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="mt-10 text-center text-[11px] text-white/25 md:mt-14"
         >
           Self-hosted at surdi Homelab · Modern tech stack · Est. 2022
         </motion.p>
       </div>
+
+      {/* Coffee QR popup — fades over the page with a centered card. QR image
+          is sourced from /public/qr-coffee.png; drop the actual payment QR
+          (GoPay/OVO/DANA/Saweria/etc.) at that path. */}
+      <AnimatePresence>
+        {coffeeOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => setCoffeeOpen(false)}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-6 backdrop-blur-sm"
+          >
+            <motion.div
+              initial={{ scale: 0.94, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.94, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative w-full max-w-[280px] rounded-2xl border border-white/[0.08] bg-[#111114] p-4 text-center"
+            >
+              <button
+                type="button"
+                onClick={() => setCoffeeOpen(false)}
+                aria-label="Close"
+                className="absolute right-2 top-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-black/40 text-white/70 transition-colors hover:bg-black/60 hover:text-white"
+              >
+                <X className="h-4 w-4" strokeWidth={2} />
+              </button>
+
+              {/* QR image already carries its own branding (QRIS card with logos
+                  + merchant name); show it as-is in a rounded frame, no double
+                  white wrapper, no redundant scan label. */}
+              <div className="overflow-hidden rounded-xl bg-white">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src="/qr-coffee.png"
+                  alt="Surflix coffee donation QR code"
+                  className="block h-auto w-full"
+                />
+              </div>
+
+              <p className="mt-3 text-[11px] leading-relaxed text-white/40">
+                Thanks for keeping the projector humming.
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
