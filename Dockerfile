@@ -41,6 +41,9 @@ COPY --from=builder --chown=surflix:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=surflix:nodejs /app/.next/static ./.next/static
 COPY --from=builder --chown=surflix:nodejs /app/public ./public
 
+# One-off migration / utility scripts (run via docker exec)
+COPY --from=builder --chown=surflix:nodejs /app/scripts ./scripts
+
 # Copy Prisma schema, generated client, AND prisma binary
 COPY --from=builder --chown=surflix:nodejs /app/prisma ./prisma
 COPY --from=builder --chown=surflix:nodejs /app/node_modules/.prisma ./node_modules/.prisma
