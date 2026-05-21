@@ -9,6 +9,8 @@ import { z } from 'zod';
 import { prisma } from '@/lib/db';
 import { requireAdmin } from '@/lib/session';
 import { sendRejectionNotification } from '@/lib/email';
+import { sendPushToGuest } from '@/lib/push';
+import { buildStatusChangeNotif } from '@/lib/notif-messages';
 
 const schema = z.object({
   requestId: z.string().cuid(),
@@ -62,6 +64,18 @@ export async function POST(req: NextRequest) {
     title: updated.title,
     reason: body.reason,
   }).catch((err) => console.error('[Email notify failed]', err));
+
+  const pushPayload = buildStatusChangeNotif({
+    title: updated.title,
+    status: 'REJECTED',
+    previousStatus: 'PENDING_ADMIN',
+    adminNote: body.reason ?? null,
+  });
+  if (pushPayload) {
+    sendPushToGuest(updated.guestId, pushPayload).catch((err) =>
+      console.error('[Push notify failed]', err)
+    );
+  }
 
   return NextResponse.json({ success: true, request: updated });
 }

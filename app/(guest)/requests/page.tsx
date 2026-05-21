@@ -2,74 +2,86 @@
  * My Requests Page (/requests) — cookie-based
  *
  * Read guestId dari localStorage, fetch request list by guestId.
- * No email/magic link needed.
+ * Polling-based silent refresh + browser Notification when status changes.
  */
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Icons } from '@/components/ui/icons';
 import { EmptyState } from '@/components/ui/empty-state';
 import { cn } from '@/lib/utils';
-
-interface RequestRow {
-  id: string;
-  title: string;
-  mediaType: 'movie' | 'tv';
-  posterPath?: string | null;
-  status: string;
-  requestedAt: string;
-  approvedAt?: string | null;
-  availableAt?: string | null;
-  adminNote?: string | null;
-}
+import { useRequestPolling, PolledRequest } from '@/lib/hooks/use-request-polling';
+import { buildStatusChangeNotif } from '@/lib/notif-messages';
+import { NotificationToggle } from '@/components/ui/notification-toggle';
 
 const STORAGE_KEY = 'surflix_guest_info';
 
 export default function RequestsPage() {
   const [guestId, setGuestId] = useState<string | null>(null);
   const [guestName, setGuestName] = useState<string | null>(null);
-  const [requests, setRequests] = useState<RequestRow[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [bootstrapped, setBootstrapped] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          if (parsed.guestId) {
-            setGuestId(parsed.guestId);
-            setGuestName(parsed.name);
-            loadRequests(parsed.guestId);
-            return;
-          }
-        } catch {}
-      }
-      setLoading(false);
+    if (typeof window === 'undefined') return;
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try {
+        const parsed = JSON.parse(saved);
+        if (parsed.guestId) {
+          setGuestId(parsed.guestId);
+          setGuestName(parsed.name || null);
+        }
+      } catch {}
     }
+    setBootstrapped(true);
   }, []);
 
-  async function loadRequests(id: string) {
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/requests/by-guest?id=${encodeURIComponent(id)}`);
-      if (!res.ok) {
-        setRequests([]);
-        return;
+  const handleStatusChanges = useCallback(
+    (changes: { request: PolledRequest; previousStatus: string }[]) => {
+      if (typeof window === 'undefined') return;
+      if (!('Notification' in window) || Notification.permission !== 'granted') return;
+
+      for (const { request, previousStatus } of changes) {
+        const payload = buildStatusChangeNotif({
+          title: request.title,
+          status: request.status,
+          previousStatus,
+          adminNote: request.adminNote,
+        });
+        if (!payload) continue;
+        try {
+          const notif = new Notification(payload.title, {
+            body: payload.body,
+            tag: `${request.id}-${payload.tag}`,
+            icon: '/icon-192.png',
+            badge: '/icon-192.png',
+          });
+          if (payload.url) {
+            notif.onclick = () => {
+              window.focus();
+              window.location.href = payload.url!;
+              notif.close();
+            };
+          }
+        } catch {
+          // Notification may throw on iOS / unsupported — gak masalah, polling jalan terus
+        }
       }
-      const data = await res.json();
-      setRequests(data.requests || []);
-    } catch {
-      setRequests([]);
-    } finally {
-      setLoading(false);
-    }
-  }
+    },
+    []
+  );
+
+  const { requests, loading, refresh } = useRequestPolling({
+    guestId,
+    intervalMs: 60_000,
+    onChange: handleStatusChanges,
+  });
 
   function handleReset() {
     if (confirm('Yakin mau reset history? Lo bakal kehilangan akses ke request lama.')) {
       localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem('surflix_request_seen_status');
       window.location.reload();
     }
   }
@@ -77,7 +89,7 @@ export default function RequestsPage() {
   // === RENDER ===
 
   // No guest data — first time user
-  if (!guestId && !loading) {
+  if (bootstrapped && !guestId) {
     return (
       <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center px-4">
         <div className="text-center">
@@ -110,10 +122,21 @@ export default function RequestsPage() {
             </p>
           )}
         </div>
-        <button onClick={handleReset} className="text-xs text-white/40 hover:text-white/70">
-          Reset
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => refresh()}
+            className="text-xs text-white/40 hover:text-white/70"
+            title="Refresh sekarang"
+          >
+            <Icons.RefreshCw className="h-3.5 w-3.5" />
+          </button>
+          <button onClick={handleReset} className="text-xs text-white/40 hover:text-white/70">
+            Reset
+          </button>
+        </div>
       </div>
+
+      {guestId && requests.length > 0 && <NotificationToggle guestId={guestId} />}
 
       {loading ? (
         <div className="space-y-2">
@@ -142,7 +165,7 @@ export default function RequestsPage() {
   );
 }
 
-function RequestRowItem({ request }: { request: RequestRow }) {
+function RequestRowItem({ request }: { request: PolledRequest }) {
   const statusConfig = getStatusConfig(request.status);
 
   return (

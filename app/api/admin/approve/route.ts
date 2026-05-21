@@ -11,6 +11,8 @@ import { prisma } from '@/lib/db';
 import { jellyseerr } from '@/lib/jellyseerr';
 import { requireAdmin } from '@/lib/session';
 import { sendApprovalNotification } from '@/lib/email';
+import { sendPushToGuest } from '@/lib/push';
+import { buildStatusChangeNotif } from '@/lib/notif-messages';
 
 const schema = z.object({
   requestId: z.string().cuid(),
@@ -96,6 +98,18 @@ export async function POST(req: NextRequest) {
     title: updated.title,
     mediaType: updated.mediaType as 'movie' | 'tv',
   }).catch((err) => console.error('[Email notify failed]', err));
+
+  // 6. Web Push (fire and forget)
+  const pushPayload = buildStatusChangeNotif({
+    title: updated.title,
+    status: 'ON_SCHEDULE',
+    previousStatus: 'PENDING_ADMIN',
+  });
+  if (pushPayload) {
+    sendPushToGuest(updated.guestId, pushPayload).catch((err) =>
+      console.error('[Push notify failed]', err)
+    );
+  }
 
   return NextResponse.json({ success: true, request: updated });
 }

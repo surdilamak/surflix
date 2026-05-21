@@ -32,6 +32,7 @@ const NOTE_SUGGESTIONS = [
 
 export function RequestFormModal({ item, open, onClose, onSuccess }: RequestFormModalProps) {
   const [name, setName] = useState('');
+  const [guestId, setGuestId] = useState<string | undefined>(undefined);
   const [note, setNote] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -42,8 +43,9 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
       const saved = localStorage.getItem(GUEST_INFO_KEY);
       if (saved) {
         try {
-          const { name: n } = JSON.parse(saved);
+          const { name: n, guestId: gid } = JSON.parse(saved);
           if (n) setName(n);
+          if (gid) setGuestId(gid);
         } catch {}
       }
       // Reset transient state when reopening — onSuccess never resets loading,
@@ -76,6 +78,7 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           guestName: name.trim(),
+          guestId,
           guestNote: note.trim() || undefined,
           tmdbId: item.id,
           mediaType: item.mediaType,

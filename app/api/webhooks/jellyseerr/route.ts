@@ -15,6 +15,28 @@ import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 import { sendAvailableNotification } from '@/lib/email';
 import { notifyRequestFailed } from '@/lib/telegram';
+import { sendPushToGuest } from '@/lib/push';
+import { buildStatusChangeNotif } from '@/lib/notif-messages';
+
+async function pushIfChanged(
+  request: { guestId: string; title: string; adminNote?: string | null },
+  newStatus: string,
+  prevStatus: string
+) {
+  if (newStatus === prevStatus) return;
+  const payload = buildStatusChangeNotif({
+    title: request.title,
+    status: newStatus,
+    previousStatus: prevStatus,
+    adminNote: request.adminNote ?? null,
+  });
+  if (!payload) return;
+  try {
+    await sendPushToGuest(request.guestId, payload);
+  } catch (err) {
+    console.warn('[Webhook] push failed:', (err as Error).message);
+  }
+}
 
 export async function POST(req: NextRequest) {
   // Verify webhook secret
@@ -73,6 +95,7 @@ export async function POST(req: NextRequest) {
             where: { id: r.id },
             data: { status: 'ON_SCHEDULE' },
           });
+          await pushIfChanged(r, 'ON_SCHEDULE', r.status);
         }
       }
       break;
@@ -93,6 +116,7 @@ export async function POST(req: NextRequest) {
           title: r.title,
           mediaType: r.mediaType as 'movie' | 'tv',
         }).catch(console.error);
+        await pushIfChanged(r, 'AVAILABLE', r.status);
       }
       break;
 
@@ -102,6 +126,7 @@ export async function POST(req: NextRequest) {
           where: { id: r.id },
           data: { status: 'PARTIALLY_AVAILABLE' },
         });
+        await pushIfChanged(r, 'PARTIALLY_AVAILABLE', r.status);
       }
       break;
 
@@ -111,6 +136,7 @@ export async function POST(req: NextRequest) {
           where: { id: r.id },
           data: { status: 'FAILED' },
         });
+        await pushIfChanged(r, 'FAILED', r.status);
       }
       notifyRequestFailed({
         title: media.title || media.name,
@@ -127,6 +153,7 @@ export async function POST(req: NextRequest) {
               where: { id: r.id },
               data: { status: 'PROCESSING' },
             });
+            await pushIfChanged(r, 'PROCESSING', r.status);
           }
         }
       }

@@ -23,11 +23,19 @@ model Guest {
   createdAt  DateTime @default(now())
   lastActive DateTime @default(now())
 
+  // Alias chain: jika Guest ini hasil duplikat (pre-bugfix), `mergedIntoId`
+  // nunjuk ke canonical Guest. APIs ngikutin alias ke root sebelum baca/tulis requests.
+  mergedIntoId String?
+  mergedInto   Guest?  @relation("GuestMerge", fields: [mergedIntoId], references: [id], onDelete: SetNull)
+  aliases      Guest[] @relation("GuestMerge")
+
   requests     Request[]
   remarks      Remark[]
   magicTokens  MagicToken[]
+  pushSubscriptions PushSubscription[]
 
   @@index([email])
+  @@index([mergedIntoId])
 }
 
 // =====================================================
@@ -164,6 +172,26 @@ model RateLimit {
 
   @@unique([ipAddress, endpoint, windowStart])
   @@index([ipAddress, endpoint])
+}
+
+// =====================================================
+// PUSH SUBSCRIPTION: Web Push API subscription per device/browser
+// Satu Guest bisa punya banyak subscription (multi-device).
+// Triggered dari webhook Jellyseerr + admin approve/reject.
+// =====================================================
+model PushSubscription {
+  id        String   @id @default(cuid())
+  guestId   String
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  userAgent String?
+  createdAt DateTime @default(now())
+  lastUsed  DateTime @default(now())
+
+  guest Guest @relation(fields: [guestId], references: [id], onDelete: Cascade)
+
+  @@index([guestId])
 }
 
 // =====================================================

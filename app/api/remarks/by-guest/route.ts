@@ -7,6 +7,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
+import { resolveCanonicalGuestId } from '@/lib/guest';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -17,8 +18,13 @@ export async function GET(req: NextRequest) {
   }
 
   try {
+    const canonicalId = await resolveCanonicalGuestId(id);
+    if (!canonicalId) {
+      return NextResponse.json({ remarks: [], guest: null });
+    }
+
     const guest = await prisma.guest.findUnique({
-      where: { id },
+      where: { id: canonicalId },
       include: {
         remarks: {
           orderBy: { createdAt: 'desc' },

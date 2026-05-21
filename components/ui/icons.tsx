@@ -8,18 +8,18 @@ import {
   Flame, Library, Search, ListChecks, User, Plus, Check, Clock,
   Download, Info, X, Play, Star, ChevronRight, ChevronDown,
   ChevronLeft, AlertCircle, ExternalLink, LogOut, Mail, Film,
-  Tv, Waves, Eye, EyeOff, Bell, MoreHorizontal, Loader2,
+  Tv, Waves, Eye, EyeOff, Bell, BellOff, BellRing, MoreHorizontal, Loader2,
   CheckCircle2, XCircle, Sparkles, ArrowRight, ArrowLeft, Calendar,
-  MessageSquare,
+  MessageSquare, RefreshCw,
 } from 'lucide-react';
 
 export const Icons = {
   Flame, Library, Search, ListChecks, User, Plus, Check, Clock,
   Download, Info, X, Play, Star, ChevronRight, ChevronDown,
   ChevronLeft, AlertCircle, ExternalLink, LogOut, Mail, Film,
-  Tv, Waves, Eye, EyeOff, Bell, MoreHorizontal, Loader2,
+  Tv, Waves, Eye, EyeOff, Bell, BellOff, BellRing, MoreHorizontal, Loader2,
   CheckCircle2, XCircle, Sparkles, ArrowRight, ArrowLeft, Calendar,
-  MessageSquare,
+  MessageSquare, RefreshCw,
 };
 
 export type IconName = keyof typeof Icons;

@@ -19,6 +19,7 @@ import { jellyseerr, JELLYSEERR_STATUS } from '@/lib/jellyseerr';
 import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 import { notifyNewRequest } from '@/lib/telegram';
 import { getYear } from '@/lib/utils';
+import { resolveCanonicalGuestId } from '@/lib/guest';
 
 const requestSchema = z.object({
   guestName: z.string().min(2).max(50),
@@ -74,14 +75,13 @@ export async function POST(req: NextRequest) {
     console.warn('[Request API] Jellyseerr check failed, proceeding anyway');
   }
 
-  // 2. Get or create guest
+  // 2. Get or create guest — follow alias chain to canonical kalau Guest pernah di-merge
   let guest;
   if (body.guestId) {
-    // Returning guest - update name kalau berubah
-    guest = await prisma.guest.findUnique({ where: { id: body.guestId } });
-    if (guest) {
+    const canonicalId = await resolveCanonicalGuestId(body.guestId);
+    if (canonicalId) {
       guest = await prisma.guest.update({
-        where: { id: body.guestId },
+        where: { id: canonicalId },
         data: { name: body.guestName, lastActive: new Date() },
       });
     }

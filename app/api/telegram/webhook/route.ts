@@ -15,6 +15,8 @@ import {
   isConfigured,
 } from '@/lib/telegram';
 import { sendAvailableNotification } from '@/lib/email';
+import { sendPushToGuest } from '@/lib/push';
+import { buildStatusChangeNotif } from '@/lib/notif-messages';
 
 export const dynamic = 'force-dynamic';
 
@@ -142,6 +144,18 @@ async function handleCallbackQuery(callbackQuery: any) {
         guestName: request.guest.name,
         guestNote: request.guestNote,
       });
+
+      // Push to guest
+      const approvedPayload = buildStatusChangeNotif({
+        title: request.title,
+        status: 'ON_SCHEDULE',
+        previousStatus: 'PENDING_ADMIN',
+      });
+      if (approvedPayload) {
+        sendPushToGuest(request.guestId, approvedPayload).catch((err) =>
+          console.error('[TG Push notify failed]', err)
+        );
+      }
     } catch (err: any) {
       console.error('[Telegram Approve] Error:', err.message);
       await updateRequestMessage({
@@ -192,6 +206,18 @@ async function handleCallbackQuery(callbackQuery: any) {
       guestName: request.guest.name,
       guestNote: request.guestNote,
     });
+
+    const rejectedPayload = buildStatusChangeNotif({
+      title: request.title,
+      status: 'REJECTED',
+      previousStatus: 'PENDING_ADMIN',
+      adminNote: 'Rejected via Telegram',
+    });
+    if (rejectedPayload) {
+      sendPushToGuest(request.guestId, rejectedPayload).catch((err) =>
+        console.error('[TG Push notify failed]', err)
+      );
+    }
   }
 
   // === ACTION: OPEN IN SURFLIX ===
