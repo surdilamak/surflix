@@ -12,7 +12,12 @@ const nextConfig = {
     ],
   },
   experimental: {
-    serverComponentsExternalPackages: ['@prisma/client', 'prisma'],
+    serverComponentsExternalPackages: ['@prisma/client', 'prisma', 'web-push'],
+    // web-push pakai dynamic require pattern (setVapidDetails lazy) yang
+    // Next.js trace bisa miss — force include full dep graph ke standalone.
+    outputFileTracingIncludes: {
+      '/api/**/*': ['./node_modules/web-push/**/*'],
+    },
   },
 };
 

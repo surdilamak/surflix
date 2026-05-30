@@ -109,6 +109,10 @@ class JellyseerrClient {
 
   /**
    * Discover movies (filter by genre, year, network, etc)
+   *
+   * Jellyseerr no longer accepts the `year` query param — uses TMDB-style
+   * `primaryReleaseDateGte`/`Lte` (ISO date range) instead. Caller still passes
+   * `year: number` for convenience; we expand to a 1-year date range internally.
    */
   async discoverMovies(params: {
     page?: number;
@@ -118,14 +122,21 @@ class JellyseerrClient {
     network?: number;    // streaming network for TV (n/a for movies but kept consistent)
     sortBy?: string;
   } = {}): Promise<JellyseerrSearchResult> {
-    const { data } = await this.client.get('/discover/movies', {
-      params: { language: 'en', ...params },
-    });
+    const { year, ...rest } = params;
+    const apiParams: Record<string, any> = { language: 'en', ...rest };
+    if (year) {
+      apiParams.primaryReleaseDateGte = `${year}-01-01`;
+      apiParams.primaryReleaseDateLte = `${year}-12-31`;
+    }
+    const { data } = await this.client.get('/discover/movies', { params: apiParams });
     return data;
   }
 
   /**
    * Discover TV (filter by genre, year, network)
+   *
+   * Same year-param refactor as discoverMovies — converts to
+   * `firstAirDateGte`/`Lte` for the TV endpoint.
    */
   async discoverTv(params: {
     page?: number;
@@ -134,9 +145,13 @@ class JellyseerrClient {
     network?: number;    // streaming network (e.g. 213=Netflix, 49=HBO)
     sortBy?: string;
   } = {}): Promise<JellyseerrSearchResult> {
-    const { data } = await this.client.get('/discover/tv', {
-      params: { language: 'en', ...params },
-    });
+    const { year, ...rest } = params;
+    const apiParams: Record<string, any> = { language: 'en', ...rest };
+    if (year) {
+      apiParams.firstAirDateGte = `${year}-01-01`;
+      apiParams.firstAirDateLte = `${year}-12-31`;
+    }
+    const { data } = await this.client.get('/discover/tv', { params: apiParams });
     return data;
   }
 
