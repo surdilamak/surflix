@@ -4,9 +4,10 @@
  * Served when user hits the apex domain `surflix.my.id` (not www, not request).
  * Routing handled by middleware.ts — hostname check rewrites apex → /landing.
  *
- * Two big CTAs:
- * - Watch on Surflix  → www.surflix.my.id (Jellyfin)
- * - Request Content   → request.surflix.my.id (this app's home)
+ * Three doors:
+ * - Streaming   → streaming.surflix.my.id (Jellyfin)
+ * - Request Hub → request.surflix.my.id (this app's home)
+ * - Referensi   → reference.surflix.my.id (map of how the library's titles connect)
  */
 'use client';
 
@@ -14,11 +15,12 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAppConfig } from '@/lib/hooks/use-app-config';
-import { Film, Sparkles, ArrowRight, Coffee, X } from 'lucide-react';
+import { Film, Sparkles, Orbit, ArrowRight, Coffee, X } from 'lucide-react';
 
 interface LibraryStats {
   moviesCount: number;
   seriesCount: number;
+  mappedCount: number;
 }
 
 export default function LandingPage() {
@@ -30,13 +32,14 @@ export default function LandingPage() {
     fetch('/api/library-stats')
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
-        if (data) setStats({ moviesCount: data.moviesCount, seriesCount: data.seriesCount });
+        if (data) setStats({ moviesCount: data.moviesCount, seriesCount: data.seriesCount, mappedCount: data.mappedCount ?? 0 });
       })
       .catch(() => {});
   }, []);
 
   const jellyfinUrl = config?.jellyfinUrl || 'https://www.surflix.my.id';
   const requestUrl = 'https://request.surflix.my.id';
+  const referenceUrl = 'https://reference.surflix.my.id';
 
   return (
     <div className="relative flex min-h-screen flex-col bg-[#0a0a0c]">
@@ -63,7 +66,7 @@ export default function LandingPage() {
       />
 
       {/* Hero — generous breathing room, narrow container for editorial feel */}
-      <div className="mx-auto flex w-full max-w-4xl flex-1 flex-col justify-center px-6 py-16 md:px-8 md:py-20">
+      <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center px-6 py-16 md:px-8 md:py-20">
         {/* Brand mark — logo + tagline + social-proof bar.
             Stats relocated from page-bottom to here as concrete proof of the
             curation narrative (brand-landingpage framework section 2: Social
@@ -86,18 +89,24 @@ export default function LandingPage() {
             A cinephile's sanctuary
           </p>
           {stats && (stats.moviesCount > 0 || stats.seriesCount > 0) && (
-            <p className="mt-5 text-[11px] tracking-wide text-white/35 md:text-[12px]">
-              {stats.moviesCount.toLocaleString()} films
-              <span className="mx-2 text-white/15">·</span>
-              {stats.seriesCount.toLocaleString()} series
-              <span className="mx-2 text-white/15">·</span>
-              hand-curated
+            <p className="mt-5 flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[11px] tracking-wide text-white/35 md:text-[12px]">
+              <span>{stats.moviesCount.toLocaleString()} films</span>
+              <span className="text-white/15">·</span>
+              <span>{stats.seriesCount.toLocaleString()} series</span>
+              {stats.mappedCount > 0 && (
+                <>
+                  <span className="text-white/15">·</span>
+                  <span>{stats.mappedCount.toLocaleString()} titles mapped</span>
+                </>
+              )}
+              <span className="text-white/15">·</span>
+              <span>hand-curated</span>
             </p>
           )}
         </motion.div>
 
         {/* Two cards — flat surfaces, restrained color, icons un-boxed */}
-        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 md:gap-4">
+        <div className="grid grid-cols-1 gap-3 md:grid-cols-3 md:gap-4">
           <motion.a
             href={jellyfinUrl}
             initial={{ opacity: 0, y: 12 }}
@@ -109,11 +118,11 @@ export default function LandingPage() {
             <h2 className="text-[22px] font-medium tracking-tight md:text-[26px]">
               Streaming
             </h2>
-            <p className="mt-3 text-[14px] leading-relaxed text-white/55 md:text-[15px]">
-              Koleksi pribadi yang dikumpulin tahun ke tahun. Film favorit, hidden gems, comfort movies.
+            <p className="mt-3 flex-1 text-[14px] leading-relaxed text-white/55 md:text-[15px]">
+              A personal collection built up over the years. Favourites, hidden gems, comfort movies.
             </p>
             <div className="mt-8 flex items-center gap-2 text-[13px] font-medium text-ios-orange/90 md:mt-10">
-              Buka library
+              Open the library
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" strokeWidth={2} />
             </div>
           </motion.a>
@@ -129,11 +138,31 @@ export default function LandingPage() {
             <h2 className="text-[22px] font-medium tracking-tight md:text-[26px]">
               Request Hub
             </h2>
-            <p className="mt-3 text-[14px] leading-relaxed text-white/55 md:text-[15px]">
-              Ada film yang lo kangenin? Drop request lo, gw tambahin biar bisa ditonton bareng keluarga.
+            <p className="mt-3 flex-1 text-[14px] leading-relaxed text-white/55 md:text-[15px]">
+              Missing a film you love? Drop a request and I'll add it, so the whole family can watch together.
             </p>
             <div className="mt-8 flex items-center gap-2 text-[13px] font-medium text-ios-purple/90 md:mt-10">
-              Buka request hub
+              Open the request hub
+              <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" strokeWidth={2} />
+            </div>
+          </motion.a>
+
+          <motion.a
+            href={referenceUrl}
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.35 }}
+            className="group relative flex flex-col rounded-2xl border border-white/[0.07] bg-white/[0.02] p-7 transition-all hover:border-white/15 hover:bg-white/[0.04] md:p-9"
+          >
+            <Orbit className="mb-7 h-6 w-6 text-ios-green/90 md:mb-8 md:h-7 md:w-7" strokeWidth={1.5} />
+            <h2 className="text-[22px] font-medium tracking-tight md:text-[26px]">
+              Referensi
+            </h2>
+            <p className="mt-3 flex-1 text-[14px] leading-relaxed text-white/55 md:text-[15px]">
+              Every film leaves a trail. See how the titles in the library connect: homages, borrowed looks, shared directors.
+            </p>
+            <div className="mt-8 flex items-center gap-2 text-[13px] font-medium text-ios-green/90 md:mt-10">
+              Explore the map
               <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" strokeWidth={2} />
             </div>
           </motion.a>
@@ -146,7 +175,7 @@ export default function LandingPage() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mx-auto mt-16 max-w-xl text-center text-[13px] leading-relaxed text-white/45 md:mt-20 md:text-[14px]"
         >
-          Surflix isn't a streaming service, it's a private movie sanctuary yang gw build buat friends & family who genuinely love films. Dimanage personally, tended like a garden, no ads, no tracking. Stay a while.
+          Surflix is a private movie sanctuary I built for friends and family who genuinely love films. I look after it myself, like a garden: no ads, no tracking. Stay a while.
         </motion.p>
 
         {/* Coffee jar — gentle, optional gesture. Sits between disclaimer and

@@ -11,12 +11,13 @@
 Domain map (as of 2026-05-15):
 - **`surflix.my.id`** & **`www.surflix.my.id`** → **Landing page** (this app, `/landing` route via middleware)
 - **`request.surflix.my.id`** → **Request Hub** (this app, default routes)
+- **`reference.surflix.my.id`** → **Referensi** (this app, `/referensi/*` via middleware): peta bagaimana film/serial di library saling terhubung (homage, inspired, visual, remake, universe, director, talent). English default + toggle ID. Admin: `/admin/connections`. Data: `scripts/curated/*.txt` → `scripts/build-connections.js` → `scripts/import-*.js`
 - **`streaming.surflix.my.id`** → **Jellyfin** (whitelabeled, separate `~/Developer/jellyfin-whitelabel/` project)
 
 - **Repo**: `github.com/surdilamak/surflix`
 - **Docker Image**: `ghcr.io/surdilamak/surflix:latest` (public, amd64 only)
 - **Self-hosted di**: Unraid server `192.168.68.8`, port `3737`
-- **Reverse proxy**: Nginx Proxy Manager (handles SSL + routing all 4 hostnames)
+- **Reverse proxy**: Nginx Proxy Manager (handles SSL + routing all 5 hostnames)
 - **CDN/Tunnel**: Cloudflare Tunnel (`cloudflared`), zone `surflix.my.id` with wildcard route to `192.168.68.8` (NPM)
 - **Legacy URLs** (pre-2026-05-15 rebrand): `request.surdilamak.my.id`, `jellyfin.surdilamak.my.id`, and old `www.surflix.my.id` (was Jellyfin) — keep as 301 redirects or let them resolve to landing if still in DNS
 
