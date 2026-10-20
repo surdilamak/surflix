@@ -97,12 +97,47 @@ export async function findJellyfinId(
   return map.get(libraryKey(mediaType, tmdbId)) ?? null;
 }
 
+let serverIdCache: string | null = null;
+
 /**
- * Deep-link nonton di Jellyfin web (whitelabel).
- * TODO: confirm route `/web/#/details?id=` di instance whitelabel.
- * baseUrl opsional — client pass dari useAppConfig, server fallback ke env.
+ * ID server Jellyfin (dibutuhin deep-link web client: tanpa serverId, Jellyfin 10.9+/12
+ * gak bisa nentuin server dan jatuh ke halaman home).
+ * Urutan: env JELLYFIN_SERVER_ID -> /System/Info/Public (endpoint publik, tanpa auth).
  */
-export function watchUrl(jellyfinItemId: string, baseUrl?: string): string {
+export async function getServerId(): Promise<string> {
+  if (process.env.JELLYFIN_SERVER_ID) return process.env.JELLYFIN_SERVER_ID;
+  if (serverIdCache) return serverIdCache;
+
+  const bases = [process.env.JELLYFIN_URL, process.env.NEXT_PUBLIC_JELLYFIN_URL].filter(Boolean) as string[];
+  for (const base of bases) {
+    try {
+      const res = await fetch(`${base.replace(/\/+$/, '')}/System/Info/Public`, {
+        signal: AbortSignal.timeout(5000),
+      });
+      if (!res.ok) continue;
+      const id = (await res.json())?.Id;
+      if (id) return (serverIdCache = id);
+    } catch {
+      // coba base berikutnya
+    }
+  }
+  return '';
+}
+
+/**
+ * Deep-link nonton di Jellyfin web (whitelabel). Format sama kayak yang dibikin Jellyfin
+ * sendiri: #/details?id=<itemId>&serverId=<serverId>.
+ * baseUrl & serverId dikirim dari client (lihat /api/config); server fallback ke env.
+ */
+export function watchUrl(jellyfinItemId: string, baseUrl?: string, serverId?: string): string {
   const base = (baseUrl || process.env.NEXT_PUBLIC_JELLYFIN_URL || '').replace(/\/+$/, '');
-  return `${base}/web/#/details?id=${encodeURIComponent(jellyfinItemId)}`;
+  const sid = serverId ? `&serverId=${encodeURIComponent(serverId)}` : '';
+  return `${base}/web/#/details?id=${encodeURIComponent(jellyfinItemId)}${sid}`;
+}
+
+/**
+ * URL poster (gambar Primary) item Jellyfin. Endpoint gambar publik & CORS-enabled.
+ */
+export function posterUrl(jellyfinItemId: string, baseUrl: string, maxWidth = 342): string {
+  return `${baseUrl.replace(/\/+$/, '')}/Items/${encodeURIComponent(jellyfinItemId)}/Images/Primary?maxWidth=${maxWidth}`;
 }

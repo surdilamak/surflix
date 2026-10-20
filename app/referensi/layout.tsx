@@ -1,23 +1,37 @@
 /**
  * Portal Referensi layout — terpisah dari Request Hub (tanpa TopNav/BottomTabBar hub).
  * Served di reference.surflix.my.id (middleware rewrite ke /referensi/*) atau /referensi di lokal.
+ *
+ * Arah visual: taste-skill "contact sheet" — Schibsted Grotesk, navy on white,
+ * bidang gelap di pembuka, satu aksen tangerine buat aksi utama.
  */
 import type { Metadata } from 'next';
+import { Schibsted_Grotesk } from 'next/font/google';
 import { PortalHeader } from '@/components/connections/portal-header';
+import { PortalFooter } from '@/components/connections/portal-footer';
+import './referensi.css';
+
+const font = Schibsted_Grotesk({
+  subsets: ['latin'],
+  weight: ['400', '600', '800'],
+  display: 'swap',
+});
 
 export const metadata: Metadata = {
-  title: 'Surflix Referensi — peta referensi antar film',
-  description: 'Jelajahi film yang saling nyambung: homage, inspired by, dan referensi visual.',
+  title: 'Surflix Referensi — film dan jejaknya',
+  description: 'Peta referensi antar film di rak Surflix: homage, terinspirasi, dan referensi visual.',
 };
 
 export default function ReferensiLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className="flex min-h-screen flex-col bg-black">
+    <div className={`ref-root ${font.className}`}>
+      {/* Konten yang muncul saat scroll tetap kelihatan kalau script gagal */}
+      <noscript>
+        <style>{'.ref-reveal{opacity:1!important;transform:none!important}'}</style>
+      </noscript>
       <PortalHeader />
-      <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-6 md:px-6 md:py-8">{children}</main>
-      <footer className="border-t border-white/[0.08] px-4 py-6 text-center text-[11px] text-white/40">
-        Surflix Referensi · peta referensi film di library Surflix
-      </footer>
+      {children}
+      <PortalFooter />
     </div>
   );
 }

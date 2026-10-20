@@ -1,29 +1,25 @@
 /**
- * Portal Referensi — daftar film yang punya peta referensi
+ * Portal Referensi — beranda: hero cincin, contact sheet semua peta, cara baca.
  */
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-import { Icons } from '@/components/ui/icons';
+import { useEffect, useState } from 'react';
 import { useAppConfig } from '@/lib/hooks/use-app-config';
-import { usePortal } from '@/lib/hooks/use-portal';
+import { useReveal } from '@/lib/hooks/use-reveal';
+import { PortalRing } from '@/components/connections/portal-ring';
+import { ContactSheet } from '@/components/connections/contact-sheet';
+import { REL_LABEL, REL_VAR, type PortalFilm } from '@/lib/portal-data';
 
-interface ConnectedFilm {
-  tmdbId: number;
-  mediaType: string;
-  title: string;
-  count: number;
-  year: number | null;
-  poster: string | null;
-  jellyfinId: string | null;
-}
+const HOW: Array<{ key: string; text: string }> = [
+  { key: 'homage', text: 'Satu film memberi hormat terang-terangan ke yang lain: adegan, tokoh, atau musiknya sengaja dikutip.' },
+  { key: 'inspired', text: 'Satu film lahir karena yang lain. Pembuatnya pernah menyebutnya, atau jejaknya terdokumentasi.' },
+  { key: 'visual', text: 'Yang dipinjam adalah tampilannya: kota, cahaya, komposisi, atau cara kameranya bergerak.' },
+];
 
 export default function ReferensiHomePage() {
   const config = useAppConfig();
-  const { portalPath } = usePortal();
-  const [films, setFilms] = useState<ConnectedFilm[] | null>(null);
+  const [films, setFilms] = useState<PortalFilm[] | null>(null);
   const [error, setError] = useState(false);
-  const [q, setQ] = useState('');
 
   useEffect(() => {
     fetch('/api/connections/films')
@@ -32,80 +28,42 @@ export default function ReferensiHomePage() {
       .catch(() => setError(true));
   }, []);
 
-  const filtered = useMemo(() => {
-    const term = q.trim().toLowerCase();
-    return (films ?? []).filter((f) => !term || f.title.toLowerCase().includes(term));
-  }, [films, q]);
+  useReveal(!!films && !!config);
 
-  function posterOf(f: ConnectedFilm): string | null {
-    if (f.poster) return `https://image.tmdb.org/t/p/w342${f.poster}`;
-    if (f.jellyfinId && config?.jellyfinUrl) {
-      return `${config.jellyfinUrl.replace(/\/+$/, '')}/Items/${f.jellyfinId}/Images/Primary?maxWidth=342`;
+  if (error) return <p className="ref-empty">Gagal memuat peta. Coba refresh.</p>;
+  if (!films || !config) return <div className="ref-hero" aria-busy="true" />;
+  if (films.length === 0) return <p className="ref-empty">Belum ada peta referensi.</p>;
+
+  // contoh nyata per jenis hubungan, diambil dari data
+  const example = (rel: string) => {
+    for (const f of films) {
+      const r = f.refs.find((x) => x.relationship === rel);
+      if (r) return `${f.title} → ${r.title}`;
     }
     return null;
-  }
+  };
 
   return (
     <>
-      <div className="mb-6">
-        <h1 className="text-2xl font-semibold tracking-tighter md:text-3xl">Peta referensi film</h1>
-        <p className="mt-1 text-sm text-white/60">
-          Film yang saling nyambung lewat homage, inspirasi, dan referensi visual. Semua bisa ditonton di Surflix.
-        </p>
-      </div>
+      <section className="ref-hero">
+        <PortalRing films={films} jellyfinUrl={config.jellyfinUrl} />
+      </section>
 
-      <div className="relative mb-6">
-        <Icons.Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
-        <input
-          value={q}
-          onChange={(e) => setQ(e.target.value)}
-          placeholder="Cari film…"
-          className="input-ios w-full pl-10 text-sm"
-        />
-      </div>
+      <ContactSheet films={films} jellyfinUrl={config.jellyfinUrl} serverId={config.jellyfinServerId} />
 
-      {error ? (
-        <p className="py-16 text-center text-sm text-white/50">Gagal memuat daftar film. Coba refresh.</p>
-      ) : films === null ? (
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 md:gap-4">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="aspect-[2/3] animate-pulse rounded-ios-lg bg-white/[0.04]" />
+      <section className="ref-how">
+        <h2 className="ref-display ref-reveal">Cara baca peta ini</h2>
+        <div className="ref-how-grid">
+          {HOW.map((h, i) => (
+            <div key={h.key} className="ref-reveal" style={{ '--d': `${i * 90}ms`, '--c': REL_VAR[h.key] } as React.CSSProperties}>
+              <span className="ref-how-swatch" />
+              <span className="ref-how-word">{REL_LABEL[h.key]}</span>
+              <p>{h.text}</p>
+              {example(h.key) && <p className="ref-how-eg">{example(h.key)}</p>}
+            </div>
           ))}
         </div>
-      ) : filtered.length === 0 ? (
-        <p className="py-16 text-center text-sm text-white/50">
-          {films.length === 0 ? 'Belum ada peta referensi.' : 'Film gak ketemu.'}
-        </p>
-      ) : (
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 md:gap-4">
-          {filtered.map((f) => {
-            const src = posterOf(f);
-            return (
-              <a
-                key={`${f.mediaType}-${f.tmdbId}`}
-                href={portalPath(`/${f.mediaType}/${f.tmdbId}`)}
-                className="group block"
-              >
-                <div className="relative aspect-[2/3] overflow-hidden rounded-ios-lg bg-bg-surface transition-transform group-hover:scale-[1.03]">
-                  {src ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={src} alt={f.title} className="h-full w-full object-cover" loading="lazy" />
-                  ) : (
-                    <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-purple-900/40 via-blue-900/40 to-red-900/40">
-                      <Icons.Film className="h-8 w-8 text-white/30" />
-                    </div>
-                  )}
-                  <span className="absolute bottom-2 left-2 rounded-full bg-black/70 px-2 py-0.5 text-[10px] font-medium text-white backdrop-blur">
-                    {f.count} referensi
-                  </span>
-                </div>
-                <p className="mt-2 line-clamp-2 text-[13px] font-medium leading-tight">{f.title}</p>
-                {f.year && <p className="text-[11px] text-white/50">{f.year}</p>}
-              </a>
-            );
-          })}
-        </div>
-      )}
+      </section>
     </>
   );
 }

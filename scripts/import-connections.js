@@ -3,7 +3,8 @@
  * Import FilmConnection (approved) dari JSON hasil kurasi lokal ke database aktif.
  *
  * Aman buat production: cuma NAMBAH baris FilmConnection. Gak nyentuh tabel lain,
- * dan baris yang udah ada (status/review admin) gak ditimpa.
+ * dan baris yang udah ada (status/review admin) gak ditimpa — cuma kolom metadata
+ * film sumber yang masih kosong yang diisi.
  *
  * Cara pakai (di container, DATABASE_URL udah ke-set):
  *   docker exec surflix node scripts/import-connections.js scripts/connections-seed.json          # dry-run
@@ -37,6 +38,16 @@ const prisma = new PrismaClient();
     const had = await prisma.filmConnection.findUnique({ where });
     if (had) {
       existing++;
+      // isi metadata film sumber yang masih kosong (cuma NGISI yang null, gak nimpa review)
+      if (apply && (had.sourceJellyfinId == null || had.sourceYear == null)) {
+        await prisma.filmConnection.update({
+          where,
+          data: {
+            sourceJellyfinId: had.sourceJellyfinId ?? r.sourceJellyfinId ?? null,
+            sourceYear: had.sourceYear ?? r.sourceYear ?? null,
+          },
+        });
+      }
       continue;
     }
     created++;

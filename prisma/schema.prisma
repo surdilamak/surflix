@@ -207,6 +207,8 @@ model FilmConnection {
   sourceTmdbId    Int
   sourceMediaType String   // "movie" | "tv"
   sourceTitle     String
+  sourceYear       Int?    // buat portal Referensi (poster/tahun film sumber)
+  sourceJellyfinId String? // Jellyfin itemId film sumber
 
   // Film target (yang di-refer)
   targetTmdbId     Int

@@ -1,14 +1,18 @@
 /**
- * ConnectionGraph — peta referensi film (case Blu-ray 3D, three.js)
+ * ConnectionGraph — peta referensi satu film: case Blu-ray 3D di atas bidang gelap.
  *
- * Port dari surflix-reference-graph-prototype.jsx. Data masuk via props
- * (nodes + edges dari GET /api/connections), klik node -> detail + deep-link Jellyfin.
+ * Film yang dibuka ada di tengah; film-film yang nyambung melayang di cincin miring di
+ * sekelilingnya, dihubungkan tali berwarna sesuai jenis hubungan. Ketuk satu case:
+ * cincin berputar membawanya ke depan, ia membesar, dan panel menjelaskan kenapa nyambung.
  */
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
-import { watchUrl } from '@/lib/jellyfin';
+import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
+import { posterUrl, watchUrl } from '@/lib/jellyfin';
+import { REL_LABEL, REL_VAR } from '@/lib/portal-data';
 
 export interface GraphNode {
   id: string;
@@ -33,27 +37,22 @@ export interface GraphData {
   edges: GraphEdge[];
 }
 
-const REL: Record<string, { label: string; color: string }> = {
-  homage: { label: 'homage', color: '#7F77DD' },
-  inspired: { label: 'inspired by', color: '#1D9E75' },
-  visual: { label: 'visual ref', color: '#BA7517' },
+const REL_COLOR: Record<string, string> = {
+  homage: '#f7941d',
+  inspired: '#4f8ff0',
+  visual: '#d9d4c4',
 };
 
-// Warna aksen placeholder (sebelum poster ke-load), stabil per judul
+// Ukuran case (satuan scene): rasio mirip case Blu-ray sungguhan
+const W = 1.5;
+const H = 2.1;
+const D = 0.22;
+const INSET = 0.07; // bingkai plastik yang kelihatan di sekeliling sampul
+
 function accentFor(title: string) {
   let h = 0;
   for (let i = 0; i < title.length; i++) h = (h * 31 + title.charCodeAt(i)) % 360;
-  return `hsl(${h}, 45%, 24%)`;
-}
-
-function roundRect(g: CanvasRenderingContext2D, x: number, y: number, w: number, h: number, r: number) {
-  g.beginPath();
-  g.moveTo(x + r, y);
-  g.arcTo(x + w, y, x + w, y + h, r);
-  g.arcTo(x + w, y + h, x, y + h, r);
-  g.arcTo(x, y + h, x, y, r);
-  g.arcTo(x, y, x + w, y, r);
-  g.closePath();
+  return `hsl(${h}, 38%, 20%)`;
 }
 
 function wrapText(g: CanvasRenderingContext2D, text: string, x: number, y: number, maxW: number, lh: number, maxLines: number) {
@@ -61,7 +60,7 @@ function wrapText(g: CanvasRenderingContext2D, text: string, x: number, y: numbe
   let line = '';
   let lines = 0;
   for (let i = 0; i < words.length; i++) {
-    const test = line ? line + ' ' + words[i] : words[i];
+    const test = line ? `${line} ${words[i]}` : words[i];
     if (g.measureText(test).width > maxW && line) {
       g.fillText(line, x, y);
       line = words[i];
@@ -69,8 +68,8 @@ function wrapText(g: CanvasRenderingContext2D, text: string, x: number, y: numbe
       lines++;
       if (lines >= maxLines - 1) {
         let rest = words.slice(i).join(' ');
-        while (g.measureText(rest + '…').width > maxW && rest.length) rest = rest.slice(0, -1);
-        g.fillText(rest + '…', x, y);
+        while (g.measureText(`${rest}…`).width > maxW && rest.length) rest = rest.slice(0, -1);
+        g.fillText(`${rest}…`, x, y);
         return;
       }
     } else line = test;
@@ -78,82 +77,111 @@ function wrapText(g: CanvasRenderingContext2D, text: string, x: number, y: numbe
   g.fillText(line, x, y);
 }
 
-// Gambar tekstur case Blu-ray di canvas 2D. poster opsional (kalau udah ke-load).
-function drawCase(c: HTMLCanvasElement, node: GraphNode, poster?: HTMLImageElement) {
-  const W = c.width;
-  const H = c.height;
+/** Sampul: poster (cover-fit) + banner Blu-ray di atas. Tanpa poster: warna + judul. */
+function drawCover(c: HTMLCanvasElement, node: GraphNode, poster?: HTMLImageElement) {
+  const w = c.width;
+  const h = c.height;
   const g = c.getContext('2d')!;
+  g.fillStyle = '#0d1220';
+  g.fillRect(0, 0, w, h);
 
-  g.fillStyle = '#121212';
-  g.fillRect(0, 0, W, H);
-
-  g.fillStyle = '#185FA5';
-  g.fillRect(0, 0, W, 34);
-  g.fillStyle = '#E6F1FB';
-  g.font = '500 15px -apple-system, system-ui, sans-serif';
-  g.textBaseline = 'middle';
-  g.fillText('Blu-ray', 14, 18);
-
-  const px = 16, py = 46, pw = W - 32, ph = 206;
-  g.save();
-  roundRect(g, px, py, pw, ph, 10);
-  g.clip();
   if (poster) {
-    // cover-fit poster ke blok
-    const scale = Math.max(pw / poster.width, ph / poster.height);
-    const dw = poster.width * scale;
-    const dh = poster.height * scale;
-    g.drawImage(poster, px + (pw - dw) / 2, py + (ph - dh) / 2, dw, dh);
+    const s = Math.max(w / poster.width, h / poster.height);
+    const dw = poster.width * s;
+    const dh = poster.height * s;
+    g.drawImage(poster, (w - dw) / 2, (h - dh) / 2, dw, dh);
   } else {
     g.fillStyle = accentFor(node.title);
-    g.fillRect(px, py, pw, ph);
-    g.fillStyle = 'rgba(255,255,255,0.06)';
-    g.fillRect(px, py, pw, ph * 0.42);
+    g.fillRect(0, 0, w, h);
+    g.fillStyle = '#f2f2f2';
+    g.font = '800 46px "Schibsted Grotesk", -apple-system, system-ui, sans-serif';
+    g.textBaseline = 'alphabetic';
+    wrapText(g, node.title, 36, h - 150, w - 72, 52, 3);
+    if (node.year) {
+      g.fillStyle = '#b8bccb';
+      g.font = '600 28px "Schibsted Grotesk", -apple-system, system-ui, sans-serif';
+      g.fillText(String(node.year), 36, h - 50);
+    }
   }
+
+  // banner Blu-ray
+  const bh = Math.round(h * 0.075);
+  g.fillStyle = '#0a4ea3';
+  g.fillRect(0, 0, w, bh);
+  g.fillStyle = '#ffffff';
+  g.font = '800 30px "Schibsted Grotesk", -apple-system, system-ui, sans-serif';
+  g.textBaseline = 'middle';
+  g.fillText('Blu-ray', 26, bh / 2 + 1);
+  // kilau halus di bagian atas sampul (cetakan glossy)
+  g.fillStyle = 'rgba(255,255,255,0.05)';
+  g.fillRect(0, bh, w, h * 0.3);
+}
+
+/** Spine: pita biru Blu-ray di atas, judul tegak lurus ke bawah. */
+function drawSpine(c: HTMLCanvasElement, node: GraphNode) {
+  const w = c.width;
+  const h = c.height;
+  const g = c.getContext('2d')!;
+  g.fillStyle = '#0b2a5e';
+  g.fillRect(0, 0, w, h);
+  g.fillStyle = '#0a4ea3';
+  g.fillRect(0, 0, w, 150);
+  g.save();
+  g.translate(w / 2, 20);
+  g.rotate(Math.PI / 2);
+  g.fillStyle = '#ffffff';
+  g.font = '800 40px "Schibsted Grotesk", -apple-system, system-ui, sans-serif';
+  g.textBaseline = 'middle';
+  g.fillText('Blu-ray', 0, 0);
   g.restore();
+  g.save();
+  g.translate(w / 2, 180);
+  g.rotate(Math.PI / 2);
+  g.fillStyle = '#f4f4f2';
+  g.font = '600 46px "Schibsted Grotesk", -apple-system, system-ui, sans-serif';
+  g.textBaseline = 'middle';
+  let t = node.title;
+  while (g.measureText(t).width > h - 220 && t.length > 4) t = t.slice(0, -2);
+  g.fillText(t === node.title ? t : `${t}…`, 0, 0);
+  g.restore();
+}
 
-  // Play badge
-  const cx = W / 2, cy = py + ph / 2;
-  g.fillStyle = 'rgba(0,0,0,0.35)';
-  g.beginPath(); g.arc(cx, cy, 30, 0, Math.PI * 2); g.fill();
-  g.fillStyle = 'rgba(255,255,255,0.92)';
-  g.beginPath();
-  g.moveTo(cx - 9, cy - 14); g.lineTo(cx - 9, cy + 14); g.lineTo(cx + 16, cy); g.closePath();
-  g.fill();
+function shadowTexture() {
+  const c = document.createElement('canvas');
+  c.width = c.height = 128;
+  const g = c.getContext('2d')!;
+  const r = g.createRadialGradient(64, 64, 4, 64, 64, 62);
+  r.addColorStop(0, 'rgba(0,0,0,0.55)');
+  r.addColorStop(1, 'rgba(0,0,0,0)');
+  g.fillStyle = r;
+  g.fillRect(0, 0, 128, 128);
+  const t = new THREE.CanvasTexture(c);
+  return t;
+}
 
-  g.fillStyle = '#F2F2F2';
-  g.font = '500 17px -apple-system, system-ui, sans-serif';
-  wrapText(g, node.title, 16, 278, W - 32, 20, 2);
-  if (node.year) {
-    g.fillStyle = '#8A8A8A';
-    g.font = '400 14px -apple-system, system-ui, sans-serif';
-    g.fillText(String(node.year), 16, 322);
-  }
+function posterSrc(node: GraphNode, jellyfinUrl?: string): string | null {
+  if (node.poster) return `https://image.tmdb.org/t/p/w500${node.poster}`;
+  if (node.jellyfinId && jellyfinUrl) return posterUrl(node.jellyfinId, jellyfinUrl, 500);
+  return null;
 }
 
 interface ConnectionGraphProps {
   data: GraphData;
   jellyfinUrl?: string;
-  /** Tailwind tinggi container, default 480px (cocok buat modal); portal pakai yang lebih tinggi */
-  heightClass?: string;
+  serverId?: string;
+  /** key "mediaType:tmdbId" film yang punya peta sendiri → tampil tombol "Buka peta" */
+  mapKeys?: Set<string>;
+  /** path di dalam portal, mis. portalPath('/movie/62') */
+  portalPath?: (p?: string) => string;
 }
 
-// Poster TMDB kalau ada, kalau nggak ambil dari Jellyfin (gambar Primary item)
-function posterSrc(node: GraphNode, jellyfinUrl?: string): string | null {
-  if (node.poster) return `https://image.tmdb.org/t/p/w342${node.poster}`;
-  if (node.jellyfinId && jellyfinUrl) {
-    return `${jellyfinUrl.replace(/\/+$/, '')}/Items/${node.jellyfinId}/Images/Primary?maxWidth=342`;
-  }
-  return null;
-}
-
-export function ConnectionGraph({ data, jellyfinUrl, heightClass = 'h-[480px]' }: ConnectionGraphProps) {
+export function ConnectionGraph({ data, jellyfinUrl, serverId, mapKeys, portalPath }: ConnectionGraphProps) {
   const mountRef = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState(0);
+  const selectRef = useRef<(i: number) => void>(() => {});
 
   const { nodes, edges } = data;
-  // Source selalu di index 0 (lihat getApprovedConnections)
-  const relByNode = new Map(edges.map((e) => [e.to, e]));
+  const edgeByNode = new Map(edges.map((e) => [e.to, e]));
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -163,163 +191,293 @@ export function ConnectionGraph({ data, jellyfinUrl, heightClass = 'h-[480px]' }
     let width = mount.clientWidth;
     let height = mount.clientHeight;
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 100);
-    camera.position.set(0, 0.4, 8.2);
-
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(width, height);
-    renderer.setClearColor(0x0a0a0a, 1);
+    renderer.setSize(width, height, false); // ukuran diatur CSS (100%), bukan inline px
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.05;
     mount.appendChild(renderer.domElement);
     const el = renderer.domElement;
-    el.style.touchAction = 'none'; // biar drag-rotate gak nge-scroll modal
+    el.style.display = 'block';
+    el.style.touchAction = 'pan-y'; // geser horizontal muter, geser vertikal tetap scroll halaman
 
-    scene.add(new THREE.AmbientLight(0xffffff, 0.85));
-    const dir = new THREE.DirectionalLight(0xffffff, 0.6);
-    dir.position.set(3, 5, 6);
-    scene.add(dir);
+    const scene = new THREE.Scene();
+
+    // Pantulan studio: bikin plastik & sampul glossy kelihatan nyata
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+    scene.environment = envTex;
+    scene.environmentIntensity = 0.85;
+
+    const key = new THREE.DirectionalLight(0xffffff, 1.1);
+    key.position.set(3, 5, 6);
+    scene.add(key);
+
+    const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
+    const tanHalf = Math.tan((38 / 2) * (Math.PI / 180));
+    const nTargets = Math.max(nodes.length - 1, 1);
+    // tata letak mengikuti bentuk panggung: lebar → cincin melebar; tinggi (HP) → cincin menegak
+    const aspect0 = width / height;
+    const wide = aspect0 >= 1.2;
+    const rx = wide ? Math.min(3.6 + Math.min(nTargets, 8) * 0.12, aspect0 * 2.3) : 2.1;
+    const rz = wide ? 2.1 : 1.4;
+    const yAmp = wide ? 0.85 : 1.9;
+    const fitCamera = () => {
+      const aspect = width / height;
+      // cukup jauh supaya cincin + case (±1.1) muat di lebar & tinggi panggung
+      const zW = (rx + 1.15) / (tanHalf * aspect);
+      const zH = (yAmp + 1.75) / tanHalf;
+      camera.position.set(0, 1.0, Math.max(zW, zH, 7));
+      camera.lookAt(0, 0.1, 0);
+      camera.aspect = aspect;
+      camera.updateProjectionMatrix();
+    };
+    fitCamera();
 
     const world = new THREE.Group();
     scene.add(world);
 
-    const meshes: THREE.Mesh[] = [];
-    const textures: THREE.CanvasTexture[] = [];
-    const disposables: Array<{ dispose: () => void }> = [];
-    const R = 3.5;
-    const targetCount = nodes.length - 1;
+    const maxAniso = Math.min(renderer.capabilities.getMaxAnisotropy(), 8);
+    const textures: THREE.Texture[] = [];
+    const disposables: Array<{ dispose: () => void }> = [pmrem, envTex];
+
+    const shell = new THREE.MeshPhysicalMaterial({
+      color: 0x0b3a86, roughness: 0.32, metalness: 0, clearcoat: 0.9, clearcoatRoughness: 0.18,
+    });
+    const back = new THREE.MeshPhysicalMaterial({ color: 0x0a1a3a, roughness: 0.5, clearcoat: 0.4 });
+    const shadowTex = shadowTexture();
+    const shadowMat = new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, opacity: 0.8 });
+    disposables.push(shell, back, shadowTex, shadowMat);
+
+    const n = nodes.length;
+    const targets = n - 1;
+    const anchors: Array<{ anchor: THREE.Group; angle: number; scale: number; target: number }> = [];
+    const hitMeshes: THREE.Object3D[] = [];
 
     nodes.forEach((node, i) => {
-      const canvas = document.createElement('canvas');
-      canvas.width = 240;
-      canvas.height = 336;
-      drawCase(canvas, node);
-      const tex = new THREE.CanvasTexture(canvas);
-      tex.anisotropy = 4;
-      textures.push(tex);
+      // ── case: shell biru + sampul inset + spine + punggung
+      const grp = new THREE.Group();
 
-      // Poster asli (TMDB / Jellyfin), redraw begitu ke-load
+      const body = new THREE.Mesh(new RoundedBoxGeometry(W, H, D, 4, 0.04), shell);
+      body.userData.nodeIndex = i;
+      grp.add(body);
+      disposables.push(body.geometry);
+
+      const coverCanvas = document.createElement('canvas');
+      coverCanvas.width = 512;
+      coverCanvas.height = 724;
+      drawCover(coverCanvas, node);
+      const coverTex = new THREE.CanvasTexture(coverCanvas);
+      coverTex.colorSpace = THREE.SRGBColorSpace;
+      coverTex.anisotropy = maxAniso;
+      textures.push(coverTex);
+      const coverMat = new THREE.MeshPhysicalMaterial({ map: coverTex, roughness: 0.42, clearcoat: 0.7, clearcoatRoughness: 0.12 });
+      const cover = new THREE.Mesh(new THREE.PlaneGeometry(W - INSET * 2, H - INSET * 2), coverMat);
+      cover.position.z = D / 2 + 0.002;
+      cover.userData.nodeIndex = i;
+      grp.add(cover);
+      disposables.push(cover.geometry, coverMat);
+
+      const spineCanvas = document.createElement('canvas');
+      spineCanvas.width = 104;
+      spineCanvas.height = 1100;
+      drawSpine(spineCanvas, node);
+      const spineTex = new THREE.CanvasTexture(spineCanvas);
+      spineTex.colorSpace = THREE.SRGBColorSpace;
+      spineTex.anisotropy = maxAniso;
+      textures.push(spineTex);
+      const spineMat = new THREE.MeshPhysicalMaterial({ map: spineTex, roughness: 0.4, clearcoat: 0.6 });
+      const spine = new THREE.Mesh(new THREE.PlaneGeometry(D - 0.04, H - INSET * 2), spineMat);
+      spine.rotation.y = -Math.PI / 2;
+      spine.position.x = -W / 2 - 0.002;
+      grp.add(spine);
+      disposables.push(spine.geometry, spineMat);
+
+      const backPlane = new THREE.Mesh(new THREE.PlaneGeometry(W - INSET * 2, H - INSET * 2), back);
+      backPlane.rotation.y = Math.PI;
+      backPlane.position.z = -D / 2 - 0.002;
+      grp.add(backPlane);
+      disposables.push(backPlane.geometry);
+
+      hitMeshes.push(body, cover);
+
+      // poster asli (TMDB / Jellyfin) → gambar ulang sampul begitu ke-load
       const src = posterSrc(node, jellyfinUrl);
       if (src) {
         const img = new Image();
         img.crossOrigin = 'anonymous';
         img.onload = () => {
           if (disposed) return;
-          drawCase(canvas, node, img);
-          tex.needsUpdate = true;
+          drawCover(coverCanvas, node, img);
+          coverTex.needsUpdate = true;
         };
-        // gagal load (mis. CORS) -> tetap pakai placeholder warna
-        img.src = src;
+        img.src = src; // gagal load → tetap pakai sampul warna + judul
       }
 
-      const scl = node.isSource ? 1.28 : 0.98;
-      const geo = new THREE.BoxGeometry(1.5 * scl, 2.1 * scl, 0.16 * scl);
-      const side = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.7, metalness: 0 });
-      const face = new THREE.MeshStandardMaterial({ map: tex, roughness: 0.55, metalness: 0 });
-      const mesh = new THREE.Mesh(geo, [side, side, side, side, face, side]);
-      mesh.userData.nodeIndex = i;
-      disposables.push(geo, side, face);
-
+      // ── penempatan: sumber di tengah, sisanya di cincin miring
       const anchor = new THREE.Group();
+      const base = node.isSource ? 1.18 : 0.96;
+      let angle = 0;
       if (node.isSource) {
         anchor.position.set(0, 0, 0);
       } else {
         const k = i - 1;
-        const a = (k / Math.max(targetCount, 1)) * Math.PI * 2 + 0.4;
-        anchor.position.set(Math.cos(a) * R, k % 2 ? 0.7 : -0.7, Math.sin(a) * R * 0.72);
+        angle = Math.PI / 2 + (k / Math.max(targets, 1)) * Math.PI * 2 + 0.35;
+        anchor.position.set(Math.cos(angle) * rx, -Math.sin(angle) * yAmp + 0.15, Math.sin(angle) * rz);
 
-        const rel = relByNode.get(node.id);
-        const col = new THREE.Color(REL[rel?.relationship ?? '']?.color ?? '#888888');
-        const lg = new THREE.BufferGeometry().setFromPoints([new THREE.Vector3(0, 0, 0), anchor.position.clone()]);
-        const lm = new THREE.LineBasicMaterial({ color: col, transparent: true, opacity: 0.55 });
-        disposables.push(lg, lm);
-        world.add(new THREE.Line(lg, lm));
+        // tali: busur dari sumber ke target, warna = jenis hubungan
+        const rel = edgeByNode.get(node.id)?.relationship ?? '';
+        const mid = anchor.position.clone().multiplyScalar(0.5);
+        mid.y += 1.0;
+        const curve = new THREE.QuadraticBezierCurve3(new THREE.Vector3(0, 0, 0), mid, anchor.position.clone());
+        const tube = new THREE.Mesh(
+          new THREE.TubeGeometry(curve, 48, 0.014, 6, false),
+          new THREE.MeshBasicMaterial({ color: REL_COLOR[rel] ?? '#888888' })
+        );
+        disposables.push(tube.geometry, tube.material as THREE.Material);
+        world.add(tube);
       }
-      anchor.add(mesh);
+      anchor.add(grp);
       anchor.userData.phase = i * 1.3;
+      anchor.scale.setScalar(base);
+
+      // bayangan kontak di bawah case
+      const sh = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 1.1), shadowMat);
+      sh.rotation.x = -Math.PI / 2;
+      sh.position.y = -H / 2 - 0.55;
+      sh.userData.shadow = true;
+      anchor.add(sh);
+      disposables.push(sh.geometry);
+
       world.add(anchor);
-      meshes.push(mesh);
+      anchors.push({ anchor, angle, scale: base, target: base });
     });
 
-    // ── Interaksi ──
+    // ── seleksi: bawa case ke depan & besarkan
+    let selectedIdx = 0;
+    let rotTarget: number | null = null;
+    let autorotate = true;
+    const apply = (i: number) => {
+      selectedIdx = i;
+      anchors.forEach((a, idx) => {
+        const base = idx === 0 ? 1.18 : 0.96;
+        a.target = idx === i ? base * 1.28 : base;
+      });
+      if (i > 0) {
+        autorotate = false;
+        // posisi sudut a di cincin → bawa ke depan (z maksimum)
+        let t = anchors[i].angle - Math.PI / 2;
+        const cur = world.rotation.y;
+        const TWO = Math.PI * 2;
+        t += Math.round((cur - t) / TWO) * TWO;
+        rotTarget = t;
+      } else {
+        rotTarget = null;
+      }
+      setSelected(i);
+    };
+    selectRef.current = apply;
+
+    // ── interaksi
     let dragging = false;
     let lastX = 0;
-    let lastY = 0;
     let moved = 0;
-    const velY = 0.0016;
     const ray = new THREE.Raycaster();
     const ndc = new THREE.Vector2();
+    const pick = (cx: number, cy: number) => {
+      const r = el.getBoundingClientRect();
+      ndc.x = ((cx - r.left) / r.width) * 2 - 1;
+      ndc.y = -((cy - r.top) / r.height) * 2 + 1;
+      ray.setFromCamera(ndc, camera);
+      return ray.intersectObjects(hitMeshes, false)[0];
+    };
 
     const onDown = (e: PointerEvent) => {
       dragging = true;
       moved = 0;
       lastX = e.clientX;
-      lastY = e.clientY;
+      rotTarget = null;
     };
     const onMove = (e: PointerEvent) => {
-      if (!dragging) return;
-      const dx = e.clientX - lastX;
-      const dy = e.clientY - lastY;
-      lastX = e.clientX;
-      lastY = e.clientY;
-      moved += Math.abs(dx) + Math.abs(dy);
-      world.rotation.y += dx * 0.006;
-      world.rotation.x = Math.max(-0.55, Math.min(0.55, world.rotation.x + dy * 0.005));
+      if (dragging) {
+        const dx = e.clientX - lastX;
+        lastX = e.clientX;
+        moved += Math.abs(dx);
+        world.rotation.y += dx * 0.006;
+        el.style.cursor = 'grabbing';
+        return;
+      }
+      if (e.target === el) el.style.cursor = pick(e.clientX, e.clientY) ? 'pointer' : 'grab';
     };
     const onUp = (e: PointerEvent) => {
       if (dragging && moved < 6) {
-        const r = el.getBoundingClientRect();
-        ndc.x = ((e.clientX - r.left) / r.width) * 2 - 1;
-        ndc.y = -((e.clientY - r.top) / r.height) * 2 + 1;
-        ray.setFromCamera(ndc, camera);
-        const hit = ray.intersectObjects(meshes, false)[0];
-        if (hit) setSelected(hit.object.userData.nodeIndex);
+        const hit = pick(e.clientX, e.clientY);
+        if (hit) apply(hit.object.userData.nodeIndex);
       }
       dragging = false;
+      el.style.cursor = 'grab';
     };
+    const onCancel = () => {
+      dragging = false;
+    };
+    el.style.cursor = 'grab';
     el.addEventListener('pointerdown', onDown);
     window.addEventListener('pointermove', onMove);
     window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onCancel);
 
-    // ── Loop ──
-    let raf = 0;
-    const t0 = performance.now();
-    const tick = () => {
-      const t = (performance.now() - t0) / 1000;
-      if (!dragging) world.rotation.y += velY;
-      world.children.forEach((ch) => {
-        if (ch.type === 'Group') {
-          const ph = ch.userData.phase || 0;
-          const m = ch.children[0];
-          if (m) {
-            m.position.y = Math.sin(t * 0.8 + ph) * 0.1;
-            m.rotation.z = Math.sin(t * 0.5 + ph) * 0.04;
-          }
+    // ── loop
+    let last = performance.now();
+    const t0 = last;
+    renderer.setAnimationLoop(() => {
+      const now = performance.now();
+      const dt = Math.min((now - last) / 16.67, 3);
+      last = now;
+      const t = (now - t0) / 1000;
+
+      if (!dragging) {
+        if (rotTarget !== null) {
+          const d = rotTarget - world.rotation.y;
+          if (Math.abs(d) < 0.002) rotTarget = null;
+          else world.rotation.y += d * Math.min(0.09 * dt, 1);
+        } else if (autorotate) {
+          world.rotation.y += 0.0014 * dt;
         }
+      }
+
+      anchors.forEach((a, idx) => {
+        a.scale += (a.target - a.scale) * Math.min(0.12 * dt, 1);
+        a.anchor.scale.setScalar(a.scale);
+        // case tetap menghadap ke depan (sebagian) walau cincin berputar
+        a.anchor.rotation.y = idx === 0 ? 0 : -world.rotation.y * 0.82;
+        const g = a.anchor.children[0];
+        const ph = a.anchor.userData.phase || 0;
+        g.position.y = Math.sin(t * 0.8 + ph) * 0.07;
+        g.rotation.z = Math.sin(t * 0.5 + ph) * 0.025;
       });
+
       renderer.render(scene, camera);
-      raf = requestAnimationFrame(tick);
-    };
-    tick();
+    });
 
     const ro = new ResizeObserver(() => {
       width = mount.clientWidth;
       height = mount.clientHeight;
       if (!width || !height) return;
-      camera.aspect = width / height;
-      camera.updateProjectionMatrix();
-      renderer.setSize(width, height);
+      renderer.setSize(width, height, false);
+      fitCamera();
     });
     ro.observe(mount);
 
     return () => {
       disposed = true;
-      cancelAnimationFrame(raf);
+      renderer.setAnimationLoop(null);
       ro.disconnect();
       el.removeEventListener('pointerdown', onDown);
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerup', onUp);
-      textures.forEach((t) => t.dispose());
+      window.removeEventListener('pointercancel', onCancel);
+      textures.forEach((x) => x.dispose());
       disposables.forEach((d) => d.dispose());
       renderer.dispose();
       if (el.parentNode) el.parentNode.removeChild(el);
@@ -330,52 +488,50 @@ export function ConnectionGraph({ data, jellyfinUrl, heightClass = 'h-[480px]' }
   if (nodes.length === 0) return null;
 
   const node = nodes[Math.min(selected, nodes.length - 1)];
-  const edge = relByNode.get(node.id);
-  const rel = edge ? REL[edge.relationship] : null;
+  const edge = edgeByNode.get(node.id);
+  const nodeKey = `${node.mediaType}:${node.tmdbId}`;
+  const hasOwnMap = !node.isSource && mapKeys?.has(nodeKey);
 
   return (
-    <div className={`relative ${heightClass} w-full select-none overflow-hidden rounded-ios-lg bg-neutral-950`}>
-      <div ref={mountRef} className="absolute inset-0" />
+    <div className="ref-stage">
+      <div className="ref-stage-view">
+        <div ref={mountRef} className="ref-stage-canvas" />
 
-      <div className="absolute left-2.5 top-2.5 flex flex-col gap-1.5 rounded-xl bg-black/40 px-2.5 py-2 text-[10px] text-neutral-300 backdrop-blur">
-        {Object.values(REL).map((r) => (
-          <div key={r.label} className="flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full" style={{ background: r.color }} />
-            {r.label}
-          </div>
-        ))}
+        <ul className="ref-legend" aria-label="Jenis hubungan">
+          {Object.keys(REL_LABEL).map((k) => (
+            <li key={k}>
+              <span className="ref-mark" style={{ '--c': REL_COLOR[k] } as React.CSSProperties} />
+              {REL_LABEL[k]}
+            </li>
+          ))}
+        </ul>
+        <p className="ref-stage-hint">Geser untuk memutar. Ketuk case untuk membukanya.</p>
       </div>
 
-      <div className="absolute right-2.5 top-2.5 rounded-xl bg-black/40 px-2.5 py-2 text-[10px] text-neutral-400 backdrop-blur">
-        tarik buat muter · ketuk case
-      </div>
-
-      <div className="absolute inset-x-2.5 bottom-2.5 rounded-2xl border border-white/10 bg-black/65 px-3.5 py-3 backdrop-blur-md">
-        <div className="mb-1 flex items-center gap-2">
-          <h3 className="text-sm font-medium leading-tight text-white">{node.title}</h3>
-          {node.year && <span className="text-xs text-neutral-400">{node.year}</span>}
-          {rel && (
-            <span
-              className="ml-auto flex-shrink-0 rounded-full px-2 py-0.5 text-[10px]"
-              style={{ background: rel.color + '33', color: rel.color }}
-            >
-              {rel.label}
-            </span>
+      <div className="ref-panel" aria-live="polite">
+        {edge && (
+          <p className="ref-panel-rel">
+            <span className="ref-mark" style={{ '--c': REL_VAR[edge.relationship] } as React.CSSProperties} />
+            {REL_LABEL[edge.relationship] ?? edge.relationship}
+          </p>
+        )}
+        <h3>
+          {node.title}
+          {node.year ? <small>{node.year}</small> : null}
+        </h3>
+        <p>{edge ? edge.reason : 'Film yang sedang dibuka. Semua yang melayang di sekelilingnya nyambung ke film ini.'}</p>
+        <div className="ref-panel-actions">
+          {node.jellyfinId && jellyfinUrl && (
+            <a className="ref-btn" href={watchUrl(node.jellyfinId, jellyfinUrl, serverId)} target="_blank" rel="noopener">
+              Tonton di Surflix
+            </a>
+          )}
+          {hasOwnMap && portalPath && (
+            <a className="ref-panel-link" href={portalPath(`/${node.mediaType}/${node.tmdbId}`)}>
+              Buka peta film ini
+            </a>
           )}
         </div>
-        <p className="mb-2.5 text-xs leading-snug text-neutral-300">
-          {edge ? edge.reason : 'Film yang lagi lo buka — pusat dari web referensi.'}
-        </p>
-        {node.jellyfinId && (
-          <a
-            href={watchUrl(node.jellyfinId, jellyfinUrl)}
-            target="_blank"
-            rel="noopener"
-            className="block w-full rounded-xl bg-surflix-500 py-2.5 text-center text-[13px] font-medium text-white transition active:scale-[0.98]"
-          >
-            ▶ Tonton di Surflix
-          </a>
-        )}
       </div>
     </div>
   );

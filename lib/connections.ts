@@ -138,6 +138,8 @@ export async function generateConnections(
         sourceTmdbId: tmdbId,
         sourceMediaType: mediaType,
         sourceTitle,
+        sourceYear,
+        sourceJellyfinId: library.get(libraryKey(mediaType, tmdbId)) ?? null,
         targetTmdbId: target.tmdbId,
         targetMediaType: target.mediaType,
         targetTitle: target.title,
@@ -197,7 +199,12 @@ export async function getApprovedConnections(tmdbId: number, mediaType: MediaTyp
 
   if (rows.length === 0) return { nodes: [], edges: [] };
 
-  const src = await lookupAsTarget(tmdbId, mediaType);
+  const asTarget = await lookupAsTarget(tmdbId, mediaType);
+  const src = {
+    year: rows[0].sourceYear ?? asTarget.year,
+    poster: asTarget.poster,
+    jellyfinId: rows[0].sourceJellyfinId ?? asTarget.jellyfinId,
+  };
 
   const nodes = [
     {
@@ -233,16 +240,13 @@ export async function getApprovedConnections(tmdbId: number, mediaType: MediaTyp
 }
 
 /**
- * Buat portal Referensi: daftar film yang punya peta referensi (APPROVED).
+ * Buat portal Referensi: daftar film yang punya peta referensi (APPROVED),
+ * masing-masing dengan film-film yang nyambung ke dia (urut sesuai review).
  */
 export async function listConnectedFilms() {
   const rows = await prisma.filmConnection.findMany({
     where: { status: 'APPROVED' },
-    select: {
-      sourceTmdbId: true, sourceMediaType: true, sourceTitle: true,
-      targetTmdbId: true, targetMediaType: true,
-      targetYear: true, targetPoster: true, targetJellyfinId: true,
-    },
+    orderBy: { createdAt: 'asc' },
   });
 
   // metadata film (kalau film itu muncul sebagai target di baris lain)
@@ -253,18 +257,31 @@ export async function listConnectedFilms() {
     });
   }
 
+  type Ref = {
+    tmdbId: number; mediaType: string; title: string; year: number | null;
+    poster: string | null; jellyfinId: string | null; relationship: string; reason: string;
+  };
   const films = new Map<string, {
     tmdbId: number; mediaType: string; title: string; count: number;
-    year: number | null; poster: string | null; jellyfinId: string | null;
+    year: number | null; poster: string | null; jellyfinId: string | null; refs: Ref[];
   }>();
+
   for (const r of rows) {
     const key = `${r.sourceMediaType}:${r.sourceTmdbId}`;
-    const f = films.get(key);
-    if (f) { f.count++; continue; }
-    const m = meta.get(key);
-    films.set(key, {
-      tmdbId: r.sourceTmdbId, mediaType: r.sourceMediaType, title: r.sourceTitle, count: 1,
-      year: m?.year ?? null, poster: m?.poster ?? null, jellyfinId: m?.jellyfinId ?? null,
+    let f = films.get(key);
+    if (!f) {
+      const m = meta.get(key);
+      f = {
+        tmdbId: r.sourceTmdbId, mediaType: r.sourceMediaType, title: r.sourceTitle, count: 0,
+        year: r.sourceYear ?? m?.year ?? null, poster: m?.poster ?? null,
+        jellyfinId: r.sourceJellyfinId ?? m?.jellyfinId ?? null, refs: [],
+      };
+      films.set(key, f);
+    }
+    f.count++;
+    f.refs.push({
+      tmdbId: r.targetTmdbId, mediaType: r.targetMediaType, title: r.targetTitle, year: r.targetYear,
+      poster: r.targetPoster, jellyfinId: r.targetJellyfinId, relationship: r.relationship, reason: r.reason,
     });
   }
 

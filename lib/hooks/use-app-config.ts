@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 
 interface AppConfig {
   jellyfinUrl: string;
+  jellyfinServerId?: string;
   appName: string;
   appUrl: string;
 }

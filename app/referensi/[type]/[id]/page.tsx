@@ -1,27 +1,22 @@
 /**
- * Portal Referensi — peta referensi satu film (graph 3D + daftar alasan)
+ * Portal Referensi — peta satu film: judul besar, panggung 3D, lalu alasan tiap pasangan.
  */
 'use client';
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { notFound, useParams } from 'next/navigation';
-import { Icons } from '@/components/ui/icons';
 import { useAppConfig } from '@/lib/hooks/use-app-config';
 import { usePortal } from '@/lib/hooks/use-portal';
+import { useReveal } from '@/lib/hooks/use-reveal';
 import { watchUrl } from '@/lib/jellyfin';
+import { filmKey, posterOf, REL_LABEL, REL_VAR, type PortalFilm } from '@/lib/portal-data';
 import type { GraphData } from '@/components/connections/connection-graph';
 
 const ConnectionGraph = dynamic(
   () => import('@/components/connections/connection-graph').then((m) => m.ConnectionGraph),
-  { ssr: false, loading: () => <div className="h-[520px] animate-pulse rounded-ios-lg bg-white/[0.04]" /> }
+  { ssr: false, loading: () => <div className="ref-stage" aria-busy="true" /> }
 );
-
-const REL: Record<string, { label: string; cls: string }> = {
-  homage: { label: 'homage', cls: 'bg-[#7F77DD]/20 text-[#9d97e8]' },
-  inspired: { label: 'inspired by', cls: 'bg-ios-green/20 text-ios-green' },
-  visual: { label: 'visual ref', cls: 'bg-ios-orange/20 text-ios-orange' },
-};
 
 export default function ReferensiFilmPage() {
   const params = useParams<{ type: string; id: string }>();
@@ -31,6 +26,7 @@ export default function ReferensiFilmPage() {
   const config = useAppConfig();
   const { portalPath } = usePortal();
   const [data, setData] = useState<GraphData | null>(null);
+  const [films, setFilms] = useState<PortalFilm[]>([]);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -38,101 +34,101 @@ export default function ReferensiFilmPage() {
       .then((r) => (r.ok ? r.json() : Promise.reject()))
       .then(setData)
       .catch(() => setError(true));
+    fetch('/api/connections/films')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => d && setFilms(d.films))
+      .catch(() => {});
   }, [params.type, params.id]);
 
-  const back = (
-    <a
-      href={portalPath('/') || '/'}
-      className="mb-4 inline-flex items-center gap-1 text-xs text-white/50 transition-colors hover:text-white"
-    >
-      <Icons.ArrowLeft className="h-3 w-3" />
-      Semua referensi
-    </a>
-  );
+  useReveal(!!data && !!config);
 
   if (error) {
     return (
-      <>
-        {back}
-        <p className="py-16 text-center text-sm text-white/50">Gagal memuat peta referensi. Coba refresh.</p>
-      </>
+      <section className="ref-detail-top" style={{ paddingBottom: 96 }}>
+        <p style={{ marginTop: 40 }}>Gagal memuat peta. Coba refresh.</p>
+      </section>
     );
   }
-
-  if (!data) {
-    return (
-      <>
-        {back}
-        <div className="h-[520px] animate-pulse rounded-ios-lg bg-white/[0.04]" />
-      </>
-    );
-  }
-
+  if (!data || !config) return <section className="ref-detail-top" style={{ minHeight: 640 }} aria-busy="true" />;
   if (data.nodes.length === 0) {
     return (
-      <>
-        {back}
-        <p className="py-16 text-center text-sm text-white/50">Belum ada peta referensi buat film ini.</p>
-      </>
+      <section className="ref-detail-top" style={{ paddingBottom: 96 }}>
+        <p style={{ marginTop: 40 }}>Belum ada peta referensi untuk film ini.</p>
+      </section>
     );
   }
 
   const source = data.nodes[0];
   const targets = new Map(data.nodes.slice(1).map((n) => [n.id, n]));
-  const jellyfinUrl = config?.jellyfinUrl;
+  const mapKeys = new Set(films.map((f) => filmKey(f.mediaType, f.tmdbId)));
+  const jellyfinUrl = config.jellyfinUrl;
 
   return (
     <>
-      {back}
-      <div className="mb-4">
-        <h1 className="text-2xl font-semibold tracking-tighter md:text-3xl">{source.title}</h1>
-        <p className="mt-1 text-sm text-white/60">
-          {source.year ? `${source.year} · ` : ''}
-          {data.edges.length} film yang nyambung
+      <section className="ref-detail-top">
+        <h1 className="ref-detail-title ref-display">
+          <span className="ref-line"><span>{source.title}</span></span>
+        </h1>
+        <p className="ref-detail-sub">
+          {source.year ? `${source.year}. ` : ''}
+          {data.edges.length} film nyambung ke film ini. Putar rak, ketuk satu case, baca kenapa.
         </p>
-      </div>
+        {source.jellyfinId && (
+          <div className="ref-detail-actions">
+            <a className="ref-btn" href={watchUrl(source.jellyfinId, jellyfinUrl, config.jellyfinServerId)} target="_blank" rel="noopener">
+              Tonton di Surflix
+            </a>
+          </div>
+        )}
+        <div className="ref-stage-wrap" style={{ margin: '40px calc(var(--margin) * -1) 0' }}>
+          <ConnectionGraph
+            data={data}
+            jellyfinUrl={jellyfinUrl}
+            serverId={config.jellyfinServerId}
+            mapKeys={mapKeys}
+            portalPath={portalPath}
+          />
+        </div>
+      </section>
 
-      {/* Tunggu config biar URL poster Jellyfin udah tersedia sebelum three.js bikin scene */}
-      {config ? (
-        <ConnectionGraph data={data} jellyfinUrl={jellyfinUrl} heightClass="h-[520px] md:h-[600px]" />
-      ) : (
-        <div className="h-[520px] animate-pulse rounded-ios-lg bg-white/[0.04]" />
-      )}
-
-      <h2 className="mb-3 mt-8 text-lg font-semibold tracking-tighter">Kenapa nyambung</h2>
-      <div className="space-y-2">
-        {data.edges.map((e) => {
+      <section className="ref-why">
+        <h2 className="ref-display ref-reveal">Kenapa nyambung</h2>
+        {data.edges.map((e, i) => {
           const t = targets.get(e.to);
           if (!t) return null;
-          const rel = REL[e.relationship];
+          const src = posterOf(t, jellyfinUrl, 240);
           return (
-            <div key={e.to} className="flex items-start gap-3 rounded-ios-lg border border-white/[0.08] bg-bg-surface p-3.5">
-              <div className="min-w-0 flex-1">
-                <div className="mb-1 flex flex-wrap items-center gap-2">
-                  <a href={portalPath(`/${t.mediaType}/${t.tmdbId}`)} className="text-sm font-semibold tracking-tight hover:underline">
-                    {t.title}
-                  </a>
-                  {t.year && <span className="text-xs text-white/40">{t.year}</span>}
-                  {rel && (
-                    <span className={`rounded-full px-2 py-0.5 text-[10px] font-medium ${rel.cls}`}>{rel.label}</span>
+            <div key={e.to} className="ref-why-row ref-reveal" style={{ '--d': `${Math.min(i, 5) * 50}ms` } as React.CSSProperties}>
+              <span className="ref-frame">
+                {src && (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={src} alt={t.title} loading="lazy" draggable={false} />
+                )}
+              </span>
+              <div>
+                <p className="ref-why-name">
+                  {mapKeys.has(filmKey(t.mediaType, t.tmdbId)) ? (
+                    <a href={portalPath(`/${t.mediaType}/${t.tmdbId}`)}>{t.title}</a>
+                  ) : (
+                    t.title
                   )}
-                </div>
-                <p className="text-[13px] leading-relaxed text-white/70">{e.reason}</p>
+                  {t.year ? <small>{t.year}</small> : null}
+                </p>
+                <p className="ref-why-rel">
+                  <span className="ref-mark" style={{ '--c': REL_VAR[e.relationship] } as React.CSSProperties} />
+                  {REL_LABEL[e.relationship] ?? e.relationship}
+                </p>
+                <p className="ref-why-reason">{e.reason}</p>
               </div>
-              {t.jellyfinId && jellyfinUrl && (
-                <a
-                  href={watchUrl(t.jellyfinId, jellyfinUrl)}
-                  target="_blank"
-                  rel="noopener"
-                  className="flex-shrink-0 rounded-full bg-surflix-500 px-3 py-1.5 text-xs font-medium text-white"
-                >
-                  ▶ Tonton
+              {t.jellyfinId && (
+                <a className="ref-btn" href={watchUrl(t.jellyfinId, jellyfinUrl, config.jellyfinServerId)} target="_blank" rel="noopener">
+                  Tonton
                 </a>
               )}
             </div>
           );
         })}
-      </div>
+      </section>
     </>
   );
 }
