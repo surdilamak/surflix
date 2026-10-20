@@ -9,7 +9,7 @@
 
 ### Live Deployment
 Domain map (as of 2026-05-15):
-- **`surflix.my.id`** & **`www.surflix.my.id`** → **Landing page** (this app, `/landing` route via middleware)
+- **`surflix.my.id`** & **`www.surflix.my.id`** → **Landing page** (this app, `/landing` via middleware): papan ubin yang memperlihatkan tiga situs (Streaming, Request Hub, Surflix Reference). Server component, data dari `lib/landing-data.ts`, CSS sendiri `app/landing/landing.css` (prefix `lp-`), font Bricolage Grotesque, direction taste-skill `dense-tiles`
 - **`request.surflix.my.id`** → **Request Hub** (this app, default routes)
 - **`reference.surflix.my.id`** → **Surflix Reference** (this app, `/referensi/*` via middleware): peta bagaimana film/serial di library saling terhubung (homage, inspired, visual, remake, universe, director, talent). English default + toggle ID. Admin: `/admin/connections`. Data: `scripts/curated/*.txt` → `scripts/build-connections.js` → `scripts/import-*.js`
 - **`streaming.surflix.my.id`** → **Jellyfin** (whitelabeled, separate `~/Developer/jellyfin-whitelabel/` project)

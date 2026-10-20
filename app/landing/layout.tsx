@@ -1,31 +1,26 @@
 /**
- * Landing layout (surflix.my.id) — memakai bahasa visual yang sama dengan portal Reference:
- * Schibsted Grotesk, bidang gelap + bidang terang, tombol persegi, satu aksen tangerine.
+ * Landing layout (surflix.my.id) — papan ubin (direction "dense-tiles" dari taste-skill).
+ * Sengaja berdiri sendiri: font, token, dan CSS-nya tidak dipakai bersama portal Reference.
  */
 import type { Metadata } from 'next';
-import { Schibsted_Grotesk } from 'next/font/google';
-import '../referensi/referensi.css';
+import { Bricolage_Grotesque } from 'next/font/google';
 import './landing.css';
 
-const font = Schibsted_Grotesk({
+const font = Bricolage_Grotesque({
   subsets: ['latin'],
-  weight: ['400', '600', '800'],
+  weight: ['400', '500', '600'],
   display: 'swap',
 });
 
 export const metadata: Metadata = {
-  title: 'Surflix: a private cinema for people who love film',
+  title: 'Surflix: a private cinema for friends and family',
   description:
-    'A private library of films and series, picked by hand. Watch, request what is missing, and see how titles connect. No ads, no tracking.',
+    'Hand-picked films and series to watch, a request desk for what is missing, and a map of how titles connect. No ads, no tracking.',
 };
 
 export default function LandingLayout({ children }: { children: React.ReactNode }) {
   return (
-    <div className={`ref-root ${font.className}`}>
-      {/* Konten yang muncul saat scroll tetap kelihatan kalau script gagal */}
-      <noscript>
-        <style>{'.ref-reveal{opacity:1!important;transform:none!important}'}</style>
-      </noscript>
+    <div className={`lp-root ${font.className}`}>
       {children}
     </div>
   );
