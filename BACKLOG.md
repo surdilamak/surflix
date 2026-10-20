@@ -5,8 +5,8 @@
 
 ## 🔴 Tindak lanjut cepat (setelah deploy terakhir)
 
-- [ ] **Verifikasi deep-link Tonton di Request Hub.** Tombol "Watch on Surflix" di detail modal sekarang nyari `jellyfinId` dari snapshot library lalu buka `#/details?id=…&serverId=…`. Film yang belum ada di snapshot jatuh ke home Jellyfin. Cek: buka satu film Available → klik Watch → harus langsung ke filmnya.
-- [ ] **Aktifin Sync library** (env Jellyfin di compose Dockge): compose sudah ter-deploy (2026-10-20); tinggal uji tombol **Sync library** di admin dan pastikan key lama yang sempat ke-share di chat sudah di-revoke. Tanpa ini snapshot library cuma update kalau import script dijalanin manual, jadi film baru gak punya deep-link / gak bisa dicari di portal. Langkah ada di bagian "Cara" bawah.
+- [x] **Verifikasi deep-link Tonton di Request Hub** (dicek Idrus, 2026-10-20: jalan). Tombol "Watch on Surflix" di detail modal sekarang nyari `jellyfinId` dari snapshot library lalu buka `#/details?id=…&serverId=…`. Film yang belum ada di snapshot jatuh ke home Jellyfin. Cek: buka satu film Available → klik Watch → harus langsung ke filmnya.
+- [x] **Aktifin Sync library** (2026-10-20): env Jellyfin ter-deploy, tombol Sync library dicek Idrus dan jalan. (Key lama yang sempat ke-share di chat harus sudah di-revoke.) Tanpa ini snapshot library cuma update kalau import script dijalanin manual, jadi film baru gak punya deep-link / gak bisa dicari di portal. Langkah ada di bagian "Cara" bawah.
 - [x] **Angka landing** (2026-10-20): `723 films · 194 series · 706 titles mapped`; `/api/upcoming` keisi lagi (20 film). `/api/most-requested` kosong itu wajar: syaratnya minimal 2 request untuk judul yang sama.
 - [ ] **Sampling fakta koneksi.** 739 koneksi ditulis dari pengetahuan (belum diverifikasi online). Paling perlu dicek: kategori `talent` (siapa main/nulis apa) dan koneksi `visual` / `inspired` yang dulunya `confidence: medium`. Edit/hapus lewat `/admin/connections` → Manage.
 
