@@ -75,3 +75,42 @@ export async function syncLibraryFromJellyfin() {
 
   return { total: seen.size, created, updated };
 }
+
+// ── Auto-sync (dipicu webhook Jellyseerr MEDIA_AVAILABLE) ──────────────────────
+// Serial bisa nembak banyak event beruntun, jadi digabung: satu sync per jendela
+// debounce. State ada di memori proses (cukup: container ini satu proses Node).
+const SYNC_DEBOUNCE_MS = 30_000;
+let syncTimer: ReturnType<typeof setTimeout> | null = null;
+let syncRunning = false;
+let syncAgain = false;
+
+async function runScheduledSync() {
+  if (syncRunning) {
+    syncAgain = true; // ada event baru pas sync jalan: ulang sekali setelah selesai
+    return;
+  }
+  syncRunning = true;
+  try {
+    const r = await syncLibraryFromJellyfin();
+    await prisma.eventLog.create({ data: { type: 'library.autosync', payload: JSON.stringify(r) } });
+    console.log(`[LibrarySync] auto-sync: ${r.created} baru, ${r.updated} diupdate (total ${r.total})`);
+  } catch (err) {
+    console.warn('[LibrarySync] auto-sync gagal:', (err as Error).message);
+  } finally {
+    syncRunning = false;
+    if (syncAgain) {
+      syncAgain = false;
+      scheduleLibrarySync();
+    }
+  }
+}
+
+/** Jadwalkan sync library (debounce). Aman dipanggil berkali-kali; tidak pernah throw. */
+export function scheduleLibrarySync() {
+  if (!process.env.JELLYFIN_URL || !process.env.JELLYFIN_API_KEY) return;
+  if (syncTimer) clearTimeout(syncTimer);
+  syncTimer = setTimeout(() => {
+    syncTimer = null;
+    void runScheduledSync();
+  }, SYNC_DEBOUNCE_MS);
+}

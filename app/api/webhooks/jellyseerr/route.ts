@@ -17,6 +17,7 @@ import { sendAvailableNotification } from '@/lib/email';
 import { notifyRequestFailed } from '@/lib/telegram';
 import { sendPushToGuest } from '@/lib/push';
 import { buildStatusChangeNotif } from '@/lib/notif-messages';
+import { scheduleLibrarySync } from '@/lib/library-sync';
 
 async function pushIfChanged(
   request: { guestId: string; title: string; adminNote?: string | null },
@@ -41,9 +42,9 @@ async function pushIfChanged(
 export async function POST(req: NextRequest) {
   // Verify webhook secret
   const authHeader = req.headers.get('authorization');
-  const expectedToken = `Bearer ${process.env.WEBHOOK_SECRET}`;
-
-  if (authHeader !== expectedToken) {
+  const secret = process.env.WEBHOOK_SECRET;
+  // Tanpa secret, "Bearer undefined" bakal lolos: tolak semua kalau belum di-set.
+  if (!secret || authHeader !== `Bearer ${secret}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
@@ -67,6 +68,12 @@ export async function POST(req: NextRequest) {
       payload: JSON.stringify(payload),
     },
   });
+
+  // Judul baru masuk library -> segarkan snapshot (search portal + deep-link).
+  // Sebelum early-return di bawah: berlaku juga untuk judul yang bukan dari request Surflix.
+  if (event === 'MEDIA_AVAILABLE' || event === 'MEDIA_PARTIALLY_AVAILABLE') {
+    scheduleLibrarySync();
+  }
 
   // Cari request kita berdasarkan tmdbId
   const tmdbId = parseInt(media.tmdbId);
