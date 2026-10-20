@@ -1,12 +1,15 @@
 #!/usr/bin/env node
 /**
- * Import FilmConnection (approved) dari JSON hasil kurasi lokal ke database aktif.
+ * Import FilmConnection dari JSON hasil kurasi (scripts/connections-seed.json) ke database aktif.
  *
- * Aman buat production: cuma NAMBAH baris FilmConnection. Gak nyentuh tabel lain,
- * dan baris yang udah ada (status/review admin) gak ditimpa — cuma kolom metadata
- * film sumber yang masih kosong yang diisi.
+ * Aman buat production — aturannya:
+ *   - Baris baru dibuat dengan status dari seed (h = APPROVED, m = PENDING_REVIEW).
+ *   - Baris yang sudah ada & dibuat seed (source "llm"): teksnya di-refresh (alasan EN/ID,
+ *     relasi, confidence, metadata film). STATUS TIDAK PERNAH DIUBAH, jadi approve/reject admin aman.
+ *   - Baris yang sudah disentuh admin (source "admin"): dilewati sepenuhnya.
+ *   - Baris lama arah-kebalik (B->A) dihapus kalau seed punya A->B dan B->A bukan bagian seed
+ *     (hasil seed awal yang ditulis dua arah). Hanya baris source "llm" yang pernah dihapus.
  *
- * Cara pakai (di container, DATABASE_URL udah ke-set):
  *   docker exec surflix node scripts/import-connections.js scripts/connections-seed.json          # dry-run
  *   docker exec surflix node scripts/import-connections.js scripts/connections-seed.json --apply  # beneran
  */
@@ -23,41 +26,47 @@ if (!file) {
 
 const rows = JSON.parse(fs.readFileSync(file, 'utf8'));
 const prisma = new PrismaClient();
+const keyOf = (r) => `${r.sourceMediaType}:${r.sourceTmdbId}>${r.targetTmdbId}`;
+const pair = (a) => ({
+  sourceTmdbId_sourceMediaType_targetTmdbId: {
+    sourceTmdbId: a.sourceTmdbId, sourceMediaType: a.sourceMediaType, targetTmdbId: a.targetTmdbId,
+  },
+});
 
 (async () => {
-  let created = 0;
-  let existing = 0;
+  const seedKeys = new Set(rows.map(keyOf));
+  const stat = { created: 0, refreshed: 0, skippedAdmin: 0, pruned: 0 };
+
   for (const r of rows) {
-    const where = {
-      sourceTmdbId_sourceMediaType_targetTmdbId: {
-        sourceTmdbId: r.sourceTmdbId,
-        sourceMediaType: r.sourceMediaType,
-        targetTmdbId: r.targetTmdbId,
-      },
-    };
-    const had = await prisma.filmConnection.findUnique({ where });
-    if (had) {
-      existing++;
-      // isi metadata film sumber yang masih kosong (cuma NGISI yang null, gak nimpa review)
-      if (apply && (had.sourceJellyfinId == null || had.sourceYear == null)) {
-        await prisma.filmConnection.update({
-          where,
-          data: {
-            sourceJellyfinId: had.sourceJellyfinId ?? r.sourceJellyfinId ?? null,
-            sourceYear: had.sourceYear ?? r.sourceYear ?? null,
-          },
+    const { status, ...rest } = r;
+    const had = await prisma.filmConnection.findUnique({ where: pair(r) });
+
+    if (!had) {
+      stat.created++;
+      if (apply) {
+        await prisma.filmConnection.create({
+          data: { ...rest, status, reviewedAt: status === 'APPROVED' ? new Date() : null },
         });
       }
-      continue;
+    } else if (had.source === 'admin') {
+      stat.skippedAdmin++;
+    } else {
+      stat.refreshed++;
+      if (apply) await prisma.filmConnection.update({ where: pair(r), data: rest });
     }
-    created++;
-    if (apply) {
-      await prisma.filmConnection.create({
-        data: { ...r, status: 'APPROVED', reviewedAt: new Date() },
-      });
+
+    // baris lama arah-kebalik (target -> sumber)
+    const rev = {
+      sourceTmdbId: r.targetTmdbId, sourceMediaType: r.targetMediaType, targetTmdbId: r.sourceTmdbId,
+    };
+    const revRow = await prisma.filmConnection.findUnique({ where: pair(rev) });
+    if (revRow && revRow.source === 'llm' && !seedKeys.has(keyOf(revRow))) {
+      stat.pruned++;
+      if (apply) await prisma.filmConnection.delete({ where: { id: revRow.id } });
     }
   }
-  console.log(`${apply ? 'APPLIED' : 'DRY-RUN'}: total=${rows.length} baru=${created} sudah-ada=${existing}`);
+
+  console.log(`${apply ? 'APPLIED' : 'DRY-RUN'}: total=${rows.length}`, stat);
   if (!apply) console.log('Tambahin --apply buat nulis ke database.');
   await prisma.$disconnect();
 })().catch((e) => {

@@ -12,7 +12,9 @@ import * as THREE from 'three';
 import { RoundedBoxGeometry } from 'three/examples/jsm/geometries/RoundedBoxGeometry.js';
 import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment.js';
 import { posterUrl, watchUrl } from '@/lib/jellyfin';
-import { REL_LABEL, REL_VAR } from '@/lib/portal-data';
+import { REL_COLOR, REL_VAR } from '@/lib/portal-data';
+import { REL_ORDER } from '@/lib/i18n';
+import { useLang } from './lang-provider';
 
 export interface GraphNode {
   id: string;
@@ -23,13 +25,17 @@ export interface GraphNode {
   poster?: string | null;
   jellyfinId?: string | null;
   isSource: boolean;
+  /** jumlah koneksi film ini (0 = belum ada peta) */
+  refCount?: number;
 }
 
 export interface GraphEdge {
   from: string;
   to: string;
   relationship: string;
+  direction: 'out' | 'in';
   reason: string;
+  reasonEn?: string | null;
 }
 
 export interface GraphData {
@@ -37,11 +43,8 @@ export interface GraphData {
   edges: GraphEdge[];
 }
 
-const REL_COLOR: Record<string, string> = {
-  homage: '#f7941d',
-  inspired: '#4f8ff0',
-  visual: '#d9d4c4',
-};
+// Graph 3D cuma muat belasan case; sisanya ada di daftar di bawahnya.
+const MAX_NODES = 14;
 
 // Ukuran case (satuan scene): rasio mirip case Blu-ray sungguhan
 const W = 1.5;
@@ -169,19 +172,23 @@ interface ConnectionGraphProps {
   data: GraphData;
   jellyfinUrl?: string;
   serverId?: string;
-  /** key "mediaType:tmdbId" film yang punya peta sendiri → tampil tombol "Buka peta" */
-  mapKeys?: Set<string>;
   /** path di dalam portal, mis. portalPath('/movie/62') */
   portalPath?: (p?: string) => string;
 }
 
-export function ConnectionGraph({ data, jellyfinUrl, serverId, mapKeys, portalPath }: ConnectionGraphProps) {
+export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: ConnectionGraphProps) {
   const mountRef = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState(0);
   const selectRef = useRef<(i: number) => void>(() => {});
 
-  const { nodes, edges } = data;
+  const { t, rel, reason } = useLang();
+  // node pertama = film yang dibuka; sisanya sudah diurutkan dari referensi paling kuat
+  const nodes = data.nodes.slice(0, MAX_NODES);
+  const shownIds = new Set(nodes.map((n) => n.id));
+  const edges = data.edges.filter((e) => shownIds.has(e.to));
+  const hiddenCount = data.edges.length - edges.length;
   const edgeByNode = new Map(edges.map((e) => [e.to, e]));
+  const typesPresent = REL_ORDER.filter((k) => edges.some((e) => e.relationship === k));
 
   useEffect(() => {
     const mount = mountRef.current;
@@ -489,46 +496,48 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, mapKeys, portalPa
 
   const node = nodes[Math.min(selected, nodes.length - 1)];
   const edge = edgeByNode.get(node.id);
-  const nodeKey = `${node.mediaType}:${node.tmdbId}`;
-  const hasOwnMap = !node.isSource && mapKeys?.has(nodeKey);
+  const hasOwnMap = !node.isSource && (node.refCount ?? 0) > 0;
 
   return (
     <div className="ref-stage">
       <div className="ref-stage-view">
         <div ref={mountRef} className="ref-stage-canvas" />
 
-        <ul className="ref-legend" aria-label="Jenis hubungan">
-          {Object.keys(REL_LABEL).map((k) => (
+        <ul className="ref-legend" aria-label={t('stage.legend')}>
+          {typesPresent.map((k) => (
             <li key={k}>
               <span className="ref-mark" style={{ '--c': REL_COLOR[k] } as React.CSSProperties} />
-              {REL_LABEL[k]}
+              {rel(k)}
             </li>
           ))}
         </ul>
-        <p className="ref-stage-hint">Geser untuk memutar. Ketuk case untuk membukanya.</p>
+        <p className="ref-stage-hint">
+          {t('stage.hint')}
+          {hiddenCount > 0 && <> {t('detail.more', { n: hiddenCount })}</>}
+        </p>
       </div>
 
       <div className="ref-panel" aria-live="polite">
         {edge && (
           <p className="ref-panel-rel">
             <span className="ref-mark" style={{ '--c': REL_VAR[edge.relationship] } as React.CSSProperties} />
-            {REL_LABEL[edge.relationship] ?? edge.relationship}
+            {rel(edge.relationship, edge.direction)}
           </p>
         )}
         <h3>
           {node.title}
           {node.year ? <small>{node.year}</small> : null}
         </h3>
-        <p>{edge ? edge.reason : 'Film yang sedang dibuka. Semua yang melayang di sekelilingnya nyambung ke film ini.'}</p>
+        <p>{edge ? reason(edge) : t('stage.default')}</p>
         <div className="ref-panel-actions">
           {node.jellyfinId && jellyfinUrl && (
             <a className="ref-btn" href={watchUrl(node.jellyfinId, jellyfinUrl, serverId)} target="_blank" rel="noopener">
-              Tonton di Surflix
+              {t('detail.watch')}
             </a>
           )}
           {hasOwnMap && portalPath && (
-            <a className="ref-panel-link" href={portalPath(`/${node.mediaType}/${node.tmdbId}`)}>
-              Buka peta film ini
+            <a className="ref-panel-link" href={portalPath(`/${node.mediaType}/${node.tmdbId}`) || '/'}>
+              {t('stage.openMap')}
             </a>
           )}
         </div>

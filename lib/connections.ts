@@ -171,119 +171,251 @@ export async function generateConnections(
   return summary;
 }
 
+export const RELATIONSHIPS = ['homage', 'inspired', 'visual', 'remake', 'universe', 'director', 'talent'] as const;
+export type RelationshipType = (typeof RELATIONSHIPS)[number];
+
+export interface GraphNodeOut {
+  id: string;
+  tmdbId: number;
+  mediaType: string;
+  title: string;
+  year: number | null;
+  jellyfinId: string | null;
+  isSource: boolean;
+  /** jumlah film yang nyambung ke film ini (0 = belum ada peta) */
+  refCount: number;
+}
+
+export interface GraphEdgeOut {
+  from: string;
+  to: string;
+  relationship: string;
+  /** "out": film yang dibuka merujuk lawannya; "in": lawannya merujuk film yang dibuka */
+  direction: 'out' | 'in';
+  reason: string;
+  reasonEn: string | null;
+  confidence: string;
+}
+
+type Row = Awaited<ReturnType<typeof prisma.filmConnection.findMany>>[number];
+
+const fk = (mediaType: string, tmdbId: number) => `${mediaType}:${tmdbId}`;
+
 /**
- * Info film (poster/tahun/jellyfinId) dari baris lain yang kebetulan nunjuk film ini
- * sebagai target. FilmConnection gak nyimpen metadata sumber, jadi ini jalan paling murah.
+ * Per film: lawan-lawannya (dari dua arah), tanpa duplikat.
+ * Kalau sepasang film punya dua baris (A->B dan B->A), pakai arah kanonik:
+ * film yang lebih baru merujuk film yang lebih lama.
  */
-async function lookupAsTarget(tmdbId: number, mediaType: MediaType) {
-  const row = await prisma.filmConnection.findFirst({
-    where: { targetTmdbId: tmdbId, targetMediaType: mediaType },
-    select: { targetYear: true, targetPoster: true, targetJellyfinId: true },
-  });
-  return {
-    year: row?.targetYear ?? null,
-    poster: row?.targetPoster ?? null,
-    jellyfinId: row?.targetJellyfinId ?? null,
+function buildAdjacency(rows: Row[]) {
+  const adj = new Map<string, Map<string, Row>>();
+  const consider = (film: string, other: string, row: Row) => {
+    let m = adj.get(film);
+    if (!m) adj.set(film, (m = new Map()));
+    const prev = m.get(other);
+    if (!prev || (row.sourceYear ?? 0) > (prev.sourceYear ?? 0)) m.set(other, row);
   };
+  for (const r of rows) {
+    const a = fk(r.sourceMediaType, r.sourceTmdbId);
+    const b = fk(r.targetMediaType, r.targetTmdbId);
+    consider(a, b, r);
+    consider(b, a, r);
+  }
+  return adj;
+}
+
+async function approvedRows() {
+  return prisma.filmConnection.findMany({ where: { status: 'APPROVED' }, orderBy: { createdAt: 'asc' } });
+}
+
+async function libraryMap(keys: string[]) {
+  const titles = await prisma.libraryTitle.findMany({
+    where: { OR: keys.map((k) => ({ mediaType: k.split(':')[0], tmdbId: Number(k.split(':')[1]) })) },
+  });
+  return new Map(titles.map((t) => [fk(t.mediaType, t.tmdbId), t]));
 }
 
 /**
- * Buat guest: koneksi APPROVED dalam bentuk graph-ready (nodes + edges).
+ * Buat guest: peta satu film (nodes + edges) dari koneksi APPROVED, dua arah.
  * Murni baca DB — ZERO LLM. Kalau belum ada -> nodes/edges kosong.
  */
 export async function getApprovedConnections(tmdbId: number, mediaType: MediaType) {
-  const rows = await prisma.filmConnection.findMany({
-    where: { sourceTmdbId: tmdbId, sourceMediaType: mediaType, status: 'APPROVED' },
-    orderBy: { createdAt: 'asc' },
-  });
+  const rows = await approvedRows();
+  const adj = buildAdjacency(rows);
+  const me = fk(mediaType, tmdbId);
+  const mine = adj.get(me);
+  if (!mine || mine.size === 0) return { nodes: [] as GraphNodeOut[], edges: [] as GraphEdgeOut[] };
 
-  if (rows.length === 0) return { nodes: [], edges: [] };
+  const keys = [me, ...mine.keys()];
+  const lib = await libraryMap(keys);
 
-  const asTarget = await lookupAsTarget(tmdbId, mediaType);
-  const src = {
-    year: rows[0].sourceYear ?? asTarget.year,
-    poster: asTarget.poster,
-    jellyfinId: rows[0].sourceJellyfinId ?? asTarget.jellyfinId,
+  const nodeOf = (key: string, isSource: boolean): GraphNodeOut => {
+    const [mt, id] = key.split(':');
+    const l = lib.get(key);
+    // cadangan kalau film belum ada di LibraryTitle: ambil dari baris koneksi
+    let title = l?.title ?? '';
+    let year = l?.year ?? null;
+    let jellyfinId = l?.jellyfinId ?? null;
+    if (!title) {
+      for (const r of mine.values()) {
+        if (fk(r.sourceMediaType, r.sourceTmdbId) === key) { title = r.sourceTitle; year ??= r.sourceYear; jellyfinId ??= r.sourceJellyfinId; break; }
+        if (fk(r.targetMediaType, r.targetTmdbId) === key) { title = r.targetTitle; year ??= r.targetYear; jellyfinId ??= r.targetJellyfinId; break; }
+      }
+    }
+    return {
+      id: key, tmdbId: Number(id), mediaType: mt, title, year, jellyfinId, isSource,
+      refCount: adj.get(key)?.size ?? 0,
+    };
   };
 
-  const nodes = [
-    {
-      id: `${mediaType}:${tmdbId}`,
-      tmdbId,
-      mediaType,
-      title: rows[0].sourceTitle,
-      year: src.year,
-      poster: src.poster,
-      jellyfinId: src.jellyfinId,
-      isSource: true,
-    },
-    ...rows.map((r) => ({
-      id: `${r.targetMediaType}:${r.targetTmdbId}`,
-      tmdbId: r.targetTmdbId,
-      mediaType: r.targetMediaType,
-      title: r.targetTitle,
-      year: r.targetYear,
-      poster: r.targetPoster,
-      jellyfinId: r.targetJellyfinId,
-      isSource: false,
-    })),
-  ];
-
-  const edges = rows.map((r) => ({
-    from: `${mediaType}:${tmdbId}`,
-    to: `${r.targetMediaType}:${r.targetTmdbId}`,
-    relationship: r.relationship,
-    reason: r.reason,
-  }));
-
+  const nodes: GraphNodeOut[] = [nodeOf(me, true)];
+  const edges: GraphEdgeOut[] = [];
+  // referensi sinematik duluan, lalu talenta, sutradara, semesta (graph 3D cuma muat belasan)
+  const PRIORITY = ['homage', 'inspired', 'visual', 'remake', 'talent', 'director', 'universe'];
+  const ordered = [...mine].sort(
+    (a, b) => PRIORITY.indexOf(a[1].relationship) - PRIORITY.indexOf(b[1].relationship)
+  );
+  for (const [other, r] of ordered) {
+    nodes.push(nodeOf(other, false));
+    edges.push({
+      from: me, to: other, relationship: r.relationship,
+      direction: fk(r.sourceMediaType, r.sourceTmdbId) === me ? 'out' : 'in',
+      reason: r.reason, reasonEn: r.reasonEn, confidence: r.confidence,
+    });
+  }
   return { nodes, edges };
 }
 
 /**
- * Buat portal Referensi: daftar film yang punya peta referensi (APPROVED),
- * masing-masing dengan film-film yang nyambung ke dia (urut sesuai review).
+ * Buat portal Referensi: semua film yang punya peta (muncul di koneksi APPROVED, sebagai
+ * sumber maupun target), diurutkan dari yang paling banyak nyambung.
  */
 export async function listConnectedFilms() {
-  const rows = await prisma.filmConnection.findMany({
-    where: { status: 'APPROVED' },
-    orderBy: { createdAt: 'asc' },
+  const rows = await approvedRows();
+  const adj = buildAdjacency(rows);
+  const keys = [...adj.keys()];
+  const lib = await libraryMap(keys);
+
+  const films = keys.map((key) => {
+    const l = lib.get(key);
+    const [mt, id] = key.split(':');
+    const mine = adj.get(key)!;
+    const refs = [...mine.entries()].map(([other, r]) => {
+      const lo = lib.get(other);
+      const isSrc = fk(r.sourceMediaType, r.sourceTmdbId) === key;
+      return {
+        tmdbId: Number(other.split(':')[1]),
+        mediaType: other.split(':')[0],
+        title: lo?.title ?? (isSrc ? r.targetTitle : r.sourceTitle),
+        year: lo?.year ?? (isSrc ? r.targetYear : r.sourceYear),
+        jellyfinId: lo?.jellyfinId ?? (isSrc ? r.targetJellyfinId : r.sourceJellyfinId),
+        poster: null as string | null,
+        relationship: r.relationship,
+        direction: isSrc ? ('out' as const) : ('in' as const),
+        reason: r.reason,
+        reasonEn: r.reasonEn,
+      };
+    });
+    // skor referensi: hanya hubungan "sinematik" yang dihitung (bukan semesta/sutradara/talenta)
+    const refScore = refs.filter((r) => ['homage', 'inspired', 'visual', 'remake'].includes(r.relationship)).length;
+    return {
+      tmdbId: Number(id), mediaType: mt, title: l?.title ?? refs[0]?.title ?? '',
+      year: l?.year ?? null, poster: null as string | null, jellyfinId: l?.jellyfinId ?? null,
+      count: refs.length, refScore, refs,
+    };
   });
 
-  // metadata film (kalau film itu muncul sebagai target di baris lain)
-  const meta = new Map<string, { year: number | null; poster: string | null; jellyfinId: string | null }>();
-  for (const r of rows) {
-    meta.set(`${r.targetMediaType}:${r.targetTmdbId}`, {
-      year: r.targetYear, poster: r.targetPoster, jellyfinId: r.targetJellyfinId,
-    });
-  }
+  return films.sort(
+    (a, b) => b.refScore - a.refScore || b.count - a.count || a.title.localeCompare(b.title)
+  );
+}
 
-  type Ref = {
-    tmdbId: number; mediaType: string; title: string; year: number | null;
-    poster: string | null; jellyfinId: string | null; relationship: string; reason: string;
-  };
-  const films = new Map<string, {
-    tmdbId: number; mediaType: string; title: string; count: number;
-    year: number | null; poster: string | null; jellyfinId: string | null; refs: Ref[];
-  }>();
+/**
+ * Search seluruh library (judul, judul asli, sutradara). Tiap hasil bawa jumlah referensi
+ * (0 = belum ada peta) supaya portal bisa bilang "belum dipetakan".
+ */
+export async function searchLibrary(q: string, limit = 12) {
+  const term = q.trim();
+  if (term.length < 2) return [];
+  const rows = await prisma.libraryTitle.findMany({
+    where: {
+      OR: [
+        { title: { contains: term } },
+        { originalTitle: { contains: term } },
+        { directors: { contains: term } },
+      ],
+    },
+    take: 60,
+  });
 
-  for (const r of rows) {
-    const key = `${r.sourceMediaType}:${r.sourceTmdbId}`;
-    let f = films.get(key);
-    if (!f) {
-      const m = meta.get(key);
-      f = {
-        tmdbId: r.sourceTmdbId, mediaType: r.sourceMediaType, title: r.sourceTitle, count: 0,
-        year: r.sourceYear ?? m?.year ?? null, poster: m?.poster ?? null,
-        jellyfinId: r.sourceJellyfinId ?? m?.jellyfinId ?? null, refs: [],
-      };
-      films.set(key, f);
-    }
-    f.count++;
-    f.refs.push({
-      tmdbId: r.targetTmdbId, mediaType: r.targetMediaType, title: r.targetTitle, year: r.targetYear,
-      poster: r.targetPoster, jellyfinId: r.targetJellyfinId, relationship: r.relationship, reason: r.reason,
-    });
-  }
+  const counts = adjacencyCounts(await approvedRows());
+  const lc = term.toLowerCase();
+  const scored = rows.map((r) => {
+    const t = r.title.toLowerCase();
+    const score = (t === lc ? 0 : t.startsWith(lc) ? 1 : t.includes(lc) ? 2 : 3);
+    return { r, score, n: counts.get(fk(r.mediaType, r.tmdbId)) ?? 0 };
+  });
+  scored.sort((a, b) => a.score - b.score || b.n - a.n || a.r.title.localeCompare(b.r.title));
+  return scored.slice(0, limit).map(({ r, n }) => ({
+    tmdbId: r.tmdbId, mediaType: r.mediaType, title: r.title, year: r.year,
+    jellyfinId: r.jellyfinId, directors: r.directors, refCount: n,
+  }));
+}
 
-  return [...films.values()].sort((a, b) => a.title.localeCompare(b.title));
+function adjacencyCounts(rows: Row[]) {
+  const adj = buildAdjacency(rows);
+  return new Map([...adj.entries()].map(([k, m]) => [k, m.size]));
+}
+
+/**
+ * Backoffice: seluruh library + status cakupan referensi.
+ */
+export async function libraryCoverage() {
+  const [titles, all] = await Promise.all([
+    prisma.libraryTitle.findMany({ orderBy: { title: 'asc' } }),
+    prisma.filmConnection.findMany(),
+  ]);
+  const count = (status: string) =>
+    adjacencyCounts(all.filter((r) => r.status === status));
+  const approved = count('APPROVED');
+  const pending = count('PENDING_REVIEW');
+  return titles.map((t) => {
+    const k = fk(t.mediaType, t.tmdbId);
+    return {
+      tmdbId: t.tmdbId, mediaType: t.mediaType, title: t.title, year: t.year,
+      jellyfinId: t.jellyfinId, genres: t.genres, directors: t.directors,
+      approved: approved.get(k) ?? 0, pending: pending.get(k) ?? 0,
+    };
+  });
+}
+
+
+/**
+ * Indeks A–Z seluruh library (ringkas): [tmdbId, mediaType, title, year, jumlah koneksi].
+ */
+export async function libraryIndex() {
+  const [titles, rows] = await Promise.all([
+    prisma.libraryTitle.findMany({ select: { tmdbId: true, mediaType: true, title: true, year: true } }),
+    approvedRows(),
+  ]);
+  const counts = adjacencyCounts(rows);
+  return titles
+    .map((t) => [t.tmdbId, t.mediaType, t.title, t.year, counts.get(fk(t.mediaType, t.tmdbId)) ?? 0] as const)
+    .sort((a, b) => sortKey(a[2]).localeCompare(sortKey(b[2])));
+}
+
+function sortKey(title: string) {
+  return title
+    .replace(/^(the|a|an)\s+/i, '')
+    .normalize('NFKD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/^[^A-Za-z0-9]+/, '')
+    .toLowerCase();
+}
+
+/** Satu judul dari library (buat halaman "belum ada peta"). */
+export async function getLibraryTitle(tmdbId: number, mediaType: MediaType) {
+  const t = await prisma.libraryTitle.findUnique({ where: { tmdbId_mediaType: { tmdbId, mediaType } } });
+  return t
+    ? { tmdbId: t.tmdbId, mediaType: t.mediaType, title: t.title, year: t.year, jellyfinId: t.jellyfinId, directors: t.directors, genres: t.genres }
+    : null;
 }

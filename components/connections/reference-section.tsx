@@ -44,7 +44,7 @@ export function ReferenceSection({ tmdbId, mediaType }: ReferenceSectionProps) {
     >
       <span className="inline-flex items-center justify-center gap-1.5">
         <Icons.Sparkles className="h-4 w-4" />
-        Lihat peta referensi ({count})
+        See the reference map ({count})
         <Icons.ExternalLink className="h-3 w-3 text-white/50" />
       </span>
     </a>

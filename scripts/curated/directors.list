@@ -1,0 +1,88 @@
+# Sutradara dengan >=2 film di library (diverifikasi manual). Koneksi dirantai per tahun rilis.
+# Franchise yang sudah rapat (Russo, Whedon, Jon Watts, Peyton Reed, Peter Jackson, Chad Stahelski,
+# Lucas, dll) sengaja dilewati: mereka sudah terhubung lewat file franchise.
+Stanley Kubrick
+Christopher Nolan
+Quentin Tarantino | -Kill Bill: The Whole Bloody Affair (2011)
+Martin Scorsese
+Ridley Scott | -ENJOY (2021)
+Denis Villeneuve
+Hayao Miyazaki
+Makoto Shinkai
+Isao Takahata
+Satoshi Kon
+David Fincher | +Gone Girl (2014)
+Francis Ford Coppola
+Wong Kar-wai
+Ari Aster
+Yorgos Lanthimos | +Dogtooth (2009)
+Akira Kurosawa
+David Lynch | +Blue Velvet (1986)
+Hideaki Anno
+James Gunn
+Jon Favreau
+M. Night Shyamalan
+Sam Raimi
+Marc Webb
+Scott Derrickson
+David Zucker
+David Lowery
+Ryan Coogler
+Park Chan-wook | +No Other Choice (2025)
+Joseph Kosinski
+Andrew Niccol
+Gareth Edwards
+Stephen Chow
+Paul Thomas Anderson
+Guillermo del Toro
+Robert Eggers
+Darren Aronofsky
+Jean-Pierre Jeunet
+James Cameron
+Miloš Forman
+Sean Baker
+Thomas Vinterberg
+Wes Anderson
+Joe Wright
+Claire Denis
+Spike Jonze
+Michael Gracey
+Tim Burton
+Michael Philippou
+Nicolas Winding Refn
+Joe Johnston
+Lee Unkrich
+Steven Spielberg
+Chloé Zhao | +Hamnet (2025)
+Daniel Kwan
+Lenny Abrahamson
+Jordan Peele
+James Mangold
+Masaaki Yuasa
+Trey Edward Shults
+Todd Phillips
+Ben Wheatley
+J.C. Chandor
+Greta Gerwig
+Rian Johnson
+Celine Song
+Barry Jenkins
+Mamoru Hosoda
+André Øvredal
+Alfred Hitchcock
+Destin Daniel Cretton
+J.J. Abrams
+Bryan Singer
+Frank Darabont
+Hiromasa Yonebayashi
+Nia DaCosta
+Ron Howard
+Reinaldo Marcus Green
+Richard Curtis
+Goro Miyazaki
+Terry Gilliam
+Lars von Trier | +Dancer in the Dark (2000) | +Melancholia (2011) | +The House That Jack Built (2018)
+Rose Glass | +Saint Maud (2019) | +Love Lies Bleeding (2024)
+Emerald Fennell | +Promising Young Woman (2020) | +Wuthering Heights (2026)
+Alex Garland | +Ex Machina (2015) | +Civil War (2024)
+Kristoffer Borgli | +Dream Scenario (2023) | +The Drama (2026)

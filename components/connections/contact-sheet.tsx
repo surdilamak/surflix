@@ -1,34 +1,39 @@
 /**
- * ContactSheet — satu baris per film: judulnya, lalu film itu sendiri dan semua
- * film yang nyambung ke dia, kecil-kecil dan berurutan seperti rak.
+ * ContactSheet — satu baris per film: judulnya, lalu film itu sendiri dan film-film yang
+ * nyambung ke dia, kecil-kecil dan berurutan seperti rak.
  * Arahkan ke satu frame: yang lain meredup dan alasannya tampil di baris tetap di atas.
  */
 'use client';
 
 import { useState } from 'react';
 import { usePortal } from '@/lib/hooks/use-portal';
-import {
-  filmKey, posterOf, REL_LABEL, REL_VAR,
-  type PortalFilm, type PortalRef,
-} from '@/lib/portal-data';
+import { watchUrl } from '@/lib/jellyfin';
+import { filmKey, posterOf, REL_VAR, type PortalFilm, type PortalRef } from '@/lib/portal-data';
+import { useLang } from './lang-provider';
 
 interface Active {
   run: string;
   ref: string | null; // key referensi, atau null kalau yang di-hover film sumbernya
 }
 
+const SHOWN_PER_RUN = 9;
+const PRIORITY = ['homage', 'inspired', 'visual', 'remake', 'talent', 'director', 'universe'];
+
 export function ContactSheet({
   films,
+  allKeys,
   jellyfinUrl,
   serverId,
 }: {
   films: PortalFilm[];
+  /** semua film yang punya peta (buat nentuin frame mana yang link ke peta, mana ke Jellyfin) */
+  allKeys: Set<string>;
   jellyfinUrl?: string;
   serverId?: string;
 }) {
   const { portalPath } = usePortal();
+  const { t, rel, reason } = useLang();
   const [active, setActive] = useState<Active | null>(null);
-  const hasMap = new Set(films.map((f) => filmKey(f.mediaType, f.tmdbId)));
 
   const activeFilm = active ? films.find((f) => filmKey(f.mediaType, f.tmdbId) === active.run) : null;
   const activeRef: PortalRef | undefined =
@@ -37,22 +42,22 @@ export function ContactSheet({
   return (
     <section id="peta" className="ref-sheet" data-hover={active ? '' : undefined}>
       <div className="ref-sheet-head">
-        <h2 className="ref-reveal">Semua peta</h2>
+        <h2 className="ref-reveal">{t('sheet.heading')}</h2>
         <p className="ref-caption" aria-live="polite">
           {activeRef ? (
             <>
               <span className="ref-mark" style={{ '--c': REL_VAR[activeRef.relationship] } as React.CSSProperties} />
               <b>{activeRef.title}</b>
-              {activeRef.year ? ` (${activeRef.year})` : ''}: {REL_LABEL[activeRef.relationship] ?? activeRef.relationship}.{' '}
-              {activeRef.reason}
+              {activeRef.year ? ` (${activeRef.year})` : ''}: {rel(activeRef.relationship, activeRef.direction)}. {reason(activeRef)}
             </>
           ) : activeFilm ? (
-            <>
-              <b>{activeFilm.title}</b>
-              {activeFilm.year ? ` (${activeFilm.year})` : ''}. {activeFilm.count} film nyambung. Buka petanya.
-            </>
+            t('sheet.film', {
+              title: activeFilm.title,
+              year: activeFilm.year ? ` (${activeFilm.year})` : '',
+              n: activeFilm.count,
+            })
           ) : (
-            'Satu baris, satu film. Di sebelah kanannya film-film yang nyambung ke dia. Arahkan ke salah satunya untuk baca alasannya.'
+            t('sheet.caption')
           )}
         </p>
       </div>
@@ -60,6 +65,10 @@ export function ContactSheet({
       {films.map((f, idx) => {
         const key = filmKey(f.mediaType, f.tmdbId);
         const srcPoster = posterOf(f, jellyfinUrl, 240);
+        const refs = [...f.refs]
+          .sort((a, b) => PRIORITY.indexOf(a.relationship) - PRIORITY.indexOf(b.relationship))
+          .slice(0, SHOWN_PER_RUN);
+        const href = portalPath(`/${f.mediaType}/${f.tmdbId}`) || '/';
         return (
           <div
             key={key}
@@ -68,41 +77,41 @@ export function ContactSheet({
             data-on={active?.run === key ? '' : undefined}
           >
             <div className="ref-run-title">
-              <a href={portalPath(`/${f.mediaType}/${f.tmdbId}`)}>{f.title}</a>
+              <a href={href}>{f.title}</a>
               <span>
                 {f.year ? `${f.year} · ` : ''}
-                {f.count} referensi
+                {t('sheet.meta', { n: f.count })}
               </span>
             </div>
             <div className="ref-frames">
               <a
                 className="ref-frame ref-frame--src"
-                href={portalPath(`/${f.mediaType}/${f.tmdbId}`)}
+                href={href}
                 onMouseEnter={() => setActive({ run: key, ref: null })}
                 onMouseLeave={() => setActive(null)}
                 onFocus={() => setActive({ run: key, ref: null })}
                 onBlur={() => setActive(null)}
-                aria-label={`Buka peta ${f.title}`}
+                aria-label={t('sheet.alt', { title: f.title })}
               >
                 {srcPoster && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={srcPoster} alt={f.title} loading="lazy" draggable={false} />
                 )}
               </a>
-              {f.refs.map((r) => {
+              {refs.map((r) => {
                 const rk = filmKey(r.mediaType, r.tmdbId);
                 const src = posterOf(r, jellyfinUrl, 240);
-                const toMap = hasMap.has(rk);
-                const href = toMap
-                  ? portalPath(`/${r.mediaType}/${r.tmdbId}`)
+                const toMap = allKeys.has(rk);
+                const link = toMap
+                  ? portalPath(`/${r.mediaType}/${r.tmdbId}`) || '/'
                   : r.jellyfinId && jellyfinUrl
-                    ? `${jellyfinUrl.replace(/\/+$/, '')}/web/#/details?id=${encodeURIComponent(r.jellyfinId)}${serverId ? `&serverId=${encodeURIComponent(serverId)}` : ''}`
+                    ? watchUrl(r.jellyfinId, jellyfinUrl, serverId)
                     : '#';
                 return (
                   <a
                     key={rk}
                     className="ref-frame"
-                    href={href}
+                    href={link}
                     target={toMap ? undefined : '_blank'}
                     rel={toMap ? undefined : 'noopener'}
                     data-on={active?.run === key && active.ref === rk ? '' : undefined}
@@ -110,7 +119,7 @@ export function ContactSheet({
                     onMouseLeave={() => setActive(null)}
                     onFocus={() => setActive({ run: key, ref: rk })}
                     onBlur={() => setActive(null)}
-                    aria-label={`${r.title}: ${REL_LABEL[r.relationship] ?? r.relationship}`}
+                    aria-label={`${r.title}: ${rel(r.relationship, r.direction)}`}
                   >
                     {src && (
                       // eslint-disable-next-line @next/next/no-img-element
@@ -120,8 +129,8 @@ export function ContactSheet({
                 );
               })}
             </div>
-            <a className="ref-run-open" href={portalPath(`/${f.mediaType}/${f.tmdbId}`)} tabIndex={-1} aria-hidden="true">
-              Buka peta →
+            <a className="ref-run-open" href={href} tabIndex={-1} aria-hidden="true">
+              {t('sheet.open')}
             </a>
           </div>
         );

@@ -1,0 +1,113 @@
+# ============ ALIEN ============
+Aliens (1986) > Alien (1979) | universe | h | @sequel
+Alien³ (1992) > Aliens (1986) | universe | h | @sequel
+Alien Resurrection (1997) > Alien³ (1992) | universe | h | @sequel
+Prometheus (2012) > Alien (1979) | universe | h | @prequel
+Alien: Covenant (2017) > Prometheus (2012) | universe | h | @sequel
+Alien: Romulus (2024) > Aliens (1986) | universe | h | Alien: Romulus is set between Alien and Aliens. || Alien: Romulus berlatar di antara Alien dan Aliens.
+Alien: Earth (2025) > Alien (1979) | universe | h | The series Alien: Earth is set two years before the events of Alien. || Serial Alien: Earth berlatar dua tahun sebelum peristiwa Alien.
+Predator: Badlands (2025) > Alien (1979) | universe | m | Predator: Badlands brings the Weyland-Yutani corporation from Alien into the Predator story. || Predator: Badlands membawa korporasi Weyland-Yutani dari Alien ke cerita Predator.
+
+# ============ STAR WARS ============
+The Empire Strikes Back (1980) > Star Wars (1977) | universe | h | @sequel
+Return of the Jedi (1983) > The Empire Strikes Back (1980) | universe | h | @sequel
+Star Wars: Episode I - The Phantom Menace (1999) > Star Wars (1977) | universe | h | @prequel
+Star Wars: Episode II - Attack of the Clones (2002) > Star Wars: Episode I - The Phantom Menace (1999) | universe | h | @sequel
+Star Wars: Episode III - Revenge of the Sith (2005) > Star Wars: Episode II - Attack of the Clones (2002) | universe | h | @sequel
+Star Wars: The Force Awakens (2015) > Return of the Jedi (1983) | universe | h | @sequel
+Star Wars: The Last Jedi (2017) > Star Wars: The Force Awakens (2015) | universe | h | @sequel
+Star Wars: The Rise of Skywalker (2019) > Star Wars: The Last Jedi (2017) | universe | h | @sequel
+Rogue One: A Star Wars Story (2016) > Star Wars (1977) | universe | h | Rogue One ends minutes before Star Wars begins, with the theft of the Death Star plans. || Rogue One berakhir beberapa menit sebelum Star Wars dimulai, lewat pencurian rencana Death Star.
+Solo: A Star Wars Story (2018) > Star Wars (1977) | universe | h | @prequel
+The Mandalorian (2019) > Return of the Jedi (1983) | universe | h | The Mandalorian is set a few years after Return of the Jedi. || The Mandalorian berlatar beberapa tahun setelah Return of the Jedi.
+The Mandalorian and Grogu (2026) > The Mandalorian (2019) | universe | h | @sequel
+The Book of Boba Fett (2021) > The Mandalorian (2019) | universe | h | @spinoff
+Ahsoka (2023) > Star Wars Rebels (2014) | universe | h | Ahsoka continues the story Star Wars Rebels left open. || Ahsoka melanjutkan kisah yang dibiarkan terbuka oleh Star Wars Rebels.
+Obi-Wan Kenobi (2022) > Star Wars: Episode III - Revenge of the Sith (2005) | universe | h | Obi-Wan Kenobi is set between Revenge of the Sith and A New Hope. || Obi-Wan Kenobi berlatar di antara Revenge of the Sith dan A New Hope.
+Star Wars: Andor (2022) > Rogue One: A Star Wars Story (2016) | universe | h | @prequel
+Star Wars: Skeleton Crew (2024) > Return of the Jedi (1983) | universe | h | Skeleton Crew takes place in the era after Return of the Jedi. || Skeleton Crew berlatar di era setelah Return of the Jedi.
+The Acolyte (2024) > Star Wars: Episode I - The Phantom Menace (1999) | universe | h | The Acolyte is set a century before The Phantom Menace. || The Acolyte berlatar seabad sebelum The Phantom Menace.
+Star Wars: The Clone Wars (2008) > Star Wars: Episode II - Attack of the Clones (2002) | universe | h | The Clone Wars fills the war between Attack of the Clones and Revenge of the Sith. || The Clone Wars mengisi perang di antara Attack of the Clones dan Revenge of the Sith.
+Star Wars Rebels (2014) > Star Wars: The Clone Wars (2008) | universe | h | @sequel
+Star Wars: Tales of the Underworld (2025) > Star Wars: The Clone Wars (2008) | universe | h | @spinoff
+Star Wars: Maul - Shadow Lord (2026) > Star Wars: The Clone Wars (2008) | universe | h | @sequel
+Star Wars: Visions (2021) > Star Wars (1977) | universe | h | Star Wars: Visions retells the saga through anime studios around the world. || Star Wars: Visions menceritakan ulang saga ini lewat studio anime dari berbagai negara.
+Star Wars: Visions Presents - The Ninth Jedi (2026) > Star Wars: Visions (2021) | universe | h | @series
+
+# ============ MARVEL CINEMATIC UNIVERSE ============
+The Incredible Hulk (2008) > Iron Man (2008) | universe | h | The Incredible Hulk ends with Tony Stark approaching General Ross, tying it to Iron Man. || The Incredible Hulk ditutup dengan Tony Stark menemui Jenderal Ross, mengaitkannya ke Iron Man.
+Iron Man 2 (2010) > Iron Man (2008) | universe | h | @sequel
+Thor (2011) > Iron Man 2 (2010) | universe | h | Iron Man 2's post-credits scene shows the crater where Thor's hammer lands. || Adegan pasca-kredit Iron Man 2 menunjukkan kawah tempat palu Thor jatuh.
+Captain America: The First Avenger (2011) > Thor (2011) | universe | h | The Tesseract introduced in Thor is the engine of Captain America's first adventure. || Tesseract yang diperkenalkan di Thor menjadi mesin petualangan pertama Captain America.
+The Avengers (2012) > Captain America: The First Avenger (2011) | universe | h | The Avengers brings the heroes of the first phase onto one team. || The Avengers menyatukan para pahlawan fase pertama dalam satu tim.
+Iron Man 3 (2013) > The Avengers (2012) | universe | h | Iron Man 3 deals with Tony Stark's trauma after the Battle of New York. || Iron Man 3 membahas trauma Tony Stark setelah Pertempuran New York.
+Thor: The Dark World (2013) > The Avengers (2012) | universe | h | @sequel
+Captain America: The Winter Soldier (2014) > The Avengers (2012) | universe | h | @sequel
+Guardians of the Galaxy (2014) > The Avengers (2012) | universe | h | Thanos first appears in The Avengers' mid-credits scene before Guardians expands the cosmic side. || Thanos pertama muncul di adegan tengah-kredit The Avengers sebelum Guardians memperluas sisi kosmiknya.
+Avengers: Age of Ultron (2015) > The Avengers (2012) | universe | h | @sequel
+Ant-Man (2015) > Avengers: Age of Ultron (2015) | universe | h | Ant-Man arrives right after Age of Ultron and meets Falcon. || Ant-Man hadir tepat setelah Age of Ultron dan bertemu Falcon.
+Captain America: Civil War (2016) > Avengers: Age of Ultron (2015) | universe | h | Civil War deals with the fallout of Age of Ultron. || Civil War membahas dampak dari Age of Ultron.
+Doctor Strange (2016) > Captain America: Civil War (2016) | universe | h | @universe
+Guardians of the Galaxy Vol. 2 (2017) > Guardians of the Galaxy (2014) | universe | h | @sequel
+Spider-Man: Homecoming (2017) > Captain America: Civil War (2016) | universe | h | Homecoming picks up Peter Parker right after his debut in Civil War. || Homecoming melanjutkan Peter Parker tepat setelah debutnya di Civil War.
+Thor: Ragnarok (2017) > Doctor Strange (2016) | universe | h | Doctor Strange appears in a cameo during Thor: Ragnarok. || Doctor Strange muncul sebagai cameo di Thor: Ragnarok.
+Black Panther (2018) > Captain America: Civil War (2016) | universe | h | Black Panther begins with T'Challa returning home after Civil War. || Black Panther dimulai dengan T'Challa pulang setelah Civil War.
+Avengers: Infinity War (2018) > Thor: Ragnarok (2017) | universe | h | Infinity War picks up from the post-credits scene of Thor: Ragnarok. || Infinity War melanjutkan adegan pasca-kredit Thor: Ragnarok.
+Ant-Man and the Wasp (2018) > Ant-Man (2015) | universe | h | @sequel
+Captain Marvel (2019) > Avengers: Infinity War (2018) | universe | h | Infinity War's post-credits scene is Nick Fury paging Captain Marvel. || Adegan pasca-kredit Infinity War adalah Nick Fury memanggil Captain Marvel.
+Avengers: Endgame (2019) > Avengers: Infinity War (2018) | universe | h | @sequel
+Spider-Man: Far from Home (2019) > Avengers: Endgame (2019) | universe | h | Far from Home deals with the world after Endgame. || Far from Home membahas dunia setelah Endgame.
+Black Widow (2021) > Captain America: Civil War (2016) | universe | h | Black Widow is set between Civil War and Infinity War. || Black Widow berlatar di antara Civil War dan Infinity War.
+Shang-Chi and the Legend of the Ten Rings (2021) > Avengers: Endgame (2019) | universe | h | Shang-Chi is set in the years after Endgame. || Shang-Chi berlatar di tahun-tahun setelah Endgame.
+Eternals (2021) > Avengers: Endgame (2019) | universe | h | The Eternals decide whether to act after Endgame's Blip. || The Eternals memutuskan apakah akan bertindak setelah peristiwa Blip di Endgame.
+Spider-Man: No Way Home (2021) > Spider-Man: Far from Home (2019) | universe | h | @sequel
+Doctor Strange in the Multiverse of Madness (2022) > Spider-Man: No Way Home (2021) | universe | h | Multiverse of Madness opens on the multiverse cracks Strange caused in No Way Home. || Multiverse of Madness dibuka dengan keretakan multiverse yang dibuat Strange di No Way Home.
+Thor: Love and Thunder (2022) > Thor: Ragnarok (2017) | universe | h | @sequel
+Black Panther: Wakanda Forever (2022) > Black Panther (2018) | universe | h | @sequel
+Ant-Man and the Wasp: Quantumania (2023) > Ant-Man and the Wasp (2018) | universe | h | @sequel
+Guardians of the Galaxy Vol. 3 (2023) > Guardians of the Galaxy Vol. 2 (2017) | universe | h | @sequel
+The Marvels (2023) > Captain Marvel (2019) | universe | h | @sequel
+Deadpool & Wolverine (2024) > Loki (2021) | universe | h | Deadpool & Wolverine uses the TVA, the time agency introduced in Loki. || Deadpool & Wolverine memakai TVA, badan waktu yang diperkenalkan di Loki.
+Captain America: Brave New World (2025) > Avengers: Endgame (2019) | universe | h | Sam Wilson carries the shield Steve Rogers handed over in Endgame. || Sam Wilson membawa perisai yang diserahkan Steve Rogers di Endgame.
+Thunderbolts* (2025) > Black Widow (2021) | universe | h | Yelena Belova, introduced in Black Widow, leads the Thunderbolts. || Yelena Belova, yang diperkenalkan di Black Widow, memimpin Thunderbolts.
+Spider-Man: Brand New Day (2026) > Spider-Man: No Way Home (2021) | universe | h | @sequel
+Loki (2021) > Avengers: Endgame (2019) | universe | h | Loki begins with the Endgame scene where the 2012 Loki escapes with the Tesseract. || Loki dimulai dari adegan Endgame saat Loki 2012 kabur membawa Tesseract.
+What If...? (2021) > Avengers: Endgame (2019) | universe | m | What If...? imagines alternate versions of MCU events as part of the multiverse. || What If...? membayangkan versi alternatif peristiwa MCU sebagai bagian dari multiverse.
+Marvel Zombies (2025) > What If...? (2021) | universe | h | Marvel Zombies grows out of the zombie episode of What If...?. || Marvel Zombies berkembang dari episode zombie di What If...?.
+Secret Invasion (2023) > Captain Marvel (2019) | universe | h | Secret Invasion picks up the Skrulls and Nick Fury from Captain Marvel. || Secret Invasion melanjutkan Skrull dan Nick Fury dari Captain Marvel.
+Ironheart (2025) > Black Panther: Wakanda Forever (2022) | universe | h | Riri Williams makes her debut in Wakanda Forever. || Riri Williams debut di Wakanda Forever.
+Eyes of Wakanda (2025) > Black Panther (2018) | universe | h | @spinoff
+Daredevil: Born Again (2025) > Spider-Man: No Way Home (2021) | universe | h | Matt Murdock returns in No Way Home before Daredevil: Born Again. || Matt Murdock kembali di No Way Home sebelum Daredevil: Born Again.
+A Marvel Television Special Presentation - The Punisher: One Last Kill (2026) > Daredevil: Born Again (2025) | universe | m | @universe
+VisionQuest (2026) > Avengers: Age of Ultron (2015) | universe | m | VisionQuest follows Vision, who was created in Age of Ultron. || VisionQuest mengikuti Vision, yang diciptakan di Age of Ultron.
+Deadpool & Wolverine (2024) > Logan (2017) | homage | h | Deadpool digs up the Logan variant's skeleton in the opening, a direct nod to Logan's ending. || Deadpool menggali kerangka Wolverine versi Logan di adegan pembuka, rujukan langsung ke akhir film Logan.
+
+# ============ SPIDER-MAN ============
+Spider-Man 2 (2004) > Spider-Man (2002) | universe | h | @sequel
+Spider-Man 3 (2007) > Spider-Man 2 (2004) | universe | h | @sequel
+The Amazing Spider-Man (2012) > Spider-Man (2002) | universe | h | @reboot
+The Amazing Spider-Man 2 (2014) > The Amazing Spider-Man (2012) | universe | h | @sequel
+Spider-Man: Across the Spider-Verse (2023) > Spider-Man: Into the Spider-Verse (2018) | universe | h | @sequel
+Spider-Man: No Way Home (2021) > Spider-Man 2 (2004) | universe | h | Doc Ock returns in No Way Home, played again by Alfred Molina. || Doc Ock kembali di No Way Home, lagi-lagi diperankan Alfred Molina.
+Spider-Man: No Way Home (2021) > The Amazing Spider-Man 2 (2014) | universe | h | Electro returns in No Way Home, played again by Jamie Foxx. || Electro kembali di No Way Home, lagi-lagi diperankan Jamie Foxx.
+
+# ============ DC ============
+Batman v Superman - Dawn of Justice (2016) > Man of Steel (2013) | universe | h | @sequel
+Zack Snyder's Justice League (2021) > Batman v Superman - Dawn of Justice (2016) | universe | h | @sequel
+Superman (2025) > Man of Steel (2013) | universe | m | @reboot
+Supergirl (2026) > Superman (2025) | universe | h | @universe
+Lanterns (2026) > Superman (2025) | universe | h | @universe
+The Dark Knight (2008) > Batman Begins (2005) | universe | h | @sequel
+The Dark Knight Rises (2012) > The Dark Knight (2008) | universe | h | @sequel
+The Batman (2022) > Batman Begins (2005) | universe | m | @reboot
+The Penguin (2024) > The Batman (2022) | universe | h | @spinoff
+
+# ============ PIXAR / DISNEY / ANIMATION ============
+Toy Story 2 (1999) > Toy Story (1995) | universe | h | @sequel
+Toy Story 3 (2010) > Toy Story 2 (1999) | universe | h | @sequel
+Toy Story 4 (2019) > Toy Story 3 (2010) | universe | h | @sequel
+Toy Story 5 (2026) > Toy Story 4 (2019) | universe | h | @sequel
+Moana 2 (2024) > Moana (2016) | universe | h | @sequel
+Moana (2026) > Moana (2016) | remake | h | @remake
+Mufasa: The Lion King (2024) > The Lion King (2019) | universe | h | @prequel
+The Super Mario Galaxy Movie (2026) > The Super Mario Bros. Movie (2023) | universe | h | @sequel

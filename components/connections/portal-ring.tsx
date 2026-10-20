@@ -8,6 +8,8 @@
 import { useState } from 'react';
 import { usePortal } from '@/lib/hooks/use-portal';
 import { filmKey, posterOf, type PortalFilm } from '@/lib/portal-data';
+import { useLang } from './lang-provider';
+import { SearchBox } from './search-box';
 
 const MAX_FRAMES = 24;
 const RATIO = 0.55; // ry / rx pada layar desktop (310 / 560)
@@ -44,37 +46,37 @@ function evenAngles(n: number): number[] {
 
 export function PortalRing({ films, jellyfinUrl }: { films: PortalFilm[]; jellyfinUrl?: string }) {
   const { portalPath } = usePortal();
+  const { t } = useLang();
   const [hover, setHover] = useState<PortalFilm | null>(null);
 
-  // yang paling banyak referensinya duluan; sebar rata di sekeliling elips
-  const frames = [...films].sort((a, b) => b.count - a.count).slice(0, MAX_FRAMES);
+  // `films` sudah diurutkan dari yang referensinya paling kaya
+  const frames = films.slice(0, MAX_FRAMES);
   const n = frames.length;
   const angles = evenAngles(n);
 
   return (
     <>
-      <div className="ref-ring" data-hover={hover ? '' : undefined} aria-label="Film di rak">
+      <div className="ref-ring" data-hover={hover ? '' : undefined} aria-hidden={false}>
         {frames.map((f, i) => {
-          // mulai dari atas, putar searah jarum jam
           const a = angles[i];
           const cx = Math.cos(a);
           const sy = Math.sin(a);
           // lebar: 72px di puncak cincin, 98px di sisi & dasar (tilt ke arah penonton)
           const w = 72 + 26 * Math.min(1, 1 + sy);
           // dasar frame mengikuti lengkung, maksimal 30 derajat
-          const slope = (cx) / (-sy || -1e-6); // ry/rx dinormalisasi di bawah
+          const slope = cx / (-sy || -1e-6);
           const rot = Math.max(-30, Math.min(30, (Math.atan(slope * 0.55) * 180) / Math.PI));
           const src = posterOf(f, jellyfinUrl, 240);
           return (
             <a
               key={filmKey(f.mediaType, f.tmdbId)}
-              href={portalPath(`/${f.mediaType}/${f.tmdbId}`)}
+              href={portalPath(`/${f.mediaType}/${f.tmdbId}`) || '/'}
               data-on={hover && hover.tmdbId === f.tmdbId ? '' : undefined}
               onMouseEnter={() => setHover(f)}
               onMouseLeave={() => setHover(null)}
               onFocus={() => setHover(f)}
               onBlur={() => setHover(null)}
-              aria-label={`${f.title}, ${f.count} referensi`}
+              aria-label={`${f.title}, ${t('hero.hover', { n: f.count })}`}
               style={
                 {
                   '--cx': cx.toFixed(4),
@@ -97,8 +99,8 @@ export function PortalRing({ films, jellyfinUrl }: { films: PortalFilm[]; jellyf
 
       <div className="ref-core">
         <h1 className="ref-h1 ref-display">
-          <span className="ref-line"><span>Film dan</span></span>
-          <span className="ref-line"><span>jejaknya</span></span>
+          <span className="ref-line"><span>{t('hero.h1a')}</span></span>
+          <span className="ref-line"><span>{t('hero.h1b')}</span></span>
         </h1>
         <p className="ref-core-sub" aria-live="polite">
           {hover ? (
@@ -106,14 +108,15 @@ export function PortalRing({ films, jellyfinUrl }: { films: PortalFilm[]; jellyf
               <b>{hover.title}</b>
               {hover.year ? `, ${hover.year}` : ''}
               <br />
-              {hover.count} film nyambung
+              {t('hero.hover', { n: hover.count })}
             </>
           ) : (
-            'Peta referensi antar film di rak Surflix: siapa memberi hormat, siapa terinspirasi, siapa meminjam tampilannya.'
+            t('hero.sub')
           )}
         </p>
-        <a href="#peta" className="ref-btn ref-btn--light">
-          Lihat semua peta
+        <SearchBox variant="hero" />
+        <a href="#peta" className="ref-core-browse">
+          {t('hero.browse')}
         </a>
       </div>
     </>

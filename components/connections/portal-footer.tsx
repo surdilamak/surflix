@@ -5,19 +5,21 @@
 
 import { usePortal } from '@/lib/hooks/use-portal';
 import { useAppConfig } from '@/lib/hooks/use-app-config';
+import { useLang } from './lang-provider';
 
 export function PortalFooter() {
   const { hubHref } = usePortal();
   const config = useAppConfig();
+  const { t } = useLang();
 
   return (
     <footer className="ref-footer">
-      <span>Peta referensi film Surflix</span>
+      <span>{t('footer.what')}</span>
       <nav>
-        <a href={hubHref('/')}>Request Hub</a>
+        <a href={hubHref('/')}>{t('nav.hub')}</a>
         {config?.jellyfinUrl && (
           <a href={config.jellyfinUrl} target="_blank" rel="noopener">
-            Tonton di Surflix
+            {t('detail.watch')}
           </a>
         )}
       </nav>

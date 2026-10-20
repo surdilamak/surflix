@@ -1,0 +1,174 @@
+# ============ FILM: SEQUEL / SERI ============
+The Godfather Part II (1974) > The Godfather (1972) | universe | h | @sequel
+The Godfather Part III (1990) > The Godfather Part II (1974) | universe | h | @sequel
+The Lord of the Rings: The Two Towers (2002) > The Lord of the Rings: The Fellowship of the Ring (2001) | universe | h | @sequel
+The Lord of the Rings: The Return of the King (2003) > The Lord of the Rings: The Two Towers (2002) | universe | h | @sequel
+John Wick: Chapter 2 (2017) > John Wick (2014) | universe | h | @sequel
+John Wick: Chapter 3 - Parabellum (2019) > John Wick: Chapter 2 (2017) | universe | h | @sequel
+John Wick: Chapter 4 (2023) > John Wick: Chapter 3 - Parabellum (2019) | universe | h | @sequel
+Avatar: The Way of Water (2022) > Avatar (2009) | universe | h | @sequel
+Avatar: Fire and Ash (2025) > Avatar: The Way of Water (2022) | universe | h | @sequel
+Kill Bill: Vol. 2 (2004) > Kill Bill: Vol. 1 (2003) | universe | h | @sequel
+Damien: Omen II (1978) > The Omen (1976) | universe | h | @sequel
+The Final Conflict (1981) > Damien: Omen II (1978) | universe | h | @sequel
+Omen IV: The Awakening (1991) > The Final Conflict (1981) | universe | h | @sequel
+The First Omen (2024) > The Omen (1976) | universe | h | @prequel
+The Naked Gun 2 1/2: The Smell of Fear (1991) > The Naked Gun: From the Files of Police Squad! (1988) | universe | h | @sequel
+Naked Gun 33⅓: The Final Insult (1994) > The Naked Gun 2 1/2: The Smell of Fear (1991) | universe | h | @sequel
+The Naked Gun (2025) > Naked Gun 33⅓: The Final Insult (1994) | universe | h | @sequel
+Scary Movie 2 (2001) > Scary Movie (2000) | universe | h | @sequel
+Scary Movie 3 (2003) > Scary Movie 2 (2001) | universe | h | @sequel
+Scary Movie 4 (2006) > Scary Movie 3 (2003) | universe | h | @sequel
+Scary Movie 5 (2013) > Scary Movie 4 (2006) | universe | h | @sequel
+Scary Movie (2026) > Scary Movie 5 (2013) | universe | h | @sequel
+Teenage Mutant Ninja Turtles II: The Secret of the Ooze (1991) > Teenage Mutant Ninja Turtles (1990) | universe | h | @sequel
+Teenage Mutant Ninja Turtles III (1993) > Teenage Mutant Ninja Turtles II: The Secret of the Ooze (1991) | universe | h | @sequel
+Blade Runner 2049 (2017) > Blade Runner (1982) | universe | h | @sequel
+Dune: Part Two (2024) > Dune (2021) | universe | h | @sequel
+TRON: Legacy (2010) > Tron (1982) | universe | h | @sequel
+TRON: Ares (2025) > TRON: Legacy (2010) | universe | h | @sequel
+The Devil Wears Prada 2 (2026) > The Devil Wears Prada (2006) | universe | h | @sequel
+Black Phone 2 (2025) > The Black Phone (2022) | universe | h | @sequel
+Peaky Blinders: The Immortal Man (2026) > Peaky Blinders (2013) | universe | h | @sequel
+I Know What You Did Last Summer (2025) > I Know What You Did Last Summer (1997) | universe | h | @sequel
+Patlabor 2: The Movie (1993) > Patlabor: The Movie (1989) | universe | h | @sequel
+T2 Trainspotting (2017) > Trainspotting (1996) | universe | h | @sequel
+Ju-On: White Ghost (2009) > Ju-on: The Grudge (2002) | universe | h | @series
+Ju-on: The Beginning of the End (2014) > Ju-On: White Ghost (2009) | universe | h | @series
+Inception: The Cobol Job (2010) > Inception (2010) | universe | h | @prequel
+Kill Bill: The Whole Bloody Affair (2011) > Kill Bill: Vol. 1 (2003) | universe | h | @cut
+Kill Bill: The Whole Bloody Affair (2011) > Kill Bill: Vol. 2 (2004) | universe | h | @cut
+Doctor Sleep (2019) > The Shining (1980) | universe | h | Doctor Sleep adapts Stephen King's sequel and recreates the Overlook Hotel of Kubrick's The Shining. || Doctor Sleep mengadaptasi sekuel Stephen King dan menghidupkan lagi Hotel Overlook dari The Shining karya Kubrick.
+Pearl (2022) > X (2022) | universe | h | @prequel
+Split (2017) > Unbreakable (2000) | universe | h | Split's final scene reveals it shares a universe with Unbreakable. || Adegan akhir Split mengungkap bahwa film itu satu semesta dengan Unbreakable.
+Glass (2019) > Split (2017) | universe | h | Glass brings the heroes of Unbreakable together with the villain of Split. || Glass mempertemukan pahlawan Unbreakable dengan penjahat dari Split.
+Pulp Fiction (1994) > Reservoir Dogs (1992) | universe | h | Vincent Vega in Pulp Fiction is the brother of Vic Vega, Mr. Blonde in Reservoir Dogs. || Vincent Vega di Pulp Fiction adalah kakak dari Vic Vega, alias Mr. Blonde di Reservoir Dogs.
+Death Proof (2007) > Kill Bill: Vol. 1 (2003) | universe | h | Sheriff Earl McGraw appears in both Death Proof and Kill Bill. || Sheriff Earl McGraw muncul di Death Proof maupun Kill Bill.
+The Cat Returns (2002) > Whisper of the Heart (1995) | universe | h | The Cat Returns follows the Baron, the cat figurine from Whisper of the Heart. || The Cat Returns mengikuti si Baron, patung kucing dari Whisper of the Heart.
+Fallen Angels (1995) > Chungking Express (1994) | universe | h | Fallen Angels began as a third story planned for Chungking Express. || Fallen Angels bermula dari cerita ketiga yang direncanakan untuk Chungking Express.
+Objectified (2009) > Helvetica (2007) | universe | h | Objectified is the second film in Gary Hustwit's design trilogy that began with Helvetica. || Objectified adalah film kedua dalam trilogi desain Gary Hustwit yang diawali Helvetica.
+Urbanized (2011) > Objectified (2009) | universe | h | Urbanized completes Gary Hustwit's design trilogy. || Urbanized melengkapi trilogi desain Gary Hustwit.
+Daft Punk Unchained (2015) > Electroma (2006) | universe | h | Daft Punk Unchained documents the duo who made Electroma. || Daft Punk Unchained mendokumentasikan duo yang membuat Electroma.
+
+# ============ ANIME: EVANGELION / DIGIMON / LAIN ============
+Evangelion: 1.0 You Are (Not) Alone (2007) > Neon Genesis Evangelion (1995) | universe | h | The Rebuild films retell Neon Genesis Evangelion, starting here. || Film Rebuild menceritakan ulang Neon Genesis Evangelion, dimulai dari film ini.
+Evangelion: 2.0 You Can (Not) Advance (2009) > Evangelion: 1.0 You Are (Not) Alone (2007) | universe | h | @sequel
+Evangelion: 3.0 You Can (Not) Redo (2012) > Evangelion: 2.0 You Can (Not) Advance (2009) | universe | h | @sequel
+Evangelion: 3.0+1.0 Thrice Upon a Time (2021) > Evangelion: 3.0 You Can (Not) Redo (2012) | universe | h | @sequel
+EVANGELION:3.0(-46h) (2023) > Evangelion: 3.0 You Can (Not) Redo (2012) | universe | h | @prequel
+Digimon Adventure tri. Part 1: Reunion (2015) > Digimon: Digital Monsters (1999) | universe | h | @sequel
+Digimon Adventure tri. Part 2: Determination (2016) > Digimon Adventure tri. Part 1: Reunion (2015) | universe | h | @sequel
+Digimon Adventure tri. Part 3: Confession (2016) > Digimon Adventure tri. Part 2: Determination (2016) | universe | h | @sequel
+Digimon Adventure tri. Part 4: Loss (2017) > Digimon Adventure tri. Part 3: Confession (2016) | universe | h | @sequel
+Digimon Adventure tri. Part 5: Coexistence (2017) > Digimon Adventure tri. Part 4: Loss (2017) | universe | h | @sequel
+Digimon Adventure tri. Part 6: Future (2018) > Digimon Adventure tri. Part 5: Coexistence (2017) | universe | h | @sequel
+Digimon: Digital Monsters (2020) > Digimon: Digital Monsters (1999) | universe | h | @reboot
+
+# ============ DRAGON BALL ============
+Dragon Ball Z: Dead Zone (1989) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball Z: The World's Strongest (1990) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball Z: The Tree of Might (1990) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball Z: Bardock - The Father of Goku (1990) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball Z: Lord Slug (1991) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball Z: Cooler's Revenge (1991) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball Z: The Return of Cooler (1992) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball Z: Super Android 13! (1992) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball Z: Broly - The Legendary Super Saiyan (1993) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball Z: Bojack Unbound (1993) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball Z: The History of Trunks (1993) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball Z: Broly - Second Coming (1994) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball Z: Bio-Broly (1994) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball Z: Fusion Reborn (1995) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball Z: Wrath of the Dragon (1995) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball: Curse of the Blood Rubies (1986) > Dragon Ball (1986) | universe | h | @film-of-series
+Dragon Ball: Sleeping Princess in Devil's Castle (1987) > Dragon Ball (1986) | universe | h | @film-of-series
+Dragon Ball: Mystical Adventure (1988) > Dragon Ball (1986) | universe | h | @film-of-series
+Dragon Ball: The Path to Power (1996) > Dragon Ball (1986) | universe | h | @film-of-series
+Dragon Ball Z (1989) > Dragon Ball (1986) | universe | h | @sequel
+Dragon Ball Z Kai: The Final Chapters (2009) > Dragon Ball Z (1989) | universe | h | @remake
+Dragon Ball GT (1996) > Dragon Ball Z (1989) | universe | h | @sequel
+Dragon Ball GT: A Hero's Legacy (1997) > Dragon Ball GT (1996) | universe | h | @film-of-series
+Dragon Ball Z: Battle of Gods (2013) > Dragon Ball Z (1989) | universe | h | @sequel
+Dragon Ball Z: Resurrection 'F' (2015) > Dragon Ball Z: Battle of Gods (2013) | universe | h | @sequel
+Dragon Ball Super (2015) > Dragon Ball Z (1989) | universe | h | @sequel
+Dragon Ball Super: Broly (2018) > Dragon Ball Super (2015) | universe | h | @film-of-series
+Dragon Ball Super: Super Hero (2022) > Dragon Ball Super (2015) | universe | h | @film-of-series
+Dragon Ball Daima (2024) > Dragon Ball Super (2015) | universe | h | @series
+Super Dragon Ball Heroes (2018) > Dragon Ball Super (2015) | universe | h | @universe
+Dragon Ball Super: Beerus (2026) > Dragon Ball Super (2015) | universe | h | @series
+Dr. Slump: Arale-chan (1981) > Dragon Ball (1986) | universe | h | Dr. Slump and Dragon Ball share a creator, Akira Toriyama, and Arale makes cameos in Dragon Ball. || Dr. Slump dan Dragon Ball punya kreator yang sama, Akira Toriyama, dan Arale muncul sebagai cameo di Dragon Ball.
+
+# ============ ONE PIECE ============
+One Piece - S00E46 - One Piece Film - Red (2023) > One Piece (1999) | universe | h | @film-of-series
+One Piece "3D2Y": Overcome Ace's Death! Luffy's Vow to his Friends (2014) > One Piece (1999) | universe | h | @film-of-series
+One Piece 3D: Straw Hat Chase (2011) > One Piece (1999) | universe | h | @film-of-series
+One Piece Episode of East Blue (2017) > One Piece (1999) | universe | h | @film-of-series
+One Piece Episode of Merry: The Tale of One More Friend (2013) > One Piece (1999) | universe | h | @film-of-series
+One Piece Episode of Nami: Tears of a Navigator and the Bonds of Friends (2012) > One Piece (1999) | universe | h | @film-of-series
+One Piece Episode of Sabo: The Three Brothers' Bond - The Miraculous Reunion and the Inherited Will (2015) > One Piece (1999) | universe | h | @film-of-series
+One Piece Fan Letter (2024) > One Piece (1999) | universe | h | @film-of-series
+One Piece Film: GOLD (2016) > One Piece (1999) | universe | h | @film-of-series
+One Piece Film: Strong World (2009) > One Piece (1999) | universe | h | @film-of-series
+One Piece Film: Z (2012) > One Piece (1999) | universe | h | @film-of-series
+One Piece: Adventure of Nebulandia (2015) > One Piece (1999) | universe | h | @film-of-series
+One Piece: Baron Omatsuri and the Secret Island (2005) > One Piece (1999) | universe | h | @film-of-series
+One Piece: Chopper's Kingdom on the Island of Strange Animals (2002) > One Piece (1999) | universe | h | @film-of-series
+One Piece: Clockwork Island Adventure (2001) > One Piece (1999) | universe | h | @film-of-series
+One Piece: Curse of the Sacred Sword (2004) > One Piece (1999) | universe | h | @film-of-series
+One Piece: Dead End Adventure (2003) > One Piece (1999) | universe | h | @film-of-series
+One Piece: Defeat the Pirate Ganzack! (1998) > One Piece (1999) | universe | h | @film-of-series
+One Piece: Episode of Chopper Plus: Bloom in the Winter, Miracle Cherry Blossom (2008) > One Piece (1999) | universe | h | @film-of-series
+One Piece: Episode of Luffy - Hand Island Adventure (2012) > One Piece (1999) | universe | h | @film-of-series
+One Piece: Giant Mecha Soldier of Karakuri Castle (2006) > One Piece (1999) | universe | h | @film-of-series
+One Piece: Heart of Gold (2016) > One Piece (1999) | universe | h | @film-of-series
+One Piece: The Desert Princess and the Pirates: Adventure in Alabasta (2007) > One Piece (1999) | universe | h | @film-of-series
+One Piece: The Movie (2000) > One Piece (1999) | universe | h | @film-of-series
+Luffy-senpai Support Project! Barto's Secret Room 4! (2023) > One Piece (1999) | universe | h | @film-of-series
+A Very Special Feature! Momonosuke's Road to Becoming a Great Shogun (2023) > One Piece (1999) | universe | h | @film-of-series
+ONE PIECE (2023) > One Piece (1999) | universe | h | @adaptation
+
+# ============ POKEMON ============
+Pokémon: The First Movie (1998) > Pokemon (1997) | universe | h | @film-of-series
+The Power of One: The Pokémon 2000 Movie Special (2000) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon 3: The Movie (2000) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon 4Ever (2001) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon Heroes (2002) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon: Jirachi - Wish Maker (2003) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon: Destiny Deoxys (2004) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon: Lucario and the Mystery of Mew (2005) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon Ranger and the Temple of the Sea (2006) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon: The Rise of Darkrai (2007) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon: Giratina and the Sky Warrior (2008) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon: Arceus and the Jewel of Life (2009) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon: Zoroark - Master of Illusions (2010) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon the Movie: Black - Victini and Reshiram (2011) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon the Movie: White - Victini and Zekrom (2011) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon the Movie: Kyurem vs. the Sword of Justice (2012) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon the Movie: Genesect and the Legend Awakened (2013) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon the Movie: Diancie and the Cocoon of Destruction (2014) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon the Movie: Hoopa and the Clash of Ages (2015) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon the Movie: Volcanion and the Mechanical Marvel (2016) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon the Movie: I Choose You! (2017) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon the Movie: The Power of Us (2018) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon the Movie: Mewtwo Strikes Back - Evolution (2019) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon the Movie: Secrets of the Jungle (2020) > Pokemon (1997) | universe | h | @film-of-series
+Pokémon the Movie: Mewtwo Strikes Back - Evolution (2019) > Pokémon: The First Movie (1998) | remake | h | @remake
+Pokémon: Origins (2013) > Pokemon (1997) | universe | h | Pokémon: Origins retells the original Red and Green games that started the franchise. || Pokémon: Origins menceritakan ulang game Red dan Green yang memulai franchise ini.
+Pokémon Detective Pikachu (2019) > Pokémon: The First Movie (1998) | universe | m | Mewtwo, star of the first Pokémon film, returns as a key figure in Detective Pikachu. || Mewtwo, bintang film Pokémon pertama, kembali sebagai tokoh penting di Detective Pikachu.
+
+# ============ SERIAL: SPIN-OFF / SEQUEL / REMAKE ============
+Better Call Saul (2015) > Breaking Bad (2008) | universe | h | @spinoff
+House of the Dragon (2022) > Game of Thrones (2011) | universe | h | @prequel
+A Knight of the Seven Kingdoms (2026) > Game of Thrones (2011) | universe | h | @prequel
+Gen V (2023) > The Boys (2019) | universe | h | @spinoff
+Hunter x Hunter (2011) > Hunter × Hunter (1999) | universe | h | @remake
+Fullmetal Alchemist: Brotherhood (2009) > Fullmetal Alchemist (2003) | universe | h | @adaptation
+Rurouni Kenshin (2023) > Rurouni Kenshin (1996) | universe | h | @remake
+Naruto Shippuden (2007) > Naruto (2002) | universe | h | @sequel
+The Twilight Zone (2019) > The Twilight Zone (1959) | universe | h | @reboot
+Demon Slayer: Kimetsu no Yaiba Infinity Castle (2025) > Demon Slayer: Kimetsu no Yaiba (2019) | universe | h | @film-of-series
+The First Slam Dunk (2022) > Slam Dunk (1993) | universe | h | @adaptation
+Fever Pitch: The Battle for the Premier League (2022) > Fever Pitch: The Rise of the Premier League (2021) | universe | h | @series
+Hannibal (2013) > The Silence of the Lambs (1991) | universe | h | Hannibal reimagines Hannibal Lecter, the character from Thomas Harris's novels that The Silence of the Lambs adapts. || Hannibal membayangkan ulang Hannibal Lecter, tokoh dari novel Thomas Harris yang diadaptasi The Silence of the Lambs.
+THE GHOST IN THE SHELL (2026) > Ghost in the Shell (2017) | universe | m | @adaptation
+Cowboy Bebop (1998) > Alien (1979) | homage | m | The Cowboy Bebop episode "Toys in the Attic" is an affectionate riff on Alien. || Episode "Toys in the Attic" di Cowboy Bebop adalah plesetan penuh kasih terhadap Alien.

@@ -218,8 +218,12 @@ model FilmConnection {
   targetPoster     String? // TMDB poster path
   targetJellyfinId String? // Jellyfin itemId buat deep-link nonton
 
-  relationship    String   // "homage" | "inspired" | "visual"
-  reason          String   // alasan singkat (Indonesia), <= ~120 char
+  // Arah: sumber MEREFERENSIKAN target (sumber = film yang lebih baru / yang meminjam).
+  // "homage" | "inspired" | "visual" | "remake" | "universe" | "director" | "talent"
+  relationship    String
+  reason          String   // alasan singkat (Indonesia), <= ~160 char
+  reasonEn        String?  // alasan singkat (English) — bahasa utama portal
+  confidence      String   @default("medium") // "high" (terdokumentasi) | "medium" (sering dibahas)
 
   // Status: PENDING_REVIEW -> APPROVED | REJECTED
   status          String   @default("PENDING_REVIEW")
@@ -231,6 +235,27 @@ model FilmConnection {
   @@unique([sourceTmdbId, sourceMediaType, targetTmdbId])
   @@index([sourceTmdbId, sourceMediaType, status])
   @@index([status])
+}
+
+// =====================================================
+// LIBRARY TITLE: snapshot isi library Jellyfin (film & serial) buat portal Referensi.
+// Dipakai buat search & backoffice (mana yang udah punya referensi, mana yang belum).
+// Di-sync dari Jellyfin (admin) atau di-import dari scripts/library-seed.json.
+// =====================================================
+model LibraryTitle {
+  id            String   @id @default(cuid())
+  tmdbId        Int
+  mediaType     String   // "movie" | "tv"
+  title         String   // judul bersih (nama file Jellyfin sering kotor)
+  originalTitle String?
+  year          Int?
+  jellyfinId    String
+  genres        String?  // dipisah koma
+  directors     String?  // dipisah koma
+  updatedAt     DateTime @updatedAt
+
+  @@unique([tmdbId, mediaType])
+  @@index([title])
 }
 
 // =====================================================

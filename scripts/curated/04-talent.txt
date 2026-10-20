@@ -1,0 +1,190 @@
+# Talenta yang sama: aktor utama, penulis/kreator, studio, penulis novel. Semua faktual (h).
+# ---------- Aktor: rantai per orang (film lebih baru > film lebih lama) ----------
+Warrior (2011) > Inception (2010) | talent | h | Tom Hardy stars in both. || Tom Hardy membintangi keduanya.
+Locke (2014) > Warrior (2011) | talent | h | Tom Hardy stars in both. || Tom Hardy membintangi keduanya.
+Dunkirk (2017) > Locke (2014) | talent | h | Tom Hardy stars in both. || Tom Hardy membintangi keduanya.
+Venom: The Last Dance (2024) > Dunkirk (2017) | talent | h | Tom Hardy stars in both. || Tom Hardy membintangi keduanya.
+Havoc (2025) > Venom: The Last Dance (2024) | talent | h | Tom Hardy stars in both. || Tom Hardy membintangi keduanya.
+Inception (2010) > Bronson (2009) | talent | h | Tom Hardy stars in both. || Tom Hardy membintangi keduanya.
+High Life (2018) > The Rover (2014) | talent | h | Robert Pattinson stars in both. || Robert Pattinson membintangi keduanya.
+The Lighthouse (2019) > High Life (2018) | talent | h | Robert Pattinson stars in both. || Robert Pattinson membintangi keduanya.
+Tenet (2020) > The Lighthouse (2019) | talent | h | Robert Pattinson stars in both. || Robert Pattinson membintangi keduanya.
+The Batman (2022) > Tenet (2020) | talent | h | Robert Pattinson stars in both. || Robert Pattinson membintangi keduanya.
+Mickey 17 (2025) > The Batman (2022) | talent | h | Robert Pattinson stars in both. || Robert Pattinson membintangi keduanya.
+The Drama (2026) > Mickey 17 (2025) | talent | h | Robert Pattinson stars in both. || Robert Pattinson membintangi keduanya.
+The Rover (2014) > Memento (2000) | talent | h | Guy Pearce stars in both. || Guy Pearce membintangi keduanya.
+The Brutalist (2024) > The Rover (2014) | talent | h | Guy Pearce stars in both. || Guy Pearce membintangi keduanya.
+Her (2013) > Lost in Translation (2003) | talent | h | Scarlett Johansson stars in both. || Scarlett Johansson membintangi keduanya.
+Marriage Story (2019) > Her (2013) | talent | h | Scarlett Johansson stars in both. || Scarlett Johansson membintangi keduanya.
+Black Widow (2021) > Marriage Story (2019) | talent | h | Scarlett Johansson stars in both. || Scarlett Johansson membintangi keduanya.
+Asteroid City (2023) > Black Widow (2021) | talent | h | Scarlett Johansson stars in both. || Scarlett Johansson membintangi keduanya.
+Jurassic World Rebirth (2025) > Asteroid City (2023) | talent | h | Scarlett Johansson stars in both. || Scarlett Johansson membintangi keduanya.
+Her (2013) > Signs (2002) | talent | h | Joaquin Phoenix stars in both. || Joaquin Phoenix membintangi keduanya.
+Joker (2019) > Her (2013) | talent | h | Joaquin Phoenix stars in both. || Joaquin Phoenix membintangi keduanya.
+Beau Is Afraid (2023) > Joker (2019) | talent | h | Joaquin Phoenix stars in both. || Joaquin Phoenix membintangi keduanya.
+Eddington (2025) > Beau Is Afraid (2023) | talent | h | Joaquin Phoenix stars in both. || Joaquin Phoenix membintangi keduanya.
+Hotel Rwanda (2004) > Signs (2002) | talent | h | Joaquin Phoenix stars in both. || Joaquin Phoenix membintangi keduanya.
+La La Land (2016) > Drive (2011) | talent | h | Ryan Gosling stars in both. || Ryan Gosling membintangi keduanya.
+Blade Runner 2049 (2017) > La La Land (2016) | talent | h | Ryan Gosling stars in both. || Ryan Gosling membintangi keduanya.
+Project Hail Mary (2026) > Blade Runner 2049 (2017) | talent | h | Ryan Gosling stars in both. || Ryan Gosling membintangi keduanya.
+Lady Bird 2017 from ExKinoRay (2017) > Atonement (2007) | talent | h | Saoirse Ronan stars in both. || Saoirse Ronan membintangi keduanya.
+Little Women (2019) > Lady Bird 2017 from ExKinoRay (2017) | talent | h | Saoirse Ronan stars in both. || Saoirse Ronan membintangi keduanya.
+The French Dispatch (2021) > Little Women (2019) | talent | h | Saoirse Ronan stars in both. || Saoirse Ronan membintangi keduanya.
+Lady Bird 2017 from ExKinoRay (2017) > Interstellar (2014) | talent | h | Timothée Chalamet stars in both. || Timothée Chalamet membintangi keduanya.
+Little Women (2019) > Interstellar (2014) | talent | h | Timothée Chalamet stars in both. || Timothée Chalamet membintangi keduanya.
+Dune (2021) > Little Women (2019) | talent | h | Timothée Chalamet stars in both. || Timothée Chalamet membintangi keduanya.
+Marty Supreme (2025) > Dune: Part Two (2024) | talent | h | Timothée Chalamet stars in both. || Timothée Chalamet membintangi keduanya.
+Euphoria (2019) > Spider-Man: Homecoming (2017) | talent | h | Zendaya stars in both. || Zendaya membintangi keduanya.
+Dune (2021) > Euphoria (2019) | talent | h | Zendaya stars in both. || Zendaya membintangi keduanya.
+The Drama (2026) > Dune: Part Two (2024) | talent | h | Zendaya stars in both. || Zendaya membintangi keduanya.
+Black Widow (2021) > Midsommar (2019) | talent | h | Florence Pugh stars in both. || Florence Pugh membintangi keduanya.
+Oppenheimer (2023) > Black Widow (2021) | talent | h | Florence Pugh stars in both. || Florence Pugh membintangi keduanya.
+Dune: Part Two (2024) > Oppenheimer (2023) | talent | h | Florence Pugh stars in both. || Florence Pugh membintangi keduanya.
+Thunderbolts* (2025) > Dune: Part Two (2024) | talent | h | Florence Pugh stars in both. || Florence Pugh membintangi keduanya.
+Little Women (2019) > Midsommar (2019) | talent | h | Florence Pugh stars in both. || Florence Pugh membintangi keduanya.
+Carol (2015) > Her (2013) | talent | h | Rooney Mara stars in both. || Rooney Mara membintangi keduanya.
+A Ghost Story (2017) > Carol (2015) | talent | h | Rooney Mara stars in both. || Rooney Mara membintangi keduanya.
+Carol (2015) > The Lord of the Rings: The Fellowship of the Ring (2001) | talent | h | Cate Blanchett stars in both. || Cate Blanchett membintangi keduanya.
+Thor: Ragnarok (2017) > Carol (2015) | talent | h | Cate Blanchett stars in both. || Cate Blanchett membintangi keduanya.
+TÁR (2022) > Thor: Ragnarok (2017) | talent | h | Cate Blanchett stars in both. || Cate Blanchett membintangi keduanya.
+One Flew Over the Cuckoo's Nest (1975) > Chinatown (1974) | talent | h | Jack Nicholson stars in both. || Jack Nicholson membintangi keduanya.
+The Shining (1980) > One Flew Over the Cuckoo's Nest (1975) | talent | h | Jack Nicholson stars in both. || Jack Nicholson membintangi keduanya.
+The Departed (2006) > The Shining (1980) | talent | h | Jack Nicholson stars in both. || Jack Nicholson membintangi keduanya.
+The Untouchables (1987) > Taxi Driver (1976) | talent | h | Robert De Niro stars in both. || Robert De Niro membintangi keduanya.
+Blade Runner (1982) > Star Wars (1977) | talent | h | Harrison Ford stars in both. || Harrison Ford membintangi keduanya.
+Avatar (2009) > Aliens (1986) | talent | h | Sigourney Weaver stars in both, and James Cameron directed both. || Sigourney Weaver membintangi keduanya, dan James Cameron menyutradarai keduanya.
+Avatar: The Way of Water (2022) > Titanic (1997) | talent | h | James Cameron reunites with Kate Winslet, who voices Ronal in The Way of Water. || James Cameron berkumpul lagi dengan Kate Winslet, yang menyuarakan Ronal di The Way of Water.
+Eternal Sunshine of the Spotless Mind (2004) > Titanic (1997) | talent | h | Kate Winslet stars in both. || Kate Winslet membintangi keduanya.
+The Holiday (2006) > Eternal Sunshine of the Spotless Mind (2004) | talent | h | Kate Winslet stars in both. || Kate Winslet membintangi keduanya.
+Guardians of the Galaxy Vol. 2 (2017) > The Thing (1982) | talent | h | Kurt Russell stars in both. || Kurt Russell membintangi keduanya.
+The Father (2020) > The Silence of the Lambs (1991) | talent | h | Anthony Hopkins stars in both. || Anthony Hopkins membintangi keduanya.
+Thor (2011) > The Silence of the Lambs (1991) | talent | h | Anthony Hopkins stars in both. || Anthony Hopkins membintangi keduanya.
+Meet Joe Black (1998) > The Silence of the Lambs (1991) | talent | h | Anthony Hopkins stars in both. || Anthony Hopkins membintangi keduanya.
+Thor: Love and Thunder (2022) > The Dark Knight Rises (2012) | talent | h | Christian Bale stars in both. || Christian Bale membintangi keduanya.
+Poor Things (2023) > La La Land (2016) | talent | h | Emma Stone won her two Best Actress Oscars for these two films. || Emma Stone memenangi dua Oscar Aktris Terbaik lewat kedua film ini.
+How to Lose a Guy in 10 Days (2003) > Interstellar (2014) | talent | h | Matthew McConaughey stars in both. || Matthew McConaughey membintangi keduanya.
+10 Things I Hate About You (1999) > The Dark Knight (2008) | talent | h | Heath Ledger stars in both. || Heath Ledger membintangi keduanya.
+(500) Days of Summer (2009) > 10 Things I Hate About You (1999) | talent | h | Joseph Gordon-Levitt stars in both. || Joseph Gordon-Levitt membintangi keduanya.
+Inception (2010) > (500) Days of Summer (2009) | talent | h | Joseph Gordon-Levitt stars in both. || Joseph Gordon-Levitt membintangi keduanya.
+Looper (2012) > Inception (2010) | talent | h | Joseph Gordon-Levitt stars in both. || Joseph Gordon-Levitt membintangi keduanya.
+My Best Friend's Wedding (1997) > Pretty Woman (1990) | talent | h | Julia Roberts stars in both. || Julia Roberts membintangi keduanya.
+Stepmom (1998) > My Best Friend's Wedding (1997) | talent | h | Julia Roberts stars in both. || Julia Roberts membintangi keduanya.
+Notting Hill (1999) > Stepmom (1998) | talent | h | Julia Roberts stars in both. || Julia Roberts membintangi keduanya.
+After the Hunt (2025) > Notting Hill (1999) | talent | h | Julia Roberts stars in both. || Julia Roberts membintangi keduanya.
+Love Actually (2003) > Notting Hill (1999) | talent | h | Hugh Grant stars in both. || Hugh Grant membintangi keduanya.
+City of Angels (1998) > You've Got Mail (1998) | talent | h | Meg Ryan stars in both. || Meg Ryan membintangi keduanya.
+You've Got Mail (1998) > When Harry Met Sally... (1989) | talent | h | Nora Ephron wrote When Harry Met Sally and directed You've Got Mail, and Meg Ryan stars in both. || Nora Ephron menulis When Harry Met Sally dan menyutradarai You've Got Mail, dan Meg Ryan membintangi keduanya.
+Serendipity (2001) > High Fidelity (2000) | talent | h | John Cusack stars in both. || John Cusack membintangi keduanya.
+Good Will Hunting (1997) > Dead Poets Society (1989) | talent | h | Robin Williams stars in both. || Robin Williams membintangi keduanya.
+Sinister (2012) > Dead Poets Society (1989) | talent | h | Ethan Hawke stars in both. || Ethan Hawke membintangi keduanya.
+A Minecraft Movie (2025) > The Super Mario Bros. Movie (2023) | talent | h | Jack Black stars in both. || Jack Black membintangi keduanya.
+The Holiday (2006) > A Minecraft Movie (2025) | talent | h | Jack Black stars in both. || Jack Black membintangi keduanya.
+Sonic the Hedgehog 3 (2024) > Eternal Sunshine of the Spotless Mind (2004) | talent | h | Jim Carrey stars in both. || Jim Carrey membintangi keduanya.
+Eternal Sunshine of the Spotless Mind (2004) > The Lord of the Rings: The Fellowship of the Ring (2001) | talent | h | Elijah Wood stars in both. || Elijah Wood membintangi keduanya.
+Aftersun (2022) > Normal People (2020) | talent | h | Paul Mescal stars in both. || Paul Mescal membintangi keduanya.
+Hamnet (2025) > Aftersun (2022) | talent | h | Paul Mescal stars in both. || Paul Mescal membintangi keduanya.
+Star Wars: Episode I - The Phantom Menace (1999) > Trainspotting (1996) | talent | h | Ewan McGregor stars in both. || Ewan McGregor membintangi keduanya.
+Doctor Sleep (2019) > Star Wars: Episode III - Revenge of the Sith (2005) | talent | h | Ewan McGregor stars in both. || Ewan McGregor membintangi keduanya.
+Split (2017) > Atonement (2007) | talent | h | James McAvoy stars in both. || James McAvoy membintangi keduanya.
+Becoming Jane (2007) > Atonement (2007) | talent | h | James McAvoy stars in both. || James McAvoy membintangi keduanya.
+One Day (2011) > The Devil Wears Prada (2006) | talent | h | Anne Hathaway stars in both. || Anne Hathaway membintangi keduanya.
+Interstellar (2014) > One Day (2011) | talent | h | Anne Hathaway stars in both. || Anne Hathaway membintangi keduanya.
+The Idea of You (2024) > The Devil Wears Prada (2006) | talent | h | Anne Hathaway stars in both. || Anne Hathaway membintangi keduanya.
+Materialists (2025) > Captain America: The First Avenger (2011) | talent | h | Chris Evans stars in both. || Chris Evans membintangi keduanya.
+The Last Letter from Your Lover (2021) > Rogue One: A Star Wars Story (2016) | talent | h | Felicity Jones stars in both. || Felicity Jones membintangi keduanya.
+Eternity (2025) > Top Gun: Maverick (2022) | talent | h | Miles Teller stars in both. || Miles Teller membintangi keduanya.
+Anyone But You (2023) > Top Gun: Maverick (2022) | talent | h | Glen Powell stars in both. || Glen Powell membintangi keduanya.
+Top Gun: Maverick (2022) > Mad Men (2007) | talent | h | Jon Hamm stars in both. || Jon Hamm membintangi keduanya.
+Top Gun: Maverick (2022) > Requiem for a Dream (2000) | talent | h | Jennifer Connelly stars in both. || Jennifer Connelly membintangi keduanya.
+Sentimental Value (2025) > Dune (2021) | talent | h | Stellan Skarsgård stars in both. || Stellan Skarsgård membintangi keduanya.
+A House of Dynamite (2025) > Dune (2021) | talent | h | Rebecca Ferguson stars in both. || Rebecca Ferguson membintangi keduanya.
+Another Round (2020) > Rogue One: A Star Wars Story (2016) | talent | h | Mads Mikkelsen stars in both. || Mads Mikkelsen membintangi keduanya.
+Rogue One: A Star Wars Story (2016) > Hannibal (2013) | talent | h | Mads Mikkelsen stars in both. || Mads Mikkelsen membintangi keduanya.
+Anatomy of a Fall (2023) > The Zone of Interest (2023) | talent | h | Sandra Hüller stars in both. || Sandra Hüller membintangi keduanya.
+A Different Man (2024) > Captain America: The Winter Soldier (2014) | talent | h | Sebastian Stan stars in both. || Sebastian Stan membintangi keduanya.
+Dream Scenario (2023) > Moonstruck (1987) | talent | h | Nicolas Cage stars in both. || Nicolas Cage membintangi keduanya.
+Spider-Noir (2026) > Dream Scenario (2023) | talent | h | Nicolas Cage stars in both. || Nicolas Cage membintangi keduanya.
+Spider-Noir (2026) > Spider-Man: Into the Spider-Verse (2018) | talent | h | Nicolas Cage voiced Spider-Man Noir in Into the Spider-Verse and plays him in the live-action Spider-Noir. || Nicolas Cage menyuarakan Spider-Man Noir di Into the Spider-Verse dan memerankannya di serial live-action Spider-Noir.
+Jacob's Ladder (1990) > The Shawshank Redemption (1994) | talent | h | Tim Robbins stars in both. || Tim Robbins membintangi keduanya.
+Mystic River (2003) > The Shawshank Redemption (1994) | talent | h | Tim Robbins stars in both. || Tim Robbins membintangi keduanya.
+Into the Wild (2007) > Mystic River (2003) | talent | h | Sean Penn won an Oscar starring in Mystic River and directed Into the Wild. || Sean Penn memenangi Oscar lewat Mystic River dan menyutradarai Into the Wild.
+Hotel Rwanda (2004) > Iron Man 2 (2010) | talent | h | Don Cheadle stars in both. || Don Cheadle membintangi keduanya.
+Green Book (2018) > Moonlight (2016) | talent | h | Mahershala Ali won Best Supporting Actor for both films. || Mahershala Ali memenangi Aktor Pendukung Terbaik lewat kedua film ini.
+Green Book (2018) > The Lord of the Rings: The Return of the King (2003) | talent | h | Viggo Mortensen stars in both. || Viggo Mortensen membintangi keduanya.
+American History X (1998) > Fight Club (1999) | talent | h | Edward Norton stars in both. || Edward Norton membintangi keduanya.
+Meet Joe Black (1998) > Se7en (1995) | talent | h | Brad Pitt stars in both. || Brad Pitt membintangi keduanya.
+The Big Short (2015) > Moneyball (2011) | talent | h | Both adapt books by Michael Lewis, and Brad Pitt stars in both. || Keduanya mengadaptasi buku Michael Lewis, dan Brad Pitt membintangi keduanya.
+Apocalypto (2006) > Mad Max (1979) | talent | h | Mel Gibson starred in Mad Max and directed Apocalypto. || Mel Gibson membintangi Mad Max dan menyutradarai Apocalypto.
+Guardians of the Galaxy Vol. 2 (2017) > Rocky (1976) | talent | h | Sylvester Stallone stars in both. || Sylvester Stallone membintangi keduanya.
+Kraven the Hunter (2024) > Avengers: Age of Ultron (2015) | talent | h | Aaron Taylor-Johnson stars in both. || Aaron Taylor-Johnson membintangi keduanya.
+Kraven the Hunter (2024) > Tenet (2020) | talent | h | Aaron Taylor-Johnson stars in both. || Aaron Taylor-Johnson membintangi keduanya.
+The Substance (2024) > Once Upon a Time... in Hollywood (2019) | talent | h | Margaret Qualley stars in both. || Margaret Qualley membintangi keduanya.
+Anora (2024) > Once Upon a Time... in Hollywood (2019) | talent | h | Mikey Madison stars in both. || Mikey Madison membintangi keduanya.
+Split (2017) > The Witch (2015) | talent | h | Anya Taylor-Joy stars in both. || Anya Taylor-Joy membintangi keduanya.
+Infinity Pool (2023) > Pearl (2022) | talent | h | Mia Goth stars in both. || Mia Goth membintangi keduanya.
+Companion (2025) > Heretic (2024) | talent | h | Sophie Thatcher stars in both. || Sophie Thatcher membintangi keduanya.
+Opus (2025) > Being John Malkovich (1999) | talent | h | John Malkovich stars in both. || John Malkovich membintangi keduanya.
+Opus (2025) > The Bear (2022) | talent | h | Ayo Edebiri stars in both. || Ayo Edebiri membintangi keduanya.
+Conclave (2024) > Blue Velvet (1986) | talent | h | Isabella Rossellini stars in both. || Isabella Rossellini membintangi keduanya.
+Three Billboards Outside Ebbing, Missouri (2017) > Nomadland (2021) | talent | h | Frances McDormand won Best Actress Oscars for these two films. || Frances McDormand memenangi Oscar Aktris Terbaik lewat kedua film ini.
+BEEF (2023) > Minari (2021) | talent | h | Steven Yeun stars in both. || Steven Yeun membintangi keduanya.
+Mickey 17 (2025) > BEEF (2023) | talent | h | Steven Yeun stars in both. || Steven Yeun membintangi keduanya.
+Shang-Chi and the Legend of the Ten Rings (2021) > In the Mood for Love (2000) | talent | h | Tony Leung stars in both. || Tony Leung membintangi keduanya.
+Everything Everywhere All at Once (2022) > Shang-Chi and the Legend of the Ten Rings (2021) | talent | h | Michelle Yeoh stars in both. || Michelle Yeoh membintangi keduanya.
+Stranger (2017) > Linda Linda Linda (2005) | talent | h | Bae Doona stars in both. || Bae Doona membintangi keduanya.
+Vertigo (1958) > It's a Wonderful Life (1946) | talent | h | James Stewart stars in both. || James Stewart membintangi keduanya.
+Nobody 2 (2025) > Better Call Saul (2015) | talent | h | Bob Odenkirk stars in both. || Bob Odenkirk membintangi keduanya.
+
+# ---------- Penulis, kreator, penulis novel ----------
+Eternal Sunshine of the Spotless Mind (2004) > Being John Malkovich (1999) | talent | h | Charlie Kaufman wrote both screenplays. || Charlie Kaufman menulis skenario keduanya.
+Westworld (2016) > Memento (2000) | talent | h | Jonathan Nolan co-created Westworld and wrote the short story that Memento is based on. || Jonathan Nolan ikut menciptakan Westworld dan menulis cerita pendek yang menjadi dasar Memento.
+Pluribus (2025) > Better Call Saul (2015) | talent | h | Vince Gilligan co-created Better Call Saul and created Pluribus, with Rhea Seehorn leading both. || Vince Gilligan ikut menciptakan Better Call Saul dan menciptakan Pluribus, dengan Rhea Seehorn sebagai pemeran utama keduanya.
+1899 (2022) > Dark (2017) | talent | h | Baran bo Odar and Jantje Friese created both. || Baran bo Odar dan Jantje Friese menciptakan keduanya.
+Normal People (2020) > Room (2015) | talent | h | Lenny Abrahamson directed the first episodes of Normal People and the film Room. || Lenny Abrahamson menyutradarai episode awal Normal People dan film Room.
+Wednesday (2022) > Edward Scissorhands (1990) | talent | h | Tim Burton directed four episodes of Wednesday and brought his gothic look to it. || Tim Burton menyutradarai empat episode Wednesday dan membawa tampilan gotiknya.
+Locke (2014) > Peaky Blinders (2013) | talent | h | Steven Knight wrote and directed Locke and created Peaky Blinders, and Tom Hardy appears in both. || Steven Knight menulis dan menyutradarai Locke serta menciptakan Peaky Blinders, dan Tom Hardy tampil di keduanya.
+Notting Hill (1999) > Love Actually (2003) | talent | h | Richard Curtis wrote Notting Hill and wrote and directed Love Actually, and Hugh Grant stars in both. || Richard Curtis menulis Notting Hill serta menulis dan menyutradarai Love Actually, dan Hugh Grant membintangi keduanya.
+The Notebook (2004) > A Walk to Remember (2002) | talent | h | Both adapt novels by Nicholas Sparks. || Keduanya mengadaptasi novel Nicholas Sparks.
+The Lucky One (2012) > The Notebook (2004) | talent | h | Both adapt novels by Nicholas Sparks. || Keduanya mengadaptasi novel Nicholas Sparks.
+Mad Men (2007) > The Sopranos (1999) | talent | m | Matthew Weiner wrote for The Sopranos before creating Mad Men. || Matthew Weiner menulis untuk The Sopranos sebelum menciptakan Mad Men.
+Project Hail Mary (2026) > Spider-Man: Into the Spider-Verse (2018) | talent | h | Phil Lord and Christopher Miller wrote and produced Into the Spider-Verse, and they direct Project Hail Mary. || Phil Lord dan Christopher Miller menulis dan memproduseri Into the Spider-Verse, dan menyutradarai Project Hail Mary.
+The Smashing Machine (2025) > Marty Supreme (2025) | talent | h | Benny and Josh Safdie, brothers and former co-directors, each made one of these. || Benny dan Josh Safdie, kakak-adik yang dulu menyutradarai bersama, masing-masing membuat satu dari kedua film ini.
+Lilo & Stitch (2025) > How to Train Your Dragon (2025) | talent | h | Dean DeBlois co-directed the original Lilo & Stitch and directs the 2025 How to Train Your Dragon. || Dean DeBlois ikut menyutradarai Lilo & Stitch yang asli dan menyutradarai How to Train Your Dragon 2025.
+The Wild Robot (2024) > Lilo & Stitch (2025) | talent | h | Chris Sanders co-created Lilo & Stitch and directs The Wild Robot. || Chris Sanders ikut menciptakan Lilo & Stitch dan menyutradarai The Wild Robot.
+Mickey 17 (2025) > Parasite (2019) | talent | h | Both directed by Bong Joon-ho. || Keduanya disutradarai Bong Joon-ho.
+Kaibutsu (2024) > Shoplifters (2018) | talent | h | Both directed by Hirokazu Kore-eda. || Keduanya disutradarai Hirokazu Kore-eda.
+Twin Peaks (1990) > Blue Velvet (1986) | talent | h | David Lynch made both, with Kyle MacLachlan as the curious man poking at small-town darkness. || David Lynch membuat keduanya, dengan Kyle MacLachlan sebagai pria penasaran yang mengorek kegelapan kota kecil.
+1923 (2022) > Yellowstone (2018) | universe | h | 1923 is a prequel to Yellowstone, set a century earlier in the Dutton family story. || 1923 adalah prekuel Yellowstone, berlatar seabad lebih awal dalam kisah keluarga Dutton.
+
+# ---------- Anime: sutradara, kreator manga, studio ----------
+Samurai Champloo (2004) > Cowboy Bebop (1998) | talent | h | Shinichiro Watanabe directed both. || Shinichiro Watanabe menyutradarai keduanya.
+Lazarus (2025) > Samurai Champloo (2004) | talent | h | Shinichiro Watanabe directed both. || Shinichiro Watanabe menyutradarai keduanya.
+Cyberpunk: Edgerunners (2022) > Gurren Lagann (2007) | talent | h | Hiroyuki Imaishi directed both. || Hiroyuki Imaishi menyutradarai keduanya.
+The Vision of Escaflowne (1996) > Cowboy Bebop (1998) | talent | h | Yoko Kanno composed the music for both. || Yoko Kanno menggubah musik keduanya.
+Mobile Suit Gundam Wing (1995) > Cowboy Bebop (1998) | talent | h | Both are Sunrise productions. || Keduanya produksi Sunrise.
+Great Teacher Onizuka (1999) > Hunter × Hunter (1999) | talent | h | Noriyuki Abe directed both. || Noriyuki Abe menyutradarai keduanya.
+Bleach (2004) > Great Teacher Onizuka (1999) | talent | h | Noriyuki Abe directed both. || Noriyuki Abe menyutradarai keduanya.
+Bleach (2004) > Naruto (2002) | talent | h | Both are Studio Pierrot productions. || Keduanya produksi Studio Pierrot.
+Pluto (2023) > Monster (2004) | talent | h | Both adapt manga by Naoki Urasawa. || Keduanya mengadaptasi manga karya Naoki Urasawa.
+Meitantei Conan (1996) > Yaiba: Samurai Legend (1993) | talent | h | Both come from manga artist Gosho Aoyama. || Keduanya berasal dari mangaka Gosho Aoyama.
+Death Note (2006) > Monster (2004) | talent | h | Both are Madhouse productions. || Keduanya produksi Madhouse.
+Monster (2004) > Perfect Blue (1998) | talent | h | Both are Madhouse productions. || Keduanya produksi Madhouse.
+Hunter x Hunter (2011) > Death Note (2006) | talent | h | Both are Madhouse productions. || Keduanya produksi Madhouse.
+One-Punch Man (2015) > Hunter x Hunter (2011) | talent | h | Both are Madhouse productions. || Keduanya produksi Madhouse.
+Delicious in Dungeon (2024) > Cyberpunk: Edgerunners (2022) | talent | h | Both are Studio Trigger productions. || Keduanya produksi Studio Trigger.
+DAN DA DAN (2024) > Inu-Oh (2022) | talent | h | Both are Science Saru productions. || Keduanya produksi Science Saru.
+THE GHOST IN THE SHELL (2026) > DAN DA DAN (2024) | talent | h | Both are Science Saru productions. || Keduanya produksi Science Saru.
+Kaiju No. 8 (2024) > Psycho-Pass (2012) | talent | h | Both are Production I.G productions. || Keduanya produksi Production I.G.
+One Piece (1999) > Dragon Ball Z (1989) | talent | h | Both are Toei Animation sagas that defined weekly shonen anime. || Keduanya saga Toei Animation yang membentuk anime shonen mingguan.
+Digimon: Digital Monsters (1999) > One Piece (1999) | talent | h | Both are Toei Animation series that premiered in 1999. || Keduanya serial Toei Animation yang tayang perdana pada 1999.
+Slam Dunk (1993) > Dragon Ball Z (1989) | talent | h | Both are Toei Animation series from Weekly Shonen Jump. || Keduanya serial Toei Animation dari Weekly Shonen Jump.
+Ocean Waves (1994) > Whisper of the Heart (1995) | talent | h | Both are Studio Ghibli films about young people growing up. || Keduanya film Studio Ghibli tentang anak muda yang beranjak dewasa.
+The Red Turtle (2016) > The Tale of The Princess Kaguya (2013) | talent | h | Both were produced by Studio Ghibli. || Keduanya diproduksi Studio Ghibli.
+
+# ---------- Semesta yang belum tercakup ----------
+Ballerina (2025) > John Wick: Chapter 4 (2023) | universe | h | Ballerina is set in the John Wick world, between Chapter 3 and Chapter 4. || Ballerina berlatar di dunia John Wick, di antara Chapter 3 dan Chapter 4.
+GANTZ:O (2016) > Gantz: Perfect Answer (2011) | universe | h | @adaptation
+Kraven the Hunter (2024) > Venom: The Last Dance (2024) | universe | h | Both belong to Sony's Spider-Man Universe. || Keduanya bagian dari Sony's Spider-Man Universe.
+Venom: The Last Dance (2024) > Spider-Man: No Way Home (2021) | universe | m | Venom crosses into the same multiverse that No Way Home opened up. || Venom melintas ke multiverse yang sama yang dibuka No Way Home.
+Peacemaker (2022) > Zack Snyder's Justice League (2021) | universe | m | Peacemaker is set in the same DC universe, and Justice League heroes cameo in it. || Peacemaker berlatar di semesta DC yang sama, dan pahlawan Justice League muncul sebagai cameo.
+The Dark Knight (2008) > Batman: The Killing Joke (2016) | inspired | m | Heath Ledger's Joker drew on the comic The Killing Joke, which this 2016 film adapts. || Joker versi Heath Ledger terinspirasi komik The Killing Joke, yang diadaptasi film 2016 ini.

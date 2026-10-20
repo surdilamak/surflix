@@ -1,5 +1,5 @@
 /**
- * Portal Referensi — beranda: hero cincin, contact sheet semua peta, cara baca.
+ * Portal Referensi — beranda: hero cincin + search, contact sheet, cara baca, indeks A–Z.
  */
 'use client';
 
@@ -8,16 +8,14 @@ import { useAppConfig } from '@/lib/hooks/use-app-config';
 import { useReveal } from '@/lib/hooks/use-reveal';
 import { PortalRing } from '@/components/connections/portal-ring';
 import { ContactSheet } from '@/components/connections/contact-sheet';
-import { REL_LABEL, REL_VAR, type PortalFilm } from '@/lib/portal-data';
-
-const HOW: Array<{ key: string; text: string }> = [
-  { key: 'homage', text: 'Satu film memberi hormat terang-terangan ke yang lain: adegan, tokoh, atau musiknya sengaja dikutip.' },
-  { key: 'inspired', text: 'Satu film lahir karena yang lain. Pembuatnya pernah menyebutnya, atau jejaknya terdokumentasi.' },
-  { key: 'visual', text: 'Yang dipinjam adalah tampilannya: kota, cahaya, komposisi, atau cara kameranya bergerak.' },
-];
+import { TitleIndex } from '@/components/connections/title-index';
+import { useLang } from '@/components/connections/lang-provider';
+import { REL_VAR, filmKey, type PortalFilm } from '@/lib/portal-data';
+import { REL_ORDER } from '@/lib/i18n';
 
 export default function ReferensiHomePage() {
   const config = useAppConfig();
+  const { t } = useLang();
   const [films, setFilms] = useState<PortalFilm[] | null>(null);
   const [error, setError] = useState(false);
 
@@ -30,15 +28,19 @@ export default function ReferensiHomePage() {
 
   useReveal(!!films && !!config);
 
-  if (error) return <p className="ref-empty">Gagal memuat peta. Coba refresh.</p>;
+  if (error) return <p className="ref-empty">{t('detail.error')}</p>;
   if (!films || !config) return <div className="ref-hero" aria-busy="true" />;
-  if (films.length === 0) return <p className="ref-empty">Belum ada peta referensi.</p>;
+
+  // film dengan referensi sinematik (homage/inspired/visual/remake) jadi bintang beranda
+  const featured = films.filter((f) => f.refScore > 0);
+  const stars = featured.length >= 8 ? featured : films;
+  const allKeys = new Set(films.map((f) => filmKey(f.mediaType, f.tmdbId)));
 
   // contoh nyata per jenis hubungan, diambil dari data
   const example = (rel: string) => {
     for (const f of films) {
       const r = f.refs.find((x) => x.relationship === rel);
-      if (r) return `${f.title} → ${r.title}`;
+      if (r) return r.direction === 'out' ? `${f.title} → ${r.title}` : `${r.title} → ${f.title}`;
     }
     return null;
   };
@@ -46,24 +48,32 @@ export default function ReferensiHomePage() {
   return (
     <>
       <section className="ref-hero">
-        <PortalRing films={films} jellyfinUrl={config.jellyfinUrl} />
+        <PortalRing films={stars} jellyfinUrl={config.jellyfinUrl} />
       </section>
 
-      <ContactSheet films={films} jellyfinUrl={config.jellyfinUrl} serverId={config.jellyfinServerId} />
+      <ContactSheet
+        films={stars.slice(0, 30)}
+        allKeys={allKeys}
+        jellyfinUrl={config.jellyfinUrl}
+        serverId={config.jellyfinServerId}
+      />
 
       <section className="ref-how">
-        <h2 className="ref-display ref-reveal">Cara baca peta ini</h2>
+        <h2 className="ref-display ref-reveal">{t('how.heading')}</h2>
         <div className="ref-how-grid">
-          {HOW.map((h, i) => (
-            <div key={h.key} className="ref-reveal" style={{ '--d': `${i * 90}ms`, '--c': REL_VAR[h.key] } as React.CSSProperties}>
+          {REL_ORDER.map((k, i) => (
+            <div key={k} className="ref-reveal" style={{ '--d': `${(i % 4) * 80}ms`, '--c': REL_VAR[k] } as React.CSSProperties}>
               <span className="ref-how-swatch" />
-              <span className="ref-how-word">{REL_LABEL[h.key]}</span>
-              <p>{h.text}</p>
-              {example(h.key) && <p className="ref-how-eg">{example(h.key)}</p>}
+              <span className="ref-how-word">{t(`how.${k}.name`)}</span>
+              <p>{t(`how.${k}.text`)}</p>
+              {example(k) && <p className="ref-how-eg">{example(k)}</p>}
             </div>
           ))}
         </div>
+        <p className="ref-how-note ref-reveal">{t('how.note')}</p>
       </section>
+
+      <TitleIndex />
     </>
   );
 }
