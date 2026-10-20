@@ -63,7 +63,8 @@
   color: var(--field-1-ink);
   font-size: 15px; font-weight: 600;
 }
-.ref-wordmark { font-size: 18px; font-weight: 800; letter-spacing: -0.03em; }
+.ref-wordmark { display: inline-flex; align-items: center; gap: 14px; font-size: 18px; font-weight: 800; letter-spacing: -0.03em; }
+.ref-logo { display: block; height: 26px; width: auto; }
 .ref-nav { display: flex; align-items: center; gap: 28px; }
 .ref-nav a { transition: opacity 0.2s; }
 .ref-nav a:hover { opacity: 0.7; }
@@ -114,8 +115,8 @@
 .ref-line { display: block; overflow: hidden; padding-bottom: 0.14em; margin-bottom: -0.06em; }
 .ref-line > span { display: block; animation: ref-rise 0.9s var(--ease) backwards; }
 .ref-line:nth-child(2) > span { animation-delay: 110ms; }
-.ref-core-sub {
-  margin: 62px auto 24px; max-width: 42ch; min-height: 5.4em;
+.ref-root .ref-core-sub {
+  margin: 40px auto 24px; max-width: 42ch; min-height: 5.4em;
   font-size: 18px; line-height: 1.35; color: var(--field-1-ink);
   animation: ref-fade 0.8s var(--ease) 0.5s backwards;
 }
@@ -202,14 +203,16 @@
   .ref-nav { gap: 18px; }
   .ref-nav a { white-space: nowrap; }
   .ref-nav a:nth-child(1), .ref-nav a:nth-child(3), .ref-nav a:nth-child(4) { display: none; }
-  .ref-wordmark { font-size: 17px; white-space: nowrap; }
+  .ref-wordmark { font-size: 17px; white-space: nowrap; gap: 10px; }
+  .ref-logo { height: 22px; }
   .ref-hero { --rx: 66vw; --ry: 66vw; min-height: max(100svh, 640px); }
   .ref-ring a { width: var(--wm); }
   .ref-ring a:nth-child(even) { display: none; }
   .ref-core { width: calc(100% - 56px); }
   .ref-h1 { font-size: 10.5vw; }
-  .ref-core-sub { font-size: 16px; min-height: 4.4em; }
+  .ref-root .ref-core-sub { margin: 8px auto 14px; font-size: 16px; min-height: 4.4em; }
   .ref-core .ref-btn { width: 100%; }
+  .ref-core .ref-search .ref-btn { width: auto; } /* tombol di dalam search tetap selebar isinya */
   .ref-sheet-head { grid-template-columns: 1fr; gap: 12px; }
   .ref-run { grid-template-columns: 1fr auto; grid-template-areas: "title open" "frames frames"; gap: 12px; align-items: baseline; }
   .ref-run-title { grid-area: title; }

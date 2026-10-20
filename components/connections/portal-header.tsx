@@ -14,8 +14,10 @@ export function PortalHeader() {
 
   return (
     <header className="ref-header">
-      <a href={portalPath('/') || '/'} className="ref-wordmark">
-        Surflix Referensi
+      <a href={portalPath('/') || '/'} className="ref-wordmark" aria-label="Surflix Reference">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/logo-wordmark.png" alt="" width={95} height={26} className="ref-logo" />
+        <span>Reference</span>
       </a>
       <nav className="ref-nav" aria-label="Main">
         <a href={`${portalPath('/') || '/'}#peta`}>{t('nav.maps')}</a>

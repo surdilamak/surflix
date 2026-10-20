@@ -21,7 +21,7 @@ const font = Schibsted_Grotesk({
 export const metadata: Metadata = {
   // URL absolut buat og:image / canonical (preview link butuh URL penuh)
   metadataBase: new URL(process.env.NEXT_PUBLIC_REFERENCE_URL || 'https://reference.surflix.my.id'),
-  title: 'Surflix Referensi: every film leaves a trail',
+  title: 'Surflix Reference: every film leaves a trail',
   description: 'A map of how the films and series on Surflix connect: homages, borrowed looks, shared directors and shared universes.',
 };
 

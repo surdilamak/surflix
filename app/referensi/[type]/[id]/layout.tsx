@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
 
   const label = meta.year ? `${meta.title} (${meta.year})` : meta.title;
   const n = meta.connections;
-  const title = n > 0 ? `${label}: ${n} ${n === 1 ? 'connection' : 'connections'} · Surflix Referensi` : `${label} · Surflix Referensi`;
+  const title = n > 0 ? `${label}: ${n} ${n === 1 ? 'connection' : 'connections'} · Surflix Reference` : `${label} · Surflix Reference`;
   const description = clip(
     meta.connections > 0
       ? `${label} connects to ${meta.connections} other ${meta.connections === 1 ? 'title' : 'titles'} on Surflix.${meta.reason ? ` ${meta.reason}` : ''}`
@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
       title,
       description,
       type: 'website',
-      siteName: 'Surflix Referensi',
+      siteName: 'Surflix Reference',
       ...(image ? { images: [{ url: image }] } : {}),
     },
     twitter: { card: image ? 'summary_large_image' : 'summary', title, description, ...(image ? { images: [image] } : {}) },

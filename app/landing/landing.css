@@ -1,0 +1,79 @@
+/*
+ * Landing — tambahan di atas referensi.css (token, hero cincin, tombol, footer dipakai bersama).
+ * Aturan sama: tanpa gradien, tanpa bayangan di benda diam, tanpa garis tipis, tanpa glass.
+ */
+.lp-logo { display: block; height: 30px; width: auto; }
+.lp-logo--foot { height: 24px; }
+
+/* Nav landing: kelas sendiri, supaya aturan mobile nav portal (.ref-nav) tidak ikut menyembunyikan link */
+.lp-nav { display: flex; align-items: center; gap: 28px; }
+.lp-nav a { transition: opacity 0.2s; white-space: nowrap; }
+.lp-nav a:hover { opacity: 0.7; }
+
+/* ── Hero ── */
+.ref-root .lp-h1 { font-size: clamp(48px, 4.6vw, 68px); }
+.ref-root .lp-actions {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;
+  animation: ref-fade 0.8s var(--ease) 0.6s backwards;
+}
+.lp-actions .ref-btn { min-width: 184px; }
+.lp-hero-link { animation: ref-fade 0.8s var(--ease) 0.7s backwards; }
+
+/* ── Tiga pintu ── */
+.lp-doors { padding: clamp(100px, 11vw, 160px) var(--margin) clamp(72px, 7vw, 100px); background: var(--bg); }
+.lp-door {
+  display: grid; grid-template-columns: minmax(260px, 4fr) minmax(0, 6fr) 220px; gap: 24px;
+  align-items: start;
+}
+.lp-door + .lp-door { margin-top: clamp(48px, 5vw, 72px); }
+.lp-door-name { font-size: clamp(36px, 4.4vw, 64px); font-weight: 800; letter-spacing: -0.05em; line-height: 0.95; }
+.lp-door-name span { display: inline-block; transition: transform 0.25s var(--ease); }
+.lp-door:hover .lp-door-name span { transform: translateX(6px); }
+.lp-door-name .ref-mark { width: 14px; height: 14px; margin-right: 14px; vertical-align: 0.18em; }
+.ref-root .lp-door p { max-width: 36ch; font-size: var(--step-lead); line-height: 1.25; }
+.lp-door-open { align-self: center; justify-self: end; font-size: var(--step-small); font-weight: 600; white-space: nowrap; transition: transform 0.2s var(--ease); }
+.lp-door:hover .lp-door-open { transform: translateX(4px); }
+
+/* ── Angka ── */
+.lp-numbers { background: var(--field-2); color: var(--field-2-ink); padding: clamp(72px, 7vw, 100px) var(--margin) clamp(80px, 8vw, 120px); }
+.lp-numbers h2 { font-size: var(--step-head); max-width: 14ch; }
+.lp-num-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-top: 72px; }
+.lp-num { display: block; font-size: clamp(64px, 9vw, 144px); font-weight: 800; letter-spacing: -0.05em; line-height: 0.9; font-variant-numeric: tabular-nums; }
+.lp-num[data-wait] { opacity: 0; }
+.lp-num-label { display: block; margin-top: 16px; font-size: var(--step-body); font-weight: 600; }
+.ref-root .lp-numbers-note { margin-top: 72px; max-width: 54ch; }
+
+/* ── Tentang + kopi ── */
+.lp-about { display: grid; grid-template-columns: minmax(180px, 3fr) 9fr; gap: 24px; padding: clamp(100px, 11vw, 160px) var(--margin) clamp(72px, 7vw, 100px); background: var(--bg); }
+.lp-about h2 { font-size: clamp(32px, 4vw, 56px); font-weight: 800; letter-spacing: -0.04em; line-height: 0.98; max-width: 22ch; }
+.ref-root .lp-about-text { margin-top: 28px; max-width: 52ch; }
+.lp-coffee { margin-top: 64px; max-width: 52ch; }
+.lp-coffee .ref-btn { margin-top: 20px; }
+
+/* ── QR kopi ── */
+.lp-modal { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 24px; background: rgba(5, 7, 10, 0.9); }
+.lp-modal-card { position: relative; width: min(300px, 100%); padding: 16px; background: var(--bg); color: var(--ink); text-align: center; animation: ref-fade 0.25s var(--ease); }
+.lp-modal-card img { width: 100%; height: auto; }
+.ref-root .lp-modal-card p { margin-top: 12px; font-size: var(--step-small); color: var(--muted); }
+.lp-modal-close { position: absolute; right: 0; top: -44px; width: 44px; height: 44px; background: none; border: 0; font-size: 30px; line-height: 1; color: var(--field-1-ink); cursor: pointer; }
+
+/* ── Phone ── */
+@media (max-width: 767px) {
+  .ref-root .lp-h1 { font-size: 10.5vw; }
+  .lp-logo { height: 24px; }
+  .lp-nav { gap: 18px; }
+  .lp-nav a:nth-child(3) { display: none; } /* Watch + Request cukup; Reference ada di hero & pintu */
+  .lp-actions { flex-wrap: nowrap; gap: 8px; }
+  .lp-actions .ref-btn { min-width: 0; flex: 1; padding: 0 8px; }
+  .lp-door { grid-template-columns: 1fr; gap: 14px; }
+  .lp-door-open { justify-self: start; align-self: start; }
+  .lp-num-grid { grid-template-columns: 1fr; gap: 40px; margin-top: 48px; }
+  .lp-numbers-note { margin-top: 48px; }
+  .lp-about { grid-template-columns: 1fr; gap: 12px; }
+  .lp-coffee { margin-top: 48px; }
+}
+
+/* Caption "Three ways in" sejajar dengan kolom deskripsi pintu */
+@media (min-width: 768px) {
+  .lp-doors .ref-sheet-head { grid-template-columns: minmax(260px, 4fr) minmax(0, 6fr) 220px; }
+}

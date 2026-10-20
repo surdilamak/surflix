@@ -18,7 +18,7 @@ const RATIO = 0.55; // ry / rx pada layar desktop (310 / 560)
  * Sudut parameter elips untuk n titik dengan jarak SAMA sepanjang busur, mulai dari puncak.
  * (Sama sudut ≠ sama jarak: di ujung elips frame akan menumpuk.)
  */
-function evenAngles(n: number): number[] {
+export function evenAngles(n: number): number[] {
   const STEPS = 720;
   const A0 = -Math.PI / 2; // puncak
   const cum: number[] = [0];
@@ -44,6 +44,25 @@ function evenAngles(n: number): number[] {
   return out;
 }
 
+/** CSS vars satu frame di cincin: posisi di elips, lebar (tilt ke penonton), kemiringan dasar. */
+export function ringFrameStyle(a: number, i: number): React.CSSProperties {
+  const cx = Math.cos(a);
+  const sy = Math.sin(a);
+  // lebar: 72px di puncak cincin, 98px di sisi & dasar (tilt ke arah penonton)
+  const w = 72 + 26 * Math.min(1, 1 + sy);
+  // dasar frame mengikuti lengkung, maksimal 30 derajat
+  const slope = cx / (-sy || -1e-6);
+  const rot = Math.max(-30, Math.min(30, (Math.atan(slope * 0.55) * 180) / Math.PI));
+  return {
+    '--cx': cx.toFixed(4),
+    '--sy': sy.toFixed(4),
+    '--w': `${w.toFixed(0)}px`,
+    '--wm': `${(56 + 24 * Math.min(1, 1 + sy)).toFixed(0)}px`,
+    '--rot': `${rot.toFixed(1)}deg`,
+    '--i': i,
+  } as React.CSSProperties;
+}
+
 export function PortalRing({ films, jellyfinUrl }: { films: PortalFilm[]; jellyfinUrl?: string }) {
   const { portalPath } = usePortal();
   const { t } = useLang();
@@ -59,13 +78,7 @@ export function PortalRing({ films, jellyfinUrl }: { films: PortalFilm[]; jellyf
       <div className="ref-ring" data-hover={hover ? '' : undefined} aria-hidden={false}>
         {frames.map((f, i) => {
           const a = angles[i];
-          const cx = Math.cos(a);
-          const sy = Math.sin(a);
-          // lebar: 72px di puncak cincin, 98px di sisi & dasar (tilt ke arah penonton)
-          const w = 72 + 26 * Math.min(1, 1 + sy);
-          // dasar frame mengikuti lengkung, maksimal 30 derajat
-          const slope = cx / (-sy || -1e-6);
-          const rot = Math.max(-30, Math.min(30, (Math.atan(slope * 0.55) * 180) / Math.PI));
+          const style = ringFrameStyle(a, i);
           const src = posterOf(f, jellyfinUrl, 240);
           return (
             <a
@@ -77,16 +90,7 @@ export function PortalRing({ films, jellyfinUrl }: { films: PortalFilm[]; jellyf
               onFocus={() => setHover(f)}
               onBlur={() => setHover(null)}
               aria-label={`${f.title}, ${t('hero.hover', { n: f.count })}`}
-              style={
-                {
-                  '--cx': cx.toFixed(4),
-                  '--sy': sy.toFixed(4),
-                  '--w': `${w.toFixed(0)}px`,
-                  '--wm': `${(56 + 24 * Math.min(1, 1 + sy)).toFixed(0)}px`,
-                  '--rot': `${rot.toFixed(1)}deg`,
-                  '--i': i,
-                } as React.CSSProperties
-              }
+              style={style}
             >
               {src && (
                 // eslint-disable-next-line @next/next/no-img-element

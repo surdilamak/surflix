@@ -94,7 +94,7 @@ export default function AdminSettingsPage() {
               <Link href="/admin" className="tab">Dashboard</Link>
               <Link href="/admin/pending" className="tab">Pending</Link>
               <Link href="/admin/history" className="tab">History</Link>
-              <Link href="/admin/connections" className="tab">Referensi</Link>
+              <Link href="/admin/connections" className="tab">Reference</Link>
               <Link href="/admin/settings" className="tab tab-active">Settings</Link>
             </nav>
           </div>

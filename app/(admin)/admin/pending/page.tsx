@@ -137,7 +137,7 @@ export default function AdminPendingPage() {
                 )}
               </Link>
               <Link href="/admin/history" className="tab">History</Link>
-              <Link href="/admin/connections" className="tab">Referensi</Link>
+              <Link href="/admin/connections" className="tab">Reference</Link>
               <Link href="/admin/settings" className="tab">Settings</Link>
             </nav>
           </div>

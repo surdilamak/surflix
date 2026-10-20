@@ -193,7 +193,7 @@ export default function AdminConnectionsPage() {
               <Link href="/admin/pending" className="tab">Pending</Link>
               <Link href="/admin/history" className="tab">History</Link>
               <Link href="/admin/connections" className="tab tab-active">
-                Referensi
+                Reference
                 {queue.length > 0 && (
                   <span className="ml-1 rounded-full bg-surflix-500 px-1.5 py-0.5 text-[10px] font-semibold text-white">
                     {queue.length}

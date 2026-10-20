@@ -119,7 +119,7 @@ const en: Dict = {
   'galaxy.search': 'Fly to a title',
 
   // footer
-  'footer.what': 'Surflix Referensi, a map of the library',
+  'footer.what': 'Surflix Reference, a map of the library',
 };
 
 const id: Dict = {
@@ -221,7 +221,7 @@ const id: Dict = {
   'galaxy.loading': 'Menggambar langit…',
   'galaxy.search': 'Terbang ke judul',
 
-  'footer.what': 'Surflix Referensi, peta library kami',
+  'footer.what': 'Surflix Reference, peta library kami',
 };
 
 const DICTS: Record<Lang, Dict> = { en, id };

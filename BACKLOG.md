@@ -19,6 +19,8 @@
 - [x] **`/api/health` statis** (2026-10-20): beres sendiri oleh Next 15, GET handler tidak lagi di-cache default (dicek live: timestamp berubah tiap request). Yang wajib sehat cuma DB; Jellyseerr down tidak membuat container unhealthy.
 - [ ] **Jellyseerr API key user-level** (known issue #1): `getMediaCount()` masih 403. Stats sudah dialihkan ke snapshot library, tapi kalau mau akurat untuk status "Available" di hub, regenerate key admin.
 
+- [x] **Redesign landing + rename "Surflix Reference"** (2026-10-20, menunggu deploy): landing memakai bahasa visual portal (hero cincin poster dari `/api/connections/featured`, Three ways in, angka library, about, kopi), copy Inggris baru, logo di header/footer. Portal & metadata dinamai "Surflix Reference" (path `/referensi` tidak berubah), header portal pakai logo. Ikut diperbaiki: subtitle hero tidak center (margin `.ref-core-sub` kalah specificity) dan tombol search mobile melebar penuh.
+
 ## 🟡 Konten Referensi
 
 - [ ] **211 judul belum dipetakan** (lihat tab Coverage → *Not mapped yet*). Tambah manual via Manage → Add a connection. Prioritas: judul yang sering ditonton. Jangan ngarang hubungan demi angka.
