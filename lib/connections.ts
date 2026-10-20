@@ -461,3 +461,37 @@ export async function galaxyGraph() {
   }
   return { nodes, edges };
 }
+
+/**
+ * Ringkasan ringan satu film buat metadata halaman (judul tab, preview link): judul,
+ * tahun, jumlah koneksi APPROVED, satu alasan yang enak dibaca, dan poster TMDB kalau ada.
+ * Tidak memuat seluruh graf seperti getApprovedConnections.
+ */
+export async function getFilmMeta(tmdbId: number, mediaType: MediaType) {
+  const lib = await prisma.libraryTitle.findUnique({ where: { tmdbId_mediaType: { tmdbId, mediaType } } });
+  const rows = await prisma.filmConnection.findMany({
+    where: {
+      status: 'APPROVED',
+      OR: [
+        { sourceTmdbId: tmdbId, sourceMediaType: mediaType },
+        { targetTmdbId: tmdbId, targetMediaType: mediaType },
+      ],
+    },
+  });
+  if (!lib && rows.length === 0) return null;
+
+  const isSource = (r: Row) => r.sourceTmdbId === tmdbId && r.sourceMediaType === mediaType;
+  const others = new Set(rows.map((r) => (isSource(r) ? fk(r.targetMediaType, r.targetTmdbId) : fk(r.sourceMediaType, r.sourceTmdbId))));
+  const PRIORITY = ['homage', 'inspired', 'visual', 'remake', 'talent', 'director', 'universe'];
+  const best = [...rows].sort((a, b) => PRIORITY.indexOf(a.relationship) - PRIORITY.indexOf(b.relationship))[0];
+  const asTarget = rows.find((r) => !isSource(r) && r.targetPoster);
+  const first = rows[0];
+  return {
+    title: lib?.title ?? (first ? (isSource(first) ? first.sourceTitle : first.targetTitle) : ''),
+    year: lib?.year ?? (first ? (isSource(first) ? first.sourceYear : first.targetYear) : null),
+    jellyfinId: lib?.jellyfinId ?? null,
+    poster: asTarget?.targetPoster ?? null,
+    connections: others.size,
+    reason: best ? best.reasonEn ?? best.reason : null,
+  };
+}

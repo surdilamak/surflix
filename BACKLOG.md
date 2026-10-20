@@ -29,7 +29,7 @@
 
 ## 🟢 Produk & UX
 
-- [ ] **Metadata per film untuk share/SEO**: halaman `/referensi/[type]/[id]` client-rendered, jadi judul tab & preview link generik. Pindah ke `generateMetadata` server-side + OG image (poster).
+- [x] **Metadata per film untuk share/SEO** (2026-10-20, menunggu deploy): `app/referensi/[type]/[id]/layout.tsx` (server) memasang `generateMetadata` dari `getFilmMeta()`: judul tab `Film (tahun): N connections · Surflix Referensi`, deskripsi dari satu alasan terbaik, og:image poster (TMDB kalau ada, kalau tidak gambar Primary Jellyfin publik), `metadataBase` di layout portal (`NEXT_PUBLIC_REFERENCE_URL` untuk override). Sisa ide: gambar OG komposit (poster + judul) dan sitemap.xml untuk halaman peta.
 - [ ] **Galaxy**: filter per jenis koneksi, label kelompok, versi aksesibel (daftar teks), dan layout O(n²) di server perlu diganti (worker / precompute) kalau library > ~2000 titik.
 - [ ] **Request Hub masih campur Indonesia/English**; portal Referensi dan landing sudah English. Putuskan: i18n hub atau seragamin satu bahasa.
 - [ ] **Landing nge-hardcode URL** (`request.` / `reference.surflix.my.id`), jadi di lokal klik kartu keluar ke produksi. Turunkan dari hostname seperti `lib/hooks/use-portal.ts`.
