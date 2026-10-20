@@ -93,7 +93,7 @@ export default function RequestsPage() {
   // No guest data — first time user
   if (bootstrapped && !guestId) {
     return (
-      <div className="rq-wrap flex min-h-[60vh] max-w-md flex-col items-center justify-center">
+      <div className="rq-wrap rq-narrow flex min-h-[60vh] flex-col items-center justify-center">
         <div className="text-center">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-rq bg-rq-surface">
             <Icons.ListChecks className="h-6 w-6 text-rq-accent" />
@@ -114,7 +114,7 @@ export default function RequestsPage() {
   }
 
   return (
-    <div className="rq-wrap max-w-3xl py-6 md:py-8">
+    <div className="rq-wrap rq-narrow py-6 md:py-8">
       <div className="mb-4 flex items-center justify-between">
         <div>
           <h1 className="rq-h1">{t('hub.requests.title')}</h1>

@@ -112,23 +112,12 @@ function drawCover(c: HTMLCanvasElement, node: GraphNode, poster?: HTMLImageElem
   g.fillRect(0, 0, w, h * 0.3);
 }
 
-/** Warna rata-rata poster (dikecilkan ke 1px), dipakai untuk punggung case. */
-function posterTint(poster: HTMLImageElement): string {
-  const c = document.createElement('canvas');
-  c.width = c.height = 1;
-  const g = c.getContext('2d')!;
-  g.drawImage(poster, 0, 0, 1, 1);
-  const [r, gr, b] = g.getImageData(0, 0, 1, 1).data;
-  const k = 0.42; // digelapkan supaya judul putih selalu terbaca
-  return `rgb(${Math.round(r * k)}, ${Math.round(gr * k)}, ${Math.round(b * k)})`;
-}
-
-/** Punggung: warna diambil dari poster, judul tegak lurus dari atas, tahun di bawah. */
-function drawSpine(c: HTMLCanvasElement, node: GraphNode, poster?: HTMLImageElement) {
+/** Punggung: biru case, judul tegak lurus dari atas, tahun di bawah. */
+function drawSpine(c: HTMLCanvasElement, node: GraphNode) {
   const w = c.width;
   const h = c.height;
   const g = c.getContext('2d')!;
-  g.fillStyle = poster ? posterTint(poster) : accentFor(node.title);
+  g.fillStyle = '#0b2a5e';
   g.fillRect(0, 0, w, h);
   g.fillStyle = '#f4f4f2';
   g.textBaseline = 'middle';
@@ -253,7 +242,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
     const disposables: Array<{ dispose: () => void }> = [pmrem, envTex];
 
     const shell = new THREE.MeshPhysicalMaterial({
-      color: 0x16181d, roughness: 0.32, metalness: 0, clearcoat: 0.9, clearcoatRoughness: 0.18,
+      color: 0x0b3a86, roughness: 0.32, metalness: 0, clearcoat: 0.9, clearcoatRoughness: 0.18,
     });
         const shadowTex = shadowTexture();
     const shadowMat = new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, opacity: 0.8 });
@@ -321,8 +310,6 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
           if (disposed) return;
           drawCover(coverCanvas, node, img);
           coverTex.needsUpdate = true;
-          drawSpine(spineCanvas, node, img);
-          spineTex.needsUpdate = true;
         };
         img.src = src; // gagal load → tetap pakai sampul warna + judul
       }

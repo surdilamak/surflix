@@ -1,6 +1,7 @@
 /*
- * PortalBar — bar tiga situs. Satu radius (8px), tanpa garis tipis, tanpa kaca.
- * Mewarisi font situs induknya; warna lewat --pb-bg / --pb-ink / --pb-muted / --pb-raised.
+ * PortalBar — satu baris: logo + nama portal, tautan lokal, pill tiga situs, pill bahasa.
+ * Pill = bentuk penuh; yang aktif oranye (#ff5200) dengan tinta gelap. Tanpa garis tipis, tanpa kaca.
+ * Mewarisi font situs induknya; warna lewat --pb-*.
  */
 .pb-bar {
   position: relative; z-index: 60;
@@ -8,30 +9,46 @@
   color: var(--pb-ink, #fff);
   font-size: 14px; line-height: 1.2; font-weight: 500; letter-spacing: 0;
 }
+.pb-bar[data-sticky] { position: sticky; top: 0; }
 .pb-in {
-  display: flex; align-items: center; justify-content: space-between; gap: 12px;
-  width: 100%; max-width: var(--pb-max, 80rem); margin-inline: auto;
-  min-height: 56px; padding: 6px var(--pb-pad, 16px);
+  display: flex; align-items: center; gap: 12px;
+  width: 100%; max-width: var(--pb-max, none); margin-inline: auto;
+  min-height: 56px; padding: 4px var(--pb-pad, 16px);
 }
 .pb-bar a, .pb-bar button { color: inherit; text-decoration: none; font: inherit; }
 .pb-logo { display: inline-flex; align-items: center; min-height: 44px; }
 .pb-bar .pb-wordmark { display: none; height: 24px; width: auto; }
 .pb-bar .pb-mark { display: block; height: 24px; width: auto; }
+.pb-name { display: none; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap; }
 
-.pb-switch { display: flex; gap: 4px; flex: 1; justify-content: center; }
+/* tautan lokal (Home/Trending…, All maps/Galaxy) */
+.pb-bar .pb-nav { display: none; gap: 2px; align-items: center; margin-left: 8px; }
+.pb-nav a {
+  display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 8px;
+  color: var(--pb-muted, #a3a3ab); white-space: nowrap; transition: background 0.18s, color 0.18s;
+}
+.pb-nav a:hover { color: var(--pb-ink, #fff); background: var(--pb-hover, rgba(255, 255, 255, 0.06)); }
+.pb-nav a[aria-current='page'] { color: var(--pb-ink, #fff); background: var(--pb-raised, #232327); font-weight: 600; }
+
+/* pill: tiga situs */
+.pb-switch {
+  display: flex; gap: 2px; padding: 4px; margin-left: auto;
+  background: var(--pb-raised, #232327); border-radius: 999px;
+}
 .pb-switch a {
   display: inline-flex; align-items: center; justify-content: center;
-  min-height: 44px; padding: 0 14px; border-radius: 8px;
+  min-height: 40px; padding: 0 14px; border-radius: 999px;
   color: var(--pb-muted, #a3a3ab); white-space: nowrap;
   transition: background 0.18s, color 0.18s;
 }
-.pb-switch a:hover { color: var(--pb-ink, #fff); background: var(--pb-hover, rgba(255, 255, 255, 0.06)); }
-.pb-switch a[aria-current='page'] { color: var(--pb-ink, #fff); background: var(--pb-raised, #232327); font-weight: 600; }
+.pb-switch a:hover { color: var(--pb-ink, #fff); }
+.pb-switch a[aria-current='page'] { background: var(--pb-accent, #ff5200); color: #0d0d0f; font-weight: 600; }
 .pb-full { display: none; }
 
-.pb-lang { display: inline-flex; gap: 2px; }
+/* pill: bahasa */
+.pb-lang { display: inline-flex; gap: 2px; padding: 4px; background: var(--pb-raised, #232327); border-radius: 999px; }
 .pb-lang button {
-  min-width: 44px; min-height: 44px; padding: 0 8px; border: 0; border-radius: 8px;
+  min-width: 40px; min-height: 40px; padding: 0 8px; border: 0; border-radius: 999px;
   background: transparent; color: var(--pb-muted, #a3a3ab); cursor: pointer;
   font-size: 13px; font-weight: 600; letter-spacing: 0.02em;
   transition: background 0.18s, color 0.18s;
@@ -41,23 +58,30 @@
 .pb-bar :focus-visible { outline: 2px solid var(--pb-accent, #ff5200); outline-offset: 2px; }
 
 @media (min-width: 768px) {
-  .pb-in { min-height: 52px; padding: 4px var(--pb-pad, 24px); }
+  .pb-in { min-height: 60px; padding-block: 6px; padding-inline: var(--pb-pad, 24px); gap: 16px; }
   .pb-bar .pb-wordmark { display: block; }
   .pb-bar .pb-mark { display: none; }
+  .pb-name { display: inline; }
+  .pb-bar .pb-nav { display: flex; }
   .pb-switch a { min-height: 36px; }
   .pb-lang button { min-width: 36px; min-height: 36px; }
   .pb-logo { min-height: 36px; }
   .pb-short { display: none; }
   .pb-full { display: inline; }
 }
+/* tablet sempit: tautan lokal yang panjang pindah ke baris sendiri */
+@media (min-width: 768px) and (max-width: 1179px) {
+  .pb-in { flex-wrap: wrap; row-gap: 0; }
+  .pb-bar .pb-nav--long { order: 5; flex-basis: 100%; margin: 0 -12px 6px; }
+}
 @media (max-width: 767px) {
-  /* telepon: logo disembunyikan (ruang habis); tiga situs + bahasa harus muat di satu baris */
-  .pb-bar .pb-logo { display: none; }
-  .pb-in { padding-inline: 12px; gap: 8px; }
-  .pb-switch { justify-content: flex-start; gap: 2px; }
-  .pb-switch a { padding: 0 10px; font-size: 13px; }
+  /* telepon: logo dan nama disembunyikan (ruang habis); dua pill harus muat di satu baris */
+  .pb-bar .pb-logo, .pb-name { display: none; }
+  .pb-in { gap: 8px; }
+  .pb-switch { margin-left: 0; flex: 1; justify-content: space-between; }
+  .pb-switch a { flex: 1; padding: 0 6px; font-size: 13px; min-height: 40px; }
   .pb-lang button { min-width: 36px; padding: 0 6px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .pb-switch a, .pb-lang button { transition: none; }
+  .pb-switch a, .pb-lang button, .pb-nav a { transition: none; }
 }

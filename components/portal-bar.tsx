@@ -1,6 +1,6 @@
 /**
- * PortalBar — satu bar yang sama di atas Request Hub dan Reference: logo (ke landing), pilihan
- * situs (Streaming / Request Hub / Reference) dan pilihan bahasa. Situs yang sedang dibuka
+ * PortalBar — satu bar yang sama di atas Request Hub dan Reference, satu baris: logo (ke landing)
+ * + nama portal, tautan lokal, pilihan situs (pill, yang aktif oranye) dan pilihan bahasa. Situs yang sedang dibuka
  * ditandai; kalau butuh pindah, satu klik dari mana pun.
  * Warna lewat --pb-bg / --pb-ink supaya menyatu dengan bidang gelap tiap situs.
  */
@@ -13,7 +13,16 @@ import './portal-bar.css';
 
 export type PortalSite = 'hub' | 'reference';
 
-export function PortalBar({ current }: { current: PortalSite }) {
+export function PortalBar({
+  current,
+  nav,
+  sticky,
+}: {
+  current: PortalSite;
+  /** tautan lokal situs (Home/Trending…, All maps/Galaxy) yang duduk di baris yang sama */
+  nav?: React.ReactNode;
+  sticky?: boolean;
+}) {
   const { homeHref, hubHref, referenceHref } = usePortal();
   const config = useAppConfig();
   const { t, lang, setLang } = useLang();
@@ -36,7 +45,7 @@ export function PortalBar({ current }: { current: PortalSite }) {
   ];
 
   return (
-    <div className="pb-bar">
+    <div className="pb-bar" data-sticky={sticky ? '' : undefined}>
       <div className="pb-in">
         <a href={homeHref('/')} className="pb-logo" aria-label={t('pb.home')}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -44,6 +53,9 @@ export function PortalBar({ current }: { current: PortalSite }) {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo-mark.png" alt="" width={24} height={24} className="pb-mark" />
         </a>
+        <span className="pb-name">{current === 'hub' ? t('pb.hub') : t('pb.reference')}</span>
+
+        {nav}
 
         <nav className="pb-switch" aria-label={t('pb.switch')}>
           {items.map((it) => (

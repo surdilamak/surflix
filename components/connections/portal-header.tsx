@@ -1,5 +1,6 @@
 /**
- * PortalHeader — judul situs dan tautan lokal. Pindah situs dan pilihan bahasa ada di PortalBar di atasnya.
+ * PortalHeader — tautan lokal Reference (All maps, Galaxy). Duduk di dalam PortalBar,
+ * satu baris dengan logo, nama portal, pill situs, dan pilihan bahasa.
  */
 'use client';
 
@@ -11,15 +12,9 @@ export function PortalHeader() {
   const { t } = useLang();
 
   return (
-    <header className="ref-header">
-      <a href={portalPath('/') || '/'} className="ref-wordmark" aria-label="Surflix Reference">
-        <span>Surflix</span>
-        <span className="ref-wordmark-sub">Reference</span>
-      </a>
-      <nav className="ref-nav" aria-label="Main">
-        <a href={`${portalPath('/') || '/'}#peta`}>{t('nav.maps')}</a>
-        <a href={portalPath('/galaxy') || '/galaxy'}>{t('nav.galaxy')}</a>
-      </nav>
-    </header>
+    <nav className="pb-nav" aria-label="Reference">
+      <a href={`${portalPath('/') || '/'}#peta`}>{t('nav.maps')}</a>
+      <a href={portalPath('/galaxy') || '/galaxy'}>{t('nav.galaxy')}</a>
+    </nav>
   );
 }

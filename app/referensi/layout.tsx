@@ -34,8 +34,7 @@ export default function ReferensiLayout({ children }: { children: React.ReactNod
         <style>{'.ref-reveal{opacity:1!important;transform:none!important}'}</style>
       </noscript>
       <LangProvider>
-        <PortalBar current="reference" />
-        <PortalHeader />
+        <PortalBar current="reference" nav={<PortalHeader />} />
         {children}
         <PortalFooter />
       </LangProvider>

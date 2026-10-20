@@ -13,6 +13,8 @@
   --rq-gap: 8px;
   --rq-r: 8px;
   --rq-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --rq-margin: clamp(16px, 2.2vw, 32px); /* sama dengan --margin di Reference */
+  --pb-pad: var(--rq-margin);
 
   min-height: 100svh;
   background: var(--rq-bg);
@@ -26,8 +28,9 @@
 .rq-root ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.18); border-radius: var(--rq-r); }
 
 /* Lebar isi: nav, halaman, dan footer berbagi satu kolom supaya tepinya sejajar */
-.rq-wrap { width: 100%; max-width: 80rem; margin-inline: auto; padding-inline: 16px; }
-@media (min-width: 768px) { .rq-wrap { padding-inline: 24px; } }
+/* Lebar isi: sama dengan Reference (penuh, margin 16–32px). Nav, halaman, dan footer berbagi satu kolom. */
+.rq-wrap { width: 100%; margin-inline: auto; padding-inline: var(--rq-margin); }
+.rq-wrap.rq-narrow { max-width: 48rem; }
 
 /* Tipografi: lima langkah */
 .rq-title { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1; text-wrap: balance; }

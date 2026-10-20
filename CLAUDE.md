@@ -218,10 +218,11 @@ Satu bahasa visual dengan landing, dibatasi di wrapper `.rq-root` supaya admin t
 - Token lama (`surflix-*`, `ios-*`, `bg-surface`, `rounded-ios-*`) tetap hidup karena admin masih memakainya.
 
 ### Navigasi dan bahasa lintas situs (2026-10-21)
-- `components/portal-bar.tsx` (+ `portal-bar.css`, prefix `pb-`): satu bar di atas Request Hub dan Reference: Streaming / Request Hub / Reference (situs aktif ditandai) + EN/ID. Warna lewat `--pb-*`. Streaming = Jellyfin (tab baru, URL dari `/api/config`); landing tidak memakai bar (sudah menampilkan ketiga situs).
+- `components/portal-bar.tsx` (+ `portal-bar.css`, prefix `pb-`): satu bar satu baris di atas Request Hub (sticky) dan Reference: logo + nama portal, tautan lokal (slot `nav`), pill Streaming / Request Hub / Reference (aktif = oranye #ff5200) dan pill EN/ID. Di telepon logo, nama, dan tautan lokal disembunyikan. Warna lewat `--pb-*`. Streaming = Jellyfin (tab baru, URL dari `/api/config`); landing tidak memakai bar (sudah menampilkan ketiga situs).
 - Bahasa: satu `LangProvider` (`components/connections/lang-provider.tsx`) untuk Reference dan Request Hub, kamus di `lib/i18n.ts` + `lib/i18n-hub.ts` (kunci `hub.*`, `pb.*`). Pilihan disimpan di cookie `surflix_lang` pada domain induk (`lib/lang-pref.ts`), jadi ikut berpindah subdomain. English default.
 - Belum diterjemahkan: notifikasi push dan teks dari server (`lib/notif-messages.ts`, pesan error API) masih Indonesia; landing masih English saja.
-- Case 3D Reference: tanpa label Blu-ray; depan dan belakang memakai poster yang sama; punggung berwarna rata-rata poster dengan judul tegak.
+- Case 3D Reference: rangka dan punggung tetap biru, tanpa tulisan/banner Blu-ray; depan dan belakang memakai poster yang sama; punggung memuat judul tegak dan tahun.
+- Reference memakai aksen dan tombol yang sama dengan landing dan Request Hub: oranye #ff5200, tinta #0d0d0f, radius 8px. Lebar isi Request Hub = Reference (penuh, margin `clamp(16px,2.2vw,32px)`).
 
 ### Legacy tokens (admin masih pakai)
 ```

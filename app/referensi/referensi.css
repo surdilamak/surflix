@@ -8,18 +8,17 @@
   --surface: #f4f4f2;
   --ink: #1f2b4d;
   --muted: #6a7186;
-  --accent: #f7941d;
-  --accent-ink: #1f2b4d;
+  --accent: #ff5200; /* oranye logo Surflix, sama dengan landing dan Request Hub */
+  --accent-ink: #0d0d0f;
   --field-1: #05070a;
   --field-1-ink: #ffffff;
   --field-1-muted: #a9aebd;
   --field-2: #e3e1dc;
   --field-2-ink: #1f2b4d;
-  --pb-max: none;
   --pb-pad: var(--margin);
   --pb-bg: #05070a;
   --pb-raised: #1c2233;
-  --pb-accent: #f7941d;
+  --pb-accent: #ff5200;
 
   /* tiga jenis hubungan: dipakai di graph (gelap) dan penanda (terang) */
   --rel-homage: #f7941d;
@@ -60,29 +59,14 @@
 .ref-small { font-size: var(--step-small); font-weight: 600; }
 .ref-muted { color: var(--muted); }
 
-/* ── Header: bar polos di atas bidang gelap ── */
-.ref-header {
-  position: absolute; inset: 56px 0 auto 0; z-index: 30;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 20px var(--margin);
-  color: var(--field-1-ink);
-  font-size: 15px; font-weight: 600;
-}
-.ref-wordmark { display: inline-flex; align-items: baseline; gap: 8px; font-size: 18px; font-weight: 800; letter-spacing: -0.03em; }
-.ref-wordmark-sub { color: var(--field-1-muted); font-weight: 600; }
-@media (min-width: 768px) { .ref-header { top: 52px; } }
-.ref-nav { display: flex; align-items: center; gap: 28px; }
-.ref-nav a { transition: opacity 0.2s; }
-.ref-nav a:hover { opacity: 0.7; }
-
-/* ── Tombol: satu bentuk, persegi, satu warna isi ── */
+/* ── Tombol: satu bentuk (radius 8px, oranye), sama dengan landing dan Request Hub ── */
 .ref-root a.ref-btn,
 .ref-root .ref-btn {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 48px; padding: 0 22px;
   background: var(--accent); color: var(--accent-ink);
-  font: inherit; font-size: 16px; font-weight: 600;
-  border: 0; border-radius: 0; cursor: pointer;
+  font: inherit; font-size: 16px; font-weight: 500;
+  border: 0; border-radius: 8px; cursor: pointer;
   transition: transform 0.18s var(--ease), background 0.18s;
 }
 .ref-root .ref-btn:hover { transform: translateY(-2px); }
@@ -205,11 +189,6 @@
 
 /* ── Phone: komposisi sendiri ── */
 @media (max-width: 767px) {
-  .ref-header { font-size: 14px; }
-  .ref-nav { gap: 18px; }
-  .ref-nav a { white-space: nowrap; }
-  .ref-nav a:nth-child(1), .ref-nav a:nth-child(3), .ref-nav a:nth-child(4) { display: none; }
-  .ref-wordmark { font-size: 17px; white-space: nowrap; gap: 10px; }
   .ref-hero { --rx: 66vw; --ry: 66vw; min-height: max(100svh, 640px); }
   .ref-ring a { width: var(--wm); }
   .ref-ring a:nth-child(even) { display: none; }
@@ -281,10 +260,10 @@
   flex: 1; min-width: 0; height: 52px; padding: 0 16px;
   background: var(--bg); color: var(--ink);
   font: inherit; font-size: 16px; font-weight: 400;
-  border: 0; border-radius: 0; outline-offset: 0;
+  border: 0; border-radius: 8px 0 0 8px; outline-offset: 0;
 }
 .ref-search input::placeholder { color: var(--muted); }
-.ref-search .ref-btn { height: 52px; min-height: 52px; flex: 0 0 auto; }
+.ref-search .ref-btn { height: 52px; min-height: 52px; flex: 0 0 auto; border-radius: 0 8px 8px 0; }
 .ref-search--compact input { height: 44px; background: var(--field-1-ink); }
 .ref-search--compact .ref-btn { height: 44px; min-height: 44px; }
 .ref-search-panel {

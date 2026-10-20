@@ -40,8 +40,7 @@ export default function GuestLayout({ children }: { children: React.ReactNode })
       style={{ ['--rq-font' as string]: font.style.fontFamily }}
     >
       <LangProvider>
-        <PortalBar current="hub" />
-        <TopNav guestName={guestName} pendingCount={pendingCount} />
+        <PortalBar current="hub" sticky nav={<TopNav pendingCount={pendingCount} />} />
         <main className="flex-1">{children}</main>
         <Footer />
         <BottomTabBar pendingCount={pendingCount} />
