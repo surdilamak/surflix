@@ -18,9 +18,16 @@ interface PortalUrls {
   hubHref: (p?: string) => string;
 }
 
-function build(hostname: string, protocol: string): PortalUrls {
-  const m = hostname.match(/^(reference|request)\.(.+)$/);
-  const root = m?.[2];
+/** Root domain dari hostname: reference.x.y / request.x.y / www.x.y / x.y -> x.y. localhost & IP -> undefined. */
+function rootDomain(hostname: string): string | undefined {
+  if (/^\d+\.\d+\.\d+\.\d+$/.test(hostname)) return undefined;
+  const stripped = hostname.replace(/^(reference|request|www)\./, '');
+  return stripped.includes('.') ? stripped : undefined;
+}
+
+export function buildPortalUrls(hostname: string, protocol: string): PortalUrls {
+  const m = hostname.match(/^(reference|request)\./);
+  const root = rootDomain(hostname);
   const onReference = m?.[1] === 'reference';
   const base = onReference ? '' : '/referensi';
 
@@ -33,10 +40,10 @@ function build(hostname: string, protocol: string): PortalUrls {
 
 export function usePortal(): PortalUrls {
   // Default aman buat SSR / sebelum mount (sama di server & client biar gak hydration mismatch)
-  const [urls, setUrls] = useState<PortalUrls>(() => build('', 'https:'));
+  const [urls, setUrls] = useState<PortalUrls>(() => buildPortalUrls('', 'https:'));
 
   useEffect(() => {
-    setUrls(build(window.location.hostname, window.location.protocol));
+    setUrls(buildPortalUrls(window.location.hostname, window.location.protocol));
   }, []);
 
   return urls;

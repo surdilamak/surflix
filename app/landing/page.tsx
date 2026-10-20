@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useAppConfig } from '@/lib/hooks/use-app-config';
+import { buildPortalUrls } from '@/lib/hooks/use-portal';
 import { Film, Sparkles, Orbit, ArrowRight, Coffee, X } from 'lucide-react';
 
 interface LibraryStats {
@@ -38,8 +39,14 @@ export default function LandingPage() {
   }, []);
 
   const jellyfinUrl = config?.jellyfinUrl || 'https://www.surflix.my.id';
-  const requestUrl = 'https://request.surflix.my.id';
-  const referenceUrl = 'https://reference.surflix.my.id';
+  // Mulai dari URL produksi (SSR / sebelum mount identik), lalu ikuti hostname asli:
+  // di lokal kartu mengarah ke / dan /referensi, bukan keluar ke produksi.
+  const [portal, setPortal] = useState(() => buildPortalUrls('surflix.my.id', 'https:'));
+  useEffect(() => {
+    setPortal(buildPortalUrls(window.location.hostname, window.location.protocol));
+  }, []);
+  const requestUrl = portal.hubHref();
+  const referenceUrl = portal.referenceHref();
 
   return (
     <div className="relative flex min-h-screen flex-col bg-[#0a0a0c]">
