@@ -5,7 +5,7 @@
  * Sengaja pakai Jellyfin langsung, bukan Jellyseerr /media (API key Jellyseerr
  * user-level, lihat known issue #1 di CLAUDE.md).
  *
- * Header auth: X-Emby-Token
+ * Header auth: Authorization: MediaBrowser Token="<JELLYFIN_API_KEY>"
  */
 
 const CACHE_TTL_MS = 10 * 60 * 1000;
@@ -43,7 +43,8 @@ async function fetchLibrary(): Promise<LibraryTmdbMap> {
     `&Fields=ProviderIds&HasTmdbId=true`;
 
   const res = await fetch(url, {
-    headers: { 'X-Emby-Token': process.env.JELLYFIN_API_KEY! },
+    // Jellyfin 12 nolak X-Emby-Token (401); MediaBrowser Authorization jalan di 10.8+ juga
+    headers: { Authorization: `MediaBrowser Token="${process.env.JELLYFIN_API_KEY}"` },
     signal: AbortSignal.timeout(30000),
   });
   if (!res.ok) {
