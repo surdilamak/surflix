@@ -12,6 +12,9 @@ import { jellyseerr } from '@/lib/jellyseerr';
 import { prisma } from '@/lib/db';
 import { libraryIndex } from '@/lib/connections';
 
+// Wajib dinamis: tanpa ini Next membekukan hasilnya saat build (DB kosong) dan stats nyangkut di 0
+export const dynamic = 'force-dynamic';
+
 let cache: { data: any; expiresAt: number } | null = null;
 const CACHE_TTL = 10 * 60 * 1000;
 
