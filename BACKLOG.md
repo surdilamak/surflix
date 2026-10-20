@@ -25,7 +25,8 @@
 
 ## 🟡 Konten Referensi
 
-- [ ] **211 judul belum dipetakan** (lihat tab Coverage → *Not mapped yet*). Tambah manual via Manage → Add a connection. Prioritas: judul yang sering ditonton. Jangan ngarang hubungan demi angka.
+- [~] **92 judul belum dipetakan** (turun dari 211 pada 2026-10-21: 825 / 917 punya peta). Sisanya memang sendirian: dokumenter, film indie/arthouse, sitkom, dan anime yang tidak punya pembuat atau pemeran bersama dengan judul lain di library. Tambah manual via Manage → Add a connection kalau tahu hubungan yang terdokumentasi. Jangan ngarang hubungan demi angka.
+- [ ] **Review 23 koneksi baru berstatus PENDING_REVIEW** (confidence `m`, ditambah 2026-10-21: kritikus sering memasangkan, atau kredit produser dari metadata). Approve/reject di `/admin/connections` → Review.
 - [ ] **Review terjemahan Indonesia** di `lib/i18n.ts` dan kolom `reason` (dibuat bareng teks Inggris, belum dibaca penutur native).
 - [ ] **Nama file kotor di library Jellyfin** (`Requiem.for.a.Dream.2000.PROPER…`, `MIRCrew`). Snapshot sudah dibersihin otomatis (nama folder / OriginalTitle), tapi rapihin di Jellyfin kalau sempat (rename atau refresh metadata).
 - [x] **Auto-sync library** (2026-10-20, menunggu deploy): webhook Jellyseerr `MEDIA_AVAILABLE` / `MEDIA_PARTIALLY_AVAILABLE` memanggil `scheduleLibrarySync()` (debounce 30 dtk, satu sync per rentetan event, tidak pernah melempar error, log di EventLog `library.autosync`). Berlaku juga untuk judul yang bukan dari request Surflix. Syarat di produksi: webhook Jellyseerr terpasang (Settings → Notifications → Webhook, URL `…/api/webhooks/jellyseerr`, header `Bearer <WEBHOOK_SECRET>`) dan env Jellyfin ada. Webhook sekarang menolak semua request kalau `WEBHOOK_SECRET` kosong.
@@ -46,6 +47,16 @@
 - [ ] `scripts/connections-seed.json` (hasil build kurasi, 44 masih "pending") vs `scripts/connections-live.json` (foto keputusan review): pilih satu sumber kebenaran setelah admin jadi alur utama, dan dokumentasikan di `WORKFLOW.md`.
 
 ---
+
+## Cara: update koneksi (kurasi di lokal, deploy ke production)
+
+1. Tulis baris baru di `scripts/curated/*.txt` (format ada di header `scripts/build-connections.js`). Judul divalidasi terhadap `scripts/library-seed.json`.
+2. `node scripts/build-connections.js` → `scripts/connections-seed.json` (h = APPROVED, m = PENDING_REVIEW).
+3. Lokal: `DATABASE_URL="file:./dev.db" node scripts/import-connections.js scripts/connections-seed.json --apply` (dry-run dulu tanpa `--apply`), review yang `m` di `/admin/connections`.
+4. `DATABASE_URL="file:./dev.db" node scripts/export-connections.js` → `scripts/connections-live.json` (foto keputusan review).
+5. Commit + push (`curated/`, `connections-seed.json`, `connections-live.json`). CI membangun image; folder `scripts/` ikut di image.
+6. Dockge **Update**, lalu di Unraid: `docker exec surflix node scripts/import-connections.js scripts/connections-live.json` (dry-run), cek angkanya, ulangi dengan `--apply`. Status baris yang sudah ada tidak pernah diubah; baris buatan admin dilewati.
+7. Judul baru di Jellyfin: tombol **Sync library** dulu (admin), supaya judul itu ada di snapshot sebelum dipetakan.
 
 ## Cara: aktifin Sync library (env Jellyfin)
 
