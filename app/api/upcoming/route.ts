@@ -8,6 +8,9 @@
 import { NextResponse } from 'next/server';
 import { jellyseerr } from '@/lib/jellyseerr';
 
+// Wajib dinamis: tanpa ini Next membekukan hasilnya saat build (tanpa Jellyseerr/DB)
+export const dynamic = 'force-dynamic';
+
 let cache: { data: any; expiresAt: number } | null = null;
 const CACHE_TTL = 30 * 60 * 1000;
 

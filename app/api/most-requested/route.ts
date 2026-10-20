@@ -9,6 +9,9 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 
+// Wajib dinamis: tanpa ini Next membekukan hasilnya saat build (tanpa Jellyseerr/DB)
+export const dynamic = 'force-dynamic';
+
 // In-memory cache, 10 menit
 let cache: { data: any; expiresAt: number } | null = null;
 const CACHE_TTL = 10 * 60 * 1000;
