@@ -16,7 +16,7 @@
 - [ ] **Migrasi Tailwind 3 → 4** untuk menutup 7 temuan `npm audit` yang tersisa (dev-only, rantai `tailwindcss` 3: braces / micromatch / chokidar / postcss-nested). Tidak ikut image produksi, jadi tidak mendesak. Config & utilitas custom (`ios-*`, `surflix-*`) perlu dipindah ke CSS-first config; uji visual semua halaman.
 - [ ] **Pasang linter lagi (opsional)**: eslint dibuang saat upgrade. Kalau mau, tambah `eslint` + `eslint-config-next` 15 dengan flat config.
 - [ ] **Warning next/image logo** di `components/ui/top-nav.tsx` dan `footer.tsx` (kosmetik, sudah ada sebelum upgrade): set `width`/`height` auto pada logo.
-- [ ] **`/api/health` masih statis** (dibekukan saat build, jadi healthcheck Docker selalu "ok"). Jadikan dinamis tapi hati-hati: kalau cek Jellyseerr down, container jangan ikut dianggap unhealthy.
+- [x] **`/api/health` statis** (2026-10-20): beres sendiri oleh Next 15, GET handler tidak lagi di-cache default (dicek live: timestamp berubah tiap request). Yang wajib sehat cuma DB; Jellyseerr down tidak membuat container unhealthy.
 - [ ] **Jellyseerr API key user-level** (known issue #1): `getMediaCount()` masih 403. Stats sudah dialihkan ke snapshot library, tapi kalau mau akurat untuk status "Available" di hub, regenerate key admin.
 
 ## 🟡 Konten Referensi
