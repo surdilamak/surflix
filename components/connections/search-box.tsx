@@ -20,7 +20,22 @@ interface Result {
   refCount: number;
 }
 
-export function SearchBox({ variant = 'hero' }: { variant?: 'hero' | 'compact' }) {
+export interface SearchPick {
+  tmdbId: number;
+  mediaType: string;
+  title: string;
+}
+
+export function SearchBox({
+  variant = 'hero',
+  onPick,
+  placeholder,
+}: {
+  variant?: 'hero' | 'compact';
+  /** Kalau diberikan dan mengembalikan true, pilihan dianggap ditangani (gak pindah halaman). */
+  onPick?: (r: SearchPick) => boolean | void;
+  placeholder?: string;
+}) {
   const { t } = useLang();
   const config = useAppConfig();
   const { portalPath } = usePortal();
@@ -66,6 +81,10 @@ export function SearchBox({ variant = 'hero' }: { variant?: 'hero' | 'compact' }
   }, []);
 
   const go = (r: Result) => {
+    if (onPick && onPick(r)) {
+      setOpen(false);
+      return;
+    }
     window.location.href = portalPath(`/${r.mediaType}/${r.tmdbId}`) || '/';
   };
 
@@ -102,7 +121,7 @@ export function SearchBox({ variant = 'hero' }: { variant?: 'hero' | 'compact' }
           }}
           onFocus={() => setOpen(true)}
           onKeyDown={onKey}
-          placeholder={t('hero.placeholder')}
+          placeholder={placeholder ?? t('hero.placeholder')}
           aria-label={t('search.label')}
           role="combobox"
           aria-expanded={showPanel}
@@ -124,6 +143,12 @@ export function SearchBox({ variant = 'hero' }: { variant?: 'hero' | 'compact' }
                 href={portalPath(`/${r.mediaType}/${r.tmdbId}`) || '/'}
                 data-active={i === active ? '' : undefined}
                 onMouseEnter={() => setActive(i)}
+                onClick={(e) => {
+                  if (onPick && onPick(r)) {
+                    e.preventDefault();
+                    setOpen(false);
+                  }
+                }}
               >
                 <span className="ref-search-thumb">
                   {r.jellyfinId && config?.jellyfinUrl && (

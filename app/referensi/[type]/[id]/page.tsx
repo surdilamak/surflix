@@ -116,13 +116,16 @@ export default function ReferensiFilmPage() {
           <span className="ref-line"><span>{source.title}</span></span>
         </h1>
         <p className="ref-detail-sub">{sub}</p>
-        {source.jellyfinId && (
-          <div className="ref-detail-actions">
+        <div className="ref-detail-actions" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '12px 28px' }}>
+          {source.jellyfinId && (
             <a className="ref-btn" href={watchUrl(source.jellyfinId, jellyfinUrl, config.jellyfinServerId)} target="_blank" rel="noopener">
               {t('detail.watch')}
             </a>
-          </div>
-        )}
+          )}
+          <a className="ref-core-browse" style={{ marginTop: 0 }} href={`${portalPath('/galaxy') || '/galaxy'}?select=${source.mediaType}:${source.tmdbId}`}>
+            {t('detail.galaxy')}
+          </a>
+        </div>
         <div className="ref-stage-wrap" style={{ margin: '40px calc(var(--margin) * -1) 0' }}>
           <ConnectionGraph data={data} jellyfinUrl={jellyfinUrl} serverId={config.jellyfinServerId} portalPath={portalPath} />
         </div>

@@ -14,6 +14,7 @@ const en: Dict = {
   'nav.maps': 'All maps',
   'nav.hub': 'Request Hub',
   'nav.watch': 'Watch',
+  'nav.galaxy': 'Galaxy',
   'nav.lang': 'Language',
 
   // hero
@@ -23,6 +24,7 @@ const en: Dict = {
   'hero.placeholder': 'Try Blade Runner or Cowboy Bebop',
   'hero.cta': 'Find a title',
   'hero.browse': 'Browse every map',
+  'hero.galaxy': 'Explore the galaxy',
   'hero.hover': '{n} connections',
 
   // search
@@ -75,6 +77,7 @@ const en: Dict = {
   'detail.nomapBody': 'We have not traced this title yet. If you know what it echoes, an admin can add it.',
   'detail.back': 'Browse all maps',
   'detail.tap': 'Watch',
+  'detail.galaxy': 'See it in the galaxy',
 
   // stage
   'stage.hint': 'Drag to rotate. Tap a case to open it.',
@@ -101,6 +104,20 @@ const en: Dict = {
   'rel.universe.out': 'Follows',
   'rel.universe.in': 'Followed by',
 
+  // galaxy
+  'galaxy.h1': 'One sky, every title.',
+  'galaxy.sub': 'Each dot is a film or series on Surflix. Lines are connections, and titles that share a story, a maker or a look drift together.',
+  'galaxy.hint': 'Scroll to zoom, drag to move, click a dot.',
+  'galaxy.hintTouch': 'Pinch to zoom, drag to move, tap a dot.',
+  'galaxy.count': '{n} titles, {m} connections',
+  'galaxy.size': 'Bigger dots have more connections.',
+  'galaxy.connections': '{n} connections',
+  'galaxy.more': '{n} more on its map',
+  'galaxy.reset': 'Reset view',
+  'galaxy.close': 'Close',
+  'galaxy.loading': 'Drawing the sky…',
+  'galaxy.search': 'Fly to a title',
+
   // footer
   'footer.what': 'Surflix Referensi, a map of the library',
 };
@@ -109,6 +126,7 @@ const id: Dict = {
   'nav.maps': 'Semua peta',
   'nav.hub': 'Request Hub',
   'nav.watch': 'Tonton',
+  'nav.galaxy': 'Galaksi',
   'nav.lang': 'Bahasa',
 
   'hero.h1a': 'Setiap film',
@@ -117,6 +135,7 @@ const id: Dict = {
   'hero.placeholder': 'Coba Blade Runner atau Cowboy Bebop',
   'hero.cta': 'Cari judul',
   'hero.browse': 'Lihat semua peta',
+  'hero.galaxy': 'Jelajahi galaksi',
   'hero.hover': '{n} koneksi',
 
   'search.label': 'Cari di library Surflix',
@@ -164,6 +183,7 @@ const id: Dict = {
   'detail.nomapBody': 'Judul ini belum kami telusuri. Kalau kamu tahu apa yang digemakannya, admin bisa menambahkannya.',
   'detail.back': 'Lihat semua peta',
   'detail.tap': 'Tonton',
+  'detail.galaxy': 'Lihat di galaksi',
 
   'stage.hint': 'Geser untuk memutar. Ketuk case untuk membukanya.',
   'stage.default': 'Judul yang sedang kamu buka. Semua yang melayang di sekelilingnya terhubung dengannya.',
@@ -187,6 +207,19 @@ const id: Dict = {
   'rel.remake.in': 'Di-remake jadi',
   'rel.universe.out': 'Melanjutkan',
   'rel.universe.in': 'Dilanjutkan oleh',
+
+  'galaxy.h1': 'Satu langit, semua judul.',
+  'galaxy.sub': 'Tiap titik adalah film atau serial di Surflix. Garis adalah koneksi, dan judul yang berbagi cerita, pembuat, atau tampilan melayang berdekatan.',
+  'galaxy.hint': 'Gulir untuk zoom, geser untuk pindah, klik titik.',
+  'galaxy.hintTouch': 'Cubit untuk zoom, geser untuk pindah, ketuk titik.',
+  'galaxy.count': '{n} judul, {m} koneksi',
+  'galaxy.size': 'Titik yang lebih besar punya lebih banyak koneksi.',
+  'galaxy.connections': '{n} koneksi',
+  'galaxy.more': '{n} lagi di petanya',
+  'galaxy.reset': 'Atur ulang tampilan',
+  'galaxy.close': 'Tutup',
+  'galaxy.loading': 'Menggambar langit…',
+  'galaxy.search': 'Terbang ke judul',
 
   'footer.what': 'Surflix Referensi, peta library kami',
 };

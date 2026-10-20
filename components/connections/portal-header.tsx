@@ -19,6 +19,7 @@ export function PortalHeader() {
       </a>
       <nav className="ref-nav" aria-label="Main">
         <a href={`${portalPath('/') || '/'}#peta`}>{t('nav.maps')}</a>
+        <a href={portalPath('/galaxy') || '/galaxy'}>{t('nav.galaxy')}</a>
         <a href={hubHref('/')}>{t('nav.hub')}</a>
         {config?.jellyfinUrl && (
           <a href={config.jellyfinUrl} target="_blank" rel="noopener" className="ref-nav-watch">

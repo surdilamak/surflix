@@ -115,9 +115,14 @@ export function PortalRing({ films, jellyfinUrl }: { films: PortalFilm[]; jellyf
           )}
         </p>
         <SearchBox variant="hero" />
-        <a href="#peta" className="ref-core-browse">
-          {t('hero.browse')}
-        </a>
+        <div className="ref-core-links">
+          <a href="#peta" className="ref-core-browse">
+            {t('hero.browse')}
+          </a>
+          <a href={portalPath('/galaxy') || '/galaxy'} className="ref-core-browse">
+            {t('hero.galaxy')}
+          </a>
+        </div>
       </div>
     </>
   );

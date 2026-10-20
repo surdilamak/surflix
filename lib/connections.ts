@@ -419,3 +419,45 @@ export async function getLibraryTitle(tmdbId: number, mediaType: MediaType) {
     ? { tmdbId: t.tmdbId, mediaType: t.mediaType, title: t.title, year: t.year, jellyfinId: t.jellyfinId, directors: t.directors, genres: t.genres }
     : null;
 }
+
+/**
+ * Seluruh graf koneksi APPROVED buat halaman Galaxy: satu node per judul yang punya koneksi,
+ * satu sisi per pasangan (arah kanonik: yang lebih baru merujuk yang lebih lama).
+ */
+export async function galaxyGraph() {
+  const rows = await approvedRows();
+  const adj = buildAdjacency(rows);
+  const keys = [...adj.keys()].sort();
+  const lib = await libraryMap(keys);
+  const index = new Map(keys.map((k, i) => [k, i]));
+
+  const nodes = keys.map((key) => {
+    const l = lib.get(key);
+    const [mt, id] = key.split(':');
+    const sample = adj.get(key)!.values().next().value as Row;
+    const isSrc = fk(sample.sourceMediaType, sample.sourceTmdbId) === key;
+    return {
+      key,
+      tmdbId: Number(id),
+      mediaType: mt,
+      title: l?.title ?? (isSrc ? sample.sourceTitle : sample.targetTitle),
+      year: l?.year ?? (isSrc ? sample.sourceYear : sample.targetYear),
+      jellyfinId: l?.jellyfinId ?? (isSrc ? sample.sourceJellyfinId : sample.targetJellyfinId),
+      degree: adj.get(key)!.size,
+    };
+  });
+
+  const edges: Array<{ a: number; b: number; relationship: string; srcIsA: boolean }> = [];
+  for (const [a, m] of adj) {
+    for (const [b, r] of m) {
+      if (a >= b) continue; // tiap pasangan sekali
+      edges.push({
+        a: index.get(a)!,
+        b: index.get(b)!,
+        relationship: r.relationship,
+        srcIsA: fk(r.sourceMediaType, r.sourceTmdbId) === a,
+      });
+    }
+  }
+  return { nodes, edges };
+}
