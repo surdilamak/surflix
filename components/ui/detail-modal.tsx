@@ -16,6 +16,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { tmdbImage, getYear, jellyseerrStatusLabel } from '@/lib/utils';
 import { useAppConfig } from '@/lib/hooks/use-app-config';
 import { Icons } from './icons';
+import { ReferenceSection } from '@/components/connections/reference-section';
 import { JellyseerrMediaItem } from '@/lib/jellyseerr';
 
 interface DetailModalProps {
@@ -248,6 +249,16 @@ function ModalContent({
             </button>
           )}
         </div>
+
+        {/* Peta referensi — cuma buat film yang ada di library (node-nya harus bisa ditonton) */}
+        {isAvailable && (item.mediaType === 'movie' || item.mediaType === 'tv') && (
+          <ReferenceSection
+            key={`${item.mediaType}-${item.id}`}
+            tmdbId={item.id}
+            mediaType={item.mediaType}
+            jellyfinUrl={config?.jellyfinUrl}
+          />
+        )}
 
         {item.overview && (
           <p className="text-[13px] leading-relaxed text-white/85 md:text-sm">{item.overview}</p>

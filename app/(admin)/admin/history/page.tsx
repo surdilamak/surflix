@@ -112,6 +112,7 @@ export default function AdminHistoryPage() {
               <Link href="/admin" className="tab">Dashboard</Link>
               <Link href="/admin/pending" className="tab">Pending</Link>
               <Link href="/admin/history" className="tab tab-active">History</Link>
+              <Link href="/admin/connections" className="tab">Referensi</Link>
               <Link href="/admin/settings" className="tab">Settings</Link>
             </nav>
           </div>

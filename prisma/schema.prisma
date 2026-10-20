@@ -195,6 +195,43 @@ model PushSubscription {
 }
 
 // =====================================================
+// FILM CONNECTION: peta referensi antar film (homage / inspired / visual)
+// Draft dibikin LLM pas admin trigger, tayang ke guest cuma kalau APPROVED.
+// Guest GAK PERNAH memicu LLM — cuma baca cache ini.
+// Cuma film yang ada di library Jellyfin yang disimpen jadi target.
+// =====================================================
+model FilmConnection {
+  id              String   @id @default(cuid())
+
+  // Film sumber (yang lagi dibuka guest) — harus ada di library
+  sourceTmdbId    Int
+  sourceMediaType String   // "movie" | "tv"
+  sourceTitle     String
+
+  // Film target (yang di-refer)
+  targetTmdbId     Int
+  targetMediaType  String  // "movie" | "tv"
+  targetTitle      String
+  targetYear       Int?
+  targetPoster     String? // TMDB poster path
+  targetJellyfinId String? // Jellyfin itemId buat deep-link nonton
+
+  relationship    String   // "homage" | "inspired" | "visual"
+  reason          String   // alasan singkat (Indonesia), <= ~120 char
+
+  // Status: PENDING_REVIEW -> APPROVED | REJECTED
+  status          String   @default("PENDING_REVIEW")
+  source          String   @default("llm") // "llm" | "admin"
+
+  createdAt       DateTime  @default(now())
+  reviewedAt      DateTime?
+
+  @@unique([sourceTmdbId, sourceMediaType, targetTmdbId])
+  @@index([sourceTmdbId, sourceMediaType, status])
+  @@index([status])
+}
+
+// =====================================================
 // EVENT LOG: audit trail buat debugging
 // =====================================================
 model EventLog {

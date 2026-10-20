@@ -58,6 +58,12 @@ services:
       VAPID_PRIVATE_KEY: ${VAPID_PRIVATE_KEY}
       VAPID_SUBJECT: ${VAPID_SUBJECT}
 
+      # Film Connections (peta referensi) — LLM cuma dipanggil dari flow admin
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-sonnet-5-5}
+      JELLYFIN_URL: ${JELLYFIN_URL:-http://host.docker.internal:8096}
+      JELLYFIN_API_KEY: ${JELLYFIN_API_KEY}
+
     volumes:
       - ./data:/data
 
