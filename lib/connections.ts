@@ -170,6 +170,22 @@ export async function generateConnections(
 }
 
 /**
+ * Info film (poster/tahun/jellyfinId) dari baris lain yang kebetulan nunjuk film ini
+ * sebagai target. FilmConnection gak nyimpen metadata sumber, jadi ini jalan paling murah.
+ */
+async function lookupAsTarget(tmdbId: number, mediaType: MediaType) {
+  const row = await prisma.filmConnection.findFirst({
+    where: { targetTmdbId: tmdbId, targetMediaType: mediaType },
+    select: { targetYear: true, targetPoster: true, targetJellyfinId: true },
+  });
+  return {
+    year: row?.targetYear ?? null,
+    poster: row?.targetPoster ?? null,
+    jellyfinId: row?.targetJellyfinId ?? null,
+  };
+}
+
+/**
  * Buat guest: koneksi APPROVED dalam bentuk graph-ready (nodes + edges).
  * Murni baca DB — ZERO LLM. Kalau belum ada -> nodes/edges kosong.
  */
@@ -181,12 +197,17 @@ export async function getApprovedConnections(tmdbId: number, mediaType: MediaTyp
 
   if (rows.length === 0) return { nodes: [], edges: [] };
 
+  const src = await lookupAsTarget(tmdbId, mediaType);
+
   const nodes = [
     {
       id: `${mediaType}:${tmdbId}`,
       tmdbId,
       mediaType,
       title: rows[0].sourceTitle,
+      year: src.year,
+      poster: src.poster,
+      jellyfinId: src.jellyfinId,
       isSource: true,
     },
     ...rows.map((r) => ({
@@ -209,4 +230,43 @@ export async function getApprovedConnections(tmdbId: number, mediaType: MediaTyp
   }));
 
   return { nodes, edges };
+}
+
+/**
+ * Buat portal Referensi: daftar film yang punya peta referensi (APPROVED).
+ */
+export async function listConnectedFilms() {
+  const rows = await prisma.filmConnection.findMany({
+    where: { status: 'APPROVED' },
+    select: {
+      sourceTmdbId: true, sourceMediaType: true, sourceTitle: true,
+      targetTmdbId: true, targetMediaType: true,
+      targetYear: true, targetPoster: true, targetJellyfinId: true,
+    },
+  });
+
+  // metadata film (kalau film itu muncul sebagai target di baris lain)
+  const meta = new Map<string, { year: number | null; poster: string | null; jellyfinId: string | null }>();
+  for (const r of rows) {
+    meta.set(`${r.targetMediaType}:${r.targetTmdbId}`, {
+      year: r.targetYear, poster: r.targetPoster, jellyfinId: r.targetJellyfinId,
+    });
+  }
+
+  const films = new Map<string, {
+    tmdbId: number; mediaType: string; title: string; count: number;
+    year: number | null; poster: string | null; jellyfinId: string | null;
+  }>();
+  for (const r of rows) {
+    const key = `${r.sourceMediaType}:${r.sourceTmdbId}`;
+    const f = films.get(key);
+    if (f) { f.count++; continue; }
+    const m = meta.get(key);
+    films.set(key, {
+      tmdbId: r.sourceTmdbId, mediaType: r.sourceMediaType, title: r.sourceTitle, count: 1,
+      year: m?.year ?? null, poster: m?.poster ?? null, jellyfinId: m?.jellyfinId ?? null,
+    });
+  }
+
+  return [...films.values()].sort((a, b) => a.title.localeCompare(b.title));
 }

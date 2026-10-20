@@ -250,13 +250,12 @@ function ModalContent({
           )}
         </div>
 
-        {/* Peta referensi — cuma buat film yang ada di library (node-nya harus bisa ditonton) */}
-        {isAvailable && (item.mediaType === 'movie' || item.mediaType === 'tv') && (
+        {/* Link ke portal Referensi — muncul kalau film ini punya peta referensi */}
+        {(item.mediaType === 'movie' || item.mediaType === 'tv') && (
           <ReferenceSection
             key={`${item.mediaType}-${item.id}`}
             tmdbId={item.id}
             mediaType={item.mediaType}
-            jellyfinUrl={config?.jellyfinUrl}
           />
         )}
 

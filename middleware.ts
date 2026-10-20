@@ -5,6 +5,9 @@
  * - surflix.my.id (apex)
  * - www.surflix.my.id
  *
+ * Reference portal hostnames (rewrites everything → `/referensi/*`):
+ * - reference.surflix.my.id (portal peta referensi film, terpisah dari Request Hub)
+ *
  * Pass-through hostnames (render Request Hub or other routes normally):
  * - request.surflix.my.id (Request Hub UI)
  *
@@ -26,9 +29,18 @@ const APEX_HOSTNAMES = new Set([
   'www.surdilamak.my.id',
 ]);
 
+const REFERENCE_HOSTNAMES = new Set(['reference.surflix.my.id']);
+
 export function middleware(request: NextRequest) {
   const hostname = request.headers.get('host')?.toLowerCase().split(':')[0] ?? '';
   const { pathname } = request.nextUrl;
+
+  // Portal Referensi: semua path (selain /api & asset, lihat matcher) masuk ke /referensi/*
+  if (REFERENCE_HOSTNAMES.has(hostname) && !pathname.startsWith('/referensi')) {
+    const url = request.nextUrl.clone();
+    url.pathname = `/referensi${pathname === '/' ? '' : pathname}`;
+    return NextResponse.rewrite(url);
+  }
 
   // Only rewrite root path on apex — preserves other routes (e.g. /api/*) on any hostname
   if (APEX_HOSTNAMES.has(hostname) && pathname === '/') {

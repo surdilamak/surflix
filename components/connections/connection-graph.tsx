@@ -134,9 +134,20 @@ function drawCase(c: HTMLCanvasElement, node: GraphNode, poster?: HTMLImageEleme
 interface ConnectionGraphProps {
   data: GraphData;
   jellyfinUrl?: string;
+  /** Tailwind tinggi container, default 480px (cocok buat modal); portal pakai yang lebih tinggi */
+  heightClass?: string;
 }
 
-export function ConnectionGraph({ data, jellyfinUrl }: ConnectionGraphProps) {
+// Poster TMDB kalau ada, kalau nggak ambil dari Jellyfin (gambar Primary item)
+function posterSrc(node: GraphNode, jellyfinUrl?: string): string | null {
+  if (node.poster) return `https://image.tmdb.org/t/p/w342${node.poster}`;
+  if (node.jellyfinId && jellyfinUrl) {
+    return `${jellyfinUrl.replace(/\/+$/, '')}/Items/${node.jellyfinId}/Images/Primary?maxWidth=342`;
+  }
+  return null;
+}
+
+export function ConnectionGraph({ data, jellyfinUrl, heightClass = 'h-[480px]' }: ConnectionGraphProps) {
   const mountRef = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState(0);
 
@@ -187,8 +198,9 @@ export function ConnectionGraph({ data, jellyfinUrl }: ConnectionGraphProps) {
       tex.anisotropy = 4;
       textures.push(tex);
 
-      // Poster asli dari TMDB (CORS-enabled), redraw begitu ke-load
-      if (node.poster) {
+      // Poster asli (TMDB / Jellyfin), redraw begitu ke-load
+      const src = posterSrc(node, jellyfinUrl);
+      if (src) {
         const img = new Image();
         img.crossOrigin = 'anonymous';
         img.onload = () => {
@@ -196,7 +208,8 @@ export function ConnectionGraph({ data, jellyfinUrl }: ConnectionGraphProps) {
           drawCase(canvas, node, img);
           tex.needsUpdate = true;
         };
-        img.src = `https://image.tmdb.org/t/p/w342${node.poster}`;
+        // gagal load (mis. CORS) -> tetap pakai placeholder warna
+        img.src = src;
       }
 
       const scl = node.isSource ? 1.28 : 0.98;
@@ -312,7 +325,7 @@ export function ConnectionGraph({ data, jellyfinUrl }: ConnectionGraphProps) {
       if (el.parentNode) el.parentNode.removeChild(el);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data]);
+  }, [data, jellyfinUrl]);
 
   if (nodes.length === 0) return null;
 
@@ -321,7 +334,7 @@ export function ConnectionGraph({ data, jellyfinUrl }: ConnectionGraphProps) {
   const rel = edge ? REL[edge.relationship] : null;
 
   return (
-    <div className="relative h-[480px] w-full select-none overflow-hidden rounded-ios-lg bg-neutral-950">
+    <div className={`relative ${heightClass} w-full select-none overflow-hidden rounded-ios-lg bg-neutral-950`}>
       <div ref={mountRef} className="absolute inset-0" />
 
       <div className="absolute left-2.5 top-2.5 flex flex-col gap-1.5 rounded-xl bg-black/40 px-2.5 py-2 text-[10px] text-neutral-300 backdrop-blur">
@@ -353,7 +366,7 @@ export function ConnectionGraph({ data, jellyfinUrl }: ConnectionGraphProps) {
         <p className="mb-2.5 text-xs leading-snug text-neutral-300">
           {edge ? edge.reason : 'Film yang lagi lo buka — pusat dari web referensi.'}
         </p>
-        {!node.isSource && node.jellyfinId && (
+        {node.jellyfinId && (
           <a
             href={watchUrl(node.jellyfinId, jellyfinUrl)}
             target="_blank"
