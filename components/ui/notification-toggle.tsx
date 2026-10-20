@@ -172,23 +172,23 @@ export function NotificationToggle({ guestId }: NotificationToggleProps) {
   // Banner: ask for permission
   if (status === 'default') {
     return (
-      <div className="mb-4 flex items-start gap-3 rounded-ios-lg border border-white/[0.08] bg-white/[0.02] p-3">
-        <Icons.Bell className="mt-0.5 h-4 w-4 flex-shrink-0 text-ios-orange/80" />
+      <div className="mb-4 flex items-start gap-3 rounded-rq bg-rq-surface p-3">
+        <Icons.Bell className="mt-0.5 h-4 w-4 flex-shrink-0 text-rq-accent" />
         <div className="min-w-0 flex-1">
-          <p className="text-[13px] font-medium">Mau dapat notif kalau request lo update?</p>
-          <p className="mt-0.5 text-[11px] text-white/55">
+          <p className="rq-text font-medium">Mau dapat notif kalau request lo update?</p>
+          <p className="rq-small mt-0.5 text-rq-muted">
             Lo bakal tau pas film disetujui, mulai download, atau siap ditonton.
           </p>
-          <div className="mt-2 flex items-center gap-2">
+          <div className="mt-3 flex items-center gap-2">
             <button
               onClick={handleEnable}
-              className="rounded-full bg-ios-orange/90 px-3 py-1 text-[11px] font-medium text-black hover:bg-ios-orange"
+              className="btn-primary !min-h-11"
             >
               Aktifkan
             </button>
             <button
               onClick={handleDismiss}
-              className="text-[11px] text-white/45 hover:text-white/70"
+              className="rq-small inline-flex min-h-11 items-center px-2 text-rq-muted hover:text-white"
             >
               Nanti aja
             </button>
@@ -200,10 +200,10 @@ export function NotificationToggle({ guestId }: NotificationToggleProps) {
 
   if (status === 'denied') {
     return (
-      <div className="mb-4 flex items-start gap-3 rounded-ios-lg border border-white/[0.07] bg-white/[0.02] p-3">
-        <Icons.BellOff className="mt-0.5 h-4 w-4 flex-shrink-0 text-white/40" />
+      <div className="mb-4 flex items-start gap-3 rounded-rq bg-rq-surface p-3">
+        <Icons.BellOff className="mt-0.5 h-4 w-4 flex-shrink-0 text-rq-muted" />
         <div className="min-w-0 flex-1">
-          <p className="text-[12px] text-white/55">
+          <p className="rq-small text-rq-muted">
             Notif di-block sama browser lo. Buka site settings buat allow notifications kalau mau di-aktifin.
           </p>
         </div>
@@ -214,15 +214,15 @@ export function NotificationToggle({ guestId }: NotificationToggleProps) {
   if (status === 'granted-no-push') {
     // Notif on (in-page mode) — show subtle indicator + offer enable push
     return (
-      <div className="mb-4 flex items-center justify-between gap-3 rounded-ios-lg border border-white/[0.07] bg-white/[0.02] px-3 py-2">
-        <div className="flex items-center gap-2 text-[11px] text-white/55">
-          <Icons.Bell className="h-3.5 w-3.5 text-ios-orange/70" />
+      <div className="mb-4 flex items-center justify-between gap-3 rounded-rq bg-rq-surface px-3 py-1">
+        <div className="flex items-center gap-2 text-xs text-rq-muted">
+          <Icons.Bell className="h-4 w-4 text-rq-accent" />
           <span>Notif aktif (cuma pas tab kebuka)</span>
         </div>
         {PUSH_SUPPORTED && (
           <button
             onClick={handleEnable}
-            className="text-[11px] text-ios-orange/90 hover:text-ios-orange"
+            className="rq-small inline-flex min-h-11 items-center px-2 text-rq-accent hover:text-white"
           >
             Aktifkan background notif
           </button>
@@ -233,14 +233,14 @@ export function NotificationToggle({ guestId }: NotificationToggleProps) {
 
   if (status === 'subscribed') {
     return (
-      <div className="mb-4 flex items-center justify-between gap-3 rounded-ios-lg border border-white/[0.07] bg-white/[0.02] px-3 py-2">
-        <div className="flex items-center gap-2 text-[11px] text-white/55">
-          <Icons.BellRing className="h-3.5 w-3.5 text-ios-green/80" />
+      <div className="mb-4 flex items-center justify-between gap-3 rounded-rq bg-rq-surface px-3 py-1">
+        <div className="flex items-center gap-2 text-xs text-rq-muted">
+          <Icons.BellRing className="h-4 w-4 text-rq-accent" />
           <span>Background notif aktif</span>
         </div>
         <button
           onClick={handleDisable}
-          className="text-[11px] text-white/45 hover:text-white/70"
+          className="rq-small inline-flex min-h-11 items-center px-2 text-rq-muted hover:text-white"
         >
           Matiin
         </button>

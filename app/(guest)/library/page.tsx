@@ -129,17 +129,12 @@ export default function LibraryPage() {
   // === RENDER ===
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-5 md:px-5 md:py-6">
+    <div className="rq-wrap py-6 md:py-8">
       {/* Header */}
       <div className="mb-5 flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-semibold tracking-tight md:text-2xl">
-            <span className="inline-flex items-center gap-2">
-              <Icons.Library className="h-5 w-5 md:h-6 md:w-6" />
-              Library
-            </span>
-          </h1>
-          <p className="mt-1 text-xs text-white/50">
+          <h1 className="rq-h1">Library</h1>
+          <p className="rq-small mt-1 text-rq-muted">
             {mode === 'personal' && `${personalItems.length} film/series yang lo request udah ready`}
             {mode === 'community' && 'Film yang udah ada di library Surflix'}
             {mode === 'empty' && 'Belum ada apa-apa di sini'}
@@ -151,10 +146,10 @@ export default function LibraryPage() {
             href={config.jellyfinUrl}
             target="_blank"
             rel="noopener"
-            className="btn-secondary text-xs"
+            className="btn-secondary"
           >
             <span className="inline-flex items-center gap-1.5">
-              <Icons.ExternalLink className="h-3 w-3" />
+              <Icons.ArrowUpRight className="h-4 w-4" />
               <span className="hidden sm:inline">Open</span> Surflix
             </span>
           </a>
@@ -167,13 +162,13 @@ export default function LibraryPage() {
       {/* Personal Library */}
       {mode === 'personal' && (
         <>
-          <div className="mb-4 rounded-ios-lg border border-ios-green/20 bg-ios-green/5 p-3">
-            <p className="text-xs text-white/80">
-              <Icons.CheckCircle2 className="mr-1.5 inline h-3.5 w-3.5 text-ios-green" />
+          <div className="mb-4 rounded-rq bg-rq-surface p-3">
+            <p className="rq-small text-white">
+              <Icons.CheckCircle2 className="mr-1.5 inline h-3.5 w-3.5 text-rq-accent" />
               Ini film yang lo request via Surflix & udah ready
             </p>
           </div>
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-6">
             {personalItems.map((item) => (
               <PosterCard
                 key={item.id}
@@ -186,16 +181,11 @@ export default function LibraryPage() {
           {/* Community section di bawah personal */}
           {communityItems.length > 0 && (
             <section className="mt-10">
-              <h2 className="mb-3 text-base font-semibold tracking-tight md:text-lg">
-                <span className="inline-flex items-center gap-1.5">
-                  <Icons.Sparkles className="h-4 w-4 text-ios-orange" />
-                  Also Available in Library
-                </span>
-              </h2>
-              <p className="mb-3 text-xs text-white/40">
+              <h2 className="rq-h2 mb-1">Also available in the library</h2>
+              <p className="rq-small mb-3 text-rq-muted">
                 Film yang ke-request guest lain & udah ada di Surflix
               </p>
-              <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5">
+              <div className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-6">
                 {communityItems.slice(0, 10).map((item) => (
                   <PosterCard
                     key={item.id}
@@ -213,17 +203,17 @@ export default function LibraryPage() {
       {mode === 'community' && (
         <>
           {!guestEmail && (
-            <div className="mb-4 rounded-ios-lg border border-ios-blue/30 bg-ios-blue/10 p-3">
-              <p className="text-xs text-white/80">
-                <Icons.Info className="mr-1.5 inline h-3.5 w-3.5 text-ios-blue" />
+            <div className="mb-4 rounded-rq bg-rq-surface p-3">
+              <p className="rq-small text-white">
+                <Icons.Info className="mr-1.5 inline h-3.5 w-3.5 text-rq-accent" />
                 Belum ada request lo sendiri.{' '}
-                <Link href="/" className="font-medium text-ios-blue hover:underline">
+                <Link href="/" className="font-medium text-rq-accent hover:underline">
                   Request film pertama lo →
                 </Link>
               </p>
             </div>
           )}
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-6">
             {communityItems.map((item) => (
               <PosterCard
                 key={item.id}

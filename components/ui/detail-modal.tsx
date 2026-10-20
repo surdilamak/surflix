@@ -112,7 +112,7 @@ export function DetailModal({ item, open, onClose, onRequest, onRequestImproveme
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={onClose}
-            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+            className="absolute inset-0 bg-black/70 "
           />
 
           {/* Modal Content */}
@@ -121,17 +121,17 @@ export function DetailModal({ item, open, onClose, onRequest, onRequestImproveme
             animate={isMobile ? { y: 0 } : { scale: 1, opacity: 1 }}
             exit={isMobile ? { y: '100%' } : { scale: 0.95, opacity: 0 }}
             transition={{ type: 'spring', damping: isMobile ? 30 : 25, stiffness: 300 }}
-            className={`relative z-10 w-full overflow-hidden bg-bg-surface ${
+            className={`relative z-10 w-full overflow-hidden bg-rq-surface ${
               isMobile
-                ? 'max-h-[90vh] rounded-t-ios-xl'
-                : 'max-w-2xl rounded-ios-xl'
+                ? 'max-h-[90vh] rounded-t-rq'
+                : 'max-w-2xl rounded-rq'
             }`}
             style={{ maxHeight: isMobile ? '90vh' : 'calc(100vh - 2rem)' }}
           >
             {/* Drag handle (mobile only) — absolute overlay supaya image bisa fill ke top */}
             {isMobile && (
               <div className="pointer-events-none absolute inset-x-0 top-2 z-20 flex justify-center">
-                <div className="h-1 w-9 rounded-full bg-white/60 shadow-[0_1px_3px_rgba(0,0,0,0.4)]" />
+                <div className="h-1 w-9 rounded-rq bg-white/60" />
               </div>
             )}
 
@@ -197,43 +197,46 @@ function ModalContent({
 
   return (
     <>
-      <div className="relative h-[200px] md:h-[240px]">
+      <div className="relative h-[180px] md:h-[220px]">
         {backdrop ? (
           <Image src={backdrop} alt={title} fill className="object-cover" sizes="(max-width: 768px) 100vw, 600px" />
         ) : (
-          <div className="h-full w-full bg-gradient-to-br from-purple-900/50 via-blue-900/50 to-red-900/50" />
+          <div className="h-full w-full bg-rq-raised" />
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-bg-surface via-bg-surface/30 to-transparent" />
 
         <button
           onClick={onClose}
-          className="absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full bg-black/60 text-white backdrop-blur-ios transition-all hover:bg-black/80"
+          className="absolute right-2 top-2 flex h-11 w-11 items-center justify-center rounded-rq bg-rq-bg/80 text-white transition-colors hover:bg-rq-bg"
           aria-label="Close"
         >
           <Icons.X className="h-4 w-4" />
         </button>
-
-        <div className="absolute inset-x-0 bottom-0 p-4 md:p-5">
-          <h2 className="text-xl font-semibold tracking-tighter md:text-2xl">{title}</h2>
-          {detail?.tagline && (
-            <p className="mt-0.5 text-[11px] italic text-white/60 md:text-xs">{detail.tagline}</p>
-          )}
-          <p className="mt-1 text-xs text-white/65 md:text-sm">
-            {year} · {item.mediaType === 'movie' ? 'Movie' : 'Series'}
-            {detail?.runtime && ` · ${formatRuntime(detail.runtime)}`}
-            {rating && ` · ★ ${rating}`}
-          </p>
-        </div>
       </div>
 
       <div className="space-y-4 p-4 md:p-5">
+        <div>
+          <h2 className="rq-h2 !text-2xl">{title}</h2>
+          {detail?.tagline && (
+            <p className="rq-small mt-1 text-rq-muted">{detail.tagline}</p>
+          )}
+          <p className="rq-small mt-1 text-rq-muted">
+            {year} · {item.mediaType === 'movie' ? 'Movie' : 'Series'}
+            {detail?.runtime && ` · ${formatRuntime(detail.runtime)}`}
+            {rating && (
+              <>
+                {' · '}
+                <Icons.Star className="-mt-0.5 inline h-3 w-3 fill-current" /> {rating}
+              </>
+            )}
+          </p>
+        </div>
         <div className="flex flex-col gap-2">
           {isAvailable ? (
             <a
               href={watchHref}
               target="_blank"
               rel="noopener"
-              className="w-full rounded-full bg-ios-orange px-5 py-2.5 text-center text-sm font-semibold tracking-tight text-black transition-all hover:bg-ios-orange/90 active:scale-95"
+              className="btn-primary w-full"
             >
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.Play className="h-4 w-4" />
@@ -241,7 +244,7 @@ function ModalContent({
               </span>
             </a>
           ) : isProcessing ? (
-            <button disabled className="w-full cursor-not-allowed rounded-full bg-ios-blue/30 py-2.5 text-sm font-medium text-ios-blue">
+            <button disabled className="btn-secondary w-full">
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.Download className="h-4 w-4" />
                 Downloading
@@ -261,7 +264,7 @@ function ModalContent({
           {(isAvailable || isProcessing) && onRequestImprovement && (
             <button
               onClick={() => onRequestImprovement(item)}
-              className="w-full rounded-full border border-white/15 bg-white/[0.04] py-2.5 text-sm font-medium text-white/80 transition-colors hover:border-white/25 hover:bg-white/[0.08] hover:text-white"
+              className="btn-secondary w-full"
             >
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.MessageSquare className="h-4 w-4" />
@@ -281,20 +284,20 @@ function ModalContent({
         )}
 
         {item.overview && (
-          <p className="text-[13px] leading-relaxed text-white/85 md:text-sm">{item.overview}</p>
+          <p className="text-[13px] leading-relaxed text-white md:text-sm">{item.overview}</p>
         )}
 
         {detail?.genres && detail.genres.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             {detail.genres.map((g: string) => (
-              <span key={g} className="rounded-full bg-white/[0.06] px-2.5 py-1 text-[10px] font-medium text-white/70 md:text-xs">
+              <span key={g} className="rounded-rq bg-rq-raised px-2.5 py-1.5 text-xs font-medium text-white">
                 {g}
               </span>
             ))}
           </div>
         )}
 
-        <div className="rounded-ios-lg bg-white/[0.04] text-xs md:text-sm">
+        <div className="rounded-rq bg-rq-raised text-sm">
           {(detail?.director || detail?.creators) && (
             <MetadataRow
               label={item.mediaType === 'tv' ? 'Creators' : 'Director'}
@@ -321,20 +324,20 @@ function ModalContent({
           )}
           <MetadataRow label="Type" value={item.mediaType === 'movie' ? 'Movie' : 'TV Series'} />
           {year && <MetadataRow label="Release" value={year} />}
-          {rating && <MetadataRow label="Rating" value={`★ ${rating}`} last />}
+          {rating && <MetadataRow label="Rating" value={`${rating} / 10`} last />}
         </div>
 
         {loadingDetail && (
-          <div className="flex items-center justify-center gap-2 text-xs text-white/40">
+          <div className="flex items-center justify-center gap-2 text-xs text-rq-muted">
             <Icons.Loader2 className="h-3 w-3 animate-spin" />
             Loading metadata...
           </div>
         )}
 
         {!isAvailable && !isProcessing && (
-          <div className="flex items-start gap-2 rounded-ios-lg border border-ios-blue/30 bg-ios-blue/10 p-3">
-            <Icons.Info className="mt-px h-4 w-4 flex-shrink-0 text-ios-blue" />
-            <p className="text-[11px] leading-relaxed text-white/85 md:text-xs">
+          <div className="flex items-start gap-2 rounded-rq bg-rq-raised p-3">
+            <Icons.Info className="mt-px h-4 w-4 flex-shrink-0 text-rq-accent" />
+            <p className="rq-small text-white">
               Request akan direview admin sebelum diproses. Status akan ke-update di tab "My Requests".
             </p>
           </div>
@@ -346,8 +349,8 @@ function ModalContent({
 
 function MetadataRow({ label, value, last }: { label: string; value: string; last?: boolean }) {
   return (
-    <div className={`flex justify-between px-3 py-2.5 ${!last ? 'border-b border-white/[0.06]' : ''}`}>
-      <span className="flex-shrink-0 text-white/50">{label}</span>
+    <div className="flex justify-between px-3 py-3">
+      <span className="flex-shrink-0 text-rq-muted">{label}</span>
       <span className="ml-3 text-right font-medium leading-tight">{value}</span>
     </div>
   );

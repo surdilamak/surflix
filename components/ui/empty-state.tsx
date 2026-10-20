@@ -21,12 +21,12 @@ export function EmptyState({ icon = 'Search', title, description, action }: Empt
 
   return (
     <div className="flex flex-col items-center justify-center py-16 text-center">
-      <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-white/[0.04]">
-        <Icon className="h-7 w-7 text-white/30" />
+      <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-rq bg-rq-surface">
+        <Icon className="h-7 w-7 text-rq-accent" />
       </div>
-      <h3 className="text-base font-semibold tracking-tight">{title}</h3>
+      <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
       {description && (
-        <p className="mt-1 max-w-xs text-[13px] leading-relaxed text-white/50">
+        <p className="mt-2 max-w-xs text-[13px] leading-relaxed text-rq-muted">
           {description}
         </p>
       )}

@@ -38,13 +38,13 @@ const GENRE_NAMES: Record<string, string> = {
   '10752': 'War', '37': 'Western',
 };
 
-const NETWORKS: Array<{ id: string; label: string; emoji: string; tvOnly?: boolean }> = [
-  { id: '213', label: 'Netflix', emoji: '📺' },
-  { id: '2552', label: 'Apple TV+', emoji: '🍎', tvOnly: true },
-  { id: '49', label: 'HBO Max', emoji: '🎬', tvOnly: true },
-  { id: '2739', label: 'Disney+', emoji: '🏰' },
-  { id: '1024', label: 'Prime Video', emoji: '📦' },
-  { id: '453', label: 'Hulu', emoji: '🟢', tvOnly: true },
+const NETWORKS: Array<{ id: string; label: string; tvOnly?: boolean }> = [
+  { id: '213', label: 'Netflix' },
+  { id: '2552', label: 'Apple TV+', tvOnly: true },
+  { id: '49', label: 'HBO Max', tvOnly: true },
+  { id: '2739', label: 'Disney+' },
+  { id: '1024', label: 'Prime Video' },
+  { id: '453', label: 'Hulu', tvOnly: true },
 ];
 
 export default function BrowsePage() {
@@ -57,7 +57,7 @@ export default function BrowsePage() {
 
 function BrowseLoading() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-5 md:px-5 md:py-6">
+    <div className="rq-wrap py-6 md:py-8">
       <PosterGridSkeleton count={10} />
     </div>
   );
@@ -98,7 +98,7 @@ function BrowseInner() {
     if (urlQuery) return `Search: "${urlQuery}"`;
     if (urlNetwork) {
       const net = NETWORKS.find((n) => n.id === urlNetwork);
-      return net ? `${net.emoji} ${net.label}` : 'Browse';
+      return net ? net.label : 'Browse';
     }
     if (urlGenre && GENRE_NAMES[urlGenre]) {
       const genreName = GENRE_NAMES[urlGenre];
@@ -270,11 +270,11 @@ function BrowseInner() {
   const hasActiveFilter = urlGenre || urlType !== 'all' || urlYear || urlQuery || urlNetwork;
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-5 md:px-5 md:py-6">
+    <div className="rq-wrap py-6 md:py-8">
       <div className="mb-4 flex items-center justify-between">
-        <h1 className="text-xl font-semibold tracking-tight md:text-2xl">{heading}</h1>
+        <h1 className="rq-h1">{heading}</h1>
         {hasActiveFilter && (
-          <button onClick={clearFilters} className="text-xs font-medium text-surflix-500 hover:text-surflix-600">
+          <button onClick={clearFilters} className="rq-small inline-flex min-h-11 items-center px-2 font-medium text-rq-accent hover:text-white">
             Clear filters
           </button>
         )}
@@ -282,7 +282,7 @@ function BrowseInner() {
 
       {/* Search bar with suggestions */}
       <div className="relative mb-3">
-        <Icons.Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-white/40" />
+        <Icons.Search className="absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-rq-muted" />
         <input
           type="text"
           value={query}
@@ -295,7 +295,7 @@ function BrowseInner() {
         {query && (
           <button
             onClick={() => { setQuery(''); setShowSuggestions(false); }}
-            className="absolute right-2.5 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-white/10 text-white/60 hover:text-white"
+            className="absolute right-2.5 top-1/2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-rq bg-rq-raised text-rq-muted hover:text-white"
           >
             <Icons.X className="h-3 w-3" />
           </button>
@@ -303,14 +303,14 @@ function BrowseInner() {
 
         {/* Suggestions dropdown */}
         {showSuggestions && suggestions.length > 0 && (
-          <div className="absolute left-0 right-0 top-full z-30 mt-1 overflow-hidden rounded-ios-lg border border-white/[0.08] bg-bg-surface shadow-2xl">
+          <div className="absolute left-0 right-0 top-full z-30 mt-1 overflow-hidden rounded-rq bg-rq-raised ">
             {suggestions.map((s) => (
               <button
                 key={`${s.mediaType}-${s.id}`}
                 onClick={() => selectSuggestion(s)}
-                className="flex w-full items-center gap-3 px-3 py-2.5 text-left transition-colors hover:bg-white/[0.06]"
+                className="flex w-full items-center gap-3 px-3 py-2.5 text-left transition-colors hover:bg-[#2e2e33]"
               >
-                <div className="h-12 w-8 flex-shrink-0 overflow-hidden rounded bg-bg-elevated">
+                <div className="h-12 w-8 flex-shrink-0 overflow-hidden rounded bg-rq-surface">
                   {s.posterPath ? (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img
@@ -325,14 +325,14 @@ function BrowseInner() {
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
-                  <p className="truncate text-xs font-medium">{s.title || s.name}</p>
-                  <p className="text-[10px] text-white/40">
+                  <p className="rq-small truncate font-medium">{s.title || s.name}</p>
+                  <p className="text-xs text-rq-muted">
                     {(s.releaseDate || s.firstAirDate || '').split('-')[0]} ·{' '}
                     {s.mediaType === 'movie' ? 'Movie' : 'Series'}
                   </p>
                 </div>
                 {s.mediaInfo?.status === 5 && (
-                  <span className="rounded-full bg-ios-green/20 px-2 py-0.5 text-[9px] font-medium text-ios-green">
+                  <span className="badge-available">
                     In Surflix
                   </span>
                 )}
@@ -343,32 +343,31 @@ function BrowseInner() {
       </div>
 
       {/* Type filter chips */}
-      <div className="mb-3 flex flex-wrap gap-1.5">
+      <div className="mb-3 flex flex-wrap gap-2">
         <FilterChip active={mediaFilter === 'all'} onClick={() => updateFilter('all')}>
           All
         </FilterChip>
-        <FilterChip active={mediaFilter === 'movie'} onClick={() => updateFilter('movie')} icon={<Icons.Film className="h-3 w-3" />}>
+        <FilterChip active={mediaFilter === 'movie'} onClick={() => updateFilter('movie')} icon={<Icons.Film className="h-4 w-4" />}>
           Movies
         </FilterChip>
-        <FilterChip active={mediaFilter === 'tv'} onClick={() => updateFilter('tv')} icon={<Icons.Tv className="h-3 w-3" />}>
+        <FilterChip active={mediaFilter === 'tv'} onClick={() => updateFilter('tv')} icon={<Icons.Tv className="h-4 w-4" />}>
           Series
         </FilterChip>
-        <div className="mx-1 self-center text-white/20">|</div>
-        <FilterChip active={hideInLibrary} onClick={() => setHideInLibrary(!hideInLibrary)} icon={<Icons.EyeOff className="h-3 w-3" />}>
+        <FilterChip active={hideInLibrary} onClick={() => setHideInLibrary(!hideInLibrary)} icon={<Icons.EyeOff className="h-4 w-4" />}>
           Hide in Surflix
         </FilterChip>
       </div>
 
       {/* Network filter chips */}
       <div className="mb-5">
-        <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-white/30">By Network</p>
-        <div className="flex flex-wrap gap-1.5">
+        <p className="rq-small mb-2 text-rq-muted">Network</p>
+        <div className="flex flex-wrap gap-2">
           <FilterChip active={!urlNetwork} onClick={() => updateNetwork(null)}>
             All Networks
           </FilterChip>
           {NETWORKS.filter((n) => !n.tvOnly || urlType === 'tv' || urlType === 'all').map((n) => (
             <FilterChip key={n.id} active={urlNetwork === n.id} onClick={() => updateNetwork(n.id)}>
-              {n.emoji} {n.label}
+              {n.label}
             </FilterChip>
           ))}
         </div>
@@ -376,14 +375,14 @@ function BrowseInner() {
 
       {/* Active filter tags */}
       {(urlGenre || urlYear) && (
-        <div className="mb-4 flex flex-wrap gap-1.5 text-[11px]">
+        <div className="rq-small mb-4 flex flex-wrap gap-2">
           {urlGenre && GENRE_NAMES[urlGenre] && (
-            <span className="rounded-full bg-surflix-500/15 px-2.5 py-1 text-surflix-500">
+            <span className="rounded-rq bg-rq-surface px-3 py-1.5 text-white">
               Genre: {GENRE_NAMES[urlGenre]}
             </span>
           )}
           {urlYear && (
-            <span className="rounded-full bg-surflix-500/15 px-2.5 py-1 text-surflix-500">
+            <span className="rounded-rq bg-rq-surface px-3 py-1.5 text-white">
               Year: {urlYear.replace(/,/g, ', ')}
             </span>
           )}
@@ -403,8 +402,8 @@ function BrowseInner() {
         />
       ) : (
         <>
-          <p className="mb-3 text-xs text-white/40">{filtered.length} hasil ditemukan</p>
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5">
+          <p className="rq-small mb-3 text-rq-muted">{filtered.length} hasil ditemukan</p>
+          <div className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-6">
             {filtered.map((item) => (
               <PosterCard
                 key={`${item.mediaType}-${item.id}`}
@@ -480,10 +479,10 @@ function FilterChip({
     <button
       onClick={onClick}
       className={cn(
-        'inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-[11px] font-medium transition-all',
+        'inline-flex min-h-10 items-center gap-2 rounded-rq px-3.5 text-[13px] font-medium transition-colors',
         active
-          ? 'border-surflix-500 bg-surflix-500 text-white'
-          : 'border-white/10 bg-white/5 text-white/70 hover:bg-white/10'
+          ? 'bg-rq-accent text-rq-bg'
+          : 'bg-rq-surface text-rq-muted hover:bg-rq-raised hover:text-white'
       )}
     >
       {icon}

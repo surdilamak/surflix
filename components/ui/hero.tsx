@@ -20,12 +20,12 @@ export function Hero({ item, rank = 1, onRequest, onDetail }: HeroProps) {
   const title = item.title || item.name || 'Untitled';
   const date = item.releaseDate || item.firstAirDate;
   const year = getYear(date);
-  const backdrop = tmdbImage(item.backdropPath, 'w780');
+  const backdrop = tmdbImage(item.backdropPath, 'original');
   const rating = item.voteAverage ? item.voteAverage.toFixed(1) : null;
   const mediaTypeLabel = item.mediaType === 'movie' ? 'Movie' : 'Series';
 
   return (
-    <div className="relative h-[260px] w-full overflow-hidden md:h-[320px]">
+    <div className="relative h-[240px] w-full overflow-hidden rounded-rq md:h-[280px]">
       {/* Backdrop */}
       {backdrop ? (
         <Image
@@ -34,31 +34,35 @@ export function Hero({ item, rank = 1, onRequest, onDetail }: HeroProps) {
           fill
           priority
           className="object-cover"
-          sizes="100vw"
+          sizes="(max-width: 1280px) 100vw, 1232px"
         />
       ) : (
-        <div className="h-full w-full bg-gradient-to-br from-white/[0.04] via-white/[0.02] to-white/[0.04]" />
+        <div className="h-full w-full bg-rq-surface" />
       )}
 
       {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-rq-bg/60" />
 
       {/* Rank badge */}
-      <div className="absolute left-5 top-5 z-10 flex items-center gap-1.5 rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[11px] font-medium text-white backdrop-blur-ios">
-        <Icons.Flame className="h-3 w-3 text-ios-orange" />
+      <div className="absolute left-4 top-4 z-10 md:left-6 md:top-6 flex items-center gap-1.5 rounded-rq bg-rq-raised px-3 py-1 rq-small font-medium text-white">
+        <Icons.Flame className="h-3 w-3 text-rq-accent" />
         <span>Trending #{rank}</span>
       </div>
 
       {/* Content */}
-      <div className="absolute inset-x-0 bottom-0 z-10 p-5 md:p-7">
-        <div className="max-w-[60%]">
-          <h1 className="mb-1 text-2xl font-semibold leading-tight tracking-tighter text-white md:text-3xl">
+      <div className="absolute inset-x-0 bottom-0 z-10 p-4 md:p-6">
+        <div className="max-w-xl">
+          <h1 className="mb-1 rq-title text-white">
             {title}
           </h1>
-          <p className="mb-4 text-xs text-white/65 md:text-[13px]">
+          <p className="rq-small mb-4 text-white/80">
             {year} · {mediaTypeLabel}
-            {rating && ` · ★ ${rating}`}
+            {rating && (
+              <>
+                {' · '}
+                <Icons.Star className="-mt-0.5 inline h-3 w-3 fill-current" /> {rating}
+              </>
+            )}
           </p>
           <div className="flex gap-2">
             <button onClick={onRequest} className="btn-primary">

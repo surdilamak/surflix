@@ -1,0 +1,90 @@
+/*
+ * Request Hub (guest) — papan ubin, selaras dengan landing tapi lebih tenang karena ini alat kerja.
+ * Satu radius (8px), satu warna aksen (#ff5200), ubin datar tanpa kaca, gradien, atau garis tipis.
+ * Semua override dibatasi di .rq-root supaya halaman admin tidak ikut berubah.
+ */
+.rq-root {
+  --rq-bg: #0d0d0f;
+  --rq-surface: #17171a;
+  --rq-raised: #232327;
+  --rq-accent: #ff5200;
+  --rq-ink: #ffffff;
+  --rq-muted: #a3a3ab;
+  --rq-gap: 8px;
+  --rq-r: 8px;
+  --rq-ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+  min-height: 100svh;
+  background: var(--rq-bg);
+  color: var(--rq-ink);
+  letter-spacing: 0;
+}
+.rq-root, .rq-root input, .rq-root textarea, .rq-root button { font-family: var(--rq-font), system-ui, sans-serif; }
+.rq-root * { border-color: rgba(255, 255, 255, 0.06); }
+.rq-root ::selection { background: var(--rq-accent); color: #0d0d0f; }
+.rq-root :focus-visible { outline: 2px solid var(--rq-accent); outline-offset: 2px; }
+.rq-root ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.18); border-radius: var(--rq-r); }
+
+/* Lebar isi: nav, halaman, dan footer berbagi satu kolom supaya tepinya sejajar */
+.rq-wrap { width: 100%; max-width: 80rem; margin-inline: auto; padding-inline: 16px; }
+@media (min-width: 768px) { .rq-wrap { padding-inline: 24px; } }
+
+/* Tipografi: lima langkah */
+.rq-title { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1; text-wrap: balance; }
+.rq-h1 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
+.rq-h2 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+.rq-text { font-size: 0.9375rem; line-height: 1.5; }
+.rq-small { font-size: 0.8125rem; line-height: 1.4; }
+.rq-muted { color: var(--rq-muted); }
+
+/* Ubin */
+.rq-tile { background: var(--rq-surface); border-radius: var(--rq-r); }
+.rq-tile-link { transition: background 0.18s, transform 0.18s var(--rq-ease); }
+.rq-tile-link:hover { background: var(--rq-raised); }
+.rq-tile-link:active { transform: scale(0.98); }
+
+/* Tombol: dua bentuk saja, primer (oranye) dan sekunder (abu) */
+.rq-root .btn-primary,
+.rq-root .btn-secondary {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 44px; padding: 0 20px;
+  border: 0; border-radius: var(--rq-r);
+  font-size: 0.9375rem; font-weight: 500; letter-spacing: 0;
+  transition: background 0.18s, transform 0.18s var(--rq-ease);
+}
+.rq-root .btn-primary { background: var(--rq-accent); color: #0d0d0f; }
+.rq-root .btn-primary:hover { background: #ff6a26; }
+.rq-root .btn-secondary { background: var(--rq-raised); color: #fff; }
+.rq-root .btn-secondary:hover { background: #2e2e33; }
+.rq-root .btn-primary:disabled { background: var(--rq-raised); color: var(--rq-muted); cursor: not-allowed; }
+.rq-root .btn-secondary:disabled { opacity: 0.4; cursor: not-allowed; }
+
+/* Lencana status: datar, satu bentuk */
+.rq-root .badge-available,
+.rq-root .badge-processing,
+.rq-root .badge-pending,
+.rq-root .badge-rejected {
+  border-radius: 6px; padding: 3px 7px; font-size: 11px; font-weight: 500; line-height: 1.2; color: #0d0d0f;
+}
+.rq-root .badge-available { background: #30d158; }
+.rq-root .badge-processing { background: #64d2ff; }
+.rq-root .badge-pending { background: #ffd60a; }
+.rq-root .badge-rejected { background: #ff6961; }
+
+/* Isian */
+:where(.rq-root .input-ios) {
+  background: var(--rq-surface); border: 0; border-radius: var(--rq-r);
+  min-height: 48px; padding: 0 14px; font-size: 0.9375rem; color: #fff;
+}
+:where(.rq-root textarea.input-ios) { padding-block: 12px; }
+.rq-root .input-ios:focus { background: var(--rq-raised); }
+.rq-root .input-ios:focus-visible { outline: 2px solid var(--rq-accent); outline-offset: 0; }
+
+/* Tautan navigasi atas */
+.rq-root .tab { display: inline-flex; align-items: center; min-height: 40px; padding: 0 12px; border-radius: var(--rq-r); font-size: 0.9375rem; color: var(--rq-muted); }
+.rq-root .tab:hover { color: #fff; background: var(--rq-surface); }
+.rq-root .tab-active { color: #fff; background: var(--rq-raised); font-weight: 500; }
+
+@media (prefers-reduced-motion: reduce) {
+  .rq-root *, .rq-root *::before, .rq-root *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}

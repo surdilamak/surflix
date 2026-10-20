@@ -92,8 +92,10 @@ export default function TrendingPage() {
   if (loading) {
     return (
       <>
-        <HeroSkeleton />
-        <div className="mx-auto max-w-7xl px-4 py-5 md:px-5 md:py-6">
+        <div className="rq-wrap pt-6 md:pt-8">
+          <HeroSkeleton />
+        </div>
+        <div className="rq-wrap py-6 md:py-8">
           <PosterGridSkeleton count={10} />
         </div>
       </>
@@ -102,7 +104,7 @@ export default function TrendingPage() {
 
   if (error || items.length === 0) {
     return (
-      <div className="mx-auto max-w-7xl px-4 py-10">
+      <div className="rq-wrap py-10">
         <EmptyState
           icon="AlertCircle"
           title="Gak bisa load trending"
@@ -117,25 +119,22 @@ export default function TrendingPage() {
 
   return (
     <>
-      <Hero
-        item={hero}
-        rank={1}
-        onRequest={() => handleRequestClick(hero)}
-        onDetail={() => openDetail(hero)}
-      />
+      <div className="rq-wrap pt-6 md:pt-8">
+        <Hero
+          item={hero}
+          rank={1}
+          onRequest={() => handleRequestClick(hero)}
+          onDetail={() => openDetail(hero)}
+        />
+      </div>
 
-      <div className="mx-auto max-w-7xl px-4 py-5 md:px-5 md:py-6">
+      <div className="rq-wrap py-6 md:py-8">
         <div className="mb-3 flex items-center justify-between md:mb-4">
-          <h2 className="text-lg font-semibold tracking-tight md:text-xl">
-            <span className="inline-flex items-center gap-1.5">
-              <Icons.Flame className="h-4 w-4 text-ios-orange md:h-5 md:w-5" />
-              Trending This Week
-            </span>
-          </h2>
-          <span className="text-xs text-white/40">{items.length} items</span>
+          <h2 className="rq-h2">Trending this week</h2>
+          <span className="rq-small text-rq-muted">{items.length} items</span>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-5">
+        <div className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-6">
           {rest.map((item) => (
             <PosterCard
               key={`${item.mediaType}-${item.id}`}

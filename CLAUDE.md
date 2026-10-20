@@ -208,28 +208,22 @@ Saat ini cuma ada `guestNote` field di request form (text-based, free-form). Use
 
 ## 🎨 Design System Quick Reference
 
-### Colors (Tailwind custom)
-```
-surflix-500    : Brand pink-red (#E63946 or similar)
-surflix-600    : Darker variant
-ios-orange     : Apple system orange
-ios-blue       : Apple system blue
-ios-green      : Apple system green
-ios-red        : Apple system red
-bg-surface     : Card background (dark)
-bg-elevated    : Slightly elevated dark
-```
+### Request Hub (guest) — papan ubin, sejak 2026-10-21
+Satu bahasa visual dengan landing, dibatasi di wrapper `.rq-root` supaya admin tidak ikut berubah. CSS: `app/(guest)/request.css` (kelas `rq-*`, override `.btn-primary`/`.badge-*`/`.input-ios`/`.tab` hanya di dalam `.rq-root`).
+- Token Tailwind: `rq-bg #0d0d0f`, `rq-surface #17171a`, `rq-raised #232327`, `rq-accent #ff5200`, `rq-muted #a3a3ab`; radius tunggal `rounded-rq` (8px).
+- Font Bricolage Grotesque (di `app/(guest)/layout.tsx`), lima langkah ukuran: `rq-title` / `rq-h1` / `rq-h2` / `rq-text` / `rq-small`. Judul halaman maksimal 32px (ini layar aplikasi).
+- Ubin datar (`rq-tile`), tanpa kaca, gradien, bayangan, garis tipis, atau emoji. Satu lebar isi (`rq-wrap`, 1280px) dipakai nav, halaman, dan footer.
+- Tombol: `btn-primary` (oranye) dan `btn-secondary` (abu); target sentuh minimal 44px.
+- Gate: `lint.mjs` 0 FAIL dan `inspect.mjs --app` 0 FAIL di 1440/768/390 untuk `/`, `/browse`, `/trending`, `/library`, `/requests`.
+- Token lama (`surflix-*`, `ios-*`, `bg-surface`, `rounded-ios-*`) tetap hidup karena admin masih memakainya.
 
-### Typography
-- Default: SF Pro (system font)
-- Tracking: tight/tighter untuk headings
-- Body: 13-14px default, scale up untuk desktop
-
-### Patterns
-- **Glass effect**: `backdrop-blur-ios` + `bg-black/70`
-- **Border radius**: `rounded-ios-lg` (18px), `rounded-ios-xl` (24px)
-- **Hover state**: scale 1.05 + opacity transitions
-- **Loading**: skeleton with `animate-pulse bg-white/[0.04]`
+### Legacy tokens (admin masih pakai)
+```
+surflix-500 / 600 : pink-red lama
+ios-orange/blue/green/red : warna sistem Apple
+bg-surface / bg-elevated  : kartu gelap
+rounded-ios-lg (18px), rounded-ios-xl (24px), backdrop-blur-ios
+```
 
 ### Responsive Pattern
 Mobile-first dengan `md:` breakpoint (768px+) untuk desktop. Bottom tab bar di mobile, top nav di desktop. Modal jadi bottom sheet di mobile, centered di desktop.

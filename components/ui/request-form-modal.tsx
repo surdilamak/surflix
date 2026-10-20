@@ -24,10 +24,10 @@ const GUEST_INFO_KEY = 'surflix_guest_info';
 
 // Quick note suggestions
 const NOTE_SUGGESTIONS = [
-  { icon: '📝', label: 'Tambah subtitle Indonesia', value: 'Tolong sertakan subtitle Bahasa Indonesia' },
-  { icon: '🎯', label: 'Tambah subtitle English', value: 'Tolong sertakan subtitle English' },
-  { icon: '🔄', label: 'File jelek, replace', value: 'File film yang ada sekarang kualitasnya jelek, mohon di-replace' },
-  { icon: '📦', label: 'Quality 1080p+', value: 'Mohon kualitas 1080p atau lebih tinggi' },
+  { label: 'Tambah subtitle Indonesia', value: 'Tolong sertakan subtitle Bahasa Indonesia' },
+  { label: 'Tambah subtitle English', value: 'Tolong sertakan subtitle English' },
+  { label: 'File jelek, replace', value: 'File film yang ada sekarang kualitasnya jelek, mohon di-replace' },
+  { label: 'Quality 1080p+', value: 'Mohon kualitas 1080p atau lebih tinggi' },
 ];
 
 export function RequestFormModal({ item, open, onClose, onSuccess }: RequestFormModalProps) {
@@ -127,7 +127,7 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-[110] bg-black/70 backdrop-blur-sm"
+            className="fixed inset-0 z-[110] bg-black/70 "
           />
 
           <div className="fixed inset-0 z-[111] flex items-center justify-center p-4">
@@ -136,28 +136,28 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-ios-xl bg-bg-surface p-5"
+              className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-rq bg-rq-surface p-5"
             >
             <div className="mb-4 flex items-start justify-between">
               <div>
-                <p className="mb-1 text-xs font-medium text-surflix-500">
+                <p className="mb-1 text-xs font-medium text-rq-accent">
                   Request {item.mediaType === 'movie' ? 'Movie' : 'Series'}
                 </p>
-                <h3 className="text-lg font-semibold leading-tight tracking-tight">
+                <h3 className="rq-h2">
                   {item.title || item.name}
                 </h3>
               </div>
               <button
                 onClick={onClose}
-                className="-mr-1 -mt-1 flex h-7 w-7 items-center justify-center rounded-full bg-white/5 text-white/60 hover:text-white"
+                className="-mr-2 -mt-2 flex h-11 w-11 items-center justify-center rounded-rq text-rq-muted hover:bg-rq-raised hover:text-white"
               >
-                <Icons.X className="h-3.5 w-3.5" />
+                <Icons.X className="h-4 w-4" />
               </button>
             </div>
 
             <div className="space-y-3">
               <div>
-                <label className="mb-1.5 block text-xs font-medium text-white/60">Nama lo</label>
+                <label className="rq-small mb-2 block text-rq-muted">Nama lo</label>
                 <input
                   type="text"
                   value={name}
@@ -174,7 +174,7 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
                 <div>
                   <button
                     onClick={() => setShowNoteField(true)}
-                    className="flex w-full items-center justify-between rounded-ios-lg border border-dashed border-white/15 bg-white/[0.02] px-3 py-2.5 text-left text-xs text-white/60 transition-colors hover:bg-white/[0.04]"
+                    className="flex w-full items-center justify-between rounded-rq bg-rq-raised px-3 min-h-11 text-left rq-small text-rq-muted transition-colors hover:bg-[#2e2e33] hover:text-white"
                   >
                     <span className="inline-flex items-center gap-1.5">
                       <Icons.Plus className="h-3 w-3" />
@@ -189,9 +189,9 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
                       <button
                         key={s.value}
                         onClick={() => applySuggestion(s.value)}
-                        className="rounded-full bg-white/[0.04] px-2.5 py-1 text-[10px] text-white/55 transition-colors hover:bg-white/[0.08] hover:text-white/80"
+                        className="rounded-rq bg-rq-raised px-3 min-h-10 inline-flex items-center text-xs text-rq-muted transition-colors hover:bg-[#2e2e33] hover:text-white"
                       >
-                        {s.icon} {s.label}
+                        {s.label}
                       </button>
                     ))}
                   </div>
@@ -199,10 +199,10 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
               ) : (
                 <div>
                   <div className="mb-1.5 flex items-center justify-between">
-                    <label className="text-xs font-medium text-white/60">Catatan khusus</label>
+                    <label className="rq-small text-rq-muted">Catatan khusus</label>
                     <button
                       onClick={() => { setShowNoteField(false); setNote(''); }}
-                      className="text-[10px] text-white/40 hover:text-white/70"
+                      className="rq-small inline-flex min-h-11 items-center px-2 text-rq-muted hover:text-white"
                     >
                       Hapus
                     </button>
@@ -216,16 +216,16 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
                     rows={3}
                     autoFocus
                   />
-                  <p className="mt-1 text-[10px] text-white/40 text-right">
+                  <p className="mt-1 text-xs text-rq-muted text-right">
                     {note.length}/200
                   </p>
                 </div>
               )}
 
               {error && (
-                <div className="flex items-start gap-2 rounded-ios-lg border border-ios-red/30 bg-ios-red/10 p-2.5">
+                <div className="flex items-start gap-2 rounded-rq bg-rq-raised p-3">
                   <Icons.AlertCircle className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-ios-red" />
-                  <p className="text-[11px] text-white/85">{error}</p>
+                  <p className="text-xs text-white">{error}</p>
                 </div>
               )}
 
@@ -244,7 +244,7 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
                 )}
               </button>
 
-              <p className="text-center text-[10px] text-white/40">
+              <p className="text-center text-xs text-rq-muted">
                 Kita inget lo via cookie browser ini, gak perlu email.
               </p>
             </div>

@@ -32,13 +32,13 @@ export function PosterCard({ item, onClick, size = 'md', showProgress, progress 
     <button
       onClick={onClick}
       className={cn(
-        'group text-left transition-all',
+        'group text-left transition-opacity',
         isDimmed && 'opacity-60 hover:opacity-90'
       )}
     >
       <div
         className={cn(
-          'relative overflow-hidden rounded-ios bg-bg-elevated transition-transform group-hover:scale-[1.02] group-active:scale-[0.98]',
+          'relative overflow-hidden rounded-rq bg-rq-surface transition-transform group-hover:scale-[1.02] group-active:scale-[0.98]',
           'aspect-[2/3]'
         )}
       >
@@ -51,20 +51,20 @@ export function PosterCard({ item, onClick, size = 'md', showProgress, progress 
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 200px"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-bg-surface to-bg-elevated">
+          <div className="flex h-full w-full items-center justify-center bg-rq-surface">
             <Icons.Film className="h-8 w-8 text-white/15" />
           </div>
         )}
 
         {/* Status badge top-right */}
         {status.variant === 'available' && (
-          <div className="absolute right-1.5 top-1.5 badge-available">
+          <div className="absolute left-2 top-2 badge-available">
             <Icons.Check className="h-2.5 w-2.5" />
             <span>In Surflix</span>
           </div>
         )}
         {status.variant === 'pending' && (
-          <div className="absolute right-1.5 top-1.5 badge-pending">
+          <div className="absolute left-2 top-2 badge-pending">
             <Icons.Clock className="h-2.5 w-2.5" />
             <span>Pending</span>
           </div>
@@ -72,14 +72,14 @@ export function PosterCard({ item, onClick, size = 'md', showProgress, progress 
 
         {/* Progress overlay (untuk downloading) */}
         {showProgress && progress !== undefined && (
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-2">
+          <div className="absolute inset-x-0 bottom-0 bg-rq-bg/90 p-2">
             <div className="badge-processing mb-1.5">
               <Icons.Download className="h-2.5 w-2.5" />
               <span>{Math.round(progress)}%</span>
             </div>
-            <div className="h-0.5 overflow-hidden rounded-full bg-white/20">
+            <div className="h-1 overflow-hidden rounded-rq bg-white/20">
               <div
-                className="h-full bg-ios-blue transition-all"
+                className="h-full bg-rq-accent transition-[width]"
                 style={{ width: `${Math.min(100, progress)}%` }}
               />
             </div>
@@ -88,21 +88,26 @@ export function PosterCard({ item, onClick, size = 'md', showProgress, progress 
 
         {/* Request hint (bottom-right, subtle) */}
         {status.variant === 'none' && (
-          <div className="absolute bottom-2 right-2 hidden items-center gap-1 rounded-full border border-white/15 bg-black/70 px-2 py-1 text-[10px] font-medium text-white backdrop-blur-ios group-hover:flex">
+          <div className="absolute bottom-2 right-2 hidden items-center gap-1 rounded-rq bg-rq-accent px-2 py-1 text-xs font-medium text-rq-bg group-hover:flex">
             <Icons.Plus className="h-3 w-3" />
             <span>Request</span>
           </div>
         )}
       </div>
 
-      <div className="mt-2 px-0.5">
-        <p className="line-clamp-1 text-[13px] font-medium tracking-tight text-white">
+      <div className="mt-2">
+        <p className="rq-small line-clamp-1 font-medium text-white">
           {title}
         </p>
-        <p className="mt-0.5 text-[11px] text-white/50">
+        <p className="mt-0.5 text-xs text-rq-muted">
           {year}
           {item.mediaType === 'tv' && ' · Series'}
-          {rating && ` · ★ ${rating}`}
+          {rating && (
+              <>
+                {' · '}
+                <Icons.Star className="-mt-0.5 inline h-3 w-3 fill-current" /> {rating}
+              </>
+            )}
         </p>
       </div>
     </button>

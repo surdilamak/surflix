@@ -26,10 +26,11 @@ export function BottomTabBar({ pendingCount = 0 }: Props) {
 
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-white/[0.08] bg-black/85 backdrop-blur-ios md:hidden"
+      aria-label="Main"
+      className="fixed inset-x-0 bottom-0 z-50 bg-rq-surface md:hidden"
       style={{ paddingBottom: 'env(safe-area-inset-bottom, 0.5rem)' }}
     >
-      <div className="grid grid-cols-5 px-1 pt-2">
+      <div className="grid grid-cols-5 gap-1 px-3 py-1.5">
         {tabs.map((tab) => {
           const active = pathname === tab.href;
           const Icon = tab.icon;
@@ -39,15 +40,16 @@ export function BottomTabBar({ pendingCount = 0 }: Props) {
             <Link
               key={tab.href}
               href={tab.href}
+              aria-current={active ? 'page' : undefined}
               className={cn(
-                'relative flex flex-col items-center gap-0.5 py-1.5 transition-colors',
-                active ? 'text-surflix-500' : 'text-white/50'
+                'relative flex min-h-12 flex-col items-center justify-center gap-0.5 rounded-rq transition-colors',
+                active ? 'bg-rq-raised text-white' : 'text-rq-muted'
               )}
             >
-              <Icon className="h-[20px] w-[20px]" />
-              <span className="text-[9px] font-medium">{tab.label}</span>
+              <Icon className={cn('h-5 w-5', active && 'text-rq-accent')} />
+              <span className="text-xs font-medium">{tab.label}</span>
               {showBadge && (
-                <span className="absolute right-[calc(50%-16px)] top-0.5 min-w-[14px] rounded-full bg-surflix-500 px-1 py-px text-center text-[9px] font-semibold text-white">
+                <span className="absolute right-2 top-1 min-w-4 rounded-rq bg-rq-accent px-1 text-center text-xs font-semibold text-rq-bg">
                   {pendingCount}
                 </span>
               )}

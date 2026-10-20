@@ -22,8 +22,8 @@ export default function VerifyPage() {
 
 function LoadingState() {
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center px-4">
-      <Icons.Loader2 className="h-10 w-10 animate-spin text-white/50" />
+    <div className="flex min-h-svh flex-col items-center justify-center px-4">
+      <Icons.Loader2 className="h-10 w-10 animate-spin text-rq-muted" />
     </div>
   );
 }
@@ -76,7 +76,7 @@ function VerifyInner() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center px-4">
+    <div className="flex min-h-svh flex-col items-center justify-center px-4">
       <motion.div
         initial={{ scale: 0.9, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
@@ -84,29 +84,29 @@ function VerifyInner() {
       >
         {status === 'verifying' && (
           <>
-            <Icons.Loader2 className="mx-auto mb-4 h-10 w-10 animate-spin text-white/50" />
-            <h1 className="text-lg font-semibold tracking-tight">Verifying...</h1>
-            <p className="mt-1 text-sm text-white/50">Sebentar ya</p>
+            <Icons.Loader2 className="mx-auto mb-4 h-10 w-10 animate-spin text-rq-muted" />
+            <h1 className="rq-h2">Verifying...</h1>
+            <p className="rq-small mt-2 text-rq-muted">Sebentar ya</p>
           </>
         )}
 
         {status === 'success' && (
           <>
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-ios-green/15">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-rq bg-rq-surface">
               <Icons.CheckCircle2 className="h-8 w-8 text-ios-green" />
             </div>
-            <h1 className="text-lg font-semibold tracking-tight">Berhasil!</h1>
-            <p className="mt-1 text-sm text-white/50">Redirecting ke requests...</p>
+            <h1 className="rq-h2">Berhasil!</h1>
+            <p className="rq-small mt-2 text-rq-muted">Redirecting ke requests...</p>
           </>
         )}
 
         {status === 'error' && (
           <>
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-ios-red/15">
+            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-rq bg-rq-surface">
               <Icons.XCircle className="h-8 w-8 text-ios-red" />
             </div>
-            <h1 className="text-lg font-semibold tracking-tight">Link gak valid</h1>
-            <p className="mt-1 text-sm text-white/50">{errorMsg}</p>
+            <h1 className="rq-h2">Link gak valid</h1>
+            <p className="rq-small mt-2 text-rq-muted">{errorMsg}</p>
             <button
               onClick={() => router.push('/requests')}
               className="btn-primary mt-6"

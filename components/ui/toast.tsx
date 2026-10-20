@@ -34,9 +34,9 @@ export function Toast({
   }, [open, duration, onClose]);
 
   const icon = {
-    success: <Icons.CheckCircle2 className="h-4 w-4 text-ios-green" />,
-    error: <Icons.XCircle className="h-4 w-4 text-ios-red" />,
-    info: <Icons.Info className="h-4 w-4 text-ios-blue" />,
+    success: <Icons.CheckCircle2 className="h-4 w-4 text-[#30d158]" />,
+    error: <Icons.XCircle className="h-4 w-4 text-[#ff6961]" />,
+    info: <Icons.Info className="h-4 w-4 text-[#64d2ff]" />,
   }[variant];
 
   return (
@@ -49,11 +49,11 @@ export function Toast({
             exit={{ y: -50, opacity: 0, scale: 0.95 }}
             transition={{ type: 'spring', damping: 25, stiffness: 350 }}
             className={cn(
-              'pointer-events-auto flex max-w-sm items-center gap-2.5 rounded-full border border-white/10 bg-bg-surface/95 px-4 py-2.5 shadow-2xl backdrop-blur-ios'
+              'pointer-events-auto flex max-w-sm items-center gap-2.5 rounded-rq bg-rq-raised px-4 py-3'
             )}
           >
             {icon}
-            <span className="text-[13px] font-medium text-white">{message}</span>
+            <span className="rq-small font-medium text-white">{message}</span>
           </motion.div>
         </div>
       )}

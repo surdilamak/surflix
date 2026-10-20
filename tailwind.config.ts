@@ -41,6 +41,14 @@ const config: Config = {
           600: '#ed1648',
           700: '#c8083d',
         },
+        // Request Hub (guest) — papan ubin, sama dengan landing
+        rq: {
+          bg: '#0d0d0f',
+          surface: '#17171a',
+          raised: '#232327',
+          accent: '#ff5200',
+          muted: '#a3a3ab',
+        },
         // Background system (dark)
         bg: {
           base: '#000000',
@@ -53,6 +61,7 @@ const config: Config = {
         ios: '30px',
       },
       borderRadius: {
+        rq: '8px',
         ios: '14px',
         'ios-lg': '18px',
         'ios-xl': '24px',

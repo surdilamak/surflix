@@ -145,77 +145,77 @@ export default function HomePage() {
     setTimeout(() => setToast(null), 4500);
   }
 
-  const greeting = guestName ? `Hi ${guestName.split(' ')[0]} 👋` : 'Mau request film apa?';
+  const greeting = guestName ? `Hi ${guestName.split(' ')[0]}` : 'Mau request film apa?';
   const subtitle = guestName
     ? 'Search film atau series favorit lo, atau browse kategori di bawah'
     : 'Search atau pilih dari kategori — easy & fast';
 
+  const hasStats = !!stats && (stats.moviesCount > 0 || stats.seriesCount > 0);
+
+  const gridCls = 'grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-6';
+
   return (
     <>
-      <div className="mx-auto max-w-5xl px-4 py-6 md:px-5 md:py-10">
-        {/* Hero greeting + search */}
-        <div className="mb-6 md:mb-10">
-          <h1 className="text-2xl font-semibold tracking-tighter md:text-3xl">{greeting}</h1>
-          <p className="mt-1.5 text-sm text-white/55 md:text-base">{subtitle}</p>
+      <div className="rq-wrap py-6 md:py-10">
+        {/* Greeting + search + library size */}
+        <div className="mb-10 grid gap-6 md:mb-12 md:grid-cols-12 md:gap-2">
+          <div className={hasStats ? 'md:col-span-8' : 'md:col-span-12'}>
+            <h1 className="rq-title">{greeting}</h1>
+            <p className="rq-text mt-3 text-rq-muted">{subtitle}</p>
 
-          <div className="mt-5 md:mt-6">
-            <div className="relative">
-              <Icons.Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-white/40" />
+            <div className="relative mt-6">
+              <Icons.Search className="pointer-events-none absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-rq-muted" />
               <input
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearchSubmit()}
                 placeholder="Cari film atau series..."
-                className="w-full rounded-ios-lg border border-white/[0.1] bg-white/[0.05] py-3.5 pl-12 pr-28 text-base text-white placeholder-white/40 outline-none transition-all focus:border-white/25 focus:bg-white/[0.08] md:py-4 md:text-lg"
+                aria-label="Cari film atau series"
+                className="input-ios !min-h-14 w-full pl-12 pr-32 !text-base placeholder:text-rq-muted"
               />
-              {query.trim().length >= 2 && (
-                <button
-                  onClick={handleSearchSubmit}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 rounded-full bg-surflix-500 px-4 py-1.5 text-sm font-medium text-white transition-all hover:bg-surflix-600"
-                >
-                  <span className="inline-flex items-center gap-1">Search<Icons.ArrowRight className="h-3.5 w-3.5" /></span>
-                </button>
-              )}
+              <button
+                onClick={handleSearchSubmit}
+                disabled={query.trim().length < 2}
+                className="btn-primary absolute right-1.5 top-1/2 !min-h-11 -translate-y-1/2 gap-2"
+              >
+                Search
+                <Icons.ArrowRight className="h-4 w-4" />
+              </button>
             </div>
           </div>
 
-          {/* Library Stats */}
-          {stats && (stats.moviesCount > 0 || stats.seriesCount > 0) && (
-            <div className="mt-4 flex flex-wrap items-center gap-2 text-xs text-white/50">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.04] px-2.5 py-1">
-                <Icons.Film className="h-3 w-3" />
-                {stats.moviesCount.toLocaleString()} {stats.moviesCount === 1 ? 'movie' : 'movies'}
-              </span>
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-white/[0.04] px-2.5 py-1">
-                <Icons.Tv className="h-3 w-3" />
-                {stats.seriesCount.toLocaleString()} {stats.seriesCount === 1 ? 'series' : 'series'}
-              </span>
-              <span className="text-white/30">— available di Surflix</span>
+          {hasStats && stats && (
+            <div className="grid grid-cols-2 gap-2 md:col-span-4">
+              <div className="rq-tile flex items-center gap-3 p-3 md:flex-col md:items-start md:justify-between md:p-4">
+                <Icons.Film className="h-5 w-5 text-rq-accent" />
+                <div className="md:mt-4">
+                  <p className="text-2xl font-semibold leading-none tracking-tight md:text-4xl">{stats.moviesCount.toLocaleString()}</p>
+                  <p className="rq-small text-rq-muted">{stats.moviesCount === 1 ? 'movie' : 'movies'} on Surflix</p>
+                </div>
+              </div>
+              <div className="rq-tile flex items-center gap-3 p-3 md:flex-col md:items-start md:justify-between md:p-4">
+                <Icons.Tv className="h-5 w-5 text-rq-accent" />
+                <div className="md:mt-4">
+                  <p className="text-2xl font-semibold leading-none tracking-tight md:text-4xl">{stats.seriesCount.toLocaleString()}</p>
+                  <p className="rq-small text-rq-muted">series on Surflix</p>
+                </div>
+              </div>
             </div>
           )}
         </div>
 
         {/* Quick filter categories */}
-        <section className="mb-8 md:mb-10">
-          <h2 className="mb-3 text-[11px] font-semibold uppercase tracking-wider text-white/40 md:text-xs">
-            Browse by category
-          </h2>
+        <section className="mb-10 md:mb-12" aria-labelledby="rq-cats">
+          <h2 id="rq-cats" className="rq-h2 mb-3">Browse by category</h2>
           <QuickFilterChips />
         </section>
 
         {/* Most Requested by Friends */}
         {mostRequested.length > 0 && (
-          <section className="mb-8 md:mb-10">
-            <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-lg font-semibold tracking-tight md:text-xl">
-                <span className="inline-flex items-center gap-1.5">
-                  <Icons.Sparkles className="h-4 w-4 text-ios-orange" />
-                  Most Requested by Friends
-                </span>
-              </h2>
-            </div>
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
+          <section className="mb-10 md:mb-12">
+            <h2 className="rq-h2 mb-3">Most requested by friends</h2>
+            <div className={gridCls}>
               {mostRequested.slice(0, 6).map((item) => (
                 <PosterCard key={`${item.mediaType}-${item.id}`} item={item} onClick={() => openDetail(item)} />
               ))}
@@ -224,22 +224,17 @@ export default function HomePage() {
         )}
 
         {/* Trending Section */}
-        <section className="mb-8 md:mb-10">
+        <section className="mb-10 md:mb-12">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="text-lg font-semibold tracking-tight md:text-xl">
-              <span className="inline-flex items-center gap-1.5">
-                <Icons.Flame className="h-4 w-4 text-ios-orange" />
-                Trending This Week
-              </span>
-            </h2>
-            <a href="/trending" className="text-xs font-medium text-surflix-500 hover:text-surflix-600 md:text-sm">
-              See all <Icons.ChevronRight className="inline h-3 w-3" />
+            <h2 className="rq-h2">Trending this week</h2>
+            <a href="/trending" className="rq-small inline-flex min-h-11 items-center gap-1 text-rq-muted hover:text-white">
+              See all <Icons.ArrowRight className="h-4 w-4" />
             </a>
           </div>
           {loadingTrending ? (
             <PosterGridSkeleton count={6} />
           ) : (
-            <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
+            <div className={gridCls}>
               {trending.map((item) => (
                 <PosterCard key={`${item.mediaType}-${item.id}`} item={item} onClick={() => openDetail(item)} />
               ))}
@@ -250,19 +245,14 @@ export default function HomePage() {
         {/* Upcoming Section */}
         {(loadingUpcoming || upcoming.length > 0) && (
           <section>
-            <div className="mb-3 flex items-center justify-between">
-              <h2 className="text-lg font-semibold tracking-tight md:text-xl">
-                <span className="inline-flex items-center gap-1.5">
-                  <Icons.Calendar className="h-4 w-4 text-ios-orange" />
-                  Coming Soon
-                </span>
-              </h2>
-              <span className="text-xs text-white/40">Belum rilis</span>
+            <div className="mb-3 flex items-baseline justify-between">
+              <h2 className="rq-h2">Coming soon</h2>
+              <span className="rq-small text-rq-muted">Belum rilis</span>
             </div>
             {loadingUpcoming ? (
               <PosterGridSkeleton count={6} />
             ) : (
-              <div className="grid grid-cols-2 gap-3 md:grid-cols-4 lg:grid-cols-6">
+              <div className={gridCls}>
                 {upcoming.map((item) => (
                   <PosterCard key={`${item.mediaType}-${item.id}`} item={item} onClick={() => openDetail(item)} />
                 ))}

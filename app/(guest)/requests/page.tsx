@@ -91,18 +91,18 @@ export default function RequestsPage() {
   // No guest data — first time user
   if (bootstrapped && !guestId) {
     return (
-      <div className="mx-auto flex min-h-[60vh] max-w-md flex-col items-center justify-center px-4">
+      <div className="rq-wrap flex min-h-[60vh] max-w-md flex-col items-center justify-center">
         <div className="text-center">
-          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-white/[0.04]">
-            <Icons.ListChecks className="h-6 w-6 text-white/40" />
+          <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-rq bg-rq-surface">
+            <Icons.ListChecks className="h-6 w-6 text-rq-accent" />
           </div>
-          <h1 className="text-xl font-semibold tracking-tight">Belum ada request</h1>
-          <p className="mt-2 text-sm text-white/55">
+          <h1 className="rq-h1">Belum ada request</h1>
+          <p className="rq-text mt-2 text-rq-muted">
             Mulai request film pertama lo, terus balik ke sini buat tracking status-nya
           </p>
           <Link href="/" className="btn-primary mt-6 inline-block">
             <span className="inline-flex items-center gap-1.5">
-              <Icons.Plus className="h-3.5 w-3.5" />
+              <Icons.Plus className="h-4 w-4" />
               Request film sekarang
             </span>
           </Link>
@@ -112,25 +112,26 @@ export default function RequestsPage() {
   }
 
   return (
-    <div className="mx-auto max-w-3xl px-4 py-5 md:px-5 md:py-6">
+    <div className="rq-wrap max-w-3xl py-6 md:py-8">
       <div className="mb-4 flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-semibold tracking-tight md:text-2xl">My Requests</h1>
+          <h1 className="rq-h1">My Requests</h1>
           {guestName && (
-            <p className="mt-1 text-xs text-white/50">
+            <p className="rq-small mt-1 text-rq-muted">
               {guestName} · {requests.length} request{requests.length !== 1 ? 's' : ''}
             </p>
           )}
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-1">
           <button
             onClick={() => refresh()}
-            className="text-xs text-white/40 hover:text-white/70"
+            className="flex h-11 w-11 items-center justify-center rounded-rq text-rq-muted hover:bg-rq-surface hover:text-white"
+            aria-label="Refresh"
             title="Refresh sekarang"
           >
-            <Icons.RefreshCw className="h-3.5 w-3.5" />
+            <Icons.RefreshCw className="h-4 w-4" />
           </button>
-          <button onClick={handleReset} className="text-xs text-white/40 hover:text-white/70">
+          <button onClick={handleReset} className="rq-small inline-flex min-h-11 items-center rounded-rq px-3 text-rq-muted hover:bg-rq-surface hover:text-white">
             Reset
           </button>
         </div>
@@ -141,7 +142,7 @@ export default function RequestsPage() {
       {loading ? (
         <div className="space-y-2">
           {Array.from({ length: 3 }).map((_, i) => (
-            <div key={i} className="h-24 animate-pulse rounded-ios-lg bg-white/[0.04]" />
+            <div key={i} className="h-24 animate-pulse rounded-rq bg-rq-surface" />
           ))}
         </div>
       ) : requests.length === 0 ? (
@@ -155,7 +156,7 @@ export default function RequestsPage() {
           }}
         />
       ) : (
-        <div className="space-y-2.5">
+        <div className="space-y-2">
           {requests.map((r) => (
             <RequestRowItem key={r.id} request={r} />
           ))}
@@ -169,9 +170,9 @@ function RequestRowItem({ request }: { request: PolledRequest }) {
   const statusConfig = getStatusConfig(request.status);
 
   return (
-    <div className={cn('rounded-ios-lg border bg-bg-surface p-3', statusConfig.borderClass)}>
+    <div className="rq-tile p-3">
       <div className="flex gap-3">
-        <div className="h-16 w-12 flex-shrink-0 overflow-hidden rounded bg-bg-elevated">
+        <div className="h-20 w-14 flex-shrink-0 overflow-hidden rounded-rq bg-rq-raised">
           {request.posterPath ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -188,25 +189,25 @@ function RequestRowItem({ request }: { request: PolledRequest }) {
 
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-2">
-            <p className="truncate text-[13px] font-medium">{request.title}</p>
-            <span className={cn('flex-shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium', statusConfig.badgeClass)}>
+            <p className="rq-text truncate font-medium">{request.title}</p>
+            <span className={cn('flex-shrink-0', statusConfig.badgeClass)}>
               <span className="inline-flex items-center gap-1">
-                <statusConfig.icon className="h-2.5 w-2.5" />
+                <statusConfig.icon className="h-3 w-3" />
                 {statusConfig.label}
               </span>
             </span>
           </div>
-          <p className="mt-1 text-[11px] text-white/45">
+          <p className="mt-1 text-xs text-rq-muted">
             {formatDate(request.requestedAt)} · {request.mediaType === 'movie' ? 'Movie' : 'TV Series'}
           </p>
           {statusConfig.hint && (
-            <p className="mt-1.5 text-[10px] text-white/40">
-              <Icons.Info className="mr-1 inline h-2.5 w-2.5" />
+            <p className="mt-1.5 text-xs text-rq-muted">
+              <Icons.Info className="mr-1 inline h-3 w-3" />
               {statusConfig.hint}
             </p>
           )}
           {request.adminNote && request.status === 'REJECTED' && (
-            <p className="mt-1.5 rounded bg-ios-red/10 px-2 py-1 text-[10px] text-ios-red">
+            <p className="mt-1.5 rounded-rq bg-rq-raised px-2 py-1.5 text-xs text-[#ff6961]">
               Admin: {request.adminNote}
             </p>
           )}
@@ -219,23 +220,23 @@ function RequestRowItem({ request }: { request: PolledRequest }) {
 function getStatusConfig(status: string) {
   switch (status) {
     case 'AVAILABLE':
-      return { label: 'Available', icon: Icons.Check, badgeClass: 'bg-ios-green/20 text-ios-green', borderClass: 'border-ios-green/30', hint: 'Udah ready di Surflix' };
+      return { label: 'Available', icon: Icons.Check, badgeClass: 'badge-available', borderClass: '', hint: 'Udah ready di Surflix' };
     case 'PROCESSING':
-      return { label: 'Downloading', icon: Icons.Download, badgeClass: 'bg-ios-blue/20 text-ios-blue', borderClass: 'border-ios-blue/30', hint: 'Lagi di-download' };
+      return { label: 'Downloading', icon: Icons.Download, badgeClass: 'badge-processing', borderClass: '', hint: 'Lagi di-download' };
     case 'ON_SCHEDULE':
-      return { label: 'On Schedule', icon: Icons.Calendar, badgeClass: 'bg-ios-blue/20 text-ios-blue', borderClass: 'border-ios-blue/30', hint: 'Queued, nunggu giliran download' };
+      return { label: 'On Schedule', icon: Icons.Calendar, badgeClass: 'badge-processing', borderClass: '', hint: 'Queued, nunggu giliran download' };
     case 'APPROVED':
-      return { label: 'Approved', icon: Icons.Check, badgeClass: 'bg-ios-blue/20 text-ios-blue', borderClass: 'border-ios-blue/30', hint: 'Approved, lagi forward ke Jellyseerr' };
+      return { label: 'Approved', icon: Icons.Check, badgeClass: 'badge-processing', borderClass: '', hint: 'Approved, lagi forward ke Jellyseerr' };
     case 'PENDING_ADMIN':
-      return { label: 'Pending', icon: Icons.Clock, badgeClass: 'bg-ios-orange/20 text-ios-orange', borderClass: 'border-ios-orange/30', hint: 'Menunggu review admin (1-3 hari)' };
+      return { label: 'Pending', icon: Icons.Clock, badgeClass: 'badge-pending', borderClass: '', hint: 'Menunggu review admin (1-3 hari)' };
     case 'REJECTED':
-      return { label: 'Rejected', icon: Icons.X, badgeClass: 'bg-ios-red/20 text-ios-red', borderClass: 'border-ios-red/30', hint: undefined };
+      return { label: 'Rejected', icon: Icons.X, badgeClass: 'badge-rejected', borderClass: '', hint: undefined };
     case 'PARTIALLY_AVAILABLE':
-      return { label: 'Partial', icon: Icons.Check, badgeClass: 'bg-ios-green/20 text-ios-green', borderClass: 'border-ios-green/30', hint: 'Beberapa episode udah ready' };
+      return { label: 'Partial', icon: Icons.Check, badgeClass: 'badge-available', borderClass: '', hint: 'Beberapa episode udah ready' };
     case 'FAILED':
-      return { label: 'Failed', icon: Icons.AlertCircle, badgeClass: 'bg-ios-red/20 text-ios-red', borderClass: 'border-ios-red/30', hint: 'Gagal diproses, admin akan retry' };
+      return { label: 'Failed', icon: Icons.AlertCircle, badgeClass: 'badge-rejected', borderClass: '', hint: 'Gagal diproses, admin akan retry' };
     default:
-      return { label: status, icon: Icons.Info, badgeClass: 'bg-white/10 text-white/60', borderClass: 'border-white/10', hint: undefined };
+      return { label: status, icon: Icons.Info, badgeClass: 'bg-rq-raised text-rq-muted rounded-rq px-2 py-0.5', borderClass: '', hint: undefined };
   }
 }
 

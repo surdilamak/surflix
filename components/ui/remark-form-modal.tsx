@@ -24,12 +24,12 @@ const GUEST_INFO_KEY = 'surflix_guest_info';
 
 // Quick suggestions — fokus ke common improvement requests
 const SUGGESTIONS = [
-  { icon: '🇮🇩', label: 'Subtitle Indonesia', value: 'Tolong tambah subtitle Bahasa Indonesia' },
-  { icon: '🇬🇧', label: 'Subtitle English', value: 'Tolong tambah subtitle English' },
-  { icon: '🔁', label: 'Replace (kualitas jelek)', value: 'File yang ada kualitasnya jelek, mohon di-replace dengan versi yang lebih baik' },
-  { icon: '📦', label: 'Upgrade ke 1080p+', value: 'Mohon upgrade ke kualitas 1080p atau lebih tinggi' },
-  { icon: '📺', label: 'Episode hilang', value: 'Ada episode yang hilang/tidak bisa di-play, tolong dicek' },
-  { icon: '🔊', label: 'Audio dubbed', value: 'Tolong tambah audio dubbing Indonesia/English' },
+  { label: 'Subtitle Indonesia', value: 'Tolong tambah subtitle Bahasa Indonesia' },
+  { label: 'Subtitle English', value: 'Tolong tambah subtitle English' },
+  { label: 'Replace (kualitas jelek)', value: 'File yang ada kualitasnya jelek, mohon di-replace dengan versi yang lebih baik' },
+  { label: 'Upgrade ke 1080p+', value: 'Mohon upgrade ke kualitas 1080p atau lebih tinggi' },
+  { label: 'Episode hilang', value: 'Ada episode yang hilang/tidak bisa di-play, tolong dicek' },
+  { label: 'Audio dubbed', value: 'Tolong tambah audio dubbing Indonesia/English' },
 ];
 
 export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormModalProps) {
@@ -136,7 +136,7 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-[110] bg-black/70 backdrop-blur-sm"
+            className="fixed inset-0 z-[110] bg-black/70 "
           />
 
           <div className="fixed inset-0 z-[111] flex items-center justify-center p-4">
@@ -145,31 +145,31 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
               animate={{ scale: 1, opacity: 1, y: 0 }}
               exit={{ scale: 0.95, opacity: 0, y: 20 }}
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-              className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-ios-xl bg-bg-surface p-5"
+              className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-rq bg-rq-surface p-5"
             >
             <div className="mb-4 flex items-start justify-between">
               <div>
-                <p className="mb-1 text-xs font-medium text-ios-blue">
+                <p className="mb-1 text-xs font-medium text-rq-accent">
                   Request Improvement
                 </p>
-                <h3 className="text-lg font-semibold leading-tight tracking-tight">
+                <h3 className="rq-h2">
                   {item.title || item.name}
                 </h3>
-                <p className="mt-0.5 text-[11px] text-white/50">
+                <p className="mt-0.5 text-xs text-rq-muted">
                   Film ini udah ada di Surflix — kasih catatan kalau ada yang perlu di-improve
                 </p>
               </div>
               <button
                 onClick={onClose}
-                className="-mr-1 -mt-1 flex h-7 w-7 items-center justify-center rounded-full bg-white/5 text-white/60 hover:text-white"
+                className="-mr-2 -mt-2 flex h-11 w-11 items-center justify-center rounded-rq text-rq-muted hover:bg-rq-raised hover:text-white"
               >
-                <Icons.X className="h-3.5 w-3.5" />
+                <Icons.X className="h-4 w-4" />
               </button>
             </div>
 
             <div className="space-y-3">
               <div>
-                <label className="mb-1.5 block text-xs font-medium text-white/60">Nama lo</label>
+                <label className="rq-small mb-2 block text-rq-muted">Nama lo</label>
                 <input
                   type="text"
                   value={name}
@@ -181,7 +181,7 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
               </div>
 
               <div>
-                <label className="mb-1.5 block text-xs font-medium text-white/60">
+                <label className="rq-small mb-2 block text-rq-muted">
                   Catatan / improvement request <span className="text-ios-red">*</span>
                 </label>
                 <textarea
@@ -193,7 +193,7 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
                   rows={3}
                   autoFocus
                 />
-                <p className="mt-1 text-right text-[10px] text-white/40">{note.length}/200</p>
+                <p className="mt-1 text-right text-xs text-rq-muted">{note.length}/200</p>
 
                 {/* Quick suggestions */}
                 <div className="mt-2 flex flex-wrap gap-1.5">
@@ -201,18 +201,18 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
                     <button
                       key={s.value}
                       onClick={() => applySuggestion(s.value)}
-                      className="rounded-full bg-white/[0.04] px-2.5 py-1 text-[10px] text-white/55 transition-colors hover:bg-white/[0.08] hover:text-white/80"
+                      className="rounded-rq bg-rq-raised px-3 min-h-10 inline-flex items-center text-xs text-rq-muted transition-colors hover:bg-[#2e2e33] hover:text-white"
                     >
-                      {s.icon} {s.label}
+                      {s.label}
                     </button>
                   ))}
                 </div>
               </div>
 
               {error && (
-                <div className="flex items-start gap-2 rounded-ios-lg border border-ios-red/30 bg-ios-red/10 p-2.5">
+                <div className="flex items-start gap-2 rounded-rq bg-rq-raised p-3">
                   <Icons.AlertCircle className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-ios-red" />
-                  <p className="text-[11px] text-white/85">{error}</p>
+                  <p className="text-xs text-white">{error}</p>
                 </div>
               )}
 
@@ -231,7 +231,7 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
                 )}
               </button>
 
-              <p className="text-center text-[10px] text-white/40">
+              <p className="text-center text-xs text-rq-muted">
                 Admin akan review catatan lo & follow-up kalau perlu.
               </p>
             </div>
