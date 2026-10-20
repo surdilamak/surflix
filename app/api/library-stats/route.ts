@@ -81,7 +81,10 @@ export async function GET() {
     processingRequests,
   };
 
-  cache = { data: response, expiresAt: Date.now() + CACHE_TTL };
+  // Hasil kosong (mis. container baru nyala sebelum snapshot library di-import) jangan di-cache
+  if (moviesCount + seriesCount > 0) {
+    cache = { data: response, expiresAt: Date.now() + CACHE_TTL };
+  }
 
   return NextResponse.json(response);
 }
