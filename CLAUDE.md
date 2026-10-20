@@ -11,7 +11,7 @@
 Domain map (as of 2026-05-15):
 - **`surflix.my.id`** & **`www.surflix.my.id`** → **Landing page** (this app, `/landing` route via middleware)
 - **`request.surflix.my.id`** → **Request Hub** (this app, default routes)
-- **`reference.surflix.my.id`** → **Referensi** (this app, `/referensi/*` via middleware): peta bagaimana film/serial di library saling terhubung (homage, inspired, visual, remake, universe, director, talent). English default + toggle ID. Admin: `/admin/connections`. Data: `scripts/curated/*.txt` → `scripts/build-connections.js` → `scripts/import-*.js`
+- **`reference.surflix.my.id`** → **Surflix Reference** (this app, `/referensi/*` via middleware): peta bagaimana film/serial di library saling terhubung (homage, inspired, visual, remake, universe, director, talent). English default + toggle ID. Admin: `/admin/connections`. Data: `scripts/curated/*.txt` → `scripts/build-connections.js` → `scripts/import-*.js`
 - **`streaming.surflix.my.id`** → **Jellyfin** (whitelabeled, separate `~/Developer/jellyfin-whitelabel/` project)
 
 - **Repo**: `github.com/surdilamak/surflix`
