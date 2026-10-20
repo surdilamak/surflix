@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Icons } from './icons';
 import { JellyseerrMediaItem } from '@/lib/jellyseerr';
+import { useLang } from '@/components/connections/lang-provider';
 
 interface RequestFormModalProps {
   item: JellyseerrMediaItem | null;
@@ -22,15 +23,11 @@ interface RequestFormModalProps {
 
 const GUEST_INFO_KEY = 'surflix_guest_info';
 
-// Quick note suggestions
-const NOTE_SUGGESTIONS = [
-  { label: 'Tambah subtitle Indonesia', value: 'Tolong sertakan subtitle Bahasa Indonesia' },
-  { label: 'Tambah subtitle English', value: 'Tolong sertakan subtitle English' },
-  { label: 'File jelek, replace', value: 'File film yang ada sekarang kualitasnya jelek, mohon di-replace' },
-  { label: 'Quality 1080p+', value: 'Mohon kualitas 1080p atau lebih tinggi' },
-];
+// Quick note suggestions (kunci kamus hub.form.s1..s4; teks catatan ikut bahasa terpilih)
+const NOTE_KEYS = ['s1', 's2', 's3', 's4'] as const;
 
 export function RequestFormModal({ item, open, onClose, onSuccess }: RequestFormModalProps) {
+  const { t } = useLang();
   const [name, setName] = useState('');
   const [guestId, setGuestId] = useState<string | undefined>(undefined);
   const [note, setNote] = useState('');
@@ -61,11 +58,11 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
     setError(null);
 
     if (!name.trim()) {
-      setError('Nama wajib diisi');
+      setError(t('hub.form.nameRequired'));
       return;
     }
     if (name.trim().length < 2) {
-      setError('Nama minimal 2 karakter');
+      setError(t('hub.form.nameMin'));
       return;
     }
     if (!item) return;
@@ -94,7 +91,7 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error || 'Request gagal');
+        setError(data.error || t('hub.form.failed'));
         setLoading(false);
         return;
       }
@@ -106,7 +103,7 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
 
       onSuccess();
     } catch (err) {
-      setError('Network error, coba lagi');
+      setError(t('hub.remark.network'));
       setLoading(false);
     }
   }
@@ -141,7 +138,7 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
             <div className="mb-4 flex items-start justify-between">
               <div>
                 <p className="mb-1 text-xs font-medium text-rq-accent">
-                  Request {item.mediaType === 'movie' ? 'Movie' : 'Series'}
+                  {t(item.mediaType === 'movie' ? 'hub.form.requestMovie' : 'hub.form.requestSeries')}
                 </p>
                 <h3 className="rq-h2">
                   {item.title || item.name}
@@ -157,12 +154,12 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
 
             <div className="space-y-3">
               <div>
-                <label className="rq-small mb-2 block text-rq-muted">Nama lo</label>
+                <label className="rq-small mb-2 block text-rq-muted">{t('hub.form.name')}</label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Misal: Budi"
+                  placeholder={t('hub.form.namePh')}
                   className="input-ios w-full"
                   maxLength={50}
                   autoFocus
@@ -178,20 +175,20 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
                   >
                     <span className="inline-flex items-center gap-1.5">
                       <Icons.Plus className="h-3 w-3" />
-                      Tambah catatan khusus (opsional)
+                      {t('hub.form.addNote')}
                     </span>
                     <Icons.ChevronRight className="h-3 w-3" />
                   </button>
 
                   {/* Quick suggestions */}
                   <div className="mt-2 flex flex-wrap gap-1.5">
-                    {NOTE_SUGGESTIONS.map((s) => (
+                    {NOTE_KEYS.map((k) => (
                       <button
-                        key={s.value}
-                        onClick={() => applySuggestion(s.value)}
+                        key={k}
+                        onClick={() => applySuggestion(t(`hub.form.${k}v`))}
                         className="rounded-rq bg-rq-raised px-3 min-h-10 inline-flex items-center text-xs text-rq-muted transition-colors hover:bg-[#2e2e33] hover:text-white"
                       >
-                        {s.label}
+                        {t(`hub.form.${k}`)}
                       </button>
                     ))}
                   </div>
@@ -199,18 +196,18 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
               ) : (
                 <div>
                   <div className="mb-1.5 flex items-center justify-between">
-                    <label className="rq-small text-rq-muted">Catatan khusus</label>
+                    <label className="rq-small text-rq-muted">{t('hub.form.note')}</label>
                     <button
                       onClick={() => { setShowNoteField(false); setNote(''); }}
                       className="rq-small inline-flex min-h-11 items-center px-2 text-rq-muted hover:text-white"
                     >
-                      Hapus
+                      {t('hub.form.remove')}
                     </button>
                   </div>
                   <textarea
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
-                    placeholder="Misal: Tolong sertakan subtitle Bahasa Indonesia"
+                    placeholder={t('hub.form.notePh')}
                     className="input-ios w-full resize-none"
                     maxLength={200}
                     rows={3}
@@ -237,15 +234,15 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
                 {loading ? (
                   <span className="inline-flex items-center gap-1.5">
                     <Icons.Loader2 className="h-3.5 w-3.5 animate-spin" />
-                    Submitting...
+                    {t('hub.form.submitting')}
                   </span>
                 ) : (
-                  'Submit Request'
+                  t('hub.form.submit')
                 )}
               </button>
 
               <p className="text-center text-xs text-rq-muted">
-                Kita inget lo via cookie browser ini, gak perlu email.
+                {t('hub.form.cookie')}
               </p>
             </div>
             </motion.div>

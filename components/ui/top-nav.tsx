@@ -5,18 +5,16 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { useAppConfig } from '@/lib/hooks/use-app-config';
-import { Icons } from './icons';
+import { useLang } from '@/components/connections/lang-provider';
 
 const tabs = [
-  { href: '/', label: 'Home' },
-  { href: '/trending', label: 'Trending' },
-  { href: '/library', label: 'Library' },
-  { href: '/browse', label: 'Browse' },
-  { href: '/requests', label: 'My Requests' },
+  { href: '/', key: 'hub.nav.home' },
+  { href: '/trending', key: 'hub.nav.trending' },
+  { href: '/library', key: 'hub.nav.library' },
+  { href: '/browse', key: 'hub.nav.browse' },
+  { href: '/requests', key: 'hub.nav.requests' },
 ];
 
 interface TopNavProps {
@@ -26,19 +24,13 @@ interface TopNavProps {
 
 export function TopNav({ guestName, pendingCount = 0 }: TopNavProps) {
   const pathname = usePathname();
-  const config = useAppConfig();
-  const jellyfinUrl = config?.jellyfinUrl || 'https://streaming.surflix.my.id';
+  const { t } = useLang();
 
   return (
     <header className="sticky top-0 z-50 hidden bg-rq-bg md:block">
-      <div className="rq-wrap flex h-16 items-center justify-between">
+      <div className="rq-wrap flex h-14 items-center justify-between">
         <div className="flex items-center gap-8">
-          <Link href="/" className="flex items-center gap-3" aria-label="Surflix Request Hub">
-            <Image src="/logo-wordmark.png" alt="Surflix" width={102} height={28} priority className="h-7 w-auto" />
-            <span className="rq-small text-rq-muted">Request Hub</span>
-          </Link>
-
-          <nav className="flex gap-1" aria-label="Main">
+          <nav className="-ml-3 flex gap-1" aria-label={t('hub.name')}>
             {tabs.map((tab) => {
               const active = pathname === tab.href;
               const showBadge = tab.href === '/requests' && pendingCount > 0;
@@ -49,7 +41,7 @@ export function TopNav({ guestName, pendingCount = 0 }: TopNavProps) {
                   aria-current={active ? 'page' : undefined}
                   className={cn('tab', active && 'tab-active')}
                 >
-                  {tab.label}
+                  {t(tab.key)}
                   {showBadge && (
                     <span className="ml-2 rounded-rq bg-rq-accent px-1.5 text-xs font-semibold text-rq-bg">
                       {pendingCount}
@@ -70,17 +62,8 @@ export function TopNav({ guestName, pendingCount = 0 }: TopNavProps) {
               <span className="rq-text text-rq-muted">{guestName}</span>
             </div>
           ) : (
-            <Link href="/requests" className="tab">Sign in</Link>
+            <Link href="/requests" className="tab">{t('hub.nav.signIn')}</Link>
           )}
-          <a
-            href={jellyfinUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="btn-primary !min-h-10 gap-2"
-          >
-            <Icons.Play className="h-3.5 w-3.5" />
-            Watch on Surflix
-          </a>
         </div>
       </div>
     </header>

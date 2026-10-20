@@ -9,6 +9,7 @@ import Image from 'next/image';
 import { cn, tmdbImage, getYear, jellyseerrStatusLabel } from '@/lib/utils';
 import { Icons } from './icons';
 import { JellyseerrMediaItem } from '@/lib/jellyseerr';
+import { useLang } from '@/components/connections/lang-provider';
 
 interface PosterCardProps {
   item: JellyseerrMediaItem;
@@ -19,6 +20,7 @@ interface PosterCardProps {
 }
 
 export function PosterCard({ item, onClick, size = 'md', showProgress, progress }: PosterCardProps) {
+  const { t } = useLang();
   const title = item.title || item.name || 'Untitled';
   const date = item.releaseDate || item.firstAirDate;
   const year = getYear(date);
@@ -60,13 +62,13 @@ export function PosterCard({ item, onClick, size = 'md', showProgress, progress 
         {status.variant === 'available' && (
           <div className="absolute left-2 top-2 badge-available">
             <Icons.Check className="h-2.5 w-2.5" />
-            <span>In Surflix</span>
+            <span>{t('hub.poster.inSurflix')}</span>
           </div>
         )}
         {status.variant === 'pending' && (
           <div className="absolute left-2 top-2 badge-pending">
             <Icons.Clock className="h-2.5 w-2.5" />
-            <span>Pending</span>
+            <span>{t('hub.poster.pending')}</span>
           </div>
         )}
 
@@ -90,7 +92,7 @@ export function PosterCard({ item, onClick, size = 'md', showProgress, progress 
         {status.variant === 'none' && (
           <div className="absolute bottom-2 right-2 hidden items-center gap-1 rounded-rq bg-rq-accent px-2 py-1 text-xs font-medium text-rq-bg group-hover:flex">
             <Icons.Plus className="h-3 w-3" />
-            <span>Request</span>
+            <span>{t('hub.poster.request')}</span>
           </div>
         )}
       </div>
@@ -101,7 +103,7 @@ export function PosterCard({ item, onClick, size = 'md', showProgress, progress 
         </p>
         <p className="mt-0.5 text-xs text-rq-muted">
           {year}
-          {item.mediaType === 'tv' && ' · Series'}
+          {item.mediaType === 'tv' && ` · ${t('hub.poster.series')}`}
           {rating && (
               <>
                 {' · '}

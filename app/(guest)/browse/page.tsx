@@ -27,16 +27,10 @@ import { PosterGridSkeleton } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Icons } from '@/components/ui/icons';
 import { cn } from '@/lib/utils';
+import { useLang } from '@/components/connections/lang-provider';
+import { GENRES_EN, GENRES_ID } from '@/lib/i18n-hub';
 
 type MediaFilter = 'all' | 'movie' | 'tv';
-
-const GENRE_NAMES: Record<string, string> = {
-  '28': 'Action', '12': 'Adventure', '16': 'Animation', '35': 'Comedy',
-  '80': 'Crime', '99': 'Documentary', '18': 'Drama', '10751': 'Family',
-  '14': 'Fantasy', '36': 'History', '27': 'Horror', '10402': 'Music',
-  '9648': 'Mystery', '10749': 'Romance', '878': 'Sci-Fi', '53': 'Thriller',
-  '10752': 'War', '37': 'Western',
-};
 
 const NETWORKS: Array<{ id: string; label: string; tvOnly?: boolean }> = [
   { id: '213', label: 'Netflix' },
@@ -65,6 +59,8 @@ function BrowseLoading() {
 
 function BrowseInner() {
   const router = useRouter();
+  const { t, lang } = useLang();
+  const GENRE_NAMES = lang === 'id' ? GENRES_ID : GENRES_EN;
   const searchParams = useSearchParams();
 
   const urlQuery = searchParams.get('q') || '';
@@ -95,20 +91,20 @@ function BrowseInner() {
   const [toast, setToast] = useState<{ message: string; variant: 'success' | 'error' } | null>(null);
 
   const heading = (() => {
-    if (urlQuery) return `Search: "${urlQuery}"`;
+    if (urlQuery) return t('hub.browse.search', { q: urlQuery });
     if (urlNetwork) {
       const net = NETWORKS.find((n) => n.id === urlNetwork);
-      return net ? net.label : 'Browse';
+      return net ? net.label : t('hub.browse.browse');
     }
     if (urlGenre && GENRE_NAMES[urlGenre]) {
       const genreName = GENRE_NAMES[urlGenre];
-      const typeLabel = urlType === 'movie' ? 'Movies' : urlType === 'tv' ? 'Series' : '';
+      const typeLabel = urlType === 'movie' ? t('hub.cat.movies') : urlType === 'tv' ? t('hub.cat.series') : '';
       return `${genreName} ${typeLabel}`.trim();
     }
-    if (urlType === 'movie') return 'Movies';
-    if (urlType === 'tv') return 'TV Series';
-    if (urlYear) return `Released ${urlYear.replace(/,/g, ', ')}`;
-    return 'Browse All';
+    if (urlType === 'movie') return t('hub.browse.movies');
+    if (urlType === 'tv') return t('hub.browse.tv');
+    if (urlYear) return t('hub.browse.released', { y: urlYear.replace(/,/g, ', ') });
+    return t('hub.browse.all');
   })();
 
   // Debounce query
@@ -245,7 +241,7 @@ function BrowseInner() {
 
   function handleRequestSuccess() {
     setRequestOpen(false);
-    setToast({ message: 'Request lo udah masuk! Admin akan review dalam 1-3 hari.', variant: 'success' });
+    setToast({ message: t('hub.toast.requestSent'), variant: 'success' });
     setTimeout(() => setToast(null), 4500);
   }
 
@@ -257,7 +253,7 @@ function BrowseInner() {
 
   function handleRemarkSuccess() {
     setRemarkOpen(false);
-    setToast({ message: 'Catatan lo udah masuk. Makasih ya!', variant: 'success' });
+    setToast({ message: t('hub.toast.noteSent'), variant: 'success' });
     setTimeout(() => setToast(null), 4500);
   }
 
@@ -275,7 +271,7 @@ function BrowseInner() {
         <h1 className="rq-h1">{heading}</h1>
         {hasActiveFilter && (
           <button onClick={clearFilters} className="rq-small inline-flex min-h-11 items-center px-2 font-medium text-rq-accent hover:text-white">
-            Clear filters
+            {t('hub.browse.clear')}
           </button>
         )}
       </div>
@@ -289,7 +285,8 @@ function BrowseInner() {
           onChange={(e) => setQuery(e.target.value)}
           onFocus={() => suggestions.length > 0 && setShowSuggestions(true)}
           onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
-          placeholder="Cari film atau series..."
+          placeholder={t('hub.search.placeholder')}
+          aria-label={t('hub.search.label')}
           className="input-ios w-full pl-10"
         />
         {query && (
@@ -328,12 +325,12 @@ function BrowseInner() {
                   <p className="rq-small truncate font-medium">{s.title || s.name}</p>
                   <p className="text-xs text-rq-muted">
                     {(s.releaseDate || s.firstAirDate || '').split('-')[0]} ·{' '}
-                    {s.mediaType === 'movie' ? 'Movie' : 'Series'}
+                    {s.mediaType === 'movie' ? t('hub.type.movie') : t('hub.poster.series')}
                   </p>
                 </div>
                 {s.mediaInfo?.status === 5 && (
                   <span className="badge-available">
-                    In Surflix
+                    {t('hub.poster.inSurflix')}
                   </span>
                 )}
               </button>
@@ -345,25 +342,25 @@ function BrowseInner() {
       {/* Type filter chips */}
       <div className="mb-3 flex flex-wrap gap-2">
         <FilterChip active={mediaFilter === 'all'} onClick={() => updateFilter('all')}>
-          All
+          {t('hub.browse.fAll')}
         </FilterChip>
         <FilterChip active={mediaFilter === 'movie'} onClick={() => updateFilter('movie')} icon={<Icons.Film className="h-4 w-4" />}>
-          Movies
+          {t('hub.cat.movies')}
         </FilterChip>
         <FilterChip active={mediaFilter === 'tv'} onClick={() => updateFilter('tv')} icon={<Icons.Tv className="h-4 w-4" />}>
-          Series
+          {t('hub.cat.series')}
         </FilterChip>
         <FilterChip active={hideInLibrary} onClick={() => setHideInLibrary(!hideInLibrary)} icon={<Icons.EyeOff className="h-4 w-4" />}>
-          Hide in Surflix
+          {t('hub.browse.hide')}
         </FilterChip>
       </div>
 
       {/* Network filter chips */}
       <div className="mb-5">
-        <p className="rq-small mb-2 text-rq-muted">Network</p>
+        <p className="rq-small mb-2 text-rq-muted">{t('hub.browse.network')}</p>
         <div className="flex flex-wrap gap-2">
           <FilterChip active={!urlNetwork} onClick={() => updateNetwork(null)}>
-            All Networks
+            {t('hub.browse.allNetworks')}
           </FilterChip>
           {NETWORKS.filter((n) => !n.tvOnly || urlType === 'tv' || urlType === 'all').map((n) => (
             <FilterChip key={n.id} active={urlNetwork === n.id} onClick={() => updateNetwork(n.id)}>
@@ -378,12 +375,12 @@ function BrowseInner() {
         <div className="rq-small mb-4 flex flex-wrap gap-2">
           {urlGenre && GENRE_NAMES[urlGenre] && (
             <span className="rounded-rq bg-rq-surface px-3 py-1.5 text-white">
-              Genre: {GENRE_NAMES[urlGenre]}
+              {t('hub.browse.genre', { g: GENRE_NAMES[urlGenre] })}
             </span>
           )}
           {urlYear && (
             <span className="rounded-rq bg-rq-surface px-3 py-1.5 text-white">
-              Year: {urlYear.replace(/,/g, ', ')}
+              {t('hub.browse.year', { y: urlYear.replace(/,/g, ', ') })}
             </span>
           )}
         </div>
@@ -395,14 +392,12 @@ function BrowseInner() {
       ) : filtered.length === 0 ? (
         <EmptyState
           icon="Search"
-          title="Gak ada hasil"
-          description={urlQuery
-            ? `Gak nemu apa-apa buat "${urlQuery}". Coba kata kunci lain.`
-            : 'Belum ada film yang match dengan filter ini.'}
+          title={t('hub.browse.noneTitle')}
+          description={urlQuery ? t('hub.browse.noneQuery', { q: urlQuery }) : t('hub.browse.noneFilter')}
         />
       ) : (
         <>
-          <p className="rq-small mb-3 text-rq-muted">{filtered.length} hasil ditemukan</p>
+          <p className="rq-small mb-3 text-rq-muted">{t('hub.browse.results', { n: filtered.length })}</p>
           <div className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-6">
             {filtered.map((item) => (
               <PosterCard
@@ -424,11 +419,11 @@ function BrowseInner() {
                 {loadingMore ? (
                   <span className="inline-flex items-center gap-1.5">
                     <Icons.Loader2 className="h-3.5 w-3.5 animate-spin" />
-                    Loading...
+                    {t('hub.browse.loading')}
                   </span>
                 ) : (
                   <span className="inline-flex items-center gap-1.5">
-                    Load more
+                    {t('hub.browse.more')}
                     <Icons.ChevronDown className="h-3.5 w-3.5" />
                   </span>
                 )}

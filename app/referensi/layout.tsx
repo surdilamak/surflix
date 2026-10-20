@@ -10,6 +10,7 @@ import { Schibsted_Grotesk } from 'next/font/google';
 import { PortalHeader } from '@/components/connections/portal-header';
 import { PortalFooter } from '@/components/connections/portal-footer';
 import { LangProvider } from '@/components/connections/lang-provider';
+import { PortalBar } from '@/components/portal-bar';
 import './referensi.css';
 
 const font = Schibsted_Grotesk({
@@ -33,6 +34,7 @@ export default function ReferensiLayout({ children }: { children: React.ReactNod
         <style>{'.ref-reveal{opacity:1!important;transform:none!important}'}</style>
       </noscript>
       <LangProvider>
+        <PortalBar current="reference" />
         <PortalHeader />
         {children}
         <PortalFooter />

@@ -9,6 +9,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { Icons } from '@/components/ui/icons';
+import { useLang } from '@/components/connections/lang-provider';
 import { EmptyState } from '@/components/ui/empty-state';
 import { cn } from '@/lib/utils';
 import { useRequestPolling, PolledRequest } from '@/lib/hooks/use-request-polling';
@@ -18,6 +19,7 @@ import { NotificationToggle } from '@/components/ui/notification-toggle';
 const STORAGE_KEY = 'surflix_guest_info';
 
 export default function RequestsPage() {
+  const { t } = useLang();
   const [guestId, setGuestId] = useState<string | null>(null);
   const [guestName, setGuestName] = useState<string | null>(null);
   const [bootstrapped, setBootstrapped] = useState(false);
@@ -79,7 +81,7 @@ export default function RequestsPage() {
   });
 
   function handleReset() {
-    if (confirm('Yakin mau reset history? Lo bakal kehilangan akses ke request lama.')) {
+    if (confirm(t('hub.requests.confirmReset'))) {
       localStorage.removeItem(STORAGE_KEY);
       localStorage.removeItem('surflix_request_seen_status');
       window.location.reload();
@@ -96,14 +98,14 @@ export default function RequestsPage() {
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-rq bg-rq-surface">
             <Icons.ListChecks className="h-6 w-6 text-rq-accent" />
           </div>
-          <h1 className="rq-h1">Belum ada request</h1>
+          <h1 className="rq-h1">{t('hub.requests.none')}</h1>
           <p className="rq-text mt-2 text-rq-muted">
-            Mulai request film pertama lo, terus balik ke sini buat tracking status-nya
+            {t('hub.requests.noneBody')}
           </p>
           <Link href="/" className="btn-primary mt-6 inline-block">
             <span className="inline-flex items-center gap-1.5">
               <Icons.Plus className="h-4 w-4" />
-              Request film sekarang
+              {t('hub.requests.noneAction')}
             </span>
           </Link>
         </div>
@@ -115,10 +117,10 @@ export default function RequestsPage() {
     <div className="rq-wrap max-w-3xl py-6 md:py-8">
       <div className="mb-4 flex items-center justify-between">
         <div>
-          <h1 className="rq-h1">My Requests</h1>
+          <h1 className="rq-h1">{t('hub.requests.title')}</h1>
           {guestName && (
             <p className="rq-small mt-1 text-rq-muted">
-              {guestName} · {requests.length} request{requests.length !== 1 ? 's' : ''}
+              {t(requests.length === 1 ? 'hub.requests.count' : 'hub.requests.countMany', { name: guestName, n: requests.length })}
             </p>
           )}
         </div>
@@ -126,13 +128,13 @@ export default function RequestsPage() {
           <button
             onClick={() => refresh()}
             className="flex h-11 w-11 items-center justify-center rounded-rq text-rq-muted hover:bg-rq-surface hover:text-white"
-            aria-label="Refresh"
-            title="Refresh sekarang"
+            aria-label={t('hub.requests.refresh')}
+            title={t('hub.requests.refresh')}
           >
             <Icons.RefreshCw className="h-4 w-4" />
           </button>
           <button onClick={handleReset} className="rq-small inline-flex min-h-11 items-center rounded-rq px-3 text-rq-muted hover:bg-rq-surface hover:text-white">
-            Reset
+            {t('hub.requests.reset')}
           </button>
         </div>
       </div>
@@ -148,10 +150,10 @@ export default function RequestsPage() {
       ) : requests.length === 0 ? (
         <EmptyState
           icon="ListChecks"
-          title="Belum ada request"
-          description="Mulai request film atau series dari Home."
+          title={t('hub.requests.none')}
+          description={t('hub.requests.emptyBody')}
           action={{
-            label: 'Browse film',
+            label: t('hub.requests.emptyAction'),
             onClick: () => (window.location.href = '/'),
           }}
         />
@@ -167,7 +169,8 @@ export default function RequestsPage() {
 }
 
 function RequestRowItem({ request }: { request: PolledRequest }) {
-  const statusConfig = getStatusConfig(request.status);
+  const { t, lang } = useLang();
+  const statusConfig = getStatusConfig(request.status, t);
 
   return (
     <div className="rq-tile p-3">
@@ -198,7 +201,7 @@ function RequestRowItem({ request }: { request: PolledRequest }) {
             </span>
           </div>
           <p className="mt-1 text-xs text-rq-muted">
-            {formatDate(request.requestedAt)} · {request.mediaType === 'movie' ? 'Movie' : 'TV Series'}
+            {formatDate(request.requestedAt, t, lang)} · {request.mediaType === 'movie' ? t('hub.type.movie') : t('hub.type.tv')}
           </p>
           {statusConfig.hint && (
             <p className="mt-1.5 text-xs text-rq-muted">
@@ -208,7 +211,7 @@ function RequestRowItem({ request }: { request: PolledRequest }) {
           )}
           {request.adminNote && request.status === 'REJECTED' && (
             <p className="mt-1.5 rounded-rq bg-rq-raised px-2 py-1.5 text-xs text-[#ff6961]">
-              Admin: {request.adminNote}
+              {t('hub.requests.admin', { note: request.adminNote })}
             </p>
           )}
         </div>
@@ -217,30 +220,33 @@ function RequestRowItem({ request }: { request: PolledRequest }) {
   );
 }
 
-function getStatusConfig(status: string) {
-  switch (status) {
-    case 'AVAILABLE':
-      return { label: 'Available', icon: Icons.Check, badgeClass: 'badge-available', borderClass: '', hint: 'Udah ready di Surflix' };
-    case 'PROCESSING':
-      return { label: 'Downloading', icon: Icons.Download, badgeClass: 'badge-processing', borderClass: '', hint: 'Lagi di-download' };
-    case 'ON_SCHEDULE':
-      return { label: 'On Schedule', icon: Icons.Calendar, badgeClass: 'badge-processing', borderClass: '', hint: 'Queued, nunggu giliran download' };
-    case 'APPROVED':
-      return { label: 'Approved', icon: Icons.Check, badgeClass: 'badge-processing', borderClass: '', hint: 'Approved, lagi forward ke Jellyseerr' };
-    case 'PENDING_ADMIN':
-      return { label: 'Pending', icon: Icons.Clock, badgeClass: 'badge-pending', borderClass: '', hint: 'Menunggu review admin (1-3 hari)' };
-    case 'REJECTED':
-      return { label: 'Rejected', icon: Icons.X, badgeClass: 'badge-rejected', borderClass: '', hint: undefined };
-    case 'PARTIALLY_AVAILABLE':
-      return { label: 'Partial', icon: Icons.Check, badgeClass: 'badge-available', borderClass: '', hint: 'Beberapa episode udah ready' };
-    case 'FAILED':
-      return { label: 'Failed', icon: Icons.AlertCircle, badgeClass: 'badge-rejected', borderClass: '', hint: 'Gagal diproses, admin akan retry' };
-    default:
-      return { label: status, icon: Icons.Info, badgeClass: 'bg-rq-raised text-rq-muted rounded-rq px-2 py-0.5', borderClass: '', hint: undefined };
+type T = (key: string, vars?: Record<string, string | number>) => string;
+
+const STATUS_STYLE: Record<string, { icon: typeof Icons.Check; badgeClass: string; hint: boolean }> = {
+  AVAILABLE: { icon: Icons.Check, badgeClass: 'badge-available', hint: true },
+  PROCESSING: { icon: Icons.Download, badgeClass: 'badge-processing', hint: true },
+  ON_SCHEDULE: { icon: Icons.Calendar, badgeClass: 'badge-processing', hint: true },
+  APPROVED: { icon: Icons.Check, badgeClass: 'badge-processing', hint: true },
+  PENDING_ADMIN: { icon: Icons.Clock, badgeClass: 'badge-pending', hint: true },
+  REJECTED: { icon: Icons.X, badgeClass: 'badge-rejected', hint: false },
+  PARTIALLY_AVAILABLE: { icon: Icons.Check, badgeClass: 'badge-available', hint: true },
+  FAILED: { icon: Icons.AlertCircle, badgeClass: 'badge-rejected', hint: true },
+};
+
+function getStatusConfig(status: string, t: T) {
+  const st = STATUS_STYLE[status];
+  if (!st) {
+    return { label: status, icon: Icons.Info, badgeClass: 'bg-rq-raised text-rq-muted rounded-rq px-2 py-0.5', hint: undefined };
   }
+  return {
+    label: t(`hub.status.${status}`),
+    icon: st.icon,
+    badgeClass: st.badgeClass,
+    hint: st.hint ? t(`hub.status.${status}.hint`) : undefined,
+  };
 }
 
-function formatDate(iso: string) {
+function formatDate(iso: string, t: T, lang: string) {
   const date = new Date(iso);
   const now = new Date();
   const diffMs = now.getTime() - date.getTime();
@@ -248,8 +254,8 @@ function formatDate(iso: string) {
   const diffHours = Math.floor(diffMs / 3600000);
   const diffDays = Math.floor(diffMs / 86400000);
 
-  if (diffMins < 60) return `${diffMins} menit lalu`;
-  if (diffHours < 24) return `${diffHours} jam lalu`;
-  if (diffDays < 7) return `${diffDays} hari lalu`;
-  return date.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+  if (diffMins < 60) return t('hub.ago.min', { n: diffMins });
+  if (diffHours < 24) return t('hub.ago.hour', { n: diffHours });
+  if (diffDays < 7) return t('hub.ago.day', { n: diffDays });
+  return date.toLocaleDateString(lang === 'id' ? 'id-ID' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 }

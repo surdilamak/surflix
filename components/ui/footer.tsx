@@ -7,10 +7,12 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useAppConfig } from '@/lib/hooks/use-app-config';
+import { useLang } from '@/components/connections/lang-provider';
 import { Icons } from './icons';
 
 export function Footer() {
   const config = useAppConfig();
+  const { t } = useLang();
   const [stats, setStats] = useState<{ moviesCount: number; seriesCount: number } | null>(null);
 
   useEffect(() => {
@@ -31,9 +33,9 @@ export function Footer() {
           <div className="flex flex-col items-start gap-2">
             <Image src="/logo-wordmark.png" alt="Surflix" width={116} height={32} className="h-8 w-auto" />
             <p className="rq-small text-rq-muted">
-              Request Hub
+              {t('hub.name')}
               {stats && (stats.moviesCount > 0 || stats.seriesCount > 0) &&
-                ` · ${stats.moviesCount.toLocaleString()} movies · ${stats.seriesCount.toLocaleString()} series`}
+                ` · ${t('hub.footer.stats', { m: stats.moviesCount.toLocaleString(), s: stats.seriesCount.toLocaleString() })}`}
             </p>
           </div>
 
@@ -41,12 +43,12 @@ export function Footer() {
             <p className="rq-small flex items-center gap-2 text-rq-muted">
               <Icons.Info className="h-4 w-4 flex-shrink-0 text-rq-accent" />
               <span>
-                <span className="text-white">Aturan:</span> Dilarang request film/series Indonesia
+                <span className="text-white">{t('hub.footer.rule')}</span> {t('hub.footer.ruleText')}
               </span>
             </p>
             {jellyfinUrl && (
               <a href={jellyfinUrl} target="_blank" rel="noopener" className="rq-small inline-flex items-center gap-1.5 py-2 text-white hover:text-white">
-                Buka Surflix Media Player
+                {t('hub.footer.open')}
                 <Icons.ArrowUpRight className="h-4 w-4" />
               </a>
             )}

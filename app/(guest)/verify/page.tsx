@@ -10,6 +10,7 @@ import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Icons } from '@/components/ui/icons';
+import { useLang } from '@/components/connections/lang-provider';
 
 // Wrap inner component dengan Suspense karena useSearchParams butuh suspense boundary
 export default function VerifyPage() {
@@ -29,6 +30,7 @@ function LoadingState() {
 }
 
 function VerifyInner() {
+  const { t } = useLang();
   const router = useRouter();
   const params = useSearchParams();
   const token = params.get('token');
@@ -39,25 +41,25 @@ function VerifyInner() {
   useEffect(() => {
     if (!token) {
       setStatus('error');
-      setErrorMsg('Token gak ditemukan');
+      setErrorMsg(t('hub.verify.noToken'));
       return;
     }
     verify(token);
   }, [token]);
 
-  async function verify(t: string) {
+  async function verify(tok: string) {
     try {
       const res = await fetch('/api/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: t }),
+        body: JSON.stringify({ token: tok }),
       });
 
       const data = await res.json();
 
       if (!res.ok) {
         setStatus('error');
-        setErrorMsg(data.error || 'Link expired');
+        setErrorMsg(data.error || t('hub.verify.expired'));
         return;
       }
 
@@ -71,7 +73,7 @@ function VerifyInner() {
       setTimeout(() => router.push('/requests'), 1000);
     } catch {
       setStatus('error');
-      setErrorMsg('Network error');
+      setErrorMsg(t('hub.verify.network'));
     }
   }
 
@@ -85,8 +87,8 @@ function VerifyInner() {
         {status === 'verifying' && (
           <>
             <Icons.Loader2 className="mx-auto mb-4 h-10 w-10 animate-spin text-rq-muted" />
-            <h1 className="rq-h2">Verifying...</h1>
-            <p className="rq-small mt-2 text-rq-muted">Sebentar ya</p>
+            <h1 className="rq-h2">{t('hub.verify.verifying')}</h1>
+            <p className="rq-small mt-2 text-rq-muted">{t('hub.verify.wait')}</p>
           </>
         )}
 
@@ -95,8 +97,8 @@ function VerifyInner() {
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-rq bg-rq-surface">
               <Icons.CheckCircle2 className="h-8 w-8 text-ios-green" />
             </div>
-            <h1 className="rq-h2">Berhasil!</h1>
-            <p className="rq-small mt-2 text-rq-muted">Redirecting ke requests...</p>
+            <h1 className="rq-h2">{t('hub.verify.done')}</h1>
+            <p className="rq-small mt-2 text-rq-muted">{t('hub.verify.redirect')}</p>
           </>
         )}
 
@@ -105,13 +107,13 @@ function VerifyInner() {
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-rq bg-rq-surface">
               <Icons.XCircle className="h-8 w-8 text-ios-red" />
             </div>
-            <h1 className="rq-h2">Link gak valid</h1>
+            <h1 className="rq-h2">{t('hub.verify.invalid')}</h1>
             <p className="rq-small mt-2 text-rq-muted">{errorMsg}</p>
             <button
               onClick={() => router.push('/requests')}
               className="btn-primary mt-6"
             >
-              Request link baru
+              {t('hub.verify.new')}
             </button>
           </>
         )}

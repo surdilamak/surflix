@@ -9,6 +9,8 @@ import './request.css';
 import { TopNav } from '@/components/ui/top-nav';
 import { BottomTabBar } from '@/components/ui/bottom-tab-bar';
 import { Footer } from '@/components/ui/footer';
+import { LangProvider } from '@/components/connections/lang-provider';
+import { PortalBar } from '@/components/portal-bar';
 
 const font = Bricolage_Grotesque({
   subsets: ['latin'],
@@ -37,10 +39,13 @@ export default function GuestLayout({ children }: { children: React.ReactNode })
       className="rq-root flex min-h-svh flex-col pb-20 md:pb-0"
       style={{ ['--rq-font' as string]: font.style.fontFamily }}
     >
-      <TopNav guestName={guestName} pendingCount={pendingCount} />
-      <main className="flex-1">{children}</main>
-      <Footer />
-      <BottomTabBar pendingCount={pendingCount} />
+      <LangProvider>
+        <PortalBar current="hub" />
+        <TopNav guestName={guestName} pendingCount={pendingCount} />
+        <main className="flex-1">{children}</main>
+        <Footer />
+        <BottomTabBar pendingCount={pendingCount} />
+      </LangProvider>
     </div>
   );
 }

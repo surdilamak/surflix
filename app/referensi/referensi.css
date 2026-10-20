@@ -15,6 +15,11 @@
   --field-1-muted: #a9aebd;
   --field-2: #e3e1dc;
   --field-2-ink: #1f2b4d;
+  --pb-max: none;
+  --pb-pad: var(--margin);
+  --pb-bg: #05070a;
+  --pb-raised: #1c2233;
+  --pb-accent: #f7941d;
 
   /* tiga jenis hubungan: dipakai di graph (gelap) dan penanda (terang) */
   --rel-homage: #f7941d;
@@ -57,14 +62,15 @@
 
 /* ── Header: bar polos di atas bidang gelap ── */
 .ref-header {
-  position: absolute; inset: 0 0 auto 0; z-index: 30;
+  position: absolute; inset: 56px 0 auto 0; z-index: 30;
   display: flex; align-items: center; justify-content: space-between;
   padding: 20px var(--margin);
   color: var(--field-1-ink);
   font-size: 15px; font-weight: 600;
 }
-.ref-wordmark { display: inline-flex; align-items: center; gap: 14px; font-size: 18px; font-weight: 800; letter-spacing: -0.03em; }
-.ref-logo { display: block; height: 26px; width: auto; }
+.ref-wordmark { display: inline-flex; align-items: baseline; gap: 8px; font-size: 18px; font-weight: 800; letter-spacing: -0.03em; }
+.ref-wordmark-sub { color: var(--field-1-muted); font-weight: 600; }
+@media (min-width: 768px) { .ref-header { top: 52px; } }
 .ref-nav { display: flex; align-items: center; gap: 28px; }
 .ref-nav a { transition: opacity 0.2s; }
 .ref-nav a:hover { opacity: 0.7; }
@@ -204,7 +210,6 @@
   .ref-nav a { white-space: nowrap; }
   .ref-nav a:nth-child(1), .ref-nav a:nth-child(3), .ref-nav a:nth-child(4) { display: none; }
   .ref-wordmark { font-size: 17px; white-space: nowrap; gap: 10px; }
-  .ref-logo { height: 22px; }
   .ref-hero { --rx: 66vw; --ry: 66vw; min-height: max(100svh, 640px); }
   .ref-ring a { width: var(--wm); }
   .ref-ring a:nth-child(even) { display: none; }
@@ -268,17 +273,6 @@
 @media (max-width: 767px) {
   .ref-stage-hint { display: none; }
 }
-
-/* ── Bahasa (EN / ID) ── */
-.ref-lang { display: inline-flex; gap: 2px; margin-left: 4px; }
-.ref-lang button {
-  min-width: 36px; height: 30px; padding: 0 8px;
-  background: transparent; color: var(--field-1-muted);
-  font: inherit; font-size: 13px; font-weight: 600; letter-spacing: 0.02em;
-  border: 0; border-radius: 0; cursor: pointer; transition: color 0.2s, background 0.2s;
-}
-.ref-lang button:hover { color: var(--field-1-ink); }
-.ref-lang button[data-on] { background: var(--field-1-ink); color: var(--field-1); }
 
 /* ── Search ── */
 .ref-search { position: relative; width: 100%; text-align: left; }

@@ -13,6 +13,8 @@ export interface PortalUrls {
   referenceHref: (p?: string) => string;
   /** Link ke Request Hub dari mana pun */
   hubHref: (p?: string) => string;
+  /** Link ke landing (surflix.my.id) */
+  homeHref: (p?: string) => string;
 }
 
 /** Root domain dari hostname: reference.x.y / request.x.y / www.x.y / x.y -> x.y. localhost & IP -> undefined. */
@@ -32,5 +34,6 @@ export function buildPortalUrls(hostname: string, protocol: string): PortalUrls 
     portalPath: (p = '') => `${base}${p}`,
     referenceHref: (p = '') => (root ? `${protocol}//reference.${root}${p}` : `/referensi${p}`),
     hubHref: (p = '') => (root ? `${protocol}//request.${root}${p}` : p || '/'),
+    homeHref: (p = '') => (root ? `${protocol}//${root}${p}` : `/landing${p}`),
   };
 }

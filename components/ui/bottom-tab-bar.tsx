@@ -7,14 +7,15 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { useLang } from '@/components/connections/lang-provider';
 import { Icons } from './icons';
 
 const tabs = [
-  { href: '/', label: 'Home', icon: Icons.Sparkles },
-  { href: '/trending', label: 'Trending', icon: Icons.Flame },
-  { href: '/library', label: 'Library', icon: Icons.Library },
-  { href: '/browse', label: 'Browse', icon: Icons.Search },
-  { href: '/requests', label: 'Requests', icon: Icons.ListChecks },
+  { href: '/', key: 'hub.nav.home', icon: Icons.Sparkles },
+  { href: '/trending', key: 'hub.nav.trending', icon: Icons.Flame },
+  { href: '/library', key: 'hub.nav.library', icon: Icons.Library },
+  { href: '/browse', key: 'hub.nav.browse', icon: Icons.Search },
+  { href: '/requests', key: 'hub.nav.requestsShort', icon: Icons.ListChecks },
 ];
 
 interface Props {
@@ -23,6 +24,7 @@ interface Props {
 
 export function BottomTabBar({ pendingCount = 0 }: Props) {
   const pathname = usePathname();
+  const { t } = useLang();
 
   return (
     <nav
@@ -47,7 +49,7 @@ export function BottomTabBar({ pendingCount = 0 }: Props) {
               )}
             >
               <Icon className={cn('h-5 w-5', active && 'text-rq-accent')} />
-              <span className="text-xs font-medium">{tab.label}</span>
+              <span className="text-xs font-medium">{t(tab.key)}</span>
               {showBadge && (
                 <span className="absolute right-2 top-1 min-w-4 rounded-rq bg-rq-accent px-1 text-center text-xs font-semibold text-rq-bg">
                   {pendingCount}

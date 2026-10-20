@@ -13,6 +13,7 @@
 
 import { useEffect, useState } from 'react';
 import { Icons } from './icons';
+import { useLang } from '@/components/connections/lang-provider';
 
 interface NotificationToggleProps {
   guestId: string;
@@ -29,6 +30,7 @@ const PUSH_SUPPORTED =
 const NOTIFICATION_SUPPORTED = typeof window !== 'undefined' && 'Notification' in window;
 
 export function NotificationToggle({ guestId }: NotificationToggleProps) {
+  const { t } = useLang();
   const [status, setStatus] = useState<Status>('loading');
   const [vapidKey, setVapidKey] = useState<string | null>(null);
   const [dismissed, setDismissed] = useState(false);
@@ -175,22 +177,22 @@ export function NotificationToggle({ guestId }: NotificationToggleProps) {
       <div className="mb-4 flex items-start gap-3 rounded-rq bg-rq-surface p-3">
         <Icons.Bell className="mt-0.5 h-4 w-4 flex-shrink-0 text-rq-accent" />
         <div className="min-w-0 flex-1">
-          <p className="rq-text font-medium">Mau dapat notif kalau request lo update?</p>
+          <p className="rq-text font-medium">{t('hub.notif.ask')}</p>
           <p className="rq-small mt-0.5 text-rq-muted">
-            Lo bakal tau pas film disetujui, mulai download, atau siap ditonton.
+            {t('hub.notif.askSub')}
           </p>
           <div className="mt-3 flex items-center gap-2">
             <button
               onClick={handleEnable}
               className="btn-primary !min-h-11"
             >
-              Aktifkan
+              {t('hub.notif.enable')}
             </button>
             <button
               onClick={handleDismiss}
               className="rq-small inline-flex min-h-11 items-center px-2 text-rq-muted hover:text-white"
             >
-              Nanti aja
+              {t('hub.notif.later')}
             </button>
           </div>
         </div>
@@ -204,7 +206,7 @@ export function NotificationToggle({ guestId }: NotificationToggleProps) {
         <Icons.BellOff className="mt-0.5 h-4 w-4 flex-shrink-0 text-rq-muted" />
         <div className="min-w-0 flex-1">
           <p className="rq-small text-rq-muted">
-            Notif di-block sama browser lo. Buka site settings buat allow notifications kalau mau di-aktifin.
+            {t('hub.notif.denied')}
           </p>
         </div>
       </div>
@@ -217,14 +219,14 @@ export function NotificationToggle({ guestId }: NotificationToggleProps) {
       <div className="mb-4 flex items-center justify-between gap-3 rounded-rq bg-rq-surface px-3 py-1">
         <div className="flex items-center gap-2 text-xs text-rq-muted">
           <Icons.Bell className="h-4 w-4 text-rq-accent" />
-          <span>Notif aktif (cuma pas tab kebuka)</span>
+          <span>{t('hub.notif.inPage')}</span>
         </div>
         {PUSH_SUPPORTED && (
           <button
             onClick={handleEnable}
             className="rq-small inline-flex min-h-11 items-center px-2 text-rq-accent hover:text-white"
           >
-            Aktifkan background notif
+            {t('hub.notif.background')}
           </button>
         )}
       </div>
@@ -236,13 +238,13 @@ export function NotificationToggle({ guestId }: NotificationToggleProps) {
       <div className="mb-4 flex items-center justify-between gap-3 rounded-rq bg-rq-surface px-3 py-1">
         <div className="flex items-center gap-2 text-xs text-rq-muted">
           <Icons.BellRing className="h-4 w-4 text-rq-accent" />
-          <span>Background notif aktif</span>
+          <span>{t('hub.notif.subscribed')}</span>
         </div>
         <button
           onClick={handleDisable}
           className="rq-small inline-flex min-h-11 items-center px-2 text-rq-muted hover:text-white"
         >
-          Matiin
+          {t('hub.notif.off')}
         </button>
       </div>
     );

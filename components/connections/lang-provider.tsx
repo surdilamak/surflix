@@ -1,10 +1,11 @@
 /**
- * LangProvider — bahasa portal (EN default, ID pilihan). Pilihan disimpan di localStorage.
+ * LangProvider — bahasa Reference dan Request Hub (EN default, ID pilihan). Pilihan dibagi lewat lib/lang-pref.ts.
  */
 'use client';
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
 import { translate, relLabel as rel, type Lang } from '@/lib/i18n';
+import { readLangPref, writeLangPref } from '@/lib/lang-pref';
 
 interface LangCtx {
   lang: Lang;
@@ -16,17 +17,14 @@ interface LangCtx {
 }
 
 const Ctx = createContext<LangCtx | null>(null);
-const KEY = 'ref_lang';
 
 export function LangProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>('en');
 
   useEffect(() => {
-    // ?lang=id bisa dibagikan; kalau gak ada, pakai pilihan terakhir (default English)
-    const fromUrl = new URLSearchParams(window.location.search).get('lang');
-    const saved = localStorage.getItem(KEY);
-    const pick = fromUrl === 'en' || fromUrl === 'id' ? fromUrl : saved;
-    if (pick === 'en' || pick === 'id') setLangState(pick);
+    // ?lang=id bisa dibagikan; kalau gak ada, pakai cookie bersama (default English)
+    const pick = readLangPref();
+    if (pick) setLangState(pick);
   }, []);
 
   useEffect(() => {
@@ -35,9 +33,7 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
 
   const setLang = useCallback((l: Lang) => {
     setLangState(l);
-    try {
-      localStorage.setItem(KEY, l);
-    } catch {}
+    writeLangPref(l);
   }, []);
 
   const value = useMemo<LangCtx>(

@@ -4,12 +4,15 @@
  * tanpa kontras "bukan X tapi Y", tanpa daftar negasi, tanpa tanda seru.
  */
 
+import { hubEn, hubId } from './i18n-hub';
+
 export type Lang = 'en' | 'id';
 export const LANGS: Lang[] = ['en', 'id'];
 
 type Dict = Record<string, string>;
 
 const en: Dict = {
+  ...hubEn,
   // nav
   'nav.maps': 'All maps',
   'nav.hub': 'Request Hub',
@@ -123,6 +126,7 @@ const en: Dict = {
 };
 
 const id: Dict = {
+  ...hubId,
   'nav.maps': 'Semua peta',
   'nav.hub': 'Request Hub',
   'nav.watch': 'Tonton',

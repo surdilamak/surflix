@@ -14,6 +14,7 @@ import { Toast } from '@/components/ui/toast';
 import { PosterGridSkeleton } from '@/components/ui/skeleton';
 import { QuickFilterChips } from '@/components/ui/quick-filter-chips';
 import { Icons } from '@/components/ui/icons';
+import { useLang } from '@/components/connections/lang-provider';
 
 interface MostRequestedItem extends JellyseerrMediaItem {
   requestCount?: number;
@@ -26,6 +27,7 @@ interface LibraryStats {
 
 export default function HomePage() {
   const router = useRouter();
+  const { t } = useLang();
 
   const [query, setQuery] = useState('');
   const [guestName, setGuestName] = useState<string | null>(null);
@@ -128,7 +130,7 @@ export default function HomePage() {
 
   function handleRequestSuccess() {
     setRequestOpen(false);
-    setToast({ message: 'Request lo udah masuk! Admin akan review dalam 1-3 hari.', variant: 'success' });
+    setToast({ message: t('hub.toast.requestSent'), variant: 'success' });
     setTimeout(() => setToast(null), 4500);
     setTimeout(loadMostRequested, 1500);
   }
@@ -141,14 +143,12 @@ export default function HomePage() {
 
   function handleRemarkSuccess() {
     setRemarkOpen(false);
-    setToast({ message: 'Catatan lo udah masuk. Makasih ya!', variant: 'success' });
+    setToast({ message: t('hub.toast.noteSent'), variant: 'success' });
     setTimeout(() => setToast(null), 4500);
   }
 
-  const greeting = guestName ? `Hi ${guestName.split(' ')[0]}` : 'Mau request film apa?';
-  const subtitle = guestName
-    ? 'Search film atau series favorit lo, atau browse kategori di bawah'
-    : 'Search atau pilih dari kategori — easy & fast';
+  const greeting = guestName ? t('hub.home.hi', { name: guestName.split(' ')[0] }) : t('hub.home.title');
+  const subtitle = guestName ? t('hub.home.subHi') : t('hub.home.sub');
 
   const hasStats = !!stats && (stats.moviesCount > 0 || stats.seriesCount > 0);
 
@@ -170,8 +170,8 @@ export default function HomePage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && handleSearchSubmit()}
-                placeholder="Cari film atau series..."
-                aria-label="Cari film atau series"
+                placeholder={t('hub.search.placeholder')}
+                aria-label={t('hub.search.label')}
                 className="input-ios !min-h-14 w-full pl-12 pr-32 !text-base placeholder:text-rq-muted"
               />
               <button
@@ -179,7 +179,7 @@ export default function HomePage() {
                 disabled={query.trim().length < 2}
                 className="btn-primary absolute right-1.5 top-1/2 !min-h-11 -translate-y-1/2 gap-2"
               >
-                Search
+                {t('hub.search.go')}
                 <Icons.ArrowRight className="h-4 w-4" />
               </button>
             </div>
@@ -191,14 +191,14 @@ export default function HomePage() {
                 <Icons.Film className="h-5 w-5 text-rq-accent" />
                 <div className="md:mt-4">
                   <p className="text-2xl font-semibold leading-none tracking-tight md:text-4xl">{stats.moviesCount.toLocaleString()}</p>
-                  <p className="rq-small text-rq-muted">{stats.moviesCount === 1 ? 'movie' : 'movies'} on Surflix</p>
+                  <p className="rq-small text-rq-muted">{t(stats.moviesCount === 1 ? 'hub.stat.movie' : 'hub.stat.movies')}</p>
                 </div>
               </div>
               <div className="rq-tile flex items-center gap-3 p-3 md:flex-col md:items-start md:justify-between md:p-4">
                 <Icons.Tv className="h-5 w-5 text-rq-accent" />
                 <div className="md:mt-4">
                   <p className="text-2xl font-semibold leading-none tracking-tight md:text-4xl">{stats.seriesCount.toLocaleString()}</p>
-                  <p className="rq-small text-rq-muted">series on Surflix</p>
+                  <p className="rq-small text-rq-muted">{t('hub.stat.series')}</p>
                 </div>
               </div>
             </div>
@@ -207,14 +207,14 @@ export default function HomePage() {
 
         {/* Quick filter categories */}
         <section className="mb-10 md:mb-12" aria-labelledby="rq-cats">
-          <h2 id="rq-cats" className="rq-h2 mb-3">Browse by category</h2>
+          <h2 id="rq-cats" className="rq-h2 mb-3">{t('hub.cat.title')}</h2>
           <QuickFilterChips />
         </section>
 
         {/* Most Requested by Friends */}
         {mostRequested.length > 0 && (
           <section className="mb-10 md:mb-12">
-            <h2 className="rq-h2 mb-3">Most requested by friends</h2>
+            <h2 className="rq-h2 mb-3">{t('hub.sec.mostRequested')}</h2>
             <div className={gridCls}>
               {mostRequested.slice(0, 6).map((item) => (
                 <PosterCard key={`${item.mediaType}-${item.id}`} item={item} onClick={() => openDetail(item)} />
@@ -226,9 +226,9 @@ export default function HomePage() {
         {/* Trending Section */}
         <section className="mb-10 md:mb-12">
           <div className="mb-3 flex items-center justify-between">
-            <h2 className="rq-h2">Trending this week</h2>
+            <h2 className="rq-h2">{t('hub.sec.trending')}</h2>
             <a href="/trending" className="rq-small inline-flex min-h-11 items-center gap-1 text-rq-muted hover:text-white">
-              See all <Icons.ArrowRight className="h-4 w-4" />
+              {t('hub.sec.seeAll')} <Icons.ArrowRight className="h-4 w-4" />
             </a>
           </div>
           {loadingTrending ? (
@@ -246,8 +246,8 @@ export default function HomePage() {
         {(loadingUpcoming || upcoming.length > 0) && (
           <section>
             <div className="mb-3 flex items-baseline justify-between">
-              <h2 className="rq-h2">Coming soon</h2>
-              <span className="rq-small text-rq-muted">Belum rilis</span>
+              <h2 className="rq-h2">{t('hub.sec.coming')}</h2>
+              <span className="rq-small text-rq-muted">{t('hub.sec.notReleased')}</span>
             </div>
             {loadingUpcoming ? (
               <PosterGridSkeleton count={6} />

@@ -8,6 +8,7 @@ import Image from 'next/image';
 import { tmdbImage, getYear } from '@/lib/utils';
 import { Icons } from './icons';
 import { JellyseerrMediaItem } from '@/lib/jellyseerr';
+import { useLang } from '@/components/connections/lang-provider';
 
 interface HeroProps {
   item: JellyseerrMediaItem;
@@ -17,12 +18,13 @@ interface HeroProps {
 }
 
 export function Hero({ item, rank = 1, onRequest, onDetail }: HeroProps) {
+  const { t } = useLang();
   const title = item.title || item.name || 'Untitled';
   const date = item.releaseDate || item.firstAirDate;
   const year = getYear(date);
   const backdrop = tmdbImage(item.backdropPath, 'original');
   const rating = item.voteAverage ? item.voteAverage.toFixed(1) : null;
-  const mediaTypeLabel = item.mediaType === 'movie' ? 'Movie' : 'Series';
+  const mediaTypeLabel = item.mediaType === 'movie' ? t('hub.type.movie') : t('hub.poster.series');
 
   return (
     <div className="relative h-[240px] w-full overflow-hidden rounded-rq md:h-[280px]">
@@ -46,7 +48,7 @@ export function Hero({ item, rank = 1, onRequest, onDetail }: HeroProps) {
       {/* Rank badge */}
       <div className="absolute left-4 top-4 z-10 md:left-6 md:top-6 flex items-center gap-1.5 rounded-rq bg-rq-raised px-3 py-1 rq-small font-medium text-white">
         <Icons.Flame className="h-3 w-3 text-rq-accent" />
-        <span>Trending #{rank}</span>
+        <span>{t('hub.trending.rank', { n: rank })}</span>
       </div>
 
       {/* Content */}
@@ -68,13 +70,13 @@ export function Hero({ item, rank = 1, onRequest, onDetail }: HeroProps) {
             <button onClick={onRequest} className="btn-primary">
               <span className="flex items-center gap-1.5">
                 <Icons.Plus className="h-4 w-4" />
-                Request
+                {t('hub.poster.request')}
               </span>
             </button>
             <button onClick={onDetail} className="btn-secondary">
               <span className="flex items-center gap-1.5">
                 <Icons.Info className="h-4 w-4" />
-                Details
+                {t('hub.trending.details')}
               </span>
             </button>
           </div>

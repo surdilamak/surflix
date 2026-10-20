@@ -12,6 +12,7 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Icons } from './icons';
 import { JellyseerrMediaItem } from '@/lib/jellyseerr';
+import { useLang } from '@/components/connections/lang-provider';
 
 interface RemarkFormModalProps {
   item: JellyseerrMediaItem | null;
@@ -23,16 +24,10 @@ interface RemarkFormModalProps {
 const GUEST_INFO_KEY = 'surflix_guest_info';
 
 // Quick suggestions — fokus ke common improvement requests
-const SUGGESTIONS = [
-  { label: 'Subtitle Indonesia', value: 'Tolong tambah subtitle Bahasa Indonesia' },
-  { label: 'Subtitle English', value: 'Tolong tambah subtitle English' },
-  { label: 'Replace (kualitas jelek)', value: 'File yang ada kualitasnya jelek, mohon di-replace dengan versi yang lebih baik' },
-  { label: 'Upgrade ke 1080p+', value: 'Mohon upgrade ke kualitas 1080p atau lebih tinggi' },
-  { label: 'Episode hilang', value: 'Ada episode yang hilang/tidak bisa di-play, tolong dicek' },
-  { label: 'Audio dubbed', value: 'Tolong tambah audio dubbing Indonesia/English' },
-];
+const NOTE_KEYS = ['s1', 's2', 's3', 's4', 's5', 's6'] as const;
 
 export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormModalProps) {
+  const { t } = useLang();
   const [name, setName] = useState('');
   const [note, setNote] = useState('');
   const [loading, setLoading] = useState(false);
@@ -57,19 +52,19 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
     setError(null);
 
     if (!name.trim()) {
-      setError('Nama wajib diisi');
+      setError(t('hub.form.nameRequired'));
       return;
     }
     if (name.trim().length < 2) {
-      setError('Nama minimal 2 karakter');
+      setError(t('hub.form.nameMin'));
       return;
     }
     if (!note.trim()) {
-      setError('Catatan wajib diisi — kasih tau detail-nya ya');
+      setError(t('hub.remark.noteRequired'));
       return;
     }
     if (note.trim().length < 5) {
-      setError('Catatan minimal 5 karakter');
+      setError(t('hub.remark.noteMin'));
       return;
     }
     if (!item) return;
@@ -104,7 +99,7 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
       const data = await res.json();
 
       if (!res.ok) {
-        setError(data.error || 'Submit gagal');
+        setError(data.error || t('hub.remark.failed'));
         setLoading(false);
         return;
       }
@@ -116,7 +111,7 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
 
       onSuccess();
     } catch (err) {
-      setError('Network error, coba lagi');
+      setError(t('hub.remark.network'));
       setLoading(false);
     }
   }
@@ -150,13 +145,13 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
             <div className="mb-4 flex items-start justify-between">
               <div>
                 <p className="mb-1 text-xs font-medium text-rq-accent">
-                  Request Improvement
+                  {t('hub.remark.title')}
                 </p>
                 <h3 className="rq-h2">
                   {item.title || item.name}
                 </h3>
                 <p className="mt-0.5 text-xs text-rq-muted">
-                  Film ini udah ada di Surflix — kasih catatan kalau ada yang perlu di-improve
+                  {t('hub.remark.sub')}
                 </p>
               </div>
               <button
@@ -169,12 +164,12 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
 
             <div className="space-y-3">
               <div>
-                <label className="rq-small mb-2 block text-rq-muted">Nama lo</label>
+                <label className="rq-small mb-2 block text-rq-muted">{t('hub.form.name')}</label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Misal: Budi"
+                  placeholder={t('hub.form.namePh')}
                   className="input-ios w-full"
                   maxLength={50}
                 />
@@ -182,12 +177,12 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
 
               <div>
                 <label className="rq-small mb-2 block text-rq-muted">
-                  Catatan / improvement request <span className="text-ios-red">*</span>
+                  {t('hub.remark.label')} <span className="text-ios-red">*</span>
                 </label>
                 <textarea
                   value={note}
                   onChange={(e) => setNote(e.target.value)}
-                  placeholder="Misal: tolong tambah subtitle Bahasa Indonesia"
+                  placeholder={t('hub.remark.notePh')}
                   className="input-ios w-full resize-none"
                   maxLength={200}
                   rows={3}
@@ -197,13 +192,13 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
 
                 {/* Quick suggestions */}
                 <div className="mt-2 flex flex-wrap gap-1.5">
-                  {SUGGESTIONS.map((s) => (
+                  {NOTE_KEYS.map((k) => (
                     <button
-                      key={s.value}
-                      onClick={() => applySuggestion(s.value)}
+                      key={k}
+                      onClick={() => applySuggestion(t(`hub.remark.${k}v`))}
                       className="rounded-rq bg-rq-raised px-3 min-h-10 inline-flex items-center text-xs text-rq-muted transition-colors hover:bg-[#2e2e33] hover:text-white"
                     >
-                      {s.label}
+                      {t(`hub.remark.${k}`)}
                     </button>
                   ))}
                 </div>
@@ -224,15 +219,15 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
                 {loading ? (
                   <span className="inline-flex items-center gap-1.5">
                     <Icons.Loader2 className="h-3.5 w-3.5 animate-spin" />
-                    Submitting...
+                    {t('hub.remark.sending')}
                   </span>
                 ) : (
-                  'Kirim Catatan'
+                  t('hub.remark.send')
                 )}
               </button>
 
               <p className="text-center text-xs text-rq-muted">
-                Admin akan review catatan lo & follow-up kalau perlu.
+                {t('hub.remark.foot')}
               </p>
             </div>
             </motion.div>

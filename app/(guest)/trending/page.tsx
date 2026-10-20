@@ -14,8 +14,10 @@ import { Toast } from '@/components/ui/toast';
 import { HeroSkeleton, PosterGridSkeleton } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Icons } from '@/components/ui/icons';
+import { useLang } from '@/components/connections/lang-provider';
 
 export default function TrendingPage() {
+  const { t } = useLang();
   const [items, setItems] = useState<JellyseerrMediaItem[]>([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(false);
@@ -49,7 +51,7 @@ export default function TrendingPage() {
       setHasMore(data.hasMore);
       setPage(pageNum);
     } catch {
-      if (!append) setError('Gagal load trending. Coba refresh halaman.');
+      if (!append) setError(t('hub.trending.errorBody'));
     } finally {
       setLoading(false);
       setLoadingMore(false);
@@ -73,7 +75,7 @@ export default function TrendingPage() {
 
   function handleRequestSuccess() {
     setRequestOpen(false);
-    setToast({ message: 'Request lo udah masuk! Admin akan review dalam 1-3 hari.', variant: 'success' });
+    setToast({ message: t('hub.toast.requestSent'), variant: 'success' });
     setTimeout(() => setToast(null), 4500);
   }
 
@@ -85,7 +87,7 @@ export default function TrendingPage() {
 
   function handleRemarkSuccess() {
     setRemarkOpen(false);
-    setToast({ message: 'Catatan lo udah masuk. Makasih ya!', variant: 'success' });
+    setToast({ message: t('hub.toast.noteSent'), variant: 'success' });
     setTimeout(() => setToast(null), 4500);
   }
 
@@ -107,9 +109,9 @@ export default function TrendingPage() {
       <div className="rq-wrap py-10">
         <EmptyState
           icon="AlertCircle"
-          title="Gak bisa load trending"
-          description={error || 'Belum ada data trending'}
-          action={{ label: 'Coba lagi', onClick: () => loadTrending(1, false) }}
+          title={t('hub.trending.errorTitle')}
+          description={error || t('hub.trending.emptyBody')}
+          action={{ label: t('hub.trending.retry'), onClick: () => loadTrending(1, false) }}
         />
       </div>
     );
@@ -130,8 +132,8 @@ export default function TrendingPage() {
 
       <div className="rq-wrap py-6 md:py-8">
         <div className="mb-3 flex items-center justify-between md:mb-4">
-          <h2 className="rq-h2">Trending this week</h2>
-          <span className="rq-small text-rq-muted">{items.length} items</span>
+          <h2 className="rq-h2">{t('hub.sec.trending')}</h2>
+          <span className="rq-small text-rq-muted">{t('hub.trending.items', { n: items.length })}</span>
         </div>
 
         <div className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-6">
@@ -154,11 +156,11 @@ export default function TrendingPage() {
               {loadingMore ? (
                 <span className="inline-flex items-center gap-1.5">
                   <Icons.Loader2 className="h-3.5 w-3.5 animate-spin" />
-                  Loading more...
+                  {t('hub.trending.moreLoading')}
                 </span>
               ) : (
                 <span className="inline-flex items-center gap-1.5">
-                  Load more trending
+                  {t('hub.trending.more')}
                   <Icons.ChevronDown className="h-3.5 w-3.5" />
                 </span>
               )}

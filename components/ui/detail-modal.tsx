@@ -19,6 +19,7 @@ import { watchUrl } from '@/lib/jellyfin';
 import { Icons } from './icons';
 import { ReferenceSection } from '@/components/connections/reference-section';
 import { JellyseerrMediaItem } from '@/lib/jellyseerr';
+import { useLang } from '@/components/connections/lang-provider';
 
 interface DetailModalProps {
   item: JellyseerrMediaItem | null;
@@ -173,6 +174,7 @@ function ModalContent({
   loadingDetail,
 }: any) {
   const config = useAppConfig();
+  const { t } = useLang();
   const jellyfinUrl = config?.jellyfinUrl || '#';
 
   // Deep-link ke film itu di Jellyfin (bukan cuma home). jellyfinId diambil dari snapshot library;
@@ -207,7 +209,7 @@ function ModalContent({
         <button
           onClick={onClose}
           className="absolute right-2 top-2 flex h-11 w-11 items-center justify-center rounded-rq bg-rq-bg/80 text-white transition-colors hover:bg-rq-bg"
-          aria-label="Close"
+          aria-label={t('hub.detail.close')}
         >
           <Icons.X className="h-4 w-4" />
         </button>
@@ -220,7 +222,7 @@ function ModalContent({
             <p className="rq-small mt-1 text-rq-muted">{detail.tagline}</p>
           )}
           <p className="rq-small mt-1 text-rq-muted">
-            {year} · {item.mediaType === 'movie' ? 'Movie' : 'Series'}
+            {year} · {item.mediaType === 'movie' ? t('hub.type.movie') : t('hub.poster.series')}
             {detail?.runtime && ` · ${formatRuntime(detail.runtime)}`}
             {rating && (
               <>
@@ -240,21 +242,21 @@ function ModalContent({
             >
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.Play className="h-4 w-4" />
-                Watch on Surflix
+                {t('hub.detail.watch')}
               </span>
             </a>
           ) : isProcessing ? (
             <button disabled className="btn-secondary w-full">
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.Download className="h-4 w-4" />
-                Downloading
+                {t('hub.detail.downloading')}
               </span>
             </button>
           ) : (
             <button onClick={() => onRequest(item)} className="btn-primary w-full">
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.Plus className="h-4 w-4" />
-                Request {item.mediaType === 'movie' ? 'Movie' : 'Series'}
+                {t(item.mediaType === 'movie' ? 'hub.detail.requestMovie' : 'hub.detail.requestSeries')}
               </span>
             </button>
           )}
@@ -268,7 +270,7 @@ function ModalContent({
             >
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.MessageSquare className="h-4 w-4" />
-                Request Improvement
+                {t('hub.detail.improve')}
               </span>
             </button>
           )}
@@ -300,37 +302,37 @@ function ModalContent({
         <div className="rounded-rq bg-rq-raised text-sm">
           {(detail?.director || detail?.creators) && (
             <MetadataRow
-              label={item.mediaType === 'tv' ? 'Creators' : 'Director'}
+              label={item.mediaType === 'tv' ? t('hub.detail.creators') : t('hub.detail.director')}
               value={detail.director || detail.creators?.join(', ')}
             />
           )}
           {detail?.cast && detail.cast.length > 0 && (
             <MetadataRow
-              label="Cast"
+              label={t('hub.detail.cast')}
               value={detail.cast.map((c: any) => c.name).join(', ')}
             />
           )}
           {item.mediaType === 'tv' && detail?.numberOfSeasons !== undefined && (
             <MetadataRow
-              label="Seasons"
-              value={`${detail.numberOfSeasons} season${detail.numberOfSeasons !== 1 ? 's' : ''} · ${detail.numberOfEpisodes || '?'} episodes`}
+              label={t('hub.detail.seasons')}
+              value={t(detail.numberOfSeasons === 1 ? 'hub.detail.seasonValue' : 'hub.detail.seasonsValue', { n: detail.numberOfSeasons, m: detail.numberOfEpisodes || '?' })}
             />
           )}
           {detail?.networks && detail.networks.length > 0 && (
-            <MetadataRow label="Network" value={detail.networks.join(', ')} />
+            <MetadataRow label={t('hub.detail.network')} value={detail.networks.join(', ')} />
           )}
           {detail?.productionCompanies && detail.productionCompanies.length > 0 && item.mediaType === 'movie' && (
-            <MetadataRow label="Studio" value={detail.productionCompanies.join(', ')} />
+            <MetadataRow label={t('hub.detail.studio')} value={detail.productionCompanies.join(', ')} />
           )}
-          <MetadataRow label="Type" value={item.mediaType === 'movie' ? 'Movie' : 'TV Series'} />
-          {year && <MetadataRow label="Release" value={year} />}
-          {rating && <MetadataRow label="Rating" value={`${rating} / 10`} last />}
+          <MetadataRow label={t('hub.detail.type')} value={item.mediaType === 'movie' ? t('hub.type.movie') : t('hub.type.tv')} />
+          {year && <MetadataRow label={t('hub.detail.release')} value={year} />}
+          {rating && <MetadataRow label={t('hub.detail.rating')} value={`${rating} / 10`} last />}
         </div>
 
         {loadingDetail && (
           <div className="flex items-center justify-center gap-2 text-xs text-rq-muted">
             <Icons.Loader2 className="h-3 w-3 animate-spin" />
-            Loading metadata...
+            {t('hub.detail.loading')}
           </div>
         )}
 
@@ -338,7 +340,7 @@ function ModalContent({
           <div className="flex items-start gap-2 rounded-rq bg-rq-raised p-3">
             <Icons.Info className="mt-px h-4 w-4 flex-shrink-0 text-rq-accent" />
             <p className="rq-small text-white">
-              Request akan direview admin sebelum diproses. Status akan ke-update di tab "My Requests".
+              {t('hub.detail.review')}
             </p>
           </div>
         )}

@@ -1,5 +1,5 @@
 /**
- * ConnectionGraph — peta referensi satu film: case Blu-ray 3D di atas bidang gelap.
+ * ConnectionGraph — peta referensi satu film: case disc 3D di atas bidang gelap.
  *
  * Film yang dibuka ada di tengah; film-film yang nyambung melayang di cincin miring di
  * sekelilingnya, dihubungkan tali berwarna sesuai jenis hubungan. Ketuk satu case:
@@ -46,7 +46,7 @@ export interface GraphData {
 // Graph 3D cuma muat belasan case; sisanya ada di daftar di bawahnya.
 const MAX_NODES = 14;
 
-// Ukuran case (satuan scene): rasio mirip case Blu-ray sungguhan
+// Ukuran case (satuan scene): rasio mirip case disc sungguhan
 const W = 1.5;
 const H = 2.1;
 const D = 0.22;
@@ -80,7 +80,7 @@ function wrapText(g: CanvasRenderingContext2D, text: string, x: number, y: numbe
   g.fillText(line, x, y);
 }
 
-/** Sampul: poster (cover-fit) + banner Blu-ray di atas. Tanpa poster: warna + judul. */
+/** Sampul: poster (cover-fit) memenuhi muka case. Tanpa poster: warna + judul. */
 function drawCover(c: HTMLCanvasElement, node: GraphNode, poster?: HTMLImageElement) {
   const w = c.width;
   const h = c.height;
@@ -107,46 +107,49 @@ function drawCover(c: HTMLCanvasElement, node: GraphNode, poster?: HTMLImageElem
     }
   }
 
-  // banner Blu-ray
-  const bh = Math.round(h * 0.075);
-  g.fillStyle = '#0a4ea3';
-  g.fillRect(0, 0, w, bh);
-  g.fillStyle = '#ffffff';
-  g.font = '800 30px "Schibsted Grotesk", -apple-system, system-ui, sans-serif';
-  g.textBaseline = 'middle';
-  g.fillText('Blu-ray', 26, bh / 2 + 1);
   // kilau halus di bagian atas sampul (cetakan glossy)
   g.fillStyle = 'rgba(255,255,255,0.05)';
-  g.fillRect(0, bh, w, h * 0.3);
+  g.fillRect(0, 0, w, h * 0.3);
 }
 
-/** Spine: pita biru Blu-ray di atas, judul tegak lurus ke bawah. */
-function drawSpine(c: HTMLCanvasElement, node: GraphNode) {
+/** Warna rata-rata poster (dikecilkan ke 1px), dipakai untuk punggung case. */
+function posterTint(poster: HTMLImageElement): string {
+  const c = document.createElement('canvas');
+  c.width = c.height = 1;
+  const g = c.getContext('2d')!;
+  g.drawImage(poster, 0, 0, 1, 1);
+  const [r, gr, b] = g.getImageData(0, 0, 1, 1).data;
+  const k = 0.42; // digelapkan supaya judul putih selalu terbaca
+  return `rgb(${Math.round(r * k)}, ${Math.round(gr * k)}, ${Math.round(b * k)})`;
+}
+
+/** Punggung: warna diambil dari poster, judul tegak lurus dari atas, tahun di bawah. */
+function drawSpine(c: HTMLCanvasElement, node: GraphNode, poster?: HTMLImageElement) {
   const w = c.width;
   const h = c.height;
   const g = c.getContext('2d')!;
-  g.fillStyle = '#0b2a5e';
+  g.fillStyle = poster ? posterTint(poster) : accentFor(node.title);
   g.fillRect(0, 0, w, h);
-  g.fillStyle = '#0a4ea3';
-  g.fillRect(0, 0, w, 150);
-  g.save();
-  g.translate(w / 2, 20);
-  g.rotate(Math.PI / 2);
-  g.fillStyle = '#ffffff';
-  g.font = '800 40px "Schibsted Grotesk", -apple-system, system-ui, sans-serif';
-  g.textBaseline = 'middle';
-  g.fillText('Blu-ray', 0, 0);
-  g.restore();
-  g.save();
-  g.translate(w / 2, 180);
-  g.rotate(Math.PI / 2);
   g.fillStyle = '#f4f4f2';
-  g.font = '600 46px "Schibsted Grotesk", -apple-system, system-ui, sans-serif';
   g.textBaseline = 'middle';
+  g.font = '600 46px "Schibsted Grotesk", -apple-system, system-ui, sans-serif';
+  const yearW = node.year ? 150 : 0;
+  g.save();
+  g.translate(w / 2, 40);
+  g.rotate(Math.PI / 2);
   let t = node.title;
-  while (g.measureText(t).width > h - 220 && t.length > 4) t = t.slice(0, -2);
+  while (g.measureText(t).width > h - 80 - yearW && t.length > 4) t = t.slice(0, -2);
   g.fillText(t === node.title ? t : `${t}…`, 0, 0);
   g.restore();
+  if (node.year) {
+    g.save();
+    g.translate(w / 2, h - 40 - 50);
+    g.rotate(Math.PI / 2);
+    g.fillStyle = 'rgba(244,244,242,0.7)';
+    g.font = '500 38px "Schibsted Grotesk", -apple-system, system-ui, sans-serif';
+    g.fillText(String(node.year), 0, 0);
+    g.restore();
+  }
 }
 
 function shadowTexture() {
@@ -250,12 +253,11 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
     const disposables: Array<{ dispose: () => void }> = [pmrem, envTex];
 
     const shell = new THREE.MeshPhysicalMaterial({
-      color: 0x0b3a86, roughness: 0.32, metalness: 0, clearcoat: 0.9, clearcoatRoughness: 0.18,
+      color: 0x16181d, roughness: 0.32, metalness: 0, clearcoat: 0.9, clearcoatRoughness: 0.18,
     });
-    const back = new THREE.MeshPhysicalMaterial({ color: 0x0a1a3a, roughness: 0.5, clearcoat: 0.4 });
-    const shadowTex = shadowTexture();
+        const shadowTex = shadowTexture();
     const shadowMat = new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, opacity: 0.8 });
-    disposables.push(shell, back, shadowTex, shadowMat);
+    disposables.push(shell, shadowTex, shadowMat);
 
     const n = nodes.length;
     const targets = n - 1;
@@ -301,7 +303,8 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
       grp.add(spine);
       disposables.push(spine.geometry, spineMat);
 
-      const backPlane = new THREE.Mesh(new THREE.PlaneGeometry(W - INSET * 2, H - INSET * 2), back);
+      // belakang memakai sampul yang sama (satu material, satu tekstur)
+      const backPlane = new THREE.Mesh(new THREE.PlaneGeometry(W - INSET * 2, H - INSET * 2), coverMat);
       backPlane.rotation.y = Math.PI;
       backPlane.position.z = -D / 2 - 0.002;
       grp.add(backPlane);
@@ -318,6 +321,8 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
           if (disposed) return;
           drawCover(coverCanvas, node, img);
           coverTex.needsUpdate = true;
+          drawSpine(spineCanvas, node, img);
+          spineTex.needsUpdate = true;
         };
         img.src = src; // gagal load → tetap pakai sampul warna + judul
       }

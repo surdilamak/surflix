@@ -19,6 +19,7 @@ import { Toast } from '@/components/ui/toast';
 import { PosterGridSkeleton } from '@/components/ui/skeleton';
 import { EmptyState } from '@/components/ui/empty-state';
 import { Icons } from '@/components/ui/icons';
+import { useLang } from '@/components/connections/lang-provider';
 import { JellyseerrMediaItem } from '@/lib/jellyseerr';
 
 interface LibraryItem {
@@ -37,6 +38,7 @@ interface LibraryItem {
 type Mode = 'loading' | 'personal' | 'community' | 'empty';
 
 export default function LibraryPage() {
+  const { t } = useLang();
   const config = useAppConfig();
   const [mode, setMode] = useState<Mode>('loading');
   const [personalItems, setPersonalItems] = useState<LibraryItem[]>([]);
@@ -56,7 +58,7 @@ export default function LibraryPage() {
 
   function handleRemarkSuccess() {
     setRemarkOpen(false);
-    setToast({ message: 'Catatan lo udah masuk. Makasih ya!', variant: 'success' });
+    setToast({ message: t('hub.toast.noteSent'), variant: 'success' });
     setTimeout(() => setToast(null), 4500);
   }
 
@@ -133,12 +135,12 @@ export default function LibraryPage() {
       {/* Header */}
       <div className="mb-5 flex items-center justify-between">
         <div>
-          <h1 className="rq-h1">Library</h1>
+          <h1 className="rq-h1">{t('hub.library.title')}</h1>
           <p className="rq-small mt-1 text-rq-muted">
-            {mode === 'personal' && `${personalItems.length} film/series yang lo request udah ready`}
-            {mode === 'community' && 'Film yang udah ada di library Surflix'}
-            {mode === 'empty' && 'Belum ada apa-apa di sini'}
-            {mode === 'loading' && 'Loading...'}
+            {mode === 'personal' && t('hub.library.subPersonal', { n: personalItems.length })}
+            {mode === 'community' && t('hub.library.subCommunity')}
+            {mode === 'empty' && t('hub.library.subEmpty')}
+            {mode === 'loading' && t('hub.library.loading')}
           </p>
         </div>
         {config?.jellyfinUrl && (
@@ -150,7 +152,7 @@ export default function LibraryPage() {
           >
             <span className="inline-flex items-center gap-1.5">
               <Icons.ArrowUpRight className="h-4 w-4" />
-              <span className="hidden sm:inline">Open</span> Surflix
+              {t('hub.library.open')}
             </span>
           </a>
         )}
@@ -165,7 +167,7 @@ export default function LibraryPage() {
           <div className="mb-4 rounded-rq bg-rq-surface p-3">
             <p className="rq-small text-white">
               <Icons.CheckCircle2 className="mr-1.5 inline h-3.5 w-3.5 text-rq-accent" />
-              Ini film yang lo request via Surflix & udah ready
+              {t('hub.library.noteMine')}
             </p>
           </div>
           <div className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-6">
@@ -181,9 +183,9 @@ export default function LibraryPage() {
           {/* Community section di bawah personal */}
           {communityItems.length > 0 && (
             <section className="mt-10">
-              <h2 className="rq-h2 mb-1">Also available in the library</h2>
+              <h2 className="rq-h2 mb-1">{t('hub.library.also')}</h2>
               <p className="rq-small mb-3 text-rq-muted">
-                Film yang ke-request guest lain & udah ada di Surflix
+                {t('hub.library.alsoSub')}
               </p>
               <div className="grid grid-cols-2 gap-2 md:grid-cols-4 lg:grid-cols-6">
                 {communityItems.slice(0, 10).map((item) => (
@@ -206,9 +208,9 @@ export default function LibraryPage() {
             <div className="mb-4 rounded-rq bg-rq-surface p-3">
               <p className="rq-small text-white">
                 <Icons.Info className="mr-1.5 inline h-3.5 w-3.5 text-rq-accent" />
-                Belum ada request lo sendiri.{' '}
+                {t('hub.library.noMine')}{' '}
                 <Link href="/" className="font-medium text-rq-accent hover:underline">
-                  Request film pertama lo →
+                  {t('hub.library.first')}
                 </Link>
               </p>
             </div>
@@ -229,10 +231,10 @@ export default function LibraryPage() {
       {mode === 'empty' && (
         <EmptyState
           icon="Library"
-          title="Library masih kosong"
-          description="Belum ada film yang ke-request di Surflix. Yuk mulai request film pertama!"
+          title={t('hub.library.emptyTitle')}
+          description={t('hub.library.emptyBody')}
           action={{
-            label: 'Request film sekarang',
+            label: t('hub.library.emptyAction'),
             onClick: () => (window.location.href = '/'),
           }}
         />
