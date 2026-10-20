@@ -191,6 +191,7 @@ docker-compose -f docker-compose.prod.yml up -d
 **Root cause**: Jellyseerr API key di .env adalah user-level, gak punya akses `/api/v1/media` atau `/api/v1/request` endpoint (403 Forbidden).
 **Workaround**: Saat ini fallback ke local DB count (Surflix-only requests).
 **Fix needed**: Regenerate API key dari Settings → General Jellyseerr UI dengan admin permission.
+**Update 2026-10-20**: penyebab "stuck 0" ternyata juga karena route `/api/library-stats` (dan `/api/upcoming`, `/api/most-requested`) dibekukan Next saat build (statis). Sudah `force-dynamic`, dan stats sekarang dari snapshot `LibraryTitle`. Backlog: lihat `BACKLOG.md`.
 
 ### 2. APP_URL di .env Sometimes Salah
 **Root cause**: Variable bisa keisi sama `http://192.168.68.8:3737` (IP host) instead of `https://request.surflix.my.id` (public URL).

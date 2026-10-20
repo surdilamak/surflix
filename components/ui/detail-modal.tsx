@@ -15,6 +15,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { tmdbImage, getYear, jellyseerrStatusLabel } from '@/lib/utils';
 import { useAppConfig } from '@/lib/hooks/use-app-config';
+import { watchUrl } from '@/lib/jellyfin';
 import { Icons } from './icons';
 import { ReferenceSection } from '@/components/connections/reference-section';
 import { JellyseerrMediaItem } from '@/lib/jellyseerr';
@@ -174,6 +175,26 @@ function ModalContent({
   const config = useAppConfig();
   const jellyfinUrl = config?.jellyfinUrl || '#';
 
+  // Deep-link ke film itu di Jellyfin (bukan cuma home). jellyfinId diambil dari snapshot library;
+  // film yang belum ada di snapshot jatuh ke link home Jellyfin.
+  const [jellyfinId, setJellyfinId] = useState<string | null>(null);
+  useEffect(() => {
+    setJellyfinId(null);
+    if (!isAvailable) return;
+    let cancelled = false;
+    fetch(`/api/library/title?type=${item.mediaType}&id=${item.id}`)
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!cancelled && d?.jellyfinId) setJellyfinId(d.jellyfinId);
+      })
+      .catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, [item.id, item.mediaType, isAvailable]);
+  const watchHref =
+    jellyfinId && config?.jellyfinUrl ? watchUrl(jellyfinId, config.jellyfinUrl, config.jellyfinServerId) : jellyfinUrl;
+
   return (
     <>
       <div className="relative h-[200px] md:h-[240px]">
@@ -209,7 +230,7 @@ function ModalContent({
         <div className="flex flex-col gap-2">
           {isAvailable ? (
             <a
-              href={jellyfinUrl}
+              href={watchHref}
               target="_blank"
               rel="noopener"
               className="w-full rounded-full bg-ios-orange px-5 py-2.5 text-center text-sm font-semibold tracking-tight text-black transition-all hover:bg-ios-orange/90 active:scale-95"

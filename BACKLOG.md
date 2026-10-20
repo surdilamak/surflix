@@ -1,0 +1,55 @@
+# BACKLOG.md — Surflix
+
+> Hal-hal yang sengaja ditunda. Urut dari yang paling berdampak. Update file ini tiap ada yang selesai atau nambah.
+> Terakhir diupdate: 2026-10-20 (setelah go-live portal Referensi).
+
+## 🔴 Tindak lanjut cepat (setelah deploy terakhir)
+
+- [ ] **Verifikasi deep-link Tonton di Request Hub.** Tombol "Watch on Surflix" di detail modal sekarang nyari `jellyfinId` dari snapshot library lalu buka `#/details?id=…&serverId=…`. Film yang belum ada di snapshot jatuh ke home Jellyfin. Cek: buka satu film Available → klik Watch → harus langsung ke filmnya.
+- [ ] **Aktifin Sync library** (env Jellyfin di compose Dockge). Tanpa ini snapshot library cuma update kalau import script dijalanin manual, jadi film baru gak punya deep-link / gak bisa dicari di portal. Langkah ada di bagian "Cara" bawah.
+- [ ] **Cek angka landing** setelah Update Dockge terakhir: harus `723 films · 194 series · 706 titles mapped`. Bagian "upcoming" di Request Hub juga harus keisi lagi.
+- [ ] **Sampling fakta koneksi.** 739 koneksi ditulis dari pengetahuan (belum diverifikasi online). Paling perlu dicek: kategori `talent` (siapa main/nulis apa) dan koneksi `visual` / `inspired` yang dulunya `confidence: medium`. Edit/hapus lewat `/admin/connections` → Manage.
+
+## 🟠 Keamanan & hygiene
+
+- [ ] **27 vulnerability npm** (3 critical, 15 high): `next` 14.2.15 (critical), `axios`, `postcss`, `tailwindcss`, `eslint-config-next`, rantai `node-telegram-bot-api` → `request`/`form-data`. Jangan `npm audit fix --force` buta; upgrade bertahap di branch: `next` dulu (14.2.x terbaru, lalu major), `axios` minor, `node-telegram-bot-api` (major, uji Telegram webhook).
+- [ ] **`/api/health` masih statis** (dibekukan saat build, jadi healthcheck Docker selalu "ok"). Jadikan dinamis tapi hati-hati: kalau cek Jellyseerr down, container jangan ikut dianggap unhealthy.
+- [ ] **Jellyseerr API key user-level** (known issue #1): `getMediaCount()` masih 403. Stats sudah dialihkan ke snapshot library, tapi kalau mau akurat untuk status "Available" di hub, regenerate key admin.
+
+## 🟡 Konten Referensi
+
+- [ ] **211 judul belum dipetakan** (lihat tab Coverage → *Not mapped yet*). Tambah manual via Manage → Add a connection. Prioritas: judul yang sering ditonton. Jangan ngarang hubungan demi angka.
+- [ ] **Review terjemahan Indonesia** di `lib/i18n.ts` dan kolom `reason` (dibuat bareng teks Inggris, belum dibaca penutur native).
+- [ ] **Nama file kotor di library Jellyfin** (`Requiem.for.a.Dream.2000.PROPER…`, `MIRCrew`). Snapshot sudah dibersihin otomatis (nama folder / OriginalTitle), tapi rapihin di Jellyfin kalau sempat (rename atau refresh metadata).
+- [ ] **Auto-sync library**: webhook Jellyseerr `MEDIA_AVAILABLE` → panggil `syncLibraryFromJellyfin()` supaya judul baru langsung muncul di search + deep-link tanpa klik "Sync library".
+- [ ] **Pipeline LLM (`/api/admin/connections/generate`) dorman.** Butuh `ANTHROPIC_API_KEY` + env Jellyfin. Sekarang kurasi manual; hapus atau hidupkan lagi nanti.
+
+## 🟢 Produk & UX
+
+- [ ] **Metadata per film untuk share/SEO**: halaman `/referensi/[type]/[id]` client-rendered, jadi judul tab & preview link generik. Pindah ke `generateMetadata` server-side + OG image (poster).
+- [ ] **Galaxy**: filter per jenis koneksi, label kelompok, versi aksesibel (daftar teks), dan layout O(n²) di server perlu diganti (worker / precompute) kalau library > ~2000 titik.
+- [ ] **Request Hub masih campur Indonesia/English**; portal Referensi dan landing sudah English. Putuskan: i18n hub atau seragamin satu bahasa.
+- [ ] **Landing nge-hardcode URL** (`request.` / `reference.surflix.my.id`), jadi di lokal klik kartu keluar ke produksi. Turunkan dari hostname seperti `lib/hooks/use-portal.ts`.
+- [ ] **Compose di Dockge ketinggalan dari repo** (`docker-compose.prod.yml` di repo sudah punya env Jellyfin/Anthropic; versi Dockge belum). Samain.
+
+## 🧹 Bersih-bersih
+
+- [ ] Hapus `components/connections/surflix-reference-graph-prototype.jsx` (prototype, gak dipakai) dan `lib/jellyseerr.ts.bak`.
+- [ ] Dua gambar di `public/` (`HD.png`, `WhatsApp-Image-…png`) masih untracked sejak sebelum fitur Referensi: pakai atau hapus.
+- [ ] `scripts/connections-seed.json` (hasil build kurasi, 44 masih "pending") vs `scripts/connections-live.json` (foto keputusan review): pilih satu sumber kebenaran setelah admin jadi alur utama, dan dokumentasikan di `WORKFLOW.md`.
+
+---
+
+## Cara: aktifin Sync library (env Jellyfin)
+
+1. **Bikin API key Jellyfin**: Jellyfin → Dashboard → Advanced → **API Keys** → **+** → nama `Surflix Referensi`. Copy key-nya (jangan kirim ke chat/commit).
+2. **Dockge** (`:5001`) → stack **surflix** → **Edit**.
+   - Di compose, bagian `environment:` (di bawah `VAPID_SUBJECT`), tambah:
+     ```yaml
+     JELLYFIN_URL: ${JELLYFIN_URL:-http://host.docker.internal:8096}
+     JELLYFIN_API_KEY: ${JELLYFIN_API_KEY}
+     ```
+   - Di editor **.env** (bawah compose), tambah `JELLYFIN_API_KEY=<key tadi>`.
+   - **Deploy** (bukan cuma Restart: perubahan compose butuh `up -d`).
+3. **Cek**: `docker exec surflix sh -c 'wget -qO- --header="Authorization: MediaBrowser Token=\"$JELLYFIN_API_KEY\"" "$JELLYFIN_URL/System/Info" | head -c 150'` → harus keluar JSON server Jellyfin.
+4. Admin → `/admin/connections` → **Sync library**: toast `Library synced: N new, N updated`.
