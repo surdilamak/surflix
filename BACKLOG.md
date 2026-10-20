@@ -1,7 +1,7 @@
 # BACKLOG.md — Surflix
 
 > Hal-hal yang sengaja ditunda. Urut dari yang paling berdampak. Update file ini tiap ada yang selesai atau nambah.
-> Terakhir diupdate: 2026-10-20 (setelah go-live portal Referensi).
+> Terakhir diupdate: 2026-10-20 (setelah upgrade keamanan Next 15 / React 19).
 
 ## 🔴 Tindak lanjut cepat (setelah deploy terakhir)
 
@@ -12,7 +12,10 @@
 
 ## 🟠 Keamanan & hygiene
 
-- [ ] **27 vulnerability npm** (3 critical, 15 high): `next` 14.2.15 (critical), `axios`, `postcss`, `tailwindcss`, `eslint-config-next`, rantai `node-telegram-bot-api` → `request`/`form-data`. Jangan `npm audit fix --force` buta; upgrade bertahap di branch: `next` dulu (14.2.x terbaru, lalu major), `axios` minor, `node-telegram-bot-api` (major, uji Telegram webhook).
+- [x] **Vulnerability npm runtime** (2026-10-20, PR #1): `npm audit --omit=dev` 14 → 0 (3 critical hilang). Next 14.2.15 → 15.5.28, React 18 → 19, axios 1.20, `node-telegram-bot-api` dibuang (tidak dipakai; Telegram pakai `fetch`), `overrides` postcss ^8.5.31. `eslint` + `eslint-config-next` + script `lint` dihapus (tidak ada konfigurasi eslint, tidak pernah jalan). Diverifikasi di produksi oleh Idrus (login admin, deep-link Watch).
+- [ ] **Migrasi Tailwind 3 → 4** untuk menutup 7 temuan `npm audit` yang tersisa (dev-only, rantai `tailwindcss` 3: braces / micromatch / chokidar / postcss-nested). Tidak ikut image produksi, jadi tidak mendesak. Config & utilitas custom (`ios-*`, `surflix-*`) perlu dipindah ke CSS-first config; uji visual semua halaman.
+- [ ] **Pasang linter lagi (opsional)**: eslint dibuang saat upgrade. Kalau mau, tambah `eslint` + `eslint-config-next` 15 dengan flat config.
+- [ ] **Warning next/image logo** di `components/ui/top-nav.tsx` dan `footer.tsx` (kosmetik, sudah ada sebelum upgrade): set `width`/`height` auto pada logo.
 - [ ] **`/api/health` masih statis** (dibekukan saat build, jadi healthcheck Docker selalu "ok"). Jadikan dinamis tapi hati-hati: kalau cek Jellyseerr down, container jangan ikut dianggap unhealthy.
 - [ ] **Jellyseerr API key user-level** (known issue #1): `getMediaCount()` masih 403. Stats sudah dialihkan ke snapshot library, tapi kalau mau akurat untuk status "Available" di hub, regenerate key admin.
 

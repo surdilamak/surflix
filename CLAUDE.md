@@ -31,7 +31,7 @@ Domain map (as of 2026-05-15):
 Lihat [`ARCHITECTURE.md`](./ARCHITECTURE.md) buat detail lengkap.
 
 **TL;DR Stack**:
-- Next.js 14 (App Router) + TypeScript + Tailwind
+- Next.js 15 (App Router, React 19) + TypeScript + Tailwind 3
 - Prisma + SQLite (file:`/data/surflix.db`)
 - Iron Session (admin auth, cookie-based)
 - bcryptjs (password hashing)
