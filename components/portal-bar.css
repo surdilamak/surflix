@@ -4,12 +4,11 @@
  * Mewarisi font situs induknya; warna lewat --pb-*.
  */
 .pb-bar {
-  position: relative; z-index: 60;
+  position: sticky; top: 0; z-index: 60;
   background: var(--pb-bg, #0d0d0f);
   color: var(--pb-ink, #fff);
   font-size: 14px; line-height: 1.2; font-weight: 500; letter-spacing: 0;
 }
-.pb-bar[data-sticky] { position: sticky; top: 0; }
 .pb-in {
   display: flex; align-items: center; gap: 12px;
   width: 100%; max-width: var(--pb-max, none); margin-inline: auto;

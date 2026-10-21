@@ -1,6 +1,7 @@
 /**
  * PortalBar — satu bar yang sama di atas Request Hub dan Reference, satu baris: logo (ke landing)
  * + nama portal, tautan lokal, pilihan situs (pill, yang aktif oranye) dan pilihan bahasa.
+ * Bar-nya menempel di atas (sticky) di semua halaman.
  * Di telepon: pill situs + tombol hamburger; menu hamburger memuat tautan lokal, bahasa, dan
  * tautan ke beranda Surflix. Warna lewat --pb-bg / --pb-ink supaya menyatu dengan bidang gelap tiap situs.
  */
@@ -31,12 +32,10 @@ function LangPills({ className }: { className?: string }) {
 export function PortalBar({
   current,
   nav,
-  sticky,
 }: {
   current: PortalSite;
   /** tautan lokal situs (Home/Trending…, All maps/Galaxy) yang duduk di baris yang sama */
   nav?: React.ReactNode;
-  sticky?: boolean;
 }) {
   const { homeHref, hubHref, referenceHref } = usePortal();
   const config = useAppConfig();
@@ -56,7 +55,7 @@ export function PortalBar({
   }, [open]);
 
   const items: Array<{ key: string; href: string; label: React.ReactNode; site?: PortalSite; external?: boolean }> = [
-    { key: 'streaming', href: streaming, label: t('pb.streaming'), external: true },
+    { key: 'reference', href: referenceHref('/'), site: 'reference', label: t('pb.reference') },
     {
       key: 'hub',
       href: hubHref('/'),
@@ -68,11 +67,11 @@ export function PortalBar({
         </>
       ),
     },
-    { key: 'reference', href: referenceHref('/'), site: 'reference', label: t('pb.reference') },
+    { key: 'streaming', href: streaming, label: t('pb.streaming'), external: true },
   ];
 
   return (
-    <div className="pb-bar" data-sticky={sticky ? '' : undefined} data-open={open ? '' : undefined}>
+    <div className="pb-bar" data-open={open ? '' : undefined}>
       <div className="pb-in">
         <a href={homeHref('/')} className="pb-logo" aria-label={t('pb.home')}>
           {/* eslint-disable-next-line @next/next/no-img-element */}

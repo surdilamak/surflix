@@ -14,8 +14,8 @@ export function PortalHeader() {
   return (
     <nav className="pb-nav" aria-label="Reference">
       <a href={`${portalPath('/') || '/'}#peta`}>{t('nav.maps')}</a>
-      <a href={portalPath('/galaxy') || '/galaxy'}>{t('nav.galaxy')}</a>
       <a href={portalPath('/timeline') || '/timeline'}>{t('nav.timeline')}</a>
+      <a href={portalPath('/galaxy') || '/galaxy'}>{t('nav.galaxy')}</a>
       <a href={portalPath('/new') || '/new'}>{t('nav.new')}</a>
     </nav>
   );

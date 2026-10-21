@@ -317,6 +317,19 @@ export default async function LandingPage({ searchParams }: { searchParams?: Pro
             </div>
           ))}
         </div>
+
+        <div className="lp-ref-ways">
+          <p className="lp-ways-eyebrow" data-reveal>{t('lp.ref.waysH')}</p>
+          {(['maps', 'order', 'galaxy'] as const).map((k, i) => (
+            <div key={k} data-reveal style={{ '--d': `${i * 80}ms` } as CssVars}>
+              <h3>{t(`lp.ref.way.${k}`)}</h3>
+              <p>{t(`lp.ref.way.${k}.text`)}</p>
+              <a href={`${referenceHome}${{ maps: '/', order: '/timeline', galaxy: '/galaxy' }[k]}`}>
+                {t(`lp.ref.way.${k}.link`)}
+              </a>
+            </div>
+          ))}
+        </div>
       </section>
 
       {/* ── Numbers: stepped figure tiles ───────────────────────────────────── */}
