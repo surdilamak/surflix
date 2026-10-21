@@ -5,6 +5,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { writeLangPref } from '@/lib/lang-pref';
 
 export function LandingFx() {
   useEffect(() => {
@@ -53,7 +55,14 @@ export function LandingFx() {
   return null;
 }
 
-export function CoffeeButton({ className, children }: { className?: string; children: React.ReactNode }) {
+export interface CoffeeLabels {
+  title: string;
+  alt: string;
+  thanks: string;
+  close: string;
+}
+
+export function CoffeeButton({ className, children, labels }: { className?: string; children: React.ReactNode; labels: CoffeeLabels }) {
   const [open, setOpen] = useState(false);
   const closeRef = useRef<HTMLButtonElement>(null);
 
@@ -71,18 +80,42 @@ export function CoffeeButton({ className, children }: { className?: string; chil
         {children}
       </button>
       {open && (
-        <div className="lp-modal" onClick={() => setOpen(false)} role="dialog" aria-modal="true" aria-label="Buy me a coffee">
+        <div className="lp-modal" onClick={() => setOpen(false)} role="dialog" aria-modal="true" aria-label={labels.title}>
           <div className="lp-modal-card" onClick={(e) => e.stopPropagation()}>
-            <button ref={closeRef} type="button" className="lp-modal-close" onClick={() => setOpen(false)} aria-label="Close">
+            <button ref={closeRef} type="button" className="lp-modal-close" onClick={() => setOpen(false)} aria-label={labels.close}>
               ×
             </button>
             {/* QR sudah membawa branding QRIS sendiri; tampil apa adanya. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/qr-coffee.png" alt="Surflix coffee donation QR code" width={268} height={268} />
-            <p>Thanks for keeping the projector humming.</p>
+            <img src="/qr-coffee.png" alt={labels.alt} width={268} height={268} />
+            <p>{labels.thanks}</p>
           </div>
         </div>
       )}
     </>
+  );
+}
+
+/** Pilihan bahasa landing: tulis cookie bersama, lalu muat ulang HTML server dalam bahasa baru. */
+export function LangToggle({ lang, label }: { lang: 'en' | 'id'; label: string }) {
+  const router = useRouter();
+  const pick = (l: 'en' | 'id') => {
+    writeLangPref(l);
+    // ?lang= di URL akan menimpa cookie; buang supaya pilihan baru berlaku
+    const url = new URL(window.location.href);
+    if (url.searchParams.has('lang')) {
+      url.searchParams.delete('lang');
+      window.history.replaceState(null, '', url.pathname + url.search + url.hash);
+    }
+    router.refresh();
+  };
+  return (
+    <span className="lp-lang" role="group" aria-label={label}>
+      {(['en', 'id'] as const).map((l) => (
+        <button key={l} type="button" onClick={() => pick(l)} aria-pressed={lang === l}>
+          {l.toUpperCase()}
+        </button>
+      ))}
+    </span>
   );
 }

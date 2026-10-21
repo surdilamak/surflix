@@ -9,23 +9,19 @@ import { headers } from 'next/headers';
 import { getLandingData, type LandingFilm } from '@/lib/landing-data';
 import { getServerId, posterUrl, watchUrl } from '@/lib/jellyfin';
 import { buildPortalUrls } from '@/lib/portal-urls';
-import { CoffeeButton, LandingFx } from './landing-fx';
+import { translate } from '@/lib/i18n';
+import { getServerLang } from '@/lib/lang-server';
+import { CoffeeButton, LandingFx, LangToggle } from './landing-fx';
 
 export const dynamic = 'force-dynamic';
 
-const REL_LABEL: Record<string, string> = {
-  homage: 'Homage',
-  inspired: 'Inspired',
-  visual: 'Borrowed look',
-  remake: 'Remake',
-};
 const REL_COLOR: Record<string, string> = {
   homage: '#ff5200',
   inspired: '#4f8ff0',
   visual: '#c9c3b4',
   remake: '#1fbf94',
 };
-const fmt = (n: number) => n.toLocaleString('en-US');
+const fmt = (n: number, lang: 'en' | 'id' = 'en') => n.toLocaleString(lang === 'id' ? 'id-ID' : 'en-US');
 const yearOf = (f: { year: number | null }) => (f.year ? `, ${f.year}` : '');
 
 type CssVars = React.CSSProperties & Record<`--${string}`, string | number>;
@@ -80,7 +76,9 @@ function Mosaic({ cols, rows, img, alt, specials, only }: { cols: number; rows: 
   );
 }
 
-export default async function LandingPage() {
+export default async function LandingPage({ searchParams }: { searchParams?: Promise<{ lang?: string }> }) {
+  const lang = await getServerLang((await searchParams)?.lang);
+  const t = (key: string, vars?: Record<string, string | number>) => translate(lang, key, vars);
   const h = await headers();
   const host = (h.get('x-forwarded-host') ?? h.get('host') ?? '').split(',')[0].split(':')[0];
   const proto = h.get('x-forwarded-proto')?.split(',')[0] ?? (host === 'localhost' || /^\d/.test(host) ? 'http' : 'https');
@@ -98,7 +96,7 @@ export default async function LandingPage() {
   const mapOf = (f: { mediaType: string; tmdbId: number }) => urls.referenceHref(`/${f.mediaType}/${f.tmdbId}`);
   const backdrop = showcase && base ? `${base}/Items/${showcase.jellyfinId}/Images/Backdrop?maxWidth=1920&quality=82` : '';
 
-  const mosaicAlt = showcase ? `A scene from ${showcase.title}` : '';
+  const mosaicAlt = showcase ? t('lp.scene', { title: showcase.title }) : '';
 
   // Hero: enam kolom poster, dibagi bergiliran; kolom 3 dan 4 menyisakan ruang buat panel teks.
   const columns = Array.from({ length: 6 }, (_, c) => hero.filter((_, i) => i % 6 === c));
@@ -109,10 +107,10 @@ export default async function LandingPage() {
       href={watchFilm(f)}
       data-c={(c + row) % 4}
       style={{ '--i': idx } as CssVars}
-      aria-label={`Watch ${f.title}`}
+      aria-label={t('lp.watch', { title: f.title })}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={poster(f)} width={240} height={360} alt={`${f.title} poster`} loading={idx < 12 ? 'eager' : 'lazy'} decoding="async" />
+      <img src={poster(f)} width={240} height={360} alt={t('lp.poster', { title: f.title })} loading={idx < 12 ? 'eager' : 'lazy'} decoding="async" />
       <span className="lp-strip" aria-hidden="true">
         {f.title}
         {yearOf(f)}
@@ -121,20 +119,20 @@ export default async function LandingPage() {
   );
 
   const showcaseDesktop: Special[] = [
-    { row: 0, col: 0, tone: 'paper', node: <h2 className="lp-tile-h">Streaming</h2> },
-    { row: 1, col: 3, tone: 'surface', node: <p className="lp-fact">{fmt(stats.movies)} films</p> },
-    { row: 2, col: 0, tone: 'surface', node: <p className="lp-fact">{fmt(stats.series)} series</p> },
-    { row: 2, col: 5, tone: 'surface', node: <p className="lp-fact">No ads, no tracking</p> },
+    { row: 0, col: 0, tone: 'paper', node: <h2 className="lp-tile-h">{t('lp.streaming')}</h2> },
+    { row: 1, col: 3, tone: 'surface', node: <p className="lp-fact">{t('lp.films', { n: fmt(stats.movies, lang) })}</p> },
+    { row: 2, col: 0, tone: 'surface', node: <p className="lp-fact">{t('lp.series', { n: fmt(stats.series, lang) })}</p> },
+    { row: 2, col: 5, tone: 'surface', node: <p className="lp-fact">{t('lp.noAds')}</p> },
     {
       row: 3, col: 2, tone: 'accent',
-      node: <a className="lp-tile-action" href={watchHome}>Open the library</a>,
+      node: <a className="lp-tile-action" href={watchHome}>{t('lp.openStreaming')}</a>,
     },
   ];
   const showcaseMobile: Special[] = [
-    { row: 0, col: 0, span: 2, tone: 'paper', node: <h2 className="lp-tile-h">Streaming</h2> },
-    { row: 2, col: 2, tone: 'surface', node: <p className="lp-fact">{fmt(stats.movies)} films</p> },
-    { row: 3, col: 0, tone: 'surface', node: <p className="lp-fact">{fmt(stats.series)} series</p> },
-    { row: 5, col: 2, tone: 'accent', node: <a className="lp-tile-action" href={watchHome}>Open the library</a> },
+    { row: 0, col: 0, span: 2, tone: 'paper', node: <h2 className="lp-tile-h">{t('lp.streaming')}</h2> },
+    { row: 2, col: 2, tone: 'surface', node: <p className="lp-fact">{t('lp.films', { n: fmt(stats.movies, lang) })}</p> },
+    { row: 3, col: 0, tone: 'surface', node: <p className="lp-fact">{t('lp.series', { n: fmt(stats.series, lang) })}</p> },
+    { row: 5, col: 2, tone: 'accent', node: <a className="lp-tile-action" href={watchHome}>{t('lp.openStreaming')}</a> },
   ];
 
   // Masonry: enam kolom dengan jumlah berbeda (dasar kolom sengaja tidak rata), rasio gambar bergantian
@@ -143,9 +141,12 @@ export default async function LandingPage() {
   let at = 0;
   const mcols = sizes.map((n) => gallery.slice(at, (at += n)));
 
+  const coffeeLabels = { title: t('lp.coffee'), alt: t('lp.coffee.alt'), thanks: t('lp.coffee.thanks'), close: t('lp.close') };
+
   return (
     <>
       <LandingFx />
+      <LangToggle lang={lang} label={t('lp.lang')} />
 
       {/* ── Hero: a sheet of posters with one text cell ─────────────────────── */}
       <section id="top" className="lp-hero" aria-label="Surflix">
@@ -167,12 +168,12 @@ export default async function LandingPage() {
           <div className="lp-panel">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img className="lp-logo" src="/logo-wordmark.png" alt="" width={102} height={28} />
-            <h1>A private cinema for friends and family.</h1>
-            <a className="lp-btn" href={watchHome}>Start watching</a>
+            <h1>{t('lp.h1')}</h1>
+            <a className="lp-btn" href={watchHome}>{t('lp.start')}</a>
             <p className="lp-panel-links">
-              <a href={requestHome}>Request a film</a>
-              <a href={referenceHome}>Surflix Reference</a>
-              <a href="#about">About</a>
+              <a href={requestHome}>{t('lp.links.hub')}</a>
+              <a href={referenceHome}>{t('lp.links.ref')}</a>
+              <a href="#about">{t('lp.links.about')}</a>
             </p>
           </div>
         </div>
@@ -181,8 +182,7 @@ export default async function LandingPage() {
       {/* ── Streaming: one photograph cut across a board ────────────────────── */}
       <section className="lp-section lp-section--bg lp-streaming" aria-labelledby="sr-streaming">
         <p className="lp-lead lp-intro" data-reveal>
-          One library, three doors. Streaming to watch, Request Hub to ask for more, Surflix Reference to follow the
-          connections.
+          {t('lp.intro')}
         </p>
         {backdrop ? (
           <>
@@ -191,14 +191,15 @@ export default async function LandingPage() {
           </>
         ) : null}
         <p id="sr-streaming" className="lp-lead lp-lead--below" data-reveal>
-          Hand-picked films and series, ready to play in your browser. Pick one and press play.
+          {t('lp.below')}
         </p>
+        <a className="lp-btn lp-btn--go" href={watchHome} data-reveal>{t('lp.openStreaming')}</a>
       </section>
 
       {/* ── Request Hub: three tiles that grow ──────────────────────────────── */}
       <section className="lp-section lp-section--paper lp-request" aria-labelledby="request-h">
         <div className="lp-grow">
-          <h2 id="request-h" className="lp-head" data-reveal>Request Hub</h2>
+          <h2 id="request-h" className="lp-head" data-reveal>{t('lp.hub.h')}</h2>
 
           <div className="lp-stage-col lp-stage-col--1" data-reveal style={{ '--d': '0ms' } as CssVars}>
             <div className="lp-stage-tile" data-tone="ink">
@@ -214,11 +215,11 @@ export default async function LandingPage() {
                   </span>
                 </div>
                 <div className="lp-ui-field">Maya</div>
-                <div className="lp-ui-btn">Request</div>
+                <div className="lp-ui-btn">{t('lp.hub.ui.request')}</div>
               </div>
             </div>
-            <h3>Asked</h3>
-            <p>Type a title and your name. No account, no password.</p>
+            <h3>{t('lp.hub.asked')}</h3>
+            <p>{t('lp.hub.askedText')}</p>
           </div>
 
           <div className="lp-stage-col lp-stage-col--2" data-reveal style={{ '--d': '90ms' } as CssVars}>
@@ -231,15 +232,15 @@ export default async function LandingPage() {
                   )}
                   <span>
                     <b>{demo?.title ?? 'Dune: Part Two'}</b>
-                    <small>Approved</small>
+                    <small>{t('lp.hub.ui.approved')}</small>
                   </span>
                 </div>
                 <div className="lp-ui-bar"><i style={{ width: '64%' }} /></div>
-                <div className="lp-ui-meta"><span>Downloading to the server</span><span>64%</span></div>
+                <div className="lp-ui-meta"><span>{t('lp.hub.ui.downloading')}</span><span>64%</span></div>
               </div>
             </div>
-            <h3>Approved</h3>
-            <p>I get a message and approve it. The film starts downloading to the server.</p>
+            <h3>{t('lp.hub.approved')}</h3>
+            <p>{t('lp.hub.approvedText')}</p>
           </div>
 
           <div className="lp-stage-col lp-stage-col--3" data-reveal style={{ '--d': '180ms' } as CssVars}>
@@ -247,14 +248,14 @@ export default async function LandingPage() {
               <div className="lp-ui-ready" data-ui>
                 {demo && (
                   // eslint-disable-next-line @next/next/no-img-element
-                  <img src={poster(demo, 480)} width={240} height={360} alt={`${demo.title} poster`} />
+                  <img src={poster(demo, 480)} width={240} height={360} alt={t('lp.poster', { title: demo.title })} />
                 )}
-                <span className="lp-ui-btn lp-ui-btn--accent">Watch now</span>
+                <span className="lp-ui-btn lp-ui-btn--accent">{t('lp.hub.ui.watch')}</span>
               </div>
             </div>
-            <h3>Ready to watch</h3>
-            <p>Turn on notifications and you hear when it lands. One tap opens it in the library.</p>
-            <a className="lp-btn lp-btn--ink" href={requestHome}>Request a film</a>
+            <h3>{t('lp.hub.ready')}</h3>
+            <p>{t('lp.hub.readyText')}</p>
+            <a className="lp-btn lp-btn--go" href={requestHome}>{t('lp.openHub')}</a>
           </div>
         </div>
       </section>
@@ -266,31 +267,28 @@ export default async function LandingPage() {
             <a className="lp-spot" href={mapOf(spotlight.from)} data-reveal>
               <span className="lp-spot-pair">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={poster(spotlight.from, 240)} width={72} height={108} alt={`${spotlight.from.title} poster`} />
+                <img src={poster(spotlight.from, 240)} width={72} height={108} alt={t('lp.poster', { title: spotlight.from.title })} />
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={poster(spotlight.to, 240)} width={72} height={108} alt={`${spotlight.to.title} poster`} />
+                <img src={poster(spotlight.to, 240)} width={72} height={108} alt={t('lp.poster', { title: spotlight.to.title })} />
               </span>
               <span className="lp-spot-text">
                 <span className="lp-spot-rel">
                   <i style={{ background: REL_COLOR[spotlight.relationship] ?? '#fff' }} aria-hidden="true" />
-                  {REL_LABEL[spotlight.relationship] ?? spotlight.relationship}
+                  {t(`lp.rel.${spotlight.relationship}`)}
                 </span>
                 <b>
                   {spotlight.from.title}
-                  {yearOf(spotlight.from)} and {spotlight.to.title}
+                  {yearOf(spotlight.from)} {t('lp.ref.and')} {spotlight.to.title}
                   {yearOf(spotlight.to)}
                 </b>
-                <span className="lp-spot-reason">{spotlight.reason}</span>
+                <span className="lp-spot-reason">{lang === 'id' ? spotlight.reasonId || spotlight.reason : spotlight.reason}</span>
               </span>
             </a>
           )}
-          <h2 id="reference-h" className="lp-head" data-reveal>Surflix Reference</h2>
+          <h2 id="reference-h" className="lp-head" data-reveal>{t('lp.ref.h')}</h2>
           <div className="lp-ref-text" data-reveal style={{ '--d': '90ms' } as CssVars}>
-            <p>
-              Every film borrows from another. The map shows who borrowed what: homages, borrowed looks and shared
-              directors.
-            </p>
-            <a className="lp-btn" href={referenceHome}>Explore the map</a>
+            <p>{t('lp.ref.text')}</p>
+            <a className="lp-btn lp-btn--go" href={referenceHome}>{t('lp.openRef')}</a>
           </div>
         </div>
 
@@ -305,14 +303,14 @@ export default async function LandingPage() {
                       src={poster(f, 360)}
                       width={240}
                       height={360}
-                      alt={`${f.title} poster`}
+                      alt={t('lp.poster', { title: f.title })}
                       loading="lazy"
                       decoding="async"
                       style={{ aspectRatio: ratios[(c + row * 3) % ratios.length] }}
                     />
                   </a>
                   <figcaption>
-                    {f.title}, {f.count} {f.count === 1 ? 'connection' : 'connections'}
+                    {t(f.count === 1 ? 'lp.ref.connection' : 'lp.ref.connections', { title: f.title, n: f.count })}
                   </figcaption>
                 </figure>
               ))}
@@ -325,47 +323,46 @@ export default async function LandingPage() {
       <section className="lp-section lp-section--paper lp-stats" aria-labelledby="stats-h">
         <div className="lp-stats-grid">
           <div className="lp-fig lp-fig--1" data-tone="accent">
-            <b data-count={stats.movies}>{fmt(stats.movies)}</b>
-            <span>films</span>
-            <p className="lp-fig-note">From silent classics to this year’s releases.</p>
+            <b data-count={stats.movies}>{fmt(stats.movies, lang)}</b>
+            <span>{t('lp.stats.films')}</span>
+            <p className="lp-fig-note">{t('lp.stats.filmsNote')}</p>
           </div>
-          <h2 id="stats-h" className="lp-stats-h">The library in numbers</h2>
+          <h2 id="stats-h" className="lp-stats-h">{t('lp.stats.h')}</h2>
           <div className="lp-fig lp-fig--2" data-tone="ink">
-            <b data-count={stats.series}>{fmt(stats.series)}</b>
-            <span>series</span>
-            <p className="lp-fig-note">Whole seasons, ready to binge.</p>
+            <b data-count={stats.series}>{fmt(stats.series, lang)}</b>
+            <span>{t('lp.stats.series')}</span>
+            <p className="lp-fig-note">{t('lp.stats.seriesNote')}</p>
           </div>
           <div className="lp-fig lp-fig--3" data-tone="mid">
-            <b data-count={stats.mapped}>{fmt(stats.mapped)}</b>
-            <span>titles with a connection map</span>
-            <p className="lp-fig-note">Each links to the films it borrows from and the ones that borrowed from it.</p>
+            <b data-count={stats.mapped}>{fmt(stats.mapped, lang)}</b>
+            <span>{t('lp.stats.mapped')}</span>
+            <p className="lp-fig-note">{t('lp.stats.mappedNote')}</p>
           </div>
         </div>
       </section>
 
       {/* ── About: wide photo, colour tile, facts ───────────────────────────── */}
       <section id="about" className="lp-section lp-section--bg lp-about" aria-labelledby="about-h">
-        <h2 id="about-h" className="lp-head lp-head--about" data-reveal>Made at home</h2>
+        <h2 id="about-h" className="lp-head lp-head--about" data-reveal>{t('lp.about.h')}</h2>
         <p className="lp-about-lead" data-reveal style={{ '--d': '60ms' } as CssVars}>
-          Surflix is a private library I built for friends and family. I run it on a server at home and look after it
-          myself.
+          {t('lp.about.lead')}
         </p>
         <div className="lp-about-row">
           <figure className="lp-about-photo" data-reveal>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/images/projector.jpg" width={1920} height={1200} alt="A 16mm film projector running in a dark room" loading="lazy" decoding="async" />
-            <p>There are no ads and no tracking, and nothing here is trying to keep you scrolling. Pick something and settle in.</p>
+            <img src="/images/projector.jpg" width={1920} height={1200} alt={t('lp.about.photoAlt')} loading="lazy" decoding="async" />
+            <p>{t('lp.about.text')}</p>
           </figure>
           <div className="lp-about-side" data-reveal style={{ '--d': '90ms' } as CssVars}>
             <div className="lp-about-mark">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/logo-mark.png" width={186} height={186} alt="Surflix logo mark" />
+              <img src="/logo-mark.png" width={186} height={186} alt={t('lp.about.mark')} />
             </div>
             <dl className="lp-facts">
-              <div><dt>Hosted</dt><dd>At home</dd></div>
-              <div><dt>Ads</dt><dd>None</dd></div>
-              <div><dt>Tracking</dt><dd>None</dd></div>
-              <div><dt>Running since</dt><dd>2022</dd></div>
+              <div><dt>{t('lp.about.hosted')}</dt><dd>{t('lp.about.hostedV')}</dd></div>
+              <div><dt>{t('lp.about.ads')}</dt><dd>{t('lp.about.none')}</dd></div>
+              <div><dt>{t('lp.about.tracking')}</dt><dd>{t('lp.about.none')}</dd></div>
+              <div><dt>{t('lp.about.since')}</dt><dd>2022</dd></div>
             </dl>
           </div>
         </div>
@@ -381,12 +378,9 @@ export default async function LandingPage() {
             )}
           </div>
           <div className="lp-cta-main">
-            <h2 id="cta-h" className="lp-cta-h">Keep the projector humming</h2>
-            <p>
-              Servers hum, storage fills up, and curation happens at strange hours. If Surflix earned a spot in your
-              week, you can chip in for the coffee.
-            </p>
-            <CoffeeButton className="lp-btn lp-btn--ink">Buy me a coffee</CoffeeButton>
+            <h2 id="cta-h" className="lp-cta-h">{t('lp.cta.h')}</h2>
+            <p>{t('lp.cta.text')}</p>
+            <CoffeeButton className="lp-btn lp-btn--ink" labels={coffeeLabels}>{t('lp.coffee')}</CoffeeButton>
           </div>
           <div className="lp-cta-flank lp-cta-flank--flat" aria-hidden="true" />
         </div>
@@ -395,28 +389,28 @@ export default async function LandingPage() {
       {/* ── Footer: the mark, built large ───────────────────────────────────── */}
       <footer className="lp-footer">
         <div className="lp-foot-grid">
-          <nav className="lp-foot-cols" aria-label="Footer">
+          <nav className="lp-foot-cols" aria-label={t('lp.foot.label')}>
             <div>
-              <h3>Streaming</h3>
-              <a href={watchHome}>Open the library</a>
+              <h3>{t('lp.streaming')}</h3>
+              <a href={watchHome}>{t('lp.openStreaming')}</a>
             </div>
             <div>
-              <h3>Request Hub</h3>
-              <a href={requestHome}>Request a film</a>
-              <a href={urls.hubHref('/requests')}>My requests</a>
+              <h3>{t('lp.hub.h')}</h3>
+              <a href={requestHome}>{t('lp.foot.request')}</a>
+              <a href={urls.hubHref('/requests')}>{t('lp.foot.mine')}</a>
             </div>
             <div>
-              <h3>Surflix Reference</h3>
-              <a href={referenceHome}>All maps</a>
-              <a href={urls.referenceHref('/galaxy')}>Galaxy</a>
+              <h3>{t('lp.ref.h')}</h3>
+              <a href={referenceHome}>{t('lp.foot.maps')}</a>
+              <a href={urls.referenceHref('/galaxy')}>{t('lp.foot.galaxy')}</a>
             </div>
             <div>
-              <h3>Support</h3>
-              <CoffeeButton className="lp-link-btn">Buy me a coffee</CoffeeButton>
+              <h3>{t('lp.foot.support')}</h3>
+              <CoffeeButton className="lp-link-btn" labels={coffeeLabels}>{t('lp.coffee')}</CoffeeButton>
             </div>
           </nav>
           <p className="lp-foot-note">
-            Self-hosted at surdi Homelab. Built and looked after by one person.
+            {t('lp.foot.note')}
           </p>
         </div>
         <div className="lp-mark" role="img" aria-label="Surflix">
@@ -429,10 +423,10 @@ export default async function LandingPage() {
         <div className="lp-foot-last">
           <span>© {new Date().getFullYear()} Surflix</span>
           <span className="lp-credit">
-            Photo: <a href="https://commons.wikimedia.org/wiki/File:16mm_Projector_with_%27cakestand%27.JPG">“16mm Projector with ‘cakestand’”</a> by
-            YellowFratello, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, via Wikimedia Commons.
+            {t('lp.foot.photo')} <a href="https://commons.wikimedia.org/wiki/File:16mm_Projector_with_%27cakestand%27.JPG">“16mm Projector with ‘cakestand’”</a> {t('lp.foot.by')}
+            YellowFratello, <a href="https://creativecommons.org/licenses/by-sa/4.0">CC BY-SA 4.0</a>, {t('lp.foot.via')}
           </span>
-          <a className="lp-btn lp-btn--small" href="#top">Back to top</a>
+          <a className="lp-btn lp-btn--small" href="#top">{t('lp.top')}</a>
         </div>
       </footer>
     </>

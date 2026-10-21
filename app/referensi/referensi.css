@@ -120,6 +120,8 @@
 /* ── Entrance saat scroll ── */
 .ref-reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); transition-delay: var(--d, 0ms); }
 .ref-reveal.is-in { opacity: 1; transform: none; }
+/* Telepon: konten langsung tampil. Pop-in saat scroll cepat atau lompat ke jangkar meninggalkan blok kosong. */
+@media (max-width: 767px) { .ref-reveal { opacity: 1; transform: none; transition: none; } }
 
 /* ── Contact sheet ── */
 .ref-sheet { padding: clamp(100px, 11vw, 160px) var(--margin) clamp(72px, 7vw, 100px); background: var(--bg); }

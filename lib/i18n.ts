@@ -5,6 +5,7 @@
  */
 
 import { hubEn, hubId } from './i18n-hub';
+import { landingEn, landingId } from './i18n-landing';
 
 export type Lang = 'en' | 'id';
 export const LANGS: Lang[] = ['en', 'id'];
@@ -13,6 +14,7 @@ type Dict = Record<string, string>;
 
 const en: Dict = {
   ...hubEn,
+  ...landingEn,
   // nav
   'nav.maps': 'All maps',
   'nav.hub': 'Request Hub',
@@ -127,6 +129,7 @@ const en: Dict = {
 
 const id: Dict = {
   ...hubId,
+  ...landingId,
   'nav.maps': 'Semua peta',
   'nav.hub': 'Request Hub',
   'nav.watch': 'Tonton',

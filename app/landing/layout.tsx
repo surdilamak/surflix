@@ -4,6 +4,8 @@
  */
 import type { Metadata } from 'next';
 import { Bricolage_Grotesque } from 'next/font/google';
+import { translate } from '@/lib/i18n';
+import { getServerLang } from '@/lib/lang-server';
 import './landing.css';
 
 const font = Bricolage_Grotesque({
@@ -12,11 +14,10 @@ const font = Bricolage_Grotesque({
   display: 'swap',
 });
 
-export const metadata: Metadata = {
-  title: 'Surflix: a private cinema for friends and family',
-  description:
-    'Hand-picked films and series to watch, a request desk for what is missing, and a map of how titles connect. No ads, no tracking.',
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const lang = await getServerLang();
+  return { title: translate(lang, 'lp.meta.title'), description: translate(lang, 'lp.meta.desc') };
+}
 
 export default function LandingLayout({ children }: { children: React.ReactNode }) {
   return (

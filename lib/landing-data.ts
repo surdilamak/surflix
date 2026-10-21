@@ -22,6 +22,7 @@ export interface LandingPair {
   to: LandingFilm;
   relationship: string;
   reason: string;
+  reasonId?: string;
 }
 
 const TTL_MS = 10 * 60 * 1000;
@@ -53,7 +54,7 @@ async function connected() {
       const k = `${key(from.mediaType, from.tmdbId)}>${key(to.mediaType, to.tmdbId)}`;
       if (seen.has(k)) continue;
       seen.add(k);
-      pairs.push({ from, to, relationship: r.relationship, reason: r.reasonEn });
+      pairs.push({ from, to, relationship: r.relationship, reason: r.reasonEn, reasonId: r.reason });
     }
   }
   return (cache = { at: Date.now(), films, pairs });

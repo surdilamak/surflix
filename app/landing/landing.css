@@ -389,3 +389,20 @@
   .lp-js .lp-mosaic[data-shutter] .lp-pic { clip-path: none; }
   .lp-js .lp-mosaic[data-shutter] .lp-pic img { transform: none; }
 }
+
+/* ── CTA tiga situs: satu bentuk, panah di ujung ── */
+.lp-root .lp-btn--go::after { content: '→'; margin-left: 10px; }
+.lp-streaming > .lp-btn { display: flex; width: fit-content; margin: 24px var(--m) 0; }
+
+/* ── Pilihan bahasa ── */
+.lp-lang {
+  position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); right: var(--m); z-index: 20;
+  display: inline-flex; gap: 2px; padding: 4px; border-radius: 999px; background: var(--surface-2);
+}
+.lp-lang button {
+  min-width: 44px; min-height: 40px; padding: 0 8px; border: 0; border-radius: 999px; cursor: pointer;
+  background: transparent; color: var(--muted); font: inherit; font-size: 13px; font-weight: 600; letter-spacing: 0.02em;
+  transition: background 0.18s, color 0.18s;
+}
+.lp-lang button:hover { color: var(--ink); }
+.lp-lang button[aria-pressed='true'] { background: var(--ink); color: var(--bg); }
