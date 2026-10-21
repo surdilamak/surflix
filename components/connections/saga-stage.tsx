@@ -220,7 +220,8 @@ export function SagaStage({
         const [a, b] = [...pointers.values()];
         pinch = Math.hypot(a.x - b.x, a.y - b.y);
       }
-      view.setPointerCapture(ev.pointerId);
+      // sengaja TANPA setPointerCapture: menangkap pointer di panggung bikin klik mendarat
+      // di panggung, bukan di kartunya. Gerakan diikuti lewat window supaya tetap jalan di luar panggung.
       view.dataset.grabbing = '';
     };
     const onMove = (ev: PointerEvent) => {
@@ -256,16 +257,16 @@ export function SagaStage({
 
     view.addEventListener('wheel', onWheel, { passive: false });
     view.addEventListener('pointerdown', onDown);
-    view.addEventListener('pointermove', onMove);
-    view.addEventListener('pointerup', onUp);
-    view.addEventListener('pointercancel', onUp);
+    window.addEventListener('pointermove', onMove);
+    window.addEventListener('pointerup', onUp);
+    window.addEventListener('pointercancel', onUp);
     view.addEventListener('dblclick', onDouble);
     return () => {
       view.removeEventListener('wheel', onWheel);
       view.removeEventListener('pointerdown', onDown);
-      view.removeEventListener('pointermove', onMove);
-      view.removeEventListener('pointerup', onUp);
-      view.removeEventListener('pointercancel', onUp);
+      window.removeEventListener('pointermove', onMove);
+      window.removeEventListener('pointerup', onUp);
+      window.removeEventListener('pointercancel', onUp);
       view.removeEventListener('dblclick', onDouble);
       cancelAnimationFrame(raf.current);
     };

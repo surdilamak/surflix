@@ -4,7 +4,7 @@
  * Murni baca DB (tanpa LLM). Daftar film di-cache 10 menit; pilihan koneksi diacak per request.
  */
 import { prisma } from '@/lib/db';
-import { libraryIndex, listConnectedFilms } from '@/lib/connections';
+import { libraryIndex, listConnectedFilms, listSagas } from '@/lib/connections';
 
 export interface LandingFilm {
   tmdbId: number;
@@ -13,6 +13,13 @@ export interface LandingFilm {
   year: number | null;
   jellyfinId: string;
   count: number;
+}
+
+/** Satu saga buat gambar kecil "urutan tonton" di landing. */
+export interface LandingSaga {
+  id: string;
+  name: string;
+  titles: LandingFilm[];
 }
 
 export interface LandingPair {
@@ -27,7 +34,7 @@ export interface LandingPair {
 
 const TTL_MS = 10 * 60 * 1000;
 const CINEMATIC = new Set(['homage', 'inspired', 'visual', 'remake']);
-let cache: { at: number; films: LandingFilm[]; pairs: LandingPair[] } | null = null;
+let cache: { at: number; films: LandingFilm[]; pairs: LandingPair[]; saga: LandingSaga | null } | null = null;
 
 async function connected() {
   if (cache && Date.now() - cache.at < TTL_MS) return cache;
@@ -57,7 +64,28 @@ async function connected() {
       pairs.push({ from, to, relationship: r.relationship, reason: r.reasonEn, reasonId: r.reason });
     }
   }
-  return (cache = { at: Date.now(), films, pairs });
+  // satu saga yang posternya lengkap, buat gambar kecil Watch order
+  const sagas = await listSagas(6).catch(() => []);
+  const pick = sagas.find((x) => x.entries.filter((e) => e.jellyfinId).length >= 4) ?? null;
+  const saga: LandingSaga | null = pick
+    ? {
+        id: pick.id,
+        name: pick.name,
+        titles: pick.entries
+          .filter((e) => e.jellyfinId)
+          .slice(0, 4)
+          .map((e) => ({
+            tmdbId: e.tmdbId ?? 0,
+            mediaType: e.mediaType ?? 'movie',
+            title: e.title,
+            year: e.year,
+            jellyfinId: e.jellyfinId as string,
+            count: e.count,
+          })),
+      }
+    : null;
+
+  return (cache = { at: Date.now(), films, pairs, saga });
 }
 
 async function libraryFilm(tmdbId: number): Promise<LandingFilm | null> {
@@ -78,7 +106,7 @@ async function libraryStats() {
 }
 
 export async function getLandingData() {
-  const [{ movies, series, mapped }, { films, pairs }] = await Promise.all([libraryStats(), connected()]);
+  const [{ movies, series, mapped }, { films, pairs, saga }] = await Promise.all([libraryStats(), connected()]);
 
   // 2001 membuka mosaik Streaming (subjek tunggal di tengah, terbaca sebagai potongan ubin).
   const showcase = (await libraryFilm(62)) ?? films[0] ?? null;
@@ -93,5 +121,6 @@ export async function getLandingData() {
     showcase,
     demo,
     spotlight,
+    saga,
   };
 }

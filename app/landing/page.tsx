@@ -15,6 +15,41 @@ import { CoffeeButton, LandingFx, LangToggle } from './landing-fx';
 
 export const dynamic = 'force-dynamic';
 
+/**
+ * Langit kecil buat ubin Galaxy: titik dan garisnya dihitung sekali dengan seed tetap,
+ * jadi hasil server dan klien selalu sama (bukan acak per render).
+ */
+const sky = (() => {
+  const palette = ['#f7941d', '#4f8ff0', '#34c3a0', '#e0405f', '#c77dff', '#d9d4c4', '#ffd166', '#7bdff2'];
+  let seed = 20261021;
+  const rnd = () => ((seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff);
+  const dots = Array.from({ length: 54 }, () => {
+    const a = rnd() * Math.PI * 2;
+    const d = Math.pow(rnd(), 0.62); // menumpuk di tengah seperti galaksi aslinya
+    return {
+      x: +(150 + Math.cos(a) * d * 140).toFixed(1),
+      y: +(75 + Math.sin(a) * d * 62).toFixed(1),
+      r: +(1.3 + rnd() * 2.9).toFixed(1),
+      c: palette[Math.floor(rnd() * palette.length)],
+    };
+  });
+  const links: Array<[number, number]> = [];
+  for (let i = 0; i < dots.length; i++) {
+    let best = -1;
+    let bd = Infinity;
+    for (let j = 0; j < dots.length; j++) {
+      if (j === i) continue;
+      const dd = (dots[i].x - dots[j].x) ** 2 + (dots[i].y - dots[j].y) ** 2;
+      if (dd < bd) {
+        bd = dd;
+        best = j;
+      }
+    }
+    if (best > i) links.push([i, best]);
+  }
+  return { dots, links };
+})();
+
 const REL_COLOR: Record<string, string> = {
   homage: '#ff5200',
   inspired: '#4f8ff0',
@@ -86,7 +121,7 @@ export default async function LandingPage({ searchParams }: { searchParams?: Pro
 
   const base = (process.env.NEXT_PUBLIC_JELLYFIN_URL || process.env.JELLYFIN_URL || '').replace(/\/+$/, '');
   const [data, serverId] = await Promise.all([getLandingData(), getServerId()]);
-  const { stats, hero, gallery, showcase, demo, spotlight } = data;
+  const { stats, hero, gallery, showcase, demo, spotlight, saga } = data;
 
   const watchHome = base || '#';
   const requestHome = urls.hubHref();
@@ -319,16 +354,57 @@ export default async function LandingPage({ searchParams }: { searchParams?: Pro
         </div>
 
         <div className="lp-ref-ways">
-          <p className="lp-ways-eyebrow" data-reveal>{t('lp.ref.waysH')}</p>
-          {(['maps', 'order', 'galaxy'] as const).map((k, i) => (
-            <div key={k} data-reveal style={{ '--d': `${i * 80}ms` } as CssVars}>
-              <h3>{t(`lp.ref.way.${k}`)}</h3>
-              <p>{t(`lp.ref.way.${k}.text`)}</p>
-              <a href={`${referenceHome}${{ maps: '/', order: '/timeline', galaxy: '/galaxy' }[k]}`}>
-                {t(`lp.ref.way.${k}.link`)}
-              </a>
-            </div>
-          ))}
+          <a className="lp-way" href={referenceHome} data-reveal>
+            <span className="lp-way-art lp-art-pair">
+              {spotlight && (
+                <>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={poster(spotlight.from, 200)} width={64} height={96} alt="" />
+                  <i style={{ background: REL_COLOR[spotlight.relationship] ?? '#fff' }} aria-hidden="true" />
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={poster(spotlight.to, 200)} width={64} height={96} alt="" />
+                  <em>{t(`lp.rel.${spotlight.relationship}`)}</em>
+                </>
+              )}
+            </span>
+            <h3>{t('lp.ref.way.maps')}</h3>
+            <p>{t('lp.ref.way.maps.text')}</p>
+            <span className="lp-way-go">{t('lp.ref.way.maps.link')}</span>
+          </a>
+
+          <a className="lp-way" href={`${referenceHome}/timeline`} data-reveal style={{ '--d': '80ms' } as CssVars}>
+            <span className="lp-way-art lp-art-order">
+              <span className="lp-art-rail" aria-hidden="true" />
+              {(saga?.titles ?? []).map((f, i) => (
+                <span key={f.jellyfinId} className="lp-art-step" data-first={i === 0 ? '' : undefined} style={{ gridColumn: i + 1 }}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={poster(f, 200)} width={52} height={78} alt="" />
+                  <i aria-hidden="true" />
+                </span>
+              ))}
+              {saga && <em>{saga.name}</em>}
+            </span>
+            <h3>{t('lp.ref.way.order')}</h3>
+            <p>{t('lp.ref.way.order.text')}</p>
+            <span className="lp-way-go">{t('lp.ref.way.order.link')}</span>
+          </a>
+
+          <a className="lp-way" href={`${referenceHome}/galaxy`} data-reveal style={{ '--d': '160ms' } as CssVars}>
+            <span className="lp-way-art lp-art-sky">
+              <svg viewBox="0 0 300 150" aria-hidden="true" preserveAspectRatio="xMidYMid slice">
+                {sky.links.map(([a, z], i) => (
+                  <line key={i} x1={sky.dots[a].x} y1={sky.dots[a].y} x2={sky.dots[z].x} y2={sky.dots[z].y} stroke="#3a3a42" strokeWidth="1" />
+                ))}
+                {sky.dots.map((d, i) => (
+                  <circle key={i} cx={d.x} cy={d.y} r={d.r} fill={d.c} />
+                ))}
+              </svg>
+              <em>{t('lp.ref.way.galaxy.art', { n: stats.mapped })}</em>
+            </span>
+            <h3>{t('lp.ref.way.galaxy')}</h3>
+            <p>{t('lp.ref.way.galaxy.text')}</p>
+            <span className="lp-way-go">{t('lp.ref.way.galaxy.link')}</span>
+          </a>
         </div>
       </section>
 
