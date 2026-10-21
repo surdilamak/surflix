@@ -13,13 +13,13 @@ import { useLang } from '@/components/connections/lang-provider';
 import { EmptyState } from '@/components/ui/empty-state';
 import { cn } from '@/lib/utils';
 import { useRequestPolling, PolledRequest } from '@/lib/hooks/use-request-polling';
-import { buildStatusChangeNotif } from '@/lib/notif-messages';
+import { buildStatusChangeNotif, pickNotifLang } from '@/lib/notif-messages';
 import { NotificationToggle } from '@/components/ui/notification-toggle';
 
 const STORAGE_KEY = 'surflix_guest_info';
 
 export default function RequestsPage() {
-  const { t } = useLang();
+  const { t, lang } = useLang();
   const [guestId, setGuestId] = useState<string | null>(null);
   const [guestName, setGuestName] = useState<string | null>(null);
   const [bootstrapped, setBootstrapped] = useState(false);
@@ -45,13 +45,14 @@ export default function RequestsPage() {
       if (!('Notification' in window) || Notification.permission !== 'granted') return;
 
       for (const { request, previousStatus } of changes) {
-        const payload = buildStatusChangeNotif({
+        const raw = buildStatusChangeNotif({
           title: request.title,
           status: request.status,
           previousStatus,
           adminNote: request.adminNote,
         });
-        if (!payload) continue;
+        if (!raw) continue;
+        const payload = pickNotifLang(raw, lang);
         try {
           const notif = new Notification(payload.title, {
             body: payload.body,
@@ -71,7 +72,7 @@ export default function RequestsPage() {
         }
       }
     },
-    []
+    [lang]
   );
 
   const { requests, loading, refresh } = useRequestPolling({

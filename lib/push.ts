@@ -8,7 +8,7 @@
 import webpush from 'web-push';
 import { prisma } from './db';
 import { resolveCanonicalGuestId } from './guest';
-import type { NotifPayload } from './notif-messages';
+import { pickNotifLang, type NotifPayload } from './notif-messages';
 
 const PUBLIC_KEY = process.env.VAPID_PUBLIC_KEY;
 const PRIVATE_KEY = process.env.VAPID_PRIVATE_KEY;
@@ -55,7 +55,9 @@ export async function sendPushToGuest(guestId: string, payload: NotifPayload): P
   });
   if (subs.length === 0) return;
 
-  const body = JSON.stringify(payload);
+  // Bahasa tamu: tersimpan di Guest.lang (diisi dari cookie surflix_lang); tamu lama dianggap Indonesia
+  const guest = await prisma.guest.findUnique({ where: { id: canonicalId }, select: { lang: true } });
+  const body = JSON.stringify(pickNotifLang(payload, guest?.lang === 'en' ? 'en' : 'id'));
 
   await Promise.all(
     subs.map(async (sub) => {

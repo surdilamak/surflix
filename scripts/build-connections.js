@@ -2,6 +2,10 @@
 /**
  * Build scripts/connections-seed.json dari file data kurasi (scripts/curated/*.txt).
  *
+ * Peran file (2026-10-21): curated/*.txt = sumber tulisan; connections-seed.json = artefak build (hanya
+ * buat diff dan impor lokal); connections-live.json = foto keputusan review dari database lokal dan SATU-SATUNYA
+ * file yang diimpor ke production (lihat BACKLOG.md, "Cara: update koneksi").
+ *
  * Format baris (satu koneksi per baris, `#` = komentar):
  *   SUMBER (tahun) > TARGET (tahun) | relasi | h/m | teks
  *

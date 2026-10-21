@@ -22,6 +22,8 @@ model Guest {
   email      String   @unique
   createdAt  DateTime @default(now())
   lastActive DateTime @default(now())
+  // Bahasa terakhir yang dipilih tamu (cookie surflix_lang): 'en' | 'id'. Null = tamu lama, anggap 'id'.
+  lang       String?
 
   // Alias chain: jika Guest ini hasil duplikat (pre-bugfix), `mergedIntoId`
   // nunjuk ke canonical Guest. APIs ngikutin alias ke root sebelum baca/tulis requests.

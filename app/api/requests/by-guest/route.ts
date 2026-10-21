@@ -10,7 +10,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
-import { resolveCanonicalGuestId } from '@/lib/guest';
+import { resolveCanonicalGuestId, touchGuestLang } from '@/lib/guest';
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -25,6 +25,8 @@ export async function GET(req: NextRequest) {
     if (!canonicalId) {
       return NextResponse.json({ requests: [], guest: null });
     }
+
+    await touchGuestLang(canonicalId, req.cookies.get('surflix_lang')?.value);
 
     const guest = await prisma.guest.findUnique({
       where: { id: canonicalId },

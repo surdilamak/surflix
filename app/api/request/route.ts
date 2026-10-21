@@ -76,13 +76,15 @@ export async function POST(req: NextRequest) {
   }
 
   // 2. Get or create guest — follow alias chain to canonical kalau Guest pernah di-merge
+  const cookieLang = req.cookies.get('surflix_lang')?.value;
+  const lang = cookieLang === 'en' || cookieLang === 'id' ? cookieLang : undefined;
   let guest;
   if (body.guestId) {
     const canonicalId = await resolveCanonicalGuestId(body.guestId);
     if (canonicalId) {
       guest = await prisma.guest.update({
         where: { id: canonicalId },
-        data: { name: body.guestName, lastActive: new Date() },
+        data: { name: body.guestName, lastActive: new Date(), ...(lang ? { lang } : {}) },
       });
     }
   }
@@ -95,6 +97,7 @@ export async function POST(req: NextRequest) {
       data: {
         name: body.guestName,
         email: uniqueEmail,
+        ...(lang ? { lang } : {}),
       },
     });
   }

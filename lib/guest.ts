@@ -38,3 +38,9 @@ export async function resolveCanonicalGuest(guestId: string) {
   if (!canonicalId) return null;
   return prisma.guest.findUnique({ where: { id: canonicalId } });
 }
+
+/** Simpan bahasa terakhir tamu (dari cookie surflix_lang) supaya notifikasi server memakai bahasanya. */
+export async function touchGuestLang(guestId: string, cookieLang: string | undefined | null): Promise<void> {
+  if (cookieLang !== 'en' && cookieLang !== 'id') return;
+  await prisma.guest.updateMany({ where: { id: guestId, NOT: { lang: cookieLang } }, data: { lang: cookieLang } }).catch(() => {});
+}

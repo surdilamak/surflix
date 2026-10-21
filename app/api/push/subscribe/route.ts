@@ -8,7 +8,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { prisma } from '@/lib/db';
-import { resolveCanonicalGuestId } from '@/lib/guest';
+import { resolveCanonicalGuestId, touchGuestLang } from '@/lib/guest';
 
 const schema = z.object({
   guestId: z.string().min(1),
@@ -32,6 +32,8 @@ export async function POST(req: NextRequest) {
   if (!canonicalId) {
     return NextResponse.json({ error: 'Guest gak ditemukan' }, { status: 404 });
   }
+
+  await touchGuestLang(canonicalId, req.cookies.get('surflix_lang')?.value);
 
   const sub = await prisma.pushSubscription.upsert({
     where: { endpoint: body.endpoint },

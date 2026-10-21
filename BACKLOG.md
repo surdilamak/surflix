@@ -44,7 +44,7 @@
 
 - [x] Prototype `surflix-reference-graph-prototype.jsx` dan `lib/jellyseerr.ts.bak` dihapus (2026-10-20; tetap ada di git history, `FEATURE-CONNECTIONS.md` masih menyebut prototype itu sebagai referensi desain awal).
 - [ ] Dua gambar di `public/` (`HD.png`, `WhatsApp-Image-…png`) masih untracked sejak sebelum fitur Referensi: pakai atau hapus.
-- [ ] `scripts/connections-seed.json` (hasil build kurasi, 44 masih "pending") vs `scripts/connections-live.json` (foto keputusan review): pilih satu sumber kebenaran setelah admin jadi alur utama, dan dokumentasikan di `WORKFLOW.md`.
+- [x] **Satu sumber kebenaran data koneksi** (2026-10-21): `scripts/curated/*.txt` adalah sumber tulisan, `connections-seed.json` hanya hasil build (artefak, dikomit supaya perubahannya terlihat di diff), dan `connections-live.json` (diekspor dari database lokal setelah review) adalah satu-satunya file yang diimpor ke production. Alurnya ada di bagian "Cara: update koneksi".
 
 ---
 
