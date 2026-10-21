@@ -320,9 +320,14 @@ function ConnectionsInner() {
           <Empty title="The queue is empty" body="Everything waiting has been reviewed." />
         ) : (
           <>
-            <p className="ad-small ad-muted" style={{ marginBottom: 12, maxWidth: '40rem' }}>
-              These connections are less certain. Read the reason, check it if you can, then approve or reject.
-            </p>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2" style={{ marginBottom: 12 }}>
+              <p className="ad-small ad-muted" style={{ maxWidth: '40rem' }}>
+                These connections are less certain. Read the reason, check it if you can, then approve or reject.
+              </p>
+              <a href="/referensi/galaxy" target="_blank" rel="noopener" className="ad-btn ad-btn--ghost ad-btn--sm">
+                <Icons.ArrowUpRight /> Preview in Galaxy
+              </a>
+            </div>
             <div className="ad-chips" style={{ marginBottom: 12 }}>
               <button type="button" className="ad-chip" aria-pressed={relFilter === 'all'} onClick={() => setRelFilter('all')}>
                 All <b>{queue.length}</b>

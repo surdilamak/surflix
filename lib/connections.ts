@@ -382,7 +382,7 @@ export async function libraryCoverage() {
     const k = fk(t.mediaType, t.tmdbId);
     return {
       tmdbId: t.tmdbId, mediaType: t.mediaType, title: t.title, year: t.year,
-      jellyfinId: t.jellyfinId, genres: t.genres, directors: t.directors,
+      jellyfinId: t.jellyfinId, genres: t.genres, directors: t.directors, addedAt: t.addedAt,
       approved: approved.get(k) ?? 0, pending: pending.get(k) ?? 0,
     };
   });
@@ -424,8 +424,14 @@ export async function getLibraryTitle(tmdbId: number, mediaType: MediaType) {
  * Seluruh graf koneksi APPROVED buat halaman Galaxy: satu node per judul yang punya koneksi,
  * satu sisi per pasangan (arah kanonik: yang lebih baru merujuk yang lebih lama).
  */
-export async function galaxyGraph() {
-  const rows = await approvedRows();
+export async function galaxyGraph(opts: { includePending?: boolean } = {}) {
+  const approved = await approvedRows();
+  // Pratinjau admin: tambahkan koneksi yang menunggu review (ditandai pending, digambar putus-putus)
+  const rows = opts.includePending
+    ? [...approved, ...(await prisma.filmConnection.findMany({ where: { status: 'PENDING_REVIEW' } }))]
+    : approved;
+  const pairKey = (r: Row) => [fk(r.sourceMediaType, r.sourceTmdbId), fk(r.targetMediaType, r.targetTmdbId)].sort().join('|');
+  const approvedPairs = new Set(approved.map(pairKey));
   const adj = buildAdjacency(rows);
   const keys = [...adj.keys()].sort();
   const lib = await libraryMap(keys);
@@ -447,7 +453,7 @@ export async function galaxyGraph() {
     };
   });
 
-  const edges: Array<{ a: number; b: number; relationship: string; srcIsA: boolean }> = [];
+  const edges: Array<{ a: number; b: number; relationship: string; srcIsA: boolean; pending: boolean }> = [];
   for (const [a, m] of adj) {
     for (const [b, r] of m) {
       if (a >= b) continue; // tiap pasangan sekali
@@ -456,6 +462,7 @@ export async function galaxyGraph() {
         b: index.get(b)!,
         relationship: r.relationship,
         srcIsA: fk(r.sourceMediaType, r.sourceTmdbId) === a,
+        pending: !approvedPairs.has(pairKey(r)),
       });
     }
   }
@@ -548,4 +555,29 @@ export async function sitemapFilms() {
     const [mediaType, id] = key.split(':');
     return { mediaType, tmdbId: Number(id), lastModified };
   });
+}
+
+/**
+ * Judul yang paling baru masuk Jellyfin (urut addedAt), lengkap dengan jumlah koneksi APPROVED.
+ * `pendingBackfill` = ada judul yang addedAt-nya belum terisi (library belum di-sync sejak kolom ini ada).
+ */
+export async function recentTitles(limit = 60) {
+  const [titles, rows, missing] = await Promise.all([
+    prisma.libraryTitle.findMany({ where: { addedAt: { not: null } }, orderBy: { addedAt: 'desc' }, take: limit }),
+    approvedRows(),
+    prisma.libraryTitle.count({ where: { addedAt: null } }),
+  ]);
+  const counts = adjacencyCounts(rows);
+  return {
+    pendingBackfill: missing > 0,
+    titles: titles.map((t) => ({
+      tmdbId: t.tmdbId,
+      mediaType: t.mediaType,
+      title: t.title,
+      year: t.year,
+      jellyfinId: t.jellyfinId,
+      addedAt: t.addedAt!.toISOString(),
+      count: counts.get(fk(t.mediaType, t.tmdbId)) ?? 0,
+    })),
+  };
 }

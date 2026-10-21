@@ -17,6 +17,7 @@ interface JfItem {
   Type: string;
   Path?: string;
   ProductionYear?: number;
+  DateCreated?: string;
   Genres?: string[];
   ProviderIds?: Record<string, string>;
   People?: Array<{ Name: string; Type: string }>;
@@ -39,7 +40,7 @@ export async function syncLibraryFromJellyfin() {
 
   const url =
     `${base}/Items?Recursive=true&IncludeItemTypes=Movie,Series&HasTmdbId=true` +
-    `&Fields=ProviderIds,ProductionYear,Genres,OriginalTitle,Path,People`;
+    `&Fields=ProviderIds,ProductionYear,Genres,OriginalTitle,Path,People,DateCreated`;
   const res = await fetch(url, {
     headers: { Authorization: `MediaBrowser Token="${key}"` },
     signal: AbortSignal.timeout(60000),
@@ -64,6 +65,7 @@ export async function syncLibraryFromJellyfin() {
       originalTitle: i.OriginalTitle && i.OriginalTitle !== title ? i.OriginalTitle : null,
       year: i.ProductionYear ?? null,
       jellyfinId: i.Id,
+      addedAt: i.DateCreated ? new Date(i.DateCreated) : null,
       genres: (i.Genres ?? []).join(', ') || null,
       directors: (i.People ?? []).filter((p) => p.Type === 'Director').map((p) => p.Name).slice(0, 3).join(', ') || null,
     };

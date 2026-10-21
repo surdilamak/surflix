@@ -16,12 +16,16 @@ import { SearchBox } from './search-box';
 
 // [tmdbId, mediaType, title, year, jellyfinId, degree, cluster, x, y]
 type N = [number, string, string, number | null, string | null, number, number, number, number];
-// [a, b, relIndex, srcIsA]
-type E = [number, number, number, number];
+// [a, b, relIndex, srcIsA, pending]
+type E = [number, number, number, number, number?];
 export interface GalaxyData {
   rels: string[];
   nodes: N[];
   edges: E[];
+  /** hanya admin: boleh pratinjau koneksi yang menunggu review */
+  canPreview?: boolean;
+  preview?: boolean;
+  pendingCount?: number;
 }
 
 const PALETTE = ['#f7941d', '#4f8ff0', '#34c3a0', '#e0405f', '#c77dff', '#d9d4c4', '#ffd166', '#7bdff2', '#ff9aa2', '#a3e635'];
@@ -32,7 +36,7 @@ const radiusOf = (deg: number) => 2 + Math.sqrt(deg) * 1.25;
 
 const EMPTY: GalaxyData = { rels: [], nodes: [], edges: [] };
 
-export function Galaxy({ data: input }: { data: GalaxyData | null }) {
+export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; onPreview?: (on: boolean) => void }) {
   const data = input ?? EMPTY;
   const { t, rel } = useLang();
   const config = useAppConfig();
@@ -56,10 +60,11 @@ export function Galaxy({ data: input }: { data: GalaxyData | null }) {
   const { nodes, edges, rels } = data;
 
   const nb = useMemo(() => {
-    const list: Array<Array<{ other: number; rel: number; edge: number; srcIsMe: boolean }>> = nodes.map(() => []);
+    const list: Array<Array<{ other: number; rel: number; edge: number; srcIsMe: boolean; pending: boolean }>> = nodes.map(() => []);
     edges.forEach((e, i) => {
-      list[e[0]].push({ other: e[1], rel: e[2], edge: i, srcIsMe: e[3] === 1 });
-      list[e[1]].push({ other: e[0], rel: e[2], edge: i, srcIsMe: e[3] !== 1 });
+      const pending = e[4] === 1;
+      list[e[0]].push({ other: e[1], rel: e[2], edge: i, srcIsMe: e[3] === 1, pending });
+      list[e[1]].push({ other: e[0], rel: e[2], edge: i, srcIsMe: e[3] !== 1, pending });
     });
     return list;
   }, [nodes, edges]);
@@ -171,6 +176,7 @@ export function Galaxy({ data: input }: { data: GalaxyData | null }) {
       ctx.strokeStyle = `rgba(122,136,170,${focus !== null ? 0.06 : Math.min(0.28, 0.1 + k * 0.5)})`;
       ctx.beginPath();
       for (const e of edges) {
+        if (e[4] === 1) continue; // koneksi menunggu review digambar terpisah (putus-putus)
         if (focus !== null && (e[0] === focus || e[1] === focus)) continue;
         const [x1, y1] = toScreen(nodes[e[0]][7], nodes[e[0]][8]);
         const [x2, y2] = toScreen(nodes[e[1]][7], nodes[e[1]][8]);
@@ -180,12 +186,32 @@ export function Galaxy({ data: input }: { data: GalaxyData | null }) {
       }
       ctx.stroke();
 
+      // pratinjau admin: koneksi yang menunggu review, putus-putus oranye
+      if (edges.some((e) => e[4] === 1)) {
+        ctx.save();
+        ctx.setLineDash([5, 5]);
+        ctx.lineWidth = 1.2;
+        ctx.strokeStyle = `rgba(255,82,0,${focus !== null ? 0.25 : 0.7})`;
+        ctx.beginPath();
+        for (const e of edges) {
+          if (e[4] !== 1) continue;
+          if (focus !== null && (e[0] === focus || e[1] === focus)) continue;
+          const [x1, y1] = toScreen(nodes[e[0]][7], nodes[e[0]][8]);
+          const [x2, y2] = toScreen(nodes[e[1]][7], nodes[e[1]][8]);
+          ctx.moveTo(x1, y1);
+          ctx.lineTo(x2, y2);
+        }
+        ctx.stroke();
+        ctx.restore();
+      }
+
       // garis milik titik terpilih / disorot, berwarna per jenis hubungan
       if (focus !== null) {
         ctx.lineWidth = 1.7;
         for (const x of nb[focus]) {
           ctx.strokeStyle = REL_COLOR[rels[x.rel]] ?? '#888';
           ctx.globalAlpha = sel !== null ? 0.9 : 0.65;
+          ctx.setLineDash(x.pending ? [5, 5] : []);
           const [x1, y1] = toScreen(nodes[focus][7], nodes[focus][8]);
           const [x2, y2] = toScreen(nodes[x.other][7], nodes[x.other][8]);
           ctx.beginPath();
@@ -193,6 +219,7 @@ export function Galaxy({ data: input }: { data: GalaxyData | null }) {
           ctx.lineTo(x2, y2);
           ctx.stroke();
         }
+        ctx.setLineDash([]);
         ctx.globalAlpha = 1;
       }
 
@@ -443,6 +470,14 @@ export function Galaxy({ data: input }: { data: GalaxyData | null }) {
 
       <div className="ref-galaxy-foot">
         <p>{input ? t('galaxy.count', { n: nodes.length, m: edges.length }) : t('galaxy.loading')}</p>
+        {data.canPreview && onPreview && (
+          <label className="ref-galaxy-preview">
+            <input type="checkbox" checked={!!data.preview} onChange={(e) => onPreview(e.target.checked)} />
+            {data.preview
+              ? t('galaxy.previewOn', { n: edges.filter((e) => e[4] === 1).length })
+              : t('galaxy.preview', { n: data.pendingCount ?? 0 })}
+          </label>
+        )}
         <p>{touch ? t('galaxy.hintTouch') : t('galaxy.hint')} {t('galaxy.size')}</p>
         <button type="button" onClick={reset}>{t('galaxy.reset')}</button>
       </div>
@@ -486,6 +521,7 @@ export function Galaxy({ data: input }: { data: GalaxyData | null }) {
                   <span className="ref-mark" style={{ '--c': REL_VAR[rels[x.rel]] } as React.CSSProperties} />
                   <b>{nodes[x.other][2]}</b>
                   <small>{rel(rels[x.rel], x.srcIsMe ? 'out' : 'in')}</small>
+                  {x.pending && <em className="ref-galaxy-wait">{t('galaxy.waiting')}</em>}
                 </button>
               </li>
             ))}

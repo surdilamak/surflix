@@ -71,3 +71,8 @@
    - **Deploy** (bukan cuma Restart: perubahan compose butuh `up -d`).
 3. **Cek**: `docker exec surflix sh -c 'wget -qO- --header="Authorization: MediaBrowser Token=\"$JELLYFIN_API_KEY\"" "$JELLYFIN_URL/System/Info" | head -c 150'` → harus keluar JSON server Jellyfin.
 4. Admin → `/admin/connections` → **Sync library**: toast `Library synced: N new, N updated`.
+
+## Selesai 2026-10-21 (ide yang tadinya diparkir)
+- [x] Sitemap + kartu OG per film untuk Reference. Sisa untuk Idrus: daftarkan sitemap di Google Search Console.
+- [x] Halaman "Just added" di Reference (butuh `db push` otomatis saat container start; data terisi setelah satu sync).
+- [x] Pratinjau koneksi pending di Galaxy untuk admin.

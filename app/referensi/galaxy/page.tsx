@@ -11,14 +11,15 @@ export default function GalaxyPage() {
   const { t } = useLang();
   const [data, setData] = useState<GalaxyData | null>(null);
   const [error, setError] = useState(false);
+  const [preview, setPreview] = useState(false);
 
   useEffect(() => {
-    fetch('/api/connections/galaxy')
+    fetch(`/api/connections/galaxy${preview ? '?pending=1' : ''}`)
       .then((r) => (r.ok ? r.json() : Promise.reject()))
       .then(setData)
       .catch(() => setError(true));
-  }, []);
+  }, [preview]);
 
   if (error) return <p className="ref-empty">{t('detail.error')}</p>;
-  return <Galaxy data={data} />;
+  return <Galaxy data={data} onPreview={setPreview} />;
 }

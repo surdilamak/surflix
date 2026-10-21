@@ -254,10 +254,12 @@ model LibraryTitle {
   jellyfinId    String
   genres        String?  // dipisah koma
   directors     String?  // dipisah koma
+  addedAt       DateTime? // kapan judul masuk Jellyfin (DateCreated); null sampai sync berikutnya
   updatedAt     DateTime @updatedAt
 
   @@unique([tmdbId, mediaType])
   @@index([title])
+  @@index([addedAt])
 }
 
 // =====================================================
