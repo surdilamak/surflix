@@ -12798,6 +12798,24 @@
     "source": "llm"
   },
   {
+    "sourceTmdbId": 813477,
+    "sourceMediaType": "movie",
+    "sourceTitle": "Shin Kamen Rider",
+    "sourceYear": 2023,
+    "sourceJellyfinId": "41c1950318954548f0af8ebc08c5b6af",
+    "targetTmdbId": 75629,
+    "targetMediaType": "movie",
+    "targetTitle": "Evangelion: 3.0 You Can (Not) Redo",
+    "targetYear": 2012,
+    "targetJellyfinId": "897575db4c1c1b7697120da1b00cc0df",
+    "relationship": "director",
+    "confidence": "high",
+    "reason": "Hideaki Anno menyutradarai Shin Kamen Rider, dan jadi sutradara kepala sekaligus penulis Evangelion 3.0 yang digarap tiga sutradara di bawahnya.",
+    "reasonEn": "Hideaki Anno directed Shin Kamen Rider, and was chief director and writer on Evangelion 3.0, which three co-directors shot under him.",
+    "status": "APPROVED",
+    "source": "llm"
+  },
+  {
     "sourceTmdbId": 62,
     "sourceMediaType": "movie",
     "sourceTitle": "2001: A Space Odyssey",
@@ -14166,24 +14184,6 @@
     "source": "llm"
   },
   {
-    "sourceTmdbId": 813477,
-    "sourceMediaType": "movie",
-    "sourceTitle": "Shin Kamen Rider",
-    "sourceYear": 2023,
-    "sourceJellyfinId": "41c1950318954548f0af8ebc08c5b6af",
-    "targetTmdbId": 75629,
-    "targetMediaType": "movie",
-    "targetTitle": "Evangelion: 3.0 You Can (Not) Redo",
-    "targetYear": 2012,
-    "targetJellyfinId": "897575db4c1c1b7697120da1b00cc0df",
-    "relationship": "director",
-    "confidence": "high",
-    "reason": "Keduanya disutradarai Hideaki Anno.",
-    "reasonEn": "Both directed by Hideaki Anno.",
-    "status": "APPROVED",
-    "source": "llm"
-  },
-  {
     "sourceTmdbId": 1061474,
     "sourceMediaType": "movie",
     "sourceTitle": "Superman",
@@ -15132,8 +15132,8 @@
     "targetJellyfinId": "94c274863741d6d558e0e09fe19da2bb",
     "relationship": "director",
     "confidence": "high",
-    "reason": "Keduanya disutradarai Michael Philippou.",
-    "reasonEn": "Both directed by Michael Philippou.",
+    "reason": "Keduanya disutradarai Danny dan Michael Philippou.",
+    "reasonEn": "Both directed by Danny and Michael Philippou.",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -15258,8 +15258,8 @@
     "targetJellyfinId": "33124bbc35f48322f901e6c26550df1c",
     "relationship": "director",
     "confidence": "high",
-    "reason": "Keduanya disutradarai Daniel Kwan.",
-    "reasonEn": "Both directed by Daniel Kwan.",
+    "reason": "Keduanya disutradarai Daniel Kwan dan Daniel Scheinert.",
+    "reasonEn": "Both directed by Daniel Kwan and Daniel Scheinert.",
     "status": "APPROVED",
     "source": "llm"
   },

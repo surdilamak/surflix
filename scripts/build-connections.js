@@ -123,13 +123,23 @@ for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.txt') && x !== 's
 }
 
 // ── 2. sutradara yang sama (otomatis, dirantai per tahun)
-// directors.list: satu sutradara per baris. Opsional: | +Judul (tahun) buat nambah film yang
-// datanya kosong di Jellyfin, | -Judul (tahun) buat ngecualiin (salah kredit / bukan film penuh).
+// directors.list: satu sutradara per baris. Nama itu KUNCI PENCARIAN ke kolom directors
+// milik Jellyfin, jadi jangan diubah demi tampilan. Opsional:
+//   | +Judul (tahun)  tambah film yang datanya kosong di Jellyfin
+//   | -Judul (tahun)  kecualikan (salah kredit / bukan film penuh)
+//   | as: Nama EN || Nama ID   pakai nama lain di kalimatnya, buat duo sutradara
+//        (mis. "Daniel Kwan | as: Daniel Kwan and Daniel Scheinert || Daniel Kwan dan Daniel Scheinert")
 const dirFile = path.join(dir, 'directors.list');
 if (fs.existsSync(dirFile)) {
   const lines = fs.readFileSync(dirFile, 'utf8').split('\n').map((x) => x.trim()).filter((x) => x && !x.startsWith('#'));
   for (const line of lines) {
     const [name, ...opts] = line.split('|').map((x) => x.trim());
+    // sisa opsi disatukan lagi: pemisah dwibahasa "||" ikut terpotong oleh split('|')
+    const asAt = opts.findIndex((o) => o.startsWith('as:'));
+    const as = asAt === -1 ? '' : opts.slice(asAt).join('|').slice(3).trim();
+    const [shownEn, shownId] = as ? as.split('||').map((x) => x.trim()) : [];
+    const shown = shownEn || name;
+    const shownID = shownId || shownEn || name;
     const extra = opts.filter((o) => o.startsWith('+')).map((o) => resolve(o.slice(1).trim()));
     const skip = new Set(opts.filter((o) => o.startsWith('-')).map((o) => resolve(o.slice(1).trim())).filter(Boolean));
     if (extra.some((x) => !x)) { errors.push(`directors.list: judul + tak ketemu di baris "${line}"`); continue; }
@@ -142,7 +152,7 @@ if (fs.existsSync(dirFile)) {
       const b = films[i - 1];
       // lewati kalau pasangan ini udah terhubung (arah mana pun) lewat franchise/referensi
       if (seen.has(`${a.tmdbId}:${a.mediaType}>${b.tmdbId}`) || seen.has(`${b.tmdbId}:${b.mediaType}>${a.tmdbId}`)) continue;
-      push(a, b, 'director', 'h', `Both directed by ${name}.`, `Keduanya disutradarai ${name}.`, `director:${name}`);
+      push(a, b, 'director', 'h', `Both directed by ${shown}.`, `Keduanya disutradarai ${shownID}.`, `director:${name}`);
     }
   }
 }

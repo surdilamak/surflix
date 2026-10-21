@@ -10,7 +10,8 @@
 - [x] **Angka landing** (2026-10-20): `723 films · 194 series · 706 titles mapped`; `/api/upcoming` keisi lagi (20 film). `/api/most-requested` kosong itu wajar: syaratnya minimal 2 request untuk judul yang sama.
 - [~] **Sampling fakta koneksi.**
   - [x] **371 koneksi `talent` diaudit** (2026-10-21, 8 pemeriksa paralel, satu per kelompok orang, wajib dari halaman sumber bukan ingatan): 352 benar, 15 teksnya kelebihan ("stars in both" padahal cameo/suara/satu episode) sudah ditulis ulang, 4 salah dan ditolak (Noriyuki Abe bukan sutradara Hunter × Hunter 1999; Charlotte Gainsbourg ada di Jane Eyre 1996 bukan 1997 yang ada di library; Production I.G tidak menganimasikan Uzumaki 2024; Adam Driver tidak ada di ENJOY 2021). Nol "tidak yakin".
-  - [ ] **169 koneksi `director`** belum diaudit — pola risikonya sama ("X menyutradarai keduanya").
+  - [x] **169 koneksi `director` diaudit** (2026-10-21, 4 pemeriksa paralel): 166 benar, 0 salah, 0 tidak yakin. 3 teksnya menyebut sutradara tunggal padahal karyanya digarap berdua — Danny dan Michael Philippou (Talk to Me / Bring Her Back), duo Daniels (Swiss Army Man / Everything Everywhere), dan Hideaki Anno yang di Evangelion 3.0 sutradara kepala, bukan tunggal.
+  - Catatan: koneksi `director` **tidak ditulis per baris** — dibuat otomatis dari `scripts/curated/directors.list` (nama = kunci pencarian ke kolom directors Jellyfin). Untuk mengubah kalimatnya pakai `| as: Nama EN || Nama ID`; untuk kasus yang perlu kalimat khusus, keluarkan namanya dari daftar lalu tulis pasangannya di `06-deepen.txt`.
   - [ ] Koneksi `visual` / `inspired` yang dulunya `confidence: medium`.
 
 ## 🟠 Keamanan & hygiene

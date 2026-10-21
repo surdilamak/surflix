@@ -2178,8 +2178,8 @@
     "targetPoster": null,
     "targetJellyfinId": "94c274863741d6d558e0e09fe19da2bb",
     "relationship": "director",
-    "reason": "Keduanya disutradarai Michael Philippou.",
-    "reasonEn": "Both directed by Michael Philippou.",
+    "reason": "Keduanya disutradarai Danny dan Michael Philippou.",
+    "reasonEn": "Both directed by Danny and Michael Philippou.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4781,8 +4781,8 @@
     "targetPoster": null,
     "targetJellyfinId": "33124bbc35f48322f901e6c26550df1c",
     "relationship": "director",
-    "reason": "Keduanya disutradarai Daniel Kwan.",
-    "reasonEn": "Both directed by Daniel Kwan.",
+    "reason": "Keduanya disutradarai Daniel Kwan dan Daniel Scheinert.",
+    "reasonEn": "Both directed by Daniel Kwan and Daniel Scheinert.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11336,8 +11336,8 @@
     "targetPoster": null,
     "targetJellyfinId": "897575db4c1c1b7697120da1b00cc0df",
     "relationship": "director",
-    "reason": "Keduanya disutradarai Hideaki Anno.",
-    "reasonEn": "Both directed by Hideaki Anno.",
+    "reason": "Hideaki Anno menyutradarai Shin Kamen Rider, dan jadi sutradara kepala sekaligus penulis Evangelion 3.0 yang digarap tiga sutradara di bawahnya.",
+    "reasonEn": "Hideaki Anno directed Shin Kamen Rider, and was chief director and writer on Evangelion 3.0, which three co-directors shot under him.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"

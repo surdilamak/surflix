@@ -157,3 +157,7 @@ Burn the Witch (2020) > Bleach (2004) | talent | h | Both were created by Tite K
 Obsession (2026) > Drop (2025) | talent | h | Both come from Blumhouse. || Keduanya dari Blumhouse.
 The Ugly Stepsister (2025) > The House That Jack Built (2018) | talent | m | Zentropa, the company behind Lars von Trier's films, is among the producers of The Ugly Stepsister. || Zentropa, perusahaan di balik film-film Lars von Trier, termasuk produser The Ugly Stepsister.
 Exit 8 (2025) > Gantz: Perfect Answer (2011) | talent | h | Kazunari Ninomiya stars in both. || Kazunari Ninomiya membintangi keduanya.
+
+# Ditulis tangan karena rantai directors.list akan menyebutnya sutradara tunggal,
+# padahal di Evangelion 3.0 dia sutradara kepala dengan tiga sutradara di bawahnya.
+Shin Kamen Rider (2023) > Evangelion: 3.0 You Can (Not) Redo (2012) | director | h | Hideaki Anno directed Shin Kamen Rider, and was chief director and writer on Evangelion 3.0, which three co-directors shot under him. || Hideaki Anno menyutradarai Shin Kamen Rider, dan jadi sutradara kepala sekaligus penulis Evangelion 3.0 yang digarap tiga sutradara di bawahnya.
