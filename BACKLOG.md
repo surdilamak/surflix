@@ -8,7 +8,10 @@
 - [x] **Verifikasi deep-link Tonton di Request Hub** (dicek Idrus, 2026-10-20: jalan). Tombol "Watch on Surflix" di detail modal sekarang nyari `jellyfinId` dari snapshot library lalu buka `#/details?id=…&serverId=…`. Film yang belum ada di snapshot jatuh ke home Jellyfin. Cek: buka satu film Available → klik Watch → harus langsung ke filmnya.
 - [x] **Aktifin Sync library** (2026-10-20): env Jellyfin ter-deploy, tombol Sync library dicek Idrus dan jalan. (Key lama yang sempat ke-share di chat harus sudah di-revoke.) Tanpa ini snapshot library cuma update kalau import script dijalanin manual, jadi film baru gak punya deep-link / gak bisa dicari di portal. Langkah ada di bagian "Cara" bawah.
 - [x] **Angka landing** (2026-10-20): `723 films · 194 series · 706 titles mapped`; `/api/upcoming` keisi lagi (20 film). `/api/most-requested` kosong itu wajar: syaratnya minimal 2 request untuk judul yang sama.
-- [ ] **Sampling fakta koneksi.** 739 koneksi ditulis dari pengetahuan (belum diverifikasi online). Paling perlu dicek: kategori `talent` (siapa main/nulis apa) dan koneksi `visual` / `inspired` yang dulunya `confidence: medium`. Edit/hapus lewat `/admin/connections` → Manage.
+- [~] **Sampling fakta koneksi.**
+  - [x] **371 koneksi `talent` diaudit** (2026-10-21, 8 pemeriksa paralel, satu per kelompok orang, wajib dari halaman sumber bukan ingatan): 352 benar, 15 teksnya kelebihan ("stars in both" padahal cameo/suara/satu episode) sudah ditulis ulang, 4 salah dan ditolak (Noriyuki Abe bukan sutradara Hunter × Hunter 1999; Charlotte Gainsbourg ada di Jane Eyre 1996 bukan 1997 yang ada di library; Production I.G tidak menganimasikan Uzumaki 2024; Adam Driver tidak ada di ENJOY 2021). Nol "tidak yakin".
+  - [ ] **169 koneksi `director`** belum diaudit — pola risikonya sama ("X menyutradarai keduanya").
+  - [ ] Koneksi `visual` / `inspired` yang dulunya `confidence: medium`.
 
 ## 🟠 Keamanan & hygiene
 
@@ -29,7 +32,7 @@
 - [x] **Review 23 koneksi PENDING_REVIEW** (Idrus, 2026-10-21, langsung di production). ⚠️ Keputusannya ada di DB production, belum ditarik ke `scripts/connections-live.json` — lihat catatan di bawah.
 - [ ] ~~Review 23 koneksi baru berstatus PENDING_REVIEW~~ (confidence `m`, ditambah 2026-10-21: kritikus sering memasangkan, atau kredit produser dari metadata). Approve/reject di `/admin/connections` → Review.
 - [ ] **Review terjemahan Indonesia** di `lib/i18n.ts` dan kolom `reason` (dibuat bareng teks Inggris, belum dibaca penutur native).
-- [ ] **Nama file kotor di library Jellyfin** (`Requiem.for.a.Dream.2000.PROPER…`, `MIRCrew`). Snapshot sudah dibersihin otomatis (nama folder / OriginalTitle), tapi rapihin di Jellyfin kalau sempat (rename atau refresh metadata).
+- [ ] **Nama file kotor di library Jellyfin** (`Requiem.for.a.Dream.2000.PROPER…`, `MIRCrew`, dan `Lady Bird 2017 from ExKinoRay` yang ketahuan saat audit talent). Snapshot sudah dibersihin otomatis (nama folder / OriginalTitle), tapi rapihin di Jellyfin kalau sempat (rename atau refresh metadata).
 - [x] **Auto-sync library** (2026-10-20, menunggu deploy): webhook Jellyseerr `MEDIA_AVAILABLE` / `MEDIA_PARTIALLY_AVAILABLE` memanggil `scheduleLibrarySync()` (debounce 30 dtk, satu sync per rentetan event, tidak pernah melempar error, log di EventLog `library.autosync`). Berlaku juga untuk judul yang bukan dari request Surflix. Syarat di produksi: webhook Jellyseerr terpasang (Settings → Notifications → Webhook, URL `…/api/webhooks/jellyseerr`, header `Bearer <WEBHOOK_SECRET>`) dan env Jellyfin ada. Webhook sekarang menolak semua request kalau `WEBHOOK_SECRET` kosong.
 - [ ] **Pipeline LLM (`/api/admin/connections/generate`) dorman.** Butuh `ANTHROPIC_API_KEY` + env Jellyfin. Sekarang kurasi manual; hapus atau hidupkan lagi nanti.
 

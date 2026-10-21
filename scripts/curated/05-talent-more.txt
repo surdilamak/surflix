@@ -4,7 +4,7 @@ MobLand (2025) > Havoc (2025) | talent | h | Tom Hardy stars in both. || Tom Har
 MobLand (2025) > The Last Station (2009) | talent | h | Helen Mirren stars in both. || Helen Mirren membintangi keduanya.
 The Last of Us (2023) > The Mandalorian (2019) | talent | h | Pedro Pascal stars in both. || Pedro Pascal membintangi keduanya.
 Eddington (2025) > The Last of Us (2023) | talent | h | Pedro Pascal stars in both. || Pedro Pascal membintangi keduanya.
-The Last of Us (2023) > Game of Thrones (2011) | talent | h | Bella Ramsey stars in both. || Bella Ramsey membintangi keduanya.
+The Last of Us (2023) > Game of Thrones (2011) | talent | h | Bella Ramsey leads The Last of Us and played Lyanna Mormont through the later seasons of Game of Thrones. || Bella Ramsey memimpin The Last of Us dan memerankan Lyanna Mormont di musim-musim akhir Game of Thrones.
 The Witcher (2019) > Man of Steel (2013) | talent | h | Henry Cavill stars in both. || Henry Cavill membintangi keduanya.
 His Dark Materials (2019) > Logan (2017) | talent | h | Dafne Keen stars in both. || Dafne Keen membintangi keduanya.
 His Dark Materials (2019) > Split (2017) | talent | h | James McAvoy stars in both. || James McAvoy membintangi keduanya.
@@ -19,7 +19,6 @@ Speed Racer (2008) > Into the Wild (2007) | talent | h | Emile Hirsch stars in b
 The Autopsy of Jane Doe (2016) > Speed Racer (2008) | talent | h | Emile Hirsch stars in both. || Emile Hirsch membintangi keduanya.
 Premium Rush (2012) > Inception (2010) | talent | h | Joseph Gordon-Levitt stars in both. || Joseph Gordon-Levitt membintangi keduanya.
 The Founder (2016) > Spider-Man: Homecoming (2017) | talent | h | Michael Keaton stars in both. || Michael Keaton membintangi keduanya.
-Jane Eyre (1997) > Melancholia (2011) | talent | h | Charlotte Gainsbourg stars in both. || Charlotte Gainsbourg membintangi keduanya.
 The Housemaid (2025) > Anyone But You (2023) | talent | h | Sydney Sweeney stars in both. || Sydney Sweeney membintangi keduanya.
 Americana (2025) > Anyone But You (2023) | talent | m | Sydney Sweeney stars in both. || Sydney Sweeney membintangi keduanya.
 The Housemaid (2025) > Letters to Juliet (2010) | talent | h | Amanda Seyfried stars in both. || Amanda Seyfried membintangi keduanya.
@@ -48,7 +47,7 @@ A Rainy Day in New York (2019) > Little Women (2019) | talent | h | Timothée Ch
 After Yang (2022) > The Lobster (2015) | talent | h | Colin Farrell stars in both. || Colin Farrell membintangi keduanya.
 American Fiction (2023) > Westworld (2016) | talent | h | Jeffrey Wright stars in both. || Jeffrey Wright membintangi keduanya.
 American Fiction (2023) > The Batman (2022) | talent | h | Jeffrey Wright stars in both. || Jeffrey Wright membintangi keduanya.
-1917 (2019) > Doctor Strange (2016) | talent | h | Benedict Cumberbatch stars in both. || Benedict Cumberbatch membintangi keduanya.
+1917 (2019) > Doctor Strange (2016) | talent | h | Benedict Cumberbatch leads Doctor Strange and turns up for one late scene in 1917 as Colonel MacKenzie. || Benedict Cumberbatch memimpin Doctor Strange dan muncul satu adegan di akhir 1917 sebagai Kolonel MacKenzie.
 1917 (2019) > Game of Thrones (2011) | talent | h | Dean-Charles Chapman stars in both. || Dean-Charles Chapman membintangi keduanya.
 A Hijacking (2012) > Ghost in the Shell (2017) | talent | h | Pilou Asbæk stars in both. || Pilou Asbæk membintangi keduanya.
 A Hijacking (2012) > Game of Thrones (2011) | talent | h | Pilou Asbæk stars in A Hijacking and plays Euron Greyjoy in Game of Thrones. || Pilou Asbæk membintangi A Hijacking dan memerankan Euron Greyjoy di Game of Thrones.

@@ -14,8 +14,8 @@ Mickey 17 (2025) > The Batman (2022) | talent | h | Robert Pattinson stars in bo
 The Drama (2026) > Mickey 17 (2025) | talent | h | Robert Pattinson stars in both. || Robert Pattinson membintangi keduanya.
 The Rover (2014) > Memento (2000) | talent | h | Guy Pearce stars in both. || Guy Pearce membintangi keduanya.
 The Brutalist (2024) > The Rover (2014) | talent | h | Guy Pearce stars in both. || Guy Pearce membintangi keduanya.
-Her (2013) > Lost in Translation (2003) | talent | h | Scarlett Johansson stars in both. || Scarlett Johansson membintangi keduanya.
-Marriage Story (2019) > Her (2013) | talent | h | Scarlett Johansson stars in both. || Scarlett Johansson membintangi keduanya.
+Her (2013) > Lost in Translation (2003) | talent | h | Scarlett Johansson is the voice of Samantha in Her, and is on screen throughout Lost in Translation. || Scarlett Johansson menjadi suara Samantha di Her, dan tampil sepanjang Lost in Translation.
+Marriage Story (2019) > Her (2013) | talent | h | Scarlett Johansson stars in Marriage Story and voices Samantha in Her without ever appearing on screen. || Scarlett Johansson membintangi Marriage Story dan mengisi suara Samantha di Her tanpa pernah tampil di layar.
 Black Widow (2021) > Marriage Story (2019) | talent | h | Scarlett Johansson stars in both. || Scarlett Johansson membintangi keduanya.
 Asteroid City (2023) > Black Widow (2021) | talent | h | Scarlett Johansson stars in both. || Scarlett Johansson membintangi keduanya.
 Jurassic World Rebirth (2025) > Asteroid City (2023) | talent | h | Scarlett Johansson stars in both. || Scarlett Johansson membintangi keduanya.
@@ -29,13 +29,13 @@ Blade Runner 2049 (2017) > La La Land (2016) | talent | h | Ryan Gosling stars i
 Project Hail Mary (2026) > Blade Runner 2049 (2017) | talent | h | Ryan Gosling stars in both. || Ryan Gosling membintangi keduanya.
 Lady Bird 2017 from ExKinoRay (2017) > Atonement (2007) | talent | h | Saoirse Ronan stars in both. || Saoirse Ronan membintangi keduanya.
 Little Women (2019) > Lady Bird 2017 from ExKinoRay (2017) | talent | h | Saoirse Ronan stars in both. || Saoirse Ronan membintangi keduanya.
-The French Dispatch (2021) > Little Women (2019) | talent | h | Saoirse Ronan stars in both. || Saoirse Ronan membintangi keduanya.
-Lady Bird 2017 from ExKinoRay (2017) > Interstellar (2014) | talent | h | Timothée Chalamet stars in both. || Timothée Chalamet membintangi keduanya.
-Little Women (2019) > Interstellar (2014) | talent | h | Timothée Chalamet stars in both. || Timothée Chalamet membintangi keduanya.
+The French Dispatch (2021) > Little Women (2019) | talent | h | Saoirse Ronan leads Little Women and has a small part in The French Dispatch. || Saoirse Ronan memimpin Little Women dan kebagian peran kecil di The French Dispatch.
+Lady Bird 2017 from ExKinoRay (2017) > Interstellar (2014) | talent | h | Timothée Chalamet stars in Lady Bird and plays the teenage Tom in Interstellar's early scenes. || Timothée Chalamet membintangi Lady Bird dan memerankan Tom remaja di adegan-adegan awal Interstellar.
+Little Women (2019) > Interstellar (2014) | talent | h | Timothée Chalamet stars in Little Women and plays the teenage Tom in Interstellar's early scenes. || Timothée Chalamet membintangi Little Women dan memerankan Tom remaja di adegan-adegan awal Interstellar.
 Dune (2021) > Little Women (2019) | talent | h | Timothée Chalamet stars in both. || Timothée Chalamet membintangi keduanya.
 Marty Supreme (2025) > Dune: Part Two (2024) | talent | h | Timothée Chalamet stars in both. || Timothée Chalamet membintangi keduanya.
 Euphoria (2019) > Spider-Man: Homecoming (2017) | talent | h | Zendaya stars in both. || Zendaya membintangi keduanya.
-Dune (2021) > Euphoria (2019) | talent | h | Zendaya stars in both. || Zendaya membintangi keduanya.
+Dune (2021) > Euphoria (2019) | talent | h | Zendaya leads Euphoria; in Dune she appears mostly inside Paul's visions. || Zendaya memimpin Euphoria; di Dune ia sebagian besar muncul di dalam penglihatan Paul.
 The Drama (2026) > Dune: Part Two (2024) | talent | h | Zendaya stars in both. || Zendaya membintangi keduanya.
 Black Widow (2021) > Midsommar (2019) | talent | h | Florence Pugh stars in both. || Florence Pugh membintangi keduanya.
 Oppenheimer (2023) > Black Widow (2021) | talent | h | Florence Pugh stars in both. || Florence Pugh membintangi keduanya.
@@ -115,7 +115,7 @@ American History X (1998) > Fight Club (1999) | talent | h | Edward Norton stars
 Meet Joe Black (1998) > Se7en (1995) | talent | h | Brad Pitt stars in both. || Brad Pitt membintangi keduanya.
 The Big Short (2015) > Moneyball (2011) | talent | h | Both adapt books by Michael Lewis, and Brad Pitt stars in both. || Keduanya mengadaptasi buku Michael Lewis, dan Brad Pitt membintangi keduanya.
 Apocalypto (2006) > Mad Max (1979) | talent | h | Mel Gibson starred in Mad Max and directed Apocalypto. || Mel Gibson membintangi Mad Max dan menyutradarai Apocalypto.
-Guardians of the Galaxy Vol. 2 (2017) > Rocky (1976) | talent | h | Sylvester Stallone stars in both. || Sylvester Stallone membintangi keduanya.
+Guardians of the Galaxy Vol. 2 (2017) > Rocky (1976) | talent | h | Sylvester Stallone carried Rocky and has a short turn as Stakar Ogord in Guardians of the Galaxy Vol. 2. || Sylvester Stallone memanggul Rocky, dan tampil sebentar sebagai Stakar Ogord di Guardians of the Galaxy Vol. 2.
 Kraven the Hunter (2024) > Avengers: Age of Ultron (2015) | talent | h | Aaron Taylor-Johnson stars in both. || Aaron Taylor-Johnson membintangi keduanya.
 Kraven the Hunter (2024) > Tenet (2020) | talent | h | Aaron Taylor-Johnson stars in both. || Aaron Taylor-Johnson membintangi keduanya.
 The Substance (2024) > Once Upon a Time... in Hollywood (2019) | talent | h | Margaret Qualley stars in both. || Margaret Qualley membintangi keduanya.
@@ -141,7 +141,7 @@ Westworld (2016) > Memento (2000) | talent | h | Jonathan Nolan co-created Westw
 Pluribus (2025) > Better Call Saul (2015) | talent | h | Vince Gilligan co-created Better Call Saul and created Pluribus, with Rhea Seehorn leading both. || Vince Gilligan ikut menciptakan Better Call Saul dan menciptakan Pluribus, dengan Rhea Seehorn sebagai pemeran utama keduanya.
 1899 (2022) > Dark (2017) | talent | h | Baran bo Odar and Jantje Friese created both. || Baran bo Odar dan Jantje Friese menciptakan keduanya.
 Normal People (2020) > Room (2015) | talent | h | Lenny Abrahamson directed the first episodes of Normal People and the film Room. || Lenny Abrahamson menyutradarai episode awal Normal People dan film Room.
-Wednesday (2022) > Edward Scissorhands (1990) | talent | h | Tim Burton directed four episodes of Wednesday and brought his gothic look to it. || Tim Burton menyutradarai empat episode Wednesday dan membawa tampilan gotiknya.
+Wednesday (2022) > Edward Scissorhands (1990) | talent | h | Tim Burton directed episodes of Wednesday and brought the gothic look of Edward Scissorhands with him. || Tim Burton menyutradarai sejumlah episode Wednesday dan membawa serta tampilan gotik Edward Scissorhands.
 Locke (2014) > Peaky Blinders (2013) | talent | h | Steven Knight wrote and directed Locke and created Peaky Blinders, and Tom Hardy appears in both. || Steven Knight menulis dan menyutradarai Locke serta menciptakan Peaky Blinders, dan Tom Hardy tampil di keduanya.
 Notting Hill (1999) > Love Actually (2003) | talent | h | Richard Curtis wrote Notting Hill and wrote and directed Love Actually, and Hugh Grant stars in both. || Richard Curtis menulis Notting Hill serta menulis dan menyutradarai Love Actually, dan Hugh Grant membintangi keduanya.
 The Notebook (2004) > A Walk to Remember (2002) | talent | h | Both adapt novels by Nicholas Sparks. || Keduanya mengadaptasi novel Nicholas Sparks.
@@ -150,7 +150,7 @@ Mad Men (2007) > The Sopranos (1999) | talent | m | Matthew Weiner wrote for The
 Project Hail Mary (2026) > Spider-Man: Into the Spider-Verse (2018) | talent | h | Phil Lord and Christopher Miller produced Into the Spider-Verse, with Lord co-writing the screenplay, and they direct Project Hail Mary. || Phil Lord dan Christopher Miller memproduseri Into the Spider-Verse, dengan Lord ikut menulis skenario, dan mereka menyutradarai Project Hail Mary.
 The Smashing Machine (2025) > Marty Supreme (2025) | talent | h | Benny and Josh Safdie, brothers and former co-directors, each made one of these. || Benny dan Josh Safdie, kakak-adik yang dulu menyutradarai bersama, masing-masing membuat satu dari kedua film ini.
 Lilo & Stitch (2025) > How to Train Your Dragon (2025) | talent | h | Dean DeBlois co-directed the original Lilo & Stitch and directs the 2025 How to Train Your Dragon. || Dean DeBlois ikut menyutradarai Lilo & Stitch yang asli dan menyutradarai How to Train Your Dragon 2025.
-The Wild Robot (2024) > Lilo & Stitch (2025) | talent | h | Chris Sanders co-created Lilo & Stitch and directs The Wild Robot. || Chris Sanders ikut menciptakan Lilo & Stitch dan menyutradarai The Wild Robot.
+The Wild Robot (2024) > Lilo & Stitch (2025) | talent | h | Chris Sanders directs The Wild Robot and voices Stitch, the character he co-created. || Chris Sanders menyutradarai The Wild Robot dan mengisi suara Stitch, tokoh yang ikut ia ciptakan.
 Mickey 17 (2025) > Parasite (2019) | talent | h | Both directed by Bong Joon-ho. || Keduanya disutradarai Bong Joon-ho.
 Kaibutsu (2024) > Shoplifters (2018) | talent | h | Both directed by Hirokazu Kore-eda. || Keduanya disutradarai Hirokazu Kore-eda.
 Twin Peaks (1990) > Blue Velvet (1986) | talent | h | David Lynch made both, with Kyle MacLachlan as the curious man poking at small-town darkness. || David Lynch membuat keduanya, dengan Kyle MacLachlan sebagai pria penasaran yang mengorek kegelapan kota kecil.
@@ -162,7 +162,6 @@ Lazarus (2025) > Samurai Champloo (2004) | talent | h | Shinichiro Watanabe dire
 Cyberpunk: Edgerunners (2022) > Gurren Lagann (2007) | talent | h | Hiroyuki Imaishi directed both. || Hiroyuki Imaishi menyutradarai keduanya.
 The Vision of Escaflowne (1996) > Cowboy Bebop (1998) | talent | h | Yoko Kanno composed the music for both. || Yoko Kanno menggubah musik keduanya.
 Mobile Suit Gundam Wing (1995) > Cowboy Bebop (1998) | talent | h | Both are Sunrise productions. || Keduanya produksi Sunrise.
-Great Teacher Onizuka (1999) > Hunter × Hunter (1999) | talent | h | Noriyuki Abe directed both. || Noriyuki Abe menyutradarai keduanya.
 Bleach (2004) > Great Teacher Onizuka (1999) | talent | h | Noriyuki Abe directed both. || Noriyuki Abe menyutradarai keduanya.
 Bleach (2004) > Naruto (2002) | talent | h | Both are Studio Pierrot productions. || Keduanya produksi Studio Pierrot.
 Pluto (2023) > Monster (2004) | talent | h | Both adapt manga by Naoki Urasawa. || Keduanya mengadaptasi manga karya Naoki Urasawa.

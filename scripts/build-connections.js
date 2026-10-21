@@ -86,7 +86,7 @@ function push(src, tgt, rel, conf, en, id, where) {
 
 // ── 1. file data kurasi
 const dir = path.join(root, 'curated');
-for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.txt')).sort()) {
+for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.txt') && x !== 'sagas.txt').sort()) {
   const lines = fs.readFileSync(path.join(dir, f), 'utf8').split('\n');
   lines.forEach((raw, i) => {
     const line = raw.trim();

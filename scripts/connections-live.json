@@ -88,8 +88,8 @@
     "targetPoster": null,
     "targetJellyfinId": "37b07742a5cfb930e1ac07b54b3bfb6b",
     "relationship": "talent",
-    "reason": "Benedict Cumberbatch membintangi keduanya.",
-    "reasonEn": "Benedict Cumberbatch stars in both.",
+    "reason": "Benedict Cumberbatch memimpin Doctor Strange dan muncul satu adegan di akhir 1917 sebagai Kolonel MacKenzie.",
+    "reasonEn": "Benedict Cumberbatch leads Doctor Strange and turns up for one late scene in 1917 as Colonel MacKenzie.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4249,8 +4249,8 @@
     "targetPoster": null,
     "targetJellyfinId": "cf535609ea7af61570ca644a290d0e03",
     "relationship": "talent",
-    "reason": "Zendaya membintangi keduanya.",
-    "reasonEn": "Zendaya stars in both.",
+    "reason": "Zendaya memimpin Euphoria; di Dune ia sebagian besar muncul di dalam penglihatan Paul.",
+    "reasonEn": "Zendaya leads Euphoria; in Dune she appears mostly inside Paul's visions.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4366,7 +4366,7 @@
     "reason": "Adam Driver tampil di keduanya.",
     "reasonEn": "Adam Driver appears in both.",
     "confidence": "high",
-    "status": "APPROVED",
+    "status": "REJECTED",
     "source": "llm"
   },
   {
@@ -5335,7 +5335,7 @@
     "reason": "Noriyuki Abe menyutradarai keduanya.",
     "reasonEn": "Noriyuki Abe directed both.",
     "confidence": "high",
-    "status": "APPROVED",
+    "status": "REJECTED",
     "source": "llm"
   },
   {
@@ -5446,8 +5446,8 @@
     "targetPoster": null,
     "targetJellyfinId": "de220f4b241355adc5bea2fc549cd519",
     "relationship": "talent",
-    "reason": "Sylvester Stallone membintangi keduanya.",
-    "reasonEn": "Sylvester Stallone stars in both.",
+    "reason": "Sylvester Stallone memanggul Rocky, dan tampil sebentar sebagai Stakar Ogord di Guardians of the Galaxy Vol. 2.",
+    "reasonEn": "Sylvester Stallone carried Rocky and has a short turn as Stakar Ogord in Guardians of the Galaxy Vol. 2.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -5598,8 +5598,8 @@
     "targetPoster": null,
     "targetJellyfinId": "27968c06dfb9c3fe80ef12f9f36b9e20",
     "relationship": "talent",
-    "reason": "Scarlett Johansson membintangi keduanya.",
-    "reasonEn": "Scarlett Johansson stars in both.",
+    "reason": "Scarlett Johansson menjadi suara Samantha di Her, dan tampil sepanjang Lost in Translation.",
+    "reasonEn": "Scarlett Johansson is the voice of Samantha in Her, and is on screen throughout Lost in Translation.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -6342,7 +6342,7 @@
     "reason": "Charlotte Gainsbourg membintangi keduanya.",
     "reasonEn": "Charlotte Gainsbourg stars in both.",
     "confidence": "high",
-    "status": "APPROVED",
+    "status": "REJECTED",
     "source": "llm"
   },
   {
@@ -6776,8 +6776,8 @@
     "targetPoster": null,
     "targetJellyfinId": "d518475946bb8d1373f2f936a8724a2b",
     "relationship": "talent",
-    "reason": "Keduanya diproduseri Peter Chernin dan Jenno Topping dari Chernin Entertainment.",
-    "reasonEn": "Both were produced by Peter Chernin and Jenno Topping of Chernin Entertainment.",
+    "reason": "Peter Chernin dan Jenno Topping memproduseri The Greatest Showman dan menjadi produser eksekutif Kingdom of the Planet of the Apes.",
+    "reasonEn": "Peter Chernin and Jenno Topping produced The Greatest Showman and are executive producers on Kingdom of the Planet of the Apes.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -6985,8 +6985,8 @@
     "targetPoster": null,
     "targetJellyfinId": "2b08aa9376b2f6544c972579b481b5ac",
     "relationship": "talent",
-    "reason": "Timothée Chalamet membintangi keduanya.",
-    "reasonEn": "Timothée Chalamet stars in both.",
+    "reason": "Timothée Chalamet membintangi Lady Bird dan memerankan Tom remaja di adegan-adegan awal Interstellar.",
+    "reasonEn": "Timothée Chalamet stars in Lady Bird and plays the teenage Tom in Interstellar's early scenes.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -7175,8 +7175,8 @@
     "targetPoster": null,
     "targetJellyfinId": "2b08aa9376b2f6544c972579b481b5ac",
     "relationship": "talent",
-    "reason": "Timothée Chalamet membintangi keduanya.",
-    "reasonEn": "Timothée Chalamet stars in both.",
+    "reason": "Timothée Chalamet membintangi Little Women dan memerankan Tom remaja di adegan-adegan awal Interstellar.",
+    "reasonEn": "Timothée Chalamet stars in Little Women and plays the teenage Tom in Interstellar's early scenes.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -7555,8 +7555,8 @@
     "targetPoster": null,
     "targetJellyfinId": "3389ca54095e3ba5c242339c158b5531",
     "relationship": "talent",
-    "reason": "Scarlett Johansson membintangi keduanya.",
-    "reasonEn": "Scarlett Johansson stars in both.",
+    "reason": "Scarlett Johansson membintangi Marriage Story dan mengisi suara Samantha di Her tanpa pernah tampil di layar.",
+    "reasonEn": "Scarlett Johansson stars in Marriage Story and voices Samantha in Her without ever appearing on screen.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -8258,8 +8258,8 @@
     "targetPoster": null,
     "targetJellyfinId": "e2406cba38b064095cb8b3109bc94995",
     "relationship": "talent",
-    "reason": "Donald Glover membintangi keduanya.",
-    "reasonEn": "Donald Glover stars in both.",
+    "reason": "Donald Glover memimpin Mr. & Mrs. Smith dan mengisi suara Simba dewasa di The Lion King.",
+    "reasonEn": "Donald Glover leads Mr. & Mrs. Smith and voices the adult Simba in The Lion King.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11602,8 +11602,8 @@
     "targetPoster": null,
     "targetJellyfinId": "a0089694f2d3681b49ffe8230e98ad34",
     "relationship": "talent",
-    "reason": "Adam DiMarco membintangi keduanya.",
-    "reasonEn": "Adam DiMarco stars in both.",
+    "reason": "Adam DiMarco memimpin Something Very Bad Is Going to Happen dan mengisi suara di undertone.",
+    "reasonEn": "Adam DiMarco leads Something Very Bad Is Going to Happen and lends his voice to undertone.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13901,8 +13901,8 @@
     "targetPoster": null,
     "targetJellyfinId": "09ff849309ee0a7cf429d102a4bcace7",
     "relationship": "talent",
-    "reason": "Saoirse Ronan membintangi keduanya.",
-    "reasonEn": "Saoirse Ronan stars in both.",
+    "reason": "Saoirse Ronan memimpin Little Women dan kebagian peran kecil di The French Dispatch.",
+    "reasonEn": "Saoirse Ronan leads Little Women and has a small part in The French Dispatch.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -14262,8 +14262,8 @@
     "targetPoster": null,
     "targetJellyfinId": "3940d12a0ccd20745588f4a43b668fcc",
     "relationship": "talent",
-    "reason": "Sakura Ando tampil di keduanya.",
-    "reasonEn": "Sakura Ando appears in both.",
+    "reason": "Sakura Ando memimpin Shoplifters dan mengisi salah satu suara di The Imaginary.",
+    "reasonEn": "Sakura Ando leads Shoplifters and voices a part in The Imaginary.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -14433,8 +14433,8 @@
     "targetPoster": null,
     "targetJellyfinId": "bbaee51efd76c550ba8946abd8136fa2",
     "relationship": "talent",
-    "reason": "Bella Ramsey membintangi keduanya.",
-    "reasonEn": "Bella Ramsey stars in both.",
+    "reason": "Bella Ramsey memimpin The Last of Us dan memerankan Lyanna Mormont di musim-musim akhir Game of Thrones.",
+    "reasonEn": "Bella Ramsey leads The Last of Us and played Lyanna Mormont through the later seasons of Game of Thrones.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15592,8 +15592,8 @@
     "targetPoster": null,
     "targetJellyfinId": "104e3b45864daff2b978d41e301e11b6",
     "relationship": "talent",
-    "reason": "Chris Sanders ikut menciptakan Lilo & Stitch dan menyutradarai The Wild Robot.",
-    "reasonEn": "Chris Sanders co-created Lilo & Stitch and directs The Wild Robot.",
+    "reason": "Chris Sanders menyutradarai The Wild Robot dan mengisi suara Stitch, tokoh yang ikut ia ciptakan.",
+    "reasonEn": "Chris Sanders directs The Wild Robot and voices Stitch, the character he co-created.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -16374,7 +16374,7 @@
     "reason": "Production I.G menganimasikan keduanya.",
     "reasonEn": "Production I.G animated both.",
     "confidence": "high",
-    "status": "APPROVED",
+    "status": "REJECTED",
     "source": "llm"
   },
   {
@@ -16599,8 +16599,8 @@
     "targetPoster": null,
     "targetJellyfinId": "fe522ea80bb507b56c59602b96e37a01",
     "relationship": "talent",
-    "reason": "Tim Burton menyutradarai empat episode Wednesday dan membawa tampilan gotiknya.",
-    "reasonEn": "Tim Burton directed four episodes of Wednesday and brought his gothic look to it.",
+    "reason": "Tim Burton menyutradarai sejumlah episode Wednesday dan membawa serta tampilan gotik Edward Scissorhands.",
+    "reasonEn": "Tim Burton directed episodes of Wednesday and brought the gothic look of Edward Scissorhands with him.",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
