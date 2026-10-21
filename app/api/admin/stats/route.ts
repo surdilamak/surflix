@@ -67,9 +67,27 @@ export async function GET() {
 
   // Recent activity (last 10 events)
   const recentEvents = await prisma.eventLog.findMany({
+    where: { type: { not: 'admin.login' } }, // login admin cuma bikin riuh di daftar aktivitas
     orderBy: { createdAt: 'desc' },
-    take: 10,
+    take: 12,
   });
+
+  // Perkaya aktivitas: ambil judul dan nama tamu dari requestId di payload
+  const parsed = recentEvents.map((e) => {
+    let p: Record<string, any> = {};
+    try {
+      p = JSON.parse(e.payload);
+    } catch {}
+    return p;
+  });
+  const reqIds = [...new Set(parsed.map((p) => p.requestId).filter(Boolean))] as string[];
+  const reqs = reqIds.length
+    ? await prisma.request.findMany({
+        where: { id: { in: reqIds } },
+        select: { id: true, title: true, mediaType: true, posterPath: true, guest: { select: { name: true } } },
+      })
+    : [];
+  const reqById = new Map(reqs.map((r) => [r.id, r]));
 
   return NextResponse.json({
     summary: {
@@ -84,10 +102,16 @@ export async function GET() {
       totalGuests,
     },
     topRequesters,
-    recentEvents: recentEvents.map((e) => ({
-      type: e.type,
-      payload: e.payload,
-      createdAt: e.createdAt,
-    })),
+    recentEvents: recentEvents.map((e, i) => {
+      const r = reqById.get(parsed[i].requestId);
+      return {
+        type: e.type,
+        payload: e.payload,
+        createdAt: e.createdAt,
+        title: r?.title ?? parsed[i].title ?? null,
+        guestName: r?.guest.name ?? parsed[i].guestName ?? parsed[i].username ?? null,
+        requestId: parsed[i].requestId ?? null,
+      };
+    }),
   });
 }

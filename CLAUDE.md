@@ -293,3 +293,9 @@ Pas lo work di project ini:
 ## Catatan Tailwind 4 (2026-10-21)
 - Utilitas ada di layer `utilities`; CSS buatan sendiri (`request.css`, `portal-bar.css`, `landing.css`, `referensi.css`) tidak berlayer dan SELALU menang atas utilitas. Jangan menaruh `padding`/`margin` pada override seperti `.rq-root .input-ios`, supaya `pl-12` dll tetap berlaku.
 - Kelas lama `btn-primary`, `badge-*`, `input-ios`, `tab` kini `@utility` di globals.css; `.rq-root ...` menimpanya hanya di Request Hub.
+
+## Admin (dirombak 2026-10-21)
+- Bahasa visual sama dengan landing/Request Hub/Reference (papan ubin, #0d0d0f, aksen #ff5200, radius 8px, Bricolage Grotesque). CSS: `app/(admin)/admin.css`, kelas `ad-*` di dalam `.ad-root` (tanpa layer, jadi menang atas utilitas Tailwind).
+- Kerangka: `app/(admin)/admin/layout.tsx` (guard sesi di server) + `components/admin/shell.tsx` (sidebar desktop, bilah atas + menu di telepon). `components/admin/context.tsx` = toast, dialog konfirmasi, lencana angka (`/api/admin/counts`, polling 30 detik), dan `api()` yang menangani 401.
+- Halaman: Overview (`/admin`), Requests (`/admin/requests`, tab Pending + History; pilih musim TV, aksi massal, alasan reject cepat; `/admin/pending` dan `/admin/history` redirect ke sini), Reference (`/admin/connections`, tab Coverage / Review queue / Rejected dengan Restore), Settings (`/admin/settings`, status integrasi dari `/api/admin/health`: DB, Jellyfin, Jellyseerr + jenis key, Push, WEBHOOK_SECRET, Resend; sinkronisasi library; webhook Telegram).
+- Teks admin English saja. Aktivitas terbaru memperkaya event dengan judul/nama tamu dan menyembunyikan `admin.login`.

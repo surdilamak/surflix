@@ -1,22 +1,24 @@
 /**
- * Admin Referensi (/admin/connections)
+ * Admin Reference (/admin/connections)
  *
- * Dua tab:
- *  - Coverage: seluruh library, ditandai mana yang sudah punya peta referensi dan mana yang belum.
- *    Admin bisa buka satu judul, lihat koneksinya, edit/hapus, dan nambah koneksi manual.
- *  - Review queue: draft yang belum di-approve (confidence "medium"), approve satu-satu atau massal.
+ * Tiga tab:
+ *  - Coverage: seluruh library, ditandai mana yang sudah punya peta. Buka satu judul untuk melihat, mengubah,
+ *    menghapus, atau menambah koneksi.
+ *  - Review queue: koneksi yang belum di-approve (approve satu per satu atau massal, bisa difilter per jenis).
+ *  - Rejected: koneksi yang ditolak, bisa dipulihkan.
  */
 'use client';
 
-import { useEffect, useMemo, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { Suspense, useCallback, useEffect, useMemo, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { Icons } from '@/components/ui/icons';
+import { useAdmin } from '@/components/admin/context';
+import { Badge, Empty, PageHead, Poster, Skeletons } from '@/components/admin/ui';
 import { useAppConfig } from '@/lib/hooks/use-app-config';
+import { usePortal } from '@/lib/hooks/use-portal';
 import { posterUrl } from '@/lib/jellyfin';
 import { relLabel, REL_ORDER } from '@/lib/i18n';
+import { CONNECTION_STATUS } from '@/lib/admin-format';
 
 interface CoverageTitle {
   tmdbId: number;
@@ -43,10 +45,12 @@ interface Conn {
   sourceMediaType: string;
   sourceTitle: string;
   sourceYear: number | null;
+  sourceJellyfinId?: string | null;
   targetTmdbId: number;
   targetMediaType: string;
   targetTitle: string;
   targetYear: number | null;
+  targetJellyfinId?: string | null;
   relationship: string;
   reason: string;
   reasonEn: string | null;
@@ -62,425 +66,370 @@ interface SearchHit {
   year: number | null;
 }
 
+type Tab = 'coverage' | 'queue' | 'rejected';
 type Filter = 'all' | 'mapped' | 'pending' | 'unmapped';
-type Toast = { message: string; type: 'success' | 'error' } | null;
 
-const STATUS_CLS: Record<string, string> = {
-  APPROVED: 'bg-ios-green/20 text-ios-green',
-  PENDING_REVIEW: 'bg-ios-orange/20 text-ios-orange',
-  REJECTED: 'bg-ios-red/20 text-ios-red',
-};
-
-async function api(path: string, init?: RequestInit) {
-  const res = await fetch(path, init);
-  const data = await res.json().catch(() => ({}));
-  return { res, data };
-}
-
-const post = (path: string, body: unknown) =>
-  api(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
-
-export default function AdminConnectionsPage() {
+function ConnectionsInner() {
   const router = useRouter();
+  const pathname = usePathname();
+  const sp = useSearchParams();
   const config = useAppConfig();
-  const [tab, setTab] = useState<'coverage' | 'queue'>('coverage');
-  const [toast, setToast] = useState<Toast>(null);
+  const { referenceHref } = usePortal();
+  const { api, toast, confirm, refreshCounts } = useAdmin();
+
+  const tab: Tab = sp.get('tab') === 'queue' ? 'queue' : sp.get('tab') === 'rejected' ? 'rejected' : 'coverage';
+  const setTab = (t: Tab) => {
+    const params = new URLSearchParams(sp.toString());
+    if (t === 'coverage') params.delete('tab');
+    else params.set('tab', t);
+    router.replace(`${pathname}${params.toString() ? `?${params}` : ''}`, { scroll: false });
+  };
 
   const [titles, setTitles] = useState<CoverageTitle[]>([]);
   const [summary, setSummary] = useState<Summary | null>(null);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState<Filter>('all');
+  const [kind, setKind] = useState<'all' | 'movie' | 'tv'>('all');
   const [q, setQ] = useState('');
   const [visible, setVisible] = useState(60);
   const [open, setOpen] = useState<string | null>(null);
   const [syncing, setSyncing] = useState(false);
 
-  const [queue, setQueue] = useState<Conn[]>([]);
-  const [queueLoading, setQueueLoading] = useState(true);
+  const [queue, setQueue] = useState<Conn[] | null>(null);
+  const [rejected, setRejected] = useState<Conn[] | null>(null);
+  const [relFilter, setRelFilter] = useState<string>('all');
   const [bulkBusy, setBulkBusy] = useState(false);
   const [actioningId, setActioningId] = useState<string | null>(null);
 
-  function showToast(message: string, type: 'success' | 'error') {
-    setToast({ message, type });
-    setTimeout(() => setToast(null), 3500);
-  }
+  const jf = (id?: string | null, w = 120) => (id && config?.jellyfinUrl ? posterUrl(id, config.jellyfinUrl, w) : null);
 
-  async function loadCoverage() {
+  const loadCoverage = useCallback(async () => {
     const { res, data } = await api('/api/admin/library');
-    if (res.status === 401) return router.push('/login');
     if (res.ok) {
       setTitles(data.titles);
       setSummary(data.summary);
     }
     setLoading(false);
-  }
+  }, [api]);
 
-  async function loadQueue() {
+  const loadQueue = useCallback(async () => {
     const { res, data } = await api('/api/admin/connections?status=PENDING_REVIEW&limit=1000');
-    if (res.status === 401) return router.push('/login');
     if (res.ok) setQueue(data.connections);
-    setQueueLoading(false);
-  }
+  }, [api]);
+
+  const loadRejected = useCallback(async () => {
+    const { res, data } = await api('/api/admin/connections?status=REJECTED&limit=1000');
+    if (res.ok) setRejected(data.connections);
+  }, [api]);
 
   useEffect(() => {
     loadCoverage();
     loadQueue();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    loadRejected();
+  }, [loadCoverage, loadQueue, loadRejected]);
 
-  async function refreshAll() {
-    await Promise.all([loadCoverage(), loadQueue()]);
-  }
+  const refreshAll = () => Promise.all([loadCoverage(), loadQueue(), loadRejected(), refreshCounts()]);
 
-  async function handleQueueAction(id: string, action: 'approve' | 'reject') {
+  async function act(id: string, action: 'approve' | 'reject') {
     setActioningId(id);
-    const { res, data } = await post('/api/admin/connections', { id, action });
+    const { res, data } = await api('/api/admin/connections', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, action }),
+    });
     setActioningId(null);
-    if (!res.ok) return showToast(data.error || 'Failed', 'error');
-    showToast(action === 'approve' ? 'Approved' : 'Rejected', 'success');
-    setQueue((prev) => prev.filter((c) => c.id !== id));
-    loadCoverage();
-  }
-
-  async function handleBulkApprove() {
-    if (!confirm(`Approve all ${queue.length} waiting connections? They go live on the portal right away.`)) return;
-    setBulkBusy(true);
-    const { res, data } = await post('/api/admin/connections', { action: 'bulk-approve' });
-    setBulkBusy(false);
-    if (!res.ok) return showToast(data.error || 'Failed', 'error');
-    showToast(`${data.updated} connections approved`, 'success');
+    if (!res.ok) return toast(data.error || 'Failed', 'error');
+    toast(action === 'approve' ? 'Approved. It is live on Reference.' : 'Rejected');
     refreshAll();
   }
 
-  async function handleSync() {
-    setSyncing(true);
-    const { res, data } = await post('/api/admin/library/sync', {});
-    setSyncing(false);
-    if (!res.ok) return showToast(data.error || 'Sync failed', 'error');
-    showToast(`Library synced: ${data.created} new, ${data.updated} updated`, 'success');
-    loadCoverage();
+  async function bulkApprove(list: Conn[]) {
+    const ok = await confirm({
+      title: `Approve ${list.length} connection${list.length === 1 ? '' : 's'}?`,
+      body: 'They go live on Reference right away.',
+      confirmLabel: `Approve ${list.length}`,
+    });
+    if (!ok) return;
+    setBulkBusy(true);
+    let done = 0;
+    for (const c of list) {
+      const { res } = await api('/api/admin/connections', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: c.id, action: 'approve' }),
+      });
+      if (res.ok) done++;
+    }
+    setBulkBusy(false);
+    toast(`${done} of ${list.length} approved`, done === list.length ? 'success' : 'error');
+    refreshAll();
   }
 
-  async function handleLogout() {
-    await fetch('/api/admin/login', { method: 'DELETE' });
-    router.push('/login');
+  async function sync() {
+    setSyncing(true);
+    const { res, data } = await api('/api/admin/library/sync', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+    setSyncing(false);
+    if (!res.ok) return toast(data.error || 'Sync failed', 'error');
+    toast(`Library synced: ${data.created} new, ${data.updated} updated`);
+    refreshAll();
   }
 
   const filtered = useMemo(() => {
     const term = q.trim().toLowerCase();
     return titles.filter((t) => {
+      if (kind !== 'all' && t.mediaType !== kind) return false;
       if (filter === 'mapped' && t.approved === 0) return false;
       if (filter === 'pending' && !(t.approved === 0 && t.pending > 0)) return false;
       if (filter === 'unmapped' && !(t.approved === 0 && t.pending === 0)) return false;
       if (!term) return true;
-      return t.title.toLowerCase().includes(term) || (t.directors ?? '').toLowerCase().includes(term);
+      return t.title.toLowerCase().includes(term) || (t.directors ?? '').toLowerCase().includes(term) || String(t.year ?? '').includes(term);
     });
-  }, [titles, filter, q]);
+  }, [titles, filter, kind, q]);
 
-  const portalLink = (t: { mediaType: string; tmdbId: number }) => `/referensi/${t.mediaType}/${t.tmdbId}`;
+  const queueShown = useMemo(() => (queue ?? []).filter((c) => relFilter === 'all' || c.relationship === relFilter), [queue, relFilter]);
+  const queueRelCounts = useMemo(() => {
+    const m: Record<string, number> = {};
+    (queue ?? []).forEach((c) => (m[c.relationship] = (m[c.relationship] ?? 0) + 1));
+    return m;
+  }, [queue]);
 
   return (
-    <div className="min-h-screen bg-black">
-      <header className="sticky top-0 z-50 border-b border-white/8 bg-black/70 backdrop-blur-ios">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6">
-          <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2">
-              <Image src="/logo-mark.png" alt="Surflix" width={24} height={24} className="h-6 w-6" />
-              <span className="text-base font-semibold tracking-tighter">Surflix Admin</span>
+    <>
+      <PageHead title="Reference maps" sub="Every title in the library, and the connections between them.">
+        <a href={referenceHref('/')} target="_blank" rel="noopener" className="ad-btn ad-btn--sm">
+          <Icons.ArrowUpRight /> Open portal
+        </a>
+        <button type="button" className="ad-btn ad-btn--sm" onClick={sync} disabled={syncing} title="Pull titles from Jellyfin into the snapshot">
+          <Icons.RefreshCw className={syncing ? 'animate-spin' : ''} /> {syncing ? 'Syncing…' : 'Sync library'}
+        </button>
+      </PageHead>
+
+      <div className="ad-seg" role="group" aria-label="View" style={{ marginBottom: 16 }}>
+        <button type="button" aria-pressed={tab === 'coverage'} onClick={() => setTab('coverage')}>
+          Coverage{summary ? ` (${summary.total})` : ''}
+        </button>
+        <button type="button" aria-pressed={tab === 'queue'} onClick={() => setTab('queue')}>
+          Review queue{queue ? ` (${queue.length})` : ''}
+        </button>
+        <button type="button" aria-pressed={tab === 'rejected'} onClick={() => setTab('rejected')}>
+          Rejected{rejected ? ` (${rejected.length})` : ''}
+        </button>
+      </div>
+
+      {/* ───────── Coverage ───────── */}
+      {tab === 'coverage' && (
+        <>
+          {summary && (
+            <div className="ad-chips" style={{ marginBottom: 12 }}>
+              {(
+                [
+                  ['all', 'All titles', summary.total],
+                  ['mapped', 'Mapped', summary.mapped],
+                  ['pending', 'Waiting for review', summary.pendingOnly],
+                  ['unmapped', 'Not mapped yet', summary.unmapped],
+                ] as const
+              ).map(([k, label, n]) => (
+                <button key={k} type="button" className="ad-chip" aria-pressed={filter === k} onClick={() => { setFilter(k); setVisible(60); }}>
+                  {label} <b>{n}</b>
+                </button>
+              ))}
             </div>
-            <nav className="hidden gap-1 md:flex">
-              <Link href="/admin" className="tab">Dashboard</Link>
-              <Link href="/admin/pending" className="tab">Pending</Link>
-              <Link href="/admin/history" className="tab">History</Link>
-              <Link href="/admin/connections" className="tab tab-active">
-                Reference
-                {queue.length > 0 && (
-                  <span className="ml-1 rounded-full bg-surflix-500 px-1.5 py-0.5 text-[10px] font-semibold text-white">
-                    {queue.length}
-                  </span>
-                )}
-              </Link>
-              <Link href="/admin/settings" className="tab">Settings</Link>
-            </nav>
+          )}
+
+          <div className="grid gap-2 sm:grid-cols-[1fr_auto]" style={{ marginBottom: 16 }}>
+            <div className="ad-search">
+              <Icons.Search />
+              <input
+                className="ad-field"
+                value={q}
+                onChange={(e) => { setQ(e.target.value); setVisible(60); }}
+                placeholder="Search by title, director or year"
+                aria-label="Search the library"
+              />
+            </div>
+            <div className="ad-seg" role="group" aria-label="Type">
+              {(['all', 'movie', 'tv'] as const).map((k) => (
+                <button key={k} type="button" aria-pressed={kind === k} onClick={() => { setKind(k); setVisible(60); }}>
+                  {k === 'all' ? 'All' : k === 'movie' ? 'Films' : 'Series'}
+                </button>
+              ))}
+            </div>
           </div>
-          <button onClick={handleLogout} className="text-xs text-white/40 hover:text-white">
-            <Icons.LogOut className="mr-1 inline h-3 w-3" />
-            Logout
-          </button>
-        </div>
-      </header>
 
-      <div className="mx-auto max-w-5xl px-4 py-6 md:px-6 md:py-8">
-        <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
-          <div>
-            <h1 className="text-2xl font-semibold tracking-tighter md:text-3xl">Reference maps</h1>
-            <p className="mt-1 text-xs text-white/50">
-              Every title in the library, and which ones already have connections.
-            </p>
-          </div>
-          <div className="flex items-center gap-2">
-            <a
-              href="/referensi"
-              target="_blank"
-              rel="noopener"
-              className="rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-medium text-white hover:bg-white/15"
-            >
-              Open portal
-            </a>
-            <button
-              onClick={handleSync}
-              disabled={syncing}
-              className="rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-medium text-white hover:bg-white/15 disabled:opacity-50"
-              title="Pull titles from Jellyfin into the snapshot (needs JELLYFIN_URL and JELLYFIN_API_KEY on the server)"
-            >
-              {syncing ? 'Syncing…' : 'Sync library'}
-            </button>
-          </div>
-        </div>
-
-        <div className="mb-6 flex gap-1 rounded-full bg-white/6 p-1 text-xs font-medium">
-          {([
-            ['coverage', `Coverage${summary ? ` (${summary.total})` : ''}`],
-            ['queue', `Review queue (${queue.length})`],
-          ] as const).map(([k, label]) => (
-            <button
-              key={k}
-              onClick={() => setTab(k)}
-              className={`flex-1 rounded-full px-4 py-2 transition-colors ${
-                tab === k ? 'bg-white text-black' : 'text-white/60 hover:text-white'
-              }`}
-            >
-              {label}
-            </button>
-          ))}
-        </div>
-
-        {tab === 'coverage' ? (
-          <>
-            {summary && (
-              <div className="mb-5 grid grid-cols-2 gap-2 md:grid-cols-4">
-                {([
-                  ['all', 'All titles', summary.total, 'text-white'],
-                  ['mapped', 'Mapped', summary.mapped, 'text-ios-green'],
-                  ['pending', 'Waiting for review', summary.pendingOnly, 'text-ios-orange'],
-                  ['unmapped', 'Not mapped yet', summary.unmapped, 'text-white/50'],
-                ] as const).map(([k, label, n, cls]) => (
-                  <button
-                    key={k}
-                    onClick={() => {
-                      setFilter(k);
-                      setVisible(60);
-                    }}
-                    className={`rounded-ios-lg border p-3 text-left transition-colors ${
-                      filter === k ? 'border-white/40 bg-white/8' : 'border-white/8 bg-bg-surface hover:border-white/20'
-                    }`}
-                  >
-                    <p className={`text-xl font-semibold tracking-tight ${cls}`}>{n}</p>
-                    <p className="text-[11px] text-white/50">{label}</p>
-                  </button>
-                ))}
-              </div>
-            )}
-
-            <input
-              value={q}
-              onChange={(e) => {
-                setQ(e.target.value);
-                setVisible(60);
-              }}
-              placeholder="Search by title or director"
-              className="input-ios mb-4 w-full text-xs"
+          {loading ? (
+            <Skeletons n={6} h={76} />
+          ) : filtered.length === 0 ? (
+            <Empty
+              icon="Library"
+              title={titles.length === 0 ? 'The library snapshot is empty' : 'No titles match'}
+              body={titles.length === 0 ? 'Run Sync library to pull the titles from Jellyfin.' : 'Try a different filter or search.'}
             />
-
-            {loading ? (
-              <div className="space-y-2">
-                {Array.from({ length: 6 }).map((_, i) => (
-                  <div key={i} className="h-16 animate-pulse rounded-ios-lg bg-white/4" />
-                ))}
-              </div>
-            ) : filtered.length === 0 ? (
-              <p className="py-12 text-center text-sm text-white/50">
-                {titles.length === 0 ? 'The library snapshot is empty. Use Sync library.' : 'No titles match.'}
-              </p>
-            ) : (
-              <div className="space-y-2">
-                {filtered.slice(0, visible).map((t) => {
-                  const key = `${t.mediaType}:${t.tmdbId}`;
-                  const isOpen = open === key;
-                  return (
-                    <div key={key} className="rounded-ios-lg border border-white/8 bg-bg-surface">
-                      <div className="flex items-center gap-3 p-3">
-                        <div className="h-14 w-9 shrink-0 overflow-hidden rounded-sm bg-bg-elevated">
-                          {config?.jellyfinUrl && (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img
-                              src={posterUrl(t.jellyfinId, config.jellyfinUrl, 120)}
-                              alt=""
-                              loading="lazy"
-                              className="h-full w-full object-cover"
-                            />
-                          )}
-                        </div>
-                        <div className="min-w-0 flex-1">
-                          <p className="truncate text-sm font-semibold tracking-tight">
-                            {t.title}
-                            {t.year && <span className="ml-1.5 text-xs font-normal text-white/40">{t.year}</span>}
-                            {t.mediaType === 'tv' && (
-                              <span className="ml-1.5 rounded-sm bg-white/10 px-1 text-[10px] font-medium text-white/60">TV</span>
-                            )}
-                          </p>
-                          <p className="truncate text-[11px] text-white/40">{t.directors || t.genres || ''}</p>
-                        </div>
-                        <div className="hidden shrink-0 text-right text-[11px] sm:block">
+          ) : (
+            <div className="grid gap-2">
+              {filtered.slice(0, visible).map((t) => {
+                const key = `${t.mediaType}:${t.tmdbId}`;
+                const isOpen = open === key;
+                return (
+                  <div key={key} className="ad-tile ad-tile--flush">
+                    <div className="flex flex-wrap items-center gap-3" style={{ padding: 12 }}>
+                      <Poster src={jf(t.jellyfinId)} />
+                      <div className="min-w-0 flex-1" style={{ minWidth: '10rem' }}>
+                        <p className="ad-text truncate" style={{ fontWeight: 600 }}>
+                          {t.title}
+                          {t.year && <span className="ad-muted" style={{ fontWeight: 400, marginLeft: 8 }}>{t.year}</span>}
+                          {t.mediaType === 'tv' && <span style={{ marginLeft: 8 }}><Badge>Series</Badge></span>}
+                        </p>
+                        <p className="ad-small ad-muted truncate">{t.directors || t.genres || ''}</p>
+                        <p className="ad-small" style={{ marginTop: 2 }}>
                           {t.approved > 0 ? (
-                            <span className="font-medium text-ios-green">{t.approved} live</span>
-                          ) : t.pending > 0 ? (
-                            <span className="font-medium text-ios-orange">{t.pending} waiting</span>
-                          ) : (
-                            <span className="text-white/40">Not mapped</span>
+                            <span style={{ color: 'var(--ad-green)' }}>{t.approved} live</span>
+                          ) : t.pending === 0 ? (
+                            <span className="ad-muted">Not mapped</span>
+                          ) : null}
+                          {t.pending > 0 && (
+                            <span style={{ color: 'var(--ad-yellow)', marginLeft: t.approved > 0 ? 10 : 0 }}>{t.pending} waiting</span>
                           )}
-                          {t.approved > 0 && t.pending > 0 && (
-                            <span className="ml-2 text-ios-orange">+{t.pending} waiting</span>
-                          )}
-                        </div>
-                        <a
-                          href={portalLink(t)}
-                          target="_blank"
-                          rel="noopener"
-                          className="shrink-0 rounded-full bg-white/10 px-3 py-1.5 text-[11px] font-medium text-white hover:bg-white/15"
-                        >
-                          View
-                        </a>
-                        <button
-                          onClick={() => setOpen(isOpen ? null : key)}
-                          className="shrink-0 rounded-full bg-white px-3 py-1.5 text-[11px] font-medium text-black"
-                        >
-                          {isOpen ? 'Close' : 'Manage'}
-                        </button>
+                        </p>
                       </div>
-                      {isOpen && (
-                        <FilmManager
-                          title={t}
-                          onChanged={() => {
-                            loadCoverage();
-                            loadQueue();
-                          }}
-                          showToast={showToast}
-                        />
-                      )}
+                      <a href={referenceHref(`/${t.mediaType}/${t.tmdbId}`)} target="_blank" rel="noopener" className="ad-btn ad-btn--sm">
+                        View
+                      </a>
+                      <button type="button" className={`ad-btn ad-btn--sm ${isOpen ? '' : 'ad-btn--primary'}`} onClick={() => setOpen(isOpen ? null : key)} aria-expanded={isOpen}>
+                        {isOpen ? 'Close' : 'Manage'}
+                      </button>
                     </div>
-                  );
-                })}
-                {filtered.length > visible && (
-                  <button
-                    onClick={() => setVisible((v) => v + 60)}
-                    className="w-full rounded-full bg-white/10 py-2.5 text-xs font-medium text-white hover:bg-white/15"
-                  >
-                    Show more ({filtered.length - visible} left)
-                  </button>
-                )}
-              </div>
-            )}
-          </>
-        ) : queueLoading ? (
-          <div className="space-y-3">
-            {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="h-24 animate-pulse rounded-ios-lg bg-white/4" />
-            ))}
-          </div>
+                    {isOpen && <FilmManager title={t} onChanged={refreshAll} />}
+                  </div>
+                );
+              })}
+              {filtered.length > visible && (
+                <button type="button" className="ad-btn ad-btn--block" onClick={() => setVisible((v) => v + 60)}>
+                  Show more ({filtered.length - visible} left)
+                </button>
+              )}
+            </div>
+          )}
+        </>
+      )}
+
+      {/* ───────── Review queue ───────── */}
+      {tab === 'queue' && (
+        queue === null ? (
+          <Skeletons n={3} h={110} />
         ) : queue.length === 0 ? (
-          <p className="py-16 text-center text-sm text-white/50">The queue is empty. Everything waiting has been reviewed.</p>
+          <Empty title="The queue is empty" body="Everything waiting has been reviewed." />
         ) : (
           <>
-            <div className="mb-4 flex items-center justify-between gap-3">
-              <p className="text-xs text-white/50">
-                These are connections we are less sure about. Read the reason, check it if you can, then approve or reject.
-              </p>
-              <button
-                onClick={handleBulkApprove}
-                disabled={bulkBusy}
-                className="shrink-0 rounded-full bg-ios-green px-4 py-1.5 text-xs font-medium text-white disabled:opacity-50"
-              >
-                {bulkBusy ? 'Approving…' : `Approve all ${queue.length}`}
+            <p className="ad-small ad-muted" style={{ marginBottom: 12, maxWidth: '40rem' }}>
+              These connections are less certain. Read the reason, check it if you can, then approve or reject.
+            </p>
+            <div className="ad-chips" style={{ marginBottom: 12 }}>
+              <button type="button" className="ad-chip" aria-pressed={relFilter === 'all'} onClick={() => setRelFilter('all')}>
+                All <b>{queue.length}</b>
               </button>
+              {REL_ORDER.filter((r) => queueRelCounts[r]).map((r) => (
+                <button key={r} type="button" className="ad-chip" aria-pressed={relFilter === r} onClick={() => setRelFilter(r)}>
+                  {relLabel('en', r)} <b>{queueRelCounts[r]}</b>
+                </button>
+              ))}
             </div>
-            <div className="space-y-2">
-              {queue.map((c) => (
-                <QueueRow
+            <div className="grid gap-2">
+              {queueShown.map((c) => (
+                <ConnCard
                   key={c.id}
                   c={c}
+                  jf={jf}
                   busy={actioningId === c.id}
-                  onAction={(a) => handleQueueAction(c.id, a)}
+                  actions={
+                    <>
+                      <button type="button" className="ad-btn ad-btn--primary ad-btn--sm" disabled={actioningId === c.id} onClick={() => act(c.id, 'approve')}>
+                        <Icons.Check /> Approve
+                      </button>
+                      <button type="button" className="ad-btn ad-btn--danger ad-btn--sm" disabled={actioningId === c.id} onClick={() => act(c.id, 'reject')}>
+                        <Icons.X /> Reject
+                      </button>
+                    </>
+                  }
+                />
+              ))}
+            </div>
+            <div className="ad-bulk">
+              <span className="ad-small ad-muted">
+                {relFilter === 'all' ? `${queue.length} waiting` : `${queueShown.length} ${relLabel('en', relFilter).toLowerCase()} waiting`}
+              </span>
+              <span style={{ flex: 1 }} />
+              <button type="button" className="ad-btn ad-btn--primary ad-btn--sm" disabled={bulkBusy} onClick={() => bulkApprove(queueShown)}>
+                {bulkBusy ? 'Approving…' : `Approve ${queueShown.length === queue.length ? 'all' : 'these'} ${queueShown.length}`}
+              </button>
+            </div>
+          </>
+        )
+      )}
+
+      {/* ───────── Rejected ───────── */}
+      {tab === 'rejected' && (
+        rejected === null ? (
+          <Skeletons n={3} h={110} />
+        ) : rejected.length === 0 ? (
+          <Empty title="Nothing rejected" body="Connections you reject land here, so you can bring them back." />
+        ) : (
+          <>
+            <p className="ad-small ad-muted" style={{ marginBottom: 12 }}>
+              Rejected connections stay hidden from the portal. Restore one to put it back live.
+            </p>
+            <div className="grid gap-2">
+              {rejected.map((c) => (
+                <ConnCard
+                  key={c.id}
+                  c={c}
+                  jf={jf}
+                  busy={actioningId === c.id}
+                  actions={
+                    <button type="button" className="ad-btn ad-btn--sm" disabled={actioningId === c.id} onClick={() => act(c.id, 'approve')}>
+                      <Icons.RotateCcw /> Restore
+                    </button>
+                  }
                 />
               ))}
             </div>
           </>
-        )}
-      </div>
-
-      {toast && (
-        <motion.div
-          initial={{ y: -50, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="fixed left-1/2 top-4 z-200 -translate-x-1/2"
-        >
-          <div className="flex items-center gap-2.5 rounded-full border border-white/10 bg-bg-surface/95 px-4 py-2.5 shadow-lg backdrop-blur-ios">
-            {toast.type === 'success' ? (
-              <Icons.CheckCircle2 className="h-4 w-4 text-ios-green" />
-            ) : (
-              <Icons.XCircle className="h-4 w-4 text-ios-red" />
-            )}
-            <span className="text-[13px] font-medium">{toast.message}</span>
-          </div>
-        </motion.div>
+        )
       )}
-    </div>
+    </>
   );
 }
 
-function QueueRow({ c, busy, onAction }: { c: Conn; busy: boolean; onAction: (a: 'approve' | 'reject') => void }) {
+function ConnCard({ c, jf, busy, actions }: { c: Conn; jf: (id?: string | null, w?: number) => string | null; busy: boolean; actions: React.ReactNode }) {
   return (
-    <div className="rounded-ios-lg border border-white/8 bg-bg-surface p-3.5">
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
-        <p className="text-sm font-semibold tracking-tight">
-          {c.sourceTitle}
-          <span className="mx-1.5 font-normal text-white/30">→</span>
-          {c.targetTitle}
-        </p>
-        <span className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium text-white/70">
-          {relLabel('en', c.relationship, 'out')}
-        </span>
+    <article className="ad-tile" aria-busy={busy}>
+      <div className="ad-row">
+        <div className="flex shrink-0 gap-1.5">
+          <Poster src={jf(c.sourceJellyfinId)} />
+          <Poster src={jf(c.targetJellyfinId)} />
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="ad-text" style={{ fontWeight: 600 }}>
+            {c.sourceTitle}
+            {c.sourceYear && <span className="ad-muted" style={{ fontWeight: 400 }}> {c.sourceYear}</span>}
+            <span className="ad-muted" style={{ margin: '0 8px' }}>→</span>
+            {c.targetTitle}
+            {c.targetYear && <span className="ad-muted" style={{ fontWeight: 400 }}> {c.targetYear}</span>}
+          </p>
+          <p className="flex flex-wrap items-center gap-2" style={{ margin: '6px 0' }}>
+            <Badge>{relLabel('en', c.relationship, 'out')}</Badge>
+            {c.confidence === 'medium' && <Badge tone="yellow">Less certain</Badge>}
+            {c.source === 'admin' && <span className="ad-small ad-muted">added by you</span>}
+          </p>
+          <p className="ad-small" style={{ color: 'rgba(255,255,255,0.82)' }}>{c.reasonEn || c.reason}</p>
+          <div className="flex flex-wrap gap-2" style={{ marginTop: 12 }}>{actions}</div>
+        </div>
       </div>
-      <p className="mt-1.5 text-[12px] leading-relaxed text-white/70">{c.reasonEn || c.reason}</p>
-      <div className="mt-3 flex gap-2">
-        <button
-          onClick={() => onAction('approve')}
-          disabled={busy}
-          className="rounded-full bg-ios-green px-3.5 py-1.5 text-xs font-medium text-white disabled:opacity-50"
-        >
-          Approve
-        </button>
-        <button
-          onClick={() => onAction('reject')}
-          disabled={busy}
-          className="rounded-full bg-white/10 px-3.5 py-1.5 text-xs font-medium text-white hover:bg-ios-red/20 hover:text-ios-red disabled:opacity-50"
-        >
-          Reject
-        </button>
-      </div>
-    </div>
+    </article>
   );
 }
 
-function FilmManager({
-  title,
-  onChanged,
-  showToast,
-}: {
-  title: CoverageTitle;
-  onChanged: () => void;
-  showToast: (m: string, t: 'success' | 'error') => void;
-}) {
+function FilmManager({ title, onChanged }: { title: CoverageTitle; onChanged: () => void }) {
+  const { api, toast, confirm } = useAdmin();
   const me = `${title.mediaType}:${title.tmdbId}`;
   const [conns, setConns] = useState<Conn[] | null>(null);
   const [busy, setBusy] = useState<string | null>(null);
@@ -488,7 +437,6 @@ function FilmManager({
   const [editRel, setEditRel] = useState('');
   const [editText, setEditText] = useState('');
 
-  // form tambah
   const [dir, setDir] = useState<'out' | 'in'>('out');
   const [rel, setRel] = useState<string>('homage');
   const [tq, setTq] = useState('');
@@ -498,15 +446,14 @@ function FilmManager({
   const [reasonId, setReasonId] = useState('');
   const [saving, setSaving] = useState(false);
 
-  async function load() {
+  const load = useCallback(async () => {
     const { res, data } = await api(`/api/admin/connections?film=${me}&status=ALL&limit=500`);
     if (res.ok) setConns(data.connections);
-  }
+  }, [api, me]);
 
   useEffect(() => {
     load();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [me]);
+  }, [load]);
 
   useEffect(() => {
     const term = tq.trim();
@@ -515,53 +462,64 @@ function FilmManager({
       return;
     }
     const id = setTimeout(async () => {
-      const { data } = await api(`/api/library/search?q=${encodeURIComponent(term)}`);
+      const res = await fetch(`/api/library/search?q=${encodeURIComponent(term)}`);
+      const data = await res.json().catch(() => ({}));
       setHits((data.results ?? []).filter((h: SearchHit) => `${h.mediaType}:${h.tmdbId}` !== me).slice(0, 6));
     }, 180);
     return () => clearTimeout(id);
   }, [tq, target, me]);
 
   async function act(id: string, action: 'approve' | 'reject' | 'delete') {
-    if (action === 'delete' && !confirm('Delete this connection?')) return;
+    if (action === 'delete') {
+      const ok = await confirm({ title: 'Delete this connection?', body: 'It is removed for good. Reject it instead if you may want it back.', confirmLabel: 'Delete', danger: true });
+      if (!ok) return;
+    }
     setBusy(id);
-    const { res, data } = await post('/api/admin/connections', { id, action });
+    const { res, data } = await api('/api/admin/connections', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, action }),
+    });
     setBusy(null);
-    if (!res.ok) return showToast(data.error || 'Failed', 'error');
+    if (!res.ok) return toast(data.error || 'Failed', 'error');
     await load();
     onChanged();
   }
 
   async function saveEdit(id: string) {
     setBusy(id);
-    const { res, data } = await post('/api/admin/connections', {
-      id,
-      action: 'update',
-      relationship: editRel,
-      reasonEn: editText,
+    const { res, data } = await api('/api/admin/connections', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, action: 'update', relationship: editRel, reasonEn: editText }),
     });
     setBusy(null);
-    if (!res.ok) return showToast(data.error || 'Failed', 'error');
+    if (!res.ok) return toast(data.error || 'Failed', 'error');
     setEditing(null);
-    showToast('Saved', 'success');
+    toast('Saved');
     await load();
   }
 
   async function add(e: React.FormEvent) {
     e.preventDefault();
-    if (!target) return showToast('Pick a title from the search results first', 'error');
+    if (!target) return toast('Pick a title from the search results first', 'error');
     setSaving(true);
     const self = { tmdbId: title.tmdbId, mediaType: title.mediaType };
     const other = { tmdbId: target.tmdbId, mediaType: target.mediaType };
-    const { res, data } = await post('/api/admin/connections/create', {
-      source: dir === 'out' ? self : other,
-      target: dir === 'out' ? other : self,
-      relationship: rel,
-      reasonEn,
-      reason: reasonId || undefined,
+    const { res, data } = await api('/api/admin/connections/create', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        source: dir === 'out' ? self : other,
+        target: dir === 'out' ? other : self,
+        relationship: rel,
+        reasonEn,
+        reason: reasonId || undefined,
+      }),
     });
     setSaving(false);
-    if (!res.ok) return showToast(data.error || 'Failed', 'error');
-    showToast('Connection added and live', 'success');
+    if (!res.ok) return toast(data.error || 'Failed', 'error');
+    toast('Connection added and live');
     setTarget(null);
     setTq('');
     setReasonEn('');
@@ -571,100 +529,65 @@ function FilmManager({
   }
 
   return (
-    <div className="border-t border-white/8 p-3.5">
-      <p className="mb-2 text-[11px] font-medium uppercase tracking-wide text-white/40">Connections</p>
+    <div style={{ padding: '4px 12px 16px' }}>
+      <p className="ad-label" style={{ margin: '8px 0' }}>Connections</p>
       {conns === null ? (
-        <div className="h-10 animate-pulse rounded-sm bg-white/4" />
+        <div className="ad-skel" style={{ height: 48 }} />
       ) : conns.length === 0 ? (
-        <p className="mb-4 text-xs text-white/40">Nothing yet. Add the first connection below.</p>
+        <p className="ad-small ad-muted" style={{ marginBottom: 16 }}>Nothing yet. Add the first connection below.</p>
       ) : (
-        <div className="mb-5 space-y-2">
+        <div className="grid gap-2" style={{ marginBottom: 20 }}>
           {conns.map((c) => {
             const out = `${c.sourceMediaType}:${c.sourceTmdbId}` === me;
             const other = out ? c.targetTitle : c.sourceTitle;
             const otherYear = out ? c.targetYear : c.sourceYear;
+            const st = CONNECTION_STATUS[c.status] ?? { label: c.status, tone: 'neutral' as const };
             const isEditing = editing === c.id;
             return (
-              <div key={c.id} className="rounded-lg bg-white/4 p-2.5">
-                <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
-                  <span className="font-semibold">
+              <div key={c.id} className="ad-note" style={{ padding: 12 }}>
+                <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                  <span style={{ fontWeight: 600 }}>
                     {other}
-                    {otherYear && <span className="ml-1 font-normal text-white/40">{otherYear}</span>}
+                    {otherYear && <span className="ad-muted" style={{ fontWeight: 400 }}> {otherYear}</span>}
                   </span>
-                  <span className="text-white/50">{relLabel('en', c.relationship, out ? 'out' : 'in')}</span>
-                  <span className={`rounded-full px-1.5 py-0.5 text-[10px] font-medium ${STATUS_CLS[c.status] ?? 'bg-white/10'}`}>
-                    {c.status === 'PENDING_REVIEW' ? 'waiting' : c.status.toLowerCase()}
-                  </span>
-                  {c.source === 'admin' && <span className="text-[10px] text-white/40">added by admin</span>}
+                  <span className="ad-muted">{relLabel('en', c.relationship, out ? 'out' : 'in')}</span>
+                  <Badge tone={st.tone}>{st.label}</Badge>
+                  {c.source === 'admin' && <span className="ad-muted">added by you</span>}
                 </div>
 
                 {isEditing ? (
-                  <div className="mt-2 space-y-2">
-                    <select value={editRel} onChange={(e) => setEditRel(e.target.value)} className="input-ios w-full text-xs">
+                  <div className="grid gap-2" style={{ marginTop: 10 }}>
+                    <select value={editRel} onChange={(e) => setEditRel(e.target.value)} className="ad-field" aria-label="Relationship">
                       {REL_ORDER.map((r) => (
-                        <option key={r} value={r}>
-                          {relLabel('en', r)}
-                        </option>
+                        <option key={r} value={r}>{relLabel('en', r)}</option>
                       ))}
                     </select>
-                    <textarea
-                      value={editText}
-                      onChange={(e) => setEditText(e.target.value)}
-                      rows={2}
-                      className="input-ios w-full text-xs"
-                    />
+                    <textarea value={editText} onChange={(e) => setEditText(e.target.value)} rows={3} className="ad-field" aria-label="Reason" />
                     <div className="flex gap-2">
-                      <button
-                        onClick={() => saveEdit(c.id)}
-                        disabled={busy === c.id}
-                        className="rounded-full bg-white px-3 py-1 text-[11px] font-medium text-black disabled:opacity-50"
-                      >
-                        Save
-                      </button>
-                      <button onClick={() => setEditing(null)} className="rounded-full bg-white/10 px-3 py-1 text-[11px] text-white">
-                        Cancel
-                      </button>
+                      <button type="button" className="ad-btn ad-btn--primary ad-btn--sm" onClick={() => saveEdit(c.id)} disabled={busy === c.id}>Save</button>
+                      <button type="button" className="ad-btn ad-btn--ghost ad-btn--sm" onClick={() => setEditing(null)}>Cancel</button>
                     </div>
                   </div>
                 ) : (
                   <>
-                    <p className="mt-1.5 text-[12px] leading-relaxed text-white/65">{c.reasonEn || c.reason}</p>
-                    <div className="mt-2 flex flex-wrap gap-1.5">
+                    <p style={{ margin: '8px 0', color: 'rgba(255,255,255,0.82)' }}>{c.reasonEn || c.reason}</p>
+                    <div className="flex flex-wrap gap-2">
                       {c.status !== 'APPROVED' && (
-                        <button
-                          onClick={() => act(c.id, 'approve')}
-                          disabled={busy === c.id}
-                          className="rounded-full bg-ios-green px-2.5 py-1 text-[11px] font-medium text-white disabled:opacity-50"
-                        >
-                          Approve
+                        <button type="button" className="ad-btn ad-btn--primary ad-btn--sm" onClick={() => act(c.id, 'approve')} disabled={busy === c.id}>
+                          {c.status === 'REJECTED' ? 'Restore' : 'Approve'}
                         </button>
                       )}
                       {c.status !== 'REJECTED' && (
-                        <button
-                          onClick={() => act(c.id, 'reject')}
-                          disabled={busy === c.id}
-                          className="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-medium text-white hover:bg-ios-red/20 hover:text-ios-red disabled:opacity-50"
-                        >
-                          Reject
-                        </button>
+                        <button type="button" className="ad-btn ad-btn--danger ad-btn--sm" onClick={() => act(c.id, 'reject')} disabled={busy === c.id}>Reject</button>
                       )}
                       <button
-                        onClick={() => {
-                          setEditing(c.id);
-                          setEditRel(c.relationship);
-                          setEditText(c.reasonEn || c.reason);
-                        }}
-                        className="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-medium text-white hover:bg-white/15"
+                        type="button"
+                        className="ad-btn ad-btn--sm"
+                        onClick={() => { setEditing(c.id); setEditRel(c.relationship); setEditText(c.reasonEn || c.reason); }}
                       >
                         Edit
                       </button>
-                      <button
-                        onClick={() => act(c.id, 'delete')}
-                        disabled={busy === c.id}
-                        className="rounded-full bg-white/10 px-2.5 py-1 text-[11px] font-medium text-white/60 hover:text-ios-red disabled:opacity-50"
-                      >
-                        Delete
-                      </button>
+                      <button type="button" className="ad-btn ad-btn--ghost ad-btn--sm" onClick={() => act(c.id, 'delete')} disabled={busy === c.id}>Delete</button>
                     </div>
                   </>
                 )}
@@ -674,55 +597,44 @@ function FilmManager({
         </div>
       )}
 
-      <p className="mb-2 text-[11px] font-medium uppercase tracking-wide text-white/40">Add a connection</p>
-      <form onSubmit={add} className="space-y-2">
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
-          <select value={dir} onChange={(e) => setDir(e.target.value as 'out' | 'in')} className="input-ios text-xs">
+      <p className="ad-label" style={{ margin: '8px 0' }}>Add a connection</p>
+      <form onSubmit={add} className="grid gap-2">
+        <div className="grid gap-2 sm:grid-cols-2">
+          <select value={dir} onChange={(e) => setDir(e.target.value as 'out' | 'in')} className="ad-field" aria-label="Direction">
             <option value="out">{title.title} references the title below</option>
             <option value="in">The title below references {title.title}</option>
           </select>
-          <select value={rel} onChange={(e) => setRel(e.target.value)} className="input-ios text-xs">
+          <select value={rel} onChange={(e) => setRel(e.target.value)} className="ad-field" aria-label="Relationship">
             {REL_ORDER.map((r) => (
-              <option key={r} value={r}>
-                {relLabel('en', r)}
-              </option>
+              <option key={r} value={r}>{relLabel('en', r)}</option>
             ))}
           </select>
         </div>
 
         <div className="relative">
           {target ? (
-            <div className="flex items-center justify-between rounded-lg bg-white/6 px-3 py-2 text-xs">
+            <div className="ad-field flex items-center justify-between" style={{ background: 'var(--ad-raised)' }}>
               <span>
                 <b>{target.title}</b>
-                {target.year && <span className="ml-1 text-white/40">{target.year}</span>}
+                {target.year && <span className="ad-muted"> {target.year}</span>}
               </span>
-              <button type="button" onClick={() => setTarget(null)} className="text-white/50 hover:text-white">
-                Change
-              </button>
+              <button type="button" className="ad-btn ad-btn--ghost ad-btn--sm" onClick={() => setTarget(null)}>Change</button>
             </div>
           ) : (
             <>
-              <input
-                value={tq}
-                onChange={(e) => setTq(e.target.value)}
-                placeholder="Search the library for the other title"
-                className="input-ios w-full text-xs"
-              />
+              <input value={tq} onChange={(e) => setTq(e.target.value)} placeholder="Search the library for the other title" className="ad-field" aria-label="Other title" />
               {hits.length > 0 && (
-                <ul className="absolute left-0 right-0 top-full z-20 mt-1 overflow-hidden rounded-lg border border-white/10 bg-bg-elevated">
+                <ul className="absolute left-0 right-0 top-full z-20" style={{ marginTop: 4, padding: 4, listStyle: 'none', background: 'var(--ad-hover)', borderRadius: 8 }}>
                   {hits.map((h) => (
                     <li key={`${h.mediaType}-${h.tmdbId}`}>
                       <button
                         type="button"
-                        onClick={() => {
-                          setTarget(h);
-                          setHits([]);
-                        }}
-                        className="block w-full px-3 py-2 text-left text-xs hover:bg-white/8"
+                        className="ad-btn ad-btn--ghost ad-btn--block"
+                        style={{ justifyContent: 'flex-start' }}
+                        onClick={() => { setTarget(h); setHits([]); }}
                       >
                         {h.title}
-                        {h.year && <span className="ml-1 text-white/40">{h.year}</span>}
+                        {h.year && <span className="ad-muted">{h.year}</span>}
                       </button>
                     </li>
                   ))}
@@ -735,28 +647,27 @@ function FilmManager({
         <textarea
           value={reasonEn}
           onChange={(e) => setReasonEn(e.target.value)}
-          rows={2}
-          placeholder="Why do they connect? One or two plain sentences (English)."
-          className="input-ios w-full text-xs"
+          rows={3}
+          placeholder="Why do they connect? One or two plain sentences, only what you can back up."
+          className="ad-field"
           required
           minLength={5}
           maxLength={220}
+          aria-label="Reason in English"
         />
-        <input
-          value={reasonId}
-          onChange={(e) => setReasonId(e.target.value)}
-          placeholder="Indonesian version (optional)"
-          className="input-ios w-full text-xs"
-          maxLength={220}
-        />
-        <button
-          type="submit"
-          disabled={saving}
-          className="rounded-full bg-surflix-500 px-4 py-2 text-xs font-medium text-white disabled:opacity-50"
-        >
-          {saving ? 'Saving…' : 'Add connection'}
-        </button>
+        <input value={reasonId} onChange={(e) => setReasonId(e.target.value)} placeholder="Indonesian version (optional)" className="ad-field" maxLength={220} aria-label="Reason in Indonesian" />
+        <div>
+          <button type="submit" className="ad-btn ad-btn--primary" disabled={saving}>{saving ? 'Saving…' : 'Add connection'}</button>
+        </div>
       </form>
     </div>
+  );
+}
+
+export default function AdminConnectionsPage() {
+  return (
+    <Suspense fallback={<Skeletons n={4} h={96} />}>
+      <ConnectionsInner />
+    </Suspense>
   );
 }

@@ -255,6 +255,18 @@ class JellyseerrClient {
   }
 
   /**
+   * True kalau API key ini milik admin (boleh baca /settings/main). Key user-level dapat 403.
+   */
+  async hasAdminKey(): Promise<boolean> {
+    try {
+      await this.client.get('/settings/main');
+      return true;
+    } catch {
+      return false;
+    }
+  }
+
+  /**
    * Health check, useful untuk validation di startup
    */
   async ping(): Promise<boolean> {

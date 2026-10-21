@@ -1,15 +1,13 @@
 /**
- * Admin Login Page (/login)
+ * Admin Login (/login)
  *
- * Route group (admin) — terpisah dari guest layout.
- * Setelah login sukses, redirect ke /admin (dashboard).
+ * Route group (admin), terpisah dari layout guest. Setelah login sukses langsung ke /admin.
  */
 'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
 import { Icons } from '@/components/ui/icons';
 
 export default function AdminLoginPage() {
@@ -24,111 +22,86 @@ export default function AdminLoginPage() {
     setError(null);
 
     if (!username.trim() || !password) {
-      setError('Username & password wajib diisi');
+      setError('Enter your username and password.');
       return;
     }
 
     setLoading(true);
-
     try {
       const res = await fetch('/api/admin/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: username.trim(), password }),
       });
-
-      const data = await res.json();
-
+      const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setError(data.error || 'Login gagal');
+        setError(res.status === 429 ? 'Too many attempts. Wait a minute and try again.' : data.error || 'Sign in failed.');
         setLoading(false);
         return;
       }
-
       router.push('/admin');
     } catch {
-      setError('Network error');
+      setError('Network error. Try again.');
       setLoading(false);
     }
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-black px-4">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.3 }}
-        className="w-full max-w-sm"
-      >
-        {/* Logo */}
-        <div className="mb-8 text-center">
-          <Image
-            src="/logo-mark.png"
-            alt="Surflix"
-            width={56}
-            height={56}
-            priority
-            className="mx-auto mb-3 h-14 w-14"
-          />
-          <h1 className="text-2xl font-semibold tracking-tighter">Surflix Admin</h1>
-          <p className="mt-1 text-sm text-white/50">Sign in untuk manage requests</p>
+    <div className="ad-login">
+      <div className="ad-login-card">
+        <div style={{ marginBottom: 28 }}>
+          <Image src="/logo-mark.png" alt="" width={48} height={48} priority style={{ marginBottom: 16 }} />
+          <h1 className="ad-h1">Surflix Admin</h1>
+          <p className="ad-text ad-muted" style={{ marginTop: 6 }}>Sign in to manage requests and the Reference maps.</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-3">
+        <form onSubmit={handleSubmit} className="grid gap-3" noValidate>
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-white/60">Username</label>
+            <label htmlFor="ad-user" className="ad-small ad-muted" style={{ display: 'block', marginBottom: 6 }}>Username</label>
             <input
+              id="ad-user"
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              placeholder="idrus"
-              className="input-ios w-full"
+              className="ad-field"
               autoFocus
               autoComplete="username"
             />
           </div>
-
           <div>
-            <label className="mb-1.5 block text-xs font-medium text-white/60">Password</label>
+            <label htmlFor="ad-pass" className="ad-small ad-muted" style={{ display: 'block', marginBottom: 6 }}>Password</label>
             <input
+              id="ad-pass"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••"
-              className="input-ios w-full"
+              className="ad-field"
               autoComplete="current-password"
             />
           </div>
 
           {error && (
-            <div className="flex items-start gap-2 rounded-ios-lg border border-ios-red/30 bg-ios-red/10 p-2.5">
-              <Icons.AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-ios-red" />
-              <p className="text-[11px] text-white/85">{error}</p>
-            </div>
+            <p className="ad-note flex items-start gap-2" role="alert" style={{ color: 'var(--ad-red)' }}>
+              <Icons.AlertCircle width={16} height={16} style={{ flex: '0 0 auto', marginTop: 2 }} />
+              <span>{error}</span>
+            </p>
           )}
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="btn-primary w-full disabled:opacity-50"
-          >
+          <button type="submit" className="ad-btn ad-btn--primary ad-btn--block" disabled={loading}>
             {loading ? (
-              <span className="inline-flex items-center gap-1.5">
-                <Icons.Loader2 className="h-3.5 w-3.5 animate-spin" />
-                Signing in...
-              </span>
+              <>
+                <Icons.Loader2 className="animate-spin" /> Signing in…
+              </>
             ) : (
               'Sign in'
             )}
           </button>
         </form>
 
-        <div className="mt-6 text-center">
-          <a href="/" className="text-xs text-white/40 hover:text-white/70">
-            ← Back to Surflix
-          </a>
-        </div>
-      </motion.div>
+        <p style={{ marginTop: 20 }}>
+          <a href="/" className="ad-small ad-muted">← Back to Surflix</a>
+        </p>
+      </div>
     </div>
   );
 }
