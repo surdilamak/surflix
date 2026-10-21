@@ -24,6 +24,14 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_REFERENCE_URL || 'https://reference.surflix.my.id'),
   title: 'Surflix Reference: every film leaves a trail',
   description: 'A map of how the films and series on Surflix connect: homages, borrowed looks, shared directors and shared universes.',
+  openGraph: {
+    title: 'Surflix Reference: every film leaves a trail',
+    description: 'A map of how the films and series on Surflix connect.',
+    siteName: 'Surflix Reference',
+    type: 'website',
+    images: [{ url: '/api/og/default', width: 1200, height: 630, alt: 'Surflix Reference' }],
+  },
+  twitter: { card: 'summary_large_image', images: ['/api/og/default'] },
 };
 
 export default function ReferensiLayout({ children }: { children: React.ReactNode }) {

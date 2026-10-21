@@ -495,3 +495,57 @@ export async function getFilmMeta(tmdbId: number, mediaType: MediaType) {
     reason: best ? best.reasonEn ?? best.reason : null,
   };
 }
+
+/**
+ * Data kartu preview (OG image) satu film: ringkasan getFilmMeta plus tiga koneksi terkuat
+ * (jenis hubungan, arah, judul lawan) supaya kartunya memperlihatkan peta, bukan cuma poster.
+ */
+export async function getFilmOgData(tmdbId: number, mediaType: MediaType) {
+  const meta = await getFilmMeta(tmdbId, mediaType);
+  if (!meta) return null;
+  const rows = await prisma.filmConnection.findMany({
+    where: {
+      status: 'APPROVED',
+      OR: [
+        { sourceTmdbId: tmdbId, sourceMediaType: mediaType },
+        { targetTmdbId: tmdbId, targetMediaType: mediaType },
+      ],
+    },
+  });
+  const PRIORITY = ['homage', 'inspired', 'visual', 'remake', 'talent', 'director', 'universe'];
+  const isSource = (r: Row) => r.sourceTmdbId === tmdbId && r.sourceMediaType === mediaType;
+  const seen = new Set<string>();
+  const related = [...rows]
+    .sort((a, b) => PRIORITY.indexOf(a.relationship) - PRIORITY.indexOf(b.relationship))
+    .flatMap((r) => {
+      const out = isSource(r);
+      const key = out ? fk(r.targetMediaType, r.targetTmdbId) : fk(r.sourceMediaType, r.sourceTmdbId);
+      if (seen.has(key)) return [];
+      seen.add(key);
+      return [{
+        relationship: r.relationship,
+        direction: (out ? 'out' : 'in') as 'out' | 'in',
+        title: out ? r.targetTitle : r.sourceTitle,
+        year: out ? r.targetYear : r.sourceYear,
+      }];
+    })
+    .slice(0, 3);
+  return { ...meta, related };
+}
+
+/** Daftar halaman peta untuk sitemap: semua judul yang punya koneksi APPROVED, plus kapan terakhir berubah. */
+export async function sitemapFilms() {
+  const rows = await approvedRows();
+  const latest = new Map<string, Date>();
+  for (const r of rows) {
+    const d = (r.reviewedAt ?? r.createdAt) as Date;
+    for (const k of [fk(r.sourceMediaType, r.sourceTmdbId), fk(r.targetMediaType, r.targetTmdbId)]) {
+      const cur = latest.get(k);
+      if (!cur || d > cur) latest.set(k, d);
+    }
+  }
+  return [...latest.entries()].map(([key, lastModified]) => {
+    const [mediaType, id] = key.split(':');
+    return { mediaType, tmdbId: Number(id), lastModified };
+  });
+}

@@ -4,7 +4,6 @@
  */
 import type { Metadata } from 'next';
 import { getFilmMeta } from '@/lib/connections';
-import { posterOf } from '@/lib/portal-data';
 
 export const dynamic = 'force-dynamic';
 
@@ -29,8 +28,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     200
   );
 
-  const jellyfinUrl = process.env.NEXT_PUBLIC_JELLYFIN_URL || '';
-  const image = posterOf({ poster: meta.poster, jellyfinId: meta.jellyfinId }, jellyfinUrl || undefined, 500);
+  // Kartu 1200x630 buatan sendiri (poster + jumlah koneksi + tiga koneksi terkuat)
+  const image = `/api/og/${type}/${id}`;
 
   return {
     title,
@@ -40,9 +39,9 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
       description,
       type: 'website',
       siteName: 'Surflix Reference',
-      ...(image ? { images: [{ url: image }] } : {}),
+      images: [{ url: image, width: 1200, height: 630, alt: label }],
     },
-    twitter: { card: image ? 'summary_large_image' : 'summary', title, description, ...(image ? { images: [image] } : {}) },
+    twitter: { card: 'summary_large_image', title, description, images: [image] },
   };
 }
 
