@@ -31,11 +31,13 @@ const LANE_COLORS = ['#ffffff', '#4f8ff0', '#1f9d7d', '#f7941d'];
 export function TimelineView({
   sagas,
   initial,
+  initialFilm,
   jellyfinUrl,
   serverId,
 }: {
   sagas: Saga[];
   initial?: string;
+  initialFilm?: string;
   jellyfinUrl: string;
   serverId?: string;
 }) {
@@ -43,7 +45,7 @@ export function TimelineView({
   const { portalPath } = usePortal();
   const [sagaId, setSagaId] = useState(() => (sagas.some((s) => s.id === initial) ? (initial as string) : sagas[0]?.id));
   const [mode, setMode] = useState<Mode>('story');
-  const [picked, setPicked] = useState<string | null>(null);
+  const [picked, setPicked] = useState<string | null>(initialFilm ?? null);
   const scroller = useRef<HTMLDivElement>(null);
   const [edge, setEdge] = useState({ start: true, end: false });
 
@@ -72,9 +74,15 @@ export function TimelineView({
     };
   }, [measure, sagaId]);
 
-  // geser kembali ke awal kalau saga atau urutannya berganti
+  // geser kembali ke awal kalau saga atau urutannya berganti (kecuali ada film yang dituju dari peta)
+  const first = useRef(true);
   useEffect(() => {
-    scroller.current?.scrollTo({ left: 0, behavior: 'smooth' });
+    const box = scroller.current;
+    const target = first.current && initialFilm ? ordered.find((e) => e.key === initialFilm) : undefined;
+    first.current = false;
+    if (target && box) box.scrollTo({ left: Math.max(0, target.story * COL - box.clientWidth / 2 + CW / 2) });
+    else box?.scrollTo({ left: 0, behavior: 'smooth' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sagaId, mode]);
 
   const chooseSaga = (id: string) => {

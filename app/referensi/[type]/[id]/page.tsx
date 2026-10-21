@@ -11,6 +11,7 @@ import { useAppConfig } from '@/lib/hooks/use-app-config';
 import { usePortal } from '@/lib/hooks/use-portal';
 import { useReveal } from '@/lib/hooks/use-reveal';
 import { watchUrl } from '@/lib/jellyfin';
+import { sagaOf } from '@/lib/saga-lookup';
 import { filmKey, posterOf, REL_VAR } from '@/lib/portal-data';
 import { useLang } from '@/components/connections/lang-provider';
 import { SearchBox } from '@/components/connections/search-box';
@@ -102,6 +103,7 @@ export default function ReferensiFilmPage() {
 
   const source = data.nodes[0];
   const targets = new Map(data.nodes.slice(1).map((n) => [n.id, n]));
+  const saga = sagaOf(source.title, source.year);
   const sub = source.year
     ? t('detail.subYear', { year: source.year, n: data.edges.length })
     : t('detail.sub', { n: data.edges.length });
@@ -125,6 +127,11 @@ export default function ReferensiFilmPage() {
           <a className="ref-core-browse" style={{ marginTop: 0 }} href={`${portalPath('/galaxy') || '/galaxy'}?select=${source.mediaType}:${source.tmdbId}`}>
             {t('detail.galaxy')}
           </a>
+          {saga && (
+            <a className="ref-core-browse" style={{ marginTop: 0 }} href={`${portalPath('/timeline') || '/timeline'}?saga=${saga.id}&film=${encodeURIComponent(saga.key)}`}>
+              {t('detail.saga', { name: saga.name })}
+            </a>
+          )}
         </div>
         <div className="ref-stage-wrap" style={{ margin: '40px calc(var(--margin) * -1) 0' }}>
           <ConnectionGraph data={data} jellyfinUrl={jellyfinUrl} serverId={config.jellyfinServerId} portalPath={portalPath} />

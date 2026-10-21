@@ -25,6 +25,7 @@ const en: Dict = {
   'nav.timeline': 'Watch order',
 
   // watch order
+  'detail.saga': 'Part of {name}: watch order',
   'tl.h1': 'Watch order',
   'tl.sub': 'Pick a saga, then choose how to follow it: the order the story happens, or the order the films came out.',
   'tl.mode': 'Order',
@@ -180,6 +181,7 @@ const id: Dict = {
   'nav.new': 'Baru masuk',
   'nav.timeline': 'Urutan tonton',
 
+  'detail.saga': 'Bagian dari {name}: urutan tonton',
   'tl.h1': 'Urutan tonton',
   'tl.sub': 'Pilih satu saga, lalu pilih cara mengikutinya: urutan kejadian dalam cerita, atau urutan film-filmnya tayang.',
   'tl.mode': 'Urutan',

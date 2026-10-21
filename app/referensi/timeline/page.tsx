@@ -14,10 +14,10 @@ export const metadata: Metadata = {
   description: 'Where to start a saga: follow it in story order or in release order, with the spin-offs branching off the main line.',
 };
 
-export default async function TimelinePage({ searchParams }: { searchParams: Promise<{ saga?: string }> }) {
-  const { saga } = await searchParams;
+export default async function TimelinePage({ searchParams }: { searchParams: Promise<{ saga?: string; film?: string }> }) {
+  const { saga, film } = await searchParams;
   const sagas = await getSagas().catch(() => []);
   const jellyfinUrl = (process.env.NEXT_PUBLIC_JELLYFIN_URL || process.env.JELLYFIN_URL || '').replace(/\/+$/, '');
   const serverId = await getServerId().catch(() => undefined);
-  return <TimelineView sagas={sagas} initial={saga} jellyfinUrl={jellyfinUrl} serverId={serverId ?? undefined} />;
+  return <TimelineView sagas={sagas} initial={saga} initialFilm={film} jellyfinUrl={jellyfinUrl} serverId={serverId ?? undefined} />;
 }
