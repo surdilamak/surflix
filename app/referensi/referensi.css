@@ -523,14 +523,14 @@
   transition: transform 0.8s var(--ease);
 }
 .ref-saga-card .ref-frame { width: auto; }
-.ref-saga-start { position: absolute; left: 0; top: -22px; font-size: 12px; font-weight: 700; color: var(--accent); white-space: nowrap; }
-.ref-saga-ghost { display: grid; place-items: center; height: 100%; padding: 10px; background: #11151c; text-align: center; font-size: 12px; font-weight: 600; color: var(--field-1-muted); }
+.ref-saga-start { position: absolute; left: 0; top: -22px; font-size: 13px; font-weight: 700; color: var(--accent); white-space: nowrap; }
+.ref-saga-ghost { display: grid; place-items: center; height: 100%; padding: 10px; background: #11151c; text-align: center; font-size: 13px; font-weight: 600; color: var(--field-1-muted); }
 .ref-saga-dot { position: absolute; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: var(--lane); transition: transform 0.3s var(--ease), background 0.2s; }
 .ref-saga-card[data-sel] .ref-saga-dot { transform: scale(1.7); background: var(--accent); }
 .ref-saga-cap { display: block; margin-top: 26px; transition: opacity 0.25s; }
 .ref-saga-track[data-far=''] .ref-saga-cap, .ref-saga-track[data-far=''] .ref-saga-start { opacity: 0; }
 .ref-saga-cap b { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: 13px; font-weight: 600; line-height: 1.25; }
-.ref-saga-cap small { display: block; margin-top: 3px; font-size: 12px; color: var(--field-1-muted); font-variant-numeric: tabular-nums; }
+.ref-saga-cap small { display: block; margin-top: 3px; font-size: 13px; color: var(--field-1-muted); font-variant-numeric: tabular-nums; }
 .ref-saga-card[data-sel] .ref-saga-cap b { color: var(--accent); }
 .ref-saga-card[data-missing] .ref-saga-cap b { color: var(--field-1-muted); }
 .ref-saga-card:focus-visible { outline: 3px solid var(--accent); outline-offset: 6px; }

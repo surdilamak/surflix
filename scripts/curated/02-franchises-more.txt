@@ -65,37 +65,53 @@ Digimon Adventure tri. Part 6: Future (2018) > Digimon Adventure tri. Part 5: Co
 Digimon: Digital Monsters (2020) > Digimon: Digital Monsters (1999) | universe | h | @reboot
 
 # ============ DRAGON BALL ============
-Dragon Ball Z: Dead Zone (1989) > Dragon Ball Z (1989) | universe | h | @film-of-series
+# The story order lives in sagas.txt. Here the point is WHY two titles touch, so the
+# hub-and-spoke lines keep their @film-of-series template and the ones that carry a real
+# story fact get a sentence of their own.
+
+# — the spine —
+Dragon Ball Z (1989) > Dragon Ball (1986) | universe | h | @sequel
+Dragon Ball Super (2015) > Dragon Ball Z (1989) | universe | h | @sequel
+Dragon Ball Daima (2024) > Dragon Ball Super (2015) | universe | h | Daima was made after Dragon Ball Super but is set before it, a year after the Buu arc, inside the ten-year gap that closes Z. || Daima dibuat setelah Dragon Ball Super tetapi berlatar sebelumnya, setahun setelah arc Buu, di dalam jeda sepuluh tahun yang menutup Z.
+Dragon Ball Super: Beerus (2026) > Dragon Ball Super (2015) | universe | h | @series
+
+# — recuts and retellings —
+Dragon Ball Z Kai: The Final Chapters (2009) > Dragon Ball Z (1989) | remake | h | Kai recuts Dragon Ball Z to follow the manga, dropping the filler the weekly schedule once needed. || Kai memangkas ulang Dragon Ball Z agar mengikuti manganya, membuang filler yang dulu dibutuhkan jadwal mingguan.
+Dragon Ball: The Path to Power (1996) > Dragon Ball (1986) | remake | h | Made for the series' tenth anniversary: the same first adventure, animated again from the start. || Dibuat untuk ulang tahun kesepuluh serial: petualangan pertama yang sama, dianimasikan ulang dari awal.
+Dragon Ball: Curse of the Blood Rubies (1986) > Dragon Ball (1986) | remake | h | A film-length retelling of the opening arc, with the cast rearranged around a new villain. || Penceritaan ulang sepanjang film dari arc pembuka, dengan para tokoh disusun ulang mengelilingi penjahat baru.
+Dragon Ball: Mystical Adventure (1988) > Dragon Ball (1986) | remake | h | A film-length retelling of the Red Ribbon arc, set at a tournament instead. || Penceritaan ulang sepanjang film dari arc Red Ribbon, kali ini berlatar turnamen.
+Dragon Ball: Sleeping Princess in Devil's Castle (1987) > Dragon Ball (1986) | universe | h | @film-of-series
+
+# — Z side films, in the arcs they sit in —
+Dragon Ball Z: Bardock - The Father of Goku (1990) > Dragon Ball Z (1989) | universe | h | @prequel
+Dragon Ball Z: Dead Zone (1989) > Dragon Ball Z (1989) | universe | h | Set just before Raditz arrives: Goku and Piccolo are still enemies and Gohan has no idea what he is. || Berlatar tepat sebelum Raditz datang: Goku dan Piccolo masih musuh dan Gohan belum tahu kekuatannya.
 Dragon Ball Z: The World's Strongest (1990) > Dragon Ball Z (1989) | universe | h | @film-of-series
 Dragon Ball Z: The Tree of Might (1990) > Dragon Ball Z (1989) | universe | h | @film-of-series
-Dragon Ball Z: Bardock - The Father of Goku (1990) > Dragon Ball Z (1989) | universe | h | @film-of-series
 Dragon Ball Z: Lord Slug (1991) > Dragon Ball Z (1989) | universe | h | @film-of-series
-Dragon Ball Z: Cooler's Revenge (1991) > Dragon Ball Z (1989) | universe | h | @film-of-series
-Dragon Ball Z: The Return of Cooler (1992) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball Z: Cooler's Revenge (1991) > Dragon Ball Z (1989) | universe | h | Cooler is written as Frieza's older brother, so the film only works after Namek. || Cooler ditulis sebagai kakak Frieza, jadi filmnya baru masuk akal setelah Namek.
+Dragon Ball Z: The Return of Cooler (1992) > Dragon Ball Z: Cooler's Revenge (1991) | universe | h | @sequel
 Dragon Ball Z: Super Android 13! (1992) > Dragon Ball Z (1989) | universe | h | @film-of-series
 Dragon Ball Z: Broly - The Legendary Super Saiyan (1993) > Dragon Ball Z (1989) | universe | h | @film-of-series
 Dragon Ball Z: Bojack Unbound (1993) > Dragon Ball Z (1989) | universe | h | @film-of-series
-Dragon Ball Z: The History of Trunks (1993) > Dragon Ball Z (1989) | universe | h | @film-of-series
-Dragon Ball Z: Broly - Second Coming (1994) > Dragon Ball Z (1989) | universe | h | @film-of-series
-Dragon Ball Z: Bio-Broly (1994) > Dragon Ball Z (1989) | universe | h | @film-of-series
+Dragon Ball Z: Broly - Second Coming (1994) > Dragon Ball Z: Broly - The Legendary Super Saiyan (1993) | universe | h | @sequel
+Dragon Ball Z: Bio-Broly (1994) > Dragon Ball Z: Broly - Second Coming (1994) | universe | h | @sequel
 Dragon Ball Z: Fusion Reborn (1995) > Dragon Ball Z (1989) | universe | h | @film-of-series
 Dragon Ball Z: Wrath of the Dragon (1995) > Dragon Ball Z (1989) | universe | h | @film-of-series
-Dragon Ball: Curse of the Blood Rubies (1986) > Dragon Ball (1986) | universe | h | @film-of-series
-Dragon Ball: Sleeping Princess in Devil's Castle (1987) > Dragon Ball (1986) | universe | h | @film-of-series
-Dragon Ball: Mystical Adventure (1988) > Dragon Ball (1986) | universe | h | @film-of-series
-Dragon Ball: The Path to Power (1996) > Dragon Ball (1986) | universe | h | @film-of-series
-Dragon Ball Z (1989) > Dragon Ball (1986) | universe | h | @sequel
-Dragon Ball Z Kai: The Final Chapters (2009) > Dragon Ball Z (1989) | universe | h | @remake
-Dragon Ball GT (1996) > Dragon Ball Z (1989) | universe | h | @sequel
-Dragon Ball GT: A Hero's Legacy (1997) > Dragon Ball GT (1996) | universe | h | @film-of-series
+
+# — the two Z films Super folded back into the main story —
 Dragon Ball Z: Battle of Gods (2013) > Dragon Ball Z (1989) | universe | h | @sequel
 Dragon Ball Z: Resurrection 'F' (2015) > Dragon Ball Z: Battle of Gods (2013) | universe | h | @sequel
-Dragon Ball Super (2015) > Dragon Ball Z (1989) | universe | h | @sequel
+Dragon Ball Super (2015) > Dragon Ball Z: Battle of Gods (2013) | remake | h | Super opens by retelling Battle of Gods across its first arc. || Super dibuka dengan menceritakan ulang Battle of Gods sepanjang arc pertamanya.
+Dragon Ball Super (2015) > Dragon Ball Z: Resurrection 'F' (2015) | remake | h | Super's second arc retells Resurrection 'F'. || Arc kedua Super menceritakan ulang Resurrection 'F'.
 Dragon Ball Super: Broly (2018) > Dragon Ball Super (2015) | universe | h | @film-of-series
+Dragon Ball Super: Broly (2018) > Dragon Ball Z: Broly - The Legendary Super Saiyan (1993) | remake | h | Broly was a film-only villain for twenty-five years; this is the rewritten version Toriyama brought into the main story. || Broly 25 tahun hanya ada di film; ini versi tulis-ulang yang dibawa Toriyama masuk ke cerita utama.
 Dragon Ball Super: Super Hero (2022) > Dragon Ball Super (2015) | universe | h | @film-of-series
-Dragon Ball Daima (2024) > Dragon Ball Super (2015) | universe | h | @series
-Super Dragon Ball Heroes (2018) > Dragon Ball Super (2015) | universe | h | @universe
-Dragon Ball Super: Beerus (2026) > Dragon Ball Super (2015) | universe | h | @series
+
+# — branches off the main line —
+Dragon Ball Z: The History of Trunks (1993) > Dragon Ball Z (1989) | universe | h | The alternate future the androids won, where Trunks grew up alone — the timeline he travels back from. || Masa depan alternatif tempat para android menang dan Trunks tumbuh sendirian — garis waktu asal perjalanannya.
+Dragon Ball GT (1996) > Dragon Ball Z (1989) | universe | h | Picks up five years after Z ends, but Toriyama did not write it, so it is usually read as a branch rather than the main line. || Melanjutkan lima tahun setelah Z berakhir, tetapi tidak ditulis Toriyama, jadi umumnya dibaca sebagai cabang, bukan garis utama.
+Dragon Ball GT: A Hero's Legacy (1997) > Dragon Ball GT (1996) | universe | h | @film-of-series
+Super Dragon Ball Heroes (2018) > Dragon Ball Super (2015) | universe | h | A promotional series built from card-game what-ifs, outside the main story. || Serial promosi yang dibangun dari skenario andai-andai permainan kartu, di luar cerita utama.
 Dr. Slump: Arale-chan (1981) > Dragon Ball (1986) | universe | h | Dr. Slump and Dragon Ball share a creator, Akira Toriyama, and Arale makes cameos in Dragon Ball. || Dr. Slump dan Dragon Ball punya kreator yang sama, Akira Toriyama, dan Arale muncul sebagai cameo di Dragon Ball.
 
 # ============ ONE PIECE ============

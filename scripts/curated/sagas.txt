@@ -136,6 +136,50 @@ Damien: Omen II (1978) | main | 1978-06
 The Final Conflict (1981) | main | 1981-03
 Omen IV: The Awakening (1991) | main | 1991-05
 
+# ============ DRAGON BALL ============
+# Story placement: the Age calendar is the series' own. Solid anchors are the TV spine
+# (Age 749 / 761 / 775 / 778-780 / 789) and Bardock (Age 737). The side films were made as
+# standalone specials and Toei never dated them, so they are placed by the arc they sit in —
+# see kanzenshuu.com's movie-timeline threads, where even the fan reconstructions disagree.
+@saga dragon-ball | Dragon Ball | Story order is a different trip entirely: it opens in Age 737 with Bardock, and Daima — the newest series — belongs a year after the Buu arc. Side films are placed by arc, not by an official date. || Urutan cerita jalannya jauh berbeda: dibuka di Age 737 lewat Bardock, dan Daima — serial terbaru — sebenarnya berlatar setahun setelah arc Buu. Film sampingan ditempatkan per arc, bukan dari tanggal resmi.
+@lane main | Main story || Kisah utama
+@lane films | Side films || Film sampingan | fork: Dragon Ball Z (1989)
+@lane retell | Retellings || Penceritaan ulang | fork: Dragon Ball (1986)
+@lane alt | Alternate futures || Masa depan alternatif | fork: Dragon Ball Z (1989)
+
+Dragon Ball Z: Bardock - The Father of Goku (1990) | films | 1990-10 | Age 737 | The earliest point in the whole chronology: Planet Vegeta falls and a baby Goku is sent to Earth. || Titik paling awal di seluruh kronologi: Planet Vegeta hancur dan bayi Goku dikirim ke Bumi.
+Dragon Ball (1986) | main | 1986-02 | Age 749-756
+Dragon Ball: Curse of the Blood Rubies (1986) | retell | 1986-12 | Retells the opening
+Dragon Ball: Sleeping Princess in Devil's Castle (1987) | retell | 1987-07 | Retells the Fortuneteller Baba arc
+Dragon Ball: Mystical Adventure (1988) | retell | 1988-07 | Retells the Red Ribbon arc
+Dragon Ball: The Path to Power (1996) | retell | 1996-03 | Retells the opening | Made for the series' tenth anniversary — the same first adventure, animated again. || Dibuat untuk ulang tahun kesepuluh serial — petualangan pertama yang sama, dianimasikan ulang.
+Dragon Ball Z: Dead Zone (1989) | films | 1989-07 | Just before Raditz | Goku and Piccolo are still enemies and Gohan has no idea what he is. || Goku dan Piccolo masih musuh dan Gohan belum tahu kekuatannya.
+Dragon Ball Z (1989) | main | 1989-04 | Age 761-774
+Dragon Ball Z Kai: The Final Chapters (2009) | retell | 2009-04 | Same story, recut | The same episodes trimmed back to the manga, with no filler. || Episode yang sama dipangkas kembali ke manganya, tanpa filler.
+Dragon Ball Z: The World's Strongest (1990) | films | 1990-03 | Saiyan era
+Dragon Ball Z: The Tree of Might (1990) | films | 1990-07 | Saiyan era
+Dragon Ball Z: Lord Slug (1991) | films | 1991-03 | Namek era
+Dragon Ball Z: Cooler's Revenge (1991) | films | 1991-07 | After Namek
+Dragon Ball Z: The Return of Cooler (1992) | films | 1992-03 | After Namek
+Dragon Ball Z: Super Android 13! (1992) | films | 1992-07 | Android era
+Dragon Ball Z: Broly - The Legendary Super Saiyan (1993) | films | 1993-03 | Cell era
+Dragon Ball Z: Bojack Unbound (1993) | films | 1993-07 | After the Cell Games
+Dragon Ball Z: Broly - Second Coming (1994) | films | 1994-03 | Before the Buu arc
+Dragon Ball Z: Bio-Broly (1994) | films | 1994-07 | Before the Buu arc
+Dragon Ball Z: Fusion Reborn (1995) | films | 1995-03 | Buu era
+Dragon Ball Z: Wrath of the Dragon (1995) | films | 1995-07 | Buu era
+Dragon Ball Daima (2024) | main | 2024-10 | Age 775 | Newest series, oldest slot: it lands a year after Buu, inside the ten-year gap that closes Z. || Serial terbaru, slot paling tua: berlatar setahun setelah Buu, di dalam jeda sepuluh tahun yang menutup Z.
+Dragon Ball Z: Battle of Gods (2013) | films | 2013-03 | Age 778 | Beerus wakes up. Dragon Ball Super retells this as its opening arc. || Beerus bangun. Dragon Ball Super menceritakan ulang ini sebagai arc pembukanya.
+Dragon Ball Super (2015) | main | 2015-07 | Age 778-780
+Dragon Ball Z: Resurrection 'F' (2015) | films | 2015-04 | Age 779 | Frieza comes back. Super retells this as its second arc. || Frieza kembali. Super menceritakan ulang ini sebagai arc keduanya.
+Dragon Ball Super: Broly (2018) | films | 2018-11 | After Super | Broly was a film-only villain for 25 years; this is the version Toriyama wrote into the main story. || Broly 25 tahun cuma ada di film; versi inilah yang ditulis Toriyama masuk ke cerita utama.
+Dragon Ball Super: Super Hero (2022) | films | 2022-06 | After Broly
+Dragon Ball Super: Beerus (2026) | main | 2026 | Super era | Announced, not aired yet — the placement here is provisional. || Baru diumumkan, belum tayang — penempatannya di sini masih sementara.
+Dragon Ball Z: The History of Trunks (1993) | alt | 1993-02 | Alternate future | The timeline where the androids won and Trunks grew up alone. || Garis waktu tempat para android menang dan Trunks tumbuh sendirian.
+Dragon Ball GT (1996) | alt | 1996-02 | Age 789 | Five years after Z ends. Made without Toriyama writing it, so most readings treat it as a branch rather than the main line. || Lima tahun setelah Z berakhir. Dibuat tanpa Toriyama menulisnya, jadi umumnya dianggap cabang, bukan garis utama.
+Dragon Ball GT: A Hero's Legacy (1997) | alt | 1997-03 | Age 889
+Super Dragon Ball Heroes (2018) | alt | 2018-07 | Alternate | A promotional series built around card-game what-ifs, outside the main story. || Serial promosi dari skenario andai-andai permainan kartu, di luar cerita utama.
+
 # ── Names for clusters the builder derives automatically (@alias <any member> | <Saga name>) ──
 @alias Batman Begins (2005) | Batman
 @alias Demon Slayer: Kimetsu no Yaiba (2019) | Demon Slayer
