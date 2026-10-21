@@ -12,6 +12,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { usePortal } from '@/lib/hooks/use-portal';
 import { posterUrl, watchUrl } from '@/lib/jellyfin';
 import { useLang } from './lang-provider';
+import { LensSwitch } from './lens-switch';
 import type { SagaFull, SagaEntry } from '@/lib/connections';
 
 type Mode = 'story' | 'release';
@@ -474,12 +475,17 @@ export function SagaStage({
                   {t('tl.request')}
                 </a>
               )}
-              {mapHref(selected) && (
-                <a className="ref-panel-link" href={mapHref(selected) as string}>
-                  {t('tl.map')}
-                </a>
-              )}
             </div>
+
+            {selected.tmdbId && selected.mediaType && (
+              <LensSwitch
+                current="order"
+                mediaType={selected.mediaType}
+                tmdbId={selected.tmdbId}
+                sagaId={saga.id}
+                hasMap={selected.count > 0}
+              />
+            )}
 
             <div className="ref-saga-step">
               {neighbour(-1) && (

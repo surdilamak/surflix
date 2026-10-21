@@ -14,6 +14,7 @@ import { posterUrl, watchUrl } from '@/lib/jellyfin';
 import { filmKey, posterOf, REL_VAR } from '@/lib/portal-data';
 import { useLang } from '@/components/connections/lang-provider';
 import { SearchBox } from '@/components/connections/search-box';
+import { LensSwitch } from '@/components/connections/lens-switch';
 import type { GraphData } from '@/components/connections/connection-graph';
 import type { SagaHere } from '@/lib/connections';
 
@@ -126,10 +127,14 @@ export default function ReferensiFilmPage() {
               {t('detail.watch')}
             </a>
           )}
-          <a className="ref-core-browse" style={{ marginTop: 0 }} href={`${portalPath('/galaxy') || '/galaxy'}?select=${source.mediaType}:${source.tmdbId}`}>
-            {t('detail.galaxy')}
-          </a>
         </div>
+        <LensSwitch
+          current="map"
+          mediaType={source.mediaType}
+          tmdbId={source.tmdbId}
+          sagaId={saga?.id}
+          className="ref-lens--top"
+        />
         <div className="ref-stage-wrap" style={{ margin: '40px calc(var(--margin) * -1) 0' }}>
           <ConnectionGraph data={data} jellyfinUrl={jellyfinUrl} serverId={config.jellyfinServerId} portalPath={portalPath} />
         </div>

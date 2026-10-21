@@ -78,6 +78,10 @@
 3. **Cek**: `docker exec surflix sh -c 'wget -qO- --header="Authorization: MediaBrowser Token=\"$JELLYFIN_API_KEY\"" "$JELLYFIN_URL/System/Info" | head -c 150'` → harus keluar JSON server Jellyfin.
 4. Admin → `/admin/connections` → **Sync library**: toast `Library synced: N new, N updated`.
 
+## Selesai 2026-10-21 (masukan dari pengguna)
+- [x] **Ketiga pandangan terasa terpisah.** Masukan lewat WhatsApp: "di page movie-nya dia ga ada ya? Harus di page Galaxy". Tautannya sebenarnya sudah ada, tapi terkubur — potongan "Part of X" duduk setelah panggung 3D setinggi 560–860px, dan tautan Galaxy cuma teks kecil. Dari Watch order malah belum ada jalan ke Galaxy sama sekali. Sekarang ada satu kendali tiga lensa di ketiga halaman, di atas layar pertama.
+- [ ] **Galaxy terlalu jauh saat dibuka** (masukan yang sama). Belum diputuskan: mulai dari zoom lebih dekat, atau biarkan sebagai pemandangan utuh karena nama kelompok justru muncul saat menjauh.
+
 ## Catatan: production lebih baru dari repo (2026-10-21)
 Review 15 koneksi `PENDING_REVIEW` dilakukan langsung di `/admin/connections` production, bukan di lokal. Akibatnya `scripts/connections-live.json` (dan `lib/sagas.json` yang diturunkan darinya) masih menganggapnya menunggu review. Import ke production tidak akan merusak apa pun — script tidak pernah mengubah status baris yang sudah ada — tapi saga baru dari koneksi `universe`/`remake` yang baru disetujui belum muncul.
 

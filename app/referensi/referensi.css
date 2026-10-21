@@ -463,6 +463,24 @@
 .ref-galaxy-preview input { width: 20px; height: 20px; accent-color: var(--accent); }
 .ref-galaxy-wait { margin-left: 8px; padding: 1px 7px; border-radius: 6px; background: var(--accent); color: var(--accent-ink); font-size: 12px; font-style: normal; font-weight: 700; }
 
+/* ── Tiga lensa untuk satu judul (peta / urutan tonton / galaksi) ── */
+.ref-lens { display: flex; flex-wrap: wrap; gap: 4px; }
+.ref-lens a,
+.ref-lens span {
+  display: inline-flex; align-items: center; min-height: 38px; padding: 0 14px;
+  border-radius: var(--r, 8px); font-size: 14px; font-weight: 600; line-height: 1;
+  transition: background 0.18s, opacity 0.18s;
+}
+.ref-lens a { color: inherit; opacity: 0.6; }
+.ref-lens a:hover { opacity: 1; background: rgba(127, 127, 127, 0.16); }
+.ref-lens [aria-current] { background: var(--accent); color: var(--accent-ink); opacity: 1; }
+.ref-lens--top { margin-top: 22px; animation: ref-fade 0.8s var(--ease) 0.55s backwards; }
+.ref-panel .ref-lens { margin-top: 14px; }
+.ref-galaxy-actions .ref-lens { margin-top: 2px; }
+@media (max-width: 767px) {
+  .ref-lens a, .ref-lens span { min-height: 44px; }
+}
+
 /* ── Watch order ── */
 /* Panggungnya memakai kerangka yang sama dengan peta 3D satu film: .ref-stage + .ref-stage-view + .ref-panel. */
 .ref-saga-head { padding-top: clamp(84px, 8vw, 96px); padding-bottom: clamp(28px, 3vw, 40px); }

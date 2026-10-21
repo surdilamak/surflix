@@ -13,6 +13,7 @@ import { posterUrl, watchUrl } from '@/lib/jellyfin';
 import { REL_COLOR, REL_VAR } from '@/lib/portal-data';
 import { useLang } from './lang-provider';
 import { SearchBox } from './search-box';
+import { LensSwitch } from './lens-switch';
 
 // [tmdbId, mediaType, title, year, jellyfinId, degree, cluster, x, y]
 type N = [number, string, string, number | null, string | null, number, number, number, number];
@@ -657,14 +658,12 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
                 {t('detail.watch')}
               </a>
             )}
-            <a className="ref-panel-link" href={portalPath(`/${node[1]}/${node[0]}`) || '/'}>
-              {t('stage.openMap')}
-            </a>
-            {data.sagas?.[`${node[1]}:${node[0]}`] && (
-              <a className="ref-panel-link" href={portalPath(`/timeline/${data.sagas[`${node[1]}:${node[0]}`]}?film=${node[1]}:${node[0]}`) || '/'}>
-                {t('galaxy.watchOrder')}
-              </a>
-            )}
+            <LensSwitch
+              current="galaxy"
+              mediaType={node[1]}
+              tmdbId={node[0]}
+              sagaId={data.sagas?.[`${node[1]}:${node[0]}`]}
+            />
           </div>
 
           <ul className="ref-galaxy-list">
