@@ -108,6 +108,6 @@ Toy Story 3 (2010) > Toy Story 2 (1999) | universe | h | @sequel
 Toy Story 4 (2019) > Toy Story 3 (2010) | universe | h | @sequel
 Toy Story 5 (2026) > Toy Story 4 (2019) | universe | h | @sequel
 Moana 2 (2024) > Moana (2016) | universe | h | @sequel
-Moana (2026) > Moana (2016) | remake | h | @remake
+Moana (2026) > Moana (2016) | remake | h | The live-action Moana retells Disney's 2016 animated film. || Moana live-action menceritakan ulang film animasi Disney tahun 2016.
 Mufasa: The Lion King (2024) > The Lion King (2019) | universe | h | @prequel
 The Super Mario Galaxy Movie (2026) > The Super Mario Bros. Movie (2023) | universe | h | @sequel

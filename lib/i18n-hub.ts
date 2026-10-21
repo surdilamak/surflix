@@ -14,6 +14,8 @@ export const hubEn: Dict = {
   'pb.hubShort': 'Request',
   'pb.reference': 'Reference',
   'pb.lang': 'Language',
+  'pb.menu': 'Menu',
+  'pb.close': 'Close menu',
 
   // nav
   'hub.name': 'Request Hub',
@@ -247,6 +249,8 @@ export const hubId: Dict = {
   'pb.hubShort': 'Request',
   'pb.reference': 'Reference',
   'pb.lang': 'Bahasa',
+  'pb.menu': 'Menu',
+  'pb.close': 'Tutup menu',
 
   'hub.name': 'Request Hub',
   'hub.nav.home': 'Beranda',

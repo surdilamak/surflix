@@ -119,7 +119,7 @@ Guardians of the Galaxy Vol. 2 (2017) > Rocky (1976) | talent | h | Sylvester St
 Kraven the Hunter (2024) > Avengers: Age of Ultron (2015) | talent | h | Aaron Taylor-Johnson stars in both. || Aaron Taylor-Johnson membintangi keduanya.
 Kraven the Hunter (2024) > Tenet (2020) | talent | h | Aaron Taylor-Johnson stars in both. || Aaron Taylor-Johnson membintangi keduanya.
 The Substance (2024) > Once Upon a Time... in Hollywood (2019) | talent | h | Margaret Qualley stars in both. || Margaret Qualley membintangi keduanya.
-Anora (2024) > Once Upon a Time... in Hollywood (2019) | talent | h | Mikey Madison stars in both. || Mikey Madison membintangi keduanya.
+Anora (2024) > Once Upon a Time... in Hollywood (2019) | talent | h | Mikey Madison stars in Anora and appears in Once Upon a Time... in Hollywood as Sadie. || Mikey Madison membintangi Anora dan tampil di Once Upon a Time... in Hollywood sebagai Sadie.
 Split (2017) > The Witch (2015) | talent | h | Anya Taylor-Joy stars in both. || Anya Taylor-Joy membintangi keduanya.
 Infinity Pool (2023) > Pearl (2022) | talent | h | Mia Goth stars in both. || Mia Goth membintangi keduanya.
 Companion (2025) > Heretic (2024) | talent | h | Sophie Thatcher stars in both. || Sophie Thatcher membintangi keduanya.
@@ -147,7 +147,7 @@ Notting Hill (1999) > Love Actually (2003) | talent | h | Richard Curtis wrote N
 The Notebook (2004) > A Walk to Remember (2002) | talent | h | Both adapt novels by Nicholas Sparks. || Keduanya mengadaptasi novel Nicholas Sparks.
 The Lucky One (2012) > The Notebook (2004) | talent | h | Both adapt novels by Nicholas Sparks. || Keduanya mengadaptasi novel Nicholas Sparks.
 Mad Men (2007) > The Sopranos (1999) | talent | m | Matthew Weiner wrote for The Sopranos before creating Mad Men. || Matthew Weiner menulis untuk The Sopranos sebelum menciptakan Mad Men.
-Project Hail Mary (2026) > Spider-Man: Into the Spider-Verse (2018) | talent | h | Phil Lord and Christopher Miller wrote and produced Into the Spider-Verse, and they direct Project Hail Mary. || Phil Lord dan Christopher Miller menulis dan memproduseri Into the Spider-Verse, dan menyutradarai Project Hail Mary.
+Project Hail Mary (2026) > Spider-Man: Into the Spider-Verse (2018) | talent | h | Phil Lord and Christopher Miller produced Into the Spider-Verse, with Lord co-writing the screenplay, and they direct Project Hail Mary. || Phil Lord dan Christopher Miller memproduseri Into the Spider-Verse, dengan Lord ikut menulis skenario, dan mereka menyutradarai Project Hail Mary.
 The Smashing Machine (2025) > Marty Supreme (2025) | talent | h | Benny and Josh Safdie, brothers and former co-directors, each made one of these. || Benny dan Josh Safdie, kakak-adik yang dulu menyutradarai bersama, masing-masing membuat satu dari kedua film ini.
 Lilo & Stitch (2025) > How to Train Your Dragon (2025) | talent | h | Dean DeBlois co-directed the original Lilo & Stitch and directs the 2025 How to Train Your Dragon. || Dean DeBlois ikut menyutradarai Lilo & Stitch yang asli dan menyutradarai How to Train Your Dragon 2025.
 The Wild Robot (2024) > Lilo & Stitch (2025) | talent | h | Chris Sanders co-created Lilo & Stitch and directs The Wild Robot. || Chris Sanders ikut menciptakan Lilo & Stitch dan menyutradarai The Wild Robot.
@@ -179,7 +179,7 @@ One Piece (1999) > Dragon Ball Z (1989) | talent | h | Both are Toei Animation s
 Digimon: Digital Monsters (1999) > One Piece (1999) | talent | h | Both are Toei Animation series that premiered in 1999. || Keduanya serial Toei Animation yang tayang perdana pada 1999.
 Slam Dunk (1993) > Dragon Ball Z (1989) | talent | h | Both are Toei Animation series from Weekly Shonen Jump. || Keduanya serial Toei Animation dari Weekly Shonen Jump.
 Ocean Waves (1994) > Whisper of the Heart (1995) | talent | h | Both are Studio Ghibli films about young people growing up. || Keduanya film Studio Ghibli tentang anak muda yang beranjak dewasa.
-The Red Turtle (2016) > The Tale of The Princess Kaguya (2013) | talent | h | Both were produced by Studio Ghibli. || Keduanya diproduksi Studio Ghibli.
+The Red Turtle (2016) > The Tale of The Princess Kaguya (2013) | talent | h | Studio Ghibli produced The Tale of the Princess Kaguya and co-produced The Red Turtle. || Studio Ghibli memproduseri The Tale of the Princess Kaguya dan ikut memproduseri The Red Turtle.
 
 # ---------- Semesta yang belum tercakup ----------
 Ballerina (2025) > John Wick: Chapter 4 (2023) | universe | h | Ballerina is set in the John Wick world, between Chapter 3 and Chapter 4. || Ballerina berlatar di dunia John Wick, di antara Chapter 3 dan Chapter 4.
@@ -187,4 +187,3 @@ GANTZ:O (2016) > Gantz: Perfect Answer (2011) | universe | h | @adaptation
 Kraven the Hunter (2024) > Venom: The Last Dance (2024) | universe | h | Both belong to Sony's Spider-Man Universe. || Keduanya bagian dari Sony's Spider-Man Universe.
 Venom: The Last Dance (2024) > Spider-Man: No Way Home (2021) | universe | m | Venom crosses into the same multiverse that No Way Home opened up. || Venom melintas ke multiverse yang sama yang dibuka No Way Home.
 Peacemaker (2022) > Zack Snyder's Justice League (2021) | universe | m | Peacemaker is set in the same DC universe, and Justice League heroes cameo in it. || Peacemaker berlatar di semesta DC yang sama, dan pahlawan Justice League muncul sebagai cameo.
-The Dark Knight (2008) > Batman: The Killing Joke (2016) | inspired | m | Heath Ledger's Joker drew on the comic The Killing Joke, which this 2016 film adapts. || Joker versi Heath Ledger terinspirasi komik The Killing Joke, yang diadaptasi film 2016 ini.

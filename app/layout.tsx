@@ -51,6 +51,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
+  viewportFit: 'cover', // supaya env(safe-area-inset-*) bekerja (poni iPhone, mode PWA)
   themeColor: '#000000',
   colorScheme: 'dark',
 };

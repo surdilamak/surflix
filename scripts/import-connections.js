@@ -12,6 +12,7 @@
  *
  *   docker exec surflix node scripts/import-connections.js scripts/connections-seed.json          # dry-run
  *   docker exec surflix node scripts/import-connections.js scripts/connections-seed.json --apply  # beneran
+ *   ... connections-live.json --apply --apply-rejections   # juga reject baris yang REJECTED di file (opt-in)
  */
 
 const fs = require('fs');
@@ -19,6 +20,7 @@ const { PrismaClient } = require('@prisma/client');
 
 const file = process.argv[2];
 const apply = process.argv.includes('--apply');
+const withRejections = process.argv.includes('--apply-rejections');
 if (!file) {
   console.error('Usage: node scripts/import-connections.js <file.json> [--apply]');
   process.exit(1);
@@ -35,7 +37,7 @@ const pair = (a) => ({
 
 (async () => {
   const seedKeys = new Set(rows.map(keyOf));
-  const stat = { created: 0, refreshed: 0, skippedAdmin: 0, pruned: 0 };
+  const stat = { created: 0, refreshed: 0, skippedAdmin: 0, pruned: 0, rejected: 0 };
 
   for (const r of rows) {
     const { status, ...rest } = r;
@@ -53,6 +55,13 @@ const pair = (a) => ({
     } else {
       stat.refreshed++;
       if (apply) await prisma.filmConnection.update({ where: pair(r), data: rest });
+      // Opt-in: baris yang ditandai REJECTED di file (hasil audit fakta) ikut di-reject di database.
+      if (withRejections && status === 'REJECTED' && had.status !== 'REJECTED') {
+        stat.rejected++;
+        if (apply) {
+          await prisma.filmConnection.update({ where: pair(r), data: { status: 'REJECTED', reviewedAt: new Date() } });
+        }
+      }
     }
 
     // baris lama arah-kebalik (target -> sumber)

@@ -1,5 +1,5 @@
 /**
- * Portal Referensi layout — terpisah dari Request Hub (tanpa TopNav/BottomTabBar hub).
+ * Portal Referensi layout — terpisah dari Request Hub.
  * Served di reference.surflix.my.id (middleware rewrite ke /referensi/*) atau /referensi di lokal.
  *
  * Arah visual: taste-skill "contact sheet" — Schibsted Grotesk, navy on white,

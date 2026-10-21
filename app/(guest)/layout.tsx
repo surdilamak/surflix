@@ -1,5 +1,5 @@
 /**
- * Guest layout — TopNav + content + Footer + BottomTabBar
+ * Guest layout — PortalBar (tautan lokal + situs) + content + Footer
  */
 'use client';
 
@@ -7,7 +7,6 @@ import { useEffect, useState } from 'react';
 import { Bricolage_Grotesque } from 'next/font/google';
 import './request.css';
 import { TopNav } from '@/components/ui/top-nav';
-import { BottomTabBar } from '@/components/ui/bottom-tab-bar';
 import { Footer } from '@/components/ui/footer';
 import { LangProvider } from '@/components/connections/lang-provider';
 import { PortalBar } from '@/components/portal-bar';
@@ -36,14 +35,13 @@ export default function GuestLayout({ children }: { children: React.ReactNode })
 
   return (
     <div
-      className="rq-root flex min-h-svh flex-col pb-20 md:pb-0"
+      className="rq-root flex min-h-svh flex-col"
       style={{ ['--rq-font' as string]: font.style.fontFamily }}
     >
       <LangProvider>
         <PortalBar current="hub" sticky nav={<TopNav pendingCount={pendingCount} />} />
         <main className="flex-1">{children}</main>
         <Footer />
-        <BottomTabBar pendingCount={pendingCount} />
       </LangProvider>
     </div>
   );
