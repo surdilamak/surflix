@@ -43,6 +43,16 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
   const { portalPath } = usePortal();
 
   const wrapRef = useRef<HTMLDivElement>(null);
+
+  // the Galaxy fills the screen below the bar, so measure the bar instead of guessing its height
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const fit = () => el.style.setProperty('--bar-h', `${Math.round(el.getBoundingClientRect().top + window.scrollY)}px`);
+    fit();
+    window.addEventListener('resize', fit);
+    return () => window.removeEventListener('resize', fit);
+  }, []);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [selected, setSelected] = useState<number | null>(null);
   const [touch, setTouch] = useState(false);

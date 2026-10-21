@@ -1,0 +1,813 @@
+[
+ {
+  "id": "star-wars",
+  "name": "Star Wars",
+  "tip": {
+   "en": "First time? Watch in release order, the reveals land best. Story order is for a rewatch.",
+   "id": "First time? Watch in release order, the reveals land best. Story order is for a rewatch."
+  },
+  "lanes": [
+   {
+    "id": "saga",
+    "label": {
+     "en": "Skywalker saga",
+     "id": "Skywalker saga"
+    }
+   },
+   {
+    "id": "live",
+    "label": {
+     "en": "Live-action stories",
+     "id": "Live-action stories"
+    },
+    "fork": {
+     "title": "Star Wars: Episode I - The Phantom Menace",
+     "year": 1999
+    }
+   },
+   {
+    "id": "anim",
+    "label": {
+     "en": "Animated series",
+     "id": "Animated series"
+    },
+    "fork": {
+     "title": "Star Wars: Episode II - Attack of the Clones",
+     "year": 2002
+    }
+   },
+   {
+    "id": "mando",
+    "label": {
+     "en": "Mandalorian era",
+     "id": "Mandalorian era"
+    },
+    "fork": {
+     "title": "Return of the Jedi",
+     "year": 1983
+    }
+   }
+  ],
+  "entries": [
+   {
+    "title": "The Acolyte",
+    "year": 2024,
+    "lane": "live",
+    "release": "2024-06",
+    "when": "132 BBY"
+   },
+   {
+    "title": "Star Wars: Episode I - The Phantom Menace",
+    "year": 1999,
+    "lane": "saga",
+    "release": "1999-05",
+    "when": "32 BBY"
+   },
+   {
+    "title": "Star Wars: Episode II - Attack of the Clones",
+    "year": 2002,
+    "lane": "saga",
+    "release": "2002-05",
+    "when": "22 BBY"
+   },
+   {
+    "title": "Star Wars: The Clone Wars",
+    "year": 2008,
+    "lane": "anim",
+    "release": "2008-08",
+    "when": "22-19 BBY"
+   },
+   {
+    "title": "Star Wars: Tales of the Underworld",
+    "year": 2025,
+    "lane": "anim",
+    "release": "2025-05",
+    "when": "Clone Wars era"
+   },
+   {
+    "title": "Star Wars: Episode III - Revenge of the Sith",
+    "year": 2005,
+    "lane": "saga",
+    "release": "2005-05",
+    "when": "19 BBY"
+   },
+   {
+    "title": "Star Wars: Maul - Shadow Lord",
+    "year": 2026,
+    "lane": "anim",
+    "release": "2026",
+    "when": "After Episode III"
+   },
+   {
+    "title": "Solo: A Star Wars Story",
+    "year": 2018,
+    "lane": "live",
+    "release": "2018-05",
+    "when": "13 BBY"
+   },
+   {
+    "title": "Obi-Wan Kenobi",
+    "year": 2022,
+    "lane": "live",
+    "release": "2022-05",
+    "when": "9 BBY"
+   },
+   {
+    "title": "Star Wars Rebels",
+    "year": 2014,
+    "lane": "anim",
+    "release": "2014-10",
+    "when": "5-0 BBY"
+   },
+   {
+    "title": "Star Wars: Andor",
+    "year": 2022,
+    "lane": "live",
+    "release": "2022-09",
+    "when": "5-1 BBY"
+   },
+   {
+    "title": "Rogue One: A Star Wars Story",
+    "year": 2016,
+    "lane": "live",
+    "release": "2016-12",
+    "when": "0 BBY",
+    "note": {
+     "en": "It ends minutes before Star Wars begins.",
+     "id": "Berakhir beberapa menit sebelum Star Wars dimulai."
+    }
+   },
+   {
+    "title": "Star Wars",
+    "year": 1977,
+    "lane": "saga",
+    "release": "1977-05",
+    "when": "0 BBY"
+   },
+   {
+    "title": "The Empire Strikes Back",
+    "year": 1980,
+    "lane": "saga",
+    "release": "1980-05",
+    "when": "3 ABY"
+   },
+   {
+    "title": "Return of the Jedi",
+    "year": 1983,
+    "lane": "saga",
+    "release": "1983-05",
+    "when": "4 ABY"
+   },
+   {
+    "title": "The Mandalorian",
+    "year": 2019,
+    "lane": "mando",
+    "release": "2019-11",
+    "when": "9 ABY"
+   },
+   {
+    "title": "The Book of Boba Fett",
+    "year": 2021,
+    "lane": "mando",
+    "release": "2021-12",
+    "when": "9 ABY"
+   },
+   {
+    "title": "Ahsoka",
+    "year": 2023,
+    "lane": "mando",
+    "release": "2023-08",
+    "when": "9 ABY"
+   },
+   {
+    "title": "Star Wars: Skeleton Crew",
+    "year": 2024,
+    "lane": "mando",
+    "release": "2024-12",
+    "when": "9 ABY"
+   },
+   {
+    "title": "The Mandalorian and Grogu",
+    "year": 2026,
+    "lane": "mando",
+    "release": "2026-05",
+    "when": "After The Mandalorian"
+   },
+   {
+    "title": "Star Wars: The Force Awakens",
+    "year": 2015,
+    "lane": "saga",
+    "release": "2015-12",
+    "when": "34 ABY"
+   },
+   {
+    "title": "Star Wars: The Last Jedi",
+    "year": 2017,
+    "lane": "saga",
+    "release": "2017-12",
+    "when": "34 ABY"
+   },
+   {
+    "title": "Star Wars: The Rise of Skywalker",
+    "year": 2019,
+    "lane": "saga",
+    "release": "2019-12",
+    "when": "35 ABY"
+   },
+   {
+    "title": "Star Wars: Visions",
+    "year": 2021,
+    "lane": "anim",
+    "release": "2021-09",
+    "when": "Alternate",
+    "note": {
+     "en": "Separate stories outside the main timeline.",
+     "id": "Kisah-kisah terpisah di luar garis waktu utama."
+    }
+   },
+   {
+    "title": "Star Wars: Visions Presents - The Ninth Jedi",
+    "year": 2026,
+    "lane": "anim",
+    "release": "2026",
+    "when": "Alternate"
+   }
+  ]
+ },
+ {
+  "id": "mcu",
+  "name": "Marvel Cinematic Universe",
+  "tip": {
+   "en": "Release order is the safest start. Story order jumps back to 1943 and 1995. Placement of the newest titles is approximate.",
+   "id": "Release order is the safest start. Story order jumps back to 1943 and 1995. Placement of the newest titles is approximate."
+  },
+  "lanes": [
+   {
+    "id": "films",
+    "label": {
+     "en": "Films",
+     "id": "Films"
+    }
+   },
+   {
+    "id": "series",
+    "label": {
+     "en": "Series",
+     "id": "Series"
+    },
+    "fork": {
+     "title": "Avengers: Endgame",
+     "year": 2019
+    }
+   }
+  ],
+  "entries": [
+   {
+    "title": "Eyes of Wakanda",
+    "year": 2025,
+    "lane": "series",
+    "release": "2025-08",
+    "when": "Across history"
+   },
+   {
+    "title": "Captain America: The First Avenger",
+    "year": 2011,
+    "lane": "films",
+    "release": "2011-07",
+    "when": "1943"
+   },
+   {
+    "title": "Captain Marvel",
+    "year": 2019,
+    "lane": "films",
+    "release": "2019-03",
+    "when": "1995"
+   },
+   {
+    "title": "Iron Man",
+    "year": 2008,
+    "lane": "films",
+    "release": "2008-05",
+    "when": "2010"
+   },
+   {
+    "title": "Iron Man 2",
+    "year": 2010,
+    "lane": "films",
+    "release": "2010-05",
+    "when": "2011"
+   },
+   {
+    "title": "The Incredible Hulk",
+    "year": 2008,
+    "lane": "films",
+    "release": "2008-06",
+    "when": "2011"
+   },
+   {
+    "title": "Thor",
+    "year": 2011,
+    "lane": "films",
+    "release": "2011-05",
+    "when": "2011"
+   },
+   {
+    "title": "The Avengers",
+    "year": 2012,
+    "lane": "films",
+    "release": "2012-05",
+    "when": "2012"
+   },
+   {
+    "title": "Iron Man 3",
+    "year": 2013,
+    "lane": "films",
+    "release": "2013-05",
+    "when": "2012"
+   },
+   {
+    "title": "Thor: The Dark World",
+    "year": 2013,
+    "lane": "films",
+    "release": "2013-11",
+    "when": "2013"
+   },
+   {
+    "title": "Captain America: The Winter Soldier",
+    "year": 2014,
+    "lane": "films",
+    "release": "2014-04",
+    "when": "2014"
+   },
+   {
+    "title": "Guardians of the Galaxy",
+    "year": 2014,
+    "lane": "films",
+    "release": "2014-08",
+    "when": "2014"
+   },
+   {
+    "title": "Guardians of the Galaxy Vol. 2",
+    "year": 2017,
+    "lane": "films",
+    "release": "2017-05",
+    "when": "2014"
+   },
+   {
+    "title": "Avengers: Age of Ultron",
+    "year": 2015,
+    "lane": "films",
+    "release": "2015-05",
+    "when": "2015"
+   },
+   {
+    "title": "Ant-Man",
+    "year": 2015,
+    "lane": "films",
+    "release": "2015-07",
+    "when": "2015"
+   },
+   {
+    "title": "Captain America: Civil War",
+    "year": 2016,
+    "lane": "films",
+    "release": "2016-05",
+    "when": "2016"
+   },
+   {
+    "title": "Black Widow",
+    "year": 2021,
+    "lane": "films",
+    "release": "2021-07",
+    "when": "2016"
+   },
+   {
+    "title": "Doctor Strange",
+    "year": 2016,
+    "lane": "films",
+    "release": "2016-11",
+    "when": "2016"
+   },
+   {
+    "title": "Spider-Man: Homecoming",
+    "year": 2017,
+    "lane": "films",
+    "release": "2017-07",
+    "when": "2016"
+   },
+   {
+    "title": "Black Panther",
+    "year": 2018,
+    "lane": "films",
+    "release": "2018-02",
+    "when": "2016"
+   },
+   {
+    "title": "Thor: Ragnarok",
+    "year": 2017,
+    "lane": "films",
+    "release": "2017-11",
+    "when": "2017"
+   },
+   {
+    "title": "Ant-Man and the Wasp",
+    "year": 2018,
+    "lane": "films",
+    "release": "2018-07",
+    "when": "2018"
+   },
+   {
+    "title": "Avengers: Infinity War",
+    "year": 2018,
+    "lane": "films",
+    "release": "2018-04",
+    "when": "2018"
+   },
+   {
+    "title": "Avengers: Endgame",
+    "year": 2019,
+    "lane": "films",
+    "release": "2019-04",
+    "when": "2018 and 2023"
+   },
+   {
+    "title": "Loki",
+    "year": 2021,
+    "lane": "series",
+    "release": "2021-06",
+    "when": "Alternate 2012"
+   },
+   {
+    "title": "What If...?",
+    "year": 2021,
+    "lane": "series",
+    "release": "2021-08",
+    "when": "Multiverse"
+   },
+   {
+    "title": "Spider-Man: Far from Home",
+    "year": 2019,
+    "lane": "films",
+    "release": "2019-07",
+    "when": "2024"
+   },
+   {
+    "title": "Shang-Chi and the Legend of the Ten Rings",
+    "year": 2021,
+    "lane": "films",
+    "release": "2021-09",
+    "when": "2024"
+   },
+   {
+    "title": "Eternals",
+    "year": 2021,
+    "lane": "films",
+    "release": "2021-11",
+    "when": "2024"
+   },
+   {
+    "title": "Spider-Man: No Way Home",
+    "year": 2021,
+    "lane": "films",
+    "release": "2021-12",
+    "when": "2024"
+   },
+   {
+    "title": "Doctor Strange in the Multiverse of Madness",
+    "year": 2022,
+    "lane": "films",
+    "release": "2022-05",
+    "when": "2024"
+   },
+   {
+    "title": "Thor: Love and Thunder",
+    "year": 2022,
+    "lane": "films",
+    "release": "2022-07",
+    "when": "2024"
+   },
+   {
+    "title": "Black Panther: Wakanda Forever",
+    "year": 2022,
+    "lane": "films",
+    "release": "2022-11",
+    "when": "2024"
+   },
+   {
+    "title": "Ant-Man and the Wasp: Quantumania",
+    "year": 2023,
+    "lane": "films",
+    "release": "2023-02",
+    "when": "2025"
+   },
+   {
+    "title": "Guardians of the Galaxy Vol. 3",
+    "year": 2023,
+    "lane": "films",
+    "release": "2023-05",
+    "when": "2025"
+   },
+   {
+    "title": "Secret Invasion",
+    "year": 2023,
+    "lane": "series",
+    "release": "2023-06",
+    "when": "2025"
+   },
+   {
+    "title": "The Marvels",
+    "year": 2023,
+    "lane": "films",
+    "release": "2023-11",
+    "when": "2025"
+   },
+   {
+    "title": "Deadpool & Wolverine",
+    "year": 2024,
+    "lane": "films",
+    "release": "2024-07",
+    "when": "Multiverse"
+   },
+   {
+    "title": "Captain America: Brave New World",
+    "year": 2025,
+    "lane": "films",
+    "release": "2025-02"
+   },
+   {
+    "title": "Daredevil: Born Again",
+    "year": 2025,
+    "lane": "series",
+    "release": "2025-03"
+   },
+   {
+    "title": "Thunderbolts*",
+    "year": 2025,
+    "lane": "films",
+    "release": "2025-05"
+   },
+   {
+    "title": "Ironheart",
+    "year": 2025,
+    "lane": "series",
+    "release": "2025-06"
+   },
+   {
+    "title": "Wonder Man",
+    "year": 2026,
+    "lane": "series",
+    "release": "2026-01"
+   }
+  ]
+ },
+ {
+  "id": "alien",
+  "name": "Alien",
+  "tip": {
+   "en": "Release order keeps the mystery. Story order starts with Prometheus and ends with Resurrection.",
+   "id": "Release order keeps the mystery. Story order starts with Prometheus and ends with Resurrection."
+  },
+  "lanes": [
+   {
+    "id": "films",
+    "label": {
+     "en": "Films",
+     "id": "Films"
+    }
+   },
+   {
+    "id": "series",
+    "label": {
+     "en": "Series",
+     "id": "Series"
+    },
+    "fork": {
+     "title": "Alien",
+     "year": 1979
+    }
+   }
+  ],
+  "entries": [
+   {
+    "title": "Prometheus",
+    "year": 2012,
+    "lane": "films",
+    "release": "2012-06",
+    "when": "2093"
+   },
+   {
+    "title": "Alien: Covenant",
+    "year": 2017,
+    "lane": "films",
+    "release": "2017-05",
+    "when": "2104"
+   },
+   {
+    "title": "Alien: Earth",
+    "year": 2025,
+    "lane": "series",
+    "release": "2025-08",
+    "when": "2120",
+    "note": {
+     "en": "Set two years before Alien.",
+     "id": "Berlatar dua tahun sebelum Alien."
+    }
+   },
+   {
+    "title": "Alien",
+    "year": 1979,
+    "lane": "films",
+    "release": "1979-05",
+    "when": "2122"
+   },
+   {
+    "title": "Alien: Romulus",
+    "year": 2024,
+    "lane": "films",
+    "release": "2024-08",
+    "when": "2142",
+    "note": {
+     "en": "Set between Alien and Aliens.",
+     "id": "Berlatar di antara Alien dan Aliens."
+    }
+   },
+   {
+    "title": "Aliens",
+    "year": 1986,
+    "lane": "films",
+    "release": "1986-07",
+    "when": "2179"
+   },
+   {
+    "title": "Alien³",
+    "year": 1992,
+    "lane": "films",
+    "release": "1992-05",
+    "when": "2179"
+   },
+   {
+    "title": "Alien Resurrection",
+    "year": 1997,
+    "lane": "films",
+    "release": "1997-11",
+    "when": "2381"
+   }
+  ]
+ },
+ {
+  "id": "westeros",
+  "name": "Westeros",
+  "tip": {
+   "en": "Release order is the way in. Story order runs from the Targaryen civil war to the Game of Thrones era.",
+   "id": "Release order is the way in. Story order runs from the Targaryen civil war to the Game of Thrones era."
+  },
+  "lanes": [
+   {
+    "id": "main",
+    "label": {
+     "en": "Westeros",
+     "id": "Westeros"
+    }
+   }
+  ],
+  "entries": [
+   {
+    "title": "House of the Dragon",
+    "year": 2022,
+    "lane": "main",
+    "release": "2022-08",
+    "when": "About 130 AC"
+   },
+   {
+    "title": "A Knight of the Seven Kingdoms",
+    "year": 2026,
+    "lane": "main",
+    "release": "2026-01",
+    "when": "About 190 AC"
+   },
+   {
+    "title": "Game of Thrones",
+    "year": 2011,
+    "lane": "main",
+    "release": "2011-04",
+    "when": "298 AC"
+   }
+  ]
+ },
+ {
+  "id": "john-wick",
+  "name": "John Wick",
+  "tip": {
+   "en": "Ballerina sits between Chapter 3 and Chapter 4 in the story, and came out last.",
+   "id": "Ballerina sits between Chapter 3 and Chapter 4 in the story, and came out last."
+  },
+  "lanes": [
+   {
+    "id": "main",
+    "label": {
+     "en": "John Wick",
+     "id": "John Wick"
+    }
+   },
+   {
+    "id": "spin",
+    "label": {
+     "en": "Spin-off",
+     "id": "Spin-off"
+    },
+    "fork": {
+     "title": "John Wick: Chapter 3 - Parabellum",
+     "year": 2019
+    }
+   }
+  ],
+  "entries": [
+   {
+    "title": "John Wick",
+    "year": 2014,
+    "lane": "main",
+    "release": "2014-10"
+   },
+   {
+    "title": "John Wick: Chapter 2",
+    "year": 2017,
+    "lane": "main",
+    "release": "2017-02"
+   },
+   {
+    "title": "John Wick: Chapter 3 - Parabellum",
+    "year": 2019,
+    "lane": "main",
+    "release": "2019-05"
+   },
+   {
+    "title": "Ballerina",
+    "year": 2025,
+    "lane": "spin",
+    "release": "2025-06",
+    "when": "Between Chapters 3 and 4",
+    "note": {
+     "en": "|Di antara Chapter 3 dan 4",
+     "id": "|Di antara Chapter 3 dan 4"
+    }
+   },
+   {
+    "title": "John Wick: Chapter 4",
+    "year": 2023,
+    "lane": "main",
+    "release": "2023-03"
+   }
+  ]
+ },
+ {
+  "id": "omen",
+  "name": "The Omen",
+  "tip": {
+   "en": "Start with The Omen (1976). The First Omen is a prequel made in 2024, so it works best afterwards.",
+   "id": "Start with The Omen (1976). The First Omen is a prequel made in 2024, so it works best afterwards."
+  },
+  "lanes": [
+   {
+    "id": "main",
+    "label": {
+     "en": "The Omen",
+     "id": "The Omen"
+    }
+   }
+  ],
+  "entries": [
+   {
+    "title": "The First Omen",
+    "year": 2024,
+    "lane": "main",
+    "release": "2024-04",
+    "when": "1971"
+   },
+   {
+    "title": "The Omen",
+    "year": 1976,
+    "lane": "main",
+    "release": "1976-06",
+    "when": "1976"
+   },
+   {
+    "title": "Damien: Omen II",
+    "year": 1978,
+    "lane": "main",
+    "release": "1978-06"
+   },
+   {
+    "title": "The Final Conflict",
+    "year": 1981,
+    "lane": "main",
+    "release": "1981-03"
+   },
+   {
+    "title": "Omen IV: The Awakening",
+    "year": 1991,
+    "lane": "main",
+    "release": "1991-05"
+   }
+  ]
+ }
+]

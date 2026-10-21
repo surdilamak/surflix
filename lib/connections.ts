@@ -17,6 +17,7 @@ import { jellyseerr } from '@/lib/jellyseerr';
 import { getLibraryTmdbMap, libraryKey } from '@/lib/jellyfin';
 import { suggestFilmReferences, FilmReferenceSuggestion } from '@/lib/anthropic';
 import { getYear } from '@/lib/utils';
+import sagasData from '@/lib/sagas.json';
 
 export type MediaType = 'movie' | 'tv';
 
@@ -580,4 +581,59 @@ export async function recentTitles(limit = 60) {
       count: counts.get(fk(t.mediaType, t.tmdbId)) ?? 0,
     })),
   };
+}
+
+/**
+ * Watch order: sagas dari lib/sagas.json (hasil scripts/build-sagas.js) dicocokkan ke library.
+ * Urutan cerita = urutan entri di file; urutan rilis dihitung dari tanggal rilis (bulan kosong = akhir tahun).
+ * Judul yang belum ada di library tetap muncul sebagai penanda ("Not on Surflix"), supaya kronologi tidak bolong.
+ */
+export async function getSagas() {
+  const [titles, rows] = await Promise.all([
+    prisma.libraryTitle.findMany({ select: { tmdbId: true, mediaType: true, title: true, year: true, jellyfinId: true } }),
+    approvedRows(),
+  ]);
+  const counts = adjacencyCounts(rows);
+  const byName = new Map(titles.map((t) => [`${t.title.toLowerCase()}|${t.year}`, t]));
+  const rank = (r: string) => {
+    const [y, m] = r.split('-').map(Number);
+    return y * 100 + (m || 13);
+  };
+
+  return (sagasData as SagaFile[]).map((s) => {
+    const entries = s.entries.map((e, story) => {
+      const lib = byName.get(`${e.title.toLowerCase()}|${e.year}`);
+      return {
+        key: `${e.title}|${e.year}`,
+        title: e.title,
+        year: e.year,
+        lane: e.lane,
+        release: e.release,
+        when: e.when ?? null,
+        note: e.note ?? null,
+        story,
+        tmdbId: lib?.tmdbId ?? null,
+        mediaType: lib?.mediaType ?? null,
+        jellyfinId: lib?.jellyfinId ?? null,
+        count: lib ? counts.get(fk(lib.mediaType, lib.tmdbId)) ?? 0 : 0,
+      };
+    });
+    // urutan rilis: tanggal, lalu urutan cerita sebagai pemutus seri
+    [...entries].sort((a, b) => rank(a.release) - rank(b.release) || a.story - b.story).forEach((e, i) => Object.assign(e, { rel: i }));
+    return {
+      id: s.id,
+      name: s.name,
+      tip: s.tip,
+      lanes: s.lanes.map((l) => ({ id: l.id, label: l.label, fork: l.fork ? `${l.fork.title}|${l.fork.year}` : null })),
+      entries: entries as ((typeof entries)[number] & { rel: number })[],
+    };
+  });
+}
+
+interface SagaFile {
+  id: string;
+  name: string;
+  tip: { en: string; id: string };
+  lanes: { id: string; label: { en: string; id: string }; fork?: { title: string; year: number } }[];
+  entries: { title: string; year: number; lane: string; release: string; when?: string; note?: { en: string; id: string } }[];
 }

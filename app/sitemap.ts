@@ -22,6 +22,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     return [
       { url: `${origin}/`, changeFrequency: 'weekly', priority: 1 },
       { url: `${origin}/galaxy`, changeFrequency: 'weekly', priority: 0.8 },
+      { url: `${origin}/timeline`, changeFrequency: 'monthly', priority: 0.7 },
       { url: `${origin}/new`, changeFrequency: 'daily', priority: 0.7 },
       ...films.map((f) => ({
         url: `${origin}/${f.mediaType}/${f.tmdbId}`,

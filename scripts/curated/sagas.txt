@@ -1,0 +1,137 @@
+# Sagas for the Reference "Watch order" timeline.
+#
+#   @saga <slug> | <Name> | <tip EN> || <tip ID>
+#   @lane <id> | <label EN> || <label ID> [| fork: Title (year)]
+#   Title (year) | <lane> | <release YYYY-MM or YYYY> | <in-story label, optional> | <note EN || note ID, optional>
+#
+# The ORDER OF THE LINES is the story order. Release order comes from the release field.
+# A lane with `fork:` is drawn as a branch that leaves the line at that title.
+# Titles must match the Surflix library exactly ("Title (year)"); a title that is not in the library is
+# drawn as a "Not on Surflix" placeholder so the chronology never has a silent hole.
+# Leave the release month empty when unsure. Leave the story label empty when unsure.
+# Run: node scripts/build-sagas.js  (writes lib/sagas.json and reports titles missing from the library)
+
+# ============ STAR WARS ============
+@saga star-wars | Star Wars | First time? Watch in release order, the reveals land best. Story order is for a rewatch. || Pertama kali? Tonton urutan rilis, kejutannya paling kena. Urutan cerita cocok untuk tonton ulang.
+@lane saga | Skywalker saga || Saga Skywalker
+@lane live | Live-action stories || Kisah live-action | fork: Star Wars: Episode I - The Phantom Menace (1999)
+@lane anim | Animated series || Serial animasi | fork: Star Wars: Episode II - Attack of the Clones (2002)
+@lane mando | Mandalorian era || Era Mandalorian | fork: Return of the Jedi (1983)
+
+The Acolyte (2024) | live | 2024-06 | 132 BBY
+Star Wars: Episode I - The Phantom Menace (1999) | saga | 1999-05 | 32 BBY
+Star Wars: Episode II - Attack of the Clones (2002) | saga | 2002-05 | 22 BBY
+Star Wars: The Clone Wars (2008) | anim | 2008-08 | 22-19 BBY
+Star Wars: Tales of the Underworld (2025) | anim | 2025-05 | Clone Wars era
+Star Wars: Episode III - Revenge of the Sith (2005) | saga | 2005-05 | 19 BBY
+Star Wars: Maul - Shadow Lord (2026) | anim | 2026 | After Episode III
+Solo: A Star Wars Story (2018) | live | 2018-05 | 13 BBY
+Obi-Wan Kenobi (2022) | live | 2022-05 | 9 BBY
+Star Wars Rebels (2014) | anim | 2014-10 | 5-0 BBY
+Star Wars: Andor (2022) | live | 2022-09 | 5-1 BBY
+Rogue One: A Star Wars Story (2016) | live | 2016-12 | 0 BBY | It ends minutes before Star Wars begins. || Berakhir beberapa menit sebelum Star Wars dimulai.
+Star Wars (1977) | saga | 1977-05 | 0 BBY
+The Empire Strikes Back (1980) | saga | 1980-05 | 3 ABY
+Return of the Jedi (1983) | saga | 1983-05 | 4 ABY
+The Mandalorian (2019) | mando | 2019-11 | 9 ABY
+The Book of Boba Fett (2021) | mando | 2021-12 | 9 ABY
+Ahsoka (2023) | mando | 2023-08 | 9 ABY
+Star Wars: Skeleton Crew (2024) | mando | 2024-12 | 9 ABY
+The Mandalorian and Grogu (2026) | mando | 2026-05 | After The Mandalorian
+Star Wars: The Force Awakens (2015) | saga | 2015-12 | 34 ABY
+Star Wars: The Last Jedi (2017) | saga | 2017-12 | 34 ABY
+Star Wars: The Rise of Skywalker (2019) | saga | 2019-12 | 35 ABY
+Star Wars: Visions (2021) | anim | 2021-09 | Alternate | Separate stories outside the main timeline. || Kisah-kisah terpisah di luar garis waktu utama.
+Star Wars: Visions Presents - The Ninth Jedi (2026) | anim | 2026 | Alternate
+
+# ============ MARVEL CINEMATIC UNIVERSE ============
+@saga mcu | Marvel Cinematic Universe | Release order is the safest start. Story order jumps back to 1943 and 1995. Placement of the newest titles is approximate. || Urutan rilis paling aman untuk memulai. Urutan cerita melompat ke 1943 dan 1995. Posisi judul-judul terbaru masih perkiraan.
+@lane films | Films || Film
+@lane series | Series || Serial | fork: Avengers: Endgame (2019)
+
+Eyes of Wakanda (2025) | series | 2025-08 | Across history
+Captain America: The First Avenger (2011) | films | 2011-07 | 1943
+Captain Marvel (2019) | films | 2019-03 | 1995
+Iron Man (2008) | films | 2008-05 | 2010
+Iron Man 2 (2010) | films | 2010-05 | 2011
+The Incredible Hulk (2008) | films | 2008-06 | 2011
+Thor (2011) | films | 2011-05 | 2011
+The Avengers (2012) | films | 2012-05 | 2012
+Iron Man 3 (2013) | films | 2013-05 | 2012
+Thor: The Dark World (2013) | films | 2013-11 | 2013
+Captain America: The Winter Soldier (2014) | films | 2014-04 | 2014
+Guardians of the Galaxy (2014) | films | 2014-08 | 2014
+Guardians of the Galaxy Vol. 2 (2017) | films | 2017-05 | 2014
+Avengers: Age of Ultron (2015) | films | 2015-05 | 2015
+Ant-Man (2015) | films | 2015-07 | 2015
+Captain America: Civil War (2016) | films | 2016-05 | 2016
+Black Widow (2021) | films | 2021-07 | 2016
+Doctor Strange (2016) | films | 2016-11 | 2016
+Spider-Man: Homecoming (2017) | films | 2017-07 | 2016
+Black Panther (2018) | films | 2018-02 | 2016
+Thor: Ragnarok (2017) | films | 2017-11 | 2017
+Ant-Man and the Wasp (2018) | films | 2018-07 | 2018
+Avengers: Infinity War (2018) | films | 2018-04 | 2018
+Avengers: Endgame (2019) | films | 2019-04 | 2018 and 2023
+Loki (2021) | series | 2021-06 | Alternate 2012
+What If...? (2021) | series | 2021-08 | Multiverse
+Spider-Man: Far from Home (2019) | films | 2019-07 | 2024
+Shang-Chi and the Legend of the Ten Rings (2021) | films | 2021-09 | 2024
+Eternals (2021) | films | 2021-11 | 2024
+Spider-Man: No Way Home (2021) | films | 2021-12 | 2024
+Doctor Strange in the Multiverse of Madness (2022) | films | 2022-05 | 2024
+Thor: Love and Thunder (2022) | films | 2022-07 | 2024
+Black Panther: Wakanda Forever (2022) | films | 2022-11 | 2024
+Ant-Man and the Wasp: Quantumania (2023) | films | 2023-02 | 2025
+Guardians of the Galaxy Vol. 3 (2023) | films | 2023-05 | 2025
+Secret Invasion (2023) | series | 2023-06 | 2025
+The Marvels (2023) | films | 2023-11 | 2025
+Deadpool & Wolverine (2024) | films | 2024-07 | Multiverse
+Captain America: Brave New World (2025) | films | 2025-02
+Daredevil: Born Again (2025) | series | 2025-03
+Thunderbolts* (2025) | films | 2025-05
+Ironheart (2025) | series | 2025-06
+Wonder Man (2026) | series | 2026-01
+
+# ============ ALIEN ============
+@saga alien | Alien | Release order keeps the mystery. Story order starts with Prometheus and ends with Resurrection. || Urutan rilis menjaga misterinya. Urutan cerita dimulai dari Prometheus dan berakhir di Resurrection.
+@lane films | Films || Film
+@lane series | Series || Serial | fork: Alien (1979)
+
+Prometheus (2012) | films | 2012-06 | 2093
+Alien: Covenant (2017) | films | 2017-05 | 2104
+Alien: Earth (2025) | series | 2025-08 | 2120 | Set two years before Alien. || Berlatar dua tahun sebelum Alien.
+Alien (1979) | films | 1979-05 | 2122
+Alien: Romulus (2024) | films | 2024-08 | 2142 | Set between Alien and Aliens. || Berlatar di antara Alien dan Aliens.
+Aliens (1986) | films | 1986-07 | 2179
+Alien³ (1992) | films | 1992-05 | 2179
+Alien Resurrection (1997) | films | 1997-11 | 2381
+
+# ============ WESTEROS ============
+@saga westeros | Westeros | Release order is the way in. Story order runs from the Targaryen civil war to the Game of Thrones era. || Urutan rilis adalah pintu masuk. Urutan cerita berjalan dari perang saudara Targaryen sampai era Game of Thrones.
+@lane main | Westeros || Westeros
+
+House of the Dragon (2022) | main | 2022-08 | About 130 AC
+A Knight of the Seven Kingdoms (2026) | main | 2026-01 | About 190 AC
+Game of Thrones (2011) | main | 2011-04 | 298 AC
+
+# ============ JOHN WICK ============
+@saga john-wick | John Wick | Ballerina sits between Chapter 3 and Chapter 4 in the story, and came out last. || Ballerina berlatar di antara Chapter 3 dan Chapter 4, tetapi rilis paling akhir.
+@lane main | John Wick || John Wick
+@lane spin | Spin-off || Spin-off | fork: John Wick: Chapter 3 - Parabellum (2019)
+
+John Wick (2014) | main | 2014-10
+John Wick: Chapter 2 (2017) | main | 2017-02
+John Wick: Chapter 3 - Parabellum (2019) | main | 2019-05
+Ballerina (2025) | spin | 2025-06 | Between Chapters 3 and 4 || Di antara Chapter 3 dan 4
+John Wick: Chapter 4 (2023) | main | 2023-03
+
+# ============ THE OMEN ============
+@saga omen | The Omen | Start with The Omen (1976). The First Omen is a prequel made in 2024, so it works best afterwards. || Mulai dari The Omen (1976). The First Omen adalah prekuel buatan 2024, jadi paling pas ditonton setelahnya.
+@lane main | The Omen || The Omen
+
+The First Omen (2024) | main | 2024-04 | 1971
+The Omen (1976) | main | 1976-06 | 1976
+Damien: Omen II (1978) | main | 1978-06
+The Final Conflict (1981) | main | 1981-03
+Omen IV: The Awakening (1991) | main | 1991-05

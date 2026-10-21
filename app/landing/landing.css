@@ -75,7 +75,7 @@
 
 /* ═══ Hero: lembar poster dengan satu sel teks ═══ */
 .lp-hero {
-  --H: max(100svh, 760px);
+  --H: max(100svh, 640px);
   --ph: 340px; /* tinggi panel teks = tinggi ruang kosong di kolom 3-4 */
   position: relative; overflow: hidden;
   height: var(--H); padding: var(--m);
@@ -86,6 +86,7 @@
   --cw: calc((100cqw - 60px) / 6);
   --fh: calc(var(--cw) * 1.5 + 28px);
   position: relative; height: 100%;
+  overflow: hidden; /* posters are cropped at the margin, not at the screen edge */
 }
 .lp-sheet { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; height: 100%; }
 .lp-col { display: flex; flex-direction: column; gap: 12px; transform: translateY(var(--off, 0px)); }
