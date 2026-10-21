@@ -41,7 +41,7 @@ export function PosterCard({ item, onClick, size = 'md', showProgress, progress 
       <div
         className={cn(
           'relative overflow-hidden rounded-rq bg-rq-surface transition-transform group-hover:scale-[1.02] group-active:scale-[0.98]',
-          'aspect-[2/3]'
+          'aspect-2/3'
         )}
       >
         {poster ? (

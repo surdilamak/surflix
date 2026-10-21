@@ -175,7 +175,7 @@ export function NotificationToggle({ guestId }: NotificationToggleProps) {
   if (status === 'default') {
     return (
       <div className="mb-4 flex items-start gap-3 rounded-rq bg-rq-surface p-3">
-        <Icons.Bell className="mt-0.5 h-4 w-4 flex-shrink-0 text-rq-accent" />
+        <Icons.Bell className="mt-0.5 h-4 w-4 shrink-0 text-rq-accent" />
         <div className="min-w-0 flex-1">
           <p className="rq-text font-medium">{t('hub.notif.ask')}</p>
           <p className="rq-small mt-0.5 text-rq-muted">
@@ -184,7 +184,7 @@ export function NotificationToggle({ guestId }: NotificationToggleProps) {
           <div className="mt-3 flex items-center gap-2">
             <button
               onClick={handleEnable}
-              className="btn-primary !min-h-11"
+              className="btn-primary min-h-11!"
             >
               {t('hub.notif.enable')}
             </button>
@@ -203,7 +203,7 @@ export function NotificationToggle({ guestId }: NotificationToggleProps) {
   if (status === 'denied') {
     return (
       <div className="mb-4 flex items-start gap-3 rounded-rq bg-rq-surface p-3">
-        <Icons.BellOff className="mt-0.5 h-4 w-4 flex-shrink-0 text-rq-muted" />
+        <Icons.BellOff className="mt-0.5 h-4 w-4 shrink-0 text-rq-muted" />
         <div className="min-w-0 flex-1">
           <p className="rq-small text-rq-muted">
             {t('hub.notif.denied')}

@@ -13,7 +13,7 @@
 ## 🟠 Keamanan & hygiene
 
 - [x] **Vulnerability npm runtime** (2026-10-20, PR #1): `npm audit --omit=dev` 14 → 0 (3 critical hilang). Next 14.2.15 → 15.5.28, React 18 → 19, axios 1.20, `node-telegram-bot-api` dibuang (tidak dipakai; Telegram pakai `fetch`), `overrides` postcss ^8.5.31. `eslint` + `eslint-config-next` + script `lint` dihapus (tidak ada konfigurasi eslint, tidak pernah jalan). Diverifikasi di produksi oleh Idrus (login admin, deep-link Watch).
-- [ ] **Migrasi Tailwind 3 → 4** untuk menutup 7 temuan `npm audit` yang tersisa (dev-only, rantai `tailwindcss` 3: braces / micromatch / chokidar / postcss-nested). Tidak ikut image produksi, jadi tidak mendesak. Config & utilitas custom (`ios-*`, `surflix-*`) perlu dipindah ke CSS-first config; uji visual semua halaman.
+- [x] **Migrasi Tailwind 3 → 4** (2026-10-21): selesai dengan alat upgrade resmi; screenshot sebelum/sesudah 22 halaman (guest + admin, desktop + telepon) beda <1% kecuali settings (pergeseran 2px). `npm audit` sekarang 0 temuan (termasuk `follow-redirects` lewat `npm audit fix`).
 - [ ] **Pasang linter lagi (opsional)**: eslint dibuang saat upgrade. Kalau mau, tambah `eslint` + `eslint-config-next` 15 dengan flat config.
 - [ ] **Warning next/image logo** di `components/ui/top-nav.tsx` dan `footer.tsx` (kosmetik, sudah ada sebelum upgrade): set `width`/`height` auto pada logo.
 - [x] **`/api/health` statis** (2026-10-20): beres sendiri oleh Next 15, GET handler tidak lagi di-cache default (dicek live: timestamp berubah tiap request). Yang wajib sehat cuma DB; Jellyseerr down tidak membuat container unhealthy.

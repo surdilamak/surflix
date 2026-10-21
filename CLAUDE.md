@@ -31,7 +31,7 @@ Domain map (as of 2026-05-15):
 Lihat [`ARCHITECTURE.md`](./ARCHITECTURE.md) buat detail lengkap.
 
 **TL;DR Stack**:
-- Next.js 15 (App Router, React 19) + TypeScript + Tailwind 3
+- Next.js 15 (App Router, React 19) + TypeScript + Tailwind 4 (token di `app/globals.css` lewat `@theme`, tanpa tailwind.config)
 - Prisma + SQLite (file:`/data/surflix.db`)
 - Iron Session (admin auth, cookie-based)
 - bcryptjs (password hashing)
@@ -210,7 +210,7 @@ Saat ini cuma ada `guestNote` field di request form (text-based, free-form). Use
 
 ### Request Hub (guest) — papan ubin, sejak 2026-10-21
 Satu bahasa visual dengan landing, dibatasi di wrapper `.rq-root` supaya admin tidak ikut berubah. CSS: `app/(guest)/request.css` (kelas `rq-*`, override `.btn-primary`/`.badge-*`/`.input-ios`/`.tab` hanya di dalam `.rq-root`).
-- Token Tailwind: `rq-bg #0d0d0f`, `rq-surface #17171a`, `rq-raised #232327`, `rq-accent #ff5200`, `rq-muted #a3a3ab`; radius tunggal `rounded-rq` (8px).
+- Token Tailwind (di `@theme` globals.css): `rq-bg #0d0d0f`, `rq-surface #17171a`, `rq-raised #232327`, `rq-accent #ff5200`, `rq-muted #a3a3ab`; radius tunggal `rounded-rq` (8px).
 - Font Bricolage Grotesque (di `app/(guest)/layout.tsx`), lima langkah ukuran: `rq-title` / `rq-h1` / `rq-h2` / `rq-text` / `rq-small`. Judul halaman maksimal 32px (ini layar aplikasi).
 - Ubin datar (`rq-tile`), tanpa kaca, gradien, bayangan, garis tipis, atau emoji. Satu lebar isi (`rq-wrap`, 1280px) dipakai nav, halaman, dan footer.
 - Tombol: `btn-primary` (oranye) dan `btn-secondary` (abu); target sentuh minimal 44px.
@@ -289,3 +289,7 @@ Pas lo work di project ini:
 5. **Bundle file changes** sebagai zip kalau patches > 5 files — gampangin Idrus apply.
 6. **Always commit dengan descriptive message** — Idrus suka tracking history.
 7. **Run schema migration carefully** — pakai `npx prisma db push --accept-data-loss` cuma kalau lo confirm field changes are non-destructive.
+
+## Catatan Tailwind 4 (2026-10-21)
+- Utilitas ada di layer `utilities`; CSS buatan sendiri (`request.css`, `portal-bar.css`, `landing.css`, `referensi.css`) tidak berlayer dan SELALU menang atas utilitas. Jangan menaruh `padding`/`margin` pada override seperti `.rq-root .input-ios`, supaya `pl-12` dll tetap berlaku.
+- Kelas lama `btn-primary`, `badge-*`, `input-ios`, `tab` kini `@utility` di globals.css; `.rq-root ...` menimpanya hanya di Request Hub.

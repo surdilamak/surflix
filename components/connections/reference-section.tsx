@@ -40,7 +40,7 @@ export function ReferenceSection({ tmdbId, mediaType }: ReferenceSectionProps) {
       href={referenceHref(`/${mediaType}/${tmdbId}`)}
       target="_blank"
       rel="noopener"
-      className="block w-full rounded-full border border-white/15 bg-white/[0.04] py-2.5 text-center text-sm font-medium text-white/80 transition-colors hover:border-white/25 hover:bg-white/[0.08] hover:text-white"
+      className="block w-full rounded-full border border-white/15 bg-white/4 py-2.5 text-center text-sm font-medium text-white/80 transition-colors hover:border-white/25 hover:bg-white/8 hover:text-white"
     >
       <span className="inline-flex items-center justify-center gap-1.5">
         <Icons.Sparkles className="h-4 w-4" />

@@ -6,7 +6,7 @@
 export function PosterSkeleton() {
   return (
     <div className="animate-pulse">
-      <div className="aspect-[2/3] w-full rounded-rq bg-rq-surface" />
+      <div className="aspect-2/3 w-full rounded-rq bg-rq-surface" />
       <div className="mt-2 space-y-1.5">
         <div className="h-3 w-3/4 rounded-rq bg-rq-surface" />
         <div className="h-2.5 w-1/2 rounded-rq bg-rq-surface" />

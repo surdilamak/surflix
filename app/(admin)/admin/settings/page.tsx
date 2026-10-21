@@ -83,7 +83,7 @@ export default function AdminSettingsPage() {
 
   return (
     <div className="min-h-screen bg-black">
-      <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-black/70 backdrop-blur-ios">
+      <header className="sticky top-0 z-50 border-b border-white/8 bg-black/70 backdrop-blur-ios">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
@@ -112,15 +112,15 @@ export default function AdminSettingsPage() {
         {loading ? (
           <div className="space-y-3">
             {Array.from({ length: 2 }).map((_, i) => (
-              <div key={i} className="h-32 animate-pulse rounded-ios-lg bg-white/[0.04]" />
+              <div key={i} className="h-32 animate-pulse rounded-ios-lg bg-white/4" />
             ))}
           </div>
         ) : (
           <>
             {/* Telegram Section */}
-            <section className="mb-6 rounded-ios-lg border border-white/[0.08] bg-bg-surface p-5">
+            <section className="mb-6 rounded-ios-lg border border-white/8 bg-bg-surface p-5">
               <div className="mb-4 flex items-start gap-3">
-                <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-ios-blue/10">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-ios-blue/10">
                   <Icons.Bell className="h-5 w-5 text-ios-blue" />
                 </div>
                 <div className="flex-1">
@@ -142,7 +142,7 @@ export default function AdminSettingsPage() {
                 <div className="rounded-ios-lg border border-ios-orange/30 bg-ios-orange/5 p-3">
                   <p className="text-xs text-white/80">
                     <Icons.Info className="mr-1 inline h-3 w-3 text-ios-orange" />
-                    Belum dikonfigurasi. Set <code className="rounded bg-black/30 px-1 text-[10px]">TELEGRAM_BOT_TOKEN</code> dan <code className="rounded bg-black/30 px-1 text-[10px]">TELEGRAM_ADMIN_CHAT_ID</code> di .env.
+                    Belum dikonfigurasi. Set <code className="rounded-sm bg-black/30 px-1 text-[10px]">TELEGRAM_BOT_TOKEN</code> dan <code className="rounded-sm bg-black/30 px-1 text-[10px]">TELEGRAM_ADMIN_CHAT_ID</code> di .env.
                   </p>
                   <p className="mt-2 text-[11px] text-white/50">
                     Lihat <a href="https://core.telegram.org/bots/tutorial" target="_blank" rel="noopener" className="text-ios-blue hover:underline">BotFather tutorial</a> untuk dapetin bot token.
@@ -150,7 +150,7 @@ export default function AdminSettingsPage() {
                 </div>
               ) : (
                 <>
-                  <div className="mb-3 space-y-2 rounded-ios-lg bg-white/[0.03] p-3">
+                  <div className="mb-3 space-y-2 rounded-ios-lg bg-white/3 p-3">
                     <DetailRow label="Bot Token" value="✓ Configured" />
                     <DetailRow label="Admin Chat ID" value="✓ Configured" />
                     <DetailRow
@@ -199,7 +199,7 @@ export default function AdminSettingsPage() {
 
             {/* Quick Test */}
             {telegram?.configured && telegram.webhookInfo?.url && (
-              <section className="mb-6 rounded-ios-lg border border-white/[0.08] bg-bg-surface p-5">
+              <section className="mb-6 rounded-ios-lg border border-white/8 bg-bg-surface p-5">
                 <h2 className="mb-2 text-base font-semibold">Test Telegram Integration</h2>
                 <p className="mb-3 text-xs text-white/55">
                   Submit a test request dari guest view, terus cek Telegram lo.
@@ -215,7 +215,7 @@ export default function AdminSettingsPage() {
             )}
 
             {/* Other Integrations (placeholder) */}
-            <section className="rounded-ios-lg border border-white/[0.08] bg-bg-surface p-5 opacity-60">
+            <section className="rounded-ios-lg border border-white/8 bg-bg-surface p-5 opacity-60">
               <div className="mb-2 flex items-center gap-2">
                 <Icons.Mail className="h-4 w-4 text-white/40" />
                 <h2 className="text-base font-semibold">Email Notifications (Coming Soon)</h2>
@@ -253,7 +253,7 @@ function StatusBadge({ status }: { status: 'active' | 'pending' | 'inactive' }) 
   }[status];
 
   return (
-    <span className={cn('flex-shrink-0 rounded-full px-2.5 py-1 text-[10px] font-medium', config.class)}>
+    <span className={cn('shrink-0 rounded-full px-2.5 py-1 text-[10px] font-medium', config.class)}>
       {config.label}
     </span>
   );
@@ -267,7 +267,7 @@ function DetailRow({ label, value, truncate, error }: {
 }) {
   return (
     <div className="flex items-start justify-between gap-3 text-[11px]">
-      <span className="flex-shrink-0 text-white/50">{label}</span>
+      <span className="shrink-0 text-white/50">{label}</span>
       <span className={cn(
         'text-right',
         truncate && 'truncate',

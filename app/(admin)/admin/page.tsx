@@ -84,7 +84,7 @@ export default function AdminDashboard() {
   return (
     <div className="min-h-screen bg-black">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-black/70 backdrop-blur-ios">
+      <header className="sticky top-0 z-50 border-b border-white/8 bg-black/70 backdrop-blur-ios">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
@@ -163,7 +163,7 @@ export default function AdminDashboard() {
               Top Requesters
             </h2>
             {topRequesters.length === 0 ? (
-              <div className="rounded-ios-lg border border-white/[0.06] bg-white/[0.02] p-6 text-center text-xs text-white/40">
+              <div className="rounded-ios-lg border border-white/6 bg-white/2 p-6 text-center text-xs text-white/40">
                 Belum ada data
               </div>
             ) : (
@@ -171,9 +171,9 @@ export default function AdminDashboard() {
                 {topRequesters.map((r, idx) => (
                   <div
                     key={r.email}
-                    className="flex items-center gap-3 rounded-ios-lg border border-white/[0.06] bg-bg-surface p-3"
+                    className="flex items-center gap-3 rounded-ios-lg border border-white/6 bg-bg-surface p-3"
                   >
-                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-ios-orange to-surflix-500 text-xs font-semibold text-white">
+                    <div className="flex h-8 w-8 items-center justify-center rounded-full bg-linear-to-br from-ios-orange to-surflix-500 text-xs font-semibold text-white">
                       {r.name.charAt(0).toUpperCase()}
                     </div>
                     <div className="min-w-0 flex-1">
@@ -199,7 +199,7 @@ export default function AdminDashboard() {
               Recent Activity
             </h2>
             {recentEvents.length === 0 ? (
-              <div className="rounded-ios-lg border border-white/[0.06] bg-white/[0.02] p-6 text-center text-xs text-white/40">
+              <div className="rounded-ios-lg border border-white/6 bg-white/2 p-6 text-center text-xs text-white/40">
                 Belum ada aktivitas
               </div>
             ) : (
@@ -224,7 +224,7 @@ function StatCard({ label, value, icon, color = 'gray' }: {
 }) {
   const Icon = Icons[icon];
   const colorClasses = {
-    gray: 'text-white/70 bg-white/[0.04]',
+    gray: 'text-white/70 bg-white/4',
     orange: 'text-ios-orange bg-ios-orange/10',
     blue: 'text-ios-blue bg-ios-blue/10',
     green: 'text-ios-green bg-ios-green/10',
@@ -232,7 +232,7 @@ function StatCard({ label, value, icon, color = 'gray' }: {
   };
 
   return (
-    <div className="rounded-ios-lg border border-white/[0.06] bg-bg-surface p-4">
+    <div className="rounded-ios-lg border border-white/6 bg-bg-surface p-4">
       <div className="flex items-center gap-2.5">
         <div className={cn('flex h-8 w-8 items-center justify-center rounded-full', colorClasses[color])}>
           <Icon className="h-4 w-4" />
@@ -260,7 +260,7 @@ function ActivityRow({ event }: { event: { type: string; payload: string; create
   } catch {}
 
   return (
-    <div className="flex items-start gap-3 rounded-ios-lg border border-white/[0.06] bg-bg-surface p-3">
+    <div className="flex items-start gap-3 rounded-ios-lg border border-white/6 bg-bg-surface p-3">
       <div className={cn('mt-0.5 flex h-6 w-6 items-center justify-center rounded-full', config.bgClass)}>
         <config.icon className={cn('h-3 w-3', config.iconClass)} />
       </div>

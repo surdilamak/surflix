@@ -172,12 +172,12 @@ export default function HomePage() {
                 onKeyDown={(e) => e.key === 'Enter' && handleSearchSubmit()}
                 placeholder={t('hub.search.placeholder')}
                 aria-label={t('hub.search.label')}
-                className="input-ios !min-h-14 w-full pl-12 pr-32 !text-base placeholder:text-rq-muted"
+                className="input-ios min-h-14! w-full pl-12 pr-32 text-base! placeholder:text-rq-muted"
               />
               <button
                 onClick={handleSearchSubmit}
                 disabled={query.trim().length < 2}
-                className="btn-primary absolute right-1.5 top-1/2 !min-h-11 -translate-y-1/2 gap-2"
+                className="btn-primary absolute right-1.5 top-1/2 min-h-11! -translate-y-1/2 gap-2"
               >
                 {t('hub.search.go')}
                 <Icons.ArrowRight className="h-4 w-4" />
