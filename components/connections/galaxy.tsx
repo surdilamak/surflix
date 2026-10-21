@@ -58,6 +58,9 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [selected, setSelected] = useState<number | null>(null);
   const [touch, setTouch] = useState(false);
+  /** jenis hubungan yang sedang dimatikan (nama, bukan indeks: tahan kalau data dimuat ulang) */
+  const [off, setOff] = useState<Set<string>>(new Set());
+  const [listView, setListView] = useState(false);
 
   // semua state gambar disimpan di ref: gak perlu re-render React tiap frame
   const cam = useRef({ x: 0, y: 0, k: 1, rot: 0 });
@@ -68,6 +71,10 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
   const dirty = useRef(true);
   const tween = useRef<{ t0: number; from: typeof cam.current; to: typeof cam.current } | null>(null);
   const pointerIn = useRef(false);
+  const offRef = useRef(off);
+  /** 1 = titik ini tidak punya garis yang lolos saringan, jadi diredupkan */
+  const dimRef = useRef<Uint8Array>(new Uint8Array(0));
+  const groupsRef = useRef<Array<{ x: number; y: number; label: string }>>([]);
 
   const { nodes, edges, rels } = data;
 
@@ -82,6 +89,56 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
   }, [nodes, edges]);
 
   const indexByKey = useMemo(() => new Map(nodes.map((n, i) => [`${n[1]}:${n[0]}`, i])), [nodes]);
+
+  /**
+   * Kelompok hasil label propagation (kolom ke-7 tiap titik). Namanya diambil dari
+   * judul paling banyak koneksi di kelompok itu — jujur, bukan karangan.
+   */
+  const groups = useMemo(() => {
+    const by = new Map<number, { n: number; x: number; y: number; best: number; items: number[] }>();
+    nodes.forEach((n, i) => {
+      let o = by.get(n[6]);
+      if (!o) by.set(n[6], (o = { n: 0, x: 0, y: 0, best: i, items: [] }));
+      o.n++;
+      o.x += n[7];
+      o.y += n[8];
+      o.items.push(i);
+      if (n[5] > nodes[o.best][5]) o.best = i;
+    });
+    return [...by.values()]
+      .sort((a, b) => b.n - a.n)
+      .map((o) => ({ x: o.x / o.n, y: o.y / o.n, label: nodes[o.best][2], n: o.n, items: o.items }));
+  }, [nodes]);
+
+  // yang dipakai saat menggambar: cukup kelompok besar, maksimal 12 nama
+  useEffect(() => {
+    groupsRef.current = groups.filter((g) => g.n >= 6).slice(0, 12).map(({ x, y, label }) => ({ x, y, label }));
+    requestDraw();
+  }, [groups]);
+
+  // saringan: titik yang semua garisnya dimatikan ikut diredupkan
+  useEffect(() => {
+    offRef.current = off;
+    const d = new Uint8Array(nodes.length);
+    if (off.size) {
+      d.fill(1);
+      for (const e of edges) {
+        if (off.has(rels[e[2]])) continue;
+        d[e[0]] = 0;
+        d[e[1]] = 0;
+      }
+    }
+    dimRef.current = d;
+    requestDraw();
+  }, [off, nodes, edges, rels]);
+
+  const toggleRel = (name: string) =>
+    setOff((prev) => {
+      const next = new Set(prev);
+      if (next.has(name)) next.delete(name);
+      else next.add(name);
+      return next;
+    });
 
   const requestDraw = () => {
     dirty.current = true;
@@ -189,6 +246,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
       ctx.beginPath();
       for (const e of edges) {
         if (e[4] === 1) continue; // koneksi menunggu review digambar terpisah (putus-putus)
+        if (offRef.current.has(rels[e[2]])) continue;
         if (focus !== null && (e[0] === focus || e[1] === focus)) continue;
         const [x1, y1] = toScreen(nodes[e[0]][7], nodes[e[0]][8]);
         const [x2, y2] = toScreen(nodes[e[1]][7], nodes[e[1]][8]);
@@ -207,6 +265,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
         ctx.beginPath();
         for (const e of edges) {
           if (e[4] !== 1) continue;
+          if (offRef.current.has(rels[e[2]])) continue;
           if (focus !== null && (e[0] === focus || e[1] === focus)) continue;
           const [x1, y1] = toScreen(nodes[e[0]][7], nodes[e[0]][8]);
           const [x2, y2] = toScreen(nodes[e[1]][7], nodes[e[1]][8]);
@@ -221,6 +280,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
       if (focus !== null) {
         ctx.lineWidth = 1.7;
         for (const x of nb[focus]) {
+          if (offRef.current.has(rels[x.rel])) continue;
           ctx.strokeStyle = REL_COLOR[rels[x.rel]] ?? '#888';
           ctx.globalAlpha = sel !== null ? 0.9 : 0.65;
           ctx.setLineDash(x.pending ? [5, 5] : []);
@@ -235,11 +295,37 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
         ctx.globalAlpha = 1;
       }
 
+      // nama kelompok: muncul saat menjauh, hilang saat mendekat (kebalikan label judul)
+      const groupAlpha = focus !== null ? 0 : Math.max(0, Math.min(1, (fitK.current * 2.4 - k) / (fitK.current * 1.5)));
+      if (groupAlpha > 0.03) {
+        ctx.save();
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.font = `600 ${Math.round(14 + 4 * groupAlpha)}px ${font}`;
+        ctx.lineWidth = 4;
+        ctx.strokeStyle = BG;
+        // nama yang saling tumpang tindih dilewati (greedy), sama seperti label judul
+        const taken: Array<[number, number, number, number]> = [];
+        for (const g of groupsRef.current) {
+          const [x, y] = toScreen(g.x, g.y);
+          if (x < 40 || x > w - 40 || y < 20 || y > h - 20) continue;
+          const tw = ctx.measureText(g.label).width;
+          const box: [number, number, number, number] = [x - tw / 2 - 6, y - 12, x + tw / 2 + 6, y + 12];
+          if (taken.some((p) => box[0] < p[2] && box[2] > p[0] && box[1] < p[3] && box[3] > p[1])) continue;
+          taken.push(box);
+          ctx.globalAlpha = 0.55 * groupAlpha;
+          ctx.strokeText(g.label, x, y);
+          ctx.fillStyle = '#fff';
+          ctx.fillText(g.label, x, y);
+        }
+        ctx.restore();
+      }
+
       // titik
       for (let i = 0; i < nodes.length; i++) {
         const [x, y] = toScreen(nodes[i][7], nodes[i][8]);
         if (x < -20 || x > w + 20 || y < -20 || y > h + 20) continue;
-        const dim = focus !== null && !near.has(i);
+        const dim = (focus !== null && !near.has(i)) || dimRef.current[i] === 1;
         ctx.globalAlpha = dim ? 0.16 : 1;
         ctx.fillStyle = PALETTE[nodes[i][6] % PALETTE.length];
         ctx.beginPath();
@@ -257,12 +343,16 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
         ctx.stroke();
       }
 
-      // label (greedy, tanpa tumpang tindih)
+      // label (greedy, tanpa tumpang tindih).
+      // Saat nama kelompok sedang tampil, label judul ditahan dulu — kalau tidak
+      // keduanya bertumpuk di titik yang sama.
       const degreeCut = k < fitK.current * 1.4 ? 9 : k < fitK.current * 2.5 ? 5 : k < fitK.current * 5 ? 3 : 1;
       const cands: number[] = [];
       if (focus !== null) {
         cands.push(focus);
         near.forEach((i) => i !== focus && cands.push(i));
+      } else if (groupAlpha > 0.15) {
+        // nama kelompok yang memimpin
       } else {
         for (let i = 0; i < nodes.length; i++) if (nodes[i][5] >= degreeCut) cands.push(i);
         cands.sort((a, b) => nodes[b][5] - nodes[a][5]);
@@ -458,8 +548,8 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
   };
 
   return (
-    <div ref={wrapRef} className="ref-galaxy" data-sel={selected !== null ? '' : undefined}>
-      <canvas ref={canvasRef} aria-label={t('galaxy.h1')} className={input ? 'is-ready' : undefined} />
+    <div ref={wrapRef} className="ref-galaxy" data-sel={selected !== null ? '' : undefined} data-list={listView ? '' : undefined}>
+      <canvas ref={canvasRef} aria-label={t('galaxy.h1')} className={input ? 'is-ready' : undefined} hidden={listView} />
 
       <div className="ref-galaxy-intro">
         <h1 className="ref-display">
@@ -481,6 +571,21 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
       </div>
 
       <div className="ref-galaxy-foot">
+        {input && rels.length > 0 && (
+          <div className="ref-galaxy-rels" role="group" aria-label={t('galaxy.filter')}>
+            {rels.map((r) => (
+              <button key={r} type="button" aria-pressed={!off.has(r)} onClick={() => toggleRel(r)}>
+                <span className="ref-mark" style={{ '--c': REL_VAR[r] } as React.CSSProperties} />
+                {t(`how.${r}.name`)}
+              </button>
+            ))}
+            {off.size > 0 && (
+              <button type="button" className="ref-galaxy-rels-all" onClick={() => setOff(new Set())}>
+                {t('galaxy.allRels')}
+              </button>
+            )}
+          </div>
+        )}
         <p>{input ? t('galaxy.count', { n: nodes.length, m: edges.length }) : t('galaxy.loading')}</p>
         {data.canPreview && onPreview && (
           <label className="ref-galaxy-preview">
@@ -491,8 +596,39 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
           </label>
         )}
         <p>{touch ? t('galaxy.hintTouch') : t('galaxy.hint')} {t('galaxy.size')}</p>
-        <button type="button" onClick={reset}>{t('galaxy.reset')}</button>
+        <p className="ref-galaxy-acts">
+          <button type="button" onClick={reset}>{t('galaxy.reset')}</button>
+          <button type="button" onClick={() => setListView((v) => !v)}>
+            {t(listView ? 'galaxy.viewSky' : 'galaxy.viewList')}
+          </button>
+        </p>
       </div>
+
+      {listView && input && (
+        <div className="ref-galaxy-text" aria-label={t('galaxy.viewList')}>
+          <p className="ref-galaxy-text-intro">{t('galaxy.listIntro')}</p>
+          {groups
+            .filter((g) => g.n >= 2)
+            .map((g) => (
+              <section key={g.label + g.n}>
+                <h2>
+                  {g.label} <small>{t('galaxy.group', { n: g.n })}</small>
+                </h2>
+                <ul>
+                  {g.items
+                    .slice()
+                    .sort((a, b) => nodes[b][5] - nodes[a][5] || nodes[a][2].localeCompare(nodes[b][2]))
+                    .map((i) => (
+                      <li key={`${nodes[i][1]}:${nodes[i][0]}`}>
+                        <a href={portalPath(`/${nodes[i][1]}/${nodes[i][0]}`) || '/'}>{nodes[i][2]}</a>
+                        <small>{t(nodes[i][5] === 1 ? 'galaxy.connection' : 'galaxy.connections', { n: nodes[i][5] })}</small>
+                      </li>
+                    ))}
+                </ul>
+              </section>
+            ))}
+        </div>
+      )}
 
       {node && selected !== null && (
         <aside className="ref-galaxy-panel" aria-live="polite">
@@ -510,7 +646,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
               <h2>{node[2]}</h2>
               <p>
                 {node[3] ? `${node[3]} · ` : ''}
-                {t('galaxy.connections', { n: node[5] })}
+                {t(node[5] === 1 ? 'galaxy.connection' : 'galaxy.connections', { n: node[5] })}
               </p>
             </div>
           </div>

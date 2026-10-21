@@ -407,6 +407,57 @@
   .ref-new-links a { min-height: 44px; }
 }
 
+/* ── Galaxy: saringan jenis hubungan, aksi, dan tampilan daftar ── */
+.ref-galaxy-rels { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; pointer-events: auto; }
+.ref-galaxy-rels button {
+  display: inline-flex; align-items: center; min-height: 32px; padding: 0 12px;
+  border: 0; border-radius: 999px; background: rgba(255, 255, 255, 0.08);
+  font: inherit; font-size: 13px; font-weight: 600; color: var(--field-1-muted);
+  cursor: pointer; transition: background 0.2s, color 0.2s, opacity 0.2s;
+}
+.ref-galaxy-rels button[aria-pressed='true'] { background: rgba(255, 255, 255, 0.16); color: var(--field-1-ink); }
+.ref-galaxy-rels button[aria-pressed='false'] .ref-mark { opacity: 0.3; }
+.ref-galaxy-rels button:hover { background: rgba(255, 255, 255, 0.22); }
+.ref-galaxy-rels .ref-mark { width: 9px; height: 9px; margin-right: 7px; }
+.ref-galaxy-rels-all { background: none !important; text-decoration: underline; text-underline-offset: 4px; }
+
+.ref-galaxy-acts { display: flex; gap: 20px; margin-top: 8px !important; pointer-events: auto; }
+.ref-galaxy-acts button { margin-top: 0 !important; }
+
+/* Mode daftar menempati seluruh panggung: judul halaman disembunyikan supaya
+ * tidak saling menimpa, dan kaki panggung jadi bilah datar di atasnya. */
+.ref-galaxy[data-list] .ref-galaxy-intro { display: none; }
+.ref-galaxy[data-list] .ref-galaxy-foot {
+  left: 0; right: 0; bottom: 0; z-index: 4;
+  padding: 12px var(--margin) 18px;
+  background: var(--field-1);
+}
+.ref-galaxy-text {
+  position: absolute; inset: 0; z-index: 2; overflow: auto;
+  padding: 40px var(--margin) 220px; background: var(--field-1); color: var(--field-1-ink);
+}
+.ref-galaxy-text-intro { max-width: 60ch; margin-bottom: 36px; color: var(--field-1-muted); font-size: var(--step-small); }
+.ref-galaxy-text section + section { margin-top: 32px; }
+.ref-galaxy-text h2 { font-size: var(--step-lead); font-weight: 800; letter-spacing: -0.03em; }
+.ref-galaxy-text h2 small { margin-left: 10px; font-size: var(--step-small); font-weight: 400; color: var(--field-1-muted); letter-spacing: 0; }
+.ref-galaxy-text ul { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 4px 24px; margin: 14px 0 0; padding: 0; list-style: none; }
+.ref-galaxy-text li { display: flex; align-items: baseline; gap: 8px; min-height: 30px; }
+.ref-galaxy-text li a { font-size: 15px; font-weight: 600; }
+.ref-galaxy-text li a:hover { color: var(--accent); }
+.ref-galaxy-text li small { font-size: 13px; color: var(--field-1-muted); white-space: nowrap; }
+@media (max-width: 767px) {
+  .ref-galaxy-text { padding-top: 84px; }
+  /* kaki panggung dibatasi lebarnya supaya deretan saringan bisa digeser mendatar */
+  .ref-galaxy-foot { right: var(--margin); }
+  .ref-galaxy-rels {
+    flex-wrap: nowrap; overflow-x: auto;
+    margin-inline: calc(var(--margin) * -1); padding-inline: var(--margin);
+    scrollbar-width: none;
+  }
+  .ref-galaxy-rels::-webkit-scrollbar { display: none; }
+  .ref-galaxy-rels button { flex: none; }
+}
+
 /* ── Galaxy: pratinjau admin ── */
 .ref-galaxy-preview { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; margin-top: 6px; color: var(--field-1-ink); font-weight: 600; cursor: pointer; pointer-events: auto; }
 .ref-galaxy-preview input { width: 20px; height: 20px; accent-color: var(--accent); }

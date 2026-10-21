@@ -1,7 +1,7 @@
 # BACKLOG.md — Surflix
 
 > Hal-hal yang sengaja ditunda. Urut dari yang paling berdampak. Update file ini tiap ada yang selesai atau nambah.
-> Terakhir diupdate: 2026-10-20 (setelah upgrade keamanan Next 15 / React 19).
+> Terakhir diupdate: 2026-10-21 (setelah Watch order dan perombakan Galaxy).
 
 ## 🔴 Tindak lanjut cepat (setelah deploy terakhir)
 
@@ -26,7 +26,8 @@
 ## 🟡 Konten Referensi
 
 - [~] **92 judul belum dipetakan** (turun dari 211 pada 2026-10-21: 825 / 917 punya peta). Sisanya memang sendirian: dokumenter, film indie/arthouse, sitkom, dan anime yang tidak punya pembuat atau pemeran bersama dengan judul lain di library. Tambah manual via Manage → Add a connection kalau tahu hubungan yang terdokumentasi. Jangan ngarang hubungan demi angka.
-- [ ] **Review 23 koneksi baru berstatus PENDING_REVIEW** (confidence `m`, ditambah 2026-10-21: kritikus sering memasangkan, atau kredit produser dari metadata). Approve/reject di `/admin/connections` → Review.
+- [x] **Review 23 koneksi PENDING_REVIEW** (Idrus, 2026-10-21, langsung di production). ⚠️ Keputusannya ada di DB production, belum ditarik ke `scripts/connections-live.json` — lihat catatan di bawah.
+- [ ] ~~Review 23 koneksi baru berstatus PENDING_REVIEW~~ (confidence `m`, ditambah 2026-10-21: kritikus sering memasangkan, atau kredit produser dari metadata). Approve/reject di `/admin/connections` → Review.
 - [ ] **Review terjemahan Indonesia** di `lib/i18n.ts` dan kolom `reason` (dibuat bareng teks Inggris, belum dibaca penutur native).
 - [ ] **Nama file kotor di library Jellyfin** (`Requiem.for.a.Dream.2000.PROPER…`, `MIRCrew`). Snapshot sudah dibersihin otomatis (nama folder / OriginalTitle), tapi rapihin di Jellyfin kalau sempat (rename atau refresh metadata).
 - [x] **Auto-sync library** (2026-10-20, menunggu deploy): webhook Jellyseerr `MEDIA_AVAILABLE` / `MEDIA_PARTIALLY_AVAILABLE` memanggil `scheduleLibrarySync()` (debounce 30 dtk, satu sync per rentetan event, tidak pernah melempar error, log di EventLog `library.autosync`). Berlaku juga untuk judul yang bukan dari request Surflix. Syarat di produksi: webhook Jellyseerr terpasang (Settings → Notifications → Webhook, URL `…/api/webhooks/jellyseerr`, header `Bearer <WEBHOOK_SECRET>`) dan env Jellyfin ada. Webhook sekarang menolak semua request kalau `WEBHOOK_SECRET` kosong.
@@ -35,10 +36,10 @@
 ## 🟢 Produk & UX
 
 - [x] **Metadata per film untuk share/SEO** (2026-10-20, menunggu deploy): `app/referensi/[type]/[id]/layout.tsx` (server) memasang `generateMetadata` dari `getFilmMeta()`: judul tab `Film (tahun): N connections · Surflix Referensi`, deskripsi dari satu alasan terbaik, og:image poster (TMDB kalau ada, kalau tidak gambar Primary Jellyfin publik), `metadataBase` di layout portal (`NEXT_PUBLIC_REFERENCE_URL` untuk override). Sisa ide: gambar OG komposit (poster + judul) dan sitemap.xml untuk halaman peta.
-- [ ] **Galaxy**: filter per jenis koneksi, label kelompok, versi aksesibel (daftar teks), dan layout O(n²) di server perlu diganti (worker / precompute) kalau library > ~2000 titik.
+- [~] **Galaxy** (2026-10-21): saringan per jenis koneksi (deretan chip yang sekaligus jadi legenda warna garis), nama kelompok yang muncul saat menjauh dan hilang saat mendekat (diambil dari judul paling banyak koneksi di kelompok itu, bukan karangan), dan tampilan daftar teks sebagai versi aksesibel. **Sisa**: layout O(n²) di server perlu diganti (worker / precompute) kalau library > ~2000 titik.
 - [x] **Request Hub masih campur Indonesia/English**; portal Referensi dan landing sudah English. Putuskan: i18n hub atau seragamin satu bahasa.
 - [x] **Landing nge-hardcode URL** (2026-10-20, menunggu deploy): kartu landing sekarang diturunkan dari hostname lewat `buildPortalUrls()` (`lib/hooks/use-portal.ts`, diperluas untuk apex/www). Produksi tidak berubah; di lokal kartu ke `/` dan `/referensi`. SSR tetap merender URL produksi.
-- [ ] **Compose di Dockge ketinggalan dari repo** (`docker-compose.prod.yml` di repo sudah punya env Jellyfin/Anthropic; versi Dockge belum). Samain.
+- [x] **Compose di Dockge** disamakan dengan repo (Idrus, 2026-10-21).
 
 ## 🧹 Bersih-bersih
 
@@ -72,6 +73,20 @@
    - **Deploy** (bukan cuma Restart: perubahan compose butuh `up -d`).
 3. **Cek**: `docker exec surflix sh -c 'wget -qO- --header="Authorization: MediaBrowser Token=\"$JELLYFIN_API_KEY\"" "$JELLYFIN_URL/System/Info" | head -c 150'` → harus keluar JSON server Jellyfin.
 4. Admin → `/admin/connections` → **Sync library**: toast `Library synced: N new, N updated`.
+
+## Catatan: production lebih baru dari repo (2026-10-21)
+Review 15 koneksi `PENDING_REVIEW` dilakukan langsung di `/admin/connections` production, bukan di lokal. Akibatnya `scripts/connections-live.json` (dan `lib/sagas.json` yang diturunkan darinya) masih menganggapnya menunggu review. Import ke production tidak akan merusak apa pun — script tidak pernah mengubah status baris yang sudah ada — tapi saga baru dari koneksi `universe`/`remake` yang baru disetujui belum muncul.
+
+Cara menariknya kembali (di Unraid):
+```
+docker exec surflix node scripts/export-connections.js
+docker cp surflix:/app/scripts/connections-live.json ./connections-live.json
+```
+lalu kirim file itu, taruh di `scripts/`, jalankan `node scripts/build-sagas.js`, commit.
+
+## Selesai 2026-10-21 (Watch order)
+- [x] **Watch order** (`/referensi/timeline`): indeks 62 saga + panggung per saga dengan geser/cubit/zoom, urutan Cerita vs Rilis, jalur bercabang. Saga diturunkan otomatis dari koneksi `universe`/`remake` (325 judul), kurasi menang lewat `scripts/curated/sagas.txt`. Saling tertaut dengan peta film, Galaxy, dan hero beranda.
+- [x] Urutan tautan Reference dan pill situs diseragamkan; PortalBar sticky di semua halaman; landing dapat blok "tiga cara masuk" bergambar.
 
 ## Selesai 2026-10-21 (ide yang tadinya diparkir)
 - [x] Sitemap + kartu OG per film untuk Reference. Sisa untuk Idrus: daftarkan sitemap di Google Search Console.
