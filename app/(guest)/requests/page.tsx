@@ -176,7 +176,7 @@ function RequestRowItem({ request }: { request: PolledRequest }) {
   return (
     <div className="rq-tile p-3">
       <div className="flex gap-3">
-        <div className="h-20 w-14 flex-shrink-0 overflow-hidden rounded-rq bg-rq-raised">
+        <div className="h-20 w-14 shrink-0 overflow-hidden rounded-rq bg-rq-raised">
           {request.posterPath ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -194,7 +194,7 @@ function RequestRowItem({ request }: { request: PolledRequest }) {
         <div className="min-w-0 flex-1">
           <div className="flex items-start justify-between gap-2">
             <p className="rq-text truncate font-medium">{request.title}</p>
-            <span className={cn('flex-shrink-0', statusConfig.badgeClass)}>
+            <span className={cn('shrink-0', statusConfig.badgeClass)}>
               <span className="inline-flex items-center gap-1">
                 <statusConfig.icon className="h-3 w-3" />
                 {statusConfig.label}

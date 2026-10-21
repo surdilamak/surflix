@@ -1,11 +1,146 @@
-@import '@fontsource/inter/400.css';
-@import '@fontsource/inter/500.css';
-@import '@fontsource/inter/600.css';
-@import '@fontsource/inter/700.css';
+@import '@fontsource/inter/400.css' layer(base);
+@import '@fontsource/inter/500.css' layer(base);
+@import '@fontsource/inter/600.css' layer(base);
+@import '@fontsource/inter/700.css' layer(base);
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, SF Pro Display, SF Pro Text, Inter,
+    system-ui, sans-serif;
+
+  --color-ios-red: #ff453a;
+  --color-ios-orange: #ff9f0a;
+  --color-ios-yellow: #ffd60a;
+  --color-ios-green: #30d158;
+  --color-ios-mint: #63e6e2;
+  --color-ios-teal: #40cbe0;
+  --color-ios-cyan: #64d2ff;
+  --color-ios-blue: #0a84ff;
+  --color-ios-indigo: #5e5ce6;
+  --color-ios-purple: #bf5af2;
+  --color-ios-pink: #ff375f;
+
+  --color-surflix-50: #fff1f3;
+  --color-surflix-500: #ff375f;
+  --color-surflix-600: #ed1648;
+  --color-surflix-700: #c8083d;
+
+  --color-rq-bg: #0d0d0f;
+  --color-rq-surface: #17171a;
+  --color-rq-raised: #232327;
+  --color-rq-accent: #ff5200;
+  --color-rq-muted: #a3a3ab;
+
+  --color-bg-base: #000000;
+  --color-bg-surface: #1c1c1e;
+  --color-bg-elevated: #2c2c2e;
+  --color-bg-grouped: #1c1c1e;
+
+  --backdrop-blur-ios: 30px;
+
+  --radius-rq: 8px;
+  --radius-ios: 14px;
+  --radius-ios-lg: 18px;
+  --radius-ios-xl: 24px;
+
+  --tracking-tight: -0.01em;
+  --tracking-tighter: -0.02em;
+  --tracking-tightest: -0.03em;
+
+  --animate-fade-in: fadeIn 0.3s ease-out;
+  --animate-slide-up: slideUp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+  @keyframes slideUp {
+    0% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+}
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+
+@utility glass {
+  /* Frosted glass surface */
+  @apply bg-black/60 backdrop-blur-ios border border-white/8;
+}
+
+@utility glass-light {
+  @apply bg-white/8 backdrop-blur-ios border border-white/10;
+}
+
+@utility btn-primary {
+  /* iOS-style pill button (primary) */
+  @apply bg-white text-black font-semibold rounded-full px-5 py-2.5 text-sm tracking-tight transition-all hover:bg-white/90 active:scale-95;
+}
+
+@utility btn-secondary {
+  /* iOS-style pill button (secondary, frosted) */
+  @apply bg-white/10 backdrop-blur-ios text-white font-medium rounded-full px-5 py-2.5 text-sm tracking-tight transition-all hover:bg-white/15 active:scale-95 border border-white/10;
+}
+
+@utility badge-available {
+  /* Status badges (pill-shaped) */
+  @apply bg-ios-green/95 text-white text-[10px] font-medium px-2 py-0.5 rounded-full inline-flex items-center gap-1;
+}
+
+@utility badge-processing {
+  @apply bg-ios-blue/95 text-white text-[10px] font-medium px-2 py-0.5 rounded-full inline-flex items-center gap-1;
+}
+
+@utility badge-pending {
+  @apply bg-ios-orange/95 text-white text-[10px] font-medium px-2 py-0.5 rounded-full inline-flex items-center gap-1;
+}
+
+@utility badge-rejected {
+  @apply bg-ios-red/95 text-white text-[10px] font-medium px-2 py-0.5 rounded-full inline-flex items-center gap-1;
+}
+
+@utility tab {
+  /* Tab pill (top nav) */
+  @apply px-3 py-1.5 text-sm rounded-md transition-all text-white/60 hover:text-white/90;
+}
+
+@utility tab-active {
+  @apply bg-white/10 text-white font-medium;
+}
+
+@utility input-ios {
+  /* Form inputs */
+  @apply bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/40 focus:bg-white/8 focus:border-white/20 outline-hidden transition-all;
+}
 
 @layer base {
   :root {
@@ -22,54 +157,6 @@
 
   * {
     border-color: rgba(255, 255, 255, 0.08);
-  }
-}
-
-@layer components {
-  /* Frosted glass surface */
-  .glass {
-    @apply bg-black/60 backdrop-blur-ios border border-white/[0.08];
-  }
-
-  .glass-light {
-    @apply bg-white/[0.08] backdrop-blur-ios border border-white/[0.1];
-  }
-
-  /* iOS-style pill button (primary) */
-  .btn-primary {
-    @apply bg-white text-black font-semibold rounded-full px-5 py-2.5 text-sm tracking-tight transition-all hover:bg-white/90 active:scale-95;
-  }
-
-  /* iOS-style pill button (secondary, frosted) */
-  .btn-secondary {
-    @apply bg-white/10 backdrop-blur-ios text-white font-medium rounded-full px-5 py-2.5 text-sm tracking-tight transition-all hover:bg-white/15 active:scale-95 border border-white/10;
-  }
-
-  /* Status badges (pill-shaped) */
-  .badge-available {
-    @apply bg-ios-green/95 text-white text-[10px] font-medium px-2 py-0.5 rounded-full inline-flex items-center gap-1;
-  }
-  .badge-processing {
-    @apply bg-ios-blue/95 text-white text-[10px] font-medium px-2 py-0.5 rounded-full inline-flex items-center gap-1;
-  }
-  .badge-pending {
-    @apply bg-ios-orange/95 text-white text-[10px] font-medium px-2 py-0.5 rounded-full inline-flex items-center gap-1;
-  }
-  .badge-rejected {
-    @apply bg-ios-red/95 text-white text-[10px] font-medium px-2 py-0.5 rounded-full inline-flex items-center gap-1;
-  }
-
-  /* Tab pill (top nav) */
-  .tab {
-    @apply px-3 py-1.5 text-sm rounded-md transition-all text-white/60 hover:text-white/90;
-  }
-  .tab-active {
-    @apply bg-white/10 text-white font-medium;
-  }
-
-  /* Form inputs */
-  .input-ios {
-    @apply bg-white/5 border border-white/10 rounded-xl px-3 py-2.5 text-sm text-white placeholder-white/40 focus:bg-white/[0.08] focus:border-white/20 outline-none transition-all;
   }
 }
 

@@ -131,10 +131,10 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 z-[110] bg-black/70 "
+            className="fixed inset-0 z-110 bg-black/70 "
           />
 
-          <div className="fixed inset-0 z-[111] flex items-center justify-center p-4">
+          <div className="fixed inset-0 z-111 flex items-center justify-center p-4">
             <motion.div
               initial={{ scale: 0.95, opacity: 0, y: 20 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
@@ -206,7 +206,7 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
 
               {error && (
                 <div className="flex items-start gap-2 rounded-rq bg-rq-raised p-3">
-                  <Icons.AlertCircle className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-ios-red" />
+                  <Icons.AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-ios-red" />
                   <p className="text-xs text-white">{error}</p>
                 </div>
               )}

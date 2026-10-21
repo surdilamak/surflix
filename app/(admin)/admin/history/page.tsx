@@ -101,7 +101,7 @@ export default function AdminHistoryPage() {
   return (
     <div className="min-h-screen bg-black">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-black/70 backdrop-blur-ios">
+      <header className="sticky top-0 z-50 border-b border-white/8 bg-black/70 backdrop-blur-ios">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
@@ -179,7 +179,7 @@ export default function AdminHistoryPage() {
         {loading ? (
           <div className="space-y-2">
             {Array.from({ length: 5 }).map((_, i) => (
-              <div key={i} className="h-20 animate-pulse rounded-ios-lg bg-white/[0.04]" />
+              <div key={i} className="h-20 animate-pulse rounded-ios-lg bg-white/4" />
             ))}
           </div>
         ) : filtered.length === 0 ? (
@@ -214,7 +214,7 @@ function MiniStat({ label, value, icon, color }: {
     orange: 'text-ios-orange',
   };
   return (
-    <div className="rounded-ios-lg border border-white/[0.06] bg-bg-surface p-3">
+    <div className="rounded-ios-lg border border-white/6 bg-bg-surface p-3">
       <div className="flex items-center gap-2">
         <Icon className={cn('h-3.5 w-3.5', colorClasses[color])} />
         <span className="text-[11px] text-white/50">{label}</span>
@@ -250,9 +250,9 @@ function HistoryRow({ request: r }: { request: HistoryRequest }) {
   const timeStr = formatAgo(r.availableAt || r.rejectedAt || r.approvedAt || r.requestedAt);
 
   return (
-    <div className="rounded-ios-lg border border-white/[0.06] bg-bg-surface p-3">
+    <div className="rounded-ios-lg border border-white/6 bg-bg-surface p-3">
       <div className="flex gap-3">
-        <div className="h-16 w-11 flex-shrink-0 overflow-hidden rounded bg-bg-elevated">
+        <div className="h-16 w-11 shrink-0 overflow-hidden rounded-sm bg-bg-elevated">
           {r.posterPath ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -270,7 +270,7 @@ function HistoryRow({ request: r }: { request: HistoryRequest }) {
         <div className="min-w-0 flex-1">
           <div className="mb-0.5 flex items-start justify-between gap-2">
             <p className="truncate text-sm font-medium">{r.title}</p>
-            <span className={cn('flex-shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium', config.badgeClass)}>
+            <span className={cn('shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium', config.badgeClass)}>
               <span className="inline-flex items-center gap-1">
                 <config.icon className="h-2.5 w-2.5" />
                 {config.label}
@@ -284,7 +284,7 @@ function HistoryRow({ request: r }: { request: HistoryRequest }) {
             {' · '}{timeStr}
           </p>
           {r.adminNote && (
-            <p className="mt-1 truncate rounded bg-white/[0.04] px-2 py-1 text-[10px] text-white/50">
+            <p className="mt-1 truncate rounded-sm bg-white/4 px-2 py-1 text-[10px] text-white/50">
               <Icons.Info className="mr-1 inline h-2.5 w-2.5" />
               {r.adminNote}
             </p>

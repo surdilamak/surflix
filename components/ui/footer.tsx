@@ -41,7 +41,7 @@ export function Footer() {
 
           <div className="flex flex-col gap-2 md:items-end">
             <p className="rq-small flex items-center gap-2 text-rq-muted">
-              <Icons.Info className="h-4 w-4 flex-shrink-0 text-rq-accent" />
+              <Icons.Info className="h-4 w-4 shrink-0 text-rq-accent" />
               <span>
                 <span className="text-white">{t('hub.footer.rule')}</span> {t('hub.footer.ruleText')}
               </span>

@@ -102,7 +102,7 @@ export function DetailModal({ item, open, onClose, onRequest, onRequestImproveme
     <AnimatePresence>
       {open && (
         <div
-          className={`fixed inset-0 z-[100] flex justify-center ${
+          className={`fixed inset-0 z-100 flex justify-center ${
             isMobile ? 'items-end' : 'items-center md:p-4'
           }`}
         >
@@ -217,7 +217,7 @@ function ModalContent({
 
       <div className="space-y-4 p-4 md:p-5">
         <div>
-          <h2 className="rq-h2 !text-2xl">{title}</h2>
+          <h2 className="rq-h2 text-2xl!">{title}</h2>
           {detail?.tagline && (
             <p className="rq-small mt-1 text-rq-muted">{detail.tagline}</p>
           )}
@@ -338,7 +338,7 @@ function ModalContent({
 
         {!isAvailable && !isProcessing && (
           <div className="flex items-start gap-2 rounded-rq bg-rq-raised p-3">
-            <Icons.Info className="mt-px h-4 w-4 flex-shrink-0 text-rq-accent" />
+            <Icons.Info className="mt-px h-4 w-4 shrink-0 text-rq-accent" />
             <p className="rq-small text-white">
               {t('hub.detail.review')}
             </p>
@@ -352,7 +352,7 @@ function ModalContent({
 function MetadataRow({ label, value, last }: { label: string; value: string; last?: boolean }) {
   return (
     <div className="flex justify-between px-3 py-3">
-      <span className="flex-shrink-0 text-rq-muted">{label}</span>
+      <span className="shrink-0 text-rq-muted">{label}</span>
       <span className="ml-3 text-right font-medium leading-tight">{value}</span>
     </div>
   );

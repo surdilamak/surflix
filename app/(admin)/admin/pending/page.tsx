@@ -119,7 +119,7 @@ export default function AdminPendingPage() {
   return (
     <div className="min-h-screen bg-black">
       {/* Header */}
-      <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-black/70 backdrop-blur-ios">
+      <header className="sticky top-0 z-50 border-b border-white/8 bg-black/70 backdrop-blur-ios">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
@@ -160,7 +160,7 @@ export default function AdminPendingPage() {
         {loading ? (
           <div className="space-y-3">
             {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="h-32 animate-pulse rounded-ios-lg bg-white/[0.04]" />
+              <div key={i} className="h-32 animate-pulse rounded-ios-lg bg-white/4" />
             ))}
           </div>
         ) : requests.length === 0 ? (
@@ -196,7 +196,7 @@ export default function AdminPendingPage() {
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -50, opacity: 0 }}
-          className="fixed left-1/2 top-4 z-[200] -translate-x-1/2"
+          className="fixed left-1/2 top-4 z-200 -translate-x-1/2"
         >
           <div className="flex items-center gap-2.5 rounded-full border border-white/10 bg-bg-surface/95 px-4 py-2.5 shadow-lg backdrop-blur-ios">
             {toast.type === 'success' ? (
@@ -242,11 +242,11 @@ function RequestCard({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, x: -100 }}
-      className="rounded-ios-lg border border-white/[0.08] bg-bg-surface p-4"
+      className="rounded-ios-lg border border-white/8 bg-bg-surface p-4"
     >
       <div className="flex gap-3 md:gap-4">
         {/* Poster */}
-        <div className="h-24 w-16 flex-shrink-0 overflow-hidden rounded bg-bg-elevated md:h-32 md:w-22">
+        <div className="h-24 w-16 shrink-0 overflow-hidden rounded-sm bg-bg-elevated md:h-32 md:w-22">
           {r.posterPath ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
@@ -291,7 +291,7 @@ function RequestCard({
           {/* Guest note (if any) */}
           {(r as any).guestNote && (
             <div className="mb-3 flex items-start gap-2 rounded-ios-lg border border-ios-blue/30 bg-ios-blue/5 p-2.5">
-              <Icons.Info className="mt-0.5 h-3 w-3 flex-shrink-0 text-ios-blue" />
+              <Icons.Info className="mt-0.5 h-3 w-3 shrink-0 text-ios-blue" />
               <p className="text-[11px] leading-relaxed text-white/85">
                 <span className="font-medium text-ios-blue">Catatan: </span>
                 {(r as any).guestNote}

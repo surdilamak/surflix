@@ -50,7 +50,7 @@
 .rq-root .btn-primary,
 .rq-root .btn-secondary {
   display: inline-flex; align-items: center; justify-content: center;
-  min-height: 44px; padding: 0 20px;
+  min-height: 44px; /* padding datang dari utilitas (px-5 py-2.5) supaya px-6 dll tetap berlaku */
   border: 0; border-radius: var(--rq-r);
   font-size: 0.9375rem; font-weight: 500; letter-spacing: 0;
   transition: background 0.18s, transform 0.18s var(--rq-ease);
@@ -75,11 +75,10 @@
 .rq-root .badge-rejected { background: #ff6961; }
 
 /* Isian */
-:where(.rq-root .input-ios) {
+.rq-root .input-ios {
   background: var(--rq-surface); border: 0; border-radius: var(--rq-r);
-  min-height: 48px; padding: 0 14px; font-size: 0.9375rem; color: #fff;
+  min-height: 48px; font-size: 0.9375rem; color: #fff; /* padding dari utilitas, bukan dari sini */
 }
-:where(.rq-root textarea.input-ios) { padding-block: 12px; }
 .rq-root .input-ios:focus { background: var(--rq-raised); }
 .rq-root .input-ios:focus-visible { outline: 2px solid var(--rq-accent); outline-offset: 0; }
 

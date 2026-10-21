@@ -181,7 +181,7 @@ export default function AdminConnectionsPage() {
 
   return (
     <div className="min-h-screen bg-black">
-      <header className="sticky top-0 z-50 border-b border-white/[0.08] bg-black/70 backdrop-blur-ios">
+      <header className="sticky top-0 z-50 border-b border-white/8 bg-black/70 backdrop-blur-ios">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 md:px-6">
           <div className="flex items-center gap-6">
             <div className="flex items-center gap-2">
@@ -238,7 +238,7 @@ export default function AdminConnectionsPage() {
           </div>
         </div>
 
-        <div className="mb-6 flex gap-1 rounded-full bg-white/[0.06] p-1 text-xs font-medium">
+        <div className="mb-6 flex gap-1 rounded-full bg-white/6 p-1 text-xs font-medium">
           {([
             ['coverage', `Coverage${summary ? ` (${summary.total})` : ''}`],
             ['queue', `Review queue (${queue.length})`],
@@ -272,7 +272,7 @@ export default function AdminConnectionsPage() {
                       setVisible(60);
                     }}
                     className={`rounded-ios-lg border p-3 text-left transition-colors ${
-                      filter === k ? 'border-white/40 bg-white/[0.08]' : 'border-white/[0.08] bg-bg-surface hover:border-white/20'
+                      filter === k ? 'border-white/40 bg-white/8' : 'border-white/8 bg-bg-surface hover:border-white/20'
                     }`}
                   >
                     <p className={`text-xl font-semibold tracking-tight ${cls}`}>{n}</p>
@@ -295,7 +295,7 @@ export default function AdminConnectionsPage() {
             {loading ? (
               <div className="space-y-2">
                 {Array.from({ length: 6 }).map((_, i) => (
-                  <div key={i} className="h-16 animate-pulse rounded-ios-lg bg-white/[0.04]" />
+                  <div key={i} className="h-16 animate-pulse rounded-ios-lg bg-white/4" />
                 ))}
               </div>
             ) : filtered.length === 0 ? (
@@ -308,9 +308,9 @@ export default function AdminConnectionsPage() {
                   const key = `${t.mediaType}:${t.tmdbId}`;
                   const isOpen = open === key;
                   return (
-                    <div key={key} className="rounded-ios-lg border border-white/[0.08] bg-bg-surface">
+                    <div key={key} className="rounded-ios-lg border border-white/8 bg-bg-surface">
                       <div className="flex items-center gap-3 p-3">
-                        <div className="h-14 w-9 flex-shrink-0 overflow-hidden rounded bg-bg-elevated">
+                        <div className="h-14 w-9 shrink-0 overflow-hidden rounded-sm bg-bg-elevated">
                           {config?.jellyfinUrl && (
                             // eslint-disable-next-line @next/next/no-img-element
                             <img
@@ -326,12 +326,12 @@ export default function AdminConnectionsPage() {
                             {t.title}
                             {t.year && <span className="ml-1.5 text-xs font-normal text-white/40">{t.year}</span>}
                             {t.mediaType === 'tv' && (
-                              <span className="ml-1.5 rounded bg-white/10 px-1 text-[10px] font-medium text-white/60">TV</span>
+                              <span className="ml-1.5 rounded-sm bg-white/10 px-1 text-[10px] font-medium text-white/60">TV</span>
                             )}
                           </p>
                           <p className="truncate text-[11px] text-white/40">{t.directors || t.genres || ''}</p>
                         </div>
-                        <div className="hidden flex-shrink-0 text-right text-[11px] sm:block">
+                        <div className="hidden shrink-0 text-right text-[11px] sm:block">
                           {t.approved > 0 ? (
                             <span className="font-medium text-ios-green">{t.approved} live</span>
                           ) : t.pending > 0 ? (
@@ -347,13 +347,13 @@ export default function AdminConnectionsPage() {
                           href={portalLink(t)}
                           target="_blank"
                           rel="noopener"
-                          className="flex-shrink-0 rounded-full bg-white/10 px-3 py-1.5 text-[11px] font-medium text-white hover:bg-white/15"
+                          className="shrink-0 rounded-full bg-white/10 px-3 py-1.5 text-[11px] font-medium text-white hover:bg-white/15"
                         >
                           View
                         </a>
                         <button
                           onClick={() => setOpen(isOpen ? null : key)}
-                          className="flex-shrink-0 rounded-full bg-white px-3 py-1.5 text-[11px] font-medium text-black"
+                          className="shrink-0 rounded-full bg-white px-3 py-1.5 text-[11px] font-medium text-black"
                         >
                           {isOpen ? 'Close' : 'Manage'}
                         </button>
@@ -385,7 +385,7 @@ export default function AdminConnectionsPage() {
         ) : queueLoading ? (
           <div className="space-y-3">
             {Array.from({ length: 3 }).map((_, i) => (
-              <div key={i} className="h-24 animate-pulse rounded-ios-lg bg-white/[0.04]" />
+              <div key={i} className="h-24 animate-pulse rounded-ios-lg bg-white/4" />
             ))}
           </div>
         ) : queue.length === 0 ? (
@@ -399,7 +399,7 @@ export default function AdminConnectionsPage() {
               <button
                 onClick={handleBulkApprove}
                 disabled={bulkBusy}
-                className="flex-shrink-0 rounded-full bg-ios-green px-4 py-1.5 text-xs font-medium text-white disabled:opacity-50"
+                className="shrink-0 rounded-full bg-ios-green px-4 py-1.5 text-xs font-medium text-white disabled:opacity-50"
               >
                 {bulkBusy ? 'Approving…' : `Approve all ${queue.length}`}
               </button>
@@ -422,7 +422,7 @@ export default function AdminConnectionsPage() {
         <motion.div
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          className="fixed left-1/2 top-4 z-[200] -translate-x-1/2"
+          className="fixed left-1/2 top-4 z-200 -translate-x-1/2"
         >
           <div className="flex items-center gap-2.5 rounded-full border border-white/10 bg-bg-surface/95 px-4 py-2.5 shadow-lg backdrop-blur-ios">
             {toast.type === 'success' ? (
@@ -440,7 +440,7 @@ export default function AdminConnectionsPage() {
 
 function QueueRow({ c, busy, onAction }: { c: Conn; busy: boolean; onAction: (a: 'approve' | 'reject') => void }) {
   return (
-    <div className="rounded-ios-lg border border-white/[0.08] bg-bg-surface p-3.5">
+    <div className="rounded-ios-lg border border-white/8 bg-bg-surface p-3.5">
       <div className="flex flex-wrap items-center gap-x-2 gap-y-1">
         <p className="text-sm font-semibold tracking-tight">
           {c.sourceTitle}
@@ -571,10 +571,10 @@ function FilmManager({
   }
 
   return (
-    <div className="border-t border-white/[0.08] p-3.5">
+    <div className="border-t border-white/8 p-3.5">
       <p className="mb-2 text-[11px] font-medium uppercase tracking-wide text-white/40">Connections</p>
       {conns === null ? (
-        <div className="h-10 animate-pulse rounded bg-white/[0.04]" />
+        <div className="h-10 animate-pulse rounded-sm bg-white/4" />
       ) : conns.length === 0 ? (
         <p className="mb-4 text-xs text-white/40">Nothing yet. Add the first connection below.</p>
       ) : (
@@ -585,7 +585,7 @@ function FilmManager({
             const otherYear = out ? c.targetYear : c.sourceYear;
             const isEditing = editing === c.id;
             return (
-              <div key={c.id} className="rounded-lg bg-white/[0.04] p-2.5">
+              <div key={c.id} className="rounded-lg bg-white/4 p-2.5">
                 <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs">
                   <span className="font-semibold">
                     {other}
@@ -692,7 +692,7 @@ function FilmManager({
 
         <div className="relative">
           {target ? (
-            <div className="flex items-center justify-between rounded-lg bg-white/[0.06] px-3 py-2 text-xs">
+            <div className="flex items-center justify-between rounded-lg bg-white/6 px-3 py-2 text-xs">
               <span>
                 <b>{target.title}</b>
                 {target.year && <span className="ml-1 text-white/40">{target.year}</span>}
@@ -719,7 +719,7 @@ function FilmManager({
                           setTarget(h);
                           setHits([]);
                         }}
-                        className="block w-full px-3 py-2 text-left text-xs hover:bg-white/[0.08]"
+                        className="block w-full px-3 py-2 text-left text-xs hover:bg-white/8"
                       >
                         {h.title}
                         {h.year && <span className="ml-1 text-white/40">{h.year}</span>}

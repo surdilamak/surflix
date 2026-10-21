@@ -102,7 +102,7 @@ export default function AdminLoginPage() {
 
           {error && (
             <div className="flex items-start gap-2 rounded-ios-lg border border-ios-red/30 bg-ios-red/10 p-2.5">
-              <Icons.AlertCircle className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-ios-red" />
+              <Icons.AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-ios-red" />
               <p className="text-[11px] text-white/85">{error}</p>
             </div>
           )}
