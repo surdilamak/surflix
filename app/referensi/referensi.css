@@ -233,8 +233,16 @@
   color: var(--field-1-ink); font-size: var(--step-small); font-weight: 600;
 }
 .ref-stage-hint { position: absolute; bottom: 20px; left: var(--margin); z-index: 3; color: var(--field-1-muted); font-size: var(--step-small); }
+/*
+ * Panel diikat ke ATAS panggung dan menempel saat halaman digulir (sama seperti panel Galaxy).
+ * Dulu `align-self: end` menaruhnya di dasar panggung yang tinggi, jadi jatuh di bawah lipatan
+ * layar pada halaman peta film dan Watch order. Sticky dihitung dari bar portal (min-height 56px).
+ */
 .ref-panel {
-  align-self: end; margin: 0 var(--margin) 24px 0;
+  align-self: start;
+  position: sticky; top: calc(56px + 16px);
+  max-height: calc(100svh - 56px - 32px); overflow: auto;
+  margin: 24px var(--margin) 24px 0;
   padding: 24px 26px 26px;
   background: var(--bg); color: var(--ink);
 }
@@ -248,7 +256,7 @@
 @media (max-width: 1023px) {
   .ref-stage { grid-template-columns: minmax(0, 1fr); }
   .ref-stage-view { height: clamp(520px, 72svh, 720px); }
-  .ref-panel { margin: 0; padding: 22px var(--margin) 28px; }
+  .ref-panel { position: static; max-height: none; overflow: visible; margin: 0; padding: 22px var(--margin) 28px; }
   .ref-panel .ref-btn { width: 100%; }
 }
 @media (max-width: 767px) {
