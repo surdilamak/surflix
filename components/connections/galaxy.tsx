@@ -23,6 +23,8 @@ export interface GalaxyData {
   nodes: N[];
   edges: E[];
   /** hanya admin: boleh pratinjau koneksi yang menunggu review */
+  /** "movie:123" -> id saga */
+  sagas?: Record<string, string>;
   canPreview?: boolean;
   preview?: boolean;
   pendingCount?: number;
@@ -522,6 +524,11 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
             <a className="ref-panel-link" href={portalPath(`/${node[1]}/${node[0]}`) || '/'}>
               {t('stage.openMap')}
             </a>
+            {data.sagas?.[`${node[1]}:${node[0]}`] && (
+              <a className="ref-panel-link" href={portalPath(`/timeline/${data.sagas[`${node[1]}:${node[0]}`]}?film=${node[1]}:${node[0]}`) || '/'}>
+                {t('galaxy.watchOrder')}
+              </a>
+            )}
           </div>
 
           <ul className="ref-galaxy-list">

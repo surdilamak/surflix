@@ -1,23 +1,24 @@
 /**
- * Portal Referensi — Watch order: saga dari data/sagas.json dicocokkan ke library di server,
- * lalu TimelineView menggambar jalurnya (urutan cerita atau urutan rilis, dengan cabang).
+ * Portal Referensi — Watch order, indeks: semua saga yang punya urutan tonton.
+ * Saga dibangun dari relasi cerita (universe/remake), jadi setiap judul yang punya
+ * urutan nyata pasti ada di sini. Data disiapkan di server supaya bisa diindeks.
  */
 import type { Metadata } from 'next';
-import { getSagas } from '@/lib/connections';
-import { getServerId } from '@/lib/jellyfin';
-import { TimelineView } from '@/components/connections/timeline-view';
+import { redirect } from 'next/navigation';
+import { listSagas, sagaMembership } from '@/lib/connections';
+import { SagaIndex } from '@/components/connections/saga-index';
 
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Watch order · Surflix Reference',
-  description: 'Where to start a saga: follow it in story order or in release order, with the spin-offs branching off the main line.',
+  description: 'Where to start a saga on Surflix: follow it in story order or in release order, with the spin-offs branching off the main line.',
 };
 
-export default async function TimelinePage({ searchParams }: { searchParams: Promise<{ saga?: string; film?: string }> }) {
-  const { saga, film } = await searchParams;
-  const sagas = await getSagas().catch(() => []);
+export default async function WatchOrderIndexPage({ searchParams }: { searchParams: Promise<{ saga?: string }> }) {
+  const { saga } = await searchParams;
+  if (saga) redirect(`./timeline/${saga}`); // tautan lama ?saga=
+  const [sagas, membership] = await Promise.all([listSagas().catch(() => []), sagaMembership().catch(() => ({}))]);
   const jellyfinUrl = (process.env.NEXT_PUBLIC_JELLYFIN_URL || process.env.JELLYFIN_URL || '').replace(/\/+$/, '');
-  const serverId = await getServerId().catch(() => undefined);
-  return <TimelineView sagas={sagas} initial={saga} initialFilm={film} jellyfinUrl={jellyfinUrl} serverId={serverId ?? undefined} />;
+  return <SagaIndex sagas={sagas} membership={membership} jellyfinUrl={jellyfinUrl} />;
 }

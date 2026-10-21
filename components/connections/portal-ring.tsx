@@ -126,6 +126,9 @@ export function PortalRing({ films, jellyfinUrl }: { films: PortalFilm[]; jellyf
           <a href={portalPath('/galaxy') || '/galaxy'} className="ref-core-browse">
             {t('hero.galaxy')}
           </a>
+          <a href={portalPath('/timeline') || '/timeline'} className="ref-core-browse">
+            {t('hero.timeline')}
+          </a>
         </div>
       </div>
     </>

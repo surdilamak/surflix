@@ -583,57 +583,194 @@ export async function recentTitles(limit = 60) {
   };
 }
 
-/**
- * Watch order: sagas dari lib/sagas.json (hasil scripts/build-sagas.js) dicocokkan ke library.
- * Urutan cerita = urutan entri di file; urutan rilis dihitung dari tanggal rilis (bulan kosong = akhir tahun).
- * Judul yang belum ada di library tetap muncul sebagai penanda ("Not on Surflix"), supaya kronologi tidak bolong.
- */
-export async function getSagas() {
-  const [titles, rows] = await Promise.all([
-    prisma.libraryTitle.findMany({ select: { tmdbId: true, mediaType: true, title: true, year: true, jellyfinId: true } }),
-    approvedRows(),
-  ]);
-  const counts = adjacencyCounts(rows);
-  const byName = new Map(titles.map((t) => [`${t.title.toLowerCase()}|${t.year}`, t]));
-  const rank = (r: string) => {
-    const [y, m] = r.split('-').map(Number);
-    return y * 100 + (m || 13);
-  };
-
-  return (sagasData as SagaFile[]).map((s) => {
-    const entries = s.entries.map((e, story) => {
-      const lib = byName.get(`${e.title.toLowerCase()}|${e.year}`);
-      return {
-        key: `${e.title}|${e.year}`,
-        title: e.title,
-        year: e.year,
-        lane: e.lane,
-        release: e.release,
-        when: e.when ?? null,
-        note: e.note ?? null,
-        story,
-        tmdbId: lib?.tmdbId ?? null,
-        mediaType: lib?.mediaType ?? null,
-        jellyfinId: lib?.jellyfinId ?? null,
-        count: lib ? counts.get(fk(lib.mediaType, lib.tmdbId)) ?? 0 : 0,
-      };
-    });
-    // urutan rilis: tanggal, lalu urutan cerita sebagai pemutus seri
-    [...entries].sort((a, b) => rank(a.release) - rank(b.release) || a.story - b.story).forEach((e, i) => Object.assign(e, { rel: i }));
-    return {
-      id: s.id,
-      name: s.name,
-      tip: s.tip,
-      lanes: s.lanes.map((l) => ({ id: l.id, label: l.label, fork: l.fork ? `${l.fork.title}|${l.fork.year}` : null })),
-      entries: entries as ((typeof entries)[number] & { rel: number })[],
-    };
-  });
-}
+// ===========================================================
+// WATCH ORDER (sagas)
+// ===========================================================
 
 interface SagaFile {
   id: string;
   name: string;
-  tip: { en: string; id: string };
-  lanes: { id: string; label: { en: string; id: string }; fork?: { title: string; year: number } }[];
-  entries: { title: string; year: number; lane: string; release: string; when?: string; note?: { en: string; id: string } }[];
+  kind: 'curated' | 'auto';
+  twoOrders: boolean;
+  tip: Bi;
+  lanes: { id: string; label: Bi; fork?: { title: string; year: number } }[];
+  entries: { title: string; year: number; lane: string; release: string; when?: string; note?: Bi }[];
+}
+interface Bi {
+  en: string;
+  id: string;
+}
+
+const SAGAS = sagasData as unknown as SagaFile[];
+const nameKey = (title: string, year: number | null | undefined) => `${title.toLowerCase()}|${year ?? ''}`;
+
+/** judul -> saga yang memuatnya (dibangun sekali per proses) */
+const SAGA_OF = new Map<string, SagaFile>();
+for (const s of SAGAS) for (const e of s.entries) SAGA_OF.set(nameKey(e.title, e.year), s);
+
+/** Seluruh library sekali jalan, dikunci judul+tahun (sagas.json menyimpan nama, bukan tmdbId). */
+async function libraryByName() {
+  const rows = await prisma.libraryTitle.findMany({
+    select: { tmdbId: true, mediaType: true, title: true, year: true, jellyfinId: true },
+  });
+  return new Map(rows.map((r) => [nameKey(r.title, r.year), r]));
+}
+
+const releaseRank = (r: string) => {
+  const [y, m] = r.split('-').map(Number);
+  return y * 100 + (m || 13);
+};
+
+export interface SagaEntry {
+  key: string;
+  title: string;
+  year: number;
+  lane: string;
+  when: string | null;
+  note: Bi | null;
+  release: string;
+  /** posisi di urutan cerita dan di urutan rilis */
+  story: number;
+  rel: number;
+  tmdbId: number | null;
+  mediaType: string | null;
+  jellyfinId: string | null;
+  /** jumlah koneksi APPROVED — menentukan apakah judul ini punya peta */
+  count: number;
+}
+
+function buildEntries(s: SagaFile, lib: Map<string, { tmdbId: number; mediaType: string; jellyfinId: string }>, counts: Map<string, number>) {
+  const entries: SagaEntry[] = s.entries.map((e, story) => {
+    const l = lib.get(nameKey(e.title, e.year));
+    return {
+      key: `${e.title}|${e.year}`,
+      title: e.title,
+      year: e.year,
+      lane: e.lane,
+      when: e.when ?? null,
+      note: e.note ?? null,
+      release: e.release,
+      story,
+      rel: 0,
+      tmdbId: l?.tmdbId ?? null,
+      mediaType: l?.mediaType ?? null,
+      jellyfinId: l?.jellyfinId ?? null,
+      count: l ? counts.get(fk(l.mediaType, l.tmdbId)) ?? 0 : 0,
+    };
+  });
+  [...entries]
+    .sort((a, b) => releaseRank(a.release) - releaseRank(b.release) || a.story - b.story)
+    .forEach((e, i) => {
+      e.rel = i;
+    });
+  return entries;
+}
+
+export interface SagaCard {
+  id: string;
+  name: string;
+  kind: 'curated' | 'auto';
+  total: number;
+  /** judul yang sudah punya peta koneksi */
+  mapped: number;
+  twoOrders: boolean;
+  entries: SagaEntry[];
+}
+
+/**
+ * Daftar semua saga buat halaman indeks Watch order: urut dari yang terpanjang,
+ * dengan beberapa judul pertama (urutan cerita) sebagai poster.
+ */
+export async function listSagas(postersPerSaga = 9): Promise<SagaCard[]> {
+  const [lib, rows] = await Promise.all([libraryByName(), approvedRows()]);
+  const counts = adjacencyCounts(rows);
+  return SAGAS.map((s) => {
+    const entries = buildEntries(s, lib, counts);
+    return {
+      id: s.id,
+      name: s.name,
+      kind: s.kind,
+      total: entries.length,
+      mapped: entries.filter((e) => e.count > 0).length,
+      twoOrders: s.twoOrders,
+      entries: entries.slice(0, postersPerSaga),
+    };
+  }).sort((a, b) => (a.kind === b.kind ? b.total - a.total : a.kind === 'curated' ? -1 : 1));
+}
+
+/** Judul (yang ada di library) -> id saga, buat menautkan peta film & Galaxy ke Watch order. */
+export async function sagaMembership() {
+  const lib = await libraryByName();
+  const out: Record<string, string> = {};
+  for (const [key, saga] of SAGA_OF) {
+    const l = lib.get(key);
+    if (l) out[fk(l.mediaType, l.tmdbId)] = saga.id;
+  }
+  return out;
+}
+
+export interface SagaFull extends Omit<SagaCard, 'entries'> {
+  tip: Bi;
+  lanes: { id: string; label: Bi; fork: string | null }[];
+  entries: SagaEntry[];
+}
+
+/** Satu saga lengkap buat halaman Watch order. */
+export async function getSaga(id: string): Promise<SagaFull | null> {
+  const s = SAGAS.find((x) => x.id === id);
+  if (!s) return null;
+  const [lib, rows] = await Promise.all([libraryByName(), approvedRows()]);
+  const entries = buildEntries(s, lib, adjacencyCounts(rows));
+  return {
+    id: s.id,
+    name: s.name,
+    kind: s.kind,
+    tip: s.tip,
+    total: entries.length,
+    mapped: entries.filter((e) => e.count > 0).length,
+    twoOrders: s.twoOrders,
+    lanes: s.lanes.map((l) => ({ id: l.id, label: l.label, fork: l.fork ? `${l.fork.title}|${l.fork.year}` : null })),
+    entries,
+  };
+}
+
+export interface SagaHere {
+  id: string;
+  name: string;
+  position: number;
+  total: number;
+  twoOrders: boolean;
+  around: { key: string; title: string; year: number; tmdbId: number | null; mediaType: string | null; jellyfinId: string | null; here: boolean; mapped: boolean }[];
+}
+
+/**
+ * "Kamu di sini": posisi satu film di dalam saganya, plus tetangga terdekat di urutan cerita.
+ * Dipakai di halaman peta film supaya peta dan Watch order saling menyambung.
+ */
+export async function sagaHere(title: string, year: number | null, span = 5): Promise<SagaHere | null> {
+  const s = SAGA_OF.get(nameKey(title, year));
+  if (!s) return null;
+  const [lib, rows] = await Promise.all([libraryByName(), approvedRows()]);
+  const entries = buildEntries(s, lib, adjacencyCounts(rows));
+  const at = entries.findIndex((e) => nameKey(e.title, e.year) === nameKey(title, year));
+  if (at === -1) return null;
+  const half = Math.floor(span / 2);
+  const start = Math.max(0, Math.min(at - half, entries.length - span));
+  return {
+    id: s.id,
+    name: s.name,
+    position: at + 1,
+    total: entries.length,
+    twoOrders: s.twoOrders,
+    around: entries.slice(Math.max(0, start), Math.max(0, start) + span).map((e) => ({
+      key: e.key,
+      title: e.title,
+      year: e.year,
+      tmdbId: e.tmdbId,
+      mediaType: e.mediaType,
+      jellyfinId: e.jellyfinId,
+      here: e.story === at,
+      mapped: e.count > 0,
+    })),
+  };
 }

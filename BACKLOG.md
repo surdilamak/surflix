@@ -54,9 +54,10 @@
 2. `node scripts/build-connections.js` → `scripts/connections-seed.json` (h = APPROVED, m = PENDING_REVIEW).
 3. Lokal: `DATABASE_URL="file:./dev.db" node scripts/import-connections.js scripts/connections-seed.json --apply` (dry-run dulu tanpa `--apply`), review yang `m` di `/admin/connections`.
 4. `DATABASE_URL="file:./dev.db" node scripts/export-connections.js` → `scripts/connections-live.json` (foto keputusan review).
-5. Commit + push (`curated/`, `connections-seed.json`, `connections-live.json`). CI membangun image; folder `scripts/` ikut di image.
-6. Dockge **Update**, lalu di Unraid: `docker exec surflix node scripts/import-connections.js scripts/connections-live.json` (dry-run), cek angkanya, ulangi dengan `--apply`. Status baris yang sudah ada tidak pernah diubah; baris buatan admin dilewati.
-7. Judul baru di Jellyfin: tombol **Sync library** dulu (admin), supaya judul itu ada di snapshot sebelum dipetakan.
+5. `node scripts/build-sagas.js` → `lib/sagas.json` (Watch order). Koneksi `universe`/`remake` yang baru otomatis jadi saga; tambah `DATABASE_URL="file:./dev.db"` untuk laporan judul yang belum ada di library. **Selalu jalankan ini setelah langkah 4**, kalau tidak Watch order tertinggal dari peta.
+6. Commit + push (`curated/`, `connections-seed.json`, `connections-live.json`, `lib/sagas.json`). CI membangun image; folder `scripts/` ikut di image.
+7. Dockge **Update**, lalu di Unraid: `docker exec surflix node scripts/import-connections.js scripts/connections-live.json` (dry-run), cek angkanya, ulangi dengan `--apply`. Status baris yang sudah ada tidak pernah diubah; baris buatan admin dilewati.
+8. Judul baru di Jellyfin: tombol **Sync library** dulu (admin), supaya judul itu ada di snapshot sebelum dipetakan.
 
 ## Cara: aktifin Sync library (env Jellyfin)
 

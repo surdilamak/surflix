@@ -7,7 +7,7 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { getApprovedConnections } from '@/lib/connections';
+import { getApprovedConnections, sagaHere } from '@/lib/connections';
 
 export const dynamic = 'force-dynamic';
 
@@ -27,7 +27,10 @@ export async function GET(req: NextRequest) {
 
   try {
     const graph = await getApprovedConnections(parsed.data.id, parsed.data.type);
-    return NextResponse.json(graph);
+    // "Kamu di sini": kalau judul ini punya urutan tonton, bawa potongannya sekalian
+    const source = graph.nodes[0];
+    const saga = source ? await sagaHere(source.title, source.year).catch(() => null) : null;
+    return NextResponse.json({ ...graph, saga });
   } catch (err: any) {
     console.error('[GET /api/connections]', err.message);
     return NextResponse.json({ error: 'Gagal ambil referensi' }, { status: 500 });

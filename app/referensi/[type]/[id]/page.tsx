@@ -10,12 +10,12 @@ import { notFound, useParams } from 'next/navigation';
 import { useAppConfig } from '@/lib/hooks/use-app-config';
 import { usePortal } from '@/lib/hooks/use-portal';
 import { useReveal } from '@/lib/hooks/use-reveal';
-import { watchUrl } from '@/lib/jellyfin';
-import { sagaOf } from '@/lib/saga-lookup';
+import { posterUrl, watchUrl } from '@/lib/jellyfin';
 import { filmKey, posterOf, REL_VAR } from '@/lib/portal-data';
 import { useLang } from '@/components/connections/lang-provider';
 import { SearchBox } from '@/components/connections/search-box';
 import type { GraphData } from '@/components/connections/connection-graph';
+import type { SagaHere } from '@/lib/connections';
 
 const ConnectionGraph = dynamic(
   () => import('@/components/connections/connection-graph').then((m) => m.ConnectionGraph),
@@ -39,7 +39,7 @@ export default function ReferensiFilmPage() {
   const config = useAppConfig();
   const { portalPath } = usePortal();
   const { t, rel, reason } = useLang();
-  const [data, setData] = useState<GraphData | null>(null);
+  const [data, setData] = useState<(GraphData & { saga?: SagaHere | null }) | null>(null);
   const [lib, setLib] = useState<LibTitle | null>(null);
   const [error, setError] = useState(false);
 
@@ -48,7 +48,7 @@ export default function ReferensiFilmPage() {
     setLib(null);
     fetch(`/api/connections?type=${params.type}&id=${params.id}`)
       .then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then((d: GraphData) => {
+      .then((d: GraphData & { saga?: SagaHere | null }) => {
         setData(d);
         if (d.nodes.length === 0) {
           fetch(`/api/library/title?type=${params.type}&id=${params.id}`)
@@ -72,6 +72,8 @@ export default function ReferensiFilmPage() {
   if (!data || !config) return <section className="ref-detail-top" style={{ minHeight: 640 }} aria-busy="true" />;
 
   const jellyfinUrl = config.jellyfinUrl;
+  const sagaHref = (id: string, film?: string) =>
+    `${portalPath(`/timeline/${id}`) || `/timeline/${id}`}${film ? `?film=${film}` : ''}`;
 
   // ── judul ada di library tapi belum punya peta
   if (data.nodes.length === 0) {
@@ -103,7 +105,7 @@ export default function ReferensiFilmPage() {
 
   const source = data.nodes[0];
   const targets = new Map(data.nodes.slice(1).map((n) => [n.id, n]));
-  const saga = sagaOf(source.title, source.year);
+  const saga = data.saga ?? null;
   const sub = source.year
     ? t('detail.subYear', { year: source.year, n: data.edges.length })
     : t('detail.sub', { n: data.edges.length });
@@ -127,16 +129,42 @@ export default function ReferensiFilmPage() {
           <a className="ref-core-browse" style={{ marginTop: 0 }} href={`${portalPath('/galaxy') || '/galaxy'}?select=${source.mediaType}:${source.tmdbId}`}>
             {t('detail.galaxy')}
           </a>
-          {saga && (
-            <a className="ref-core-browse" style={{ marginTop: 0 }} href={`${portalPath('/timeline') || '/timeline'}?saga=${saga.id}&film=${encodeURIComponent(saga.key)}`}>
-              {t('detail.saga', { name: saga.name })}
-            </a>
-          )}
         </div>
         <div className="ref-stage-wrap" style={{ margin: '40px calc(var(--margin) * -1) 0' }}>
           <ConnectionGraph data={data} jellyfinUrl={jellyfinUrl} serverId={config.jellyfinServerId} portalPath={portalPath} />
         </div>
       </section>
+
+      {saga && (
+        <section className="ref-here" aria-label={t('detail.saga', { name: saga.name })}>
+          <div className="ref-here-head">
+            <p className="ref-here-name">
+              {t('detail.sagaPart')} <a href={sagaHref(saga.id)}>{saga.name}</a>
+            </p>
+            <p className="ref-here-pos">{t('detail.sagaPos', { n: saga.position, total: saga.total })}</p>
+          </div>
+          <ol className="ref-here-line">
+            {saga.around.map((n) => (
+              <li key={n.key} data-here={n.here ? '' : undefined}>
+                <a
+                  href={n.here ? sagaHref(saga.id, `${n.mediaType}:${n.tmdbId}`) : n.mapped && n.tmdbId ? portalPath(`/${n.mediaType}/${n.tmdbId}`) || '/' : sagaHref(saga.id, n.tmdbId ? `${n.mediaType}:${n.tmdbId}` : undefined)}
+                  className="ref-frame"
+                  title={`${n.title} (${n.year})`}
+                >
+                  {n.jellyfinId && jellyfinUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={posterUrl(n.jellyfinId, jellyfinUrl, 200)} alt={n.title} loading="lazy" />
+                  ) : null}
+                </a>
+                <span>{n.title}</span>
+              </li>
+            ))}
+          </ol>
+          <a className="ref-btn ref-here-open" href={sagaHref(saga.id, `${source.mediaType}:${source.tmdbId}`)}>
+            {t('detail.sagaOpen')}
+          </a>
+        </section>
+      )}
 
       <section className="ref-why">
         <h2 className="ref-display ref-reveal">{t('detail.why')}</h2>

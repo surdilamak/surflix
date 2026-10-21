@@ -135,3 +135,18 @@ The Omen (1976) | main | 1976-06 | 1976
 Damien: Omen II (1978) | main | 1978-06
 The Final Conflict (1981) | main | 1981-03
 Omen IV: The Awakening (1991) | main | 1991-05
+
+# ── Names for clusters the builder derives automatically (@alias <any member> | <Saga name>) ──
+@alias Batman Begins (2005) | Batman
+@alias Demon Slayer: Kimetsu no Yaiba (2019) | Demon Slayer
+@alias The Super Mario Bros. Movie (2023) | Super Mario
+@alias Hunter × Hunter (1999) | Hunter × Hunter
+@alias Spider-Man: Into the Spider-Verse (2018) | Spider-Verse
+@alias Electroma (2006) | Daft Punk
+@alias Kraven the Hunter (2024) | Sony's Spider-Man Universe
+@alias Pearl (2022) | Ti West's X
+@alias Man of Steel (2013) | DC Universe
+@alias Digimon: Digital Monsters (1999) | Digimon
+@alias Helvetica (2007) | Gary Hustwit's design trilogy
+@alias Reservoir Dogs (1992) | Tarantino's shared universe
+@alias Whisper of the Heart (1995) | The Baron (Ghibli)
