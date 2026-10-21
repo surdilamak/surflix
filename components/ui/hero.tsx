@@ -67,13 +67,13 @@ export function Hero({ item, rank = 1, onRequest, onDetail }: HeroProps) {
             )}
           </p>
           <div className="flex gap-2">
-            <button onClick={onRequest} className="btn-primary">
+            <button onClick={onRequest} className="rq-btn rq-btn-primary">
               <span className="flex items-center gap-1.5">
                 <Icons.Plus className="h-4 w-4" />
                 {t('hub.poster.request')}
               </span>
             </button>
-            <button onClick={onDetail} className="btn-secondary">
+            <button onClick={onDetail} className="rq-btn rq-btn-secondary">
               <span className="flex items-center gap-1.5">
                 <Icons.Info className="h-4 w-4" />
                 {t('hub.trending.details')}

@@ -103,7 +103,7 @@ export default function RequestsPage() {
           <p className="rq-text mt-2 text-rq-muted">
             {t('hub.requests.noneBody')}
           </p>
-          <Link href="/" className="btn-primary mt-6 inline-block">
+          <Link href="/" className="rq-btn rq-btn-primary mt-6 inline-block">
             <span className="inline-flex items-center gap-1.5">
               <Icons.Plus className="h-4 w-4" />
               {t('hub.requests.noneAction')}
@@ -224,14 +224,14 @@ function RequestRowItem({ request }: { request: PolledRequest }) {
 type T = (key: string, vars?: Record<string, string | number>) => string;
 
 const STATUS_STYLE: Record<string, { icon: typeof Icons.Check; badgeClass: string; hint: boolean }> = {
-  AVAILABLE: { icon: Icons.Check, badgeClass: 'badge-available', hint: true },
-  PROCESSING: { icon: Icons.Download, badgeClass: 'badge-processing', hint: true },
-  ON_SCHEDULE: { icon: Icons.Calendar, badgeClass: 'badge-processing', hint: true },
-  APPROVED: { icon: Icons.Check, badgeClass: 'badge-processing', hint: true },
-  PENDING_ADMIN: { icon: Icons.Clock, badgeClass: 'badge-pending', hint: true },
-  REJECTED: { icon: Icons.X, badgeClass: 'badge-rejected', hint: false },
-  PARTIALLY_AVAILABLE: { icon: Icons.Check, badgeClass: 'badge-available', hint: true },
-  FAILED: { icon: Icons.AlertCircle, badgeClass: 'badge-rejected', hint: true },
+  AVAILABLE: { icon: Icons.Check, badgeClass: 'rq-badge rq-badge-available', hint: true },
+  PROCESSING: { icon: Icons.Download, badgeClass: 'rq-badge rq-badge-processing', hint: true },
+  ON_SCHEDULE: { icon: Icons.Calendar, badgeClass: 'rq-badge rq-badge-processing', hint: true },
+  APPROVED: { icon: Icons.Check, badgeClass: 'rq-badge rq-badge-processing', hint: true },
+  PENDING_ADMIN: { icon: Icons.Clock, badgeClass: 'rq-badge rq-badge-pending', hint: true },
+  REJECTED: { icon: Icons.X, badgeClass: 'rq-badge rq-badge-rejected', hint: false },
+  PARTIALLY_AVAILABLE: { icon: Icons.Check, badgeClass: 'rq-badge rq-badge-available', hint: true },
+  FAILED: { icon: Icons.AlertCircle, badgeClass: 'rq-badge rq-badge-rejected', hint: true },
 };
 
 function getStatusConfig(status: string, t: T) {

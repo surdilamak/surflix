@@ -184,7 +184,7 @@ export function NotificationToggle({ guestId }: NotificationToggleProps) {
           <div className="mt-3 flex items-center gap-2">
             <button
               onClick={handleEnable}
-              className="btn-primary min-h-11!"
+              className="rq-btn rq-btn-primary min-h-11!"
             >
               {t('hub.notif.enable')}
             </button>

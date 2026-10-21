@@ -60,13 +60,13 @@ export function PosterCard({ item, onClick, size = 'md', showProgress, progress 
 
         {/* Status badge top-right */}
         {status.variant === 'available' && (
-          <div className="absolute left-2 top-2 badge-available">
+          <div className="absolute left-2 top-2 rq-badge rq-badge-available">
             <Icons.Check className="h-2.5 w-2.5" />
             <span>{t('hub.poster.inSurflix')}</span>
           </div>
         )}
         {status.variant === 'pending' && (
-          <div className="absolute left-2 top-2 badge-pending">
+          <div className="absolute left-2 top-2 rq-badge rq-badge-pending">
             <Icons.Clock className="h-2.5 w-2.5" />
             <span>{t('hub.poster.pending')}</span>
           </div>
@@ -75,7 +75,7 @@ export function PosterCard({ item, onClick, size = 'md', showProgress, progress 
         {/* Progress overlay (untuk downloading) */}
         {showProgress && progress !== undefined && (
           <div className="absolute inset-x-0 bottom-0 bg-rq-bg/90 p-2">
-            <div className="badge-processing mb-1.5">
+            <div className="rq-badge rq-badge-processing mb-1.5">
               <Icons.Download className="h-2.5 w-2.5" />
               <span>{Math.round(progress)}%</span>
             </div>

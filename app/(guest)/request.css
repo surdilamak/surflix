@@ -47,45 +47,43 @@
 .rq-tile-link:active { transform: scale(0.98); }
 
 /* Tombol: dua bentuk saja, primer (oranye) dan sekunder (abu) */
-.rq-root .btn-primary,
-.rq-root .btn-secondary {
-  display: inline-flex; align-items: center; justify-content: center;
-  min-height: 44px; /* padding datang dari utilitas (px-5 py-2.5) supaya px-6 dll tetap berlaku */
+.rq-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 20px;
   border: 0; border-radius: var(--rq-r);
-  font-size: 0.9375rem; font-weight: 500; letter-spacing: 0;
+  font-size: 0.9375rem; font-weight: 500; line-height: 1.2; cursor: pointer;
   transition: background 0.18s, transform 0.18s var(--rq-ease);
 }
-.rq-root .btn-primary { background: var(--rq-accent); color: #0d0d0f; }
-.rq-root .btn-primary:hover { background: #ff6a26; }
-.rq-root .btn-secondary { background: var(--rq-raised); color: #fff; }
-.rq-root .btn-secondary:hover { background: #2e2e33; }
-.rq-root .btn-primary:disabled { background: var(--rq-raised); color: var(--rq-muted); cursor: not-allowed; }
-.rq-root .btn-secondary:disabled { opacity: 0.4; cursor: not-allowed; }
+.rq-btn:active { transform: scale(0.97); }
+.rq-btn:disabled { cursor: not-allowed; }
+.rq-btn-wide { padding-inline: 28px; }
+.rq-btn-primary { background: var(--rq-accent); color: #0d0d0f; font-weight: 600; }
+.rq-btn-primary:hover { background: #ff6a26; }
+.rq-btn-primary:disabled { background: var(--rq-raised); color: var(--rq-muted); }
+.rq-btn-secondary { background: var(--rq-raised); color: #fff; }
+.rq-btn-secondary:hover { background: #2e2e33; }
+.rq-btn-secondary:disabled { opacity: 0.4; }
 
 /* Lencana status: datar, satu bentuk */
-.rq-root .badge-available,
-.rq-root .badge-processing,
-.rq-root .badge-pending,
-.rq-root .badge-rejected {
+.rq-badge {
+  display: inline-flex; align-items: center; gap: 4px;
   border-radius: 6px; padding: 3px 7px; font-size: 11px; font-weight: 500; line-height: 1.2; color: #0d0d0f;
 }
-.rq-root .badge-available { background: #30d158; }
-.rq-root .badge-processing { background: #64d2ff; }
-.rq-root .badge-pending { background: #ffd60a; }
-.rq-root .badge-rejected { background: #ff6961; }
+.rq-badge-available { background: #30d158; }
+.rq-badge-processing { background: #64d2ff; }
+.rq-badge-pending { background: #ffd60a; }
+.rq-badge-rejected { background: #ff6961; }
 
 /* Isian */
-.rq-root .input-ios {
+.rq-input {
   background: var(--rq-surface); border: 0; border-radius: var(--rq-r);
-  min-height: 48px; font-size: 0.9375rem; color: #fff; /* padding dari utilitas, bukan dari sini */
+  min-height: 48px; padding: 0 14px; font-size: 0.9375rem; color: #fff;
 }
-.rq-root .input-ios:focus { background: var(--rq-raised); }
-.rq-root .input-ios:focus-visible { outline: 2px solid var(--rq-accent); outline-offset: 0; }
-
-/* Tautan navigasi atas */
-.rq-root .tab { display: inline-flex; align-items: center; min-height: 40px; padding: 0 12px; border-radius: var(--rq-r); font-size: 0.9375rem; color: var(--rq-muted); }
-.rq-root .tab:hover { color: #fff; background: var(--rq-surface); }
-.rq-root .tab-active { color: #fff; background: var(--rq-raised); font-weight: 500; }
+textarea.rq-input { padding-block: 12px; }
+.rq-input--lead { padding-left: 40px; }
+.rq-input--search { min-height: 56px; font-size: 1rem; padding-left: 48px; padding-right: 8rem; }
+.rq-input:focus { background: var(--rq-raised); }
+.rq-input:focus-visible { outline: 2px solid var(--rq-accent); outline-offset: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   .rq-root *, .rq-root *::before, .rq-root *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }

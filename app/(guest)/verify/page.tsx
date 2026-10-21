@@ -95,7 +95,7 @@ function VerifyInner() {
         {status === 'success' && (
           <>
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-rq bg-rq-surface">
-              <Icons.CheckCircle2 className="h-8 w-8 text-ios-green" />
+              <Icons.CheckCircle2 className="h-8 w-8 text-rq-green" />
             </div>
             <h1 className="rq-h2">{t('hub.verify.done')}</h1>
             <p className="rq-small mt-2 text-rq-muted">{t('hub.verify.redirect')}</p>
@@ -105,13 +105,13 @@ function VerifyInner() {
         {status === 'error' && (
           <>
             <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-rq bg-rq-surface">
-              <Icons.XCircle className="h-8 w-8 text-ios-red" />
+              <Icons.XCircle className="h-8 w-8 text-rq-red" />
             </div>
             <h1 className="rq-h2">{t('hub.verify.invalid')}</h1>
             <p className="rq-small mt-2 text-rq-muted">{errorMsg}</p>
             <button
               onClick={() => router.push('/requests')}
-              className="btn-primary mt-6"
+              className="rq-btn rq-btn-primary mt-6"
             >
               {t('hub.verify.new')}
             </button>

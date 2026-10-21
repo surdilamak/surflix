@@ -238,7 +238,7 @@ function ModalContent({
               href={watchHref}
               target="_blank"
               rel="noopener"
-              className="btn-primary w-full"
+              className="rq-btn rq-btn-primary w-full"
             >
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.Play className="h-4 w-4" />
@@ -246,14 +246,14 @@ function ModalContent({
               </span>
             </a>
           ) : isProcessing ? (
-            <button disabled className="btn-secondary w-full">
+            <button disabled className="rq-btn rq-btn-secondary w-full">
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.Download className="h-4 w-4" />
                 {t('hub.detail.downloading')}
               </span>
             </button>
           ) : (
-            <button onClick={() => onRequest(item)} className="btn-primary w-full">
+            <button onClick={() => onRequest(item)} className="rq-btn rq-btn-primary w-full">
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.Plus className="h-4 w-4" />
                 {t(item.mediaType === 'movie' ? 'hub.detail.requestMovie' : 'hub.detail.requestSeries')}
@@ -266,7 +266,7 @@ function ModalContent({
           {(isAvailable || isProcessing) && onRequestImprovement && (
             <button
               onClick={() => onRequestImprovement(item)}
-              className="btn-secondary w-full"
+              className="rq-btn rq-btn-secondary w-full"
             >
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.MessageSquare className="h-4 w-4" />

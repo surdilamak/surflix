@@ -52,14 +52,14 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   viewportFit: 'cover', // supaya env(safe-area-inset-*) bekerja (poni iPhone, mode PWA)
-  themeColor: '#000000',
+  themeColor: '#0d0d0f',
   colorScheme: 'dark',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="dark">
-      <body className="min-h-screen bg-black text-white antialiased">
+      <body className="min-h-screen bg-rq-bg text-white antialiased">
         {children}
       </body>
     </html>

@@ -148,7 +148,7 @@ export default function LibraryPage() {
             href={config.jellyfinUrl}
             target="_blank"
             rel="noopener"
-            className="btn-secondary"
+            className="rq-btn rq-btn-secondary"
           >
             <span className="inline-flex items-center gap-1.5">
               <Icons.ArrowUpRight className="h-4 w-4" />

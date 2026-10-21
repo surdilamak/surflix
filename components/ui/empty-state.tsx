@@ -31,7 +31,7 @@ export function EmptyState({ icon = 'Search', title, description, action }: Empt
         </p>
       )}
       {action && (
-        <button onClick={action.onClick} className="btn-secondary mt-5">
+        <button onClick={action.onClick} className="rq-btn rq-btn-secondary mt-5">
           {action.label}
         </button>
       )}

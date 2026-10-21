@@ -287,7 +287,7 @@ function BrowseInner() {
           onBlur={() => setTimeout(() => setShowSuggestions(false), 200)}
           placeholder={t('hub.search.placeholder')}
           aria-label={t('hub.search.label')}
-          className="input-ios w-full pl-10"
+          className="rq-input rq-input--lead w-full"
         />
         {query && (
           <button
@@ -329,7 +329,7 @@ function BrowseInner() {
                   </p>
                 </div>
                 {s.mediaInfo?.status === 5 && (
-                  <span className="badge-available">
+                  <span className="rq-badge rq-badge-available">
                     {t('hub.poster.inSurflix')}
                   </span>
                 )}
@@ -414,7 +414,7 @@ function BrowseInner() {
               <button
                 onClick={loadMore}
                 disabled={loadingMore}
-                className="btn-secondary px-6 disabled:opacity-50"
+                className="rq-btn rq-rq-btn rq-btn-secondary rq-btn-wide disabled:opacity-50"
               >
                 {loadingMore ? (
                   <span className="inline-flex items-center gap-1.5">

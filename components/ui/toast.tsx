@@ -34,7 +34,7 @@ export function Toast({
   }, [open, duration, onClose]);
 
   const icon = {
-    success: <Icons.CheckCircle2 className="h-4 w-4 text-ios-green" />,
+    success: <Icons.CheckCircle2 className="h-4 w-4 text-rq-green" />,
     error: <Icons.XCircle className="h-4 w-4 text-[#ff6961]" />,
     info: <Icons.Info className="h-4 w-4 text-ios-cyan" />,
   }[variant];

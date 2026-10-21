@@ -151,7 +151,7 @@ export default function TrendingPage() {
             <button
               onClick={loadMore}
               disabled={loadingMore}
-              className="btn-secondary px-6 disabled:opacity-50"
+              className="rq-btn rq-rq-btn rq-btn-secondary rq-btn-wide disabled:opacity-50"
             >
               {loadingMore ? (
                 <span className="inline-flex items-center gap-1.5">

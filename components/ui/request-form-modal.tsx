@@ -160,7 +160,7 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder={t('hub.form.namePh')}
-                  className="input-ios w-full"
+                  className="rq-input w-full"
                   maxLength={50}
                   autoFocus
                 />
@@ -208,7 +208,7 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
                     placeholder={t('hub.form.notePh')}
-                    className="input-ios w-full resize-none"
+                    className="rq-input w-full resize-none"
                     maxLength={200}
                     rows={3}
                     autoFocus
@@ -221,7 +221,7 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
 
               {error && (
                 <div className="flex items-start gap-2 rounded-rq bg-rq-raised p-3">
-                  <Icons.AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-ios-red" />
+                  <Icons.AlertCircle className="mt-0.5 h-3.5 w-3.5 shrink-0 text-rq-red" />
                   <p className="text-xs text-white">{error}</p>
                 </div>
               )}
@@ -229,7 +229,7 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
               <button
                 onClick={handleSubmit}
                 disabled={loading}
-                className="btn-primary w-full disabled:cursor-not-allowed disabled:opacity-50"
+                className="rq-btn rq-btn-primary w-full disabled:cursor-not-allowed disabled:opacity-50"
               >
                 {loading ? (
                   <span className="inline-flex items-center gap-1.5">
