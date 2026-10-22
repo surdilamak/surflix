@@ -384,6 +384,33 @@ Kill Bill: Vol. 2 (2004) | kb | 2004-04
 Kill Bill: The Whole Bloody Affair (2011) | cut | 2011 | Both halves, uncut | The single film Tarantino shot, before the studio split it in two. || Satu film utuh yang difilmkan Tarantino, sebelum studionya memotongnya jadi dua.
 Death Proof (2007) | wider | 2007-04 | Not the same story | Connected only by the world Tarantino's films share, not by the Bride's story. || Terhubung cuma lewat dunia yang dibagi film-film Tarantino, bukan lewat cerita sang Bride.
 
+# ============ QUENTIN TARANTINO ============
+# Pembagian dua semesta itu NYATA dan dari mulut Tarantino sendiri (wawancara The Project,
+# Januari 2016), TETAPI ia cuma menempatkan EMPAT judul: Reservoir Dogs dan Pulp Fiction di
+# "realer than real universe", Kill Bill dan From Dusk Till Dawn di "movie universe". Sisanya
+# tidak pernah ia tentukan - penempatan yang beredar luas itu buatan wiki penggemar.
+# Istilah "Movie Movie Universe" juga istilah penggemar; kata Tarantino cuma "movie universe".
+# TAHUN CERITA: hanya tiga judul yang menyebut tanggal. Django 1858 (kartu layar), Jackie Brown
+# 1 Juli 1995 (dialog), dan OUATIH Februari + Agustus 1969 (kartu layar). The Hateful Eight
+# TIDAK menyebut tahun sama sekali - "1870-an" yang ada di Wikipedia itu kesimpulan editor,
+# bukan dari filmnya. Jangan menambahkan tahun ke judul yang memang tidak menyebutkannya.
+@saga tarantino | Quentin Tarantino | He said there are two universes, but he only ever placed four films himself; the rest is fan work, so they sit in a lane of their own. Story order moves the period films to the front - and most of the modern ones never state a year at all. || Katanya ada dua semesta, tetapi ia sendiri cuma menempatkan empat film; sisanya buatan penggemar, jadi ditaruh di jalur tersendiri. Urutan cerita memindahkan film berlatar masa lalu ke depan - dan kebanyakan film modernnya tidak pernah menyebut tahun.
+@lane said | Placed by Tarantino || Ditempatkan Tarantino
+@lane movie | The movie universe || Semesta film | fork: Pulp Fiction (1994)
+@lane fan | He never said || Tidak pernah ia tentukan | fork: Pulp Fiction (1994)
+
+Django Unchained (2012) | fan | 2012-12 | 1858 | The only film with a year card on screen: "1858 - Two years before the Civil War". || Satu-satunya film dengan kartu tahun di layar: "1858 - Dua tahun sebelum Perang Saudara".
+The Hateful Eight (2015) | fan | 2015-12 | After the Civil War | The film never says when. "The 1870s" is an editor's inference, not a line or a card. || Filmnya tidak pernah menyebut kapan. "Tahun 1870-an" itu kesimpulan editor, bukan dialog atau kartu layar.
+Inglourious Basterds (2009) | fan | 2009-08 | 1941, then June 1944 | Chapter one opens in occupied France in 1941; the rest jumps to the weeks around D-Day. || Bab satu dibuka di Prancis masa pendudukan tahun 1941; sisanya melompat ke pekan-pekan sekitar D-Day.
+Once Upon a Time... in Hollywood (2019) | fan | 2019-07 | February and August 1969 | Three dated days, two of them in February and the last on 8 August. || Tiga hari bertanggal, dua di bulan Februari dan yang terakhir 8 Agustus.
+Reservoir Dogs (1992) | said | 1992-10 | Present day, undated | Tarantino placed this one himself, in the "realer than real universe". || Tarantino sendiri yang menempatkan film ini, di "realer than real universe".
+Pulp Fiction (1994) | said | 1994-10 | Present day, undated | The other film he placed himself. Told out of order, and no chapter card carries a date. || Film lain yang ia tempatkan sendiri. Diceritakan tidak berurutan, dan tidak ada kartu bab yang bertanggal.
+Jackie Brown (1997) | fan | 1997-12 | 1 July 1995 | The only date spoken aloud in any of his films: Nicolet reads it off a tape recorder at LAX. || Satu-satunya tanggal yang diucapkan di filmnya: Nicolet membacakannya dari perekam di LAX.
+Kill Bill: Vol. 1 (2003) | movie | 2003-10 | Present day, undated | Tarantino put Kill Bill in the "movie universe": what the characters of Pulp Fiction would go and watch. || Tarantino menaruh Kill Bill di "movie universe": tontonan para tokoh Pulp Fiction kalau mereka ke bioskop.
+Kill Bill: Vol. 2 (2004) | movie | 2004-04 | Present day, undated | Released second but holds chapter six, the massacre that starts the whole story. || Rilis kedua tetapi memuat bab enam, pembantaian yang memulai seluruh ceritanya.
+Kill Bill: The Whole Bloody Affair (2011) | movie | 2011-03 | Both volumes, uncut | The two volumes joined back into one film, the House of Blue Leaves fight in full colour. Only got a wide release in December 2025. || Dua volume disatukan kembali jadi satu film, pertarungan House of Blue Leaves dalam warna penuh. Baru rilis luas Desember 2025.
+Death Proof (2007) | fan | 2007-04 | Present day, undated | Sheriff Earl McGraw turns up here and in Kill Bill: Vol. 1 - the one character who appears on both sides of the split. || Sheriff Earl McGraw muncul di sini dan di Kill Bill: Vol. 1 - satu-satunya tokoh yang muncul di dua sisi pembagian itu.
+
 # ============ MAKOTO SHINKAI ============
 # Bukan trilogi: "disaster trilogy" itu sebutan kritikus, bukan kata Shinkai. Dan Suzume
 # TIDAK memuat satu pun tokoh dari dua film ini - itu negatif yang sudah dipastikan, jadi
