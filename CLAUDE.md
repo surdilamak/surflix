@@ -304,9 +304,10 @@ Urutannya, dan langkah 2–3 **harus dijalankan Idrus** karena butuh akses prod:
 # 1. Prod membaca Jellyfin          -> Admin > Settings > Sync library
 #    (atau otomatis di latar saat kunjungan pertama ke Just added)
 
-# 2. Tarik snapshot library ke repo
-docker exec surflix node scripts/export-library.js      # mencetak daftar judul BARU
-docker cp surflix:/app/scripts/library-seed.json ./scripts/library-seed.json
+# 2. Tarik snapshot library ke repo — langkah a & b DI SERVER, c di Mac
+docker exec surflix node scripts/export-library.js                          # a (cetak 15 judul termuda)
+docker cp surflix:/app/scripts/library-seed.json /tmp/library-seed.json     # b
+scp root@192.168.68.8:/tmp/library-seed.json scripts/library-seed.json      # c
 
 # 3. Baru koneksinya bisa ditulis
 #    tulis baris di scripts/curated/*.txt, lalu:
@@ -315,6 +316,10 @@ node scripts/build-sagas.js
 ```
 
 **Kenapa langkah 2 wajib:** `build-connections.js` memvalidasi setiap judul kurasi terhadap `scripts/library-seed.json`. Selama berkas itu basi, judul baru dianggap "gak ketemu" dan builder gagal — jadi tidak ada koneksi yang bisa ditulis untuk film yang baru masuk. Sampai 2026-10-22 tidak ada `export-library.js` sama sekali, jadi tidak ada jalan menarik library dari prod; itu sudah diperbaiki.
+
+Langkah 2b memakai `/tmp`, bukan `./scripts`: saat SSH ke Unraid posisinya di `/root` dan folder itu tidak ada di sana (`invalid output path`).
+
+Daftar judul baru dibaca dari kolom `addedAt`, **bukan** dari membandingkan berkas lama — perbandingan berkas cuma benar sekali, karena jalan pertama menimpa berkas pembandingnya sendiri.
 
 `library-seed.json` sekarang ter-format seperti dua berkas seed lainnya, supaya penambahan satu judul terbaca sebagai ~10 baris di diff, bukan satu baris 500 KB. `addedAt` sengaja tidak ikut diekspor: kolom itu diisi dari Jellyfin saat sync di tiap lingkungan.
 
