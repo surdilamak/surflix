@@ -170,6 +170,7 @@ interface ConnectionGraphProps {
 
 export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: ConnectionGraphProps) {
   const mountRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState(0);
   const selectRef = useRef<(i: number) => void>(() => {});
 
@@ -216,20 +217,37 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
     const camera = new THREE.PerspectiveCamera(38, width / height, 0.1, 100);
     const tanHalf = Math.tan((38 / 2) * (Math.PI / 180));
     const nTargets = Math.max(nodes.length - 1, 1);
+    /**
+     * Panel keterangan melayang di atas sisi kanan panggung. Cincin ini terpusat, jadi kalau
+     * dibiarkan ia akan tertimbun panel. Jejak panel dihitung di sini lalu dipakai dua kali:
+     * untuk memilih jarak kamera, dan untuk menggeser kamera supaya cincin terpusat di area
+     * yang benar-benar terlihat. Nol di telepon, karena di sana panelnya statis di bawah.
+     */
+    const panelInset = () => {
+      const el = panelRef.current;
+      if (!el || getComputedStyle(el).position !== 'absolute') return 0;
+      return el.offsetWidth + 40;
+    };
     // tata letak mengikuti bentuk panggung: lebar → cincin melebar; tinggi (HP) → cincin menegak
-    const aspect0 = width / height;
+    const aspect0 = Math.max(0.5, (width - panelInset()) / height);
     const wide = aspect0 >= 1.2;
     const rx = wide ? Math.min(3.6 + Math.min(nTargets, 8) * 0.12, aspect0 * 2.3) : 2.1;
     const rz = wide ? 2.1 : 1.4;
     const yAmp = wide ? 0.85 : 1.9;
     const fitCamera = () => {
-      const aspect = width / height;
-      // cukup jauh supaya cincin + case (±1.1) muat di lebar & tinggi panggung
-      const zW = (rx + 1.15) / (tanHalf * aspect);
+      const inset = panelInset();
+      const camAspect = width / height;
+      const usable = Math.max(0.5, (width - inset) / height);
+      // cukup jauh supaya cincin + case (±1.1) muat di LEBAR TERPAKAI & tinggi panggung
+      const zW = (rx + 1.15) / (tanHalf * usable);
       const zH = (yAmp + 1.75) / tanHalf;
-      camera.position.set(0, 1.0, Math.max(zW, zH, 7));
-      camera.lookAt(0, 0.1, 0);
-      camera.aspect = aspect;
+      const z = Math.max(zW, zH, 7);
+      // geser kamera ke kanan setengah jejak panel, supaya cincin bergeser ke kiri di layar
+      const worldPerPx = (2 * z * tanHalf * camAspect) / width;
+      const dx = (inset / 2) * worldPerPx;
+      camera.position.set(dx, 1.0, z);
+      camera.lookAt(dx, 0.1, 0);
+      camera.aspect = camAspect;
       camera.updateProjectionMatrix();
     };
     fitCamera();
@@ -250,7 +268,8 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
 
     const n = nodes.length;
     const targets = n - 1;
-    const anchors: Array<{ anchor: THREE.Group; angle: number; scale: number; target: number }> = [];
+    // lift/liftTarget = case terangkat sedikit saat disorot, supaya jelas bisa diklik
+    const anchors: Array<{ anchor: THREE.Group; angle: number; scale: number; target: number; lift: number; liftTarget: number }> = [];
     const hitMeshes: THREE.Object3D[] = [];
 
     nodes.forEach((node, i) => {
@@ -350,7 +369,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
       disposables.push(sh.geometry);
 
       world.add(anchor);
-      anchors.push({ anchor, angle, scale: base, target: base });
+      anchors.push({ anchor, angle, scale: base, target: base, lift: 0, liftTarget: 0 });
     });
 
     // ── seleksi: bawa case ke depan & besarkan
@@ -407,7 +426,13 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
         el.style.cursor = 'grabbing';
         return;
       }
-      if (e.target === el) el.style.cursor = pick(e.clientX, e.clientY) ? 'pointer' : 'grab';
+      if (e.target !== el) return;
+      const over = pick(e.clientX, e.clientY);
+      el.style.cursor = over ? 'pointer' : 'grab';
+      const hot = over ? (over.object.userData.nodeIndex as number) : -1;
+      anchors.forEach((a, i) => {
+        a.liftTarget = i === hot ? 0.22 : 0;
+      });
     };
     const onUp = (e: PointerEvent) => {
       if (dragging && moved < 6) {
@@ -420,7 +445,13 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
     const onCancel = () => {
       dragging = false;
     };
+    const onLeave = () => {
+      anchors.forEach((a) => {
+        a.liftTarget = 0;
+      });
+    };
     el.style.cursor = 'grab';
+    el.addEventListener('pointerleave', onLeave);
     el.addEventListener('pointerdown', onDown);
     window.addEventListener('pointermove', onMove);
     window.addEventListener('pointerup', onUp);
@@ -452,7 +483,8 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
         a.anchor.rotation.y = idx === 0 ? 0 : -world.rotation.y * 0.82;
         const g = a.anchor.children[0];
         const ph = a.anchor.userData.phase || 0;
-        g.position.y = Math.sin(t * 0.8 + ph) * 0.07;
+        a.lift += (a.liftTarget - a.lift) * Math.min(0.18 * dt, 1);
+        g.position.y = Math.sin(t * 0.8 + ph) * 0.07 + a.lift;
         g.rotation.z = Math.sin(t * 0.5 + ph) * 0.025;
       });
 
@@ -472,6 +504,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
       disposed = true;
       renderer.setAnimationLoop(null);
       ro.disconnect();
+      el.removeEventListener('pointerleave', onLeave);
       el.removeEventListener('pointerdown', onDown);
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerup', onUp);
@@ -509,7 +542,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
         </p>
       </div>
 
-      <div className="ref-panel" aria-live="polite">
+      <div className="ref-panel" ref={panelRef} aria-live="polite">
         {edge && (
           <p className="ref-panel-rel">
             <span className="ref-mark" style={{ '--c': REL_VAR[edge.relationship] } as React.CSSProperties} />

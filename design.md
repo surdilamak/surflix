@@ -173,7 +173,19 @@ Target sentuh minimal **44px**; tombol standar `min-height: 48px`.
 
 Titik henti: **1023px** (panel samping menumpuk), **767px** (telepon). PortalBar menyembunyikan logo, nama, dan tautan lokal di bawah 767px.
 
-Panel samping Reference (`.ref-panel`, `.ref-galaxy-panel`) **menempel di atas panggung** (`position: sticky`), tidak pernah di dasarnya.
+### Pola panggung (Reference)
+
+Ketiga pandangan — peta film 3D, Watch order, dan Galaxy — memakai **satu pola yang sama**:
+
+- Panggung memakai **seluruh lebar**, tidak dipotong kolom apa pun.
+- Panel keterangan **melayang di atasnya**: `position: absolute; right: var(--margin); top: 24px`, lebar `min(380px, ...)`, tinggi mengikuti isinya.
+- Supaya panel tidak menimbun apa pun, **semua perhitungan pemusatan di JS memakai "area terpakai"** = lebar panggung dikurangi jejak panel. Lihat `insetOf()` di `saga-stage.tsx` dan `panelInset()` di `connection-graph.tsx`; keduanya mengembalikan 0 kalau panel sedang statis (telepon), jadi satu kode untuk dua tata letak.
+- Peta 3D tambahan: kameranya juga **digeser** sejauh setengah jejak panel, karena cincinnya terpusat dan tidak bisa digeser pengguna seperti dua pandangan lain.
+- Di bawah 1024px panel jadi `position: static` dan menumpuk di bawah panggung.
+
+> Sampai 2026-10-22 panel mengambil kolom grid 400px, jadi panggungnya terpotong selebar itu (1040px dari 1440px).
+
+**Jangan merebut gesture roda di peta 3D.** Panggungnya di tengah halaman yang memang perlu di-scroll; Galaxy boleh karena ia setinggi layar penuh.
 
 ---
 

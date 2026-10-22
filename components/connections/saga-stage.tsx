@@ -52,6 +52,7 @@ export function SagaStage({
   const [col, setCol] = useState(COL);
   const viewRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
 
   const loc = lang === 'id' ? 'id' : 'en';
   const index = useCallback((e: SagaEntry) => (mode === 'story' ? e.story : e.rel), [mode]);
@@ -84,23 +85,34 @@ export function SagaStage({
     el.dataset.far = cam.current.k < 0.55 ? '' : 'no';
   }, []);
 
+  /**
+   * Lebar jejak panel yang melayang di kanan panggung. Nol di telepon, karena di sana
+   * panelnya statis di bawah panggung. Dipakai supaya kartu tidak pernah dipusatkan ke
+   * tempat yang tertimbun panel.
+   */
+  const insetOf = useCallback(() => {
+    const el = panelRef.current;
+    if (!el || getComputedStyle(el).position !== 'absolute') return 0;
+    return el.offsetWidth + 40;
+  }, []);
+
   const clamp = useCallback((c: { x: number; y: number; k: number }) => {
     const view = viewRef.current;
     if (!view) return c;
-    const vw = view.clientWidth;
+    const vw = view.clientWidth - insetOf();
     const vh = view.clientHeight;
     const w = world.w * c.k;
     const h = world.h * c.k;
     c.x = w <= vw ? (vw - w) / 2 : Math.min(0, Math.max(vw - w, c.x));
     c.y = h <= vh ? (vh - h) / 2 : Math.min(0, Math.max(vh - h, c.y));
     return c;
-  }, [world]);
+  }, [world, insetOf]);
 
   const fitK = useCallback(() => {
     const view = viewRef.current;
     if (!view) return 1;
-    return Math.max(MIN_K, Math.min(1, view.clientWidth / world.w, view.clientHeight / world.h));
-  }, [world]);
+    return Math.max(MIN_K, Math.min(1, (view.clientWidth - insetOf()) / world.w, view.clientHeight / world.h));
+  }, [world, insetOf]);
 
   const settle = useCallback(() => {
     setZoomPct(Math.round(cam.current.k * 100));
@@ -146,12 +158,12 @@ export function SagaStage({
       if (!view) return;
       const kk = Math.max(MIN_K, Math.min(MAX_K, k ?? Math.max(cam.current.k, 0.85)));
       glide({
-        x: view.clientWidth / 2 - (cardX(e) + CW / 2) * kk,
+        x: (view.clientWidth - insetOf()) / 2 - (cardX(e) + CW / 2) * kk,
         y: view.clientHeight / 2 - (cardY(e) + RAIL) * kk,
         k: kk,
       });
     },
-    [cardX, cardY, glide]
+    [cardX, cardY, glide, insetOf]
   );
 
   const zoomBy = useCallback(
@@ -159,13 +171,14 @@ export function SagaStage({
       const view = viewRef.current;
       if (!view) return;
       const k = Math.max(MIN_K, Math.min(MAX_K, cam.current.k * factor));
+      const cx = (view.clientWidth - insetOf()) / 2;
       glide({
-        x: view.clientWidth / 2 - (view.clientWidth / 2 - cam.current.x) * (k / cam.current.k),
+        x: cx - (cx - cam.current.x) * (k / cam.current.k),
         y: view.clientHeight / 2 - (view.clientHeight / 2 - cam.current.y) * (k / cam.current.k),
         k,
       });
     },
-    [glide]
+    [glide, insetOf]
   );
 
   const reset = useCallback(() => {
@@ -450,7 +463,7 @@ export function SagaStage({
         </div>
 
         {selected && (
-          <aside className="ref-panel" aria-live="polite">
+          <aside className="ref-panel" ref={panelRef} aria-live="polite">
             <p className="ref-panel-rel">
               {t(mode === 'story' ? 'tl.posStory' : 'tl.posRelease', { n: pos, total: saga.total })}
             </p>

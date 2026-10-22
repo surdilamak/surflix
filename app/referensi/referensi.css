@@ -235,8 +235,12 @@
   .ref-reveal { opacity: 1; transform: none; }
 }
 
-/* ── Panggung 3D: pemandangan di kiri, panel keterangan di kanan ── */
-.ref-stage { display: grid; grid-template-columns: minmax(0, 1fr) 400px; background: var(--field-1); }
+/* ── Panggung: satu bidang penuh, panel melayang di atasnya (pola yang sama dengan Galaxy) ──
+   Dulu panel mengambil kolom grid 400px, jadi panggungnya terpotong selebar itu. Sekarang
+   panggung memakai seluruh lebar dan panel mengambang di kanan. Supaya tidak ada isi yang
+   tertimbun panel, pemusatan di JS memakai "area terpakai" = lebar panggung - jejak panel
+   (lihat insetOf() di saga-stage.tsx dan connection-graph.tsx). */
+.ref-stage { position: relative; background: var(--field-1); }
 .ref-stage-view { position: relative; height: clamp(560px, 80svh, 860px); overflow: hidden; }
 .ref-stage-canvas { position: absolute; inset: 0; }
 .ref-stage-canvas canvas { display: block; width: 100%; height: 100%; }
@@ -252,10 +256,9 @@
  * layar pada halaman peta film dan Watch order. Sticky dihitung dari bar portal (min-height 56px).
  */
 .ref-panel {
-  align-self: start;
-  position: sticky; top: calc(56px + 16px);
-  max-height: calc(100svh - 56px - 32px); overflow: auto;
-  margin: 24px var(--margin) 24px 0;
+  position: absolute; right: var(--margin); top: 24px; z-index: 4;
+  width: min(380px, calc(100% - var(--margin) * 2));
+  max-height: calc(100% - 48px); overflow: auto;
   padding: 24px 26px 26px;
   background: var(--bg); color: var(--ink);
 }
@@ -267,9 +270,8 @@
 .ref-panel-link { font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
 .ref-panel-link:hover { opacity: 0.7; }
 @media (max-width: 1023px) {
-  .ref-stage { grid-template-columns: minmax(0, 1fr); }
   .ref-stage-view { height: clamp(520px, 72svh, 720px); }
-  .ref-panel { position: static; max-height: none; overflow: visible; margin: 0; padding: 22px var(--margin) 28px; }
+  .ref-panel { position: static; width: auto; max-height: none; overflow: visible; margin: 0; padding: 22px var(--margin) 28px; }
   .ref-panel .ref-btn { width: 100%; }
 }
 @media (max-width: 767px) {
