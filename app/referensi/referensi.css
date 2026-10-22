@@ -9,6 +9,8 @@
   --ink: #1f2b4d;
   --muted: #6a7186;
   --accent: #ff5200; /* oranye logo Surflix, sama dengan landing dan Request Hub */
+  --accent-hover: #ff6a26;  /* sama dengan .rq-btn-primary:hover di Request Hub */
+  --accent-active: #e04800;
   --accent-ink: #0d0d0f;
   --field-1: #05070a;
   --field-1-ink: #ffffff;
@@ -32,6 +34,9 @@
   --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
   --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
   --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  /* Satu ukuran judul halaman untuk SEMUA halaman portal. Sebelumnya ada lima aturan
+     berbeda (63px-107px di layar 1440) yang lahir satu per satu, bukan dari sistem. */
+  --step-display: clamp(2.75rem, 1rem + 5.2vw, 5rem);
   --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
   --margin: clamp(16px, 2.2vw, 32px);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -69,9 +74,18 @@
   border: 0; border-radius: 8px; cursor: pointer;
   transition: transform 0.18s var(--ease), background 0.18s;
 }
-.ref-root .ref-btn:hover { transform: translateY(-2px); }
-.ref-root .ref-btn:active { transform: translateY(0) scale(0.98); }
+.ref-root .ref-btn:hover { background: var(--accent-hover); transform: translateY(-2px); }
+.ref-root .ref-btn:active { background: var(--accent-active); transform: translateY(0) scale(0.98); }
+.ref-root .ref-btn:disabled,
+.ref-root .ref-btn[aria-disabled='true'] { background: var(--surface); color: var(--muted); cursor: not-allowed; transform: none; }
+/* Secondary: netral, dipakai kalau ada aksi kedua di sebelah aksi utama. */
+.ref-root .ref-btn--secondary { background: var(--surface); color: var(--ink); }
+.ref-root .ref-btn--secondary:hover { background: #e8e7e2; }
+.ref-root .ref-btn--secondary:active { background: #dddcd6; }
+/* Di atas bidang gelap, aksi utama dibalik jadi putih supaya kontrasnya cukup. */
 .ref-root a.ref-btn--light { background: var(--field-1-ink); color: var(--field-1); }
+.ref-root a.ref-btn--light:hover { background: #e9e9ea; }
+.ref-root a.ref-btn--light:active { background: #d6d6d8; }
 
 /* ── Hero: cincin case di sekeliling judul ── */
 .ref-hero {
@@ -101,7 +115,7 @@
   position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
   width: min(600px, 58vw); text-align: center; z-index: 5;
 }
-.ref-h1 { font-size: clamp(56px, 5.4vw, 80px); }
+.ref-h1 { font-size: var(--step-display); }
 .ref-line { display: block; overflow: hidden; padding-bottom: 0.14em; margin-bottom: -0.06em; }
 .ref-line > span { display: block; animation: ref-rise 0.9s var(--ease) backwards; }
 .ref-line:nth-child(2) > span { animation-delay: 110ms; }
@@ -172,7 +186,7 @@
 .ref-detail-top { position: relative; background: var(--field-1); color: var(--field-1-ink); padding: 112px var(--margin) 0; }
 .ref-back { display: inline-block; font-size: 15px; font-weight: 600; color: var(--field-1-muted); transition: color 0.2s; }
 .ref-back:hover { color: var(--field-1-ink); }
-.ref-detail-title { font-size: clamp(48px, 7.4vw, 112px); }
+.ref-detail-title { font-size: var(--step-display); }
 .ref-detail-title .ref-line { padding-bottom: 0.16em; margin-bottom: -0.04em; }
 .ref-detail-sub { margin-top: 36px; max-width: 56ch; font-size: var(--step-lead); line-height: 1.25; animation: ref-fade 0.8s var(--ease) 0.4s backwards; }
 .ref-detail-actions { margin-top: 28px; animation: ref-fade 0.8s var(--ease) 0.5s backwards; }
@@ -195,7 +209,6 @@
   .ref-ring a { width: var(--wm); }
   .ref-ring a:nth-child(even) { display: none; }
   .ref-core { width: calc(100% - 56px); }
-  .ref-h1 { font-size: 10.5vw; }
   .ref-root .ref-core-sub { margin: 8px auto 14px; font-size: 16px; min-height: 4.4em; }
   .ref-core .ref-btn { width: 100%; }
   .ref-core .ref-search .ref-btn { width: auto; } /* tombol di dalam search tetap selebar isinya */
@@ -335,8 +348,8 @@
 .ref-galaxy canvas.is-ready { opacity: 1; }
 .ref-galaxy-loading { position: absolute; inset: 0; display: grid; place-items: center; font-size: var(--step-lead); font-weight: 600; color: var(--field-1-muted); }
 .ref-galaxy-intro { position: absolute; left: var(--margin); top: 48px; z-index: 3; width: min(440px, calc(100% - var(--margin) * 2)); pointer-events: none; }
-.ref-galaxy-intro h1 { font-size: clamp(36px, 4.4vw, 64px); }
-.ref-galaxy-intro p { animation: ref-fade 0.8s var(--ease) 0.35s backwards; margin-top: 18px; max-width: 42ch; font-size: 16px; line-height: 1.4; color: var(--field-1-ink); }
+.ref-galaxy-intro h1 { font-size: var(--step-display); }
+.ref-galaxy-intro p { animation: ref-fade 0.8s var(--ease) 0.35s backwards; margin-top: 18px; max-width: 42ch; font-size: var(--step-lead); line-height: 1.4; color: var(--field-1-ink); }
 .ref-galaxy-search { margin-top: 20px; pointer-events: auto; animation: ref-fade 0.8s var(--ease) 0.5s backwards; }
 .ref-galaxy-foot { animation: ref-fade 0.8s var(--ease) 0.7s backwards; position: absolute; left: var(--margin); bottom: 24px; z-index: 3; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; font-size: var(--step-small); color: var(--field-1-muted); pointer-events: none; }
 .ref-galaxy-foot p { margin: 0; max-width: 46ch; }
@@ -378,7 +391,7 @@
   display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px; align-items: end;
   padding: clamp(56px, 7vw, 104px) var(--margin) clamp(48px, 5vw, 80px); background: var(--field-1); color: var(--field-1-ink);
 }
-.ref-new-intro h1 { font-size: clamp(2.75rem, 1.5rem + 5.5vw, 6.5rem); }
+.ref-new-intro h1 { font-size: var(--step-display); }
 .ref-new-intro p { margin-top: 20px; max-width: 46ch; font-size: var(--step-lead); line-height: 1.25; }
 .ref-new-intro .ref-new-count { margin-top: 16px; font-size: var(--step-small); font-weight: 600; color: var(--field-1-muted); }
 .ref-new-lead { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 24px; align-items: end; justify-self: end; width: 100%; max-width: 560px; }
@@ -492,8 +505,7 @@
 /* ── Watch order ── */
 /* Panggungnya memakai kerangka yang sama dengan peta 3D satu film: .ref-stage + .ref-stage-view + .ref-panel. */
 .ref-saga-head { padding-top: clamp(84px, 8vw, 96px); padding-bottom: clamp(28px, 3vw, 40px); }
-.ref-saga-head .ref-detail-title { font-size: clamp(44px, 6vw, 88px); }
-.ref-saga-head .ref-detail-sub { margin-top: 24px; font-size: var(--step-body); }
+.ref-saga-head .ref-detail-sub { margin-top: 24px; }
 .ref-saga-head .ref-detail-actions { margin-top: 24px; }
 .ref-saga-head .ref-back { margin-bottom: 22px; }
 .ref-saga-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 28px; }

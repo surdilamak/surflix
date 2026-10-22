@@ -208,6 +208,10 @@ Saat ini cuma ada `guestNote` field di request form (text-based, free-form). Use
 
 ## 🎨 Design System Quick Reference
 
+> **Dokumen lengkapnya ada di [`design.md`](./design.md)** (2026-10-22): warna, tipografi, bentuk, elevasi, status interaksi, layout, motion, dan daftar positif palsu inspector — untuk keempat permukaan sekaligus. Bagian di bawah ini ringkasan per permukaan; kalau keduanya berbeda, `design.md` yang benar.
+>
+> Dua aturan yang paling sering dilanggar: **judul halaman Reference memakai `--step-display`, jangan tulis `font-size` baru** (dulu ada lima aturan h1 terpisah, 63–107px), dan **warna status tombol diturunkan dengan menerang** (`#ff5200` → hover `#ff6a26` → ditekan `#e04800`), bukan menggelap.
+
 ### Request Hub (guest) — papan ubin, sejak 2026-10-21
 Satu bahasa visual dengan landing, dibatasi di wrapper `.rq-root` supaya admin tidak ikut berubah. CSS: `app/(guest)/request.css` (kelas `rq-*`, override `.btn-primary`/`.badge-*`/`.input-ios`/`.tab` hanya di dalam `.rq-root`).
 - Token Tailwind (di `@theme` globals.css): `rq-bg #0d0d0f`, `rq-surface #17171a`, `rq-raised #232327`, `rq-accent #ff5200`, `rq-muted #a3a3ab`; radius tunggal `rounded-rq` (8px).
