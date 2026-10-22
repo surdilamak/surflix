@@ -3,12 +3,15 @@
  * Sengaja berdiri sendiri, sama seperti landing dan Request Hub, supaya admin tidak ikut token lama.
  */
 import type { Metadata } from 'next';
-import { Bricolage_Grotesque } from 'next/font/google';
+import localFont from 'next/font/local';
 import './admin.css';
 
-const font = Bricolage_Grotesque({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
+// Font di-vendor ke repo supaya build tidak perlu mengambilnya dari Google.
+// Pengambilan saat build sempat menggagalkan CI tiga kali dalam satu hari.
+// Keduanya variable font berlisensi OFL; satu berkas melayani seluruh rentang berat.
+const font = localFont({
+  src: '../../public/fonts/bricolage-var-latin.woff2',
+  weight: '400 600',
   display: 'swap',
 });
 

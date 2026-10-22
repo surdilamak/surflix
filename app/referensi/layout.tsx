@@ -6,16 +6,19 @@
  * bidang gelap di pembuka, satu aksen tangerine buat aksi utama.
  */
 import type { Metadata } from 'next';
-import { Schibsted_Grotesk } from 'next/font/google';
+import localFont from 'next/font/local';
 import { PortalHeader } from '@/components/connections/portal-header';
 import { PortalFooter } from '@/components/connections/portal-footer';
 import { LangProvider } from '@/components/connections/lang-provider';
 import { PortalBar } from '@/components/portal-bar';
 import './referensi.css';
 
-const font = Schibsted_Grotesk({
-  subsets: ['latin'],
-  weight: ['400', '600', '800'],
+// Font di-vendor ke repo supaya build tidak perlu mengambilnya dari Google.
+// Pengambilan saat build sempat menggagalkan CI tiga kali dalam satu hari.
+// Keduanya variable font berlisensi OFL; satu berkas melayani seluruh rentang berat.
+const font = localFont({
+  src: '../../public/fonts/schibsted-var-latin.woff2',
+  weight: '400 800',
   display: 'swap',
 });
 

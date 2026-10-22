@@ -294,6 +294,15 @@ Pas lo work di project ini:
 6. **Always commit dengan descriptive message** — Idrus suka tracking history.
 7. **Run schema migration carefully** — pakai `npx prisma db push --accept-data-loss` cuma kalau lo confirm field changes are non-destructive.
 
+## Font di-vendor ke repo (2026-10-22)
+Keempat layout memakai `next/font/local`, bukan `next/font/google`. Pengambilan font saat build pernah menggagalkan CI **tiga kali dalam satu hari** (`TypeError: Cannot read properties of null` di `@next/font/dist/google/loader.js`), dan satu-satunya penanganannya adalah push commit kosong untuk mengulang build. Sekarang build tidak menyentuh jaringan sama sekali.
+
+- `public/fonts/bricolage-var-latin.woff2` (41 KB) → landing, Request Hub, admin. `weight: '400 600'`.
+- `public/fonts/schibsted-var-latin.woff2` (47 KB) → Reference. `weight: '400 800'`.
+- `bricolage-400.woff` / `bricolage-600.woff` **tetap dipakai** oleh `lib/og.tsx` (Satori butuh berkas statis). Jangan dihapus.
+
+**Jebakan sumbu variable font.** Bricolage Grotesque punya tiga sumbu (`opsz,wdth,wght`). Kalau URL Google Fonts diminta dengan rentang `wdth@75..100`, berkas yang keluar **default-nya wdth=75 alias condensed**, dan teksnya merender 13% lebih sempit tanpa error apa pun. Minta **sumbu berat saja** (`:wght@400..600`). Cara memastikannya: ukur lebar render teks contoh sebelum dan sesudah penggantian — harus sama persis (Reference 299px, landing/Hub 302px pada 100px font-size untuk kata "Surflix").
+
 ## Catatan Tailwind 4 (2026-10-21)
 - Utilitas ada di layer `utilities`; CSS buatan sendiri (`request.css`, `portal-bar.css`, `landing.css`, `referensi.css`) tidak berlayer dan SELALU menang atas utilitas. Jangan menaruh `padding`/`margin` pada override seperti `.rq-root .input-ios`, supaya `pl-12` dll tetap berlaku.
 - Kelas lama `btn-primary`, `badge-*`, `input-ios`, `tab` kini `@utility` di globals.css; `.rq-root ...` menimpanya hanya di Request Hub.

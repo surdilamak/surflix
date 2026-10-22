@@ -3,14 +3,17 @@
  * Sengaja berdiri sendiri: font, token, dan CSS-nya tidak dipakai bersama portal Reference.
  */
 import type { Metadata } from 'next';
-import { Bricolage_Grotesque } from 'next/font/google';
+import localFont from 'next/font/local';
 import { translate } from '@/lib/i18n';
 import { getServerLang } from '@/lib/lang-server';
 import './landing.css';
 
-const font = Bricolage_Grotesque({
-  subsets: ['latin'],
-  weight: ['400', '500', '600'],
+// Font di-vendor ke repo supaya build tidak perlu mengambilnya dari Google.
+// Pengambilan saat build sempat menggagalkan CI tiga kali dalam satu hari.
+// Keduanya variable font berlisensi OFL; satu berkas melayani seluruh rentang berat.
+const font = localFont({
+  src: '../../public/fonts/bricolage-var-latin.woff2',
+  weight: '400 600',
   display: 'swap',
 });
 
