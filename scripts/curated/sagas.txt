@@ -384,6 +384,17 @@ Kill Bill: Vol. 2 (2004) | kb | 2004-04
 Kill Bill: The Whole Bloody Affair (2011) | cut | 2011 | Both halves, uncut | The single film Tarantino shot, before the studio split it in two. || Satu film utuh yang difilmkan Tarantino, sebelum studionya memotongnya jadi dua.
 Death Proof (2007) | wider | 2007-04 | Not the same story | Connected only by the world Tarantino's films share, not by the Bride's story. || Terhubung cuma lewat dunia yang dibagi film-film Tarantino, bukan lewat cerita sang Bride.
 
+# ============ MAKOTO SHINKAI ============
+# Bukan trilogi: "disaster trilogy" itu sebutan kritikus, bukan kata Shinkai. Dan Suzume
+# TIDAK memuat satu pun tokoh dari dua film ini - itu negatif yang sudah dipastikan, jadi
+# jangan ditambahkan ke saga ini nanti. Weathering with You belum ada di library.
+@saga shinkai | Shinkai's connected films | Three films that share one world, joined by cameo rather than plot. Suzume is deliberately not here: it shares Shinkai's crew, but none of his characters. || Tiga film yang berbagi satu dunia, tersambung lewat cameo bukan alur cerita. Suzume sengaja tidak dimasukkan: ia berbagi kru Shinkai, tetapi tidak satu pun tokohnya.
+@lane main | The films || Film
+
+The Garden of Words (2013) | main | 2013-05 | Yukino before Itomori | She is the teacher here; the Man'yoshu poem she teaches comes back in Your Name. || Ia gurunya di sini; puisi Man'yoshu yang ia ajarkan muncul lagi di Your Name.
+Your Name. (2016) | main | 2016-08 | Yukino teaches at Itomori | Same character, same voice actress. Takao from The Garden of Words also passes by for a few frames. || Tokoh yang sama, pengisi suara yang sama. Takao dari The Garden of Words juga lewat beberapa frame.
+Weathering with You (2019) | main | 2019-07 | Taki and Mitsuha, grown | Taki, Mitsuha, Yotsuha, Tessie and Sayaka all appear. This is the film that ties the set together. || Taki, Mitsuha, Yotsuha, Tessie, dan Sayaka semuanya muncul. Film inilah yang mengikat ketiganya.
+
 # ── Names for clusters the builder derives automatically (@alias <any member> | <Saga name>) ──
 @alias Batman Begins (2005) | Batman
 @alias Demon Slayer: Kimetsu no Yaiba (2019) | Demon Slayer
