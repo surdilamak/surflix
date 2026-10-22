@@ -65,3 +65,26 @@ Love, Death & Robots (2019) > Fight Club (1999) | talent | h | David Fincher dir
 Wonder Man (2026) > Iron Man 3 (2013) | universe | m | Ben Kingsley's Trevor Slattery from Iron Man 3 returns in Wonder Man. || Trevor Slattery milik Ben Kingsley dari Iron Man 3 kembali di Wonder Man.
 Kamen Rider Black Sun (2022) > Kamen Rider Ryuki (2002) | universe | h | They share the Kamen Rider name and nothing else: Ryuki is a self-contained Heisei series, Black Sun an adult reboot of the 1987 one. || Keduanya cuma berbagi nama Kamen Rider: Ryuki serial Heisei yang berdiri sendiri, Black Sun reboot dewasa dari yang 1987.
 Shin Kamen Rider (2023) > Kamen Rider Black Sun (2022) | universe | h | Both came out of Toei's fiftieth-anniversary push to retell the Showa-era Riders, but they are separate films with separate continuities. || Keduanya lahir dari dorongan ulang tahun kelima puluh Toei untuk menceritakan ulang Rider era Showa, tetapi keduanya film terpisah dengan kontinuitas sendiri-sendiri.
+
+# ---------- Judul baru 2026-10-22 ----------
+# Crystal Lake: prekuel Friday the 13th (1980) buatan A24 untuk Peacock, berlatar delapan tahun
+# sebelum filmnya, tentang Pamela Voorhees. Tidak ada satu pun film Friday the 13th di library,
+# jadi hubungan franchise-nya tidak punya pasangan; yang bisa ditulis cuma lewat pemainnya.
+Crystal Lake (2026) > Avengers: Endgame (2019) | talent | h | Linda Cardellini stars in both. || Linda Cardellini membintangi keduanya.
+Avengers: Endgame (2019) > Green Book (2018) | talent | h | Linda Cardellini stars in both. || Linda Cardellini membintangi keduanya.
+Green Book (2018) > Avengers: Age of Ultron (2015) | talent | h | Linda Cardellini stars in both. || Linda Cardellini membintangi keduanya.
+
+# Below: serial terbatas Netflix asli dari Newfoundland, bukan adaptasi dan bukan bagian franchise
+# apa pun - tidak ada hubungannya dengan film Below (2002) maupun Below Deck.
+Below (2026) > Trap (2024) | talent | h | Josh Hartnett stars in both. || Josh Hartnett membintangi keduanya.
+Trap (2024) > Oppenheimer (2023) | talent | h | Josh Hartnett stars in both. || Josh Hartnett membintangi keduanya.
+Oppenheimer (2023) > Pearl Harbor (2001) | talent | h | Josh Hartnett stars in both. || Josh Hartnett membintangi keduanya.
+Below (2026) > Blade Runner 2049 (2017) | talent | h | Mackenzie Davis stars in both. || Mackenzie Davis membintangi keduanya.
+Blade Runner 2049 (2017) > The Martian (2015) | talent | h | Mackenzie Davis stars in both. || Mackenzie Davis membintangi keduanya.
+
+# Re:Zero: studio White Fox, tidak ada judul White Fox lain di library; pengarang, komposer,
+# penulis skenario, dan perancang karakternya juga tidak beririsan dengan judul mana pun.
+# Satu-satunya hubungan yang lolos adalah pengisi suara, dan itu pun harus peran utama di
+# kedua judul - beberapa kandidat (Attack on Titan, Jujutsu Kaisen, Death Note) ditolak
+# karena perannya cuma pendukung di salah satu sisi.
+Rurouni Kenshin (2023) > Re: ZERO, Starting Life in Another World (2016) | talent | h | Rie Takahashi voices the lead in both: Kaoru Kamiya here, Emilia there. || Rie Takahashi mengisi suara tokoh utama di keduanya: Kaoru Kamiya di sini, Emilia di sana.

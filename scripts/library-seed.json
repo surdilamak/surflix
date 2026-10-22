@@ -300,16 +300,6 @@
     "directors": "M. Night Shyamalan"
   },
   {
-    "tmdbId": 585378,
-    "mediaType": "movie",
-    "title": "After Yang",
-    "originalTitle": null,
-    "year": 2022,
-    "jellyfinId": "1af6ae9bbccb3c9a4f65ab0a7dd44479",
-    "genres": "Science Fiction, Drama",
-    "directors": "Kogonada"
-  },
-  {
     "tmdbId": 1265063,
     "mediaType": "movie",
     "title": "After the Hunt",
@@ -318,6 +308,16 @@
     "jellyfinId": "2f9b49ed25de74b3283057738b08f509",
     "genres": "Drama",
     "directors": "Luca Guadagnino"
+  },
+  {
+    "tmdbId": 585378,
+    "mediaType": "movie",
+    "title": "After Yang",
+    "originalTitle": null,
+    "year": 2022,
+    "jellyfinId": "1af6ae9bbccb3c9a4f65ab0a7dd44479",
+    "genres": "Science Fiction, Drama",
+    "directors": "Kogonada"
   },
   {
     "tmdbId": 965150,
@@ -750,26 +750,6 @@
     "directors": "Mamoru Hamatsu"
   },
   {
-    "tmdbId": 90937,
-    "mediaType": "tv",
-    "title": "BEASTARS",
-    "originalTitle": null,
-    "year": 2019,
-    "jellyfinId": "7bc2ca9f23bca019216f9e52accbdbb9",
-    "genres": "Fantasy, Drama, Animation, Anime, Romance, Mystery",
-    "directors": null
-  },
-  {
-    "tmdbId": 154385,
-    "mediaType": "tv",
-    "title": "BEEF",
-    "originalTitle": null,
-    "year": 2023,
-    "jellyfinId": "7fa0ea439855680d74d8df5f33d0eedb",
-    "genres": "Comedy, Drama",
-    "directors": null
-  },
-  {
     "tmdbId": 1083381,
     "mediaType": "movie",
     "title": "Backrooms",
@@ -850,6 +830,16 @@
     "directors": "Sam Liu"
   },
   {
+    "tmdbId": 90937,
+    "mediaType": "tv",
+    "title": "BEASTARS",
+    "originalTitle": null,
+    "year": 2019,
+    "jellyfinId": "7bc2ca9f23bca019216f9e52accbdbb9",
+    "genres": "Fantasy, Drama, Animation, Anime, Romance, Mystery",
+    "directors": null
+  },
+  {
     "tmdbId": 798286,
     "mediaType": "movie",
     "title": "Beau Is Afraid",
@@ -890,6 +880,16 @@
     "directors": "Julian Jarrold"
   },
   {
+    "tmdbId": 154385,
+    "mediaType": "tv",
+    "title": "BEEF",
+    "originalTitle": null,
+    "year": 2023,
+    "jellyfinId": "7fa0ea439855680d74d8df5f33d0eedb",
+    "genres": "Comedy, Drama",
+    "directors": null
+  },
+  {
     "tmdbId": 198277,
     "mediaType": "movie",
     "title": "Begin Again",
@@ -908,6 +908,16 @@
     "jellyfinId": "b77846e90b094c3ef58ee52160e5329c",
     "genres": "Comedy, Drama, Fantasy",
     "directors": "Spike Jonze"
+  },
+  {
+    "tmdbId": 285322,
+    "mediaType": "tv",
+    "title": "Below",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "b7021e450e1ecca4bb6dd269343aa790",
+    "genres": "Drama, Mystery",
+    "directors": null
   },
   {
     "tmdbId": 308014,
@@ -1170,16 +1180,6 @@
     "directors": null
   },
   {
-    "tmdbId": 776503,
-    "mediaType": "movie",
-    "title": "CODA",
-    "originalTitle": null,
-    "year": 2021,
-    "jellyfinId": "02a8cbe00eb455260f2f2d9695c86062",
-    "genres": "Drama, Music, Romance",
-    "directors": "Siân Heder"
-  },
-  {
     "tmdbId": 517814,
     "mediaType": "movie",
     "title": "Capernaum",
@@ -1340,6 +1340,16 @@
     "directors": "Lee Unkrich"
   },
   {
+    "tmdbId": 776503,
+    "mediaType": "movie",
+    "title": "CODA",
+    "originalTitle": null,
+    "year": 2021,
+    "jellyfinId": "02a8cbe00eb455260f2f2d9695c86062",
+    "genres": "Drama, Music, Romance",
+    "directors": "Siân Heder"
+  },
+  {
     "tmdbId": 220289,
     "mediaType": "movie",
     "title": "Coherence",
@@ -1430,6 +1440,16 @@
     "directors": "Dave Green"
   },
   {
+    "tmdbId": 213562,
+    "mediaType": "tv",
+    "title": "Crystal Lake",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "dc6622576827313b499fad9eae1f2965",
+    "genres": "Drama, Mystery",
+    "directors": null
+  },
+  {
     "tmdbId": 105248,
     "mediaType": "tv",
     "title": "Cyberpunk: Edgerunners",
@@ -1438,16 +1458,6 @@
     "jellyfinId": "354325e20ce79d9865427ce4d85e0629",
     "genres": "action, Anime, crime, dystopia, United States",
     "directors": "Hiroyuki Imaishi, You Yoshinari"
-  },
-  {
-    "tmdbId": 240411,
-    "mediaType": "tv",
-    "title": "DAN DA DAN",
-    "originalTitle": "ダンダダン",
-    "year": 2024,
-    "jellyfinId": "ca2f43b12659a1a39340b56356da91c6",
-    "genres": "Science Fiction, Drama, Comedy, Animation, Action, Anime, Romance, Mystery",
-    "directors": null
   },
   {
     "tmdbId": 346401,
@@ -1468,6 +1478,16 @@
     "jellyfinId": "58fc456e105a57c24ce788181d4807af",
     "genres": "Horror, Thriller",
     "directors": "Don Taylor"
+  },
+  {
+    "tmdbId": 240411,
+    "mediaType": "tv",
+    "title": "DAN DA DAN",
+    "originalTitle": "ダンダダン",
+    "year": 2024,
+    "jellyfinId": "ca2f43b12659a1a39340b56356da91c6",
+    "genres": "Science Fiction, Drama, Comedy, Animation, Action, Anime, Romance, Mystery",
+    "directors": null
   },
   {
     "tmdbId": 16,
@@ -1530,16 +1550,6 @@
     "directors": null
   },
   {
-    "tmdbId": 1991,
-    "mediaType": "movie",
-    "title": "Death Proof",
-    "originalTitle": null,
-    "year": 2007,
-    "jellyfinId": "cc0c446157db0236f29173dc8a6acc4a",
-    "genres": "Action, Thriller",
-    "directors": "Quentin Tarantino"
-  },
-  {
     "tmdbId": 1153714,
     "mediaType": "movie",
     "title": "Death of a Unicorn",
@@ -1548,6 +1558,16 @@
     "jellyfinId": "8519234b35366abc7d9fcf178c92ef2f",
     "genres": "Horror, Fantasy, Comedy",
     "directors": null
+  },
+  {
+    "tmdbId": 1991,
+    "mediaType": "movie",
+    "title": "Death Proof",
+    "originalTitle": null,
+    "year": 2007,
+    "jellyfinId": "cc0c446157db0236f29173dc8a6acc4a",
+    "genres": "Action, Thriller",
+    "directors": "Quentin Tarantino"
   },
   {
     "tmdbId": 705996,
@@ -2180,26 +2200,6 @@
     "directors": "Christopher Nolan"
   },
   {
-    "tmdbId": 644495,
-    "mediaType": "movie",
-    "title": "ENJOY",
-    "originalTitle": "House of Gucci",
-    "year": 2021,
-    "jellyfinId": "faa89c40e3d55785e1cb229b27e2ad5f",
-    "genres": "Drama, Crime, History",
-    "directors": "Teresa Razzauti, Ridley Scott"
-  },
-  {
-    "tmdbId": 1096648,
-    "mediaType": "movie",
-    "title": "EVANGELION:3.0(-46h)",
-    "originalTitle": "EVANGELION: 3.0",
-    "year": 2023,
-    "jellyfinId": "4c48e044191acbdfdebb8f0360c112b2",
-    "genres": "Animation, Science Fiction, Action",
-    "directors": "Toko Yatabe, Kazuya Tsurumaki"
-  },
-  {
     "tmdbId": 683127,
     "mediaType": "movie",
     "title": "Earwig and the Witch",
@@ -2268,6 +2268,16 @@
     "jellyfinId": "489addba695417441f8c39ebbbdfea2f",
     "genres": "Thriller, Mystery",
     "directors": "Denis Villeneuve"
+  },
+  {
+    "tmdbId": 644495,
+    "mediaType": "movie",
+    "title": "ENJOY",
+    "originalTitle": "House of Gucci",
+    "year": 2021,
+    "jellyfinId": "faa89c40e3d55785e1cb229b27e2ad5f",
+    "genres": "Drama, Crime, History",
+    "directors": "Teresa Razzauti, Ridley Scott"
   },
   {
     "tmdbId": 65249,
@@ -2390,6 +2400,16 @@
     "directors": "Kazuya Tsurumaki, Mahiro Maeda, Katsuichi Nakayama"
   },
   {
+    "tmdbId": 1096648,
+    "mediaType": "movie",
+    "title": "EVANGELION:3.0(-46h)",
+    "originalTitle": "EVANGELION: 3.0",
+    "year": 2023,
+    "jellyfinId": "4c48e044191acbdfdebb8f0360c112b2",
+    "genres": "Animation, Science Fiction, Action",
+    "directors": "Toko Yatabe, Kazuya Tsurumaki"
+  },
+  {
     "tmdbId": 545611,
     "mediaType": "movie",
     "title": "Everything Everywhere All at Once",
@@ -2440,26 +2460,6 @@
     "directors": "Joseph Kosinski"
   },
   {
-    "tmdbId": 94372,
-    "mediaType": "tv",
-    "title": "FBI: Most Wanted",
-    "originalTitle": null,
-    "year": 2020,
-    "jellyfinId": "909b81aa550e112f56ba433774fb6b98",
-    "genres": "Crime, Drama",
-    "directors": null
-  },
-  {
-    "tmdbId": 124364,
-    "mediaType": "tv",
-    "title": "FROM",
-    "originalTitle": null,
-    "year": 2022,
-    "jellyfinId": "5a818604a27e15b046b58c9acfdb0bfe",
-    "genres": "Mystery, Drama, Sci-Fi & Fantasy",
-    "directors": "John Griffin"
-  },
-  {
     "tmdbId": 11220,
     "mediaType": "movie",
     "title": "Fallen Angels",
@@ -2478,6 +2478,16 @@
     "jellyfinId": "52024e1f68262668231e3ef81301e471",
     "genres": "Drama, Comedy, Crime",
     "directors": "Riley Stearns"
+  },
+  {
+    "tmdbId": 94372,
+    "mediaType": "tv",
+    "title": "FBI: Most Wanted",
+    "originalTitle": null,
+    "year": 2020,
+    "jellyfinId": "909b81aa550e112f56ba433774fb6b98",
+    "genres": "Crime, Drama",
+    "directors": null
   },
   {
     "tmdbId": 226733,
@@ -2580,6 +2590,16 @@
     "directors": "Lenny Abrahamson"
   },
   {
+    "tmdbId": 124364,
+    "mediaType": "tv",
+    "title": "FROM",
+    "originalTitle": null,
+    "year": 2022,
+    "jellyfinId": "5a818604a27e15b046b58c9acfdb0bfe",
+    "genres": "Mystery, Drama, Sci-Fi & Fantasy",
+    "directors": "John Griffin"
+  },
+  {
     "tmdbId": 260823,
     "mediaType": "tv",
     "title": "From Old Country Bumpkin to Master Swordsman",
@@ -2640,16 +2660,6 @@
     "directors": "Patricia Riggen"
   },
   {
-    "tmdbId": 396263,
-    "mediaType": "movie",
-    "title": "GANTZ:O",
-    "originalTitle": null,
-    "year": 2016,
-    "jellyfinId": "82d9e011187389c1e0ac152a480d8fd1",
-    "genres": "Animation, Science Fiction, Action",
-    "directors": "Yasushi Kawamura, Keiichi Sato"
-  },
-  {
     "tmdbId": 1399,
     "mediaType": "tv",
     "title": "Game of Thrones",
@@ -2668,6 +2678,16 @@
     "jellyfinId": "6f1ed0190df7e681fb27434c892dd4de",
     "genres": "Action, Mystery, Science Fiction, Horror",
     "directors": "Shinsuke Sato"
+  },
+  {
+    "tmdbId": 396263,
+    "mediaType": "movie",
+    "title": "GANTZ:O",
+    "originalTitle": null,
+    "year": 2016,
+    "jellyfinId": "82d9e011187389c1e0ac152a480d8fd1",
+    "genres": "Animation, Science Fiction, Action",
+    "directors": "Yasushi Kawamura, Keiichi Sato"
   },
   {
     "tmdbId": 782,
@@ -3100,16 +3120,6 @@
     "directors": "Donald Petrie"
   },
   {
-    "tmdbId": 32023,
-    "mediaType": "tv",
-    "title": "How to Make It in America",
-    "originalTitle": null,
-    "year": 2010,
-    "jellyfinId": "1d72f62c4297fa77e742bbb335c320df",
-    "genres": "Drama, Comedy",
-    "directors": null
-  },
-  {
     "tmdbId": 467905,
     "mediaType": "movie",
     "title": "How to Make a Killing",
@@ -3117,6 +3127,16 @@
     "year": 2026,
     "jellyfinId": "727ac477655f8324c72f1bd660bb350a",
     "genres": "Comedy, Thriller",
+    "directors": null
+  },
+  {
+    "tmdbId": 32023,
+    "mediaType": "tv",
+    "title": "How to Make It in America",
+    "originalTitle": null,
+    "year": 2010,
+    "jellyfinId": "1d72f62c4297fa77e742bbb335c320df",
+    "genres": "Drama, Comedy",
     "directors": null
   },
   {
@@ -3220,16 +3240,6 @@
     "directors": "Akira Kurosawa"
   },
   {
-    "tmdbId": 49530,
-    "mediaType": "movie",
-    "title": "In Time",
-    "originalTitle": null,
-    "year": 2011,
-    "jellyfinId": "bd3cc0c24f0a7c6025479b9d262415ad",
-    "genres": "Action, Thriller, Science Fiction",
-    "directors": "Andrew Niccol"
-  },
-  {
     "tmdbId": 843,
     "mediaType": "movie",
     "title": "In the Mood for Love",
@@ -3238,6 +3248,16 @@
     "jellyfinId": "776cb3c9bd773a45caf64088c7ed142d",
     "genres": "Drama, Romance",
     "directors": "Wong Kar-wai"
+  },
+  {
+    "tmdbId": 49530,
+    "mediaType": "movie",
+    "title": "In Time",
+    "originalTitle": null,
+    "year": 2011,
+    "jellyfinId": "bd3cc0c24f0a7c6025479b9d262415ad",
+    "genres": "Action, Thriller, Science Fiction",
+    "directors": "Andrew Niccol"
   },
   {
     "tmdbId": 27205,
@@ -3500,16 +3520,6 @@
     "directors": "Todd Phillips"
   },
   {
-    "tmdbId": 26693,
-    "mediaType": "movie",
-    "title": "Ju-On: White Ghost",
-    "originalTitle": "呪怨 白い老女",
-    "year": 2009,
-    "jellyfinId": "bd55cdc1c68fc8e6a3ab56d32b4730e4",
-    "genres": "Fantasy, Horror",
-    "directors": "Ryuta Miyake, Yasuko Anjô"
-  },
-  {
     "tmdbId": 259233,
     "mediaType": "movie",
     "title": "Ju-on: The Beginning of the End",
@@ -3528,6 +3538,16 @@
     "jellyfinId": "67dc1c9f65d907336a33d6ac7836b6d8",
     "genres": "Horror",
     "directors": "Takashi Shimizu"
+  },
+  {
+    "tmdbId": 26693,
+    "mediaType": "movie",
+    "title": "Ju-On: White Ghost",
+    "originalTitle": "呪怨 白い老女",
+    "year": 2009,
+    "jellyfinId": "bd55cdc1c68fc8e6a3ab56d32b4730e4",
+    "genres": "Fantasy, Horror",
+    "directors": "Ryuta Miyake, Yasuko Anjô"
   },
   {
     "tmdbId": 95479,
@@ -3568,16 +3588,6 @@
     "jellyfinId": "5441ebfaaca5b4ecbd3b85b1c5ebce4a",
     "genres": "Drama, Comedy, Romance, Fantasy",
     "directors": "Mark Waters"
-  },
-  {
-    "tmdbId": 803796,
-    "mediaType": "movie",
-    "title": "KPop Demon Hunters",
-    "originalTitle": null,
-    "year": 2025,
-    "jellyfinId": "d288db7b7eea3a84b3684cd80df6b342",
-    "genres": "Animation, Fantasy, Action, Comedy, Music, Family",
-    "directors": "Maggie Kang, Chris Appelhans"
   },
   {
     "tmdbId": 1050035,
@@ -3708,6 +3718,16 @@
     "jellyfinId": "399242220c1ec265072487feec037947",
     "genres": "Action, Adventure, Drama, Science Fiction, Thriller",
     "directors": "Wes Ball"
+  },
+  {
+    "tmdbId": 803796,
+    "mediaType": "movie",
+    "title": "KPop Demon Hunters",
+    "originalTitle": null,
+    "year": 2025,
+    "jellyfinId": "d288db7b7eea3a84b3684cd80df6b342",
+    "genres": "Animation, Fantasy, Action, Comedy, Music, Family",
+    "directors": "Maggie Kang, Chris Appelhans"
   },
   {
     "tmdbId": 539972,
@@ -3990,16 +4010,6 @@
     "directors": "Richard Curtis"
   },
   {
-    "tmdbId": 948549,
-    "mediaType": "movie",
-    "title": "Love Lies Bleeding",
-    "originalTitle": null,
-    "year": 2024,
-    "jellyfinId": "04ecf51c2799390cb5d1d2b12fca12da",
-    "genres": "Crime, Romance, Thriller",
-    "directors": null
-  },
-  {
     "tmdbId": 353577,
     "mediaType": "movie",
     "title": "Love at First Sight",
@@ -4008,6 +4018,16 @@
     "jellyfinId": "93f540ef3f313fe920a566d83c945f86",
     "genres": "Romance, Drama",
     "directors": "Colin Jones, Vanessa Caswill"
+  },
+  {
+    "tmdbId": 948549,
+    "mediaType": "movie",
+    "title": "Love Lies Bleeding",
+    "originalTitle": null,
+    "year": 2024,
+    "jellyfinId": "04ecf51c2799390cb5d1d2b12fca12da",
+    "genres": "Crime, Romance, Thriller",
+    "directors": null
   },
   {
     "tmdbId": 86831,
@@ -4260,6 +4280,16 @@
     "directors": "Bong Joon Ho"
   },
   {
+    "tmdbId": 437586,
+    "mediaType": "movie",
+    "title": "mid90s",
+    "originalTitle": null,
+    "year": 2018,
+    "jellyfinId": "a404df727997daf6c586e8382f2942a6",
+    "genres": "Drama, Comedy",
+    "directors": null
+  },
+  {
     "tmdbId": 530385,
     "mediaType": "movie",
     "title": "Midsommar",
@@ -4340,16 +4370,6 @@
     "directors": "David G. Derrick Jr., Jason Hand, Dana Ledoux Miller"
   },
   {
-    "tmdbId": 247718,
-    "mediaType": "tv",
-    "title": "MobLand",
-    "originalTitle": null,
-    "year": 2025,
-    "jellyfinId": "a3fd78373390c4a6696b0761811e8ecb",
-    "genres": "Crime, Drama",
-    "directors": null
-  },
-  {
     "tmdbId": 21730,
     "mediaType": "tv",
     "title": "Mobile Suit Gundam Wing",
@@ -4358,6 +4378,16 @@
     "jellyfinId": "39bbeaefc0ab889b957ff89bf95d3045",
     "genres": "action, Anime, coming of age, violence, war",
     "directors": "Masashi Ikeda, Shinji Takamatsu"
+  },
+  {
+    "tmdbId": 247718,
+    "mediaType": "tv",
+    "title": "MobLand",
+    "originalTitle": null,
+    "year": 2025,
+    "jellyfinId": "a3fd78373390c4a6696b0761811e8ecb",
+    "genres": "Crime, Drama",
+    "directors": null
   },
   {
     "tmdbId": 1421,
@@ -4590,16 +4620,6 @@
     "directors": "Clint Eastwood"
   },
   {
-    "tmdbId": 312474,
-    "mediaType": "tv",
-    "title": "NIPPON SANGOKU: The Three Nations of the Crimson Sun",
-    "originalTitle": "日本三國",
-    "year": 2026,
-    "jellyfinId": "e2fa82b643a09c9870e1adf0b4ad608e",
-    "genres": "Drama, Animation, Anime",
-    "directors": null
-  },
-  {
     "tmdbId": 36593,
     "mediaType": "movie",
     "title": "Naked Gun 33⅓: The Final Insult",
@@ -4667,6 +4687,16 @@
     "year": 2011,
     "jellyfinId": "e1bdc746cfc783df43b5bdcb786931cd",
     "genres": "Comedy",
+    "directors": null
+  },
+  {
+    "tmdbId": 312474,
+    "mediaType": "tv",
+    "title": "NIPPON SANGOKU: The Three Nations of the Crimson Sun",
+    "originalTitle": "日本三國",
+    "year": 2026,
+    "jellyfinId": "e2fa82b643a09c9870e1adf0b4ad608e",
+    "genres": "Drama, Animation, Anime",
     "directors": null
   },
   {
@@ -4770,26 +4800,6 @@
     "directors": "John Andreas Andersen"
   },
   {
-    "tmdbId": 116727,
-    "mediaType": "tv",
-    "title": "ODDTAXI",
-    "originalTitle": "オッドタクシー",
-    "year": 2021,
-    "jellyfinId": "b3da82d304fd265aa321134cd234cae8",
-    "genres": "Animation, Anime, Comedy, Crime, Mystery",
-    "directors": null
-  },
-  {
-    "tmdbId": 111110,
-    "mediaType": "tv",
-    "title": "ONE PIECE",
-    "originalTitle": null,
-    "year": 2023,
-    "jellyfinId": "28962d13d538b9ecf8b1052d1ea7b5a2",
-    "genres": "Action & Adventure, Sci-Fi & Fantasy",
-    "directors": null
-  },
-  {
     "tmdbId": 92830,
     "mediaType": "tv",
     "title": "Obi-Wan Kenobi",
@@ -4828,6 +4838,16 @@
     "jellyfinId": "b852ad9a4e5db089a7a59acbd0712608",
     "genres": "Animation, Drama, Romance, TV Movie",
     "directors": "Tomomi Mochizuki"
+  },
+  {
+    "tmdbId": 116727,
+    "mediaType": "tv",
+    "title": "ODDTAXI",
+    "originalTitle": "オッドタクシー",
+    "year": 2021,
+    "jellyfinId": "b3da82d304fd265aa321134cd234cae8",
+    "genres": "Animation, Anime, Comedy, Crime, Mystery",
+    "directors": null
   },
   {
     "tmdbId": 631843,
@@ -4907,6 +4927,16 @@
     "year": 1999,
     "jellyfinId": "b8eb7c4dceeec96f6a74c34ef3d2df11",
     "genres": "Fantasy, Drama, Comedy, Animation, Adventure, Action, Anime",
+    "directors": null
+  },
+  {
+    "tmdbId": 111110,
+    "mediaType": "tv",
+    "title": "ONE PIECE",
+    "originalTitle": null,
+    "year": 2023,
+    "jellyfinId": "28962d13d538b9ecf8b1052d1ea7b5a2",
+    "genres": "Action & Adventure, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -5857,6 +5887,16 @@
     "year": 2018,
     "jellyfinId": "feab6b79bda1043fe05c00460285969e",
     "genres": "Action, Anime, Fantasy, Mystery, Sci-Fi",
+    "directors": null
+  },
+  {
+    "tmdbId": 65942,
+    "mediaType": "tv",
+    "title": "Re: ZERO, Starting Life in Another World",
+    "originalTitle": "Re：ゼロから始める異世界生活",
+    "year": 2016,
+    "jellyfinId": "365945125cb35c9c59c74dd5cae4ac33",
+    "genres": "Horror, Fantasy, Drama, Animation, Adventure, Thriller, Anime, Romance, Mystery",
     "directors": null
   },
   {
@@ -6890,46 +6930,6 @@
     "directors": "Danny Boyle"
   },
   {
-    "tmdbId": 1954,
-    "mediaType": "movie",
-    "title": "THE BUTTERFLY EFFECT",
-    "originalTitle": "The Butterfly Effect",
-    "year": 2004,
-    "jellyfinId": "219d2b6c183107064cbb65b93df9c4a2",
-    "genres": "Science Fiction, Thriller",
-    "directors": "Eric Bress, J. Mackye Gruber"
-  },
-  {
-    "tmdbId": 255358,
-    "mediaType": "tv",
-    "title": "THE GHOST IN THE SHELL",
-    "originalTitle": "攻殻機動隊 THE GHOST IN THE SHELL",
-    "year": 2026,
-    "jellyfinId": "6361a0d6c2212dfde870e1498bce00a7",
-    "genres": "Action, Animation, Anime, Science Fiction",
-    "directors": null
-  },
-  {
-    "tmdbId": 533533,
-    "mediaType": "movie",
-    "title": "TRON: Ares",
-    "originalTitle": null,
-    "year": 2025,
-    "jellyfinId": "125e77b6e4ffe0c1c4fd0d7fac6edd13",
-    "genres": "Science Fiction, Adventure, Action",
-    "directors": "Joachim Rønning"
-  },
-  {
-    "tmdbId": 20526,
-    "mediaType": "movie",
-    "title": "TRON: Legacy",
-    "originalTitle": null,
-    "year": 2010,
-    "jellyfinId": "69b6ca766255341dbf783c40e6b46662",
-    "genres": "Adventure, Action, Science Fiction",
-    "directors": "Joseph Kosinski"
-  },
-  {
     "tmdbId": 37933,
     "mediaType": "movie",
     "title": "Tales from Earthsea",
@@ -7188,6 +7188,16 @@
     "jellyfinId": "29b8e892f3aa531c9ed91db3ac23c287",
     "genres": "Drama, History",
     "directors": "Brady Corbet"
+  },
+  {
+    "tmdbId": 1954,
+    "mediaType": "movie",
+    "title": "THE BUTTERFLY EFFECT",
+    "originalTitle": "The Butterfly Effect",
+    "year": 2004,
+    "jellyfinId": "219d2b6c183107064cbb65b93df9c4a2",
+    "genres": "Science Fiction, Thriller",
+    "directors": "Eric Bress, J. Mackye Gruber"
   },
   {
     "tmdbId": 15370,
@@ -7450,6 +7460,16 @@
     "directors": "Makoto Shinkai"
   },
   {
+    "tmdbId": 255358,
+    "mediaType": "tv",
+    "title": "THE GHOST IN THE SHELL",
+    "originalTitle": "攻殻機動隊 THE GHOST IN THE SHELL",
+    "year": 2026,
+    "jellyfinId": "6361a0d6c2212dfde870e1498bce00a7",
+    "genres": "Action, Animation, Anime, Science Fiction",
+    "directors": null
+  },
+  {
     "tmdbId": 238,
     "mediaType": "movie",
     "title": "The Godfather",
@@ -7670,16 +7690,6 @@
     "directors": "Augustine Frizzell"
   },
   {
-    "tmdbId": 36811,
-    "mediaType": "movie",
-    "title": "The Last Station",
-    "originalTitle": null,
-    "year": 2009,
-    "jellyfinId": "3ccce5fe86a0a636e6484bef37434352",
-    "genres": "Drama, Romance",
-    "directors": "Michael Hoffman"
-  },
-  {
     "tmdbId": 100088,
     "mediaType": "tv",
     "title": "The Last of Us",
@@ -7688,6 +7698,16 @@
     "jellyfinId": "e31ba08a2273038c8d36733bc977233b",
     "genres": "Drama",
     "directors": null
+  },
+  {
+    "tmdbId": 36811,
+    "mediaType": "movie",
+    "title": "The Last Station",
+    "originalTitle": null,
+    "year": 2009,
+    "jellyfinId": "3ccce5fe86a0a636e6484bef37434352",
+    "genres": "Drama, Romance",
+    "directors": "Michael Hoffman"
   },
   {
     "tmdbId": 896536,
@@ -8090,6 +8110,16 @@
     "directors": "Jean Renoir"
   },
   {
+    "tmdbId": 114370,
+    "mediaType": "tv",
+    "title": "The search for Berserk",
+    "originalTitle": "Jakten på Berserk",
+    "year": 2015,
+    "jellyfinId": "3b169ca3486a63fb339d191e24c62ad7",
+    "genres": "Reality, Documentary, Adventure, Action, Travel",
+    "directors": null
+  },
+  {
     "tmdbId": 51739,
     "mediaType": "movie",
     "title": "The Secret World of Arrietty",
@@ -8450,16 +8480,6 @@
     "directors": "Jonathan Glazer"
   },
   {
-    "tmdbId": 114370,
-    "mediaType": "tv",
-    "title": "The search for Berserk",
-    "originalTitle": "Jakten på Berserk",
-    "year": 2015,
-    "jellyfinId": "3b169ca3486a63fb339d191e24c62ad7",
-    "genres": "Reality, Documentary, Adventure, Action, Travel",
-    "directors": null
-  },
-  {
     "tmdbId": 7345,
     "mediaType": "movie",
     "title": "There Will Be Blood",
@@ -8700,6 +8720,26 @@
     "directors": "Steven Lisberger"
   },
   {
+    "tmdbId": 533533,
+    "mediaType": "movie",
+    "title": "TRON: Ares",
+    "originalTitle": null,
+    "year": 2025,
+    "jellyfinId": "125e77b6e4ffe0c1c4fd0d7fac6edd13",
+    "genres": "Science Fiction, Adventure, Action",
+    "directors": "Joachim Rønning"
+  },
+  {
+    "tmdbId": 20526,
+    "mediaType": "movie",
+    "title": "TRON: Legacy",
+    "originalTitle": null,
+    "year": 2010,
+    "jellyfinId": "69b6ca766255341dbf783c40e6b46662",
+    "genres": "Adventure, Action, Science Fiction",
+    "directors": "Joseph Kosinski"
+  },
+  {
     "tmdbId": 1340206,
     "mediaType": "movie",
     "title": "Tuner",
@@ -8768,6 +8808,16 @@
     "jellyfinId": "325a006144870ae7277e2c16dc703cf3",
     "genres": "Crime, Drama, Mystery",
     "directors": "David Robert Mitchell"
+  },
+  {
+    "tmdbId": 1480387,
+    "mediaType": "movie",
+    "title": "undertone",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "a0089694f2d3681b49ffe8230e98ad34",
+    "genres": "Horror, Mystery",
+    "directors": "Ian Tuason"
   },
   {
     "tmdbId": 1232546,
@@ -9148,25 +9198,5 @@
     "jellyfinId": "493224a288d650ebacd0a5a74f828328",
     "genres": "Crime, Mystery, Thriller",
     "directors": "David Fincher"
-  },
-  {
-    "tmdbId": 437586,
-    "mediaType": "movie",
-    "title": "mid90s",
-    "originalTitle": null,
-    "year": 2018,
-    "jellyfinId": "a404df727997daf6c586e8382f2942a6",
-    "genres": "Drama, Comedy",
-    "directors": null
-  },
-  {
-    "tmdbId": 1480387,
-    "mediaType": "movie",
-    "title": "undertone",
-    "originalTitle": null,
-    "year": 2026,
-    "jellyfinId": "a0089694f2d3681b49ffe8230e98ad34",
-    "genres": "Horror, Mystery",
-    "directors": "Ian Tuason"
   }
 ]
