@@ -157,33 +157,47 @@ Luffy-senpai Support Project! Barto's Secret Room 4! (2023) > One Piece (1999) |
 A Very Special Feature! Momonosuke's Road to Becoming a Great Shogun (2023) > One Piece (1999) | universe | h | A recap episode closing out Wano: Momonosuke becoming Shogun and the crew leaving the country. || Episode rangkuman penutup Wano: Momonosuke menjadi Shogun dan kru meninggalkan negeri itu.
 
 # ============ POKEMON ============
-Pokémon: The First Movie (1998) > Pokemon (1997) | universe | h | @film-of-series
-The Power of One: The Pokémon 2000 Movie Special (2000) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon 3: The Movie (2000) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon 4Ever (2001) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon Heroes (2002) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon: Jirachi - Wish Maker (2003) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon: Destiny Deoxys (2004) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon: Lucario and the Mystery of Mew (2005) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon Ranger and the Temple of the Sea (2006) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon: The Rise of Darkrai (2007) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon: Giratina and the Sky Warrior (2008) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon: Arceus and the Jewel of Life (2009) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon: Zoroark - Master of Illusions (2010) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon the Movie: Black - Victini and Reshiram (2011) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon the Movie: White - Victini and Zekrom (2011) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon the Movie: Kyurem vs. the Sword of Justice (2012) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon the Movie: Genesect and the Legend Awakened (2013) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon the Movie: Diancie and the Cocoon of Destruction (2014) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon the Movie: Hoopa and the Clash of Ages (2015) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon the Movie: Volcanion and the Mechanical Marvel (2016) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon the Movie: I Choose You! (2017) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon the Movie: The Power of Us (2018) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon the Movie: Mewtwo Strikes Back - Evolution (2019) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon the Movie: Secrets of the Jungle (2020) > Pokemon (1997) | universe | h | @film-of-series
-Pokémon the Movie: Mewtwo Strikes Back - Evolution (2019) > Pokémon: The First Movie (1998) | remake | h | @remake
-Pokémon: Origins (2013) > Pokemon (1997) | universe | h | Pokémon: Origins retells the original Red and Green games that started the franchise. || Pokémon: Origins menceritakan ulang game Red dan Green yang memulai franchise ini.
-Pokémon Detective Pikachu (2019) > Pokémon: The First Movie (1998) | universe | m | Mewtwo, star of the first Pokémon film, returns as a key figure in Detective Pikachu. || Mewtwo, bintang film Pokémon pertama, kembali sebagai tokoh penting di Detective Pikachu.
+# Era placement follows pokemon.fandom.com, which files every film under the TV series it
+# accompanied. Movie numbers (MS0NN) are the wiki's. See sagas.txt for the three structural
+# facts that are easy to get wrong.
+
+# — the films, era by era —
+Pokémon: The First Movie (1998) > Pokemon (1997) | universe | h | The first film, made alongside the Kanto series. || Film pertama, dibuat berbarengan dengan serial Kanto.
+Pokémon 3: The Movie (2000) > Pokemon (1997) | universe | h | A Johto-era film, from the Gold and Silver run of the series. || Film era Johto, dari masa Gold and Silver serialnya.
+Pokémon 4Ever (2001) > Pokemon (1997) | universe | h | A Johto-era film, from the Gold and Silver run of the series. || Film era Johto, dari masa Gold and Silver serialnya.
+Pokémon Heroes (2002) > Pokemon (1997) | universe | h | The last Johto-era film, released against the Master Quest season. || Film era Johto terakhir, rilis berbarengan dengan musim Master Quest.
+Pokémon: Jirachi - Wish Maker (2003) > Pokemon (1997) | universe | h | The first Hoenn-era film, from the Ruby and Sapphire run of the series. || Film era Hoenn pertama, dari masa Ruby and Sapphire serialnya.
+Pokémon: Destiny Deoxys (2004) > Pokemon (1997) | universe | h | The second Hoenn-era film, from the Ruby and Sapphire run of the series. || Film era Hoenn kedua, dari masa Ruby and Sapphire serialnya.
+Pokémon: Lucario and the Mystery of Mew (2005) > Pokemon (1997) | universe | h | A Hoenn-era film, bundled into the Advanced Battle season. || Film era Hoenn, disatukan ke dalam musim Advanced Battle.
+Pokémon Ranger and the Temple of the Sea (2006) > Pokemon (1997) | universe | h | The fourth and last Hoenn-era film. || Film era Hoenn keempat sekaligus terakhir.
+Pokémon: The Rise of Darkrai (2007) > Pokemon (1997) | universe | h | The first Sinnoh-era film, from the Diamond and Pearl run of the series. || Film era Sinnoh pertama, dari masa Diamond and Pearl serialnya.
+Pokémon: Giratina and the Sky Warrior (2008) > Pokémon: The Rise of Darkrai (2007) | universe | h | @sequel
+Pokémon: Arceus and the Jewel of Life (2009) > Pokémon: Giratina and the Sky Warrior (2008) | universe | h | Closes the one run of films the wiki calls a trilogy: Darkrai, Giratina, then Arceus. || Menutup satu-satunya rangkaian film yang disebut trilogi oleh wikinya: Darkrai, Giratina, lalu Arceus.
+Pokémon: Giratina and the Sky Warrior (2008) > Pokemon (1997) | universe | h | A Sinnoh-era film, with Ash travelling alongside Dawn and Brock. || Film era Sinnoh, Ash bepergian bersama Dawn dan Brock.
+Pokémon: Arceus and the Jewel of Life (2009) > Pokemon (1997) | universe | h | A Sinnoh-era film, from the Diamond and Pearl run of the series. || Film era Sinnoh, dari masa Diamond and Pearl serialnya.
+Pokémon: Zoroark - Master of Illusions (2010) > Pokemon (1997) | universe | h | Zoroark is a Unova Pokémon, but this is still a Sinnoh-era film and the last of the four. || Zoroark itu Pokémon Unova, tetapi ini tetap film era Sinnoh dan yang terakhir dari empat film itu.
+Pokémon the Movie: White - Victini and Zekrom (2011) > Pokemon (1997) | universe | h | The first Unova-era film, from the Best Wishes run of the series. || Film era Unova pertama, dari masa Best Wishes serialnya.
+Pokémon the Movie: Black - Victini and Reshiram (2011) > Pokémon the Movie: White - Victini and Zekrom (2011) | universe | h | Two versions of one film released the same day, differing in their legendary and a few scenes — and the dub swaps the labels, so the Japanese Black is the English White. || Dua versi dari satu film yang rilis di hari yang sama, beda legendaris dan beberapa adegan — dan dubnya menukar labelnya, jadi Black versi Jepang adalah White versi Inggris.
+Pokémon the Movie: Black - Victini and Reshiram (2011) > Pokemon (1997) | universe | h | A Unova-era film, from the Best Wishes run of the series. || Film era Unova, dari masa Best Wishes serialnya.
+Pokémon the Movie: Kyurem vs. the Sword of Justice (2012) > Pokemon (1997) | universe | h | The second Unova-era film, from the Best Wishes run of the series. || Film era Unova kedua, dari masa Best Wishes serialnya.
+Pokémon the Movie: Genesect and the Legend Awakened (2013) > Pokemon (1997) | universe | h | The third and last Unova-era film. || Film era Unova ketiga sekaligus terakhir.
+Pokémon the Movie: Diancie and the Cocoon of Destruction (2014) > Pokemon (1997) | universe | h | The first Kalos-era film, from the XY run of the series. || Film era Kalos pertama, dari masa XY serialnya.
+Pokémon the Movie: Hoopa and the Clash of Ages (2015) > Pokemon (1997) | universe | h | The second Kalos-era film, from the XY run of the series. || Film era Kalos kedua, dari masa XY serialnya.
+Pokémon the Movie: Volcanion and the Mechanical Marvel (2016) > Pokemon (1997) | universe | h | The third and last Kalos-era film, and the last one set in the TV anime's continuity. || Film era Kalos ketiga sekaligus terakhir, dan yang terakhir berlatar di kontinuitas serial TV.
+
+# — the remake, and the alternate-timeline trilogy that is NOT part of it —
+Pokémon the Movie: Mewtwo Strikes Back - Evolution (2019) > Pokémon: The First Movie (1998) | remake | h | A shot-for-shot CGI remake of the first film. Its movie number sits between the alternate-timeline films, but it does not belong to them. || Remake CGI nyaris adegan per adegan dari film pertama. Nomor filmnya ada di antara film-film garis waktu alternatif, tetapi ia bukan bagian dari mereka.
+Pokémon the Movie: Mewtwo Strikes Back - Evolution (2019) > Pokemon (1997) | universe | h | Remakes the first film, so it sits at the Kanto era rather than at its 2019 release. || Me-remake film pertama, jadi posisinya di era Kanto, bukan di tahun rilisnya 2019.
+Pokémon the Movie: I Choose You! (2017) > Pokemon (1997) | remake | h | The twentieth-anniversary film restarts the movie series, retelling Ash's first season in a continuity separate from the TV anime. || Film ulang tahun kedua puluh memulai ulang seri filmnya, menceritakan ulang musim pertama Ash di kontinuitas terpisah dari serial TV.
+Pokémon the Movie: The Power of Us (2018) > Pokémon the Movie: I Choose You! (2017) | universe | h | @sequel
+Pokémon the Movie: The Power of Us (2018) > Pokemon (1997) | universe | h | An original story in the I Choose You! timeline, not in the TV anime's. || Cerita orisinal di garis waktu I Choose You!, bukan di serial TV.
+Pokémon the Movie: Secrets of the Jungle (2020) > Pokémon the Movie: The Power of Us (2018) | universe | h | The third and last film in the I Choose You! timeline. || Film ketiga sekaligus terakhir di garis waktu I Choose You!.
+Pokémon the Movie: Secrets of the Jungle (2020) > Pokemon (1997) | universe | h | An original story in the I Choose You! timeline, not in the TV anime's. || Cerita orisinal di garis waktu I Choose You!, bukan di serial TV.
+
+# — outside the anime —
+Pokémon: Origins (2013) > Pokemon (1997) | remake | h | Four episodes following Red rather than Ash: a retelling of the Red and Green games, not of the anime. || Empat episode yang mengikuti Red, bukan Ash: penceritaan ulang game Red dan Green, bukan animenya.
+Pokémon Detective Pikachu (2019) > Pokémon: The First Movie (1998) | universe | m | Mewtwo, the villain of the first film, returns here in live action — though this film adapts the 2016 game and fixes no point in the anime's timeline. || Mewtwo, penjahat film pertama, kembali di sini dalam live action — meski film ini mengadaptasi game 2016 dan tidak menentukan titik mana pun di garis waktu animenya.
+The Power of One: The Pokémon 2000 Movie Special (2000) > Pokemon (1997) | universe | h | Not a film but a half-hour promo special aired once on The WB before the second movie opened in America: soundtrack performances and behind-the-scenes, no story. || Bukan film melainkan acara promo setengah jam yang tayang sekali di The WB sebelum film kedua rilis di Amerika: penampilan soundtrack dan di balik layar, tanpa cerita.
 
 # ============ SERIAL: SPIN-OFF / SEQUEL / REMAKE ============
 Better Call Saul (2015) > Breaking Bad (2008) | universe | h | @spinoff

@@ -180,6 +180,50 @@ Dragon Ball GT (1996) | alt | 1996-02 | Age 789 | Five years after Z ends. Made 
 Dragon Ball GT: A Hero's Legacy (1997) | alt | 1997-03 | Age 889
 Super Dragon Ball Heroes (2018) | alt | 2018-07 | Alternate | A promotional series built around card-game what-ifs, outside the main story. || Serial promosi dari skenario andai-andai permainan kartu, di luar cerita utama.
 
+# ============ POKEMON ============
+# Era placement from pokemon.fandom.com: each film page / the "List of Pokémon movies" page files
+# every film under the TV series it accompanied, so the labels below are the wiki's own grouping,
+# not a guess. Three facts shaped this saga and are easy to get wrong:
+#   1. Mewtwo Strikes Back - Evolution (MS022) is a CGI REMAKE of movie 1, not the third
+#      alternate-timeline film, even though its number sits between MS021 and MS023.
+#   2. Zoroark (MS013) is a Sinnoh/Diamond-and-Pearl film despite starring a Unova Pokemon.
+#   3. "The Power of One: The Pokémon 2000 Movie Special" is NOT a film — it is a WB promo
+#      special. The actual second movie is a 1999 Japanese release that is not in the library.
+@saga pokemon | Pokémon | The films follow the TV series era by era — Kanto, Johto, Hoenn, Sinnoh, Unova, Kalos. Two things break the line: the 2019 CGI remake belongs right at the start, and from I Choose You! the films move into a timeline of their own. || Filmnya mengikuti serial TV era demi era — Kanto, Johto, Hoenn, Sinnoh, Unova, Kalos. Dua hal memutus garisnya: remake CGI 2019 posisinya justru di paling awal, dan sejak I Choose You! filmnya pindah ke garis waktu sendiri.
+@lane main | The anime || Serial anime
+@lane films | Films, era by era || Film, era demi era | fork: Pokemon (1997)
+@lane alt | Alternate-timeline films || Film garis waktu alternatif | fork: Pokémon the Movie: Volcanion and the Mechanical Marvel (2016)
+@lane outside | Outside the anime || Di luar serial anime | fork: Pokemon (1997)
+
+Pokemon (1997) | main | 1997-04 | Kanto to Paldea | One library entry covering every era of the TV series, from 1997 to today. || Satu entri library yang mencakup seluruh era serial TV, dari 1997 sampai sekarang.
+Pokémon: The First Movie (1998) | films | 1998-07 | Kanto era
+Pokémon the Movie: Mewtwo Strikes Back - Evolution (2019) | films | 2019-07 | Kanto era, remade | A shot-for-shot CGI remake of the first film. Watch it instead of the original, not after it. || Remake CGI nyaris adegan per adegan dari film pertama. Tonton sebagai pengganti aslinya, bukan setelahnya.
+Pokémon: Origins (2013) | outside | 2013-10 | Kanto, from the games | Four episodes following Red, not Ash — a retelling of the Red and Green games rather than of the anime. || Empat episode mengikuti Red, bukan Ash — penceritaan ulang game Red dan Green, bukan animenya.
+Pokémon the Movie 2000: The Power of One (1999) | films | 1999-07 | Orange Islands era | The real second film, a 1999 Japanese release. Brock is absent, the only movie without him. || Film kedua yang sebenarnya, rilis Jepang 1999. Brock tidak ada, satu-satunya film tanpa dia.
+The Power of One: The Pokémon 2000 Movie Special (2000) | outside | 2000-07 | Not a film | A half-hour promo special aired once on The WB before the second film opened in America: soundtrack performances and behind-the-scenes, no story. Never shown in Japan. || Acara promo setengah jam yang tayang sekali di The WB sebelum film kedua rilis di Amerika: penampilan soundtrack dan di balik layar, tanpa cerita. Tidak pernah tayang di Jepang.
+Pokémon 3: The Movie (2000) | films | 2000-07 | Johto era
+Pokémon 4Ever (2001) | films | 2001-07 | Johto era
+Pokémon Heroes (2002) | films | 2002-07 | Johto era, last one
+Pokémon: Jirachi - Wish Maker (2003) | films | 2003-07 | Hoenn era
+Pokémon: Destiny Deoxys (2004) | films | 2004-07 | Hoenn era
+Pokémon: Lucario and the Mystery of Mew (2005) | films | 2005-07 | Hoenn era
+Pokémon Ranger and the Temple of the Sea (2006) | films | 2006-07 | Hoenn era, last one
+Pokémon: The Rise of Darkrai (2007) | films | 2007-07 | Sinnoh era | Opens the one run of films the wiki calls a trilogy: Darkrai, then Giratina, then Arceus. || Membuka satu-satunya rangkaian film yang disebut trilogi oleh wikinya: Darkrai, lalu Giratina, lalu Arceus.
+Pokémon: Giratina and the Sky Warrior (2008) | films | 2008-07 | Sinnoh era
+Pokémon: Arceus and the Jewel of Life (2009) | films | 2009-07 | Sinnoh era | Closes the trilogy. || Menutup trilogi itu.
+Pokémon: Zoroark - Master of Illusions (2010) | films | 2010-07 | Sinnoh era, last one | Zoroark is a Unova Pokémon, but the film is still a Sinnoh one: Ash is travelling with Dawn and Brock. || Zoroark itu Pokémon Unova, tetapi filmnya tetap film Sinnoh: Ash masih bepergian bersama Dawn dan Brock.
+Pokémon the Movie: White - Victini and Zekrom (2011) | films | 2011-07 | Unova era
+Pokémon the Movie: Black - Victini and Reshiram (2011) | films | 2011-07 | Unova era | Black and White are two versions of one film released the same day, not two films — and the dub swaps the labels, so the Japanese Black is the English White. || Black dan White itu dua versi dari satu film yang rilis di hari yang sama, bukan dua film — dan dubnya menukar labelnya, jadi Black versi Jepang adalah White versi Inggris.
+Pokémon the Movie: Kyurem vs. the Sword of Justice (2012) | films | 2012-07 | Unova era
+Pokémon the Movie: Genesect and the Legend Awakened (2013) | films | 2013-07 | Unova era, last one
+Pokémon the Movie: Diancie and the Cocoon of Destruction (2014) | films | 2014-07 | Kalos era
+Pokémon the Movie: Hoopa and the Clash of Ages (2015) | films | 2015-07 | Kalos era
+Pokémon the Movie: Volcanion and the Mechanical Marvel (2016) | films | 2016-07 | Kalos era, last one
+Pokémon the Movie: I Choose You! (2017) | alt | 2017-07 | A timeline of its own | The twentieth-anniversary film restarts the movie series: it retells Ash's first season in a continuity separate from the TV anime. || Film ulang tahun kedua puluh memulai ulang seri filmnya: menceritakan ulang musim pertama Ash di kontinuitas yang terpisah dari serial TV.
+Pokémon the Movie: The Power of Us (2018) | alt | 2018-07 | Same timeline
+Pokémon the Movie: Secrets of the Jungle (2020) | alt | 2020-12 | Same timeline, last one
+Pokémon Detective Pikachu (2019) | outside | 2019-05 | Live action | Adapts the 2016 game, not the anime. Its writers said it shares the anime's world, but nothing in it fixes a point in time. || Mengadaptasi game 2016, bukan animenya. Penulisnya bilang dunianya sama dengan anime, tetapi tidak ada yang menentukan kapan latarnya.
+
 # ============ ONE PIECE ============
 # Per onepiece.fandom.com ("One Piece Movies" -> Relationship to the Main Series): only movies 8, 9
 # and 16 adapt canon arcs; every other film is standalone with no bearing on the story, and Oda does
