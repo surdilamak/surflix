@@ -45,58 +45,79 @@ Star Wars: Visions (2021) | anim | 2021-09 | Alternate | Separate stories outsid
 Star Wars: Visions Presents - The Ninth Jedi (2026) | anim | 2026 | Alternate
 
 # ============ MARVEL CINEMATIC UNIVERSE ============
-@saga mcu | Marvel Cinematic Universe | Release order is the safest start. Story order jumps back to 1943 and 1995. Placement of the newest titles is approximate. || Urutan rilis paling aman untuk memulai. Urutan cerita melompat ke 1943 dan 1995. Posisi judul-judul terbaru masih perkiraan.
+# Dates audited 2026-10-22 against marvelcinematicuniverse.fandom.com. Two systemic errors were
+# found and fixed, so do not "restore" the old numbers:
+#   1. Phase 1 was on the SUPERSEDED 2018 "First 10 Years" chart (Iron Man 2010, IM2/Hulk/Thor
+#      2011, IM3 2012). Marvel's 2023 official timeline book moved Iron Man back to 2008 and
+#      everything under it shifted with it.
+#   2. Phase 4-5 was one to two years early throughout, and three pairs were in the wrong order:
+#      Wakanda Forever before Love and Thunder, Shang-Chi before Far From Home, and Doctor
+#      Strange after Homecoming (its story runs into early 2017).
+# AUTHORITY: dates through Wakanda Forever are anchored to the 2023 official book. Everything
+# after it is past the book's coverage and is the wiki's own reconstruction - every MCU wiki year
+# page carries a {{FanTimeline}} banner. The saga tip says so. Titles the wiki has NOT dated
+# (Punisher: One Last Kill) get NO year printed; leave them blank rather than guessing.
+@saga mcu | Marvel Cinematic Universe | Release order is the safest start. Story order jumps back to 1942 and 1995, and the MCU's "present" has run well ahead of the release calendar — Brand New Day is set in 2028. Dates up to Wakanda Forever follow Marvel's 2023 official timeline; the ones after it are a fan reconstruction, not official. || Urutan rilis paling aman untuk memulai. Urutan cerita melompat ke 1942 dan 1995, dan "masa kini" MCU sudah jauh mendahului kalender rilis — Brand New Day berlatar 2028. Tanggal sampai Wakanda Forever mengikuti timeline resmi Marvel 2023; yang setelahnya rekonstruksi penggemar, bukan resmi.
 @lane films | Films || Film
 @lane series | Series || Serial | fork: Avengers: Endgame (2019)
+@lane alt | Alternate realities || Realitas alternatif | fork: Avengers: Endgame (2019)
+@lane outside | Not part of the story || Bukan bagian cerita | fork: Iron Man (2008)
 
-Eyes of Wakanda (2025) | series | 2025-08 | Across history
-Captain America: The First Avenger (2011) | films | 2011-07 | 1943
+Eyes of Wakanda (2025) | series | 2025-08 | 1260 BC to 1896 | Four stories spread across history, from a Dora Milaje in 1260 BC to Ethiopia in 1896. || Empat kisah yang tersebar sepanjang sejarah, dari seorang Dora Milaje di 1260 SM sampai Etiopia pada 1896.
+Captain America: The First Avenger (2011) | films | 2011-07 | 1942-1945 | Opens in Tonsberg in 1942; Steve's own story runs from 1943 to the crash in 1945. || Dibuka di Tonsberg pada 1942; kisah Steve sendiri berjalan dari 1943 sampai jatuhnya pesawat pada 1945.
 Captain Marvel (2019) | films | 2019-03 | 1995
-Iron Man (2008) | films | 2008-05 | 2010
-Iron Man 2 (2010) | films | 2010-05 | 2011
-The Incredible Hulk (2008) | films | 2008-06 | 2011
-Thor (2011) | films | 2011-05 | 2011
+Iron Man (2008) | films | 2008-05 | 2008 | Marvel's 2023 timeline book moved this back to its release year; the old chart said 2010. || Buku timeline resmi Marvel 2023 memindahkannya kembali ke tahun rilisnya; bagan lama menyebut 2010.
+Iron Man 2 (2010) | films | 2010-05 | 2010
+The Incredible Hulk (2008) | films | 2008-06 | 2010
+Thor (2011) | films | 2011-05 | 2010
 The Avengers (2012) | films | 2012-05 | 2012
-Iron Man 3 (2013) | films | 2013-05 | 2012
+Iron Man 3 (2013) | films | 2013-05 | 2013 | Set at Christmas 2013, a year later than the old chart had it. || Berlatar Natal 2013, setahun lebih lambat dari bagan lama.
 Thor: The Dark World (2013) | films | 2013-11 | 2013
 Captain America: The Winter Soldier (2014) | films | 2014-04 | 2014
 Guardians of the Galaxy (2014) | films | 2014-08 | 2014
-Guardians of the Galaxy Vol. 2 (2017) | films | 2017-05 | 2014
+Guardians of the Galaxy Vol. 2 (2017) | films | 2017-05 | 2014 | Only about two months after the first one, not years. || Cuma sekitar dua bulan setelah yang pertama, bukan bertahun-tahun.
 Avengers: Age of Ultron (2015) | films | 2015-05 | 2015
 Ant-Man (2015) | films | 2015-07 | 2015
 Captain America: Civil War (2016) | films | 2016-05 | 2016
-Black Widow (2021) | films | 2021-07 | 2016
-Doctor Strange (2016) | films | 2016-11 | 2016
-Spider-Man: Homecoming (2017) | films | 2017-07 | 2016
+Black Widow (2021) | films | 2021-07 | 2016 | A direct epilogue to Civil War, three weeks after it. || Epilog langsung dari Civil War, tiga minggu sesudahnya.
 Black Panther (2018) | films | 2018-02 | 2016
+Spider-Man: Homecoming (2017) | films | 2017-07 | 2016
+Doctor Strange (2016) | films | 2016-11 | 2016-2017 | The crash is early 2016 but the bulk of it runs into 2017, which is why it lands after Homecoming. || Kecelakaannya awal 2016 tetapi sebagian besar ceritanya masuk ke 2017, itu sebabnya posisinya setelah Homecoming.
 Thor: Ragnarok (2017) | films | 2017-11 | 2017
 Ant-Man and the Wasp (2018) | films | 2018-07 | 2018
 Avengers: Infinity War (2018) | films | 2018-04 | 2018
 Avengers: Endgame (2019) | films | 2019-04 | 2018 and 2023
-Loki (2021) | series | 2021-06 | Alternate 2012
-What If...? (2021) | series | 2021-08 | Multiverse
-Spider-Man: Far from Home (2019) | films | 2019-07 | 2024
+Loki (2021) | alt | 2021-06 | Outside space-time | Set at the TVA, outside time altogether. 2012 is only where this Loki branched off, not where the series happens. || Berlatar di TVA, sama sekali di luar waktu. 2012 cuma titik cabang Loki ini, bukan tempat serialnya berlangsung.
+What If...? (2021) | alt | 2021-08 | Multiverse
+Marvel Zombies (2025) | alt | 2025-09 | Alternate universe | A spin-off of the What If...? zombie episode, set in that universe about five years after its 2018 outbreak. || Spin-off dari episode zombi What If...?, berlatar di semesta itu sekitar lima tahun setelah wabah 2018-nya.
 Shang-Chi and the Legend of the Ten Rings (2021) | films | 2021-09 | 2024
-Eternals (2021) | films | 2021-11 | 2024
+Spider-Man: Far from Home (2019) | films | 2019-07 | 2024 | Some eight months after Endgame, not straight after it. || Sekitar delapan bulan setelah Endgame, bukan tepat sesudahnya.
+Eternals (2021) | films | 2021-11 | 5000 BC to 2024 | The present-day frame is 2024, but the film reaches back seven thousand years. || Bingkai masa kininya 2024, tetapi filmnya menjangkau tujuh ribu tahun ke belakang.
 Spider-Man: No Way Home (2021) | films | 2021-12 | 2024
 Doctor Strange in the Multiverse of Madness (2022) | films | 2022-05 | 2024
-Thor: Love and Thunder (2022) | films | 2022-07 | 2024
-Black Panther: Wakanda Forever (2022) | films | 2022-11 | 2024
-Ant-Man and the Wasp: Quantumania (2023) | films | 2023-02 | 2025
-Guardians of the Galaxy Vol. 3 (2023) | films | 2023-05 | 2025
-Secret Invasion (2023) | series | 2023-06 | 2025
-The Marvels (2023) | films | 2023-11 | 2025
-Deadpool & Wolverine (2024) | films | 2024-07 | Multiverse
-Captain America: Brave New World (2025) | films | 2025-02
-Daredevil: Born Again (2025) | series | 2025-03
-Thunderbolts* (2025) | films | 2025-05
-Ironheart (2025) | series | 2025-06
-Wonder Man (2026) | series | 2026-01
+Deadpool & Wolverine (2024) | alt | 2024-07 | Earth-10005, 2024 | Its 2024 belongs to Deadpool's own universe, which the wiki files under alternate realities rather than the main line. || Tahun 2024-nya milik semesta Deadpool sendiri, yang oleh wikinya dimasukkan ke realitas alternatif, bukan garis utama.
+Black Panther: Wakanda Forever (2022) | films | 2022-11 | 2025
+Thor: Love and Thunder (2022) | films | 2022-07 | 2025
+Ironheart (2025) | series | 2025-06 | 2025 | Released after Brave New World but set two years earlier. || Rilis setelah Brave New World tetapi berlatar dua tahun lebih awal.
+Ant-Man and the Wasp: Quantumania (2023) | films | 2023-02 | 2026
+Guardians of the Galaxy Vol. 3 (2023) | films | 2023-05 | 2026
+Secret Invasion (2023) | series | 2023-06 | 2026
+The Marvels (2023) | films | 2023-11 | 2026
+Daredevil: Born Again (2025) | series | 2025-03 | 2026-2027 | Opens in October 2026, then jumps a year to Fisk's inauguration in January 2027. || Dibuka Oktober 2026, lalu melompat setahun ke pelantikan Fisk pada Januari 2027.
+Captain America: Brave New World (2025) | films | 2025-02 | 2027
+Thunderbolts* (2025) | films | 2025-05 | 2027
+Wonder Man (2026) | series | 2026-01 | 2027-2028
+The Fantastic Four: First Steps (2025) | alt | 2025-07 | Earth-828, 1960s | A separate universe with its own advanced 1960s. The crossover with the main line is a later film, not this one. || Semesta terpisah dengan 1960-an majunya sendiri. Persinggungan dengan garis utama ada di film berikutnya, bukan di sini.
+Spider-Man: Brand New Day (2026) | films | 2026 | 2028 | Four years after the world forgot Peter Parker. || Empat tahun setelah dunia melupakan Peter Parker.
+VisionQuest (2026) | series | 2026 | | The wiki has not placed this one in the timeline yet, so no year is shown rather than a guess. || Wikinya belum menempatkan judul ini di garis waktu, jadi tahunnya tidak ditampilkan daripada menebak.
+A Marvel Television Special Presentation - The Punisher: One Last Kill (2026) | series | 2026-05 | | The wiki has not placed this one in the timeline yet, so no year is shown rather than a guess. || Wikinya belum menempatkan judul ini di garis waktu, jadi tahunnya tidak ditampilkan daripada menebak.
+Marvel Studios' The Fantastic Four: First Steps - World Premiere (2025) | outside | 2025-07 | Not the film | A recording of the red-carpet premiere event, not First Steps itself. || Rekaman acara pemutaran perdana di karpet merah, bukan film First Steps-nya.
 
 # ============ ALIEN ============
 @saga alien | Alien | Release order keeps the mystery. Story order starts with Prometheus and ends with Resurrection. || Urutan rilis menjaga misterinya. Urutan cerita dimulai dari Prometheus dan berakhir di Resurrection.
 @lane films | Films || Film
 @lane series | Series || Serial | fork: Alien (1979)
+@lane cross | Predator crossover || Persilangan Predator | fork: Alien (1979)
 
 Prometheus (2012) | films | 2012-06 | 2093
 Alien: Covenant (2017) | films | 2017-05 | 2104
@@ -106,6 +127,7 @@ Alien: Romulus (2024) | films | 2024-08 | 2142 | Set between Alien and Aliens. |
 Aliens (1986) | films | 1986-07 | 2179
 Alien³ (1992) | films | 1992-05 | 2179
 Alien Resurrection (1997) | films | 1997-11 | 2381
+Predator: Badlands (2025) | cross | 2025-11 | | A Predator film, tied in only by the Weyland-Yutani corporation. No year is shown because its place in the Alien chronology is not established. || Film Predator, tersambung cuma lewat korporasi Weyland-Yutani. Tahunnya tidak ditampilkan karena posisinya di kronologi Alien belum dipastikan.
 
 # ============ WESTEROS ============
 @saga westeros | Westeros | Release order is the way in. Story order runs from the Targaryen civil war to the Game of Thrones era. || Urutan rilis adalah pintu masuk. Urutan cerita berjalan dari perang saudara Targaryen sampai era Game of Thrones.

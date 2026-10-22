@@ -244,6 +244,30 @@ for (const s of sagas) {
   console.log(`  ${s.kind === 'curated' ? '*' : ' '} ${s.id.padEnd(28)} ${String(s.entries.length).padStart(3)} titles${s.twoOrders ? ' · two orders' : ''}`);
 }
 
+// ── Penjaga: judul yatim ────────────────────────────────────────────────────
+// Saga kurasi "mengklaim" judul yang didaftarkan dan mengeluarkannya dari graf. Judul yang
+// terhubung ke saga itu tapi LUPA didaftarkan jadi kehilangan satu-satunya pasangannya, lalu
+// terdampar tanpa saga sama sekali — diam-diam, tanpa error. Sudah kejadian di MCU (Marvel
+// Zombies, Punisher: One Last Kill, Spider-Man: Brand New Day). Jadi dilaporkan di sini.
+{
+  const live = path.join(__dirname, 'connections-live.json');
+  if (fs.existsSync(live)) {
+    const inSaga = new Set(sagas.flatMap((s) => s.entries.map((e) => key(e.title, e.year))));
+    const orphans = new Map();
+    for (const r of JSON.parse(fs.readFileSync(live, 'utf8'))) {
+      if (r.status !== 'APPROVED' || !['universe', 'remake'].includes(r.relationship)) continue;
+      for (const [t, y] of [[r.sourceTitle, r.sourceYear], [r.targetTitle, r.targetYear]]) {
+        if (t && !inSaga.has(key(t, y))) orphans.set(key(t, y), `${t} (${y})`);
+      }
+    }
+    if (orphans.size) {
+      console.log(`\n⚠ ${orphans.size} judul punya relasi cerita tapi tidak masuk saga mana pun —`);
+      console.log('  kemungkinan besar lupa didaftarkan di saga kurasi yang mengklaim pasangannya:');
+      for (const v of orphans.values()) console.log(`    ${v}`);
+    }
+  }
+}
+
 if (process.env.DATABASE_URL) {
   const { PrismaClient } = require('@prisma/client');
   const db = new PrismaClient();
