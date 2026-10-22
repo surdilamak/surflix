@@ -62,7 +62,7 @@ Digimon Adventure tri. Part 3: Confession (2016) > Digimon Adventure tri. Part 2
 Digimon Adventure tri. Part 4: Loss (2017) > Digimon Adventure tri. Part 3: Confession (2016) | universe | h | @sequel
 Digimon Adventure tri. Part 5: Coexistence (2017) > Digimon Adventure tri. Part 4: Loss (2017) | universe | h | @sequel
 Digimon Adventure tri. Part 6: Future (2018) > Digimon Adventure tri. Part 5: Coexistence (2017) | universe | h | @sequel
-Digimon: Digital Monsters (2020) > Digimon: Digital Monsters (1999) | universe | h | @reboot
+Digimon: Digital Monsters (2020) > Digimon: Digital Monsters (1999) | remake | h | Same name and the same children, but a clean restart — nothing from the 1999 series carries into it. || Nama sama dan anak-anak yang sama, tetapi mulai bersih dari awal — tidak ada dari serial 1999 yang terbawa.
 
 # ============ DRAGON BALL ============
 # The story order lives in sagas.txt. Here the point is WHY two titles touch, so the

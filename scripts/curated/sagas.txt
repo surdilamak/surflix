@@ -314,6 +314,54 @@ EVANGELION:3.0(-46h) (2023) | rebuild | 2023-03 | 46 hours before 3.0 | A prolog
 Evangelion: 3.0 You Can (Not) Redo (2012) | rebuild | 2012-11 | Fourteen years later
 Evangelion: 3.0+1.0 Thrice Upon a Time (2021) | rebuild | 2021-03
 
+# ============ KAMEN RIDER ============
+# Three entries that share a brand and nothing else. Curated so the builder stops drawing one
+# line through them. NOTE: Naked Gun and Scary Movie look like the same case but are NOT —
+# Naked Gun (2025) is Frank Drebin Jr., a sequel to the 1994 film, and Scary Movie (2026) is the
+# sixth entry with the original cast back. Both are correct as single auto lines; leave them.
+@saga kamen-rider | Kamen Rider | There is no watch order here. These three share a brand, not a story: a Heisei television series, and two separate modern reimaginings of the Showa-era originals. Start anywhere. || Tidak ada urutan tonton di sini. Ketiganya berbagi merek, bukan cerita: satu serial televisi era Heisei, dan dua penafsiran ulang modern yang terpisah dari karya era Showa. Mulai dari mana saja.
+@lane tv | Heisei television || Televisi era Heisei
+@lane new | Modern reimaginings || Penafsiran ulang modern | fork: Kamen Rider Ryuki (2002)
+
+Kamen Rider Ryuki (2002) | tv | 2002-02 | Self-contained | The third Heisei series, a Rider War that begins and ends inside itself. || Serial Heisei ketiga, Perang Rider yang mulai dan selesai di dalam dirinya sendiri.
+Kamen Rider Black Sun (2022) | new | 2022-10 | Reboots Black (1987) | An adult reboot of the 1987 series, made for Toei's fiftieth anniversary. || Reboot untuk penonton dewasa dari serial 1987, dibuat untuk ulang tahun kelima puluh Toei.
+Shin Kamen Rider (2023) | new | 2023-03 | Reimagines the 1971 original | Hideaki Anno's film, from the same anniversary push — and no more connected to Black Sun than to Ryuki. || Film Hideaki Anno, dari dorongan ulang tahun yang sama — dan tidak lebih terhubung ke Black Sun daripada ke Ryuki.
+
+# ============ MOANA ============
+@saga moana | Moana | The two animated films are one story. The 2026 film is a live-action remake of the first one, not a third chapter. || Dua film animasinya satu cerita. Film 2026 adalah remake live-action dari yang pertama, bukan bab ketiga.
+@lane anim | Animated || Animasi
+@lane live | Live action || Live action | fork: Moana (2016)
+
+Moana (2016) | anim | 2016-11
+Moana (2026) | live | 2026-07 | Remakes the first film | The same story told again with actors, not a continuation of Moana 2. || Cerita yang sama diceritakan ulang dengan pemain sungguhan, bukan kelanjutan Moana 2.
+Moana 2 (2024) | anim | 2024-11
+
+# ============ DIGIMON ============
+@saga digimon | Digimon | The tri. films continue the 1999 series. The 2020 series shares its name and its characters but starts the story over from scratch. || Film tri. melanjutkan serial 1999. Serial 2020 memakai nama dan tokoh yang sama tetapi memulai ceritanya kembali dari nol.
+@lane orig | The 1999 series || Serial 1999
+@lane tri | Adventure tri. films || Film Adventure tri. | fork: Digimon: Digital Monsters (1999)
+@lane reboot | The 2020 reboot || Reboot 2020 | fork: Digimon: Digital Monsters (1999)
+
+Digimon: Digital Monsters (1999) | orig | 1999-03
+Digimon Adventure tri. Part 1: Reunion (2015) | tri | 2015 | Three years later
+Digimon Adventure tri. Part 2: Determination (2016) | tri | 2016
+Digimon Adventure tri. Part 3: Confession (2016) | tri | 2016
+Digimon Adventure tri. Part 4: Loss (2017) | tri | 2017
+Digimon Adventure tri. Part 5: Coexistence (2017) | tri | 2017
+Digimon Adventure tri. Part 6: Future (2018) | tri | 2018
+Digimon: Digital Monsters (2020) | reboot | 2020-04 | Starts over | Same name, same children, a clean restart — nothing from the 1999 series carries into it. || Nama sama, anak-anak yang sama, tetapi mulai bersih dari awal — tidak ada dari serial 1999 yang terbawa.
+
+# ============ KILL BILL ============
+@saga kill-bill | Kill Bill | One film cut in two. The Whole Bloody Affair puts the halves back together; Death Proof only shares the wider world Tarantino's films sit in. || Satu film yang dipotong jadi dua. The Whole Bloody Affair menyatukan kembali kedua bagiannya; Death Proof cuma berbagi dunia yang lebih luas tempat film-film Tarantino berada.
+@lane kb | Kill Bill || Kill Bill
+@lane cut | The combined cut || Potongan gabungan | fork: Kill Bill: Vol. 2 (2004)
+@lane wider | Tarantino's wider world || Dunia Tarantino yang lebih luas | fork: Kill Bill: Vol. 1 (2003)
+
+Kill Bill: Vol. 1 (2003) | kb | 2003-10
+Kill Bill: Vol. 2 (2004) | kb | 2004-04
+Kill Bill: The Whole Bloody Affair (2011) | cut | 2011 | Both halves, uncut | The single film Tarantino shot, before the studio split it in two. || Satu film utuh yang difilmkan Tarantino, sebelum studionya memotongnya jadi dua.
+Death Proof (2007) | wider | 2007-04 | Not the same story | Connected only by the world Tarantino's films share, not by the Bride's story. || Terhubung cuma lewat dunia yang dibagi film-film Tarantino, bukan lewat cerita sang Bride.
+
 # ── Names for clusters the builder derives automatically (@alias <any member> | <Saga name>) ──
 @alias Batman Begins (2005) | Batman
 @alias Demon Slayer: Kimetsu no Yaiba (2019) | Demon Slayer
