@@ -180,6 +180,96 @@ Dragon Ball GT (1996) | alt | 1996-02 | Age 789 | Five years after Z ends. Made 
 Dragon Ball GT: A Hero's Legacy (1997) | alt | 1997-03 | Age 889
 Super Dragon Ball Heroes (2018) | alt | 2018-07 | Alternate | A promotional series built around card-game what-ifs, outside the main story. || Serial promosi dari skenario andai-andai permainan kartu, di luar cerita utama.
 
+# ============ ONE PIECE ============
+# Per onepiece.fandom.com ("One Piece Movies" -> Relationship to the Main Series): only movies 8, 9
+# and 16 adapt canon arcs; every other film is standalone with no bearing on the story, and Oda does
+# not consider even Strong World (which he wrote) part of it. So there is NO canon film chronology.
+# What IS checkable is the crew aboard, which bounds the earliest point a viewer can watch each one
+# without being spoiled — that is what the labels below mean. Do not upgrade them to canon claims.
+@saga one-piece | One Piece | There is no official film chronology — Oda says none of the films are part of the story. So story order here means the earliest point you can watch each one without being spoiled, read off which crew is aboard. || Tidak ada kronologi film resmi — Oda bilang tidak satu pun filmnya bagian dari cerita. Jadi urutan cerita di sini berarti titik paling awal kamu bisa menontonnya tanpa kena spoiler, dibaca dari siapa saja yang ada di kru.
+@lane main | The anime || Serial anime
+@lane films | Theatrical films || Film bioskop | fork: One Piece (1999)
+@lane retell | Retellings and recaps || Penceritaan ulang dan rangkuman | fork: One Piece (1999)
+@lane specials | TV specials || Spesial TV
+@lane live | Live action || Live action | fork: One Piece (1999)
+
+One Piece: Defeat the Pirate Ganzack! (1998) | specials | 1998-07 | Early East Blue | The pilot OVA, made before the series: only Luffy, Zoro and Nami are aboard. || OVA perintis, dibuat sebelum serialnya: cuma Luffy, Zoro, dan Nami yang ada.
+One Piece (1999) | main | 1999-10 | The whole voyage
+ONE PIECE (2023) | live | 2023-08 | Adapts the East Blue saga | Eight episodes covering Romance Dawn through Arlong Park. || Delapan episode dari Romance Dawn sampai Arlong Park.
+One Piece Episode of East Blue (2017) | retell | 2017-08 | Retells the East Blue saga
+One Piece: The Movie (2000) | films | 2000-03 | Before Sanji joins | Four Straw Hats aboard, so it sits between Syrup Village and the Baratie. || Baru empat anggota, jadi letaknya antara Syrup Village dan Baratie.
+One Piece Episode of Nami: Tears of a Navigator and the Bonds of Friends (2012) | retell | 2012-08 | Retells the Arlong Park arc | Framed as Nami remembering it years later, on the way to Fish-Man Island. || Dibingkai sebagai kenangan Nami bertahun-tahun kemudian, dalam perjalanan ke Fish-Man Island.
+One Piece: Clockwork Island Adventure (2001) | films | 2001-03 | Before the Grand Line | Zoro has his Loguetown blades and Usopp his goggles, so it is just before Reverse Mountain. || Zoro sudah memegang pedang Loguetown dan Usopp pakai gogglenya, jadi tepat sebelum Reverse Mountain.
+One Piece: Chopper's Kingdom on the Island of Strange Animals (2002) | films | 2002-03 | After Drum Island | Chopper is aboard but neither Vivi nor Robin is — a gap that barely exists in the series. || Chopper sudah ikut tetapi Vivi maupun Robin tidak ada — celah yang hampir tidak ada di serialnya.
+One Piece: Episode of Chopper Plus: Bloom in the Winter, Miracle Cherry Blossom (2008) | retell | 2008-03 | Alternate Drum Island | A what-if retelling: Robin, Franky and the Thousand Sunny are there, none of which existed yet at Drum Island. || Penceritaan ulang andai-andai: ada Robin, Franky, dan Thousand Sunny, yang semuanya belum ada waktu Drum Island.
+One Piece: The Desert Princess and the Pirates: Adventure in Alabasta (2007) | retell | 2007-03 | Retells the Alabasta arc
+One Piece: Dead End Adventure (2003) | films | 2003-03 | After Alabasta | Robin has joined and the crew still sails the Going Merry, not yet knowing their new bounties. || Robin sudah bergabung dan kru masih memakai Going Merry, belum tahu hadiah buruan baru mereka.
+One Piece: Curse of the Sacred Sword (2004) | films | 2004-03 | After Skypiea | Here the crew does know the post-Alabasta bounties, which is what puts it after the previous film. || Di sini kru sudah tahu hadiah buruan pasca-Alabasta, itu yang menaruhnya setelah film sebelumnya.
+One Piece: Baron Omatsuri and the Secret Island (2005) | films | 2005-03 | Going Merry era
+One Piece: Giant Mecha Soldier of Karakuri Castle (2006) | films | 2006-03 | Before Water 7
+One Piece Episode of Merry: The Tale of One More Friend (2013) | retell | 2013-08 | Retells Water 7 and Enies Lobby
+One Piece Film: Strong World (2009) | films | 2009-12 | After Thriller Bark | Brook's first film, and the only one Oda wrote — though he still does not count it as part of the story. || Film pertama Brook, dan satu-satunya yang ditulis Oda — meski ia tetap tidak menghitungnya bagian cerita.
+One Piece 3D: Straw Hat Chase (2011) | films | 2011-03 | Last one before the timeskip
+One Piece "3D2Y": Overcome Ace's Death! Luffy's Vow to his Friends (2014) | specials | 2014-08 | During the two-year gap | No crew at all: Luffy training alone on Rusukaina with Rayleigh. || Tanpa kru sama sekali: Luffy berlatih sendirian di Rusukaina bersama Rayleigh.
+One Piece Fan Letter (2024) | specials | 2024-10 | End of the two-year gap | Set on Sabaody as the crew drifts back together, told from the islanders' side. || Berlatar di Sabaody saat kru mulai berkumpul lagi, diceritakan dari sisi penduduknya.
+One Piece Film: Z (2012) | films | 2012-12 | First one after the timeskip
+One Piece: Episode of Luffy - Hand Island Adventure (2012) | specials | 2012-12 | After the timeskip | Despite the name it is an original story, not a retelling — the flashback to Luffy's beginning is only a part of it. || Meski namanya begitu, ini cerita orisinal, bukan penceritaan ulang — kilas balik awal Luffy cuma sebagiannya.
+One Piece: Adventure of Nebulandia (2015) | specials | 2015-12 | After the timeskip
+One Piece Episode of Sabo: The Three Brothers' Bond - The Miraculous Reunion and the Inherited Will (2015) | retell | 2015-08 | Retells Dressrosa, Sabo's side
+One Piece: Heart of Gold (2016) | specials | 2016-07 | Leads into Film: GOLD | A prequel, not a follow-up: it aired a week before the film and ends with the crew getting the card that takes them there. || Prekuel, bukan lanjutan: tayang seminggu sebelum filmnya dan berakhir saat kru mendapat kartu menuju ke sana.
+One Piece Film: GOLD (2016) | films | 2016-07 | After Dressrosa
+Luffy-senpai Support Project! Barto's Secret Room 4! (2023) | retell | 2023-10 | Recaps Luffy against Kaidou
+A Very Special Feature! Momonosuke's Road to Becoming a Great Shogun (2023) | retell | 2023-12 | Recaps the end of Wano
+One Piece - S00E46 - One Piece Film - Red (2023) | films | 2022-08 | After Wano | Jinbe sails with the crew and they use what they learned in Wano — though Big Mom is still an Emperor here, which the series had moved past. || Jinbe sudah berlayar bersama kru dan mereka memakai apa yang dipelajari di Wano — meski Big Mom masih jadi Kaisar di sini, hal yang sudah dilewati serialnya.
+
+# ============ SPIDER-MAN (Raimi / Amazing) ============
+# Curated only to stop the builder drawing one line through two continuities that never meet.
+@saga spider-man | Spider-Man | Two separate continuities, not one line: Raimi's trilogy and the Amazing reboot never meet. Pick a lane and stay in it. || Dua kontinuitas terpisah, bukan satu garis: trilogi Raimi dan reboot Amazing tidak pernah bertemu. Pilih satu jalur dan ikuti.
+@lane raimi | Raimi trilogy || Trilogi Raimi
+@lane amazing | The Amazing Spider-Man || The Amazing Spider-Man | fork: Spider-Man (2002)
+
+Spider-Man (2002) | raimi | 2002-05
+Spider-Man 2 (2004) | raimi | 2004-06
+Spider-Man 3 (2007) | raimi | 2007-05
+The Amazing Spider-Man (2012) | amazing | 2012-07 | Starts over | A reboot, not a sequel: same origin told again with a new cast. || Reboot, bukan sekuel: asal-usul yang sama diceritakan lagi dengan pemain baru.
+The Amazing Spider-Man 2 (2014) | amazing | 2014-05
+
+# ============ BATMAN (Nolan / Reeves) ============
+@saga batman | Batman | Two separate continuities: Nolan's trilogy ends for good, and The Batman starts over. Neither follows the other. || Dua kontinuitas terpisah: trilogi Nolan selesai sepenuhnya, lalu The Batman memulai dari awal. Keduanya tidak saling melanjutkan.
+@lane nolan | The Dark Knight trilogy || Trilogi The Dark Knight
+@lane reeves | Reeves' Gotham || Gotham versi Reeves | fork: Batman Begins (2005)
+
+Batman Begins (2005) | nolan | 2005-06
+The Dark Knight (2008) | nolan | 2008-07
+The Dark Knight Rises (2012) | nolan | 2012-07
+The Batman (2022) | reeves | 2022-03 | Starts over | A separate Gotham with its own cast and its own second year of Batman. || Gotham terpisah dengan pemain sendiri dan tahun kedua Batman versinya sendiri.
+The Penguin (2024) | reeves | 2024-09 | Days after The Batman
+
+# ============ DC ON SCREEN ============
+@saga dc-universe | DC on screen | Two universes sharing a shelf: Snyder's DCEU, and the DCU that Superman (2025) restarted from scratch. Peacemaker is the one title that crosses between them. || Dua semesta di rak yang sama: DCEU versi Snyder, dan DCU yang dimulai ulang dari nol lewat Superman (2025). Peacemaker satu-satunya yang menyeberang.
+@lane dceu | DC Extended Universe || DC Extended Universe
+@lane dcu | DCU — Chapter One || DCU — Bab Satu | fork: Zack Snyder's Justice League (2021)
+
+Man of Steel (2013) | dceu | 2013-06
+Batman v Superman - Dawn of Justice (2016) | dceu | 2016-03
+Zack Snyder's Justice League (2021) | dceu | 2021-03 | | Snyder's own four-hour cut of the 2017 film, finished years after he left it. || Potongan empat jam versi Snyder sendiri dari film 2017, diselesaikan bertahun-tahun setelah ia meninggalkannya.
+Peacemaker (2022) | dcu | 2022-01 | Crosses both | Made for the DCEU, then carried into the new DCU: James Gunn kept everything except the season-one finale's Justice League cameo. || Dibuat untuk DCEU lalu dibawa ke DCU baru: James Gunn mempertahankan semuanya kecuali cameo Justice League di akhir musim pertama.
+Superman (2025) | dcu | 2025-07 | Chapter One begins
+Supergirl (2026) | dcu | 2026-06
+Lanterns (2026) | dcu | 2026-08 | After Superman | Guy Gardner carries over from Superman (2025), which is how this one is tied to the rest. || Guy Gardner dibawa dari Superman (2025), itu yang menyambungkan serial ini dengan sisanya.
+
+# ============ NEON GENESIS EVANGELION ============
+@saga evangelion | Neon Genesis Evangelion | The Rebuild films retell the TV series, then break away from it. The 3.0 prologue short came out last of all but belongs before 3.0. || Film Rebuild menceritakan ulang serial TV lalu berbelok darinya. Film pendek prolog 3.0 rilis paling akhir tetapi posisinya sebelum 3.0.
+@lane tv | TV series || Serial TV
+@lane rebuild | Rebuild films || Film Rebuild | fork: Neon Genesis Evangelion (1995)
+
+Neon Genesis Evangelion (1995) | tv | 1995-10
+Evangelion: 1.0 You Are (Not) Alone (2007) | rebuild | 2007-09 | Retells episodes 1-6
+Evangelion: 2.0 You Can (Not) Advance (2009) | rebuild | 2009-06 | Breaks from the series
+EVANGELION:3.0(-46h) (2023) | rebuild | 2023-03 | 46 hours before 3.0 | A prologue short that only shipped with the final film's Japanese Blu-ray in 2023, yet is set before 3.0. || Film pendek prolog yang baru ikut Blu-ray Jepang film terakhir pada 2023, padahal berlatar sebelum 3.0.
+Evangelion: 3.0 You Can (Not) Redo (2012) | rebuild | 2012-11 | Fourteen years later
+Evangelion: 3.0+1.0 Thrice Upon a Time (2021) | rebuild | 2021-03
+
 # ── Names for clusters the builder derives automatically (@alias <any member> | <Saga name>) ──
 @alias Batman Begins (2005) | Batman
 @alias Demon Slayer: Kimetsu no Yaiba (2019) | Demon Slayer

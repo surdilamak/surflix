@@ -115,33 +115,46 @@ Super Dragon Ball Heroes (2018) > Dragon Ball Super (2015) | universe | h | A pr
 Dr. Slump: Arale-chan (1981) > Dragon Ball (1986) | universe | h | Dr. Slump and Dragon Ball share a creator, Akira Toriyama, and Arale makes cameos in Dragon Ball. || Dr. Slump dan Dragon Ball punya kreator yang sama, Akira Toriyama, dan Arale muncul sebagai cameo di Dragon Ball.
 
 # ============ ONE PIECE ============
-One Piece - S00E46 - One Piece Film - Red (2023) > One Piece (1999) | universe | h | @film-of-series
-One Piece "3D2Y": Overcome Ace's Death! Luffy's Vow to his Friends (2014) > One Piece (1999) | universe | h | @film-of-series
-One Piece 3D: Straw Hat Chase (2011) > One Piece (1999) | universe | h | @film-of-series
-One Piece Episode of East Blue (2017) > One Piece (1999) | universe | h | @film-of-series
-One Piece Episode of Merry: The Tale of One More Friend (2013) > One Piece (1999) | universe | h | @film-of-series
-One Piece Episode of Nami: Tears of a Navigator and the Bonds of Friends (2012) > One Piece (1999) | universe | h | @film-of-series
-One Piece Episode of Sabo: The Three Brothers' Bond - The Miraculous Reunion and the Inherited Will (2015) > One Piece (1999) | universe | h | @film-of-series
-One Piece Fan Letter (2024) > One Piece (1999) | universe | h | @film-of-series
-One Piece Film: GOLD (2016) > One Piece (1999) | universe | h | @film-of-series
-One Piece Film: Strong World (2009) > One Piece (1999) | universe | h | @film-of-series
-One Piece Film: Z (2012) > One Piece (1999) | universe | h | @film-of-series
-One Piece: Adventure of Nebulandia (2015) > One Piece (1999) | universe | h | @film-of-series
-One Piece: Baron Omatsuri and the Secret Island (2005) > One Piece (1999) | universe | h | @film-of-series
-One Piece: Chopper's Kingdom on the Island of Strange Animals (2002) > One Piece (1999) | universe | h | @film-of-series
-One Piece: Clockwork Island Adventure (2001) > One Piece (1999) | universe | h | @film-of-series
-One Piece: Curse of the Sacred Sword (2004) > One Piece (1999) | universe | h | @film-of-series
-One Piece: Dead End Adventure (2003) > One Piece (1999) | universe | h | @film-of-series
-One Piece: Defeat the Pirate Ganzack! (1998) > One Piece (1999) | universe | h | @film-of-series
-One Piece: Episode of Chopper Plus: Bloom in the Winter, Miracle Cherry Blossom (2008) > One Piece (1999) | universe | h | @film-of-series
-One Piece: Episode of Luffy - Hand Island Adventure (2012) > One Piece (1999) | universe | h | @film-of-series
-One Piece: Giant Mecha Soldier of Karakuri Castle (2006) > One Piece (1999) | universe | h | @film-of-series
-One Piece: Heart of Gold (2016) > One Piece (1999) | universe | h | @film-of-series
-One Piece: The Desert Princess and the Pirates: Adventure in Alabasta (2007) > One Piece (1999) | universe | h | @film-of-series
-One Piece: The Movie (2000) > One Piece (1999) | universe | h | @film-of-series
-Luffy-senpai Support Project! Barto's Secret Room 4! (2023) > One Piece (1999) | universe | h | @film-of-series
-A Very Special Feature! Momonosuke's Road to Becoming a Great Shogun (2023) > One Piece (1999) | universe | h | @film-of-series
-ONE PIECE (2023) > One Piece (1999) | universe | h | @adaptation
+# Placement sentences below are read off the crew aboard, per onepiece.fandom.com. They are
+# viewing-safety bounds, NOT canon: only the three arc retellings adapt the manga. See sagas.txt.
+
+# — before the series, and the series itself adapted again —
+One Piece: Defeat the Pirate Ganzack! (1998) > One Piece (1999) | universe | h | The pilot OVA, made a year before the series: only Luffy, Zoro and Nami are aboard and nothing from the manga is adapted. || OVA perintis, dibuat setahun sebelum serialnya: cuma Luffy, Zoro, dan Nami yang ada dan tidak ada bagian manga yang diadaptasi.
+ONE PIECE (2023) > One Piece (1999) | remake | h | The Netflix live-action series retells the East Blue saga in eight episodes, from Romance Dawn to Arlong Park. || Serial live-action Netflix menceritakan ulang saga East Blue dalam delapan episode, dari Romance Dawn sampai Arlong Park.
+
+# — the three retellings of canon arcs —
+One Piece: The Desert Princess and the Pirates: Adventure in Alabasta (2007) > One Piece (1999) | remake | h | A standalone retelling of the Alabasta arc, reanimated from scratch. || Penceritaan ulang berdiri sendiri dari arc Alabasta, dianimasikan ulang dari nol.
+One Piece: Episode of Chopper Plus: Bloom in the Winter, Miracle Cherry Blossom (2008) > One Piece (1999) | remake | h | A what-if retelling of Drum Island: Robin, Franky and the Thousand Sunny are in it, none of which existed yet at that point in the series. || Penceritaan ulang andai-andai dari Drum Island: ada Robin, Franky, dan Thousand Sunny, yang semuanya belum ada pada titik itu di serialnya.
+One Piece Episode of East Blue (2017) > One Piece (1999) | remake | h | An abridged retelling of the whole East Blue saga, framed as the crew remembering it at Reverse Mountain. || Penceritaan ulang ringkas seluruh saga East Blue, dibingkai sebagai kenangan kru di Reverse Mountain.
+One Piece Episode of Nami: Tears of a Navigator and the Bonds of Friends (2012) > One Piece (1999) | remake | h | Retells the Arlong Park arc, framed as Nami remembering it years later on the way to Fish-Man Island. || Menceritakan ulang arc Arlong Park, dibingkai sebagai kenangan Nami bertahun-tahun kemudian dalam perjalanan ke Fish-Man Island.
+One Piece Episode of Merry: The Tale of One More Friend (2013) > One Piece (1999) | remake | h | Retells Water 7 and Enies Lobby, ending on the crew's farewell to the Going Merry. || Menceritakan ulang Water 7 dan Enies Lobby, berakhir pada perpisahan kru dengan Going Merry.
+One Piece Episode of Sabo: The Three Brothers' Bond - The Miraculous Reunion and the Inherited Will (2015) > One Piece (1999) | remake | h | Retells the first third of Dressrosa from Sabo's point of view, with the brothers' childhood woven in. || Menceritakan ulang sepertiga awal Dressrosa dari sudut pandang Sabo, dengan masa kecil ketiga bersaudara itu disisipkan.
+
+# — standalone films, placed by who is aboard —
+One Piece: The Movie (2000) > One Piece (1999) | universe | h | Four Straw Hats and a freshly painted Going Merry, so it sits between Syrup Village and the Baratie. || Baru empat anggota dan Going Merry yang catnya masih baru, jadi letaknya antara Syrup Village dan Baratie.
+One Piece: Clockwork Island Adventure (2001) > One Piece (1999) | universe | h | Zoro carries his Loguetown blades and Usopp his goggles, which puts it just before Reverse Mountain. || Zoro membawa pedang Loguetown dan Usopp memakai gogglenya, yang menaruhnya tepat sebelum Reverse Mountain.
+One Piece: Chopper's Kingdom on the Island of Strange Animals (2002) > One Piece (1999) | universe | h | Chopper is aboard but neither Vivi nor Robin is — a gap that barely exists in the series, and the first film to openly contradict it. || Chopper sudah ikut tetapi Vivi maupun Robin tidak ada — celah yang hampir tidak ada di serialnya, dan film pertama yang terang-terangan bertentangan dengannya.
+One Piece: Dead End Adventure (2003) > One Piece (1999) | universe | h | Robin has joined, the crew still sails the Going Merry, and nobody knows their new bounties yet. || Robin sudah bergabung, kru masih memakai Going Merry, dan belum ada yang tahu hadiah buruan baru mereka.
+One Piece: Curse of the Sacred Sword (2004) > One Piece (1999) | universe | h | Here the crew does know its post-Alabasta bounties, which is what places it after Dead End Adventure. || Di sini kru sudah tahu hadiah buruan pasca-Alabasta, itu yang menaruhnya setelah Dead End Adventure.
+One Piece: Baron Omatsuri and the Secret Island (2005) > One Piece (1999) | universe | h | Robin is aboard and the Going Merry is still afloat, which is as close as the film lets anyone place it. || Robin sudah ikut dan Going Merry masih berlayar, cuma sejauh itu filmnya bisa ditempatkan.
+One Piece: Giant Mecha Soldier of Karakuri Castle (2006) > One Piece (1999) | universe | h | Usopp is building the Perfect Clima-Tact in the opening credits, so it is set before Water 7. || Usopp sedang merakit Perfect Clima-Tact di kredit pembuka, jadi berlatar sebelum Water 7.
+One Piece Film: Strong World (2009) > One Piece (1999) | universe | h | Brook's first film and the only one Oda wrote; the crew is complete and the Marines unchanged, so it sits between Thriller Bark and Sabaody. || Film pertama Brook dan satu-satunya yang ditulis Oda; krunya lengkap dan Marinir belum berubah, jadi letaknya antara Thriller Bark dan Sabaody.
+One Piece 3D: Straw Hat Chase (2011) > One Piece (1999) | universe | h | The last film set before the two-year timeskip. || Film terakhir yang berlatar sebelum lompatan waktu dua tahun.
+One Piece Film: Z (2012) > One Piece (1999) | universe | h | The first film after the timeskip: the crew has reached the New World but Law is not with them yet. || Film pertama setelah lompatan waktu: kru sudah sampai New World tetapi Law belum ikut.
+One Piece Film: GOLD (2016) > One Piece (1999) | universe | h | Doflamingo has already fallen and Nami still carries her Sorcery Clima-Tact, placing it between Dressrosa and Zou. || Doflamingo sudah tumbang dan Nami masih memakai Sorcery Clima-Tact, menaruhnya antara Dressrosa dan Zou.
+One Piece - S00E46 - One Piece Film - Red (2023) > One Piece (1999) | universe | h | Jinbe sails with the crew and they use what Wano taught them — though Big Mom is still an Emperor here, which the series had already moved past. || Jinbe sudah berlayar bersama kru dan mereka memakai apa yang diajarkan Wano — meski Big Mom masih Kaisar di sini, hal yang sudah dilewati serialnya.
+
+# — TV specials —
+One Piece "3D2Y": Overcome Ace's Death! Luffy's Vow to his Friends (2014) > One Piece (1999) | universe | h | Set inside the two-year gap, with no crew at all: Luffy training alone on Rusukaina with Rayleigh. || Berlatar di dalam jeda dua tahun, tanpa kru sama sekali: Luffy berlatih sendirian di Rusukaina bersama Rayleigh.
+One Piece Fan Letter (2024) > One Piece (1999) | universe | h | The 25th-anniversary special, set on Sabaody at the end of the two-year gap and told from the islanders' side. || Spesial ulang tahun ke-25, berlatar di Sabaody pada akhir jeda dua tahun dan diceritakan dari sisi penduduknya.
+One Piece: Episode of Luffy - Hand Island Adventure (2012) > One Piece (1999) | universe | h | Despite the "Episode of" name this is an original story, not a retelling; Luffy's beginning appears only as a flashback inside it. || Meski bernama "Episode of", ini cerita orisinal, bukan penceritaan ulang; awal mula Luffy cuma muncul sebagai kilas balik di dalamnya.
+One Piece: Adventure of Nebulandia (2015) > One Piece (1999) | universe | h | The Foxy Pirates return; the crew sails alone with no Law aboard, so it is set before Punk Hazard. || Bajak Laut Foxy kembali; kru berlayar sendiri tanpa Law, jadi berlatar sebelum Punk Hazard.
+One Piece: Heart of Gold (2016) > One Piece (1999) | universe | h | A tie-in special set after Dressrosa, aired a week before Film: GOLD. || Spesial pendamping berlatar setelah Dressrosa, tayang seminggu sebelum Film: GOLD.
+One Piece: Heart of Gold (2016) > One Piece Film: GOLD (2016) | universe | h | A prequel, not a follow-up: it ends with the crew obtaining the Vivre Card that takes them to Gran Tesoro. || Prekuel, bukan lanjutan: berakhir saat kru mendapat Vivre Card yang membawa mereka ke Gran Tesoro.
+
+# — recap episodes inside the anime run —
+Luffy-senpai Support Project! Barto's Secret Room 4! (2023) > One Piece (1999) | universe | h | A recap episode slotted into the Wano run: Bartolomeo and O-Tama go back over Gear 5 Luffy against Kaidou. || Episode rangkuman yang disisipkan di tengah Wano: Bartolomeo dan O-Tama mengulas Gear 5 Luffy melawan Kaidou.
+A Very Special Feature! Momonosuke's Road to Becoming a Great Shogun (2023) > One Piece (1999) | universe | h | A recap episode closing out Wano: Momonosuke becoming Shogun and the crew leaving the country. || Episode rangkuman penutup Wano: Momonosuke menjadi Shogun dan kru meninggalkan negeri itu.
 
 # ============ POKEMON ============
 Pokémon: The First Movie (1998) > Pokemon (1997) | universe | h | @film-of-series
