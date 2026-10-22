@@ -12978,6 +12978,24 @@
     "source": "llm"
   },
   {
+    "sourceTmdbId": 30983,
+    "sourceMediaType": "tv",
+    "sourceTitle": "Meitantei Conan",
+    "sourceYear": 1996,
+    "sourceJellyfinId": "d6a325b31fb8aebcdacd4ba653d77dbe",
+    "targetTmdbId": 19885,
+    "targetMediaType": "tv",
+    "targetTitle": "Sherlock",
+    "targetYear": 2010,
+    "targetJellyfinId": "5ad67761879bd96575cdf85a77e3087e",
+    "relationship": "homage",
+    "confidence": "high",
+    "reason": "Keduanya turunan Sherlock Holmes. Gosho Aoyama menyusun nama samaran tokohnya dari Arthur Conan Doyle dan Edogawa Ranpo — dan Ranpo sendiri mengambil nama penanya dari pelafalan Jepang untuk Edgar Allan Poe.",
+    "reasonEn": "Both descend from Sherlock Holmes. Gosho Aoyama built his hero's alias out of Arthur Conan Doyle and Edogawa Ranpo — and Ranpo had taken his own pen name from a Japanese reading of Edgar Allan Poe.",
+    "status": "APPROVED",
+    "source": "llm"
+  },
+  {
     "sourceTmdbId": 62,
     "sourceMediaType": "movie",
     "sourceTitle": "2001: A Space Odyssey",
