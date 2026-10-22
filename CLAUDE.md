@@ -294,6 +294,30 @@ Pas lo work di project ini:
 6. **Always commit dengan descriptive message** — Idrus suka tracking history.
 7. **Run schema migration carefully** — pakai `npx prisma db push --accept-data-loss` cuma kalau lo confirm field changes are non-destructive.
 
+## Kalau ada film/serial baru di Jellyfin (2026-10-22)
+
+Judul baru **langsung muncul** di Just added, pencarian, dan hitungan library begitu library disinkronkan. Yang TIDAK otomatis adalah koneksi dan saganya — itu kurasi tangan.
+
+Urutannya, dan langkah 2–3 **harus dijalankan Idrus** karena butuh akses prod:
+
+```bash
+# 1. Prod membaca Jellyfin          -> Admin > Settings > Sync library
+#    (atau otomatis di latar saat kunjungan pertama ke Just added)
+
+# 2. Tarik snapshot library ke repo
+docker exec surflix node scripts/export-library.js      # mencetak daftar judul BARU
+docker cp surflix:/app/scripts/library-seed.json ./scripts/library-seed.json
+
+# 3. Baru koneksinya bisa ditulis
+#    tulis baris di scripts/curated/*.txt, lalu:
+node scripts/build-connections.js
+node scripts/build-sagas.js
+```
+
+**Kenapa langkah 2 wajib:** `build-connections.js` memvalidasi setiap judul kurasi terhadap `scripts/library-seed.json`. Selama berkas itu basi, judul baru dianggap "gak ketemu" dan builder gagal — jadi tidak ada koneksi yang bisa ditulis untuk film yang baru masuk. Sampai 2026-10-22 tidak ada `export-library.js` sama sekali, jadi tidak ada jalan menarik library dari prod; itu sudah diperbaiki.
+
+`library-seed.json` sekarang ter-format seperti dua berkas seed lainnya, supaya penambahan satu judul terbaca sebagai ~10 baris di diff, bukan satu baris 500 KB. `addedAt` sengaja tidak ikut diekspor: kolom itu diisi dari Jellyfin saat sync di tiap lingkungan.
+
 ## Font di-vendor ke repo (2026-10-22)
 Keempat layout memakai `next/font/local`, bukan `next/font/google`. Pengambilan font saat build pernah menggagalkan CI **tiga kali dalam satu hari** (`TypeError: Cannot read properties of null` di `@next/font/dist/google/loader.js`), dan satu-satunya penanganannya adalah push commit kosong untuk mengulang build. Sekarang build tidak menyentuh jaringan sama sekali.
 
