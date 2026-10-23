@@ -89,11 +89,14 @@ export function JustAddedView({ rows, jellyfinUrl, serverId, now }: { rows: Row[
                     {/* Lencana menempel di poster, bukan di paragraf judul: di dalam judul ia
                         memecah ritme baris dan terlempar ke baris sendiri kalau judulnya panjang. */}
                     {fresh && <em className="ref-new-badge">{t('new.week')}</em>}
+                    {/* Pita keterangan ikut di dalam kartu membulat, seperti .lp-frame di landing.
+                        Bedanya: landing memotong judul jadi satu baris; di sini judul tampil utuh,
+                        karena di halaman "apa yang baru" judul itu isi utamanya. Lihat .ref-new-strip. */}
+                    <span className="ref-new-strip">
+                      {r.title}
+                      {r.year ? <small> {r.year}</small> : null}
+                    </span>
                   </a>
-                  <p className="ref-new-title">
-                    {r.title}
-                    {r.year ? <small> {r.year}</small> : null}
-                  </p>
                   <p className="ref-new-meta" data-mapped={r.count > 0 ? '' : undefined}>
                     {state(r)}
                     <span> · {t('new.added', { when: addedLabel(r.addedAt) })}</span>

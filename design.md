@@ -117,6 +117,28 @@ Bukan satu angka untuk semuanya. Tiga kelompok, masing-masing punya alasan:
 
 > Sebelum audit, akar memakai 1,4 dan `.ref-caption` — prosa 19px selebar 60ch, teks paling banyak dibaca di beranda — memakai **1,3**. Keduanya di bawah ambang keterbacaan. Dinaikkan; elemen yang memang perlu rapat sudah menimpanya sendiri sejak awal, jadi tidak ada yang ikut melar.
 
+### Memotong judul: jangan andalkan line-clamp (2026-10-23)
+
+**`-webkit-line-clamp` sudah tidak bisa dipakai sebagai dasar tata letak.** Chrome 155 membuang mode warisannya: `display: -webkit-box` dipetakan ke `flow-root`, jadi clamp-nya **mati tanpa error** — teksnya tetap mengalir ke baris ketiga dan cuma terpotong `overflow: hidden`, yang menyisakan separuh baris di bawah kotaknya. Penggantinya, `line-clamp` standar, **belum ada di sana** (`CSS.supports('line-clamp','2')` → `false`). Jadi untuk sementara tidak ada mekanisme pemotongan baris yang jalan di semua browser.
+
+Cara memeriksanya, karena `getComputedStyle` saja menipu (stylesheet-nya terlihat benar):
+
+```js
+getComputedStyle(el).display                        // 'flow-root' = clamp mati
+const r = document.createRange(); r.selectNodeContents(el);
+r.getClientRects().length                           // jumlah baris yang benar-benar dirender
+el.scrollHeight > el.clientHeight                   // true = ada yang terpotong
+```
+
+Dua jalan yang dipakai sekarang, pilih sesuai peran judulnya:
+
+| Peran judul | Pola | Contoh |
+|---|---|---|
+| Penanda di mozaik rapat | satu baris, `white-space: nowrap` + `text-overflow: ellipsis` — tidak butuh clamp | `.lp-strip` (landing) |
+| Isi utama halaman | **tampil utuh**, `min-height` dua baris untuk keseragaman, boleh tumbuh | `.ref-new-strip` (Just added) |
+
+Kalau judulnya boleh tumbuh, kartunya harus disejajarkan — lihat **Kartu → Kartu Just added**.
+
 ### Reference — pemakaian
 
 | Elemen | Token |
@@ -315,10 +337,10 @@ Semua animasi dimatikan di bawah `@media (prefers-reduced-motion: reduce)`.
 ### Lencana
 
 **`badge`** — penanda status kecil
-- Kanon: radius `{rounded.sm}` 6px, padding `1px 7px`, teks **12px** berat 600–700, tinta `{colors.accent-ink}` di atas warna status.
-- Implementasi: `.rq-badge-*` (empat warna semantik), `.ref-new-badge`, `.ref-galaxy-wait`. **Disamakan ke 12px pada 2026-10-23** — sebelumnya 11/11/12.
+- Kanon: radius `{rounded.sm}` 6px, padding `4px 8px`, teks **13px** / line-height 16px (tinggi total pas **24px**, kelipatan 4), berat 500–700, tinta `{colors.accent-ink}` di atas warna status.
+- Implementasi: `.rq-badge-*` (empat warna semantik), `.ref-new-badge`, `.ref-galaxy-wait`. Disamakan pada 2026-10-23 — sebelumnya 11/11/12.
 - **Lencana menempel pada bendanya, bukan pada teksnya.** `.ref-new-badge` dipindahkan ke sudut kiri-atas poster (8px dari tepi) pada 2026-10-23; sebelumnya ia disisipkan inline di dalam paragraf judul, sehingga memecah ritme baris dan terlempar ke baris sendiri setiap kali judulnya panjang.
-- **Inspector menandai ini** (`small-text`, ambangnya 13px) dan itu **bukan positif palsu** melainkan keputusan yang diambil sadar: lencana seukuran teks isi berhenti terbaca sebagai penanda sekunder. Kalau nanti ada keluhan keterbacaan, naikkan ke 13px dan terima bahwa lencananya jadi lebih berat.
+- **12px sempat dicoba dan dibatalkan.** Alasan menahannya di 12px adalah "lencana seukuran teks isi berhenti terbaca sebagai penanda sekunder" — tetapi itu satu-satunya pelanggar `small-text` yang tersisa di Just added (16 blok), dan yang membedakan lencana dari teks isi sebenarnya warnanya, bukan ukurannya. Di 13px ia tetap terbaca sebagai lencana dan halaman lulus 0 FAIL.
 
 ### Kartu
 
@@ -338,6 +360,12 @@ Semua animasi dimatikan di bawah `@media (prefers-reduced-motion: reduce)`.
 
 **`ref-panel`** — keterangan melayang di atas panggung
 - `position: absolute`, kanan `{spacing.md}`–32px, atas 24px, lebar `min(380px, …)`, latar `{colors.bg}`, padding `24px 26px 26px`. Di bawah 1024px jadi statis dan menumpuk.
+
+**`ref-new-poster`** — kartu Just added, turunan `.lp-frame` milik landing
+- Poster rasio 2/3 + pita judul **di dalam** satu kotak `overflow: hidden` beradius `{rounded.md}`; lencana "New this week" menempel di pojok kiri atas poster, bukan di baris judul.
+- Judulnya tampil utuh, jadi tingginya berbeda-beda. Supaya satu baris grid tidak bertingkat, `li`-nya memakai **subgrid** tiga baris (kartu / keterangan / tautan) dengan `row-gap: 0`; dasar kartu, keterangan, dan tautan jadi sejajar di seluruh baris.
+- Latar kartu disetel `{colors.field-1}` — sewarna pita, bukan `{colors.surface}`. Kalau subgrid meregangkan kartu melebihi poster + pita, sisa ruangnya menyatu dengan pita alih-alih muncul sebagai pias terang.
+- Kolomnya `repeat(auto-fill, minmax(190px, 1fr))`, bukan jumlah tetap: enam kolom tetap menyisakan ~155px per kartu di 1024–1280px, dan judul film membungkus sampai empat baris di lebar itu.
 
 ### Pita penuh-layar
 
