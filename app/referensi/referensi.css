@@ -8,10 +8,16 @@
   --surface: #f4f4f2;
   --ink: #1f2b4d;
   --muted: #6a7186;
-  --accent: #ff5200; /* oranye logo Surflix, sama dengan landing dan Request Hub */
-  --accent-hover: #ff6a26;  /* sama dengan .rq-btn-primary:hover di Request Hub */
-  --accent-active: #e04800;
-  --accent-ink: #0d0d0f;
+  /* Skala oranye. Angka kontras diukur, bukan ditaksir - lihat design.md.
+     --accent di atas putih cuma 3,25:1, jadi AMAN untuk isian dan judul besar,
+     TIDAK aman untuk teks ukuran normal di permukaan terang; pakai --accent-text. */
+  --accent-tint: #fff1ea;   /* latar sangat lembut di permukaan terang */
+  --accent-soft: #ffe7dc;   /* latar lembut, baris terpilih, lencana */
+  --accent: #ff5200;        /* isian tombol, pill aktif, penanda - 5,97:1 di bidang gelap */
+  --accent-hover: #ff6a26;  /* hover di bidang gelap; sama dengan .rq-btn-primary:hover */
+  --accent-active: #e04800; /* ditekan */
+  --accent-text: #b83a00;   /* teks dan tautan di permukaan terang - 5,76:1 di putih */
+  --accent-ink: #0d0d0f;    /* tinta DI ATAS aksen */
   --field-1: #05070a;
   --field-1-ink: #ffffff;
   --field-1-muted: #a9aebd;
@@ -568,7 +574,7 @@
 .ref-saga-pairs h3 { font-size: var(--step-body); font-weight: 600; }
 .ref-saga-pairs ul { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px 24px; margin: 20px 0 0; padding: 0; list-style: none; }
 .ref-saga-pairs a { display: block; font-size: 15px; font-weight: 600; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; transition: color 0.2s; }
-.ref-saga-pairs a:hover { color: var(--accent); }
+.ref-saga-pairs a:hover { color: var(--accent-text); } /* 15px di putih: --accent cuma 3,25:1 */
 @media (max-width: 1023px) { .ref-saga-pairs ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 767px) { .ref-saga-pairs ul { grid-template-columns: minmax(0, 1fr); } }
 .ref-saga-note { padding-top: clamp(56px, 6vw, 80px); padding-bottom: clamp(56px, 6vw, 80px); }

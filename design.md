@@ -12,67 +12,72 @@
 
 ## 1. Colors
 
-Satu aksen untuk seluruh portal: **`#ff5200`**. Dipakai hanya untuk aksi utama dan penanda "kamu di sini". Jangan dipakai sebagai warna dekorasi.
+> Setiap warna di bawah disertai **di mana ia dipakai**. Kalau sebuah token tidak punya kalimat itu, ia belum terpakai — dan itu ditandai.
+> Angka kontras **diukur**, bukan ditaksir. Ambang WCAG AA: 4,5:1 untuk teks normal, 3:1 untuk teks besar (≥24px biasa / ≥18,7px tebal) dan untuk komponen antarmuka.
 
-### Aksen — sama di semua permukaan
+### Skala aksen
 
-| Token | Hex | Kegunaan |
-|---|---|---|
-| `accent` | `#ff5200` | Isian tombol utama, pill navigasi aktif, penanda terpilih |
-| `accent-hover` | `#ff6a26` | Hover tombol utama (lebih **terang**, bukan lebih gelap) |
-| `accent-active` | `#e04800` | Status ditekan |
-| `accent-ink` | `#0d0d0f` | Teks/ikon **di atas** aksen. Jangan putih — kontrasnya kurang |
+Satu warna untuk seluruh portal, **#ff5200**, dengan enam langkah turunan. Dipakai hanya untuk aksi utama dan penanda "kamu di sini" — jangan jadi warna dekorasi.
 
-Arah turunan sengaja **menerang** saat hover karena tiga dari empat permukaan berlatar gelap; menerang membaca sebagai "terangkat".
+| Token | Hex | Kontras | Dipakai untuk |
+|---|---|---|---|
+| `{colors.accent-tint}` | `#fff1ea` | tinta `{colors.ink}` di atasnya 12,6:1 | Latar sangat lembut di permukaan terang. **Belum terpakai** — tersedia untuk pita sorot dan baris terpilih |
+| `{colors.accent-soft}` | `#ffe7dc` | tinta `{colors.ink}` di atasnya 11,7:1 | Latar lembut, lencana, baris terpilih. **Belum terpakai** |
+| `{colors.accent}` | `#ff5200` | 5,97:1 di bidang gelap · **3,25:1 di putih** | Isian tombol utama, pill navigasi aktif, penanda terpilih, titik "Start here" di panggung gelap |
+| `{colors.accent-hover}` | `#ff6a26` | 6,79:1 di bidang gelap | Hover tombol utama. Arahnya **menerang**, karena tiga dari empat permukaan berlatar gelap |
+| `{colors.accent-active}` | `#e04800` | 4,71:1 di bidang gelap | Keadaan ditekan |
+| `{colors.accent-text}` | `#b83a00` | **5,76:1 di putih** | Teks dan tautan beraksen **di permukaan terang**. Dipakai di `.ref-saga-pairs a:hover` |
+| `{colors.accent-ink}` | `#0d0d0f` | — | Tinta **di atas** aksen. Jangan putih: `#ffffff` di atas `#ff5200` cuma 2,8:1 |
+
+**Aturan yang paling mudah dilanggar:** `{colors.accent}` di atas putih hanya **3,25:1**. Aman untuk isian tombol dan judul besar, **tidak aman untuk teks ukuran normal** — pakai `{colors.accent-text}`. Ini sudah pernah terjadi: tautan 15px di indeks Watch order memakai `{colors.accent}` dan gagal AA sampai diperbaiki 2026-10-23.
 
 ### Permukaan gelap — landing, Request Hub, PortalBar
 
-| Token | Hex | Kegunaan |
+| Token | Hex | Dipakai untuk |
 |---|---|---|
-| `bg` | `#0d0d0f` | Latar halaman |
-| `surface` | `#17171a` | Ubin, kartu |
-| `raised` / `surface-2` | `#232327` | Ubin di atas ubin, **isian tombol sekunder** |
-| `ink` | `#ffffff` | Teks utama |
-| `muted` | `#a3a3ab` | Teks sekunder, placeholder |
-| `paper` / `paper-ink` | `#ffffff` / `#0d0d0f` | Blok terang di dalam halaman gelap (landing) |
+| `{colors.bg}` | `#0d0d0f` | Latar halaman |
+| `{colors.surface}` | `#17171a` | Ubin, kartu |
+| `{colors.raised}` | `#232327` | Ubin di atas ubin, **isian tombol sekunder**, keadaan hover |
+| `{colors.ink}` | `#ffffff` | Teks utama |
+| `{colors.muted}` | `#a3a3ab` | Teks sekunder, placeholder |
+| `{colors.paper}` / `{colors.paper-ink}` | `#ffffff` / `#0d0d0f` | Blok terang di dalam halaman gelap (landing) |
 
 ### Surflix Reference — permukaan terang
 
-Reference adalah satu-satunya permukaan yang **terang**, dengan tinta navy, bukan hitam.
+Satu-satunya permukaan terang, dan tintanya **navy, bukan hitam**.
 
-| Token | Hex | Kegunaan |
+| Token | Hex | Dipakai untuk |
 |---|---|---|
-| `bg` | `#ffffff` | Latar halaman |
-| `surface` | `#f4f4f2` | Blok netral, **isian tombol sekunder** |
-| `ink` | `#1f2b4d` | Teks utama (navy, bukan hitam) |
-| `muted` | `#6a7186` | Teks sekunder |
-| `field-1` / `field-1-ink` / `field-1-muted` | `#05070a` / `#ffffff` / `#a9aebd` | Bidang gelap: hero, panggung 3D, Galaxy |
-| `field-2` / `field-2-ink` | `#e3e1dc` | Bidang krem untuk bagian "cara kerja" |
+| `{colors.bg}` | `#ffffff` | Latar halaman |
+| `{colors.surface}` | `#f4f4f2` | Blok netral, isian tombol sekunder |
+| `{colors.ink}` | `#1f2b4d` | Teks utama |
+| `{colors.muted}` | `#6a7186` | Teks sekunder |
+| `{colors.field-1}` | `#05070a` | **Bidang gelap**: hero, panggung 3D, panggung Watch order, Galaxy |
+| `{colors.field-1-ink}` / `{colors.field-1-muted}` | `#ffffff` / `#a9aebd` | Teks di atas bidang gelap |
+| `{colors.field-2}` / `{colors.field-2-ink}` | `#e3e1dc` / `#1f2b4d` | Bidang krem untuk bagian "cara kerja" |
 
 ### Semantik — Request Hub
 
 | Token | Hex | Arti |
 |---|---|---|
-| `rq-green` | `#30d158` | Tersedia / selesai |
-| `rq-blue` | `#64d2ff` | Sedang diproses |
-| `rq-yellow` | `#ffd60a` | Menunggu |
-| `rq-red` | `#ff6961` | Gagal / ditolak |
+| `{colors.green}` | `#30d158` | Tersedia / selesai |
+| `{colors.blue}` | `#64d2ff` | Sedang diproses |
+| `{colors.yellow}` | `#ffd60a` | Menunggu |
+| `{colors.red}` | `#ff6961` | Gagal / ditolak |
 
 ### Jenis hubungan — Reference
 
-Tujuh warna untuk tujuh jenis koneksi. Dipakai di peta 3D, Galaxy, dan legenda jalur Watch order. **Jangan dipakai untuk hal lain.**
+Tujuh warna untuk tujuh jenis koneksi, dipakai di peta 3D, Galaxy, dan legenda jalur Watch order. **Jangan dipakai untuk hal lain** — begitu dipinjam untuk keperluan lain, legendanya berhenti bermakna.
 
 | Token | Hex | Hubungan |
 |---|---|---|
-| `rel-homage` | `#f7941d` | Homage |
-| `rel-inspired` | `#4f8ff0` | Terinspirasi |
-| `rel-visual` | `#8a8576` | Meminjam tampilan |
-| `rel-remake` | `#1f9d7d` | Diceritakan ulang |
-| `rel-universe` | `#7b859a` | Semesta sama |
-| `rel-director` | `#9b59d0` | Sutradara sama |
-| `rel-talent` | `#e0405f` | Pemain sama |
-
----
+| `{colors.rel-homage}` | `#f7941d` | Homage |
+| `{colors.rel-inspired}` | `#4f8ff0` | Terinspirasi |
+| `{colors.rel-visual}` | `#8a8576` | Meminjam tampilan |
+| `{colors.rel-remake}` | `#1f9d7d` | Diceritakan ulang |
+| `{colors.rel-universe}` | `#7b859a` | Semesta sama |
+| `{colors.rel-director}` | `#9b59d0` | Sutradara sama |
+| `{colors.rel-talent}` | `#e0405f` | Pemain sama |
 
 ## 2. Typography
 
@@ -122,17 +127,17 @@ Berat: 800 untuk display dan judul, 600 untuk penekanan, 400–500 untuk isi. Ja
 
 ## 3. Shape
 
-Satu radius untuk seluruh portal: **8px**.
+### Skala radius
 
-| Bentuk | Nilai |
-|---|---|
-| Tombol, ubin, kartu, input, dropdown | `8px` |
-| Pill navigasi, lencana status | penuh (`999px`) |
-| Lencana kecil Request Hub | `6px` |
+| Token | Nilai | Dipakai untuk | Jumlah pemakaian |
+|---|---|---|---|
+| `{rounded.none}` | 0px | Pita penuh-layar: hero, panggung, footer | — |
+| `{rounded.xs}` | 4px | Lencana kecil, penanda | 4 |
+| `{rounded.sm}` | 6px | Lencana status Request Hub, thumbnail daftar | 5 |
+| `{rounded.md}` | **8px** | **Nilai utama**: tombol, ubin, kartu, isian, dropdown | 13 |
+| `{rounded.full}` | 999px | Pill navigasi, lencana status, cakram tombol putar | 14 |
 
-Tidak ada radius lain. Kalau butuh yang baru, berarti komponennya yang salah.
-
----
+Ritmenya 4 / 6 / 8 / pill. **Kalau butuh radius baru, kemungkinan besar komponennya yang salah**, bukan skalanya yang kurang.
 
 ## 4. Elevation
 
@@ -165,29 +170,47 @@ Target sentuh minimal **44px**; tombol standar `min-height: 48px`.
 
 ## 6. Layout
 
+### Skala spasi
+
+**Satuan dasar 4px.** Nilai di bawah diambil dari hitungan pemakaian nyata di kelima berkas CSS, bukan dari cita-cita.
+
+| Token | Nilai | Dipakai untuk | Jumlah |
+|---|---|---|---|
+| `{spacing.xxs}` | 4px | Jarak antar lencana, gap ikon-teks | 25 |
+| `{spacing.xs}` | **8px** | **Paling sering**: gap grid, padding dalam pill | 51 |
+| `{spacing.sm}` | 12px | Padding tombol kecil, gap antar baris | 40 |
+| `{spacing.md}` | 16px | Padding kartu, margin tepi telepon | 39 |
+| `{spacing.lg}` | 24px | Gap antar kartu, padding panel | 27 |
+| `{spacing.xl}` | 40px | Jarak antar blok di dalam satu bagian | 13 |
+| `{spacing.xxl}` | 64px | Jarak antar bagian | 9 |
+| `{spacing.section}` | 80px | Nafas antar bab halaman | 9 |
+
+Margin tepi global Reference: `--margin: clamp(16px, 2.2vw, 32px)` — 16px di telepon, 32px di layar lebar.
+
+### Grid dan lebar isi
+
 | Permukaan | Lebar isi | Margin tepi |
 |---|---|---|
 | Landing | penuh | `--m: 20px` |
 | Request Hub | `rq-wrap` 1280px | sama |
-| Reference | penuh | `--margin: clamp(16px, 2.2vw, 32px)` |
+| Reference | penuh | `--margin` |
 
-Titik henti: **1023px** (panel samping menumpuk), **767px** (telepon). PortalBar menyembunyikan logo, nama, dan tautan lokal di bawah 767px.
+### Titik henti
+
+**1023px** — panel samping berhenti melayang dan menumpuk di bawah panggung. **767px** — PortalBar menyembunyikan logo, nama portal, dan tautan lokal; tombol melebar penuh.
 
 ### Pola panggung (Reference)
 
 Ketiga pandangan — peta film 3D, Watch order, dan Galaxy — memakai **satu pola yang sama**:
 
 - Panggung memakai **seluruh lebar**, tidak dipotong kolom apa pun.
-- Panel keterangan **melayang di atasnya**: `position: absolute; right: var(--margin); top: 24px`, lebar `min(380px, ...)`, tinggi mengikuti isinya.
-- Supaya panel tidak menimbun apa pun, **semua perhitungan pemusatan di JS memakai "area terpakai"** = lebar panggung dikurangi jejak panel. Lihat `insetOf()` di `saga-stage.tsx` dan `panelInset()` di `connection-graph.tsx`; keduanya mengembalikan 0 kalau panel sedang statis (telepon), jadi satu kode untuk dua tata letak.
-- Peta 3D tambahan: kameranya juga **digeser** sejauh setengah jejak panel, karena cincinnya terpusat dan tidak bisa digeser pengguna seperti dua pandangan lain.
-- Di bawah 1024px panel jadi `position: static` dan menumpuk di bawah panggung.
+- Panel keterangan **melayang**: `position: absolute; right: var(--margin); top: 24px`, lebar `min(380px, …)`.
+- Supaya panel tidak menimbun apa pun, **semua perhitungan pemusatan di JS memakai "area terpakai"** = lebar panggung dikurangi jejak panel. Lihat `insetOf()` di `saga-stage.tsx` dan `panelInset()` di `connection-graph.tsx`; keduanya mengembalikan 0 saat panel statis, jadi satu kode melayani dua tata letak.
+- Peta 3D tambahan: kameranya **digeser** sejauh setengah jejak panel, karena cincinnya terpusat dan tidak bisa digeser pengguna.
 
 > Sampai 2026-10-22 panel mengambil kolom grid 400px, jadi panggungnya terpotong selebar itu (1040px dari 1440px).
 
-**Jangan merebut gesture roda di peta 3D.** Panggungnya di tengah halaman yang memang perlu di-scroll; Galaxy boleh karena ia setinggi layar penuh.
-
----
+**Jangan merebut gesture roda di peta 3D.** Panggungnya di tengah halaman yang perlu di-scroll; Galaxy boleh karena ia setinggi layar penuh.
 
 ## 7. Motion
 
@@ -202,7 +225,67 @@ Semua animasi dimatikan di bawah `@media (prefers-reduced-motion: reduce)`.
 
 ---
 
-## 8. Design Tokens — tempatnya
+## 8. Components
+
+Setiap entri: nama, satu kalimat tujuan, lalu spesifikasi dan **di mana ia dipakai**. Kalau sebuah komponen tidak punya kalimat "dipakai di", ia belum ada di kode.
+
+### Tombol
+
+**`btn-primary`** — aksi utama, satu per layar kalau bisa
+- Latar `{colors.accent}`, teks `{colors.accent-ink}`, `{typography.body}` tebal 500–600, padding `0 22px`, tinggi minimum **48px**, radius `{rounded.md}`.
+- Dipakai untuk "Watch on Surflix", "Find a title", "Start watching", kirim permintaan.
+- Hover: latar `{colors.accent-hover}`, naik 2px. Ditekan: `{colors.accent-active}`, `scale(0.98)`.
+- Nonaktif: latar `{colors.surface}`, teks `{colors.muted}`, tanpa transform, `cursor: not-allowed`.
+
+**`btn-secondary`** — aksi kedua di sebelah aksi utama
+- Latar `{colors.surface}` (terang) atau `{colors.raised}` (gelap), teks `{colors.ink}`, sisanya sama dengan primary.
+- Hover: satu langkah lebih terang.
+
+**`btn-light`** — primary dibalik untuk bidang gelap
+- Latar `{colors.field-1-ink}` putih, teks `{colors.field-1}`. Dipakai saat tombol berdiri di atas hero atau panggung gelap, karena oranye di atas hitam kurang menonjol dibanding putih.
+
+### Pill navigasi
+
+**`pb-pill`** + **`pb-pill-active`**
+- Diam: latar transparan, teks `{colors.muted}`, padding `0 14px`, tinggi 38px, radius `{rounded.full}`.
+- Aktif: latar `{colors.accent}`, teks `{colors.accent-ink}`.
+- Dipakai di PortalBar untuk tiga situs (Streaming / Request Hub / Reference) dan pasangan bahasa EN/ID.
+
+### Lensa (Reference)
+
+**`ref-lens`** — kendali tiga pandangan untuk satu judul
+- Baris pill: Peta / Urutan tonton / Galaxy. Yang aktif memakai `{colors.accent}`; sisanya `opacity: 0.6` dan menyala saat hover.
+- Muncul di halaman peta film, panel Galaxy, dan panel Watch order. **Lensa yang tidak berlaku disembunyikan** — tanpa saga tidak ada Urutan tonton; kalau tersisa satu, kendalinya tidak dirender sama sekali.
+
+### Panel panggung
+
+**`ref-panel`** — keterangan melayang di atas panggung
+- `position: absolute`, kanan `{spacing.md}`–32px, atas 24px, lebar `min(380px, …)`, latar `{colors.bg}`, radius `{rounded.none}`, padding `24px 26px 26px`.
+- Di bawah 1024px jadi `position: static` dan menumpuk di bawah panggung.
+
+### Kartu saga
+
+**`ref-saga-card`** — satu judul di garis waktu
+- Poster 100×150, titik `{colors.accent}` kalau terpilih, keterangan 13px di bawahnya.
+- Di bawah zoom 55% keterangan disembunyikan supaya panggungnya terbaca sebagai peta, bukan daftar.
+- Judul yang tidak ada di library tampil sebagai **`ref-saga-ghost`**: kotak abu bertuliskan "Not on Surflix" dengan tautan ke Request Hub.
+
+### Tombol putar di atas gambar (Jellyfin whitelabel)
+
+Bukan bagian portal ini, tetapi memakai bahasa yang sama dan dicatat di `~/Developer/jellyfin-whitelabel/README.md`: diam = cakram gelap tembus pandang, hover = `{colors.accent}`. Orange hanya menyala saat jadi sasaran klik.
+
+## 9. Known Gaps
+
+Hal yang **belum** rapi, dicatat supaya tidak terus-menerus ditemukan ulang:
+
+- **Spasi melenceng dari grid 4px.** Selain skala resmi, kode memakai 10px (34×), 14px (25×), 6px (22×), 22px (16×), 18px (12×) dan 2px (12×). Sebagian besar punya alasan optis, tetapi belum pernah ditinjau satu per satu.
+- **Satu radius nyasar:** ada `99px` yang mestinya `999px`, plus `10px` dan `12px` masing-masing sekali — tiga nilai di luar skala.
+- **`{colors.accent-tint}` dan `{colors.accent-soft}` belum terpakai.** Keduanya ditambahkan 2026-10-23 untuk melengkapi skala; belum ada komponen yang memakainya.
+- **Landing dan Reference punya skala tipografi terpisah** (40/64px vs `--step-display` 44–80px). Itu disengaja — papan ubin versus halaman editorial — tetapi belum pernah ditulis sebagai dua skala bernama.
+- **Admin memakai bahasa yang sama tetapi tidak diaudit** seteliti tiga permukaan tamu.
+- **Kontras belum diaudit menyeluruh.** Yang sudah diukur: skala aksen, dan satu kegagalan di tautan 15px yang sudah diperbaiki. Pasangan warna lain belum.
+
+## 10. Design Tokens — tempatnya
 
 | Berkas | Isi |
 |---|---|
@@ -216,7 +299,7 @@ CSS buatan sendiri **tidak berlayer**, jadi selalu menang atas utilitas Tailwind
 
 ---
 
-## 9. Positif palsu inspector
+## 11. Positif palsu inspector
 
 `scripts/inspect.mjs` dari taste-skill menandai empat hal yang **bukan cacat** di portal ini:
 

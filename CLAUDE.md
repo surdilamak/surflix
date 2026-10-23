@@ -210,6 +210,10 @@ Saat ini cuma ada `guestNote` field di request form (text-based, free-form). Use
 
 > **Dokumen lengkapnya ada di [`design.md`](./design.md)** (2026-10-22): warna, tipografi, bentuk, elevasi, status interaksi, layout, motion, dan daftar positif palsu inspector — untuk keempat permukaan sekaligus. Bagian di bawah ini ringkasan per permukaan; kalau keduanya berbeda, `design.md` yang benar.
 >
+> Sejak 2026-10-23 dokumen itu memakai format yang lebih kaya (dicontoh dari voltagent/awesome-design-md): setiap warna disertai kalimat **di mana ia dipakai**, komponen ditulis sebagai entri bernama dengan spesifikasi dan keadaannya, spasi dan radius punya skala bernama yang diambil dari **hitungan pemakaian nyata di CSS**, dan ada bagian **Known Gaps** yang jujur soal apa yang belum rapi.
+>
+> **Skala aksen sekarang enam langkah**, dengan angka kontras yang diukur. Yang paling mudah dilanggar: `--accent` (#ff5200) di atas putih cuma **3,25:1** - aman untuk isian tombol dan judul besar, TIDAK aman untuk teks ukuran normal. Untuk itu ada `--accent-text` (#b83a00, 5,76:1). Pelanggarannya sudah pernah terjadi dan diperbaiki.
+>
 > Dua aturan yang paling sering dilanggar: **judul halaman Reference memakai `--step-display`, jangan tulis `font-size` baru** (dulu ada lima aturan h1 terpisah, 63–107px), dan **warna status tombol diturunkan dengan menerang** (`#ff5200` → hover `#ff6a26` → ditekan `#e04800`), bukan menggelap.
 
 ### Request Hub (guest) — papan ubin, sejak 2026-10-21
