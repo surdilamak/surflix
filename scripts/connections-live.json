@@ -262,7 +262,7 @@
     "reason": "Kritikus mengaitkan tampilan hitam putih industrial dan lanskap suara A Girl Walks Home Alone at Night dengan Eraserhead; Ana Lily Amirpour menyebut David Lynch di antara pahlawannya.",
     "reasonEn": "Critics link the black-and-white, industrial look and soundscape of A Girl Walks Home Alone at Night to Eraserhead; Ana Lily Amirpour counts David Lynch among her heroes.",
     "confidence": "medium",
-    "status": "PENDING_REVIEW",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -1269,7 +1269,7 @@
     "reason": "Neill Blomkamp, pembuat District 9, tercatat sebagai produser eksekutif Ash.",
     "reasonEn": "Neill Blomkamp, who made District 9, is credited as an executive producer on Ash.",
     "confidence": "medium",
-    "status": "PENDING_REVIEW",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -2732,7 +2732,7 @@
     "reason": "Kritikus sering menempatkan keduanya berdampingan: anggaran kecil, gagasan besar, dan aturan yang harus dilacak penonton sendiri.",
     "reasonEn": "Critics often place them side by side: tiny budgets, huge ideas, and rules the viewer has to track alone.",
     "confidence": "medium",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -2751,7 +2751,7 @@
     "reason": "Kritikus menyamakan Coherence dengan episode Twilight Zone, terutama The Monsters Are Due on Maple Street; sutradara James Ward Byrkit menjawab \"Twilight Zone, tentu saja\" saat ditanya.",
     "reasonEn": "Critics liken Coherence to a Twilight Zone episode, notably The Monsters Are Due on Maple Street; director James Ward Byrkit answered \"Twilight Zone, for sure\" when asked about it.",
     "confidence": "medium",
-    "status": "PENDING_REVIEW",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -4689,7 +4689,7 @@
     "reason": "Adam Driver tampil di keduanya.",
     "reasonEn": "Adam Driver appears in both.",
     "confidence": "high",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -4708,7 +4708,7 @@
     "reason": "Keduanya melibatkan Ridley Scott sebagai sutradara.",
     "reasonEn": "Both involve Ridley Scott as director.",
     "confidence": "medium",
-    "status": "PENDING_REVIEW",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -5107,7 +5107,7 @@
     "reason": "Kedua film mengubah pintu konyol menuju hidup orang lain menjadi cerita tentang diri kita yang mungkin terjadi.",
     "reasonEn": "Both films turn a ridiculous doorway into other lives into a story about the people we could have been.",
     "confidence": "medium",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -5392,7 +5392,7 @@
     "reason": "Andrew Scott tampil di keduanya.",
     "reasonEn": "Andrew Scott appears in both.",
     "confidence": "medium",
-    "status": "PENDING_REVIEW",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -5753,7 +5753,7 @@
     "reason": "Noriyuki Abe menyutradarai keduanya.",
     "reasonEn": "Noriyuki Abe directed both.",
     "confidence": "high",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -6228,7 +6228,7 @@
     "reason": "Keduanya diproduksi di Toho di bawah Tomoyuki Tanaka, produser Godzilla yang asli.",
     "reasonEn": "Both were produced at Toho under Tomoyuki Tanaka, the producer of the original Godzilla.",
     "confidence": "medium",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -6798,7 +6798,7 @@
     "reason": "Charlotte Gainsbourg membintangi keduanya.",
     "reasonEn": "Charlotte Gainsbourg stars in both.",
     "confidence": "high",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -7007,7 +7007,7 @@
     "reason": "Kritikus membandingkan KPop Demon Hunters dengan Spider-Verse: keduanya lahir dari studio animasi Sony dan memadukan 3D dengan efek bergaya gambar tangan.",
     "reasonEn": "Critics compare KPop Demon Hunters to Spider-Verse: both come out of Sony's animation studios and blend 3D with stylised, hand-drawn-style effects.",
     "confidence": "medium",
-    "status": "PENDING_REVIEW",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -8584,7 +8584,7 @@
     "reason": "Modern Family memakai format mockumentary, dengan wawancara langsung ke kamera, yang dipopulerkan The Office di TV Amerika.",
     "reasonEn": "Modern Family adopts the mockumentary format, with talking-head interviews, that The Office popularised on American TV.",
     "confidence": "medium",
-    "status": "PENDING_REVIEW",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -8850,7 +8850,7 @@
     "reason": "Kritikus sering memasangkan keduanya: dua perempuan yang identitasnya kabur dan bertukar dalam California berlogika mimpi.",
     "reasonEn": "Critics often pair them: two women whose identities blur and swap in a dream-logic California.",
     "confidence": "medium",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -9192,7 +9192,7 @@
     "reason": "Produser Takashige Ichise tercatat di kedua film horor Jepang ini.",
     "reasonEn": "Producer Takashige Ichise is credited on both Japanese horror films.",
     "confidence": "medium",
-    "status": "PENDING_REVIEW",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -11016,7 +11016,7 @@
     "reason": "Kiki termasuk sosok yang terlihat terbang dalam Pawai Siluman, bersama Porco, Totoro, dan Taeko dari Only Yesterday.",
     "reasonEn": "Kiki is among the figures seen flying in the Monster Parade, alongside Porco, Totoro and Taeko from Only Yesterday.",
     "confidence": "medium",
-    "status": "PENDING_REVIEW",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -11681,7 +11681,7 @@
     "reason": "Rose Glass menunjuk penyelamat kesepian yang menunjuk dirinya sendiri di Taxi Driver sebagai acuan untuk Maud.",
     "reasonEn": "Rose Glass has pointed to Taxi Driver's lonely, self-appointed saviour as a model for Maud.",
     "confidence": "medium",
-    "status": "PENDING_REVIEW",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -12137,7 +12137,7 @@
     "reason": "Kritikus sering menempatkan Hirokazu Kore-eda dalam garis Ozu, dengan adegan rumah tangga yang tenang dan pembingkaian rendah, meski Kore-eda menganggap enteng perbandingan itu.",
     "reasonEn": "Critics often place Hirokazu Kore-eda in Ozu's lineage, citing quiet domestic scenes and low framing, though Kore-eda has downplayed the comparison.",
     "confidence": "medium",
-    "status": "PENDING_REVIEW",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -12270,7 +12270,7 @@
     "reason": "Produser Belén Atienza terlibat di keduanya.",
     "reasonEn": "Producer Belén Atienza worked on both.",
     "confidence": "medium",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -12403,7 +12403,7 @@
     "reason": "Keduanya dianimasikan di Madhouse, dan keduanya menjelajahi dunia aneh yang seperti mimpi.",
     "reasonEn": "Both were animated at Madhouse, and both drift through strange, dream-like worlds.",
     "confidence": "medium",
-    "status": "PENDING_REVIEW",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -12897,7 +12897,7 @@
     "reason": "Gurun Tatooine dan pahlawan muda dengan takdir tersembunyi banyak berutang pada Dune karya Frank Herbert, yang diadaptasi film 2021 ini.",
     "reasonEn": "Tatooine's desert and a young hero with a hidden destiny owe a lot to Frank Herbert's Dune, which this 2021 film adapts.",
     "confidence": "medium",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -13657,7 +13657,7 @@
     "reason": "Keduanya dibuat di Golden Harvest, Hong Kong.",
     "reasonEn": "Both were made at Hong Kong's Golden Harvest.",
     "confidence": "high",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -14303,7 +14303,7 @@
     "reason": "Joker versi Heath Ledger terinspirasi komik The Killing Joke, yang diadaptasi film 2016 ini.",
     "reasonEn": "Heath Ledger's Joker drew on the comic The Killing Joke, which this 2016 film adapts.",
     "confidence": "medium",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -14455,7 +14455,7 @@
     "reason": "Kritikus sering menempatkannya di samping The Witch: dunia pra-modern yang keras tempat iman menjadi jebakan.",
     "reasonEn": "Critics often place it beside The Witch: a harsh, pre-modern world where faith becomes a trap.",
     "confidence": "medium",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -15538,7 +15538,7 @@
     "reason": "Anna Biller menunjuk film Technicolor Hitchcock sebagai acuan tampilannya yang jenuh warna dan bak panggung.",
     "reasonEn": "Anna Biller has pointed to Hitchcock's Technicolor films as the model for her saturated, stage-like look.",
     "confidence": "medium",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -15614,7 +15614,7 @@
     "reason": "Penembak tunggal yang berjalan di antara dua pihak bertikai mengikuti cetakan Yojimbo, yang sudah lama diambil Lucasfilm.",
     "reasonEn": "The lone gunman who walks between two feuding sides follows the Yojimbo mould, one Lucasfilm has long drawn on.",
     "confidence": "medium",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -15861,7 +15861,7 @@
     "reason": "Kritikus sering memasangkan keduanya: kisah hantu yang menahan siapa yang sudah mati sampai akhir.",
     "reasonEn": "Critics often pair them: ghost stories that hold back who is dead until the end.",
     "confidence": "medium",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -16393,7 +16393,7 @@
     "reason": "Zentropa, perusahaan di balik film-film Lars von Trier, termasuk produser The Ugly Stepsister.",
     "reasonEn": "Zentropa, the company behind Lars von Trier's films, is among the producers of The Ugly Stepsister.",
     "confidence": "medium",
-    "status": "PENDING_REVIEW",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -17134,7 +17134,7 @@
     "reason": "Kevin Smith menulis dan menyutradarai Tusk dan menjadi ko-produser eksekutif Good Will Hunting.",
     "reasonEn": "Kevin Smith wrote and directed Tusk and was a co-executive producer on Good Will Hunting.",
     "confidence": "medium",
-    "status": "PENDING_REVIEW",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -17286,7 +17286,7 @@
     "reason": "Ella Rubin membintangi keduanya.",
     "reasonEn": "Ella Rubin stars in both.",
     "confidence": "medium",
-    "status": "PENDING_REVIEW",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -17343,7 +17343,7 @@
     "reason": "Production I.G menganimasikan keduanya.",
     "reasonEn": "Production I.G animated both.",
     "confidence": "high",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -17780,7 +17780,7 @@
     "reason": "Brittany Snow membintangi keduanya.",
     "reasonEn": "Brittany Snow stars in both.",
     "confidence": "medium",
-    "status": "PENDING_REVIEW",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
@@ -17818,7 +17818,7 @@
     "reason": "X menempatkan slasher-nya di rumah pertanian terpencil dengan rasa ngeri ala Bates Motel.",
     "reasonEn": "X sets its slasher in a lonely farmhouse with a Bates Motel kind of dread.",
     "confidence": "medium",
-    "status": "REJECTED",
+    "status": "APPROVED",
     "source": "llm"
   },
   {
