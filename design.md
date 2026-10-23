@@ -202,6 +202,20 @@ Margin tepi global Reference: `--margin: clamp(16px, 2.2vw, 32px)` — 16px di t
 | Request Hub | `rq-wrap` 1280px | sama |
 | Reference | penuh | `--margin` |
 
+### Jarak atas isi
+
+Satu token, `--pad-top: 112px` (96px di bawah 1024px), dipakai **semua halaman isi standar**: indeks Watch order, halaman saga, dan peta film. Ditegakkan 2026-10-23 — sebelumnya saga memakai `clamp(84px, 8vw, 96px)` sendiri, jadi menyimpang 16px dari dua lainnya.
+
+**Halaman hero penuh TIDAK memakainya**, dan itu disengaja: beranda Reference memusatkan judulnya di dalam cincin poster, Galaxy menghamparkannya di atas kanvas, Just added menyejajarkannya ke bawah di samping poster besar. Memaksa satu nilai ke ketiganya merusak komposisinya.
+
+Catatan jujur: judul halaman isi standar mendarat di 161–184px dari bilah, bukan di angka yang persis sama. Yang diseragamkan adalah **padding kontainernya**; yang berbeda adalah isi di atas judul — tautan kembali (~22px) di halaman saga versus bilah pencarian (~52px) di dua lainnya. Menambal selisihnya per halaman justru melanggar sistemnya.
+
+### Menandai halaman yang sedang dibuka
+
+**Setiap tautan navigasi lokal wajib menyetel `aria-current="page"` saat halamannya aktif**, termasuk saat pengunjung berada di halaman anaknya — `/timeline/mcu` menyalakan "Watch order", `/movie/299537` menyalakan "All maps". Gayanya sudah ada di `portal-bar.css` (`.pb-nav a[aria-current='page']`).
+
+> Sampai 2026-10-23 `PortalHeader` milik Reference tidak menyetelnya sama sekali, jadi dari bilah atas pengunjung tidak bisa tahu ia sedang di halaman mana. `TopNav` milik Request Hub sudah benar sejak awal. Ini kegagalan **Trunk Test** — uji dasar: dari halaman mana pun, bisakah orang menjawab "saya di mana"?
+
 ### Titik henti
 
 **1023px** — panel samping berhenti melayang dan menumpuk di bawah panggung. **767px** — PortalBar menyembunyikan logo, nama portal, dan tautan lokal; tombol melebar penuh.
@@ -342,7 +356,7 @@ Hal yang **belum** rapi, dicatat supaya tidak terus-menerus ditemukan ulang:
 - **`{colors.accent-tint}` dan `{colors.accent-soft}` belum terpakai.** Keduanya ditambahkan 2026-10-23 untuk melengkapi skala; belum ada komponen yang memakainya.
 - **Landing dan Reference punya skala tipografi terpisah** (40/64px vs `--step-display` 44–80px). Itu disengaja — papan ubin versus halaman editorial — tetapi belum pernah ditulis sebagai dua skala bernama.
 - **Admin memakai bahasa yang sama tetapi tidak diaudit** seteliti tiga permukaan tamu.
-- **Footer masih tiga implementasi** (`.rq-footer`, `.lp-footer`, `.ref-footer`). Padding bawah dan pola sticky sudah disamakan 2026-10-23, tetapi padding atasnya masih berbeda (64px / 57,6px / 90px) karena ketiganya berbeda ukuran dan peran — footer peta situs landing tidak sama dengan footer satu baris Reference. Belum disatukan jadi satu komponen.
+- **Footer masih tiga implementasi** (`.rq-footer`, `.lp-footer`, `.ref-footer`), tetapi **nilainya kini identik**: padding `64px … 24px` dan `margin-top: auto` di ketiganya. Yang belum adalah menyatukannya jadi satu komponen React; isinya memang berbeda (peta situs vs satu baris), jadi penyatuan berarti satu komponen dengan varian, bukan satu tampilan.
 - **Kontras belum diaudit menyeluruh.** Yang sudah diukur: skala aksen, dan satu kegagalan di tautan 15px yang sudah diperbaiki. Pasangan warna lain belum.
 
 ## 10. Design Tokens — tempatnya

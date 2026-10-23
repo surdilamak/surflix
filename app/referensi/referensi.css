@@ -43,6 +43,11 @@
   /* Satu ukuran judul halaman untuk SEMUA halaman portal. Sebelumnya ada lima aturan
      berbeda (63px-107px di layar 1440) yang lahir satu per satu, bukan dari sistem. */
   --step-display: clamp(2.75rem, 1rem + 5.2vw, 5rem);
+  /* jarak dari bilah portal ke awal blok isi, SAMA di semua halaman isi standar.
+     Halaman hero penuh (beranda, Galaxy, Just added) tidak memakainya: judulnya
+     diposisikan oleh komposisinya sendiri. */
+  --pad-top: 112px;
+  --pad-top-sm: 96px;
   --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
   --margin: clamp(16px, 2.2vw, 32px);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -181,7 +186,7 @@
 .ref-footer {
   margin-top: auto;
   display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 24px;
-  padding: clamp(64px, 10svh, 112px) var(--margin) 24px;
+  padding: 64px var(--margin) 24px;
   background: var(--bg); color: var(--muted); font-size: 15px;
 }
 .ref-footer nav { display: flex; gap: 24px; color: var(--ink); font-weight: 600; }
@@ -189,7 +194,7 @@
 .ref-footer > :last-child { text-align: right; }
 
 /* ── Halaman satu film ── */
-.ref-detail-top { position: relative; background: var(--field-1); color: var(--field-1-ink); padding: 112px var(--margin) 0; }
+.ref-detail-top { position: relative; background: var(--field-1); color: var(--field-1-ink); padding: var(--pad-top) var(--margin) 0; }
 .ref-back { display: inline-block; font-size: 15px; font-weight: 600; color: var(--field-1-muted); transition: color 0.2s; }
 .ref-back:hover { color: var(--field-1-ink); }
 .ref-detail-title { font-size: var(--step-display); }
@@ -230,7 +235,7 @@
   .ref-footer { grid-template-columns: 1fr; gap: 8px; padding-top: clamp(64px, 12svh, 96px); padding-bottom: 24px; font-size: 14px; }
   .ref-footer > :last-child { text-align: left; }
   .ref-footer nav { flex-wrap: wrap; gap: 8px 20px; }
-  .ref-detail-top { padding-top: 96px; }
+  .ref-detail-top { padding-top: var(--pad-top-sm); }
   .ref-why-row { grid-template-columns: 72px minmax(0, 1fr); }
   .ref-why-row .ref-frame { height: 108px; }
   .ref-why-row .ref-btn { grid-column: 1 / -1; width: 100%; }
@@ -512,7 +517,7 @@
 
 /* ── Watch order ── */
 /* Panggungnya memakai kerangka yang sama dengan peta 3D satu film: .ref-stage + .ref-stage-view + .ref-panel. */
-.ref-saga-head { padding-top: clamp(84px, 8vw, 96px); padding-bottom: clamp(28px, 3vw, 40px); }
+.ref-saga-head { padding-top: var(--pad-top); padding-bottom: clamp(28px, 3vw, 40px); }
 .ref-saga-head .ref-detail-sub { margin-top: 24px; }
 .ref-saga-head .ref-detail-actions { margin-top: 24px; }
 .ref-saga-head .ref-back { margin-bottom: 24px; }
