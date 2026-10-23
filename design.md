@@ -236,13 +236,39 @@ Margin tepi global Reference: `--margin: clamp(16px, 2.2vw, 32px)` — 16px di t
 | Request Hub | `rq-wrap` 1280px | sama |
 | Reference | penuh | `--margin` |
 
-### Jarak atas isi
+### Ritme vertikal — dirombak 2026-10-23
 
-Satu token, `--pad-top: 112px` (96px di bawah 1024px), dipakai **semua halaman isi standar**: indeks Watch order, halaman saga, dan peta film. Ditegakkan 2026-10-23 — sebelumnya saga memakai `clamp(84px, 8vw, 96px)` sendiri, jadi menyimpang 16px dari dua lainnya.
+Sebelumnya ritme vertikal Reference ditulis sebagai **14 pasang `clamp()` yang masing-masing lahir sendiri**: 160/100, 100/120, 160/160, 104/80, 96, 88/0, 72, 40… Tidak ada dua halaman yang bernafas sama, dan `clamp()` pada viewport menengah menghasilkan nilai seperti **86,4px dan 100,8px** — melanggar grid 4px yang ditegakkan di tempat lain.
 
-**Halaman hero penuh TIDAK memakainya**, dan itu disengaja: beranda Reference memusatkan judulnya di dalam cincin poster, Galaxy menghamparkannya di atas kanvas, Just added menyejajarkannya ke bawah di samping poster besar. Memaksa satu nilai ke ketiganya merusak komposisinya.
+Sekarang empat token, nilainya **tetap** (bukan clamp), dengan satu langkah turun di bawah 1024px:
 
-Catatan jujur: judul halaman isi standar mendarat di 161–184px dari bilah, bukan di angka yang persis sama. Yang diseragamkan adalah **padding kontainernya**; yang berbeda adalah isi di atas judul — tautan kembali (~22px) di halaman saga versus bilah pencarian (~52px) di dua lainnya. Menambal selisihnya per halaman justru melanggar sistemnya.
+| Token | ≥1024px | <1024px | Dipakai untuk |
+|---|---|---|---|
+| `--pad-top` | **64px** | 40px | Bilah portal → awal blok isi. Setiap halaman. |
+| `--gap-block` | **40px** | 32px | Antar blok **di dalam satu bidang warna** (kepala → panggung) |
+| `--gap-section` | **80px** | 56px | Pergantian bidang / antar bagian |
+| `--gap-chapter` | **120px** | 80px | Bab naratif panjang (beranda Reference) |
+
+Aturannya: **blok isi selalu mulai 64px di bawah bilah.** Apa yang muncul pertama boleh berbeda — bilah pencarian, tautan kembali, atau langsung judulnya; itu isi, bukan spasi.
+
+Di batas bidang gelap → putih, kedua padding bertumpuk. Pembagiannya tetap: blok di atas menutup dengan `--gap-block` (40px), bagian di bawah membuka dengan `--gap-section` (80px). Totalnya 120px di setiap batas — dulu 168px di Watch order, 86px di peta film.
+
+### Baris utilitas di atas judul
+
+Halaman isi standar punya satu baris di atas judul: bilah pencarian (indeks Watch order, peta film) atau tautan kembali (halaman saga). **Tingginya 44px di ketiganya**, jarak ke judul 28px, sehingga judul mendarat di titik yang persis sama.
+
+| Halaman | Judul dari bilah | Catatan |
+|---|---|---|
+| Indeks Watch order | **196px** | bilah pencarian |
+| Halaman saga | **196px** | tautan kembali |
+| Peta satu film | **196px** | bilah pencarian |
+| Just added | 210px | tidak punya baris utilitas; judul dipusatkan terhadap kartu unggulan |
+| Beranda Reference | 243px | hero penuh, judul dipusatkan di dalam cincin poster |
+| Galaxy | 48px | judul melayang di atas kanvas setinggi layar |
+
+> Sampai 2026-10-23 angkanya 184 / 164 / 184 / 392 / 243 / 48, karena tautan kembali cuma setinggi barisnya (23px) sementara bilah pencarian 44px. 44px sekaligus target sentuh yang benar untuk tautan kembali.
+>
+> **Dua pengecualian terakhir disengaja.** Beranda memusatkan judulnya di dalam cincin poster; Galaxy menghamparkannya di atas kanvas setinggi layar — memaksa 64px ke keduanya merusak komposisinya, bukan merapikannya. Just added memakai `align-items: center`: `end` menenggelamkan judul ke 355px, `start` meninggalkan rongga 200px di sebelah poster unggulan.
 
 ### Menandai halaman yang sedang dibuka
 
@@ -420,7 +446,7 @@ CSS buatan sendiri **tidak berlayer**, jadi selalu menang atas utilitas Tailwind
 
 | Aturan | Kenapa palsu |
 |---|---|
-| `few-pictures` | Poster digambar ke `<canvas>`, tidak terhitung sebagai gambar |
+| `few-pictures` | Dua sebab berbeda. Di halaman saga dan peta film poster digambar ke `<canvas>`. Di indeks Watch order ada **167 `<img>` sungguhan** tetapi tetap dilaporkan 0: poster contact sheet terlalu kecil untuk ambang "gambar" milik inspector. Diperiksa 2026-10-23 dengan menghitung `document.querySelectorAll('img')` |
 | `edge-text` | Kartu di luar pandangan tetap punya rect walau sudah dipotong `overflow: hidden` |
 | `body-size` | Di saga besar (28+ judul), label kartu peta 13px jumlahnya melebihi prosanya; teks baca sebenarnya 26px |
 | `late-title` (Galaxy) | `.ref-galaxy-intro` sengaja `pointer-events: none` supaya langitnya tetap bisa digeser dari balik teks; judulnya tetap di atas secara visual (`z-index: 3`) |

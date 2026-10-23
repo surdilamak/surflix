@@ -43,11 +43,16 @@
   /* Satu ukuran judul halaman untuk SEMUA halaman portal. Sebelumnya ada lima aturan
      berbeda (63px-107px di layar 1440) yang lahir satu per satu, bukan dari sistem. */
   --step-display: clamp(2.75rem, 1rem + 5.2vw, 5rem);
-  /* jarak dari bilah portal ke awal blok isi, SAMA di semua halaman isi standar.
-     Halaman hero penuh (beranda, Galaxy, Just added) tidak memakainya: judulnya
-     diposisikan oleh komposisinya sendiri. */
-  --pad-top: 112px;
-  --pad-top-sm: 96px;
+  /* ── Ritme vertikal ──────────────────────────────────────────────────────
+     Empat langkah, dipakai SETIAP bagian. Sebelum 2026-10-23 ada 14 pasang
+     clamp() yang masing-masing lahir sendiri (160/100, 100/120, 104/80,
+     88/0, ...), jadi tidak ada dua halaman yang ritmenya sama.
+     Nilainya tetap, bukan clamp: clamp pada viewport menengah menghasilkan
+     86,4px dan 100,8px — melanggar grid 4px yang dipakai di tempat lain. */
+  --pad-top: 64px;      /* bilah portal -> awal blok isi */
+  --gap-block: 40px;    /* antar blok DI DALAM satu bidang warna */
+  --gap-section: 80px;  /* pergantian bidang / antar bagian */
+  --gap-chapter: 120px; /* bab naratif panjang (beranda Reference) */
   --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
   --margin: clamp(16px, 2.2vw, 32px);
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -149,7 +154,7 @@
 @media (max-width: 767px) { .ref-reveal { opacity: 1; transform: none; transition: none; } }
 
 /* ── Contact sheet ── */
-.ref-sheet { padding: clamp(100px, 11vw, 160px) var(--margin) clamp(72px, 7vw, 100px); background: var(--bg); }
+.ref-sheet { padding: var(--gap-chapter) var(--margin) var(--gap-section); background: var(--bg); }
 .ref-sheet-head { display: grid; grid-template-columns: minmax(180px, 3fr) 9fr; gap: 24px; margin-bottom: 56px; align-items: start; }
 .ref-sheet-head h2 { font-size: var(--step-lead); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; }
 /* baris keterangan tetap di posisi yang sama: isinya ganti saat frame di-hover */
@@ -174,7 +179,7 @@
 .ref-mark { display: inline-block; width: 10px; height: 10px; margin-right: 8px; vertical-align: 0.04em; background: var(--c, var(--muted)); }
 
 /* ── Cara baca ── */
-.ref-how { background: var(--field-2); color: var(--field-2-ink); padding: clamp(72px, 7vw, 100px) var(--margin) clamp(80px, 8vw, 120px); }
+.ref-how { background: var(--field-2); color: var(--field-2-ink); padding: var(--gap-chapter) var(--margin) var(--gap-chapter); }
 .ref-how h2 { font-size: var(--step-head); max-width: 14ch; }
 .ref-how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-top: 80px; }
 .ref-how-word { display: block; font-size: clamp(28px, 3vw, 44px); font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
@@ -202,7 +207,7 @@
 .ref-detail-sub { margin-top: 36px; max-width: 56ch; font-size: var(--step-lead); line-height: 1.25; animation: ref-fade 0.8s var(--ease) 0.4s backwards; }
 .ref-detail-actions { margin-top: 28px; animation: ref-fade 0.8s var(--ease) 0.5s backwards; }
 .ref-stage-wrap { position: relative; margin-top: 48px; animation: ref-fade 1s var(--ease) 0.55s backwards; }
-.ref-why { padding: clamp(100px, 11vw, 160px) var(--margin) clamp(100px, 11vw, 160px); }
+.ref-why { padding: var(--gap-chapter) var(--margin) var(--gap-chapter); }
 .ref-why h2 { font-size: var(--step-head); margin-bottom: 64px; max-width: 14ch; }
 .ref-why-row { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 24px; align-items: start; }
 .ref-why-row + .ref-why-row { margin-top: 36px; }
@@ -232,10 +237,9 @@
   .ref-frames .ref-frame { height: auto; width: 100%; }
   .ref-frame--src { margin-right: 0; }
   .ref-how-grid { grid-template-columns: 1fr; gap: 56px; margin-top: 56px; }
-  .ref-footer { grid-template-columns: 1fr; gap: 8px; padding-top: clamp(64px, 12svh, 96px); padding-bottom: 24px; font-size: 14px; }
+  .ref-footer { grid-template-columns: 1fr; gap: 8px; padding-top: 64px; padding-bottom: 24px; font-size: 14px; }
   .ref-footer > :last-child { text-align: left; }
   .ref-footer nav { flex-wrap: wrap; gap: 8px 20px; }
-  .ref-detail-top { padding-top: var(--pad-top-sm); }
   .ref-why-row { grid-template-columns: 72px minmax(0, 1fr); }
   .ref-why-row .ref-frame { height: 108px; }
   .ref-why-row .ref-btn { grid-column: 1 / -1; width: 100%; }
@@ -329,7 +333,7 @@
 .ref-detail-search { max-width: 520px; margin: 0 0 28px; }
 
 /* ── Indeks A–Z ── */
-.ref-index { padding: clamp(72px, 7vw, 100px) var(--margin) clamp(40px, 5vw, 72px); background: var(--bg); }
+.ref-index { padding: var(--gap-section) var(--margin) var(--gap-section); background: var(--bg); }
 .ref-index-head { display: grid; grid-template-columns: 1fr; gap: 20px; margin-bottom: 48px; }
 .ref-index-head h2 { font-size: var(--step-head); }
 .ref-index-head p { font-size: var(--step-body); max-width: 50ch; }
@@ -344,6 +348,16 @@
 .ref-index-group li a:hover { opacity: 0.6; }
 .ref-index-group li small { color: var(--muted); font-size: 13px; }
 .ref-index-group li[data-dim] a { color: var(--muted); }
+/* Satu langkah turun untuk layar sempit — seluruh ritme vertikal sekaligus,
+   bukan per aturan. Tetap kelipatan 4px. */
+@media (max-width: 1023px) {
+  .ref-root {
+    --pad-top: 40px;
+    --gap-block: 32px;
+    --gap-section: 56px;
+    --gap-chapter: 80px;
+  }
+}
 @media (max-width: 1023px) { .ref-index-cols { column-count: 3; } }
 @media (max-width: 767px) {
   .ref-index-cols { column-count: 2; column-gap: 24px; }
@@ -401,8 +415,8 @@
 
 /* ── Just added ── */
 .ref-new-head {
-  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px; align-items: end;
-  padding: clamp(56px, 7vw, 104px) var(--margin) clamp(48px, 5vw, 80px); background: var(--field-1); color: var(--field-1-ink);
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 40px; align-items: center;
+  padding: var(--pad-top) var(--margin) var(--gap-block); background: var(--field-1); color: var(--field-1-ink);
 }
 .ref-new-intro h1 { font-size: var(--step-display); }
 .ref-new-intro p { margin-top: 20px; max-width: 46ch; font-size: var(--step-lead); line-height: 1.25; }
@@ -415,7 +429,7 @@
 .ref-new-lead .ref-new-meta span { color: var(--field-1-muted); }
 .ref-new-lead .ref-new-links a { color: var(--field-1-ink); }
 .ref-new-flag { margin-bottom: 12px; font-size: var(--step-small); font-weight: 700; color: var(--accent); }
-.ref-new-body { padding: clamp(48px, 5vw, 80px) var(--margin) clamp(64px, 7vw, 112px); background: var(--bg); }
+.ref-new-body { padding: var(--gap-section) var(--margin) var(--gap-section); background: var(--bg); }
 .ref-new-note { color: var(--muted); }
 /* auto-fill, bukan 6 kolom tetap: pada 1024-1280px enam kolom menyisakan ~155px per kartu,
    dan judul film membungkus sampai empat baris di situ. Lantai 190px menjaga kartu tetap
@@ -553,10 +567,14 @@
 
 /* ── Watch order ── */
 /* Panggungnya memakai kerangka yang sama dengan peta 3D satu film: .ref-stage + .ref-stage-view + .ref-panel. */
-.ref-saga-head { padding-top: var(--pad-top); padding-bottom: clamp(28px, 3vw, 40px); }
+.ref-saga-head { padding-top: var(--pad-top); padding-bottom: var(--gap-block); }
 .ref-saga-head .ref-detail-sub { margin-top: 24px; }
 .ref-saga-head .ref-detail-actions { margin-top: 24px; }
-.ref-saga-head .ref-back { margin-bottom: 24px; }
+/* Baris utilitas di atas judul tingginya 44px di SEMUA halaman isi standar — sama
+   dengan bilah pencarian di indeks Watch order dan peta film — supaya judulnya
+   mendarat di titik yang sama. Sebelumnya tautan kembali cuma setinggi barisnya
+   (23px), jadi judul saga naik 20px sendiri. 44px sekaligus target sentuh yang benar. */
+.ref-saga-head .ref-back { display: inline-flex; align-items: center; min-height: 44px; margin-bottom: 28px; }
 .ref-saga-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; }
 .ref-saga-seg { display: inline-flex; gap: 4px; padding: 4px; border-radius: 8px; background: rgba(255, 255, 255, 0.09); }
 .ref-saga-seg button {
@@ -609,16 +627,16 @@
 .ref-saga-step button:hover { color: var(--ink); }
 
 /* indeks saga: baris contact sheet yang sama dengan beranda */
-.ref-saga-index .ref-detail-top { padding-bottom: clamp(48px, 5vw, 72px); }
-.ref-saga-index .ref-sheet { padding-top: clamp(64px, 7vw, 96px); }
-.ref-saga-pairs { margin-top: clamp(56px, 6vw, 80px); }
+.ref-saga-index .ref-detail-top { padding-bottom: var(--gap-block); }
+.ref-saga-index .ref-sheet { padding-top: var(--gap-section); }
+.ref-saga-pairs { margin-top: var(--gap-section); }
 .ref-saga-pairs h3 { font-size: var(--step-body); font-weight: 600; }
 .ref-saga-pairs ul { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 24px; margin: 20px 0 0; padding: 0; list-style: none; }
 .ref-saga-pairs a { display: block; font-size: 15px; font-weight: 600; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; transition: color 0.2s; }
 .ref-saga-pairs a:hover { color: var(--accent-text); } /* 15px di putih: --accent cuma 3,25:1 */
 @media (max-width: 1023px) { .ref-saga-pairs ul { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 767px) { .ref-saga-pairs ul { grid-template-columns: minmax(0, 1fr); } }
-.ref-saga-note { padding-top: clamp(56px, 6vw, 80px); padding-bottom: clamp(56px, 6vw, 80px); }
+.ref-saga-note { padding-top: var(--gap-section); padding-bottom: var(--gap-section); }
 .ref-saga-note h2 { font-size: var(--step-lead); font-weight: 800; letter-spacing: -0.03em; line-height: 1.05; max-width: none; }
 .ref-saga-next { display: flex; flex-wrap: wrap; gap: 12px 48px; margin-top: 24px; font-size: 15px; font-weight: 600; }
 .ref-saga-next a { text-decoration: underline; text-underline-offset: 5px; transition: opacity 0.2s; }
@@ -627,7 +645,7 @@
 .ref-run-rest { align-self: center; font-size: var(--step-small); font-weight: 600; color: var(--muted); }
 
 /* ── "Kamu di sini": potongan jalur di halaman peta satu film ── */
-.ref-here { padding: clamp(56px, 6vw, 88px) var(--margin) 0; background: var(--bg); }
+.ref-here { padding: var(--gap-section) var(--margin) 0; background: var(--bg); }
 .ref-here-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; }
 .ref-root .ref-here-name { font-size: var(--step-lead); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
 .ref-here-name a { text-decoration: underline; text-underline-offset: 5px; text-decoration-thickness: 2px; }
@@ -640,7 +658,7 @@
 .ref-here-line li > span { display: block; margin-top: 12px; font-size: 13px; line-height: 1.25; color: var(--muted); }
 .ref-here-line li[data-here] > span { color: var(--ink); font-weight: 600; }
 .ref-here-open { margin-top: 28px; }
-.ref-here + .ref-why { padding-top: clamp(64px, 7vw, 104px); }
+.ref-here + .ref-why { padding-top: var(--gap-section); }
 
 @media (max-width: 1023px) {
   .ref-saga-stage .ref-stage-view { height: min(max(340px, var(--saga-h, 620px)), 64svh, 660px); }
