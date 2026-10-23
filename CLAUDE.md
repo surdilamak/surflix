@@ -327,6 +327,28 @@ Daftar judul baru dibaca dari kolom `addedAt`, **bukan** dari membandingkan berk
 
 `library-seed.json` sekarang ter-format seperti dua berkas seed lainnya, supaya penambahan satu judul terbaca sebagai ~10 baris di diff, bukan satu baris 500 KB. `addedAt` sengaja tidak ikut diekspor: kolom itu diisi dari Jellyfin saat sync di tiap lingkungan.
 
+### Menarik keputusan review balik dari prod (`connections-live.json`)
+
+`connections-live.json` adalah "foto" keputusan review admin (APPROVED/REJECTED, koneksi buatan admin, hasil edit). Ia ikut di dalam image, tetapi **tidak otomatis masuk DB** — dan sebaliknya, keputusan yang Idrus ambil di `/admin/connections` tidak otomatis kembali ke repo.
+
+**Urutannya tidak boleh dibalik: import dulu, baru ekspor.** Kalau diekspor sebelum diimpor, DB prod belum memuat koneksi kurasi yang baru ditulis, jadi berkas yang keluar kehilangan semuanya dan menimpa yang ada di repo.
+
+```bash
+# 1. DI SERVER — import kurasi baru ke DB
+docker exec surflix node scripts/import-connections.js scripts/connections-live.json --apply
+
+# 2. DI SERVER — ekspor balik dari DB, lalu salin ke /tmp
+docker exec surflix node scripts/export-connections.js
+docker cp surflix:/app/scripts/connections-live.json /tmp/connections-live.json
+
+# 3. DI MAC — tarik ke repo
+scp root@192.168.68.8:/tmp/connections-live.json scripts/connections-live.json
+```
+
+Seperti langkah 2b di atas, `docker cp` memakai `/tmp` karena SSH ke Unraid mendarat di `/root`.
+
+Import **tidak pernah mengubah status baris yang sudah ada**, jadi approve/reject yang sudah dilakukan aman. Konsekuensinya: selama langkah 3 belum dijalankan, berkas di repo bukan sumber kebenaran status review — **jangan mengutip jumlah pending dari berkas lokal.** Ini sudah dua kali bikin salah lapor ("koneksi X masih pending" padahal sudah di-approve).
+
 ## Font di-vendor ke repo (2026-10-22)
 Keempat layout memakai `next/font/local`, bukan `next/font/google`. Pengambilan font saat build pernah menggagalkan CI **tiga kali dalam satu hari** (`TypeError: Cannot read properties of null` di `@next/font/dist/google/loader.js`), dan satu-satunya penanganannya adalah push commit kosong untuk mengulang build. Sekarang build tidak menyentuh jaringan sama sekali.
 
