@@ -31,7 +31,7 @@
 
 - [~] **92 judul belum dipetakan** (turun dari 211 pada 2026-10-21: 825 / 917 punya peta). Sisanya memang sendirian: dokumenter, film indie/arthouse, sitkom, dan anime yang tidak punya pembuat atau pemeran bersama dengan judul lain di library. Tambah manual via Manage → Add a connection kalau tahu hubungan yang terdokumentasi. Jangan ngarang hubungan demi angka.
 - [x] **Review 23 koneksi PENDING_REVIEW** (Idrus, 2026-10-21, langsung di production). ⚠️ Keputusannya ada di DB production, belum ditarik ke `scripts/connections-live.json` — lihat catatan di bawah.
-- [ ] ~~Review 23 koneksi baru berstatus PENDING_REVIEW~~ (confidence `m`, ditambah 2026-10-21: kritikus sering memasangkan, atau kredit produser dari metadata). Approve/reject di `/admin/connections` → Review.
+- [ ] **Review 16 koneksi berstatus PENDING_REVIEW** di `/admin/connections`. Semuanya sengaja diberi confidence `m` karena buktinya lebih lemah: kemiripan visual, kritikus yang sering memasangkan, kredit dari metadata, atau sumber situs penggemar. Approve atau reject; sampai diputuskan mereka tidak muncul di peta. Yang terbaru: cameo Pawai Siluman Pom Poko (sumbernya situs referensi penggemar, bukan terbitan Ghibli).
 - [ ] **Review terjemahan Indonesia** di `lib/i18n.ts` dan kolom `reason` (dibuat bareng teks Inggris, belum dibaca penutur native).
 - [ ] **Nama file kotor di library Jellyfin** (`Requiem.for.a.Dream.2000.PROPER…`, `MIRCrew`, dan `Lady Bird 2017 from ExKinoRay` yang ketahuan saat audit talent). Snapshot sudah dibersihin otomatis (nama folder / OriginalTitle), tapi rapihin di Jellyfin kalau sempat (rename atau refresh metadata).
 - [x] **Auto-sync library** (2026-10-20, menunggu deploy): webhook Jellyseerr `MEDIA_AVAILABLE` / `MEDIA_PARTIALLY_AVAILABLE` memanggil `scheduleLibrarySync()` (debounce 30 dtk, satu sync per rentetan event, tidak pernah melempar error, log di EventLog `library.autosync`). Berlaku juga untuk judul yang bukan dari request Surflix. Syarat di produksi: webhook Jellyseerr terpasang (Settings → Notifications → Webhook, URL `…/api/webhooks/jellyseerr`, header `Bearer <WEBHOOK_SECRET>`) dan env Jellyfin ada. Webhook sekarang menolak semua request kalau `WEBHOOK_SECRET` kosong.
@@ -48,7 +48,6 @@
 ## 🧹 Bersih-bersih
 
 - [x] Prototype `surflix-reference-graph-prototype.jsx` dan `lib/jellyseerr.ts.bak` dihapus (2026-10-20; tetap ada di git history, `FEATURE-CONNECTIONS.md` masih menyebut prototype itu sebagai referensi desain awal).
-- [ ] Dua gambar di `public/` (`HD.png`, `WhatsApp-Image-…png`) masih untracked sejak sebelum fitur Referensi: pakai atau hapus.
 - [x] **Satu sumber kebenaran data koneksi** (2026-10-21): `scripts/curated/*.txt` adalah sumber tulisan, `connections-seed.json` hanya hasil build (artefak, dikomit supaya perubahannya terlihat di diff), dan `connections-live.json` (diekspor dari database lokal setelah review) adalah satu-satunya file yang diimpor ke production. Alurnya ada di bagian "Cara: update koneksi".
 
 ---
