@@ -86,11 +86,13 @@ export function JustAddedView({ rows, jellyfinUrl, serverId, now }: { rows: Row[
                   <a className="ref-new-poster" href={r.count > 0 ? map : watch} {...(r.count > 0 ? {} : { target: '_blank', rel: 'noopener' })}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={posterUrl(r.jellyfinId, jellyfinUrl, 360)} alt={r.title} loading="lazy" width={240} height={360} />
+                    {/* Lencana menempel di poster, bukan di paragraf judul: di dalam judul ia
+                        memecah ritme baris dan terlempar ke baris sendiri kalau judulnya panjang. */}
+                    {fresh && <em className="ref-new-badge">{t('new.week')}</em>}
                   </a>
                   <p className="ref-new-title">
                     {r.title}
                     {r.year ? <small> {r.year}</small> : null}
-                    {fresh && <em className="ref-new-badge">{t('new.week')}</em>}
                   </p>
                   <p className="ref-new-meta" data-mapped={r.count > 0 ? '' : undefined}>
                     {state(r)}

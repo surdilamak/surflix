@@ -105,6 +105,18 @@ Berat: 800 untuk display dan judul, 600 untuk penekanan, 400–500 untuk isi. Ja
 
 **Pengecualian yang disengaja:** `.ref-core-sub` (subjudul hero beranda) tetap 18px, bukan `--step-lead`. Hero itu komposisi terkurung di dalam cincin poster dengan `min-height: 5.4em` untuk teks berganti; membesarkannya mendorong kotak pencarian menabrak poster.
 
+### Line-height — diaudit 2026-10-23
+
+Bukan satu angka untuk semuanya. Tiga kelompok, masing-masing punya alasan:
+
+| Kelompok | Rasio | Contoh |
+|---|---|---|
+| **Display** | 0,88–1,0 | `.ref-display` (44–80px), `.ref-how-word`. Tipe sebesar ini memang dirapatkan; 1,5 akan membuatnya tercerai-berai |
+| **Judul dan label** | 1,05–1,3 | Judul bagian 1,05–1,1, judul kartu 1,2–1,25, label satu baris 1,0. Judul kartu sengaja rapat karena panjangnya satu sampai dua baris |
+| **Prosa yang dibaca** | **1,45–1,5** | Nilai akar `.ref-root` 1,5; `.ref-caption` 1,5; `.ref-core-sub` 1,45 |
+
+> Sebelum audit, akar memakai 1,4 dan `.ref-caption` — prosa 19px selebar 60ch, teks paling banyak dibaca di beranda — memakai **1,3**. Keduanya di bawah ambang keterbacaan. Dinaikkan; elemen yang memang perlu rapat sudah menimpanya sendiri sejak awal, jadi tidak ada yang ikut melar.
+
 ### Reference — pemakaian
 
 | Elemen | Token |
@@ -305,6 +317,7 @@ Semua animasi dimatikan di bawah `@media (prefers-reduced-motion: reduce)`.
 **`badge`** — penanda status kecil
 - Kanon: radius `{rounded.sm}` 6px, padding `1px 7px`, teks **12px** berat 600–700, tinta `{colors.accent-ink}` di atas warna status.
 - Implementasi: `.rq-badge-*` (empat warna semantik), `.ref-new-badge`, `.ref-galaxy-wait`. **Disamakan ke 12px pada 2026-10-23** — sebelumnya 11/11/12.
+- **Lencana menempel pada bendanya, bukan pada teksnya.** `.ref-new-badge` dipindahkan ke sudut kiri-atas poster (8px dari tepi) pada 2026-10-23; sebelumnya ia disisipkan inline di dalam paragraf judul, sehingga memecah ritme baris dan terlempar ke baris sendiri setiap kali judulnya panjang.
 - **Inspector menandai ini** (`small-text`, ambangnya 13px) dan itu **bukan positif palsu** melainkan keputusan yang diambil sadar: lencana seukuran teks isi berhenti terbaca sebagai penanda sekunder. Kalau nanti ada keluhan keterbacaan, naikkan ke 13px dan terima bahwa lencananya jadi lebih berat.
 
 ### Kartu
