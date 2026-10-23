@@ -1,9 +1,10 @@
 /**
  * Middleware — hostname-based routing
  *
- * Landing page hostnames (rewrites `/` → `/landing`):
- * - surflix.my.id (apex)
- * - www.surflix.my.id
+ * Landing page hostname (rewrites `/` → `/landing`):
+ * - surflix.my.id (apex — satu-satunya host kanonik untuk landing)
+ *
+ * www.surflix.my.id: di-redirect 308 ke apex, semua path.
  *
  * Reference portal hostnames (rewrites everything → `/referensi/*`):
  * - reference.surflix.my.id (portal peta referensi film, terpisah dari Request Hub)
@@ -24,12 +25,14 @@
 
 import { NextResponse, type NextRequest } from 'next/server';
 
+/**
+ * Host kanonik. `www.*` sengaja TIDAK di sini: ia di-redirect ke apex lebih dulu
+ * (lihat aturan pertama di middleware), jadi satu host saja yang mengaku apex.
+ */
 const APEX_HOSTNAMES = new Set([
   'surflix.my.id',
-  'www.surflix.my.id',
   // Legacy support — if anyone still hits these via DNS redirect
   'surdilamak.my.id',
-  'www.surdilamak.my.id',
 ]);
 
 const REFERENCE_HOSTNAMES = new Set(['reference.surflix.my.id']);
@@ -49,6 +52,18 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   const proto = request.headers.get('x-forwarded-proto')?.split(',')[0] ?? 'https';
   const apex = apexOf(hostname);
+
+  // www bukan host kanonik — apex-lah yang kanonik, sejajar dengan request.*,
+  // reference.*, dan streaming.* yang semuanya tanpa www.
+  //
+  // Sampai 2026-10-23 pengalihan ini dikerjakan NPM, dan tidak ada seorang pun yang
+  // bisa melihatnya dari repo. Begitu rute tunnel apex diarahkan langsung ke
+  // aplikasi (tidak lagi lewat NPM), pengalihan itu ikut lenyap dan
+  // www.surflix.my.id mulai menyajikan salinan kedua landing. Aturannya pindah ke
+  // sini supaya ia hidup di kode dan ikut terbaca bersama aturan host lainnya.
+  if (apex && hostname.startsWith('www.')) {
+    return NextResponse.redirect(`${proto}://${apex}${pathname}${request.nextUrl.search}`, 308);
+  }
 
   // Halaman legal hanya hidup di apex. Dari subdomain mana pun, antar ke sana —
   // supaya /terms dan /privacy punya satu URL, bukan tiga.
