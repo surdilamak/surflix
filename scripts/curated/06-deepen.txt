@@ -199,3 +199,30 @@ Once Upon a Time... in Hollywood (2019) > Pulp Fiction (1994) | homage | h | Red
 Kill Bill: Vol. 1 (2003) > Pulp Fiction (1994) | homage | h | A Red Apple billboard stands over the Tokyo street - his invented brand crossing from one of his universes into the other. || Papan iklan Red Apple berdiri di jalanan Tokyo - merek rekaannya menyeberang dari satu semestanya ke semesta yang lain.
 Death Proof (2007) > Jackie Brown (1997) | homage | h | Acuna Boys, another brand of his own, turns up on a soda cup here and on Sheronda's food tray in Jackie Brown. || Acuna Boys, merek rekaannya yang lain, muncul di gelas soda di sini dan di nampan makanan Sheronda di Jackie Brown.
 Jackie Brown (1997) > Pulp Fiction (1994) | homage | h | Teriyaki Donut, the shop Marsellus walks away from in Pulp Fiction, was added to the Del Amo food court at Tarantino's request. || Teriyaki Donut, kedai yang ditinggalkan Marsellus di Pulp Fiction, sengaja ditambahkan ke food court Del Amo atas permintaan Tarantino.
+
+# ---------- Judul baru 2026-10-23 ----------
+# Weathering with You akhirnya masuk library; inilah film yang mengikat ketiga film Shinkai.
+Weathering with You (2019) > Your Name. (2016) | universe | h | Taki, Mitsuha, Yotsuha, Tessie and Sayaka all appear here as adults. Shinkai said he wanted to see Taki and Mitsuha again before they met. || Taki, Mitsuha, Yotsuha, Tessie, dan Sayaka semuanya muncul di sini sebagai orang dewasa. Kata Shinkai, ia ingin melihat Taki dan Mitsuha lagi sebelum mereka bertemu.
+Suzume (2022) > Weathering with You (2019) | talent | h | Masayoshi Tanaka designed the characters and RADWIMPS scored both, but Suzume shares no character with the other two. || Masayoshi Tanaka merancang tokohnya dan RADWIMPS menggarap musik keduanya, tetapi Suzume tidak berbagi tokoh dengan dua film lainnya.
+
+# Detective Conan punya filmnya sekarang. Seperti dicatat 2026-10-22: film Conan berdiri
+# sendiri, jadi hubungannya ke serial, bukan rantai antar film.
+Detective Conan: The Million-Dollar Pentagram (2024) > Meitantei Conan (1996) | universe | h | The twenty-seventh Conan film and the highest-grossing of them, built around Kaito Kid and Heiji Hattori together. A self-contained case, like the rest. || Film Conan kedua puluh tujuh sekaligus yang terlaris, dibangun di sekitar Kaito Kid dan Heiji Hattori sekaligus. Kasus yang berdiri sendiri, seperti film lainnya.
+
+# Golden Compass dan serial His Dark Materials sama-sama mengadaptasi novel pertama Philip Pullman.
+His Dark Materials (2019) > The Golden Compass (2007) | remake | h | Both adapt Philip Pullman's Northern Lights - the 2007 film got one novel and no sequel, the series got all three. || Keduanya mengadaptasi Northern Lights karya Philip Pullman - film 2007 cuma dapat satu novel tanpa sekuel, serialnya dapat ketiganya.
+
+# Carrie 2026: serial Mike Flanagan dari novel Stephen King 1974 (BUKAN 1976 - itu tahun film
+# De Palma). Kolom directors-nya kosong di Jellyfin, jadi rantai directors.list tidak kena;
+# ditulis tangan.
+Carrie (2026) > Doctor Sleep (2019) | director | h | Mike Flanagan directed Doctor Sleep and developed this one, directing four of its eight episodes. Both adapt Stephen King. || Mike Flanagan menyutradarai Doctor Sleep dan mengembangkan serial ini, menyutradarai empat dari delapan episodenya. Keduanya mengadaptasi Stephen King.
+Carrie (2026) > The Shawshank Redemption (1994) | talent | h | Both come from Stephen King, at opposite ends of his range: a telekinetic teenager and a prison friendship. || Keduanya berasal dari Stephen King, di dua ujung rentangnya: remaja telekinetik dan persahabatan di penjara.
+
+# Animals: film orisinal, Ben Affleck menyutradarai sekaligus membintangi. Matt Damon semula
+# diumumkan jadi pemeran utama lalu mundur dan tetap jadi produser.
+Animals (2026) > Gone Girl (2014) | talent | h | Ben Affleck stars in both. || Ben Affleck membintangi keduanya.
+Gone Girl (2014) > Good Will Hunting (1997) | talent | h | Ben Affleck stars in both. || Ben Affleck membintangi keduanya.
+Animals (2026) > Good Will Hunting (1997) | talent | h | Affleck directs and stars; Matt Damon produces, and was announced for the lead before leaving. The two wrote Good Will Hunting together. || Affleck menyutradarai sekaligus membintangi; Matt Damon memproduseri, dan sempat diumumkan jadi pemeran utama sebelum mundur. Keduanya menulis Good Will Hunting bersama.
+
+# Fall (2022) tidak ada di library, jadi sekuelnya tersambung lewat sutradaranya.
+Fall 2: Deadpoint (2026) > Predestination (2014) | director | h | Both directed by Michael and Peter Spierig - who did not make the first Fall; Scott Mann moved to writing and producing. || Keduanya disutradarai Michael dan Peter Spierig - yang tidak menggarap Fall pertama; Scott Mann pindah ke penulisan dan produksi.

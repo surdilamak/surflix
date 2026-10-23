@@ -325,11 +325,25 @@ Supergirl (2026) | dcu | 2026-06
 Lanterns (2026) | dcu | 2026-08 | After Superman | Guy Gardner carries over from Superman (2025), which is how this one is tied to the rest. || Guy Gardner dibawa dari Superman (2025), itu yang menyambungkan serial ini dengan sisanya.
 
 # ============ NEON GENESIS EVANGELION ============
-@saga evangelion | Neon Genesis Evangelion | The Rebuild films retell the TV series, then break away from it. The 3.0 prologue short came out last of all but belongs before 3.0. || Film Rebuild menceritakan ulang serial TV lalu berbelok darinya. Film pendek prolog 3.0 rilis paling akhir tetapi posisinya sebelum 3.0.
-@lane tv | TV series || Serial TV
+# Tiga film 1997-98 masuk library 2026-10-22 dan isinya tumpang tindih, jadi urutannya penting:
+#   Death and Rebirth = dua paruh. "DEATH" rangkuman episode 1-24; "REBIRTH" versi belum jadi
+#   dari sepertiga awal The End of Evangelion, berhenti di tengah.
+#   DEATH (TRUE)2 = potongan final dari rangkuman "DEATH" itu, menggantikannya; paruh REBIRTH
+#   dibuang sama sekali.
+#   The End of Evangelion = MENGGANTIKAN episode 25-26, bercabang setelah episode 24. Bukan
+#   kelanjutan episode 26 - jangan ditulis sebagai sekuel.
+# Yang mana boleh dilewati bukan sekadar opini panduan: Gainax sendiri merakit "Revival of
+# Evangelion" justru untuk membuang tumpang tindihnya, yaitu DEATH(TRUE)2 + End of Evangelion,
+# dan REBIRTH ditinggalkan. Itu sinyal terkuat yang ada; tidak ada pernyataan resmi soal urutan.
+@saga evangelion | Neon Genesis Evangelion | Two endings branch from episode 24, and three films from 1997-98 overlap each other. The Rebuild tetralogy is a separate retelling. If you only watch one film, make it The End of Evangelion. || Dua akhir bercabang dari episode 24, dan tiga film 1997-98 saling tumpang tindih. Tetralogi Rebuild adalah penceritaan ulang yang terpisah. Kalau cuma mau menonton satu film, pilih The End of Evangelion.
+@lane tv | TV series and its ending || Serial TV dan akhirnya
+@lane recap | Recaps || Rangkuman | fork: Neon Genesis Evangelion (1995)
 @lane rebuild | Rebuild films || Film Rebuild | fork: Neon Genesis Evangelion (1995)
 
-Neon Genesis Evangelion (1995) | tv | 1995-10
+Neon Genesis Evangelion (1995) | tv | 1995-10 | Episodes 1-26
+Neon Genesis Evangelion: Death and Rebirth (1997) | recap | 1997-03 | Recap, then an unfinished start | Two halves: a clip-show recap of episodes 1-24, then twenty-odd minutes of the ending that stops mid-scene. Superseded by the two films below. || Dua paruh: rangkuman episode 1-24, lalu dua puluhan menit bagian akhir yang berhenti di tengah adegan. Digantikan dua film di bawah.
+EVANGELION: DEATH (TRUE)² (1998) | recap | 1998-03 | The recap, final cut | The third and last edit of that recap, and the one Gainax kept. Optional: watch it before The End of Evangelion, or skip it if the series is fresh. || Potongan ketiga sekaligus terakhir dari rangkuman itu, dan inilah yang dipertahankan Gainax. Opsional: tonton sebelum The End of Evangelion, atau lewati kalau serialnya masih segar.
+Neon Genesis Evangelion: The End of Evangelion (1997) | tv | 1997-07 | Replaces episodes 25-26 | Not a sequel to episode 26: the story branches after episode 24, and this is the other way it ends. || Bukan sekuel episode 26: ceritanya bercabang setelah episode 24, dan inilah cara lain ia berakhir.
 Evangelion: 1.0 You Are (Not) Alone (2007) | rebuild | 2007-09 | Retells episodes 1-6
 Evangelion: 2.0 You Can (Not) Advance (2009) | rebuild | 2009-06 | Breaks from the series
 EVANGELION:3.0(-46h) (2023) | rebuild | 2023-03 | 46 hours before 3.0 | A prologue short that only shipped with the final film's Japanese Blu-ray in 2023, yet is set before 3.0. || Film pendek prolog yang baru ikut Blu-ray Jepang film terakhir pada 2023, padahal berlatar sebelum 3.0.
@@ -384,6 +398,23 @@ Kill Bill: Vol. 2 (2004) | kb | 2004-04
 Kill Bill: The Whole Bloody Affair (2011) | cut | 2011 | Both halves, uncut | The single film Tarantino shot, before the studio split it in two. || Satu film utuh yang difilmkan Tarantino, sebelum studionya memotongnya jadi dua.
 Death Proof (2007) | wider | 2007-04 | Not the same story | Connected only by the world Tarantino's films share, not by the Bride's story. || Terhubung cuma lewat dunia yang dibagi film-film Tarantino, bukan lewat cerita sang Bride.
 
+# ============ MIDDLE-EARTH ============
+# Urutan cerita terbalik dari rilis: Hobbit berlatar ~60 tahun SEBELUM Cincin, tetapi filmnya
+# keluar sebelas tahun SESUDAH trilogi LOTR. Film animasi Bakshi 1978 ditaruh di jalur sendiri
+# karena ia penceritaan ulang, bukan bagian dari rangkaian Jackson - dan ia berhenti di tengah.
+@saga middle-earth | Middle-earth | Story order and release order run opposite ways: The Hobbit is set sixty years before the Ring, but came out eleven years after the trilogy. Bakshi's 1978 film retells the opening and then simply stops. || Urutan cerita dan urutan rilis berjalan berlawanan: The Hobbit berlatar enam puluh tahun sebelum Cincin, tetapi keluar sebelas tahun setelah trilogi. Film Bakshi 1978 menceritakan ulang bagian awal lalu berhenti begitu saja.
+@lane hobbit | The Hobbit || The Hobbit
+@lane lotr | The Lord of the Rings || The Lord of the Rings | fork: The Hobbit: The Battle of the Five Armies (2014)
+@lane anim | Bakshi's 1978 retelling || Penceritaan ulang Bakshi 1978 | fork: The Lord of the Rings: The Fellowship of the Ring (2001)
+
+The Hobbit: An Unexpected Journey (2012) | hobbit | 2012-12 | Sixty years before the Ring
+The Hobbit: The Desolation of Smaug (2013) | hobbit | 2013-12 | Sixty years before the Ring
+The Hobbit: The Battle of the Five Armies (2014) | hobbit | 2014-12 | Sixty years before the Ring
+The Lord of the Rings: The Fellowship of the Ring (2001) | lotr | 2001-12 | The War of the Ring
+The Lord of the Rings: The Two Towers (2002) | lotr | 2002-12 | The War of the Ring
+The Lord of the Rings: The Return of the King (2003) | lotr | 2003-12 | The War of the Ring
+The Lord of the Rings (1978) | anim | 1978-11 | Retells the opening | Covers The Fellowship of the Ring and half of The Two Towers, then stops - the second film that would have finished it was never made. || Mencakup The Fellowship of the Ring dan separuh The Two Towers, lalu berhenti - film kedua yang akan menyelesaikannya tidak pernah dibuat.
+
 # ============ QUENTIN TARANTINO ============
 # Pembagian dua semesta itu NYATA dan dari mulut Tarantino sendiri (wawancara The Project,
 # Januari 2016), TETAPI ia cuma menempatkan EMPAT judul: Reservoir Dogs dan Pulp Fiction di
@@ -414,7 +445,8 @@ Death Proof (2007) | fan | 2007-04 | Present day, undated | Sheriff Earl McGraw 
 # ============ MAKOTO SHINKAI ============
 # Bukan trilogi: "disaster trilogy" itu sebutan kritikus, bukan kata Shinkai. Dan Suzume
 # TIDAK memuat satu pun tokoh dari dua film ini - itu negatif yang sudah dipastikan, jadi
-# jangan ditambahkan ke saga ini nanti. Weathering with You belum ada di library.
+# jangan ditambahkan ke saga ini nanti. Weathering with You masuk library 2026-10-22, jadi
+# saganya kini utuh - dulu ia tampil sebagai kartu "Not on Surflix".
 @saga shinkai | Shinkai's connected films | Three films that share one world, joined by cameo rather than plot. Suzume is deliberately not here: it shares Shinkai's crew, but none of his characters. || Tiga film yang berbagi satu dunia, tersambung lewat cameo bukan alur cerita. Suzume sengaja tidak dimasukkan: ia berbagi kru Shinkai, tetapi tidak satu pun tokohnya.
 @lane main | The films || Film
 

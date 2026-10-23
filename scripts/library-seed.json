@@ -510,6 +510,16 @@
     "directors": "Tony Benna"
   },
   {
+    "tmdbId": 1236045,
+    "mediaType": "movie",
+    "title": "Animals",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "8f546c2638f4bfcf591d3991b03e93fb",
+    "genres": "Thriller, Drama",
+    "directors": "Ben Affleck"
+  },
+  {
     "tmdbId": 45790,
     "mediaType": "tv",
     "title": "Anime",
@@ -1250,6 +1260,16 @@
     "directors": "Todd Haynes"
   },
   {
+    "tmdbId": 288673,
+    "mediaType": "tv",
+    "title": "Carrie",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "46012a4afe361bcc12a2ab9edfb0d9c3",
+    "genres": "Mystery, Drama, Sci-Fi & Fantasy",
+    "directors": null
+  },
+  {
     "tmdbId": 10515,
     "mediaType": "movie",
     "title": "Castle in the Sky",
@@ -1638,6 +1658,16 @@
     "jellyfinId": "ed4ec5c9dbd3d622515c6409bc5be6ce",
     "genres": "Animation, Action, Fantasy",
     "directors": "Haruo Sotozaki"
+  },
+  {
+    "tmdbId": 1209217,
+    "mediaType": "movie",
+    "title": "Detective Conan: The Million-Dollar Pentagram",
+    "originalTitle": "名探偵コナン 100万ドルの五稜星（みちしるべ）",
+    "year": 2024,
+    "jellyfinId": "f9aba9bec3a835a9099eeed568749288",
+    "genres": "Animation, Crime, Mystery, Action",
+    "directors": "Chika Nagaoka"
   },
   {
     "tmdbId": 235930,
@@ -2400,6 +2430,16 @@
     "directors": "Kazuya Tsurumaki, Mahiro Maeda, Katsuichi Nakayama"
   },
   {
+    "tmdbId": 857862,
+    "mediaType": "movie",
+    "title": "EVANGELION: DEATH (TRUE)²",
+    "originalTitle": "EVANGELION:DEATH(TRUE)²",
+    "year": 1998,
+    "jellyfinId": "e9ca1a2da3767804fe07d986085c0d26",
+    "genres": "Animation, Science Fiction, Action, Drama",
+    "directors": "Masayuki, Hideaki Anno, Ken Ando"
+  },
+  {
     "tmdbId": 1096648,
     "mediaType": "movie",
     "title": "EVANGELION:3.0(-46h)",
@@ -2458,6 +2498,16 @@
     "jellyfinId": "660f5ba61fa3ba09432c46214144114a",
     "genres": "Action, Drama",
     "directors": "Joseph Kosinski"
+  },
+  {
+    "tmdbId": 1101412,
+    "mediaType": "movie",
+    "title": "Fall 2: Deadpoint",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "c6ff681f3c531953b69e45abb1698b4b",
+    "genres": "Thriller",
+    "directors": "Michael Spierig, Peter Spierig"
   },
   {
     "tmdbId": 11220,
@@ -4678,6 +4728,26 @@
     "jellyfinId": "f23667f4d88924fed9f5d53c233165f1",
     "genres": "alien, Anime, gunfights, human enhancement, middle school",
     "directors": "Hideaki Anno"
+  },
+  {
+    "tmdbId": 21832,
+    "mediaType": "movie",
+    "title": "Neon Genesis Evangelion: Death and Rebirth",
+    "originalTitle": "新世紀エヴァンゲリオン劇場版 シト新生",
+    "year": 1997,
+    "jellyfinId": "45dc620a1c8554e0a2d6dd183486acad",
+    "genres": "Animation, Drama, Science Fiction",
+    "directors": "Hideaki Anno, Kazuya Tsurumaki, Masayuki"
+  },
+  {
+    "tmdbId": 18491,
+    "mediaType": "movie",
+    "title": "Neon Genesis Evangelion: The End of Evangelion",
+    "originalTitle": "新世紀エヴァンゲリオン劇場版 Air／まごころを、君に",
+    "year": 1997,
+    "jellyfinId": "5fcfa99ad8ff4495d3bcf0b045d92cd2",
+    "genres": "Animation, Science Fiction, Drama, Fantasy, Action",
+    "directors": "Kazuya Tsurumaki, Hideaki Anno"
   },
   {
     "tmdbId": 1420,
@@ -7500,6 +7570,16 @@
     "directors": "Francis Ford Coppola, Aleta Chappelle"
   },
   {
+    "tmdbId": 2268,
+    "mediaType": "movie",
+    "title": "The Golden Compass",
+    "originalTitle": null,
+    "year": 2007,
+    "jellyfinId": "8bc8704c70d08c6f8ceeeed93fcafe9e",
+    "genres": "Adventure, Fantasy",
+    "directors": "Chris Weitz"
+  },
+  {
     "tmdbId": 950396,
     "mediaType": "movie",
     "title": "The Gorge",
@@ -7568,6 +7648,36 @@
     "jellyfinId": "12a1ce6388a3fa30879c1a2c8e317f5d",
     "genres": "Drama, Mystery, Western",
     "directors": "Quentin Tarantino"
+  },
+  {
+    "tmdbId": 49051,
+    "mediaType": "movie",
+    "title": "The Hobbit: An Unexpected Journey",
+    "originalTitle": null,
+    "year": 2012,
+    "jellyfinId": "7ee9b7e83e333d62dfb671fdb3852250",
+    "genres": "Adventure, Fantasy, Action",
+    "directors": "Peter Jackson"
+  },
+  {
+    "tmdbId": 122917,
+    "mediaType": "movie",
+    "title": "The Hobbit: The Battle of the Five Armies",
+    "originalTitle": null,
+    "year": 2014,
+    "jellyfinId": "f6e50c83713c90a489cb7ac45889924b",
+    "genres": "Action, Adventure, Fantasy",
+    "directors": "Peter Jackson"
+  },
+  {
+    "tmdbId": 57158,
+    "mediaType": "movie",
+    "title": "The Hobbit: The Desolation of Smaug",
+    "originalTitle": null,
+    "year": 2013,
+    "jellyfinId": "69cc861f36ba916261eddbdae815d02f",
+    "genres": "Fantasy, Adventure, Action",
+    "directors": "Peter Jackson"
   },
   {
     "tmdbId": 1581,
@@ -7748,6 +7858,16 @@
     "jellyfinId": "fa778198e64d981448d2ff71ce31a3b9",
     "genres": "Comedy, Drama, Romance",
     "directors": "Yorgos Lanthimos"
+  },
+  {
+    "tmdbId": 123,
+    "mediaType": "movie",
+    "title": "The Lord of the Rings",
+    "originalTitle": null,
+    "year": 1978,
+    "jellyfinId": "b24d15c9421cedca2505b8b26b3a19cf",
+    "genres": "Adventure, Animation, Fantasy",
+    "directors": "Ralph Bakshi"
   },
   {
     "tmdbId": 120,
@@ -8958,6 +9078,16 @@
     "jellyfinId": "05cc2bb5dd4bdce696ba72fe7608d11a",
     "genres": "Horror, Mystery",
     "directors": "Zach Cregger"
+  },
+  {
+    "tmdbId": 568160,
+    "mediaType": "movie",
+    "title": "Weathering with You",
+    "originalTitle": "天気の子",
+    "year": 2019,
+    "jellyfinId": "678f2fdfe7ff657a3746b80b50947b5e",
+    "genres": "Animation, Drama, Fantasy, Romance",
+    "directors": "Makoto Shinkai"
   },
   {
     "tmdbId": 119051,
