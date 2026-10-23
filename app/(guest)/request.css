@@ -58,10 +58,11 @@
 .rq-btn:disabled { cursor: not-allowed; }
 .rq-btn-wide { padding-inline: 28px; }
 .rq-btn-primary { background: var(--rq-accent); color: #0d0d0f; font-weight: 600; }
-.rq-btn-primary:hover { background: #ff6a26; }
+.rq-btn-primary:hover { background: var(--rq-accent-hover); }
+.rq-btn-primary:active { background: var(--rq-accent-active); }
 .rq-btn-primary:disabled { background: var(--rq-raised); color: var(--rq-muted); }
 .rq-btn-secondary { background: var(--rq-raised); color: #fff; }
-.rq-btn-secondary:hover { background: #2e2e33; }
+.rq-btn-secondary:hover { background: var(--rq-raised-hover); }
 .rq-btn-secondary:disabled { opacity: 0.4; }
 
 /* Lencana status: datar, satu bentuk */

@@ -227,59 +227,110 @@ Semua animasi dimatikan di bawah `@media (prefers-reduced-motion: reduce)`.
 
 ## 8. Components
 
-Setiap entri: nama, satu kalimat tujuan, lalu spesifikasi dan **di mana ia dipakai**. Kalau sebuah komponen tidak punya kalimat "dipakai di", ia belum ada di kode.
+> Katalog ini menulis **apa yang ada di kode**, bukan apa yang diinginkan. Kalau satu jenis komponen punya versi berbeda di tiap permukaan, itu ditulis apa adanya beserta **spesifikasi kanonnya** — target yang dituju kalau komponen itu disentuh lagi.
+>
+> Temuan utama audit 2026-10-23: Surflix **tidak kekurangan komponen**. Ia punya semua jenis yang dibutuhkan, tetapi tiga dari empat permukaan membangun versinya sendiri-sendiri. Yang benar-benar dipakai bersama baru PortalBar.
 
 ### Tombol
 
-**`btn-primary`** — aksi utama, satu per layar kalau bisa
-- Latar `{colors.accent}`, teks `{colors.accent-ink}`, `{typography.body}` tebal 500–600, padding `0 22px`, tinggi minimum **48px**, radius `{rounded.md}`.
-- Dipakai untuk "Watch on Surflix", "Find a title", "Start watching", kirim permintaan.
-- Hover: latar `{colors.accent-hover}`, naik 2px. Ditekan: `{colors.accent-active}`, `scale(0.98)`.
-- Nonaktif: latar `{colors.surface}`, teks `{colors.muted}`, tanpa transform, `cursor: not-allowed`.
+**Kanon:** tinggi minimum **48px**, radius `{rounded.md}` 8px, teks 16px berat **600**, target sentuh ≥44px. Hover menerang, ditekan menggelap, nonaktif jadi netral.
+
+**`btn-primary`** — aksi utama, usahakan satu per layar
+- Latar `{colors.accent}`, teks `{colors.accent-ink}`, padding `0 22px`.
+- Hover `{colors.accent-hover}` + naik 2px · Ditekan `{colors.accent-active}` + `scale(0.98)` · Nonaktif latar `{colors.surface}` teks `{colors.muted}`.
+- Dipakai: "Watch on Surflix", "Find a title", "Start watching", kirim permintaan.
+- Implementasi: `.ref-btn` (Reference) dan `.rq-btn-primary` (Request Hub). **Disamakan 2026-10-23** — beratnya dulu 500 di Reference dan 600 di Hub, dan Hub menuliskan hex hover langsung alih-alih token.
 
 **`btn-secondary`** — aksi kedua di sebelah aksi utama
-- Latar `{colors.surface}` (terang) atau `{colors.raised}` (gelap), teks `{colors.ink}`, sisanya sama dengan primary.
-- Hover: satu langkah lebih terang.
+- Latar `{colors.surface}` di permukaan terang, `{colors.raised}` di gelap. Teks `{colors.ink}`. Hover satu langkah lebih terang.
+- Implementasi: `.ref-btn--secondary`, `.rq-btn-secondary`.
 
 **`btn-light`** — primary dibalik untuk bidang gelap
-- Latar `{colors.field-1-ink}` putih, teks `{colors.field-1}`. Dipakai saat tombol berdiri di atas hero atau panggung gelap, karena oranye di atas hitam kurang menonjol dibanding putih.
+- Latar putih `{colors.field-1-ink}`, teks `{colors.field-1}`. Dipakai saat tombol berdiri di atas hero atau panggung gelap, karena putih lebih menonjol di sana daripada oranye.
+- Implementasi: `.ref-btn--light`.
 
-### Pill navigasi
+**`btn-text`** — tautan yang berperilaku seperti tombol
+- Tanpa latar, tanpa border, mewarisi warna teks. Dipakai di daftar tautan footer landing.
+- Implementasi: `.lp-link-btn`.
 
-**`pb-pill`** + **`pb-pill-active`**
-- Diam: latar transparan, teks `{colors.muted}`, padding `0 14px`, tinggi 38px, radius `{rounded.full}`.
-- Aktif: latar `{colors.accent}`, teks `{colors.accent-ink}`.
-- Dipakai di PortalBar untuk tiga situs (Streaming / Request Hub / Reference) dan pasangan bahasa EN/ID.
+### Pill dan chip
 
-### Lensa (Reference)
+**`pb-pill`** + **`pb-pill-active`** — pemilih tiga situs dan bahasa
+- Diam: latar transparan, teks `{colors.muted}`, tinggi 38px, radius `{rounded.full}`. Aktif: latar `{colors.accent}`, teks `{colors.accent-ink}`.
+- Satu-satunya komponen yang **benar-benar dipakai bersama** lintas permukaan.
 
 **`ref-lens`** — kendali tiga pandangan untuk satu judul
-- Baris pill: Peta / Urutan tonton / Galaxy. Yang aktif memakai `{colors.accent}`; sisanya `opacity: 0.6` dan menyala saat hover.
-- Muncul di halaman peta film, panel Galaxy, dan panel Watch order. **Lensa yang tidak berlaku disembunyikan** — tanpa saga tidak ada Urutan tonton; kalau tersisa satu, kendalinya tidak dirender sama sekali.
+- Peta / Urutan tonton / Galaxy. Aktif `{colors.accent}`; sisanya `opacity: 0.6`, menyala saat hover.
+- Lensa yang tidak berlaku **disembunyikan**; kalau tersisa satu, kendalinya tidak dirender sama sekali.
 
-### Panel panggung
+**`ref-saga-seg`** — sakelar Story / Release
+- Wadah radius `{rounded.md}` berisi dua pill. Muncul **hanya kalau kedua urutan memang berbeda** (`twoOrders`).
 
-**`ref-panel`** — keterangan melayang di atas panggung
-- `position: absolute`, kanan `{spacing.md}`–32px, atas 24px, lebar `min(380px, …)`, latar `{colors.bg}`, radius `{rounded.none}`, padding `24px 26px 26px`.
-- Di bawah 1024px jadi `position: static` dan menumpuk di bawah panggung.
+**`ref-galaxy-rels`** — penyaring jenis hubungan di Galaxy
+- Tujuh chip, satu per warna hubungan. Merangkap legenda warna — mematikan satu chip meredupkan koneksi jenis itu.
 
-### Kartu saga
+### Isian
+
+**`input-text`**
+- Kanon: tinggi minimum 48px (52px untuk bilah cari), radius `{rounded.md}`, latar `{colors.surface}` di gelap atau `{colors.bg}` di terang, fokus `outline: 2px solid {colors.accent}`.
+- Implementasi: `.rq-input` dan `.ref-search input`. Keduanya setuju soal bentuk tetapi ditulis terpisah.
+
+**`search-bar`** — isian cari dengan tombol menempel
+- Isian + `btn-primary` menyatu: radius kiri `{rounded.md}`, kanan 0 pada isian, kebalikannya pada tombol.
+- Implementasi: `.ref-search` (hero dan versi ringkas), `.rq-input--search`.
+
+### Lencana
+
+**`badge`** — penanda status kecil
+- Kanon: radius `{rounded.sm}` 6px, padding `1px 7px`, teks 11px berat 600–700, tinta `{colors.accent-ink}` di atas warna status.
+- Implementasi: `.rq-badge-*` (empat warna semantik), `.ref-new-badge`, `.ref-galaxy-wait`. **Ketiganya sudah sepakat soal radius 6px**; yang masih beda ukuran teksnya (11px vs 12px).
+
+### Kartu
+
+**`tile`** — ubin datar, bahasa dasar landing dan Request Hub
+- Latar `{colors.surface}`, radius `{rounded.md}`, tanpa bayangan, tanpa garis tipis.
+- Implementasi: `.lp-tile`, `.rq-tile`.
+
+**`ref-run`** — baris saga di indeks Watch order
+- Nama saga + deretan poster + tautan. Idiom contact sheet yang sama dengan beranda Reference.
 
 **`ref-saga-card`** — satu judul di garis waktu
-- Poster 100×150, titik `{colors.accent}` kalau terpilih, keterangan 13px di bawahnya.
+- Poster 100×150, titik `{colors.accent}` kalau terpilih, keterangan 13px.
 - Di bawah zoom 55% keterangan disembunyikan supaya panggungnya terbaca sebagai peta, bukan daftar.
-- Judul yang tidak ada di library tampil sebagai **`ref-saga-ghost`**: kotak abu bertuliskan "Not on Surflix" dengan tautan ke Request Hub.
 
-### Tombol putar di atas gambar (Jellyfin whitelabel)
+**`ref-saga-ghost`** — judul yang belum ada di library
+- Kotak abu bertuliskan "Not on Surflix" dengan tautan ke Request Hub. Lubangnya ditampilkan, bukan disembunyikan.
 
-Bukan bagian portal ini, tetapi memakai bahasa yang sama dan dicatat di `~/Developer/jellyfin-whitelabel/README.md`: diam = cakram gelap tembus pandang, hover = `{colors.accent}`. Orange hanya menyala saat jadi sasaran klik.
+**`ref-panel`** — keterangan melayang di atas panggung
+- `position: absolute`, kanan `{spacing.md}`–32px, atas 24px, lebar `min(380px, …)`, latar `{colors.bg}`, padding `24px 26px 26px`. Di bawah 1024px jadi statis dan menumpuk.
+
+### Pita penuh-layar
+
+**`hero-dark`** — hero di atas `{colors.field-1}`
+- Tinggi `max(100svh, 760px)` untuk beranda Reference; isi terpusat di dalam cincin poster.
+- Implementasi: `.ref-hero`, `.ref-new-intro`, `.lp-hero`.
+
+**`band-paper`** — pita krem `{colors.field-2}` untuk bagian penjelasan
+- Implementasi: `.ref-how`, `.lp-section--paper`.
+
+### Navigasi dan footer
+
+**`pb-bar`** — PortalBar, satu baris sticky
+- Logo + nama portal + tautan lokal + pill tiga situs + pill bahasa. Tinggi minimum 56px. Di bawah 767px logo, nama, dan tautan lokal disembunyikan.
+
+**`footer`** — Implementasi terpisah: `.lp-footer` dan `.ref-footer`. Belum disatukan.
+
+### Yang sengaja TIDAK ada
+
+Pembanding PlayStation punya beberapa komponen yang **tidak dibuat** karena tidak ada kebutuhannya: `pagination-dot` (tidak ada halaman berhalaman), `carousel-paddle` (semua rel digulir langsung, bukan dengan tombol), dan `sub-nav` (PortalBar sudah menampung tautan lokal). Jangan membuatnya hanya demi kelengkapan.
 
 ## 9. Known Gaps
 
 Hal yang **belum** rapi, dicatat supaya tidak terus-menerus ditemukan ulang:
 
 - **Spasi melenceng dari grid 4px.** Selain skala resmi, kode memakai 10px (34×), 14px (25×), 6px (22×), 22px (16×), 18px (12×) dan 2px (12×). Sebagian besar punya alasan optis, tetapi belum pernah ditinjau satu per satu.
-- **Satu radius nyasar:** ada `99px` yang mestinya `999px`, plus `10px` dan `12px` masing-masing sekali — tiga nilai di luar skala.
+- ~~Tiga radius nyasar (99px, 10px, 12px)~~ — **diseragamkan 2026-10-23**. Skalanya kini bersih: 999px (15×), 8px (15×), 6px (5×), 4px (4×), 50% (2×).
+- **Empat permukaan membangun komponen yang sama secara terpisah.** Tombol, isian, lencana, kartu, dan footer masing-masing punya versinya sendiri di `lp-`, `rq-`, `ref-`, dan `ad-`. Yang benar-benar dipakai bersama baru PortalBar. Menyatukannya adalah pekerjaan refaktor berisiko yang belum dilakukan; katalog di bagian 8 menuliskan spesifikasi kanonnya supaya pekerjaan berikutnya menuju ke sana, bukan menjauh.
 - **`{colors.accent-tint}` dan `{colors.accent-soft}` belum terpakai.** Keduanya ditambahkan 2026-10-23 untuk melengkapi skala; belum ada komponen yang memakainya.
 - **Landing dan Reference punya skala tipografi terpisah** (40/64px vs `--step-display` 44–80px). Itu disengaja — papan ubin versus halaman editorial — tetapi belum pernah ditulis sebagai dua skala bernama.
 - **Admin memakai bahasa yang sama tetapi tidak diaudit** seteliti tiga permukaan tamu.

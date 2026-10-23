@@ -188,7 +188,7 @@
 .lp-stage-col .lp-btn { margin-top: 22px; }
 
 /* fragmen antarmuka hub (data-ui): bingkai & radius sendiri diperbolehkan */
-.lp-ui { width: 100%; max-width: 300px; display: flex; flex-direction: column; gap: 10px; padding: 14px; background: #fff; color: var(--paper-ink); border-radius: 12px; font-size: var(--step-small); }
+.lp-ui { width: 100%; max-width: 300px; display: flex; flex-direction: column; gap: 10px; padding: 14px; background: #fff; color: var(--paper-ink); border-radius: 8px; font-size: var(--step-small); }
 .lp-ui--dark { background: var(--surface); color: #fff; }
 .lp-ui-film { display: flex; align-items: center; gap: 10px; }
 .lp-ui-film img { width: 44px; height: 66px; object-fit: cover; border-radius: 4px; }
@@ -197,7 +197,7 @@
 .lp-ui--dark .lp-ui-film small { color: var(--accent); font-weight: 600; }
 .lp-ui-field { padding: 9px 11px; border: 1px solid #d3d3da; border-radius: 8px; } /* taste-skill-ignore */
 .lp-ui-btn { padding: 9px; border-radius: 8px; background: var(--accent); color: var(--accent-ink); font-weight: 600; text-align: center; }
-.lp-ui-bar { height: 8px; overflow: hidden; border-radius: 99px; background: #2e2e33; }
+.lp-ui-bar { height: 8px; overflow: hidden; border-radius: 999px; background: #2e2e33; }
 .lp-ui-bar i { display: block; height: 100%; background: var(--accent); }
 .lp-ui-meta { display: flex; justify-content: space-between; color: var(--muted); }
 .lp-ui-ready { display: flex; flex-direction: column; align-items: center; gap: 14px; height: 100%; }
