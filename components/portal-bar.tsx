@@ -75,7 +75,7 @@ export function PortalBar({
       <div className="pb-in">
         <a href={homeHref('/')} className="pb-logo" aria-label={t('pb.home')}>
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src="/logo-wordmark.png" alt="" width={86} height={24} className="pb-wordmark" />
+          <img src="/logo-wordmark.png" alt="" width={87} height={24} className="pb-wordmark" />
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo-mark.png" alt="" width={24} height={24} className="pb-mark" />
         </a>

@@ -31,7 +31,7 @@ export function Footer() {
       <div className="rq-wrap">
         <div className="rq-tile flex flex-col gap-6 p-5 md:flex-row md:items-end md:justify-between md:p-6">
           <div className="flex flex-col items-start gap-2">
-            <Image src="/logo-wordmark.png" alt="Surflix" width={116} height={32} className="h-8 w-auto" />
+            <Image src="/logo-wordmark.png" alt="Surflix" width={1354} height={372} className="h-8 w-auto" />
             <p className="rq-small text-rq-muted">
               {t('hub.name')}
               {stats && (stats.moviesCount > 0 || stats.seriesCount > 0) &&
