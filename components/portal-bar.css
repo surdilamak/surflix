@@ -36,7 +36,7 @@
 }
 .pb-switch a {
   display: inline-flex; align-items: center; justify-content: center;
-  min-height: 40px; padding: 0 14px; border-radius: 999px;
+  min-height: 40px; padding: 0 16px; border-radius: 999px;
   color: var(--pb-muted, #a3a3ab); white-space: nowrap;
   transition: background 0.18s, color 0.18s;
 }
@@ -57,7 +57,7 @@
 .pb-bar :focus-visible { outline: 2px solid var(--pb-accent, #ff5200); outline-offset: 2px; }
 
 @media (min-width: 768px) {
-  .pb-in { min-height: 60px; padding-block: 6px; padding-inline: var(--pb-pad, 24px); gap: 16px; }
+  .pb-in { min-height: 60px; padding-block: 8px; padding-inline: var(--pb-pad, 24px); gap: 16px; }
   .pb-bar .pb-wordmark { display: block; }
   .pb-bar .pb-mark { display: none; }
   .pb-name { display: inline; }
@@ -71,7 +71,7 @@
 /* tablet sempit: tautan lokal yang panjang pindah ke baris sendiri */
 @media (min-width: 768px) and (max-width: 1179px) {
   .pb-in { flex-wrap: wrap; row-gap: 0; }
-  .pb-bar .pb-nav--long { order: 5; flex-basis: 100%; margin: 0 -12px 6px; }
+  .pb-bar .pb-nav--long { order: 5; flex-basis: 100%; margin: 0 -12px 8px; }
 }
 /* telepon: pill situs + hamburger; logo, nama, tautan lokal, dan bahasa pindah ke menu */
 .pb-burger {
@@ -83,12 +83,12 @@
 @media (max-width: 767px) {
   .pb-in {
     position: relative; z-index: 2; gap: 8px;
-    padding-top: calc(env(safe-area-inset-top, 0px) + 10px); padding-bottom: 10px;
+    padding-top: calc(env(safe-area-inset-top, 0px) + 12px); padding-bottom: 12px;
     min-height: 0;
   }
   .pb-bar .pb-logo, .pb-name, .pb-in > .pb-nav, .pb-in > .pb-lang { display: none; }
   .pb-switch { margin-left: 0; flex: 1; justify-content: space-between; }
-  .pb-switch a { flex: 1; padding: 0 6px; font-size: 13px; min-height: 40px; }
+  .pb-switch a { flex: 1; padding: 0 8px; font-size: 13px; min-height: 40px; }
   .pb-burger { display: inline-flex; }
   .pb-scrim {
     display: block; position: fixed; inset: 0; z-index: 1; border: 0; padding: 0; cursor: default;

@@ -172,7 +172,14 @@ Target sentuh minimal **44px**; tombol standar `min-height: 48px`.
 
 ### Skala spasi
 
-**Satuan dasar 4px.** Nilai di bawah diambil dari hitungan pemakaian nyata di kelima berkas CSS, bukan dari cita-cita.
+**Aturan dua tingkat, ditegakkan 2026-10-23:**
+
+1. **Spasi tata letak (gap, margin antar blok, padding kontainer) harus kelipatan 4px.** Tidak ada pengecualian. Sudah diperiksa satu per satu dan 114 nilai disnap ke grid.
+2. **Detail sejajar boleh 1–3px** — padding lencana, geseran optis ikon, jarak rambut. Memaksa grid 4px pada lencana setinggi 18px menghasilkan benda yang salah, bukan benda yang rapi.
+
+Ilustrasi tiruan antarmuka di landing (`.lp-ui*`) **dikecualikan**: itu gambar sebuah aplikasi, bukan aplikasinya.
+
+Nilai di bawah diambil dari hitungan pemakaian nyata di kelima berkas CSS, bukan dari cita-cita.
 
 | Token | Nilai | Dipakai untuk | Jumlah |
 |---|---|---|---|
@@ -329,7 +336,7 @@ Pembanding PlayStation punya beberapa komponen yang **tidak dibuat** karena tida
 
 Hal yang **belum** rapi, dicatat supaya tidak terus-menerus ditemukan ulang:
 
-- **Spasi melenceng dari grid 4px.** Selain skala resmi, kode memakai 10px (34×), 14px (25×), 6px (22×), 22px (16×), 18px (12×) dan 2px (12×). Sebagian besar punya alasan optis, tetapi belum pernah ditinjau satu per satu.
+- ~~Spasi melenceng dari grid 4px~~ — **ditinjau satu per satu dan dibereskan 2026-10-23.** 114 nilai disnap (6→8, 10→12, 14→16, 18→20, 22→24, 26→24, 30→32, 38/42→40, 5→4, 7→8, 9→8, 150→144). Yang tersisa hanya 2px dan 3px sebagai detail sejajar, sesuai aturan dua tingkat di bagian 6.
 - ~~Tiga radius nyasar (99px, 10px, 12px)~~ — **diseragamkan 2026-10-23**. Skalanya kini bersih: 999px (15×), 8px (15×), 6px (5×), 4px (4×), 50% (2×).
 - **Empat permukaan membangun komponen yang sama secara terpisah.** Tombol, isian, lencana, kartu, dan footer masing-masing punya versinya sendiri di `lp-`, `rq-`, `ref-`, dan `ad-`. Yang benar-benar dipakai bersama baru PortalBar. Menyatukannya adalah pekerjaan refaktor berisiko yang belum dilakukan; katalog di bagian 8 menuliskan spesifikasi kanonnya supaya pekerjaan berikutnya menuju ke sana, bukan menjauh.
 - **`{colors.accent-tint}` dan `{colors.accent-soft}` belum terpakai.** Keduanya ditambahkan 2026-10-23 untuk melengkapi skala; belum ada komponen yang memakainya.

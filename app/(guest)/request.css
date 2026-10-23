@@ -72,7 +72,7 @@
 /* Lencana status: datar, satu bentuk */
 .rq-badge {
   display: inline-flex; align-items: center; gap: 4px;
-  border-radius: 6px; padding: 3px 7px; font-size: 12px; font-weight: 500; line-height: 1.2; color: #0d0d0f;
+  border-radius: 6px; padding: 2px 8px; font-size: 12px; font-weight: 500; line-height: 1.2; color: #0d0d0f;
 }
 .rq-badge-available { background: #30d158; }
 .rq-badge-processing { background: #64d2ff; }
@@ -82,7 +82,7 @@
 /* Isian */
 .rq-input {
   background: var(--rq-surface); border: 0; border-radius: var(--rq-r);
-  min-height: 48px; padding: 0 14px; font-size: 0.9375rem; color: #fff;
+  min-height: 48px; padding: 0 16px; font-size: 0.9375rem; color: #fff;
 }
 textarea.rq-input { padding-block: 12px; }
 .rq-input--lead { padding-left: 40px; }

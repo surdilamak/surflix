@@ -46,12 +46,12 @@
 .ad-side { display: none; }
 .ad-top {
   position: sticky; top: 0; z-index: 40; display: flex; align-items: center; gap: 12px;
-  padding: calc(env(safe-area-inset-top, 0px) + 10px) 16px 10px; background: var(--ad-bg);
+  padding: calc(env(safe-area-inset-top, 0px) + 12px) 16px 12px; background: var(--ad-bg);
 }
 .ad-top-title { flex: 1; font-weight: 600; letter-spacing: -0.02em; }
 .ad-main { padding: 8px 16px 48px; max-width: 72rem; }
 .ad-page-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 12px 16px; margin: 8px 0 20px; }
-.ad-page-head p { margin: 6px 0 0; }
+.ad-page-head p { margin: 8px 0 0; }
 .ad-grid { display: grid; gap: 8px; }
 
 @media (min-width: 1024px) {
@@ -63,7 +63,7 @@
   .ad-top { display: none; }
   .ad-main { padding: 28px 32px 64px; width: 100%; }
 }
-.ad-brand { display: flex; align-items: center; gap: 10px; padding: 4px 12px 16px; font-weight: 600; letter-spacing: -0.02em; }
+.ad-brand { display: flex; align-items: center; gap: 12px; padding: 4px 12px 16px; font-weight: 600; letter-spacing: -0.02em; }
 .ad-brand small { display: block; font-size: 0.75rem; font-weight: 500; color: var(--ad-muted); letter-spacing: 0; }
 .ad-nav { display: flex; flex-direction: column; gap: 2px; }
 .ad-nav a, .ad-sidelink {
@@ -76,7 +76,7 @@
 .ad-nav a[aria-current='page'] svg { color: var(--ad-accent); }
 .ad-nav svg, .ad-sidelink svg { width: 18px; height: 18px; flex: 0 0 auto; }
 .ad-count {
-  margin-left: auto; min-width: 22px; padding: 1px 7px; border-radius: 999px; text-align: center;
+  margin-left: auto; min-width: 22px; padding: 2px 8px; border-radius: 999px; text-align: center;
   background: var(--ad-accent); color: #0d0d0f; font-size: 0.75rem; font-weight: 700; line-height: 1.5;
 }
 .ad-side-foot { margin-top: auto; display: flex; flex-direction: column; gap: 2px; }
@@ -87,7 +87,7 @@
 @media (min-width: 1024px) { .ad-burger { display: none; } }
 .ad-sheet { position: fixed; inset: 0; z-index: 60; background: rgba(0, 0, 0, 0.55); }
 .ad-sheet-panel {
-  position: absolute; left: 0; right: 0; top: 0; padding: calc(env(safe-area-inset-top, 0px) + 10px) 12px 16px;
+  position: absolute; left: 0; right: 0; top: 0; padding: calc(env(safe-area-inset-top, 0px) + 12px) 12px 16px;
   background: var(--ad-bg); max-height: 100svh; overflow-y: auto;
 }
 @media (min-width: 1024px) { .ad-sheet { display: none; } }
@@ -101,13 +101,13 @@
 .ad-tile--link:hover { background: var(--ad-raised); }
 .ad-tile--accent.ad-tile--link:hover { background: #ff6a26; }
 .ad-tile--link:active { transform: scale(0.99); }
-.ad-label { font-size: 0.8125rem; color: var(--ad-muted); margin: 0 0 10px; display: flex; align-items: center; gap: 8px; }
+.ad-label { font-size: 0.8125rem; color: var(--ad-muted); margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
 .ad-label svg { width: 16px; height: 16px; }
-.ad-section-title { margin: 28px 0 10px; }
+.ad-section-title { margin: 28px 0 12px; }
 
 /* ── Tombol: bentuk tunggal, tiga rupa ── */
 .ad-btn {
-  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 18px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 20px;
   border: 0; border-radius: var(--ad-r); background: var(--ad-raised); color: var(--ad-ink);
   font: inherit; font-size: 0.9375rem; font-weight: 500; cursor: pointer; white-space: nowrap;
   transition: background 0.18s, transform 0.18s var(--ad-ease), opacity 0.18s;
@@ -121,14 +121,14 @@
 .ad-btn--danger:hover { background: rgba(255, 105, 97, 0.18); color: var(--ad-red); }
 .ad-btn--ghost { background: transparent; color: var(--ad-muted); }
 .ad-btn--ghost:hover { background: var(--ad-surface); color: var(--ad-ink); }
-.ad-btn--sm { min-height: 40px; padding: 0 14px; font-size: 0.875rem; }
+.ad-btn--sm { min-height: 40px; padding: 0 16px; font-size: 0.875rem; }
 .ad-btn--block { width: 100%; }
 a.ad-btn { text-decoration: none; }
 
 /* ── Chip filter dan tab segmen ── */
 .ad-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .ad-chip {
-  display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border: 0;
+  display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px; border: 0;
   border-radius: var(--ad-r); background: var(--ad-surface); color: var(--ad-muted);
   font: inherit; font-size: 0.875rem; font-weight: 500; cursor: pointer; transition: background 0.18s, color 0.18s;
 }
@@ -146,7 +146,7 @@ a.ad-btn { text-decoration: none; }
 
 /* ── Lencana status: datar, satu bentuk ── */
 .ad-badge {
-  display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px; border-radius: 6px;
+  display: inline-flex; align-items: center; gap: 8px; padding: 3px 8px; border-radius: 6px;
   font-size: 0.75rem; font-weight: 600; line-height: 1.3; white-space: nowrap; background: var(--ad-raised); color: var(--ad-muted);
 }
 .ad-badge svg { width: 12px; height: 12px; }
@@ -158,31 +158,31 @@ a.ad-btn { text-decoration: none; }
 
 /* ── Isian ── */
 .ad-field {
-  width: 100%; min-height: 44px; padding: 0 14px; border: 0; border-radius: var(--ad-r);
+  width: 100%; min-height: 44px; padding: 0 16px; border: 0; border-radius: var(--ad-r);
   background: var(--ad-surface); color: var(--ad-ink); font: inherit; font-size: 0.9375rem;
 }
 textarea.ad-field { padding-block: 12px; min-height: 0; resize: vertical; }
-select.ad-field { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%23a3a3ab' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-position: right 14px center; background-repeat: no-repeat; padding-right: 38px; }
+select.ad-field { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M1 1.5l5 5 5-5' stroke='%23a3a3ab' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-position: right 14px center; background-repeat: no-repeat; padding-right: 40px; }
 .ad-field::placeholder { color: var(--ad-muted); }
 .ad-field:focus { background: var(--ad-raised); }
 .ad-tile .ad-field { background: var(--ad-raised); }
 .ad-tile .ad-field:focus { background: var(--ad-hover); }
 .ad-search { position: relative; }
 .ad-search svg { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; color: var(--ad-muted); pointer-events: none; }
-.ad-search .ad-field { padding-left: 42px; }
+.ad-search .ad-field { padding-left: 40px; }
 .ad-check { width: 22px; height: 22px; accent-color: var(--ad-accent); flex: 0 0 auto; cursor: pointer; }
 
 /* ── Poster dan baris daftar ── */
 .ad-poster { width: 56px; aspect-ratio: 2 / 3; border-radius: var(--ad-r); background: var(--ad-raised); overflow: hidden; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; color: var(--ad-muted); }
 .ad-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .ad-poster--lg { width: 88px; }
-.ad-row { display: flex; gap: 14px; align-items: flex-start; }
-.ad-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; color: var(--ad-muted); font-size: 0.8125rem; }
+.ad-row { display: flex; gap: 16px; align-items: flex-start; }
+.ad-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; color: var(--ad-muted); font-size: 0.8125rem; }
 .ad-meta svg { width: 14px; height: 14px; }
 .ad-clamp { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-.ad-note { background: var(--ad-raised); border-radius: var(--ad-r); padding: 10px 12px; font-size: 0.8125rem; }
+.ad-note { background: var(--ad-raised); border-radius: var(--ad-r); padding: 12px 12px; font-size: 0.8125rem; }
 .ad-note b { font-weight: 600; }
-.ad-kv { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; font-size: 0.875rem; }
+.ad-kv { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; font-size: 0.875rem; }
 .ad-kv span:first-child { color: var(--ad-muted); }
 .ad-kv span:last-child { text-align: right; word-break: break-all; }
 .ad-bar { height: 8px; border-radius: 999px; background: var(--ad-raised); overflow: hidden; }
@@ -195,10 +195,10 @@ select.ad-field { appearance: none; background-image: url("data:image/svg+xml,%3
 /* ── Bilah aksi massal, toast, dialog ── */
 .ad-bulk {
   position: sticky; bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); z-index: 30; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px;
-  margin-top: 12px; padding: 10px 12px; border-radius: var(--ad-r); background: var(--ad-raised);
+  margin-top: 12px; padding: 12px 12px; border-radius: var(--ad-r); background: var(--ad-raised);
 }
 .ad-toast-wrap { position: fixed; left: 0; right: 0; bottom: calc(env(safe-area-inset-bottom, 0px) + 16px); z-index: 90; display: flex; justify-content: center; padding: 0 16px; pointer-events: none; }
-.ad-toast { display: flex; align-items: center; gap: 10px; max-width: 28rem; padding: 12px 16px; border-radius: var(--ad-r); background: var(--ad-raised); pointer-events: auto; font-size: 0.875rem; font-weight: 500; }
+.ad-toast { display: flex; align-items: center; gap: 12px; max-width: 28rem; padding: 12px 16px; border-radius: var(--ad-r); background: var(--ad-raised); pointer-events: auto; font-size: 0.875rem; font-weight: 500; }
 .ad-toast svg { width: 18px; height: 18px; flex: 0 0 auto; }
 .ad-toast[data-tone='success'] svg { color: var(--ad-green); }
 .ad-toast[data-tone='error'] svg { color: var(--ad-red); }
