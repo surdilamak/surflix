@@ -65,10 +65,14 @@
 .rq-btn-secondary:hover { background: var(--rq-raised-hover); }
 .rq-btn-secondary:disabled { opacity: 0.4; }
 
+/* Footer: pola yang sama dengan .ref-footer - didorong ke bawah oleh flex, jarak
+   atas dari skala spasi, bukan utilitas Tailwind lepas. */
+.rq-footer { margin-top: auto; padding: 64px 0 24px; }
+
 /* Lencana status: datar, satu bentuk */
 .rq-badge {
   display: inline-flex; align-items: center; gap: 4px;
-  border-radius: 6px; padding: 3px 7px; font-size: 11px; font-weight: 500; line-height: 1.2; color: #0d0d0f;
+  border-radius: 6px; padding: 3px 7px; font-size: 12px; font-weight: 500; line-height: 1.2; color: #0d0d0f;
 }
 .rq-badge-available { background: #30d158; }
 .rq-badge-processing { background: #64d2ff; }

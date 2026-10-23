@@ -27,7 +27,7 @@ export function Footer() {
   const jellyfinUrl = config?.jellyfinUrl;
 
   return (
-    <footer className="mt-16 pb-6 pt-2">
+    <footer className="rq-footer">
       <div className="rq-wrap">
         <div className="rq-tile flex flex-col gap-6 p-5 md:flex-row md:items-end md:justify-between md:p-6">
           <div className="flex flex-col items-start gap-2">

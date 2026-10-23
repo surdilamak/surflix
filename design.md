@@ -282,8 +282,9 @@ Semua animasi dimatikan di bawah `@media (prefers-reduced-motion: reduce)`.
 ### Lencana
 
 **`badge`** — penanda status kecil
-- Kanon: radius `{rounded.sm}` 6px, padding `1px 7px`, teks 11px berat 600–700, tinta `{colors.accent-ink}` di atas warna status.
-- Implementasi: `.rq-badge-*` (empat warna semantik), `.ref-new-badge`, `.ref-galaxy-wait`. **Ketiganya sudah sepakat soal radius 6px**; yang masih beda ukuran teksnya (11px vs 12px).
+- Kanon: radius `{rounded.sm}` 6px, padding `1px 7px`, teks **12px** berat 600–700, tinta `{colors.accent-ink}` di atas warna status.
+- Implementasi: `.rq-badge-*` (empat warna semantik), `.ref-new-badge`, `.ref-galaxy-wait`. **Disamakan ke 12px pada 2026-10-23** — sebelumnya 11/11/12.
+- **Inspector menandai ini** (`small-text`, ambangnya 13px) dan itu **bukan positif palsu** melainkan keputusan yang diambil sadar: lencana seukuran teks isi berhenti terbaca sebagai penanda sekunder. Kalau nanti ada keluhan keterbacaan, naikkan ke 13px dan terima bahwa lencananya jadi lebih berat.
 
 ### Kartu
 
@@ -334,6 +335,7 @@ Hal yang **belum** rapi, dicatat supaya tidak terus-menerus ditemukan ulang:
 - **`{colors.accent-tint}` dan `{colors.accent-soft}` belum terpakai.** Keduanya ditambahkan 2026-10-23 untuk melengkapi skala; belum ada komponen yang memakainya.
 - **Landing dan Reference punya skala tipografi terpisah** (40/64px vs `--step-display` 44–80px). Itu disengaja — papan ubin versus halaman editorial — tetapi belum pernah ditulis sebagai dua skala bernama.
 - **Admin memakai bahasa yang sama tetapi tidak diaudit** seteliti tiga permukaan tamu.
+- **Footer masih tiga implementasi** (`.rq-footer`, `.lp-footer`, `.ref-footer`). Padding bawah dan pola sticky sudah disamakan 2026-10-23, tetapi padding atasnya masih berbeda (64px / 57,6px / 90px) karena ketiganya berbeda ukuran dan peran — footer peta situs landing tidak sama dengan footer satu baris Reference. Belum disatukan jadi satu komponen.
 - **Kontras belum diaudit menyeluruh.** Yang sudah diukur: skala aksen, dan satu kegagalan di tautan 15px yang sudah diperbaiki. Pasangan warna lain belum.
 
 ## 10. Design Tokens — tempatnya
