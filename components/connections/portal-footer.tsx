@@ -8,7 +8,7 @@ import { useAppConfig } from '@/lib/hooks/use-app-config';
 import { useLang } from './lang-provider';
 
 export function PortalFooter() {
-  const { hubHref } = usePortal();
+  const { hubHref, homeHref } = usePortal();
   const config = useAppConfig();
   const { t } = useLang();
 
@@ -22,6 +22,12 @@ export function PortalFooter() {
             {t('detail.watch')}
           </a>
         )}
+        {/* Halaman legal dimiliki apex, jadi ditaut lewat homeHref(): dari subdomain
+            mana pun ia menunjuk surflix.my.id, bukan reference.surflix.my.id/terms
+            yang akan di-redirect. */}
+        <a href={homeHref('/terms')}>{t('footer.terms')}</a>
+        <a href={homeHref('/privacy')}>{t('footer.privacy')}</a>
+        <a href="mailto:admin@surflix.my.id">{t('footer.contact')}</a>
       </nav>
       <span>{new Date().getFullYear()}</span>
     </footer>

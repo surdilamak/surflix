@@ -307,7 +307,7 @@
 .lp-mark-b[data-i="5"] { height: 84%; background: #d6d6dc; }
 .lp-mark-b[data-i="6"] { height: 72%; }
 .lp-foot-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; margin: 0 var(--m); }
-.lp-foot-cols { grid-column: 1 / 9; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; font-size: var(--step-small); }
+.lp-foot-cols { grid-column: 1 / 9; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; font-size: var(--step-small); }
 .lp-foot-cols h3 { margin-bottom: 12px; font-size: var(--step-small); font-weight: 600; }
 .lp-foot-cols a, .lp-foot-cols .lp-link-btn { display: block; padding: 3px 0; opacity: 0.85; transition: opacity 0.2s; }
 .lp-foot-cols a:hover, .lp-foot-cols .lp-link-btn:hover { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }

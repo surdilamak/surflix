@@ -454,3 +454,20 @@ CSS buatan sendiri **tidak berlayer**, jadi selalu menang atas utilitas Tailwind
 `eyebrow` pada halaman saga juga palsu: "← All sagas" itu tautan kembali, bukan kicker.
 
 Jalankan dengan `--allow edge-text,body-size`.
+
+### Halaman prosa (`/terms`, `/privacy`) dan 404 — 2026-10-23
+
+Daftar Must-Have inspector dikalibrasi untuk halaman pemasaran SaaS. Di halaman hukum sebagian besar **tidak berlaku**, bukan lolos:
+
+| Aturan | Kenapa tidak berlaku |
+|---|---|
+| `few-pictures`, `no-footage` | Halaman syarat tidak punya pokok yang bisa difoto atau difilmkan |
+| `first-action` | Tidak ada tindakan utama untuk dijadikan tombol; tautan kembali sudah cukup |
+| `still-page`, `focal-point` | Dokumen, bukan panggung; judul 40px memang elemen dominannya |
+| `untitled-section` @390px | Lede, daftar, dan kotak penegasan ada **di dalam** bagian berjudul; pemenggalan inspector di layar sempit tidak melihat hierarkinya |
+| `eyebrow`, `small-title` | "← Surflix" tautan kembali; judul dokumen tidak perlu ukuran hero |
+| `off-centre` pada 404 | Diukur 2026-10-23: pembungkus dan bidang warnanya **L293/R1147 di 1440px**, simetris persis. Yang diukur inspector tepi *teks* kartu yang rata kiri dan ragged kanan |
+
+Yang **betul** dan sudah diperbaiki: `hairline` (garis 1px di atas nav footer → dihapus, jarak 80px sudah memisahkan), `empty-screens` (prosa 600px melayang di tengah hitam → ditaruh di atas bidang `--surface` pada ≥1024px), `name-only-title` (lede pada `--step-body` jatuh ke 17.9px di 768px, di bawah ambang 18px → dinaikkan ke `--step-lead`).
+
+Jalankan dengan `--allow eyebrow,few-pictures,no-footage,focal-point,still-page,untitled-section,first-action,small-title`.

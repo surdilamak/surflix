@@ -194,6 +194,9 @@ const en: Dict = {
 
   // footer
   'footer.what': 'Surflix Reference, a map of the library',
+  'footer.terms': 'Terms',
+  'footer.privacy': 'Privacy',
+  'footer.contact': 'Contact',
 };
 
 const id: Dict = {
@@ -365,6 +368,9 @@ const id: Dict = {
   'galaxy.search': 'Terbang ke judul',
 
   'footer.what': 'Surflix Reference, peta library kami',
+  'footer.terms': 'Ketentuan',
+  'footer.privacy': 'Privasi',
+  'footer.contact': 'Kontak',
 };
 
 const DICTS: Record<Lang, Dict> = { en, id };

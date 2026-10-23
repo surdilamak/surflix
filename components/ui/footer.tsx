@@ -8,11 +8,13 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { useAppConfig } from '@/lib/hooks/use-app-config';
 import { useLang } from '@/components/connections/lang-provider';
+import { usePortal } from '@/lib/hooks/use-portal';
 import { Icons } from './icons';
 
 export function Footer() {
   const config = useAppConfig();
   const { t } = useLang();
+  const { homeHref } = usePortal();
   const [stats, setStats] = useState<{ moviesCount: number; seriesCount: number } | null>(null);
 
   useEffect(() => {
@@ -52,6 +54,13 @@ export function Footer() {
                 <Icons.ArrowUpRight className="h-4 w-4" />
               </a>
             )}
+            {/* Halaman legal dimiliki apex: homeHref() menunjuk surflix.my.id dari
+                subdomain mana pun, jadi tidak kena redirect. */}
+            <nav className="rq-small flex flex-wrap gap-x-4 gap-y-1 text-rq-muted md:justify-end">
+              <a href={homeHref('/terms')} className="py-2 hover:text-white">{t('hub.footer.terms')}</a>
+              <a href={homeHref('/privacy')} className="py-2 hover:text-white">{t('hub.footer.privacy')}</a>
+              <a href="mailto:admin@surflix.my.id" className="py-2 hover:text-white">{t('hub.footer.contact')}</a>
+            </nav>
           </div>
         </div>
       </div>

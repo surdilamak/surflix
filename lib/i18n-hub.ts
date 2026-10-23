@@ -239,6 +239,9 @@ export const hubEn: Dict = {
   'hub.footer.rule': 'House rule:',
   'hub.footer.ruleText': 'No requests for Indonesian films or series',
   'hub.footer.open': 'Open Surflix',
+  'hub.footer.terms': 'Terms',
+  'hub.footer.privacy': 'Privacy',
+  'hub.footer.contact': 'Contact',
 };
 
 export const hubId: Dict = {
@@ -462,6 +465,9 @@ export const hubId: Dict = {
   'hub.footer.rule': 'Aturan:',
   'hub.footer.ruleText': 'Dilarang request film atau serial Indonesia',
   'hub.footer.open': 'Buka Surflix',
+  'hub.footer.terms': 'Ketentuan',
+  'hub.footer.privacy': 'Privasi',
+  'hub.footer.contact': 'Kontak',
 };
 
 export const GENRES_EN: Record<string, string> = {

@@ -496,6 +496,12 @@ export default async function LandingPage({ searchParams }: { searchParams?: Pro
             <div>
               <h3>{t('lp.foot.support')}</h3>
               <CoffeeButton className="lp-link-btn" labels={coffeeLabels}>{t('lp.coffee')}</CoffeeButton>
+              <a href="mailto:admin@surflix.my.id">admin@surflix.my.id</a>
+            </div>
+            <div>
+              <h3>{t('lp.foot.legal')}</h3>
+              <a href="/terms">{t('lp.foot.terms')}</a>
+              <a href="/privacy">{t('lp.foot.privacy')}</a>
             </div>
           </nav>
           <p className="lp-foot-note">

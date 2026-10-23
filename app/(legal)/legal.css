@@ -1,0 +1,130 @@
+/* ── Halaman legal (apex) ──────────────────────────────────────────────────
+   Prosa, bukan papan ubin. Memakai token .lp-root; yang ditambah di sini cuma
+   ritme bacaan: satu kolom selebar 68ch, ritme vertikal dari design.md
+   (--gap-section 80px antar bagian, --gap-block 40px di dalamnya).
+   Nilai tetap, bukan clamp: clamp menghasilkan nilai di luar grid 4px. */
+/* Di layar lebar prosa duduk di atas bidang --surface, bukan melayang sebagai
+   pita 600px di tengah hitam: inspector membaca dua layar terakhir sebagai tanah
+   kosong (di bawah 20% terisi) dan itu betul - yang terlihat cuma teks tipis.
+   Panel memberi dokumen ini badan tanpa menyentuh lebar bacanya: max-width
+   menghitung 60ch DITAMBAH padding, jadi ukuran bacaan tetap 60 karakter. */
+.lg-wrap {
+  /* 60ch, angka yang sama dengan .ref-caption di Reference - jadi lebar baca di
+     seluruh Surflix satu nilai. Diukur: pada 68ch baris terpanjang 82 karakter,
+     lewat dari norma prosa 45-75. */
+  box-sizing: border-box;
+  width: calc(100% - var(--m) * 2);
+  max-width: calc(60ch + 112px);
+  margin: 56px auto 80px;
+  padding: 56px;
+  background: var(--surface);
+  border-radius: var(--r);
+}
+/* Di bawah 1024px panelnya dilepas: layarnya sendiri sudah jadi bidang, dan
+   padding ganda (margin halaman + padding panel) memangkas lebar baca. */
+@media (max-width: 1023px) {
+  .lg-wrap {
+    max-width: 60ch;
+    margin: 40px auto 56px;
+    padding: 0;
+    background: none;
+    border-radius: 0;
+  }
+}
+
+.lg-back {
+  display: inline-flex; align-items: center; min-height: 44px;
+  margin-bottom: 28px;
+  font-size: var(--step-small); font-weight: 600; color: var(--muted);
+  transition: color 0.2s var(--ease);
+}
+.lg-back:hover { color: var(--ink); }
+
+.lg-wrap h1 {
+  font-size: var(--step-sub); font-weight: 600; letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+/* Baris di bawah judul harus MENGATAKAN ini halaman apa, dan pada 18px ke atas:
+   pada --step-body ukurannya 17.9px di 768px, jadi judul terbaca sebagai nama
+   telanjang (temuan `name-only-title`). --step-lead = 22-26px. */
+.lg-lede { margin-top: 20px; font-size: var(--step-lead); line-height: 1.45; color: var(--muted); }
+
+/* Tanggal adalah keterangan, bukan subjudul - tempatnya di bawah lede. */
+.lg-updated { margin-top: 20px; font-size: var(--step-small); color: var(--muted); }
+
+.lg-wrap h2 {
+  margin-top: 56px; margin-bottom: 16px;
+  font-size: var(--step-lead); font-weight: 600; letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.lg-wrap h3 {
+  margin-top: 32px; margin-bottom: 8px;
+  font-size: var(--step-body); font-weight: 600;
+}
+.lg-wrap p { margin-top: 16px; }
+.lg-wrap ul { margin-top: 16px; padding-left: 20px; list-style: disc; }
+.lg-wrap li { margin-top: 8px; }
+.lg-wrap li::marker { color: var(--accent); }
+.lg-wrap strong { font-weight: 600; color: var(--ink); }
+.lg-wrap a:not(.lg-back) {
+  color: var(--ink); text-decoration: underline; text-underline-offset: 4px;
+  text-decoration-color: var(--accent);
+}
+.lg-wrap a:not(.lg-back):hover { color: var(--accent); }
+
+/* Kotak penegasan untuk hal yang paling gampang disalahpahami */
+/* Kotak penegasan memakai ukuran huruf PROSA, bukan --step-small: benda yang
+   menegaskan tidak boleh lebih kecil dari yang ditegaskannya, dan huruf kecil
+   memuat lebih banyak karakter per baris (diukur 104, jauh di atas norma). */
+.lg-note {
+  margin-top: 24px; padding: 20px;
+  border-radius: var(--r);
+  background: var(--surface-2); /* sewarna beda dari panel .lg-wrap di desktop */
+}
+.lg-note p:first-child { margin-top: 0; }
+
+/* Tanpa border-top: jarak 80px sudah memisahkan, dan garis tipis cuma untuk tabel
+   dan isian form (temuan inspector `hairline`, dan itu benar di sini). */
+.lg-foot {
+  margin-top: 80px;
+  display: flex; flex-wrap: wrap; gap: 8px 24px;
+  font-size: var(--step-small); color: var(--muted);
+}
+
+/* ── 404 ───────────────────────────────────────────────────────────────────
+   Bukan prosa: halaman pendek, satu layar, isinya ditaruh di tengah tegak agar
+   tidak ada separuh layar kosong di bawahnya, dan empat tujuan jadi kisi 2x2
+   supaya kedua margin ditutup sama rata. */
+.lg-404 {
+  box-sizing: border-box;
+  min-height: 100svh;
+  width: calc(100% - var(--m) * 2);
+  max-width: calc(60ch + 112px);
+  margin: 0 auto;
+  padding: 64px 0;
+  display: flex; flex-direction: column; justify-content: center;
+  text-align: center;
+}
+.lg-404 h1 {
+  font-size: var(--step-sub); font-weight: 600;
+  letter-spacing: -0.02em; line-height: 1.1;
+}
+.lg-404 .lg-lede { max-width: 46ch; margin-inline: auto; }
+.lg-404-links {
+  margin-top: 40px;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;
+  text-align: left;
+}
+.lg-404-links a {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 20px; border-radius: var(--r);
+  background: var(--surface); color: var(--ink);
+  transition: background 0.2s var(--ease);
+}
+.lg-404-links a:hover { background: var(--surface-2); }
+.lg-404-links strong { font-weight: 600; }
+.lg-404-links span { font-size: var(--step-small); color: var(--muted); }
+.lg-404 .lg-foot { margin-top: 40px; justify-content: center; }
+@media (max-width: 639px) {
+  .lg-404-links { grid-template-columns: 1fr; }
+}
