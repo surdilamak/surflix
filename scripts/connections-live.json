@@ -261,7 +261,7 @@
     "relationship": "visual",
     "reason": "Kritikus mengaitkan tampilan hitam putih industrial dan lanskap suara A Girl Walks Home Alone at Night dengan Eraserhead; Ana Lily Amirpour menyebut David Lynch di antara pahlawannya.",
     "reasonEn": "Critics link the black-and-white, industrial look and soundscape of A Girl Walks Home Alone at Night to Eraserhead; Ana Lily Amirpour counts David Lynch among her heroes.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -375,7 +375,7 @@
     "relationship": "universe",
     "reason": "A Marvel Television Special Presentation - The Punisher: One Last Kill dan Daredevil: Born Again berada di semesta yang sama.",
     "reasonEn": "A Marvel Television Special Presentation - The Punisher: One Last Kill and Daredevil: Born Again are set in the same universe.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -639,9 +639,9 @@
     "targetPoster": null,
     "targetJellyfinId": "6ec321bafe67bc8b377f68c06a6b21b0",
     "relationship": "visual",
-    "reason": "Kritikus melihat suasana Blade Runner di Neo-Tokyo Akira yang penuh neon dan sesak.",
-    "reasonEn": "Critics see Blade Runner's mood in Akira's neon, overcrowded Neo-Tokyo.",
-    "confidence": "medium",
+    "reason": "Art director Akira, Toshiharu Mizutani, menyebut Blade Runner sebagai rujukan Neo-Tokyo — ia mengaku menontonnya berulang-ulang.",
+    "reasonEn": "Akira's art director Toshiharu Mizutani named Blade Runner as a reference for Neo-Tokyo, saying he watched it over and over.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -907,7 +907,7 @@
     "relationship": "talent",
     "reason": "Sydney Sweeney membintangi keduanya.",
     "reasonEn": "Sydney Sweeney stars in both.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -1268,7 +1268,7 @@
     "relationship": "talent",
     "reason": "Neill Blomkamp, pembuat District 9, tercatat sebagai produser eksekutif Ash.",
     "reasonEn": "Neill Blomkamp, who made District 9, is credited as an executive producer on Ash.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -1781,7 +1781,7 @@
     "relationship": "inspired",
     "reason": "Becoming Jane mendramatisasi romansa muda Jane Austen dengan Tom Lefroy dan menampilkannya sebagai benih Pride and Prejudice; film 2005 adalah salah satu adaptasi novel itu.",
     "reasonEn": "Becoming Jane dramatises Jane Austen's youthful romance with Tom Lefroy and presents it as the seed of Pride and Prejudice; the 2005 film is one adaptation of that novel.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -2313,7 +2313,7 @@
     "relationship": "visual",
     "reason": "Kritikus membaca Bronson sebagai penghormatan untuk A Clockwork Orange: musik klasik di atas kekerasan dan narator yang bicara langsung ke kamera. Nicolas Winding Refn pernah menyebut pemakaian musik Kubrick di film itu.",
     "reasonEn": "Critics read Bronson as a tribute to A Clockwork Orange: classical music over violence and a narrator who talks straight to camera. Nicolas Winding Refn has cited Kubrick's use of music in it.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -2598,7 +2598,7 @@
     "relationship": "visual",
     "reason": "Kritikus melihat Castle in the Sky di dunia bawah tanah Children Who Chase Lost Voices; Makoto Shinkai terbuka mengagumi Ghibli, tetapi gaung yang spesifik ini bacaan para pengulas.",
     "reasonEn": "Critics see Castle in the Sky in the underground world of Children Who Chase Lost Voices; Makoto Shinkai has openly admired Ghibli, but the specific echo is a reviewers' reading.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -2615,9 +2615,9 @@
     "targetPoster": null,
     "targetJellyfinId": "584783a2b6f2fee0546e094e2e020114",
     "relationship": "visual",
-    "reason": "Kritikus melihat Princess Mononoke pada roh penjaga dan hibrida hewan bak dewa di film ini; belum ada pernyataan pembuat yang memastikan penghormatan yang disengaja.",
-    "reasonEn": "Critics see Princess Mononoke in the film's guardian spirits and god-like animal hybrids; no filmmaker statement confirms a deliberate homage.",
-    "confidence": "medium",
+    "reason": "Kritikus seperti J Hurtado melihat desain makhluk di film ini sangat dekat dengan Princess Mononoke, meski sebagian besar pengulas justru membandingkannya dengan Castle in the Sky.",
+    "reasonEn": "Critics including J Hurtado read the film's creature designs as close to those in Princess Mononoke, though most reviewers compare the film to Castle in the Sky instead.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -2732,7 +2732,7 @@
     "reason": "Kritikus sering menempatkan keduanya berdampingan: anggaran kecil, gagasan besar, dan aturan yang harus dilacak penonton sendiri.",
     "reasonEn": "Critics often place them side by side: tiny budgets, huge ideas, and rules the viewer has to track alone.",
     "confidence": "medium",
-    "status": "APPROVED",
+    "status": "REJECTED",
     "source": "llm"
   },
   {
@@ -2750,7 +2750,7 @@
     "relationship": "inspired",
     "reason": "Kritikus menyamakan Coherence dengan episode Twilight Zone, terutama The Monsters Are Due on Maple Street; sutradara James Ward Byrkit menjawab \"Twilight Zone, tentu saja\" saat ditanya.",
     "reasonEn": "Critics liken Coherence to a Twilight Zone episode, notably The Monsters Are Due on Maple Street; director James Ward Byrkit answered \"Twilight Zone, for sure\" when asked about it.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -2845,7 +2845,7 @@
     "relationship": "homage",
     "reason": "Episode \"Toys in the Attic\" di Cowboy Bebop adalah plesetan penuh kasih terhadap Alien.",
     "reasonEn": "The Cowboy Bebop episode \"Toys in the Attic\" is an affectionate riff on Alien.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -2903,7 +2903,7 @@
     "reason": "Megakota neon dan anak jalanan bertenaga teknologi berat di Edgerunners mengingatkan pada Akira; penulis Bartosz Sztybor mengaku menonton ulang Akira saat menulis.",
     "reasonEn": "Edgerunners' neon megacity and street kids with heavy tech recall Akira; writer Bartosz Sztybor said he rewatched Akira while writing.",
     "confidence": "medium",
-    "status": "APPROVED",
+    "status": "REJECTED",
     "source": "llm"
   },
   {
@@ -2919,9 +2919,9 @@
     "targetPoster": null,
     "targetJellyfinId": "6ec321bafe67bc8b377f68c06a6b21b0",
     "relationship": "visual",
-    "reason": "Dunia Cyberpunk 2077 yang diadaptasi Edgerunners mengambil neon dan hujan Blade Runner, tampilan yang dilaporkan diambil para pengembang gimnya dari film itu.",
-    "reasonEn": "The Cyberpunk 2077 world that Edgerunners adapts draws on Blade Runner's neon and rain, a look the game's developers are reported to have taken from the film.",
-    "confidence": "medium",
+    "reason": "Kru Cyberpunk 2077 menyebut Blade Runner di antara karya yang dipelajari tim, meski para art director-nya menggambarkan tampilan Night City lewat gaya zaman ciptaan mereka sendiri, bukan lewat film itu.",
+    "reasonEn": "Cyberpunk 2077 staff have named Blade Runner among the works the team studied, though the game's art directors describe Night City's look in terms of their own invented era-styles rather than the film.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -4708,7 +4708,7 @@
     "reason": "Keduanya melibatkan Ridley Scott sebagai sutradara.",
     "reasonEn": "Both involve Ridley Scott as director.",
     "confidence": "medium",
-    "status": "APPROVED",
+    "status": "REJECTED",
     "source": "llm"
   },
   {
@@ -5389,9 +5389,9 @@
     "targetPoster": null,
     "targetJellyfinId": "1ae74d14b4f3983b508b027de82c3ab5",
     "relationship": "talent",
-    "reason": "Andrew Scott tampil di keduanya.",
-    "reasonEn": "Andrew Scott appears in both.",
-    "confidence": "medium",
+    "reason": "Andrew Scott memerankan Sang Pastor sepanjang musim kedua Fleabag, dan di Locke hanya terdengar tanpa pernah terlihat — film itu menempatkan Tom Hardy sebagai satu-satunya aktor di layar.",
+    "reasonEn": "Andrew Scott plays the Priest across Fleabag's second series, and is heard but never seen in Locke, where Tom Hardy is the only actor on screen.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -5562,7 +5562,7 @@
     "relationship": "visual",
     "reason": "Kritikus mencatat Ghost in the Shell live-action menggemakan neon, iklan hologram raksasa, dan cakrawala berkabut Blade Runner.",
     "reasonEn": "Critics note that the live-action Ghost in the Shell echoes Blade Runner's neon, giant holographic ads and hazy skyline.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -5826,9 +5826,9 @@
     "targetPoster": null,
     "targetJellyfinId": "06bb0f1d9b42408942ca83f205ee69b6",
     "relationship": "inspired",
-    "reason": "Guardians adalah petualangan opera luar angkasa para penyelundup misfit dalam tradisi Star Wars.",
-    "reasonEn": "Guardians is a space-opera romp of misfit rogues in the Star Wars tradition.",
-    "confidence": "medium",
+    "reason": "James Gunn menyatakan Guardians sengaja dibuat sebagai versi Star Wars-nya sendiri, berdampingan dengan Raiders of the Lost Ark.",
+    "reasonEn": "James Gunn has said Guardians was intentionally his own version of Star Wars, alongside Raiders of the Lost Ark.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -6170,7 +6170,7 @@
     "relationship": "talent",
     "reason": "Adam Scott membintangi keduanya.",
     "reasonEn": "Adam Scott stars in both.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -6227,7 +6227,7 @@
     "relationship": "talent",
     "reason": "Keduanya diproduksi di Toho di bawah Tomoyuki Tanaka, produser Godzilla yang asli.",
     "reasonEn": "Both were produced at Toho under Tomoyuki Tanaka, the producer of the original Godzilla.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -6303,7 +6303,7 @@
     "relationship": "talent",
     "reason": "Glen Powell membintangi keduanya.",
     "reasonEn": "Glen Powell stars in both.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -6491,9 +6491,9 @@
     "targetPoster": null,
     "targetJellyfinId": "5cd9e76161709cb6cc4c38321e2e91b5",
     "relationship": "visual",
-    "reason": "Banyak penonton melihat Paprika di lompatan antar-mimpi dan lorong yang melengkung di Inception. Nolan belum mengonfirmasinya sebagai pengaruh.",
-    "reasonEn": "Many viewers see Paprika in Inception's dream-hopping and bending corridors. Nolan has not confirmed it as an influence.",
-    "confidence": "medium",
+    "reason": "Kritikus membandingkan koridor mimpi buruk Paprika yang melengkung dengan koridor berputar di Inception, meski Nolan mengaitkan efek itu dengan 2001 karya Kubrick dan tidak pernah membahas Paprika secara terbuka.",
+    "reasonEn": "Critics compare Paprika's warping nightmare hallway to Inception's rotating corridor, though Nolan has attributed that effect to Kubrick's 2001 and has never addressed Paprika on the record.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -7007,7 +7007,7 @@
     "reason": "Kritikus membandingkan KPop Demon Hunters dengan Spider-Verse: keduanya lahir dari studio animasi Sony dan memadukan 3D dengan efek bergaya gambar tangan.",
     "reasonEn": "Critics compare KPop Demon Hunters to Spider-Verse: both come out of Sony's animation studios and blend 3D with stylised, hand-drawn-style effects.",
     "confidence": "medium",
-    "status": "APPROVED",
+    "status": "REJECTED",
     "source": "llm"
   },
   {
@@ -7823,7 +7823,7 @@
     "relationship": "inspired",
     "reason": "Osgood Perkins menyebut Se7en, bersama The Silence of the Lambs, sebagai acuan di antara film pembunuh berantai 90-an, dan kritikus mencatat Longlegs berbagi suasana suramnya.",
     "reasonEn": "Osgood Perkins has cited Se7en, alongside The Silence of the Lambs, as a model among 90s serial-killer films, and critics note Longlegs shares its bleak mood.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -7842,7 +7842,7 @@
     "relationship": "inspired",
     "reason": "Longlegs adalah pengejaran pembunuh berantai dengan agen FBI pemula, sejalan dengan The Silence of the Lambs.",
     "reasonEn": "Longlegs is a serial-killer chase with an FBI rookie in the line of The Silence of the Lambs.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -7994,7 +7994,7 @@
     "relationship": "talent",
     "reason": "Matthew Weiner menulis untuk The Sopranos sebelum menciptakan Mad Men.",
     "reasonEn": "Matthew Weiner wrote for The Sopranos before creating Mad Men.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -8013,7 +8013,7 @@
     "relationship": "talent",
     "reason": "Elle Fanning membintangi keduanya.",
     "reasonEn": "Elle Fanning stars in both.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -8049,9 +8049,9 @@
     "targetPoster": null,
     "targetJellyfinId": "0915e9285a8c08ac4a93340d6803eb84",
     "relationship": "inspired",
-    "reason": "Kritikus membandingkan Marriage Story dengan Scenes from a Marriage karya Bergman; Noah Baumbach menyebut close-up Bergman sebagai acuan tetapi menamai Persona sebagai pijakan utamanya.",
-    "reasonEn": "Critics compare Marriage Story to Bergman's Scenes from a Marriage; Noah Baumbach has cited Bergman's close-ups as a reference but named Persona as his main touchstone.",
-    "confidence": "medium",
+    "reason": "Kritikus membandingkan Marriage Story dengan Scenes from a Marriage karya Bergman, meski Baumbach sendiri hanya menyebut Persona, sebagai rujukan close-up yang ia pelajari bersama sinematografernya.",
+    "reasonEn": "Critics compare Marriage Story to Bergman's Scenes from a Marriage, though Baumbach himself only named Persona, as a close-up reference he and his cinematographer studied.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -9191,7 +9191,7 @@
     "relationship": "talent",
     "reason": "Produser Takashige Ichise tercatat di kedua film horor Jepang ini.",
     "reasonEn": "Producer Takashige Ichise is credited on both Japanese horror films.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -10218,7 +10218,7 @@
     "reason": "Peacemaker berlatar di semesta DC yang sama, dan pahlawan Justice League muncul sebagai cameo.",
     "reasonEn": "Peacemaker is set in the same DC universe, and Justice League heroes cameo in it.",
     "confidence": "medium",
-    "status": "APPROVED",
+    "status": "REJECTED",
     "source": "llm"
   },
   {
@@ -10329,9 +10329,9 @@
     "targetPoster": null,
     "targetJellyfinId": "028abb4911e0e7c0bd2e3994a371defe",
     "relationship": "visual",
-    "reason": "Kritikus membandingkan Pi dengan Eraserhead: paranoia hitam putih berbutir dan pikiran yang terjebak dalam mesin. Darren Aronofsky belum tercatat menyebutnya sebagai sumber.",
-    "reasonEn": "Critics compare Pi to Eraserhead: grainy black-and-white paranoia and a mind trapped in a machine. Darren Aronofsky has not been documented citing it as a source.",
-    "confidence": "medium",
+    "reason": "Kritikus membandingkan Pi dengan Eraserhead karena paranoia hitam-putihnya yang berbintik, tetapi Aronofsky menyebut perbandingan itu \"a shallow connection\" dalam wawancara 1998.",
+    "reasonEn": "Critics compare Pi to Eraserhead for its grainy black-and-white paranoia, but Aronofsky called the comparison \"a shallow connection\" in a 1998 interview.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -10445,7 +10445,7 @@
     "relationship": "universe",
     "reason": "Mewtwo, penjahat film pertama, kembali di sini dalam live action — meski film ini mengadaptasi game 2016 dan tidak menentukan titik mana pun di garis waktu animenya.",
     "reasonEn": "Mewtwo, the villain of the first film, returns here in live action — though this film adapts the 2016 game and fixes no point in the anime's timeline.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -11015,7 +11015,7 @@
     "relationship": "homage",
     "reason": "Kiki termasuk sosok yang terlihat terbang dalam Pawai Siluman, bersama Porco, Totoro, dan Taeko dari Only Yesterday.",
     "reasonEn": "Kiki is among the figures seen flying in the Monster Parade, alongside Porco, Totoro and Taeko from Only Yesterday.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -11167,7 +11167,7 @@
     "relationship": "universe",
     "reason": "Predator: Badlands membawa korporasi Weyland-Yutani dari Alien ke cerita Predator.",
     "reasonEn": "Predator: Badlands brings the Weyland-Yutani corporation from Alien into the Predator story.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -11393,9 +11393,9 @@
     "targetPoster": null,
     "targetJellyfinId": "6ec321bafe67bc8b377f68c06a6b21b0",
     "relationship": "visual",
-    "reason": "Kota masa depan Psycho-Pass yang mengilap dan diawasi sering dibandingkan dengan Blade Runner.",
-    "reasonEn": "Psycho-Pass's glossy, surveilled future city is often compared to Blade Runner.",
-    "confidence": "medium",
+    "reason": "Sutradara Naoyoshi Shiotani menyatakan Psycho-Pass mengambil dari Blade Runner, bersama Minority Report, Gattaca, dan Brazil.",
+    "reasonEn": "Director Naoyoshi Shiotani has said Psycho-Pass drew on Blade Runner, along with Minority Report, Gattaca and Brazil.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -11680,7 +11680,7 @@
     "relationship": "homage",
     "reason": "Rose Glass menunjuk penyelamat kesepian yang menunjuk dirinya sendiri di Taxi Driver sebagai acuan untuk Maud.",
     "reasonEn": "Rose Glass has pointed to Taxi Driver's lonely, self-appointed saviour as a model for Maud.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -12134,9 +12134,9 @@
     "targetPoster": null,
     "targetJellyfinId": "8ce86d2a8729937fb0bebb189950edaf",
     "relationship": "visual",
-    "reason": "Kritikus sering menempatkan Hirokazu Kore-eda dalam garis Ozu, dengan adegan rumah tangga yang tenang dan pembingkaian rendah, meski Kore-eda menganggap enteng perbandingan itu.",
-    "reasonEn": "Critics often place Hirokazu Kore-eda in Ozu's lineage, citing quiet domestic scenes and low framing, though Kore-eda has downplayed the comparison.",
-    "confidence": "medium",
+    "reason": "Kritikus seperti Geoff Andrew menyebut Kore-eda sebagai Ozu masa kini lewat drama keluarganya yang tenang, meski Kore-eda menerima perbandingan itu sebagai pujian sambil menempatkan karyanya lebih dekat ke Mikio Naruse dan Ken Loach.",
+    "reasonEn": "Critics including Geoff Andrew call Kore-eda a modern-day Ozu for his quiet family dramas, though Kore-eda takes the comparison as a compliment while placing his own work closer to Mikio Naruse and Ken Loach.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -12267,9 +12267,9 @@
     "targetPoster": null,
     "targetJellyfinId": "412a61ae0bcdc7a31b1666b174ac1e56",
     "relationship": "talent",
-    "reason": "Produser Belén Atienza terlibat di keduanya.",
-    "reasonEn": "Producer Belén Atienza worked on both.",
-    "confidence": "medium",
+    "reason": "Belén Atienza menjadi produser eksekutif di Pan's Labyrinth dan produser penuh di Society of the Snow.",
+    "reasonEn": "Belén Atienza was an executive producer on Pan's Labyrinth and a full producer on Society of the Snow.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -12402,7 +12402,7 @@
     "relationship": "talent",
     "reason": "Keduanya dianimasikan di Madhouse, dan keduanya menjelajahi dunia aneh yang seperti mimpi.",
     "reasonEn": "Both were animated at Madhouse, and both drift through strange, dream-like worlds.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -12894,9 +12894,9 @@
     "targetPoster": null,
     "targetJellyfinId": "88ad20be59c9152601bd43ba87595db3",
     "relationship": "inspired",
-    "reason": "Gurun Tatooine dan pahlawan muda dengan takdir tersembunyi banyak berutang pada Dune karya Frank Herbert, yang diadaptasi film 2021 ini.",
-    "reasonEn": "Tatooine's desert and a young hero with a hidden destiny owe a lot to Frank Herbert's Dune, which this 2021 film adapts.",
-    "confidence": "medium",
+    "reason": "Frank Herbert terbuka menuduh Star Wars meminjam dari novelnya, Dune, yang diadaptasi film 2021 ini — tuduhan yang tidak pernah diakui Lucas.",
+    "reasonEn": "Frank Herbert publicly accused Star Wars of borrowing from his novel Dune, which this 2021 film adapts, though Lucas has never acknowledged it.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -13388,9 +13388,9 @@
     "targetPoster": null,
     "targetJellyfinId": "03b192e9e01627378eccb92f1d96aeda",
     "relationship": "universe",
-    "reason": "Superman memulai ulang kisah yang dibuka Man of Steel.",
-    "reasonEn": "Superman restarts the story that Man of Steel began.",
-    "confidence": "medium",
+    "reason": "Superman memulai ulang tokohnya di DCU baru garapan James Gunn, meninggalkan kesinambungan Man of Steel alih-alih melanjutkannya.",
+    "reasonEn": "Superman reboots the character in James Gunn's new DCU, abandoning the Man of Steel continuity rather than continuing it.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -13542,7 +13542,7 @@
     "relationship": "universe",
     "reason": "THE GHOST IN THE SHELL mengadaptasi sumber yang sama dengan Ghost in the Shell.",
     "reasonEn": "THE GHOST IN THE SHELL adapts the same source as Ghost in the Shell.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -13885,7 +13885,7 @@
     "reason": "The Batman memulai ulang kisah yang dibuka Batman Begins.",
     "reasonEn": "The Batman restarts the story that Batman Begins began.",
     "confidence": "medium",
-    "status": "APPROVED",
+    "status": "REJECTED",
     "source": "llm"
   },
   {
@@ -13939,9 +13939,9 @@
     "targetPoster": null,
     "targetJellyfinId": "d2f5e84dfbfb04e81653a57819b5010a",
     "relationship": "visual",
-    "reason": "Kritikus sering membandingkan The Batman dengan Se7en karena hujan yang tak berhenti, pembunuh yang meninggalkan teka-teki, dan suasana detektif yang muram; Matt Reeves sendiri menyebut Zodiac sebagai acuan pembunuhnya.",
-    "reasonEn": "Critics often compare The Batman to Se7en for its constant rain, a killer who leaves puzzles and its gloomy detective mood; Matt Reeves has named Zodiac as his own killer reference.",
-    "confidence": "medium",
+    "reason": "Kritikus kerap membandingkan The Batman dengan Se7en karena hujan yang tak henti, pembunuh yang meninggalkan teka-teki, dan suasana detektif yang muram; Matt Reeves sendiri menyebut Riddler dibentuk dari pembunuh sungguhan Zodiac, dan tidak pernah menyebut Se7en sebagai pengaruhnya.",
+    "reasonEn": "Critics often compare The Batman to Se7en for its constant rain, a killer who leaves puzzles and its gloomy detective mood; Matt Reeves has said the Riddler was modelled on the real Zodiac Killer and has not named Se7en among his influences.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -13960,7 +13960,7 @@
     "relationship": "inspired",
     "reason": "Reeves pernah membahas Taxi Driver saat menggambarkan Bruce Wayne sebagai pria kesepian yang menulis jurnal.",
     "reasonEn": "Reeves has talked about Taxi Driver when describing Bruce Wayne as a lonely man writing in a journal.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -14243,9 +14243,9 @@
     "targetPoster": null,
     "targetJellyfinId": "6ec321bafe67bc8b377f68c06a6b21b0",
     "relationship": "visual",
-    "reason": "Kota-kota Asia yang berpendar dan terasa dihuni di The Creator mengingatkan pada tampilan Blade Runner.",
-    "reasonEn": "The Creator's glowing, lived-in Asian megacities echo Blade Runner's look.",
-    "confidence": "medium",
+    "reason": "Gareth Edwards menggambarkan The Creator seolah seseorang membuat Apocalypse Now di dalam semesta Blade Runner.",
+    "reasonEn": "Gareth Edwards described The Creator as if someone had made Apocalypse Now in the Blade Runner universe.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -14300,9 +14300,9 @@
     "targetPoster": null,
     "targetJellyfinId": "eab296e76f87e186ab63a661043b0909",
     "relationship": "inspired",
-    "reason": "Joker versi Heath Ledger terinspirasi komik The Killing Joke, yang diadaptasi film 2016 ini.",
-    "reasonEn": "Heath Ledger's Joker drew on the comic The Killing Joke, which this 2016 film adapts.",
-    "confidence": "medium",
+    "reason": "Heath Ledger menyebut The Killing Joke — yang diadaptasi film 2016 ini — sebagai komik yang diserahkan kepadanya untuk peran itu, meski menurutnya komik itu tidak banyak menjelaskan sosok Joker.",
+    "reasonEn": "Heath Ledger said The Killing Joke, which this 2016 film adapts, was the comic handed to him for the role, though he felt it explained little about the Joker.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -14452,9 +14452,9 @@
     "targetPoster": null,
     "targetJellyfinId": "55db772cc9af89a9393e28b373248d6e",
     "relationship": "visual",
-    "reason": "Kritikus sering menempatkannya di samping The Witch: dunia pra-modern yang keras tempat iman menjadi jebakan.",
-    "reasonEn": "Critics often place it beside The Witch: a harsh, pre-modern world where faith becomes a trap.",
-    "confidence": "medium",
+    "reason": "Kritikus membandingkan The Devil's Bath dengan The Witch karena detail zaman dan pencahayaan alaminya, meski sebagian besar mengangkat perbandingan itu justru untuk menegaskan film ini bukan folk horror.",
+    "reasonEn": "Critics compared The Devil's Bath to The Witch for its period detail and natural-light photography, though most raised the comparison mainly to say the film is not folk horror.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -15535,9 +15535,9 @@
     "targetPoster": null,
     "targetJellyfinId": "0bfcc3776fe96a5d1afdb5b8251a28b9",
     "relationship": "visual",
-    "reason": "Anna Biller menunjuk film Technicolor Hitchcock sebagai acuan tampilannya yang jenuh warna dan bak panggung.",
-    "reasonEn": "Anna Biller has pointed to Hitchcock's Technicolor films as the model for her saturated, stage-like look.",
-    "confidence": "medium",
+    "reason": "Anna Biller menyatakan ia dan sinematografer M. David Mullen menengok film-film Technicolor Hitchcock dan Sirk untuk tampilan jenuh warna The Love Witch, tetapi ia tidak pernah menyebut Vertigo secara khusus.",
+    "reasonEn": "Anna Biller has said she and cinematographer M. David Mullen looked at Hitchcock and Sirk Technicolor films for The Love Witch's saturated look, but she has not named Vertigo specifically.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -15614,7 +15614,7 @@
     "reason": "Penembak tunggal yang berjalan di antara dua pihak bertikai mengikuti cetakan Yojimbo, yang sudah lama diambil Lucasfilm.",
     "reasonEn": "The lone gunman who walks between two feuding sides follows the Yojimbo mould, one Lucasfilm has long drawn on.",
     "confidence": "medium",
-    "status": "APPROVED",
+    "status": "REJECTED",
     "source": "llm"
   },
   {
@@ -15861,7 +15861,7 @@
     "reason": "Kritikus sering memasangkan keduanya: kisah hantu yang menahan siapa yang sudah mati sampai akhir.",
     "reasonEn": "Critics often pair them: ghost stories that hold back who is dead until the end.",
     "confidence": "medium",
-    "status": "APPROVED",
+    "status": "REJECTED",
     "source": "llm"
   },
   {
@@ -16238,9 +16238,9 @@
     "targetPoster": null,
     "targetJellyfinId": "9fa136464b0288801bd0811aac99425e",
     "relationship": "homage",
-    "reason": "Kritikus mencatat utang The Substance pada The Shining; penonton membandingkan klimaks berlumur darahnya dengan banjir lift Overlook, meski tidak ada pernyataan pembuat yang memastikan rujukan itu.",
-    "reasonEn": "Critics note The Substance's debt to The Shining; viewers compare its blood-soaked finale to the Overlook elevator flood, though no filmmaker statement confirms that specific nod.",
-    "confidence": "medium",
+    "reason": "The Substance membangun ulang kamar mandi merah dan karpet berpola di koridor panjang The Shining, dan membuat Elisabeth menggedor pintu kamar mandi seperti Jack Torrance.",
+    "reasonEn": "The Substance recreates The Shining's red bathroom and patterned corridor carpet, and has Elisabeth pound on a bathroom door the way Jack Torrance did.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -16392,7 +16392,7 @@
     "relationship": "talent",
     "reason": "Zentropa, perusahaan di balik film-film Lars von Trier, termasuk produser The Ugly Stepsister.",
     "reasonEn": "Zentropa, the company behind Lars von Trier's films, is among the producers of The Ugly Stepsister.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -17055,9 +17055,9 @@
     "targetPoster": null,
     "targetJellyfinId": "5276590c2e79328f4f895ca4d3f76e8d",
     "relationship": "inspired",
-    "reason": "Danny Boyle meminta para pemain Trainspotting menonton A Clockwork Orange, dan tulisan di dinding klub Volcano menggemakan bar Moloko; kritikus juga membandingkan energi anak muda dan kekerasan komiknya.",
-    "reasonEn": "Danny Boyle had the Trainspotting cast watch A Clockwork Orange, and the Volcano club's wall writing echoes the Moloko bar; critics also compare its young-men energy and darkly comic violence.",
-    "confidence": "medium",
+    "reason": "Danny Boyle memutar A Clockwork Orange untuk para pemeran Trainspotting saat latihan, bersama GoodFellas, The Hustler, The Exorcist, dan Near Dark.",
+    "reasonEn": "Danny Boyle screened A Clockwork Orange for the Trainspotting cast during rehearsals, alongside GoodFellas, The Hustler, The Exorcist and Near Dark.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -17133,7 +17133,7 @@
     "relationship": "talent",
     "reason": "Kevin Smith menulis dan menyutradarai Tusk dan menjadi ko-produser eksekutif Good Will Hunting.",
     "reasonEn": "Kevin Smith wrote and directed Tusk and was a co-executive producer on Good Will Hunting.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -17247,7 +17247,7 @@
     "relationship": "visual",
     "reason": "Kritikus sering membandingkan Under the Silver Lake dengan Mulholland Drive: misteri Los Angeles yang pucat terik dengan petunjuk yang terus berlipat. Film ini juga memakai Patrick Fischler dari film Lynch.",
     "reasonEn": "Critics often compare Under the Silver Lake to Mulholland Drive for its sun-bleached Los Angeles mystery of multiplying clues, and the film casts Patrick Fischler, who appeared in Lynch's film.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -17283,9 +17283,9 @@
     "targetPoster": null,
     "targetJellyfinId": "805779147e70acb0083d2e05987ad80c",
     "relationship": "talent",
-    "reason": "Ella Rubin membintangi keduanya.",
-    "reasonEn": "Ella Rubin stars in both.",
-    "confidence": "medium",
+    "reason": "Ella Rubin memimpin Until Dawn sebagai Clover, dan memerankan Izzy, putri remaja Solène, di The Idea of You.",
+    "reasonEn": "Ella Rubin leads Until Dawn as Clover, and plays Izzy, Solène's teenage daughter, in The Idea of You.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -17380,7 +17380,7 @@
     "relationship": "universe",
     "reason": "Venom melintas ke multiverse yang sama yang dibuka No Way Home.",
     "reasonEn": "Venom crosses into the same multiverse that No Way Home opened up.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -17416,9 +17416,9 @@
     "targetPoster": null,
     "targetJellyfinId": "4575dc8a0309c81ffd5ad3eb617b48be",
     "relationship": "universe",
-    "reason": "VisionQuest mengikuti Vision, yang diciptakan di Age of Ultron.",
-    "reasonEn": "VisionQuest follows Vision, who was created in Age of Ultron.",
-    "confidence": "medium",
+    "reason": "VisionQuest mengikuti White Vision dan memanggil kembali Ultron yang diperankan James Spader dari Age of Ultron.",
+    "reasonEn": "VisionQuest follows the White Vision and brings back James Spader's Ultron from Age of Ultron.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -17549,9 +17549,9 @@
     "targetPoster": null,
     "targetJellyfinId": "cfe26fc5c7c9570e688532ba74978704",
     "relationship": "inspired",
-    "reason": "Zach Cregger menunjuk Magnolia untuk cara Weapons membagi cerita menjadi bab dari sudut pandang berbeda.",
-    "reasonEn": "Zach Cregger has pointed to Magnolia for the way Weapons splits its story into chapters seen through different characters.",
-    "confidence": "medium",
+    "reason": "Zach Cregger menyebut Magnolia karena keluasan ansambel dan skala epiknya, yang menurutnya memberinya izin untuk membuat horor berskala epik.",
+    "reasonEn": "Zach Cregger has cited Magnolia for its ensemble sprawl and epic scale, saying it gave him permission to make a horror epic.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -17665,7 +17665,7 @@
     "relationship": "universe",
     "reason": "What If...? membayangkan versi alternatif peristiwa MCU sebagai bagian dari multiverse.",
     "reasonEn": "What If...? imagines alternate versions of MCU events as part of the multiverse.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -17722,7 +17722,7 @@
     "relationship": "universe",
     "reason": "Trevor Slattery milik Ben Kingsley dari Iron Man 3 kembali di Wonder Man.",
     "reasonEn": "Ben Kingsley's Trevor Slattery from Iron Man 3 returns in Wonder Man.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -17779,7 +17779,7 @@
     "relationship": "talent",
     "reason": "Brittany Snow membintangi keduanya.",
     "reasonEn": "Brittany Snow stars in both.",
-    "confidence": "medium",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
@@ -17815,9 +17815,9 @@
     "targetPoster": null,
     "targetJellyfinId": "33bfe66f079fc97c4f120bfe3c88fb10",
     "relationship": "homage",
-    "reason": "X menempatkan slasher-nya di rumah pertanian terpencil dengan rasa ngeri ala Bates Motel.",
-    "reasonEn": "X sets its slasher in a lonely farmhouse with a Bates Motel kind of dread.",
-    "confidence": "medium",
+    "reason": "Lorraine menyebut Psycho di dalam X untuk berargumen bahwa sebuah cerita bisa membunuh tokoh utamanya di tengah jalan — lalu filmnya melakukan persis itu.",
+    "reasonEn": "Lorraine name-checks Psycho in X to argue a story can kill its lead halfway through — and the film promptly does exactly that.",
+    "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
   },
