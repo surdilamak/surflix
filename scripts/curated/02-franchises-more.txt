@@ -227,3 +227,18 @@ Neon Genesis Evangelion: The End of Evangelion (1997) > Neon Genesis Evangelion 
 Neon Genesis Evangelion: Death and Rebirth (1997) > Neon Genesis Evangelion (1995) | remake | h | Half recap of episodes 1-24, half an unfinished opening to the ending that stops mid-scene. || Separuh rangkuman episode 1-24, separuh pembuka bagian akhir yang belum jadi dan berhenti di tengah adegan.
 EVANGELION: DEATH (TRUE)² (1998) > Neon Genesis Evangelion: Death and Rebirth (1997) | remake | h | The third and final edit of the recap, which supersedes it: Gainax dropped the unfinished half entirely. || Potongan ketiga sekaligus terakhir dari rangkumannya, dan menggantikannya: Gainax membuang paruh yang belum jadi sama sekali.
 EVANGELION: DEATH (TRUE)² (1998) > Neon Genesis Evangelion: The End of Evangelion (1997) | universe | h | Released together as Revival of Evangelion - the recap, a four-minute intermission, then the ending. || Dirilis bersama sebagai Revival of Evangelion - rangkumannya, jeda empat menit, lalu bagian akhirnya.
+
+# ============ THE HUNGER GAMES ============
+# Masuk library 2026-10-25, lima film sekaligus dan tidak punya koneksi apa pun.
+The Hunger Games: Catching Fire (2013) > The Hunger Games (2012) | universe | h | @sequel
+The Hunger Games: Mockingjay - Part 1 (2014) > The Hunger Games: Catching Fire (2013) | universe | h | @sequel
+The Hunger Games: Mockingjay - Part 2 (2015) > The Hunger Games: Mockingjay - Part 1 (2014) | universe | h | @sequel
+The Hunger Games: The Ballad of Songbirds & Snakes (2023) > The Hunger Games (2012) | universe | h | @prequel
+
+# ============ BACK TO THE FUTURE ============
+Back to the Future Part II (1989) > Back to the Future (1985) | universe | h | @sequel
+Back to the Future Part III (1990) > Back to the Future Part II (1989) | universe | h | @sequel
+
+# ============ BREAKING BAD ============
+# Better Call Saul > Breaking Bad sudah ada di berkas ini sebagai @spinoff.
+El Camino: A Breaking Bad Movie (2019) > Breaking Bad (2008) | universe | h | @sequel

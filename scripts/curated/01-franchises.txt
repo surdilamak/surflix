@@ -79,7 +79,7 @@ Ironheart (2025) > Black Panther: Wakanda Forever (2022) | universe | h | Riri W
 Eyes of Wakanda (2025) > Black Panther (2018) | universe | h | @spinoff
 Daredevil: Born Again (2025) > Spider-Man: No Way Home (2021) | universe | h | Matt Murdock returns in No Way Home before Daredevil: Born Again. || Matt Murdock kembali di No Way Home sebelum Daredevil: Born Again.
 A Marvel Television Special Presentation - The Punisher: One Last Kill (2026) > Daredevil: Born Again (2025) | universe | m | @universe
-VisionQuest (2026) > Avengers: Age of Ultron (2015) | universe | m | VisionQuest follows Vision, who was created in Age of Ultron. || VisionQuest mengikuti Vision, yang diciptakan di Age of Ultron.
+VisionQuest (2026) > Avengers: Age of Ultron (2015) | universe | m | VisionQuest follows the White Vision and brings back James Spader's Ultron from Age of Ultron. || VisionQuest mengikuti White Vision dan memanggil kembali Ultron yang diperankan James Spader dari Age of Ultron.
 Deadpool & Wolverine (2024) > Logan (2017) | homage | h | Deadpool digs up the Logan variant's skeleton in the opening, a direct nod to Logan's ending. || Deadpool menggali kerangka Wolverine versi Logan di adegan pembuka, rujukan langsung ke akhir film Logan.
 
 # ============ SPIDER-MAN ============
@@ -94,7 +94,7 @@ Spider-Man: No Way Home (2021) > The Amazing Spider-Man 2 (2014) | universe | h 
 # ============ DC ============
 Batman v Superman - Dawn of Justice (2016) > Man of Steel (2013) | universe | h | @sequel
 Zack Snyder's Justice League (2021) > Batman v Superman - Dawn of Justice (2016) | universe | h | @sequel
-Superman (2025) > Man of Steel (2013) | universe | m | @reboot
+Superman (2025) > Man of Steel (2013) | universe | m | Superman reboots the character in James Gunn's new DCU, abandoning the Man of Steel continuity rather than continuing it. || Superman memulai ulang tokohnya di DCU baru garapan James Gunn, meninggalkan kesinambungan Man of Steel alih-alih melanjutkannya.
 Supergirl (2026) > Superman (2025) | universe | h | @universe
 Lanterns (2026) > Superman (2025) | universe | h | @universe
 The Dark Knight (2008) > Batman Begins (2005) | universe | h | @sequel

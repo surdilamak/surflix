@@ -9,6 +9,10 @@
 # Titles must match the Surflix library exactly ("Title (year)"); a title that is not in the library is
 # drawn as a "Not on Surflix" placeholder so the chronology never has a silent hole.
 # Leave the release month empty when unsure. Leave the story label empty when unsure.
+# JEBAKAN: kolom label cerita TIDAK mendukung "EN || ID" - baris dipotong per "|" dulu,
+# jadi terjemahannya tersedot ke kolom catatan dan tampil sebagai teks sampah berawalan "|"
+# (catatan DIRENDER di panel detail, lihat saga-stage.tsx). Label cukup satu bahasa atau
+# netral (angka, panah); kalau perlu dua bahasa, tulis di kolom catatan.
 # Run: node scripts/build-sagas.js  (writes lib/sagas.json and reports titles missing from the library)
 
 # ============ STAR WARS ============
@@ -145,7 +149,7 @@ Game of Thrones (2011) | main | 2011-04 | 298 AC
 John Wick (2014) | main | 2014-10
 John Wick: Chapter 2 (2017) | main | 2017-02
 John Wick: Chapter 3 - Parabellum (2019) | main | 2019-05
-Ballerina (2025) | spin | 2025-06 | Between Chapters 3 and 4 || Di antara Chapter 3 dan 4
+Ballerina (2025) | spin | 2025-06 | Between Chapters 3 and 4
 John Wick: Chapter 4 (2023) | main | 2023-03
 
 # ============ THE OMEN ============
@@ -453,6 +457,36 @@ Death Proof (2007) | fan | 2007-04 | Present day, undated | Sheriff Earl McGraw 
 The Garden of Words (2013) | main | 2013-05 | Yukino before Itomori | She is the teacher here; the Man'yoshu poem she teaches comes back in Your Name. || Ia gurunya di sini; puisi Man'yoshu yang ia ajarkan muncul lagi di Your Name.
 Your Name. (2016) | main | 2016-08 | Yukino teaches at Itomori | Same character, same voice actress. Takao from The Garden of Words also passes by for a few frames. || Tokoh yang sama, pengisi suara yang sama. Takao dari The Garden of Words juga lewat beberapa frame.
 Weathering with You (2019) | main | 2019-07 | Taki and Mitsuha, grown | Taki, Mitsuha, Yotsuha, Tessie and Sayaka all appear. This is the film that ties the set together. || Taki, Mitsuha, Yotsuha, Tessie, dan Sayaka semuanya muncul. Film inilah yang mengikat ketiganya.
+
+# ============ THE HUNGER GAMES ============
+# Songbirds adalah Hunger Games ke-10, film pertama yang ke-74 - selisihnya 64 tahun.
+@saga hunger-games | The Hunger Games | Release order is the way in. The Ballad of Songbirds & Snakes is a prequel set 64 years earlier, and it lands differently once you already know who Snow becomes. || Urutan rilis adalah pintu masuknya. The Ballad of Songbirds & Snakes adalah prekuel berlatar 64 tahun sebelumnya, dan terasa berbeda kalau kamu sudah tahu Snow akan jadi siapa.
+@lane main | The Hunger Games || The Hunger Games
+
+The Hunger Games: The Ballad of Songbirds & Snakes (2023) | main | 2023-11 | 10th Hunger Games | Coriolanus Snow is eighteen here, a student mentor; the man he becomes is the villain of the four films that came out first. || Coriolanus Snow berumur delapan belas di sini, mentor yang masih mahasiswa; sosok yang ia jadi kelak adalah penjahat di empat film yang rilis lebih dulu.
+The Hunger Games (2012) | main | 2012-03 | 74th Hunger Games
+The Hunger Games: Catching Fire (2013) | main | 2013-11 | 75th Hunger Games
+The Hunger Games: Mockingjay - Part 1 (2014) | main | 2014-11
+The Hunger Games: Mockingjay - Part 2 (2015) | main | 2015-11
+
+# ============ BACK TO THE FUTURE ============
+# Urutan cerita = urutan rilis: perjalanan Marty beruntun, tiap film menyambung
+# persis di detik film sebelumnya berhenti. Yang berpindah-pindah cuma tujuannya,
+# jadi zamannya ditulis sebagai label, bukan sebagai urutan yang berbeda.
+@saga back-to-the-future | Back to the Future | One continuous trip, so story order and release order are the same. What changes is where each film lands: 1955, then 2015 and a rewritten 1985, then 1885. Each sequel picks up in the same second the last one stopped. || Satu perjalanan beruntun, jadi urutan cerita dan urutan rilis sama. Yang berganti cuma tujuannya: 1955, lalu 2015 dan 1985 yang sudah berubah, lalu 1885. Tiap sekuel menyambung di detik yang sama saat film sebelumnya berhenti.
+@lane main | Back to the Future || Back to the Future
+
+Back to the Future (1985) | main | 1985-07 | 1985 → 1955
+Back to the Future Part II (1989) | main | 1989-11 | 2015 → 1985 → 1955
+Back to the Future Part III (1990) | main | 1990-05 | 1955 → 1885
+
+# ============ BREAKING BAD ============
+@saga breaking-bad | Breaking Bad | Watch Breaking Bad first - both of the others assume you know how it ends. Better Call Saul is mostly a prequel but closes after it, and El Camino picks up minutes after the finale. || Tonton Breaking Bad dulu - dua lainnya menganggap kamu sudah tahu akhirnya. Better Call Saul sebagian besar prekuel tetapi ditutup setelahnya, dan El Camino melanjutkan beberapa menit setelah episode terakhir.
+@lane main | Breaking Bad || Breaking Bad
+
+Better Call Saul (2015) | main | 2015-02 | 2002–2010, plus a coda | Six seasons before Walter White, then a final stretch in black and white that runs past the end of Breaking Bad. || Enam musim sebelum Walter White, lalu bagian akhir hitam-putih yang berjalan melewati ujung Breaking Bad.
+Breaking Bad (2008) | main | 2008-01 | 2008–2010
+El Camino: A Breaking Bad Movie (2019) | main | 2019-10 | Minutes after the finale | Picks up in the minutes after Breaking Bad's last scene. || Melanjutkan beberapa menit setelah adegan terakhir Breaking Bad.
 
 # ── Names for clusters the builder derives automatically (@alias <any member> | <Saga name>) ──
 @alias Batman Begins (2005) | Batman
