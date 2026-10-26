@@ -1,7 +1,7 @@
 # BACKLOG.md — Surflix
 
 > Hal-hal yang sengaja ditunda. Urut dari yang paling berdampak. Update file ini tiap ada yang selesai atau nambah.
-> Terakhir diupdate: 2026-10-21 (setelah Watch order dan perombakan Galaxy).
+> Terakhir diupdate: 2026-10-26 (setelah halaman legal, kanonikalisasi host, dan Search Console).
 
 ## 🔴 Tindak lanjut cepat (setelah deploy terakhir)
 
@@ -13,6 +13,19 @@
   - [x] **169 koneksi `director` diaudit** (2026-10-21, 4 pemeriksa paralel): 166 benar, 0 salah, 0 tidak yakin. 3 teksnya menyebut sutradara tunggal padahal karyanya digarap berdua — Danny dan Michael Philippou (Talk to Me / Bring Her Back), duo Daniels (Swiss Army Man / Everything Everywhere), dan Hideaki Anno yang di Evangelion 3.0 sutradara kepala, bukan tunggal.
   - Catatan: koneksi `director` **tidak ditulis per baris** — dibuat otomatis dari `scripts/curated/directors.list` (nama = kunci pencarian ke kolom directors Jellyfin). Untuk mengubah kalimatnya pakai `| as: Nama EN || Nama ID`; untuk kasus yang perlu kalimat khusus, keluarkan namanya dari daftar lalu tulis pasangannya di `06-deepen.txt`.
   - [ ] Koneksi `visual` / `inspired` yang dulunya `confidence: medium`.
+
+## ✅ Selesai 2026-10-23 (halaman legal, kanonikalisasi host, Search Console)
+
+- [x] **Halaman `/terms` dan `/privacy`** (commit `f58b300`), ditulis dari fakta yang diperiksa — nol pelacak, model Prisma yang betul ada, nama cookie yang betul dipakai — bukan templat. Milik apex; dari subdomain di-308 ke sana. Kontak `admin@surflix.my.id` di ketiga footer, EN + ID.
+- [x] **404 bermerek** (`app/not-found.tsx`). Sebelumnya tiap salah ketik jatuh ke layar bawaan Next: tulisan hitam di atas putih, di situs yang seluruhnya gelap.
+- [x] **Apex tidak lagi menyajikan salinan kedua**: path selain `/` di-308 ke host pemiliknya. Dipilih redirect, bukan tag canonical — canonical cuma memberi petunjuk ke mesin pencari, URL keduanya tetap hidup dan `/admin` tetap terbuka di host yang salah.
+- [x] **Satu host kanonik: apex tanpa `www`** (commit `83cc57b`). Pengalihan lama apex→www ternyata dari **NPM**, bukan Cloudflare — header `server: cloudflare` menyesatkan karena Cloudflare menimpa header itu untuk semua trafik yang diproksikan. Rute tunnel apex sekarang menembak langsung `192.168.68.8:3737`, dan `www`→apex diurus `middleware.ts`. Jebakan rute tunnel dicatat di `~/Developer/Unraid/README.md`.
+- [x] **Sitemap lengkap** (commit `c1d5297`): 65 halaman saga dan 2 halaman Hub yang sebelumnya yatim kini masuk. Prod: apex 1 · Hub 4 · Reference 911 URL.
+- [x] **Google Search Console**: Domain property `surflix.my.id` (verifikasi TXT) yang mencakup semua subdomain; ketiga sitemap dikirim; ketiga host lolos *Test live URL*. Properti `www` yang lama berjenis URL-prefix sehingga **tidak pernah mencakup `reference.*`** sama sekali.
+
+## 🔵 Tindak lanjut Search Console (cek sekali, lalu lupakan)
+
+- [ ] **Status sitemap di GSC**: saat dikirim 2026-10-23 ketiganya `Couldn't fetch`, dan itu wajar — kolom `Last read` kosong, artinya belum pernah diambil, bukan gagal diambil. Harus sudah berubah jadi `Success` dengan `Discovered pages` terisi. Kalau masih merah, sisi server bukan penyebabnya: ketiga sitemap menjawab 200 ke Googlebot dengan `content-type: application/xml`.
 
 ## 🟠 Keamanan & hygiene
 
@@ -30,8 +43,8 @@
 ## 🟡 Konten Referensi
 
 - [~] **92 judul belum dipetakan** (turun dari 211 pada 2026-10-21: 825 / 917 punya peta). Sisanya memang sendirian: dokumenter, film indie/arthouse, sitkom, dan anime yang tidak punya pembuat atau pemeran bersama dengan judul lain di library. Tambah manual via Manage → Add a connection kalau tahu hubungan yang terdokumentasi. Jangan ngarang hubungan demi angka.
-- [x] **Review 23 koneksi PENDING_REVIEW** (Idrus, 2026-10-21, langsung di production). ⚠️ Keputusannya ada di DB production, belum ditarik ke `scripts/connections-live.json` — lihat catatan di bawah.
-- [ ] **Tarik `connections-live.json` dari prod ke repo.** Idrus sudah meng-approve koneksi yang menunggu review, tetapi keputusan itu ada di prod dan belum pernah ditarik balik — berkas di repo adalah ekspor dari database LOKAL, jadi statusnya basi dan setiap hitungan "N menunggu review" yang dibaca dari sana salah. Sudah dua kali membuat laporan keliru. Prod sendiri aman: `import-connections.js` tidak pernah mengubah status baris yang sudah ada. Caranya: `docker exec surflix node scripts/export-connections.js` lalu `docker cp surflix:/app/scripts/connections-live.json /tmp/`, scp ke Mac, lalu import ke dev.db lokal. Lakukan **sebelum** import arah sebaliknya.
+- [x] **Review 23 koneksi PENDING_REVIEW** (Idrus, 2026-10-21, langsung di production). Keputusannya sudah ditarik ke repo 2026-10-23.
+- [x] ~~**Tarik `connections-live.json` dari prod ke repo.**~~ Selesai 2026-10-23 (commit `c365bac`). Diff tepat 33 baris, semuanya perubahan status dan nol derau format. **Sekarang 950 baris, seluruhnya `APPROVED` — tidak ada yang menunggu review.** Dugaan awal saya keliru dan perlu dicatat: 17 baris `REJECTED` saya kira hilang dari prod, ternyata ada dengan status dibalik jadi `APPROVED`. `lib/sagas.json` tidak berubah karena tak satu pun dari 33 itu bertipe `universe`/`remake`. Catatan cara ada di `CLAUDE.md`. Konteks lama: Idrus sudah meng-approve koneksi yang menunggu review, tetapi keputusan itu ada di prod dan belum pernah ditarik balik — berkas di repo adalah ekspor dari database LOKAL, jadi statusnya basi dan setiap hitungan "N menunggu review" yang dibaca dari sana salah. Sudah dua kali membuat laporan keliru. Prod sendiri aman: `import-connections.js` tidak pernah mengubah status baris yang sudah ada. Caranya: `docker exec surflix node scripts/export-connections.js` lalu `docker cp surflix:/app/scripts/connections-live.json /tmp/`, scp ke Mac, lalu import ke dev.db lokal. Lakukan **sebelum** import arah sebaliknya.
 - [ ] **Review terjemahan Indonesia** di `lib/i18n.ts` dan kolom `reason` (dibuat bareng teks Inggris, belum dibaca penutur native).
 - [ ] **Nama file kotor di library Jellyfin** (`Requiem.for.a.Dream.2000.PROPER…`, `MIRCrew`, dan `Lady Bird 2017 from ExKinoRay` yang ketahuan saat audit talent). Snapshot sudah dibersihin otomatis (nama folder / OriginalTitle), tapi rapihin di Jellyfin kalau sempat (rename atau refresh metadata).
 - [x] **Auto-sync library** (2026-10-20, menunggu deploy): webhook Jellyseerr `MEDIA_AVAILABLE` / `MEDIA_PARTIALLY_AVAILABLE` memanggil `scheduleLibrarySync()` (debounce 30 dtk, satu sync per rentetan event, tidak pernah melempar error, log di EventLog `library.autosync`). Berlaku juga untuk judul yang bukan dari request Surflix. Syarat di produksi: webhook Jellyseerr terpasang (Settings → Notifications → Webhook, URL `…/api/webhooks/jellyseerr`, header `Bearer <WEBHOOK_SECRET>`) dan env Jellyfin ada. Webhook sekarang menolak semua request kalau `WEBHOOK_SECRET` kosong.
