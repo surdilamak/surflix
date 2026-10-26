@@ -1,7 +1,7 @@
 # BACKLOG.md — Surflix
 
 > Hal-hal yang sengaja ditunda. Urut dari yang paling berdampak. Update file ini tiap ada yang selesai atau nambah.
-> Terakhir diupdate: 2026-10-26 (setelah halaman legal, kanonikalisasi host, dan Search Console).
+> Terakhir diupdate: 2026-10-26 (audit koneksi, perbaikan Jellyseerr, tiga saga baru).
 
 ## 🔴 Tindak lanjut cepat (setelah deploy terakhir)
 
@@ -27,6 +27,25 @@
 ## 🔵 Tindak lanjut Search Console (cek sekali, lalu lupakan)
 
 - [ ] **Status sitemap di GSC**: saat dikirim 2026-10-23 ketiganya `Couldn't fetch`, dan itu wajar — kolom `Last read` kosong, artinya belum pernah diambil, bukan gagal diambil. Harus sudah berubah jadi `Success` dengan `Discovered pages` terisi. Kalau masih merah, sisi server bukan penyebabnya: ketiga sitemap menjawab 200 ke Googlebot dengan `content-type: application/xml`.
+
+## ✅ Selesai 2026-10-26 (audit koneksi, Jellyseerr, Watch order)
+
+- [x] **Audit 68 koneksi `medium`** (`877bcc8`, `c613010`) — detail di bagian "Sampling fakta koneksi" di atas. Tidak ada lagi baris `medium`: 945 APPROVED, 12 REJECTED.
+- [x] **Tiga saga baru** (`8fde309`): Hunger Games (5 film), Back to the Future (3), Breaking Bad (3, termasuk El Camino). 7 koneksi `universe` baru. Back to the Future sengaja TANPA urutan cerita terpisah — perjalanan Marty beruntun, jadi zamannya ditulis sebagai label (`1985 → 1955`), bukan urutan yang berbeda.
+- [x] **Jellyseerr 2.7.3 → Seerr 3.5.1.** Jellyfin 12 membuang header auth lama (`X-Emby-Authorization`), jadi sejak ~22 Oktober semua media baru tersangkut `PROCESSING` dan **auto-sync Surflix tidak pernah terpicu**. Sekarang jalan lagi. Seluruh penelusuran dan empat jebakan update-nya ada di `~/Developer/Unraid/README.md` — baca di sana, jangan diulang dari nol.
+
+### Dua jebakan yang ditemukan hari ini — BACA SEBELUM MENGEDIT KONEKSI
+
+1. **Hasil audit WAJIB ditulis ke `scripts/curated/*.txt`, bukan ke `connections-live.json`.** Audit 68 baris sempat ditulis langsung ke berkas turunan; 18 di antaranya masih memuat kalimat lama di sumbernya, dan `build-connections.js` berikutnya akan menghidupkannya lagi — termasuk klaim yang sudah ditolak. Sudah di-backport. Cara memeriksa: bandingkan `reasonEn` seed vs live, harus nol beda.
+2. **Kolom label cerita di `sagas.txt` tidak mendukung `EN || ID`.** Baris dipotong per `|` dulu, jadi terjemahannya tersedot ke kolom catatan dan tampil sebagai teks sampah berawalan `|` — dan catatan itu **dirender** di panel detail (`saga-stage.tsx:479`). Bug ini sudah tampil di produksi pada kartu Ballerina sejak saga John Wick dibuat. Sudah diperbaiki; jebakannya didokumentasikan di header `sagas.txt`.
+
+### Urutan kerja yang terbukti benar untuk judul baru
+
+`Sync library` (admin) → `export-library.js` di prod → salin ke repo → **selaraskan `dev.db` dengan `connections-live.json` lebih dulu** (kalau tidak, ekspor menghapus keputusan audit — 32 status sempat beda) → tulis kurasi → `build-connections.js` → import ke dev.db → `export-connections.js` → `build-sagas.js`. Builder menolak teks di atas **220 karakter**.
+
+## 🟡 Judul baru yang belum punya peta (2026-10-26)
+
+- [ ] **18 dari 60 judul terbaru masih nol koneksi.** Tiga franchise sudah ditangani; sisanya bukan franchise jadi perlu hubungan yang dicari satu per satu: Lupin, Dark Matter, Heima, Samsara, Witch Hat Atelier, Modern Family, Titans, Invasion, ODDTAXI, April Story, Chainsmoker Cat, The Tunnel to Summer. Catatan: **Modern Family jadi yatim karena audit** — satu-satunya koneksinya (ke The Office) ditolak sebab tidak bisa disumberkan. Itu konsekuensi yang disetujui, bukan kemunduran.
 
 ## 🟠 Keamanan & hygiene
 
