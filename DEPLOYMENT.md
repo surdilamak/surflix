@@ -1,80 +1,80 @@
 # 🚀 Surflix Deployment Guide — Unraid
 
-Panduan deploy Surflix di Unraid server. Estimasi waktu: **30-60 menit** (tergantung lo udah punya bot Telegram & Resend account belum).
+A guide to deploying Surflix on an Unraid server. Estimated time: **30-60 minutes** (depending on whether you already have a Telegram bot & Resend account).
 
 ## 📋 Pre-flight Checklist
 
-Pastiin lo udah punya:
+Make sure you already have:
 
-- [ ] **Unraid server** dengan Docker enabled
-- [ ] **Jellyseerr** udah running di Docker (dengan API key bisa di-access)
-- [ ] **Reverse proxy** (SWAG / Nginx Proxy Manager / Traefik) udah running
-- [ ] **Domain** `surdilamak.my.id` dengan akses ke DNS settings
-- [ ] **SSH access** ke Unraid (atau pakai Docker Manager di Unraid UI)
+- [ ] **Unraid server** with Docker enabled
+- [ ] **Jellyseerr** already running in Docker (with an accessible API key)
+- [ ] **Reverse proxy** (SWAG / Nginx Proxy Manager / Traefik) already running
+- [ ] **Domain** `surdilamak.my.id` with access to DNS settings
+- [ ] **SSH access** to Unraid (or use Docker Manager in the Unraid UI)
 
 ## 🎯 Step 1: Setup External Services
 
-### 1.1 Resend Account (untuk Email)
+### 1.1 Resend Account (for Email)
 
-1. Daftar di [resend.com](https://resend.com) — gratis 100 email/hari
+1. Sign up at [resend.com](https://resend.com) — free, 100 emails/day
 2. Verify domain `surdilamak.my.id`:
    - Resend → Domains → Add Domain → `surdilamak.my.id`
-   - Resend kasih DNS records (TXT, MX, DKIM) — tambahin ke DNS provider lo
-   - Tunggu sampai status "Verified" (biasanya 5-15 menit)
+   - Resend gives you DNS records (TXT, MX, DKIM) — add them to your DNS provider
+   - Wait until the status is "Verified" (usually 5-15 minutes)
 3. Resend → API Keys → Create API Key → **copy & save**
 
-> **Tips**: Kalau lo gak mau verify domain, bisa pake sender `onboarding@resend.dev` (tapi cuma bisa kirim ke email lo sendiri yang terdaftar di Resend account).
+> **Tip**: If you don't want to verify a domain, you can use the sender `onboarding@resend.dev` (but it can only send to your own email registered in the Resend account).
 
-### 1.2 Telegram Bot (untuk Admin Notif)
+### 1.2 Telegram Bot (for Admin Notifications)
 
-1. Chat **@BotFather** di Telegram
-2. Ketik `/newbot`
-3. Kasih nama bot (misal: "Surflix Notifier") dan username (misal: `surflix_bot`)
-4. BotFather kasih **bot token** — copy & save
-5. Chat **@userinfobot** di Telegram, dia kasih **chat ID lo** — copy & save
-6. **PENTING**: Send dulu pesan ke bot lo (misal "/start") biar bot bisa kirim pesan ke lo nanti
+1. Chat with **@BotFather** on Telegram
+2. Type `/newbot`
+3. Give the bot a name (e.g. "Surflix Notifier") and a username (e.g. `surflix_bot`)
+4. BotFather gives you a **bot token** — copy & save
+5. Chat with **@userinfobot** on Telegram, it gives you **your chat ID** — copy & save
+6. **IMPORTANT**: Send a message to your bot first (e.g. "/start") so the bot can message you later
 
 ### 1.3 Jellyseerr API Key
 
-1. Buka Jellyseerr → Settings → General
-2. Scroll ke "API Key" → Copy
-3. Save di tempat aman
+1. Open Jellyseerr → Settings → General
+2. Scroll to "API Key" → Copy
+3. Save it somewhere safe
 
 ## 🌐 Step 2: DNS Setup
 
-Di DNS provider domain `surdilamak.my.id`:
+In the DNS provider for the `surdilamak.my.id` domain:
 
-Add A record (atau CNAME):
+Add an A record (or CNAME):
 - **Name**: `request`
-- **Type**: A (atau CNAME ke jellyfin.surdilamak.my.id)
-- **Value**: IP public Unraid lo (atau hostname)
-- **TTL**: 300 (5 menit, biar cepet propagate)
+- **Type**: A (or CNAME to jellyfin.surdilamak.my.id)
+- **Value**: your Unraid's public IP (or hostname)
+- **TTL**: 300 (5 minutes, so it propagates quickly)
 
-Tunggu 5-10 menit propagation, cek dengan:
+Wait 5-10 minutes for propagation, check with:
 ```bash
 nslookup request.surdilamak.my.id
 ```
 
-## 📦 Step 3: Setup Project di Unraid
+## 📦 Step 3: Set Up the Project on Unraid
 
-### 3.1 SSH ke Unraid
+### 3.1 SSH into Unraid
 
 ```bash
 ssh root@<unraid-ip>
 ```
 
-### 3.2 Pilih lokasi project
+### 3.2 Choose the project location
 
-Recommended: simpan di array (auto-backup oleh Unraid):
+Recommended: store it on the array (auto-backed-up by Unraid):
 
 ```bash
 mkdir -p /mnt/user/appdata/surflix
 cd /mnt/user/appdata/surflix
 ```
 
-### 3.3 Extract zip yang lo download
+### 3.3 Extract the zip you downloaded
 
-Upload zip ke Unraid (via SCP, Krusader, atau Windows share), terus:
+Upload the zip to Unraid (via SCP, Krusader, or a Windows share), then:
 
 ```bash
 cd /mnt/user/appdata/surflix
@@ -84,7 +84,7 @@ rmdir surflix
 ls -la
 ```
 
-Lo harusnya lihat: `Dockerfile`, `docker-compose.yml`, `package.json`, dll.
+You should see: `Dockerfile`, `docker-compose.yml`, `package.json`, etc.
 
 ## 🔐 Step 4: Configure Environment
 
@@ -92,32 +92,32 @@ Lo harusnya lihat: `Dockerfile`, `docker-compose.yml`, `package.json`, dll.
 
 ```bash
 openssl rand -base64 32
-# Copy hasilnya, ini buat SESSION_SECRET
+# Copy the output, this is for SESSION_SECRET
 ```
 
 ### 4.2 Generate admin password hash
 
 ```bash
-# Install bcryptjs sementara buat generate hash
+# Temporarily install bcryptjs to generate the hash
 docker run --rm -v $(pwd):/app -w /app node:20-alpine sh -c "npm install bcryptjs --silent && node scripts/gen-password.js"
-# Ketik password lo, copy hash yang muncul
+# Type your password, copy the hash that appears
 ```
 
 ### 4.3 Generate webhook secret
 
 ```bash
 openssl rand -hex 32
-# Copy buat WEBHOOK_SECRET
+# Copy this for WEBHOOK_SECRET
 ```
 
-### 4.4 Buat .env file
+### 4.4 Create the .env file
 
 ```bash
 cp .env.example .env
-nano .env  # atau pake editor lain
+nano .env  # or use another editor
 ```
 
-Fill in semua values. Contoh:
+Fill in all values. Example:
 
 ```env
 NODE_ENV=production
@@ -146,41 +146,41 @@ RATE_LIMIT_WINDOW_MS=3600000
 WEBHOOK_SECRET=abc123def456...
 ```
 
-Save & exit (Ctrl+X, Y, Enter di nano).
+Save & exit (Ctrl+X, Y, Enter in nano).
 
 ## 🐳 Step 5: Network Setup (Important!)
 
-Cek network Jellyseerr lo:
+Check your Jellyseerr's network:
 
 ```bash
 docker inspect jellyseerr | grep -A 5 Networks
 ```
 
-Lo bakal lihat sesuatu kayak:
+You'll see something like:
 ```
 "Networks": {
     "br0": { ... }
-    # atau
+    # or
     "bridge": { ... }
-    # atau custom network
+    # or a custom network
 }
 ```
 
-### Option A: Jellyseerr di network `bridge` atau custom network
+### Option A: Jellyseerr on the `bridge` network or a custom network
 
-Edit `docker-compose.yml`, tambahin network external:
+Edit `docker-compose.yml`, add an external network:
 
 ```yaml
 networks:
   surflix-net:
     driver: bridge
-  # Tambahin network yang sama dengan Jellyseerr
+  # Add the same network as Jellyseerr
   jellyseerr-net:
     external: true
-    name: <nama-network-jellyseerr>  # ganti dengan nama network sebenernya
+    name: <nama-network-jellyseerr>  # replace with the actual network name
 ```
 
-Dan di service `surflix`:
+And in the `surflix` service:
 
 ```yaml
 services:
@@ -190,13 +190,13 @@ services:
       - jellyseerr-net
 ```
 
-### Option B: Jellyseerr di network `br0` (bridge custom Unraid)
+### Option B: Jellyseerr on the `br0` network (Unraid custom bridge)
 
-Lebih simple, ganti `JELLYSEERR_URL` di `.env` jadi IP container Jellyseerr:
+Simpler, change `JELLYSEERR_URL` in `.env` to the Jellyseerr container's IP:
 
 ```bash
 docker inspect jellyseerr | grep IPAddress
-# Misal hasilnya 192.168.1.50
+# Say the result is 192.168.1.50
 ```
 
 Update `.env`:
@@ -209,14 +209,14 @@ JELLYSEERR_URL=http://192.168.1.50:5055
 ```bash
 cd /mnt/user/appdata/surflix
 
-# Build & start (first time bakal lama ~3-5 menit)
+# Build & start (the first time will take ~3-5 minutes)
 docker compose up -d --build
 
 # Monitor logs
 docker compose logs -f surflix
 ```
 
-Yang harusnya lo lihat di log:
+What you should see in the logs:
 ```
 ✓ Starting...
 ✓ Ready in 2.3s
@@ -229,7 +229,7 @@ curl http://localhost:3737/api/health
 # Expected: {"status":"healthy","checks":{"db":true,"jellyseerr":true}}
 ```
 
-Kalau `jellyseerr: false` → cek Step 5 (network setup). Service jalan, tapi gak bisa connect ke Jellyseerr.
+If `jellyseerr: false` → check Step 5 (network setup). The service is running, but it can't connect to Jellyseerr.
 
 ## 🔒 Step 7: Reverse Proxy Setup
 
@@ -258,13 +258,13 @@ server {
     location / {
         include /config/nginx/proxy.conf;
         include /config/nginx/resolver.conf;
-        set $upstream_app surflix;  # atau IP Unraid kalau bukan di network yang sama
+        set $upstream_app surflix;  # or the Unraid IP if not on the same network
         set $upstream_port 3000;
         set $upstream_proto http;
         proxy_pass $upstream_proto://$upstream_app:$upstream_port;
     }
 
-    # Special handling untuk Jellyseerr webhook (bypass CORS issues)
+    # Special handling for the Jellyseerr webhook (bypass CORS issues)
     location /api/webhooks {
         include /config/nginx/proxy.conf;
         set $upstream_app surflix;
@@ -282,13 +282,13 @@ docker restart swag
 
 ### Nginx Proxy Manager (NPM)
 
-Lebih simple, lewat UI:
+Simpler, through the UI:
 
-1. Buka NPM (biasanya port 81)
+1. Open NPM (usually port 81)
 2. Proxy Hosts → Add Proxy Host
 3. **Domain Names**: `request.surdilamak.my.id`
 4. **Scheme**: `http`
-5. **Forward Hostname/IP**: IP Unraid (atau `surflix` kalau di network yang sama)
+5. **Forward Hostname/IP**: Unraid IP (or `surflix` if on the same network)
 6. **Forward Port**: `3737`
 7. ✅ **Cache Assets**
 8. ✅ **Block Common Exploits**
@@ -298,99 +298,99 @@ Lebih simple, lewat UI:
 
 ## 🪝 Step 8: Setup Jellyseerr Webhook
 
-Jellyseerr akan notify Surflix tiap kali ada status change (downloading → available):
+Jellyseerr will notify Surflix whenever there is a status change (downloading → available):
 
 1. Jellyseerr → Settings → Notifications → **Webhook**
 2. **Webhook URL**: `https://request.surdilamak.my.id/api/webhooks/jellyseerr`
-3. **Authorization Header**: `Bearer YOUR_WEBHOOK_SECRET` (sama dengan WEBHOOK_SECRET di .env)
+3. **Authorization Header**: `Bearer YOUR_WEBHOOK_SECRET` (same as WEBHOOK_SECRET in .env)
 4. **Notification Types**: ✅ enable:
    - Media Available
    - Media Failed
-   - Media Partially Available (kalau lo handle series)
-5. **JSON Payload**: pakai default
-6. Click "Test" — kalau berhasil, lo dapet 200 OK
+   - Media Partially Available (if you handle series)
+5. **JSON Payload**: use the default
+6. Click "Test" — if it works, you get 200 OK
 
 ## ✅ Step 9: Smoke Test
 
-Buka browser, akses `https://request.surdilamak.my.id`:
+Open a browser and visit `https://request.surdilamak.my.id`:
 
-### Test 1: Halaman Trending Load
-- [ ] Hero banner muncul
-- [ ] Grid trending muncul
-- [ ] Status badges muncul (In Library, Pending, etc.)
+### Test 1: Trending Page Loads
+- [ ] Hero banner appears
+- [ ] Trending grid appears
+- [ ] Status badges appear (In Library, Pending, etc.)
 
 ### Test 2: Search
-- [ ] Klik tab "Browse"
-- [ ] Ketik query (minimal 2 karakter)
-- [ ] Hasil search muncul
-- [ ] Filter chips kerja (Movies, Series, Hide in library)
+- [ ] Click the "Browse" tab
+- [ ] Type a query (minimum 2 characters)
+- [ ] Search results appear
+- [ ] Filter chips work (Movies, Series, Hide in library)
 
 ### Test 3: Submit Request
-- [ ] Klik poster film yang **belum** di library
-- [ ] Modal detail muncul
-- [ ] Klik "Request"
-- [ ] Form muncul (nama + email)
-- [ ] Submit → toast "Request lo udah masuk!" muncul
-- [ ] **Cek Telegram lo — harusnya dapet notif** 📲
+- [ ] Click a film poster that is **not yet** in the library
+- [ ] The detail modal appears
+- [ ] Click "Request"
+- [ ] The form appears (name + email)
+- [ ] Submit → the toast "Request lo udah masuk!" appears
+- [ ] **Check your Telegram — you should get a notification** 📲
 
 ### Test 4: My Requests Flow
-- [ ] Klik tab "My Requests"
-- [ ] Input email yang lo pake tadi
-- [ ] Cek email → harusnya ada magic link dari Surflix
-- [ ] Klik link → redirect ke /verify → lalu ke /requests
-- [ ] Request lo muncul dengan status "Pending"
+- [ ] Click the "My Requests" tab
+- [ ] Enter the email you used earlier
+- [ ] Check your email → there should be a magic link from Surflix
+- [ ] Click the link → redirects to /verify → then to /requests
+- [ ] Your request appears with the status "Pending"
 
-### Test 5: Approval (Manual via Jellyseerr buat sekarang)
-- [ ] Buka Jellyseerr
-- [ ] Approve request manual
-- [ ] **Webhook should fire** — cek log Surflix:
+### Test 5: Approval (Manual via Jellyseerr for now)
+- [ ] Open Jellyseerr
+- [ ] Approve the request manually
+- [ ] **Webhook should fire** — check the Surflix log:
   ```bash
   docker compose logs surflix | grep -i webhook
   ```
-- [ ] Status di "My Requests" page lo harusnya update jadi "Processing"
-- [ ] Setelah film ready di Jellyfin, status jadi "Available"
-- [ ] **Cek email lo — dapet notif "Available now!"** 📧
+- [ ] The status on your "My Requests" page should update to "Processing"
+- [ ] After the film is ready in Jellyfin, the status becomes "Available"
+- [ ] **Check your email — you get an "Available now!" notification** 📧
 
 ## 🐛 Troubleshooting
 
-### Container gak start / crash
+### Container won't start / crashes
 ```bash
 docker compose logs surflix --tail 50
 ```
 
 Common issues:
-- **"DATABASE_URL not found"** → `.env` belum di-load. Restart: `docker compose down && docker compose up -d`
+- **"DATABASE_URL not found"** → `.env` hasn't been loaded. Restart: `docker compose down && docker compose up -d`
 - **"Cannot find module @prisma/client"** → Build error, rebuild: `docker compose build --no-cache`
 
-### Trending gak muncul / empty
-- Cek Jellyseerr connection: `curl http://<unraid-ip>:3737/api/health`
-- Kalau `jellyseerr: false`, cek `JELLYSEERR_URL` & network (Step 5)
-- Cek API key Jellyseerr valid
+### Trending doesn't show up / empty
+- Check the Jellyseerr connection: `curl http://<unraid-ip>:3737/api/health`
+- If `jellyseerr: false`, check `JELLYSEERR_URL` & the network (Step 5)
+- Check that the Jellyseerr API key is valid
 
-### Email gak terkirim
+### Email not sent
 ```bash
 docker compose logs surflix | grep -i resend
 ```
-- Pastiin domain `surdilamak.my.id` udah verified di Resend
-- Atau pake sender `onboarding@resend.dev` sementara
+- Make sure the domain `surdilamak.my.id` is verified in Resend
+- Or use the sender `onboarding@resend.dev` for now
 
-### Telegram gak ada notif
+### No Telegram notifications
 ```bash
 docker compose logs surflix | grep -i telegram
 ```
-- Pastiin lo udah send `/start` ke bot lo dari Telegram
-- Cek `TELEGRAM_ADMIN_CHAT_ID` — harus angka, no @username
+- Make sure you've sent `/start` to your bot from Telegram
+- Check `TELEGRAM_ADMIN_CHAT_ID` — it must be a number, no @username
 
-### Webhook gak fire
-- Cek WEBHOOK_SECRET sama persis di .env Surflix & Jellyseerr config
-- Cek URL bisa di-reach dari Jellyseerr:
+### Webhook doesn't fire
+- Check that WEBHOOK_SECRET is exactly the same in the Surflix .env & the Jellyseerr config
+- Check that the URL is reachable from Jellyseerr:
   ```bash
   docker exec jellyseerr wget -O- https://request.surdilamak.my.id/api/health
   ```
 
 ## 🔄 Update / Redeploy
 
-Kalau ada perubahan code:
+If there are code changes:
 
 ```bash
 cd /mnt/user/appdata/surflix
@@ -398,22 +398,22 @@ docker compose down
 docker compose up -d --build
 ```
 
-Database di `./data/surflix.db` gak akan ke-reset karena di-mount sebagai volume.
+The database at `./data/surflix.db` will not be reset because it is mounted as a volume.
 
 ## 💾 Backup
 
-Backup file:
-- `.env` (semua secrets)
+Back up these files:
+- `.env` (all secrets)
 - `./data/surflix.db` (database)
 
-Setting di Unraid CA Backup plugin:
+Settings in the Unraid CA Backup plugin:
 - **Source**: `/mnt/user/appdata/surflix/`
 - **Frequency**: Daily
 
-## 🎯 Yang Belum Tersedia di Build Ini
+## 🎯 What Is Not Yet Available in This Build
 
-> **Note**: Build sekarang **belum punya admin panel UI**. Approve request masih harus dilakukan manual via Jellyseerr. Setelah lo test deployment ini sukses, kita lanjut bikin admin panel-nya.
+> **Note**: This build **does not have an admin panel UI yet**. Approving requests must still be done manually via Jellyseerr. After you've tested this deployment successfully, we'll continue building the admin panel.
 
 ---
 
-Good luck dengan deploy-nya! Kalau ada error, share output `docker compose logs surflix` dan gw bantu troubleshoot.
+Good luck with the deployment! If there are any errors, share the output of `docker compose logs surflix` and I'll help troubleshoot.

@@ -1,12 +1,12 @@
 # 🚀 Surflix · GitHub Deployment Guide
 
-Cara paling proper buat deploy Surflix: pakai GitHub untuk source code + GHCR (GitHub Container Registry) untuk pre-built Docker image.
+The most proper way to deploy Surflix: use GitHub for source code + GHCR (GitHub Container Registry) for the pre-built Docker image.
 
 ## 📊 Architecture
 
 ```
 ┌──────────────┐                     ┌─────────────┐
-│   Lo (dev)   │   git push          │   GitHub    │
+│  You (dev)   │   git push          │   GitHub    │
 │              │ ──────────────────▶ │   Repo      │
 └──────────────┘                     └──────┬──────┘
                                             │ trigger
@@ -29,28 +29,28 @@ Cara paling proper buat deploy Surflix: pakai GitHub untuk source code + GHCR (G
                               └─────────────────────────┘
 ```
 
-**Keuntungan**:
-- Update tinggal `git push` → image auto-build → di Unraid `docker compose pull && up -d`
-- Image lo ke-host gratis di GHCR (private atau public)
-- Bisa rollback ke versi lama (image tag versioned)
-- Image bisa lo share ke temen kalau mau (kalau public)
+**Benefits**:
+- To update, just `git push` → image auto-builds → on Unraid `docker compose pull && up -d`
+- Your image is hosted for free on GHCR (private or public)
+- You can roll back to an older version (versioned image tags)
+- You can share the image with friends if you want (if public)
 
 ---
 
 ## Step 1: Setup GitHub Repo
 
-### 1.1 Buat repo baru
+### 1.1 Create a new repo
 
-1. Login ke GitHub
-2. Klik **+** → **New repository**
+1. Log in to GitHub
+2. Click **+** → **New repository**
 3. **Repository name**: `surflix`
-4. **Visibility**: Private (recommended, biar gak ada yang lihat .env.example lo) atau Public
-5. **DON'T** initialize dengan README (kita punya file sendiri)
+4. **Visibility**: Private (recommended, so nobody can see your .env.example) or Public
+5. **DON'T** initialize with a README (we have our own file)
 6. Create repository
 
-### 1.2 Push code dari local
+### 1.2 Push code from local
 
-Di folder Surflix lo (yang udah lo unzip):
+In your Surflix folder (the one you unzipped):
 
 ```bash
 cd /path/to/surflix
@@ -60,27 +60,27 @@ git init
 git add .
 git commit -m "Initial commit: Surflix"
 
-# Add remote (ganti dengan URL repo lo)
+# Add remote (replace with your repo URL)
 git branch -M main
-git remote add origin https://github.com/<username-lo>/surflix.git
+git remote add origin https://github.com/<your-username>/surflix.git
 git push -u origin main
 ```
 
-> **Important**: Pastiin `.env` udah ada di `.gitignore` (udah include by default). **Jangan pernah push .env ke GitHub** — itu ada secrets lo.
+> **Important**: Make sure `.env` is in `.gitignore` (already included by default). **Never push .env to GitHub** — it contains your secrets.
 
-### 1.3 Update referensi di file
+### 1.3 Update references in files
 
-Edit `docker-compose.prod.yml`, ganti `idrus` dengan GitHub username lo:
+Edit `docker-compose.prod.yml`, replace `idrus` with your GitHub username:
 
 ```yaml
 image: ghcr.io/idrus/surflix:latest
-#               ^^^^^^ ← ganti ini
+#               ^^^^^^ ← change this
 ```
 
-Edit `install.sh`, ganti default values:
+Edit `install.sh`, change the default values:
 
 ```bash
-GITHUB_USER="${GITHUB_USER:-idrus}"  # ← ganti
+GITHUB_USER="${GITHUB_USER:-idrus}"  # ← change
 GITHUB_REPO="${GITHUB_REPO:-surflix}"
 ```
 
@@ -91,65 +91,65 @@ git add . && git commit -m "Update GitHub username refs" && git push
 
 ## Step 2: Enable GitHub Container Registry
 
-### 2.1 GitHub Actions akan otomatis build image
+### 2.1 GitHub Actions will build the image automatically
 
-Pas lo push tadi, file `.github/workflows/docker-build.yml` ke-trigger.
+When you pushed earlier, the `.github/workflows/docker-build.yml` file was triggered.
 
-Cek progress:
-1. GitHub repo lo → tab **Actions**
-2. Lo bakal lihat workflow "Build & Publish Docker Image" running
-3. Tunggu sampai selesai (~3-5 menit first time, lebih cepet next time karena cache)
+Check progress:
+1. Your GitHub repo → **Actions** tab
+2. You'll see the "Build & Publish Docker Image" workflow running
+3. Wait until it finishes (~3-5 minutes the first time, faster next time thanks to the cache)
 
-### 2.2 Verify image udah di-publish
+### 2.2 Verify the image has been published
 
-1. GitHub repo lo → **Packages** (di sidebar kanan)
-2. Lo bakal lihat package `surflix`
-3. Klik → lihat tags: `latest`, `main`, dll
+1. Your GitHub repo → **Packages** (in the right sidebar)
+2. You'll see the `surflix` package
+3. Click it → see the tags: `latest`, `main`, etc.
 
 ### 2.3 (Optional) Make package public
 
-Default-nya, image dari private repo juga private. Kalau lo mau temen lo bisa pakai juga:
+By default, an image from a private repo is also private. If you want your friends to be able to use it too:
 
 1. Package settings → **Change package visibility** → Public
 
-Kalau private, lo butuh **Personal Access Token (PAT)** buat pull di Unraid. Setup ini:
+If it's private, you need a **Personal Access Token (PAT)** to pull on Unraid. Set it up like this:
 
 1. GitHub → Settings → Developer settings → Personal access tokens → **Tokens (classic)**
 2. Generate new token (classic)
 3. **Scopes**: ✅ `read:packages`
-4. Generate & copy token (cuma keliatan sekali!)
-5. Save di tempat aman
+4. Generate & copy the token (it's only shown once!)
+5. Save it somewhere safe
 
-Di Unraid, login ke GHCR:
+On Unraid, log in to GHCR:
 ```bash
 echo "YOUR_PAT_TOKEN" | docker login ghcr.io -u YOUR_GITHUB_USERNAME --password-stdin
 ```
 
-## Step 3: Install di Unraid (One-Liner!)
+## Step 3: Install on Unraid (One-Liner!)
 
-Setelah image ada di GHCR, install di Unraid jadi simple:
+Once the image is on GHCR, installing on Unraid is simple:
 
 ### Cara 1: One-line installer
 
 ```bash
-# SSH ke Unraid
+# SSH into Unraid
 ssh root@<unraid-ip>
 
-# Run installer (ganti 'idrus' dengan username lo)
+# Run the installer (replace 'idrus' with your username)
 GITHUB_USER=idrus bash <(curl -s https://raw.githubusercontent.com/idrus/surflix/main/install.sh)
 ```
 
-Script bakal:
+The script will:
 1. Download `docker-compose.prod.yml`, `.env.example`, `setup.sh`
-2. Tanya semua config values
-3. Generate secrets otomatis
-4. Pull image dari GHCR
-5. Start container
+2. Ask for all config values
+3. Generate secrets automatically
+4. Pull the image from GHCR
+5. Start the container
 6. Health check
 
 ### Cara 2: Manual
 
-Kalau lo prefer manual:
+If you prefer manual:
 
 ```bash
 mkdir -p /mnt/user/appdata/surflix
@@ -168,43 +168,43 @@ chmod +x setup.sh
 docker compose -f docker-compose.prod.yml up -d
 ```
 
-## Step 4: Workflow Update Selanjutnya
+## Step 4: Update Workflow Afterwards
 
-Setelah initial deploy, kalau lo ada update code:
+After the initial deploy, when you have code updates:
 
-### Di local lo:
+### On your local machine:
 
 ```bash
-# Edit code di local
+# Edit code locally
 git add .
 git commit -m "Fix: something"
 git push
 ```
 
-GitHub Actions auto-trigger, image baru di-build & di-push ke GHCR (~3 menit).
+GitHub Actions auto-triggers, and a new image is built & pushed to GHCR (~3 minutes).
 
-### Di Unraid:
+### On Unraid:
 
-Ada beberapa opsi update:
+There are several update options:
 
-#### Opsi A: Manual pull (paling reliable)
+#### Option A: Manual pull (most reliable)
 ```bash
 cd /mnt/user/appdata/surflix
 docker compose -f docker-compose.prod.yml pull
 docker compose -f docker-compose.prod.yml up -d
 ```
 
-#### Opsi B: Re-run installer (auto-detect existing)
+#### Option B: Re-run installer (auto-detects existing install)
 ```bash
 GITHUB_USER=idrus bash <(curl -s https://raw.githubusercontent.com/idrus/surflix/main/install.sh)
-# Pilih "1) Update"
+# Choose "1) Update"
 ```
 
-#### Opsi C: Watchtower (auto-update)
-Install Watchtower container yang auto-watch image baru:
+#### Option C: Watchtower (auto-update)
+Install a Watchtower container that auto-watches for new images:
 
 ```yaml
-# Tambah ke compose lo, atau install terpisah
+# Add to your compose, or install separately
 services:
   watchtower:
     image: containrrr/watchtower
@@ -214,91 +214,91 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     environment:
       WATCHTOWER_CLEANUP: true
-      WATCHTOWER_LABEL_ENABLE: true  # cuma update yang punya label
-      WATCHTOWER_POLL_INTERVAL: 3600  # 1 jam
+      WATCHTOWER_LABEL_ENABLE: true  # only update those that have the label
+      WATCHTOWER_POLL_INTERVAL: 3600  # 1 hour
 ```
 
-Di `docker-compose.prod.yml` Surflix udah ada label `com.centurylinklabs.watchtower.enable=true`, jadi auto-update bakal jalan.
+In `docker-compose.prod.yml`, Surflix already has the label `com.centurylinklabs.watchtower.enable=true`, so auto-update will work.
 
 ## Step 5: Version Tagging (Optional, Recommended)
 
-Buat production release yang stable:
+For a stable production release:
 
 ```bash
 git tag v0.1.0
 git push --tags
 ```
 
-GitHub Actions akan build image dengan tags:
+GitHub Actions will build the image with these tags:
 - `ghcr.io/idrus/surflix:v0.1.0`
 - `ghcr.io/idrus/surflix:0.1`
 - `ghcr.io/idrus/surflix:latest`
 
-Di production lo bisa pin ke versi specific:
+In production you can pin to a specific version:
 ```yaml
-image: ghcr.io/idrus/surflix:v0.1.0  # gak akan auto-update
+image: ghcr.io/idrus/surflix:v0.1.0  # will not auto-update
 ```
 
-## 🎯 Comparison: Sebelum vs Sesudah
+## 🎯 Comparison: Before vs After
 
-### Sebelum (zip upload)
+### Before (zip upload)
 ```
-1. Edit code di local
+1. Edit code locally
 2. Re-zip
-3. Upload via SCP (~5 menit kalau internet lemot)
-4. SSH ke Unraid
-5. Backup folder lama
-6. Extract zip baru
-7. Restore .env dari backup
+3. Upload via SCP (~5 minutes if the internet is slow)
+4. SSH into Unraid
+5. Back up the old folder
+6. Extract the new zip
+7. Restore .env from backup
 8. docker compose down
-9. docker compose build (~5 menit re-build)
+9. docker compose build (~5 minutes to rebuild)
 10. docker compose up -d
 ```
 
-### Sesudah (GitHub + GHCR)
+### After (GitHub + GHCR)
 ```
-1. Edit code di local
-2. git push (~10 detik)
+1. Edit code locally
+2. git push (~10 seconds)
 3. [GitHub Actions auto-build]
-4. SSH ke Unraid
-5. docker compose pull && up -d (~30 detik)
+4. SSH into Unraid
+5. docker compose pull && up -d (~30 seconds)
 ```
 
 ## 🐛 Troubleshooting
 
 ### GitHub Actions gagal build
-- Cek tab **Actions** di repo → klik run yang failed → lihat log
+- Check the **Actions** tab in the repo → click the failed run → view the log
 - Common: Dockerfile syntax error, missing dependency
 
 ### `denied: requested access to the resource is denied`
-- Package masih private dan lo belum login ke GHCR
-- Solution: Login dengan PAT (lihat Step 2.3) atau make public
+- The package is still private and you haven't logged in to GHCR
+- Solution: Log in with a PAT (see Step 2.3) or make it public
 
-### `docker pull` ngambil image lama terus
-- Solusi:
+### `docker pull` keeps fetching the old image
+- Solution:
   ```bash
   docker compose -f docker-compose.prod.yml pull --policy always
-  # atau
+  # or
   docker image rm ghcr.io/idrus/surflix:latest
   docker compose -f docker-compose.prod.yml pull
   ```
 
-### Image kebanyakan size
-GitHub Actions ada limit storage:
+### Image is too large
+GitHub Actions has a storage limit:
 - Public repo: unlimited GHCR usage
 - Private repo: 500MB free
 
-Setup retention policy di Settings → Packages → Manage → Package retention.
+Set up a retention policy in Settings → Packages → Manage → Package retention.
 
 ---
 
-## 📦 Files yang Lo Butuh Update di GitHub
+## 📦 Files You Need to Update on GitHub
 
-Sebelum first push, pastiin update:
+Before the first push, make sure to update:
 
-| File | Ganti |
+| File | Change |
 |------|-------|
-| `docker-compose.prod.yml` | `ghcr.io/idrus/surflix` → username lo |
+| `docker-compose.prod.yml` | `ghcr.io/idrus/surflix` → your username |
 | `install.sh` | Default `GITHUB_USER` value |
 | `README.md` | Update install instructions |
 
@@ -306,10 +306,10 @@ Sebelum first push, pastiin update:
 
 ## 🎉 Done!
 
-Workflow lo sekarang:
-- **Develop**: edit code di local
-- **Deploy**: `git push` → tunggu 3 menit
-- **Update Unraid**: `docker compose pull && up -d` atau pakai Watchtower
-- **Share**: kasih link install.sh ke temen, mereka tinggal run sekali
+Your workflow now:
+- **Develop**: edit code locally
+- **Deploy**: `git push` → wait 3 minutes
+- **Update Unraid**: `docker compose pull && up -d` or use Watchtower
+- **Share**: give friends the install.sh link, they just run it once
 
 Good luck! 🚀

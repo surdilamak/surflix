@@ -6,7 +6,7 @@
 
 ```
 ┌─────────────────┐
-│  Edit di Mac    │  ~/Developer/surflix
+│  Edit on Mac    │  ~/Developer/surflix
 │  (or via CLI)   │
 └────────┬────────┘
          │
@@ -18,7 +18,7 @@
          │
          ▼
 ┌─────────────────┐
-│  GitHub Actions │  ~3-5 menit (amd64 only)
+│  GitHub Actions │  ~3-5 minutes (amd64 only)
 │  builds image   │
 └────────┬────────┘
          │
@@ -35,7 +35,7 @@
          │
          ▼
 ┌─────────────────┐
-│  Live di        │  https://surflix.my.id (Landing)
+│  Live in        │  https://surflix.my.id (Landing)
 │  production     │  → request.surflix.my.id (Hub)
 │                 │  → streaming.surflix.my.id (Jellyfin)
 └─────────────────┘
@@ -45,16 +45,16 @@
 
 ### 1. Apply Patches from Claude
 
-Pattern yang dipake: Claude bikin file changes di sandbox, bundle ke zip, kasih ke Idrus untuk apply ke Mac.
+Pattern used: Claude makes file changes in a sandbox, bundles them into a zip, and gives it to Idrus to apply on the Mac.
 
 ```bash
-# Download zip dari Claude conversation, ke ~/Downloads
+# Download the zip from the Claude conversation, to ~/Downloads
 cd ~/Developer/surflix
 unzip -o ~/Downloads/surflix-batchN.zip -d /tmp/surflix-batchN
 
-# Apply files (sample, sesuaikan dengan instruction Claude)
+# Apply files (sample, adjust to Claude's instructions)
 cp /tmp/surflix-batchN/some-file.tsx 'components/ui/some-file.tsx'
-# ... copy lain-lain
+# ... copy the others
 
 # Verify
 git status
@@ -76,7 +76,7 @@ npm run dev
 # Open http://localhost:3000
 ```
 
-**Note**: Local dev butuh `.env.local` with:
+**Note**: Local dev needs `.env.local` with:
 ```
 DATABASE_URL=file:./prisma/dev.db
 JELLYSEERR_URL=http://192.168.68.8:5055
@@ -99,7 +99,7 @@ Examples:
 - `Cleanup: remove zombie code`
 - `Refactor: extract config to runtime endpoint`
 
-Idrus suka batch commits jadi semantically grouped. Jangan commit setiap line change separately.
+Idrus likes batch commits so they are semantically grouped. Do not commit every line change separately.
 
 ### 4. Push & Deploy
 
@@ -129,14 +129,14 @@ docker-compose -f docker-compose.prod.yml logs --tail 20
 ### 5. Database Operations
 
 ```bash
-# View tables (di Unraid)
+# View tables (on Unraid)
 docker exec surflix node -e "
 const { PrismaClient } = require('@prisma/client');
 const p = new PrismaClient();
 p.request.count().then(c => { console.log('Total requests:', c); process.exit(); });
 "
 
-# Reset DB (HATI-HATI: hapus semua data)
+# Reset DB (CAREFUL: deletes all data)
 docker exec surflix rm -f /data/surflix.db
 docker-compose -f docker-compose.prod.yml restart
 
@@ -163,7 +163,7 @@ curl -s https://request.surflix.my.id/api/telegram/setup \
 curl -X POST https://request.surflix.my.id/api/telegram/setup \
   -H "Cookie: surflix_admin_session=<session-cookie>"
 
-# Or just klik tombol "Register Webhook" di /admin/settings
+# Or just click the "Register Webhook" button in /admin/settings
 ```
 
 ### 7. Reset Admin Password
@@ -215,7 +215,7 @@ docker exec surflix sh -c 'curl -s -H "X-Api-Key: $JELLYSEERR_API_KEY" $JELLYSEE
 # Restart container
 docker-compose -f docker-compose.prod.yml restart
 
-# Full rebuild (rare, kalau image cache corrupted)
+# Full rebuild (rare, if the image cache is corrupted)
 docker-compose -f docker-compose.prod.yml down
 docker rmi ghcr.io/surdilamak/surflix:latest
 docker-compose -f docker-compose.prod.yml pull
@@ -224,16 +224,16 @@ docker-compose -f docker-compose.prod.yml up -d
 
 ## 🚨 Emergency Recovery
 
-### Build Stuck di GitHub Actions
+### Build Stuck in GitHub Actions
 
-Symptom: Build > 30 menit, stuck di stage tertentu.
+Symptom: Build > 30 minutes, stuck at a certain stage.
 
 ```bash
-# Cancel di GitHub UI: Actions tab → running workflow → Cancel
-# Push fix kalau perlu, atau retry
+# Cancel in the GitHub UI: Actions tab → running workflow → Cancel
+# Push a fix if needed, or retry
 ```
 
-Likely cause: ARM64 build di-enable lagi entah gimana. Verify `.github/workflows/docker-build.yml`:
+Likely cause: ARM64 build got enabled again somehow. Verify `.github/workflows/docker-build.yml`:
 ```yaml
 platforms: linux/amd64  # SHOULD BE THIS
 # NOT: linux/amd64,linux/arm64
@@ -281,7 +281,7 @@ docker exec surflix sh -c 'curl -s -o /dev/null -w "%{http_code}\n" $JELLYSEERR_
 
 ## 🌍 Environment Variables Reference
 
-Lihat `.env.example` di repo.
+See `.env.example` in the repo.
 
 ### Required
 - `DATABASE_URL` — SQLite file path
@@ -321,4 +321,4 @@ In `.env` for Docker Compose:
 | Login admin fails | Hash mismatch | Generate new bcrypt hash, reset Admin table |
 | Container won't start | SQLite permission | `chown -R 1001:1001 data/` |
 | Telegram notif missing | Webhook not registered | Visit `/admin/settings` → Register Webhook |
-| Modal mobile rusak | Flex pattern broken | Check responsive alignment in `detail-modal.tsx` |
+| Mobile modal broken | Flex pattern broken | Check responsive alignment in `detail-modal.tsx` |

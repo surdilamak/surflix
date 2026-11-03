@@ -1,39 +1,39 @@
 # ARCHITECTURE.md — Surflix Technical Deep Dive
 
-> Companion to [`CLAUDE.md`](./CLAUDE.md). Detail teknis untuk Claude Code.
+> Companion to [`CLAUDE.md`](./CLAUDE.md). Technical detail for Claude Code.
 
 ## 🧱 Stack Decisions
 
 ### Why Next.js 14 (App Router)?
-- Full-stack di satu codebase (frontend + API routes)
+- Full-stack in a single codebase (frontend + API routes)
 - Server components reduce JS bundle
 - Built-in image optimization (`<Image>`)
-- Standalone output mode buat lean Docker images
+- Standalone output mode for lean Docker images
 
 ### Why SQLite (not Postgres)?
 - Single-file DB, mounted via Docker volume (`/data/surflix.db`)
 - Zero external dependency (no DB container)
-- Sufficient untuk ~thousand requests/day scale
+- Sufficient for ~thousand requests/day scale
 - Easy backup (just copy the .db file)
-- Trade-off: no concurrent writes (acceptable untuk this use case)
+- Trade-off: no concurrent writes (acceptable for this use case)
 
 ### Why Prisma?
 - Type-safe DB queries
 - Auto-generated client
 - Schema migration via `prisma db push` (no manual SQL)
-- Catch: enum types **NOT** supported di SQLite — pakai `String` dengan documented values
+- Catch: enum types **NOT** supported in SQLite — use `String` with documented values
 
 ### Why Iron Session (not JWT)?
 - Cookie-based, server-side validated
 - Encrypted (no need to trust client)
-- Stateless dari server perspective
+- Stateless from the server's perspective
 - HttpOnly, Secure flags by default
 
 ### Why No external Telegram lib?
 Avoid `node-telegram-bot-api` dependency:
-- Library bawa `polling` mode yang gak kita pake
+- The library ships a `polling` mode that we don't use
 - Library install size ~10MB
-- Pure HTTP fetch lebih simple dan reliable
+- Pure HTTP fetch is simpler and more reliable
 
 ## 📊 Database Schema
 
@@ -176,11 +176,11 @@ Same-origin only (no `Access-Control-Allow-Origin` set). Reverse proxy handles H
 - `/api/library-stats` → 10 minutes
 
 ### Browser-Side
-- `localStorage` untuk `surflix_guest_info` (name, guestId) — persistent
+- `localStorage` for `surflix_guest_info` (name, guestId) — persistent
 - No service worker, no PWA caching (yet)
 
 ### Important Note
-`/api/config` uses **`export const dynamic = 'force-dynamic'`** untuk solve Next.js standalone yang cache route at build time (env vars empty at build). Set `revalidate = 0` juga.
+`/api/config` uses **`export const dynamic = 'force-dynamic'`** to solve Next.js standalone caching the route at build time (env vars empty at build). Set `revalidate = 0` too.
 
 ## 🌐 Network & Deployment
 
@@ -193,7 +193,7 @@ services:
     ports:
       - "3737:3000"
     extra_hosts:
-      - "host.docker.internal:host-gateway"  # buat akses Jellyseerr di host
+      - "host.docker.internal:host-gateway"  # to access Jellyseerr on the host
     volumes:
       - ./data:/data  # SQLite persistent
     environment:
@@ -235,23 +235,23 @@ Manual: docker-compose pull && up -d
 ## 🎨 Frontend Patterns
 
 ### Route Groups
-- `(guest)` — public pages, shared layout dengan TopNav + Footer + BottomTabBar
-- `(admin)` — admin pages, terpisah dari guest layout
+- `(guest)` — public pages, shared layout with TopNav + Footer + BottomTabBar
+- `(admin)` — admin pages, separate from the guest layout
 
 ### Responsive Strategy
-- **Mobile-first**: default styles untuk small screens
-- **Breakpoint**: `md:` (768px+) untuk desktop overrides
-- **Navigation**: BottomTabBar di mobile, TopNav di desktop
-- **Modals**: bottom sheet di mobile, centered di desktop (via `matchMedia` detection)
+- **Mobile-first**: default styles for small screens
+- **Breakpoint**: `md:` (768px+) for desktop overrides
+- **Navigation**: BottomTabBar on mobile, TopNav on desktop
+- **Modals**: bottom sheet on mobile, centered on desktop (via `matchMedia` detection)
 
 ### Component Patterns
 - All client components marked `'use client'`
-- Server components default (untuk API routes & data fetching)
-- Framer Motion untuk animations
+- Server components default (for API routes & data fetching)
+- Framer Motion for animations
 - Lucide React icons (re-exported via `components/ui/icons.tsx`)
 
 ### State Management
-- **No Redux/Zustand** — local component state cukup
+- **No Redux/Zustand** — local component state is enough
 - **React Query / SWR**: NOT used — useEffect + fetch
 - **Form state**: useState (no Formik/RHF)
 - **Routing**: Next.js App Router built-in
@@ -272,28 +272,28 @@ Common endpoints used:
 
 **Auth**: `X-Api-Key` header
 
-**Known limitation**: API key di .env current adalah user-level (gak punya akses `/media` filter endpoint). Library stats fallback ke local DB.
+**Known limitation**: the API key currently in .env is user-level (no access to the `/media` filter endpoint). Library stats fall back to the local DB.
 
 ### Telegram Bot API
 Base: `https://api.telegram.org/bot<TOKEN>`
 
 Methods used:
-- `sendPhoto` — kirim notif dengan poster + caption + inline buttons
-- `sendMessage` — text message (untuk overview reply)
-- `editMessageCaption` — update caption setelah approve/reject
+- `sendPhoto` — send notification with poster + caption + inline buttons
+- `sendMessage` — text message (for overview reply)
+- `editMessageCaption` — update caption after approve/reject
 - `answerCallbackQuery` — acknowledge button click
 - `setWebhook` — register webhook URL
 - `getWebhookInfo` — check webhook status
 
-**Pattern**: Pure HTTP fetch, JSON body, parse_mode HTML untuk formatting.
+**Pattern**: Pure HTTP fetch, JSON body, parse_mode HTML for formatting.
 
 ### TMDB Images
-Images served direct dari TMDB CDN (Surflix never proxy):
+Images served directly from the TMDB CDN (Surflix never proxy):
 - Poster: `https://image.tmdb.org/t/p/w500<path>`
 - Backdrop: `https://image.tmdb.org/t/p/w780<path>`
 - Profile: `https://image.tmdb.org/t/p/w185<path>`
 
-Next.js `<Image>` configured untuk remote pattern:
+Next.js `<Image>` configured for remote pattern:
 ```js
 remotePatterns: [
   { protocol: 'https', hostname: 'image.tmdb.org', pathname: '/t/p/**' }
@@ -306,7 +306,7 @@ remotePatterns: [
 
 **Future considerations**:
 - E2E with Playwright (admin flow approve/reject)
-- Unit tests untuk lib functions (jellyseerr, utils)
+- Unit tests for lib functions (jellyseerr, utils)
 - API contract tests
 
 ## 📈 Performance Notes

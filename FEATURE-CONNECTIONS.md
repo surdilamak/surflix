@@ -1,59 +1,59 @@
 # FEATURE-CONNECTIONS.md — Film Reference Graph
 
-> Companion ke `CLAUDE.md`. Spec buat Claude Code ngerjain fitur "peta referensi film".
-> Status: **MVP (graph + admin review)**. Path-mode nyusul di fase berikutnya.
+> Companion to `CLAUDE.md`. Spec for Claude Code to build the "film reference map" feature.
+> Status: **MVP (graph + admin review)**. Path-mode follows in the next phase.
 
-## 🎯 Apa ini
+## 🎯 What is this
 
-Fitur interaktif: dari satu film, guest bisa liat **web referensi** — film lama/baru yang
-saling nyambung (homage, inspired by, visual reference). Node-nya berbentuk **case Blu-ray 3D**
-yang ngambang; di-klik → **langsung nonton di Surflix** (deep-link Jellyfin).
+An interactive feature: from a single film, the guest can see a **reference web** — older/newer films
+that connect to each other (homage, inspired by, visual reference). The nodes are shaped like floating
+**3D Blu-ray cases**; click one → **watch it right away on Surflix** (Jellyfin deep-link).
 
-Entry point: **per-film** (tombol "Referensi" di `detail-modal.tsx`).
+Entry point: **per-film** (the "Referensi" button in `detail-modal.tsx`).
 
-## 🔒 Keputusan yang udah dikunci
+## 🔒 Locked Decisions
 
-1. **Data referensi = Hybrid (LLM + admin approve).** LLM bikin draft, admin verifikasi sebelum tayang.
-2. **LLM cuma jalan pas admin trigger.** Hasil disimpen permanen di SQLite.
-   **Guest TIDAK PERNAH memicu LLM** — guest cuma baca cache yang `APPROVED`. (Hemat biaya + cepat.)
-3. **Cuma film yang ada di library Jellyfin yang jadi node.** Tiap node dijamin bisa langsung ditonton.
-   Sumber kebenaran library = **Jellyfin API** (`/Items` + ProviderIds), bukan Jellyseerr `/media`
-   (API key Jellyseerr saat ini user-level — lihat known issue #1 di CLAUDE.md).
-4. **Node = case Blu-ray 3D (three.js).** Lihat prototype: `surflix-reference-graph-prototype.jsx`.
-5. **Klik node → nonton di Surflix** via deep-link Jellyfin (butuh `tmdbId → Jellyfin itemId`).
-6. **MVP dulu**: graph + review queue. Path-mode (urutan "tonton ini dulu") = fase berikutnya.
+1. **Reference data = Hybrid (LLM + admin approval).** The LLM drafts, the admin verifies before it goes live.
+2. **The LLM only runs when the admin triggers it.** Results are stored permanently in SQLite.
+   **Guests NEVER trigger the LLM** — guests only read the `APPROVED` cache. (Saves cost + fast.)
+3. **Only films that exist in the Jellyfin library become nodes.** Every node is guaranteed to be watchable right away.
+   The source of truth for the library = the **Jellyfin API** (`/Items` + ProviderIds), not Jellyseerr `/media`
+   (the Jellyseerr API key is currently user-level — see known issue #1 in CLAUDE.md).
+4. **Node = case Blu-ray 3D (three.js).** See the prototype: `surflix-reference-graph-prototype.jsx`.
+5. **Click a node → watch on Surflix** via a Jellyfin deep-link (needs `tmdbId → Jellyfin itemId`).
+6. **MVP first**: graph + review queue. Path-mode ("watch this first" ordering) = next phase.
 
-## 🧩 Prasyarat (beresin dulu / paralel)
+## 🧩 Prerequisites (sort out first / in parallel)
 
-- `ANTHROPIC_API_KEY` di `.env` Unraid — buat server-side generate.
-- **Jellyfin API key** (Jellyfin Dashboard → API Keys) + URL internal.
-  - `JELLYFIN_URL` — contoh `http://192.168.68.8:8096` atau `http://host.docker.internal:8096`
+- `ANTHROPIC_API_KEY` in the Unraid `.env` — for server-side generation.
+- **Jellyfin API key** (Jellyfin Dashboard → API Keys) + internal URL.
+  - `JELLYFIN_URL` — example `http://192.168.68.8:8096` or `http://host.docker.internal:8096`
   - `JELLYFIN_API_KEY`
-- (Opsional tapi disarankan) fix known issue #1 — API key Jellyseerr admin-level, buat akurasi `library-stats`.
+- (Optional but recommended) fix known issue #1 — an admin-level Jellyseerr API key, for `library-stats` accuracy.
 
-## 📊 Data Model (tambah ke `prisma/schema.prisma`)
+## 📊 Data Model (add to `prisma/schema.prisma`)
 
-Ikut konvensi existing: `String` bukan enum, `cuid()`, index. Jangan destructive migration.
+Follow existing conventions: `String` not enum, `cuid()`, index. No destructive migrations.
 
 ```prisma
 model FilmConnection {
   id              String   @id @default(cuid())
 
-  // Film sumber (yang lagi dibuka guest) — harus ada di library
+  // Source film (the one the guest is currently viewing) — must exist in the library
   sourceTmdbId    Int
   sourceMediaType String   // "movie" | "tv"
   sourceTitle     String
 
-  // Film target (yang di-refer)
+  // Target film (the one being referenced)
   targetTmdbId    Int
   targetMediaType String   // "movie" | "tv"
   targetTitle     String
   targetYear      Int?
   targetPoster    String?  // TMDB poster path
-  targetJellyfinId String? // Jellyfin itemId buat deep-link nonton
+  targetJellyfinId String? // Jellyfin itemId for the watch deep-link
 
   relationship    String   // "homage" | "inspired" | "visual"
-  reason          String   // alasan singkat (Indonesia), <= ~120 char
+  reason          String   // short reason (Indonesian), <= ~120 char
 
   // PENDING_REVIEW -> APPROVED | REJECTED
   status          String   @default("PENDING_REVIEW")
@@ -71,88 +71,88 @@ model FilmConnection {
 ## 🔌 API Routes
 
 ### Guest (approved-only, ZERO LLM)
-| Method | Path | Fungsi |
+| Method | Path | Function |
 |--------|------|--------|
-| GET | `/api/connections?type=&id=` | Ambil koneksi `APPROVED` buat satu film. Return graph-ready JSON (nodes + edges). Kalau belum ada → return empty, **jangan** trigger LLM. |
+| GET | `/api/connections?type=&id=` | Fetch `APPROVED` connections for one film. Return graph-ready JSON (nodes + edges). If none exist yet → return empty, **do not** trigger the LLM. |
 
-### Admin (auth required — niru pola `app/api/admin/approve`)
-| Method | Path | Fungsi |
+### Admin (auth required — mirror the `app/api/admin/approve` pattern)
+| Method | Path | Function |
 |--------|------|--------|
-| POST | `/api/admin/connections/generate` | Body `{ tmdbId, mediaType }`. Jalanin pipeline generate (lihat bawah). Simpan hasil `PENDING_REVIEW`. |
-| GET | `/api/admin/connections?status=&sourceTmdbId=` | List buat review queue. |
+| POST | `/api/admin/connections/generate` | Body `{ tmdbId, mediaType }`. Run the generate pipeline (see below). Save results as `PENDING_REVIEW`. |
+| GET | `/api/admin/connections?status=&sourceTmdbId=` | List for the review queue. |
 | POST | `/api/admin/connections` | Body `{ id, action: "approve"\|"reject" }`. Update status + `reviewedAt`. |
 
-## 🧠 Pipeline generate (`lib/connections.ts`)
+## 🧠 Generate Pipeline (`lib/connections.ts`)
 
 ```
 generate(tmdbId, mediaType):
-  1. Ambil detail film sumber (judul+tahun) via lib/jellyseerr.ts (udah ada)
-  2. Panggil LLM (lib/anthropic.ts) -> daftar referensi (JSON)
-  3. Buat tiap item: resolve ke TMDB (search judul+tahun) -> tmdbId + poster
-     - gagal resolve -> skip
-  4. Filter: cuma yang ADA di library Jellyfin (lib/jellyfin.ts) -> dapet targetJellyfinId
-     - gak di library -> skip (sesuai keputusan #3)
-  5. Upsert ke FilmConnection status PENDING_REVIEW (@@unique cegah duplikat)
-  6. Return ringkasan buat admin
+  1. Fetch source film details (title+year) via lib/jellyseerr.ts (already exists)
+  2. Call the LLM (lib/anthropic.ts) -> list of references (JSON)
+  3. For each item: resolve to TMDB (search title+year) -> tmdbId + poster
+     - resolve fails -> skip
+  4. Filter: only those that EXIST in the Jellyfin library (lib/jellyfin.ts) -> get targetJellyfinId
+     - not in library -> skip (per decision #3)
+  5. Upsert into FilmConnection with status PENDING_REVIEW (@@unique prevents duplicates)
+  6. Return a summary for the admin
 ```
 
-### Prompt LLM (inti)
-System: minta **HANYA JSON array**, tanpa prosa/markdown. Tekankan referensi yang **nyata &
-bisa diverifikasi** (homage/inspired/visual), jangan ngarang. Alasan tulis **Bahasa Indonesia**.
+### LLM Prompt (core)
+System: ask for **ONLY a JSON array**, no prose/markdown. Stress references that are **real &
+verifiable** (homage/inspired/visual), do not make things up. Write the reason in **Indonesian**.
 
-Schema tiap item:
+Schema of each item:
 ```json
 { "title": "string", "year": 1999, "mediaType": "movie|tv",
   "relationship": "homage|inspired|visual", "reason": "string <=120 char (ID)" }
 ```
-Model: pakai model API terbaru yang cost-efficient (cek `docs.claude.com` — contoh
-`claude-sonnet-5-5`). `max_tokens` cukup ~1500. Parse aman (strip code fence kalau ada).
+Model: use the latest cost-efficient API model (check `docs.claude.com` — example
+`claude-sonnet-5-5`). `max_tokens` of ~1500 is enough. Parse safely (strip the code fence if present).
 
-## 🎬 `lib/jellyfin.ts` (baru)
+## 🎬 `lib/jellyfin.ts` (new)
 
-Tipis, pure HTTP fetch (konsisten sama gaya `lib/telegram.ts`). Header `X-Emby-Token: <JELLYFIN_API_KEY>`.
+Thin, pure HTTP fetch (consistent with the style of `lib/telegram.ts`). Header `X-Emby-Token: <JELLYFIN_API_KEY>`.
 
-- `getLibraryTmdbMap()` → fetch sekali, cache (10 min, pola in-memory Map kaya API lain).
-  Endpoint kira-kira:
+- `getLibraryTmdbMap()` → fetch once, cache (10 min, in-memory Map pattern like the other APIs).
+  Approximate endpoint:
   `GET {JELLYFIN_URL}/Items?Recursive=true&IncludeItemTypes=Movie,Series&Fields=ProviderIds&HasTmdbId=true`
-  Build `Map<tmdbId, jellyfinItemId>`. Verifikasi bentuk response ke instance beneran.
-- `watchUrl(jellyfinItemId)` → deep-link web Jellyfin, contoh:
-  `https://streaming.surflix.my.id/web/#/details?id=<itemId>` (confirm route di whitelabel).
+  Build `Map<tmdbId, jellyfinItemId>`. Verify the response shape against a real instance.
+- `watchUrl(jellyfinItemId)` → Jellyfin web deep-link, example:
+  `https://streaming.surflix.my.id/web/#/details?id=<itemId>` (confirm the route in the whitelabel).
 
 ## 🖥️ Frontend
 
-### `components/connections/connection-graph.tsx` (baru)
-Port dari **`surflix-reference-graph-prototype.jsx`**. Ubah:
-- Terima `data` (nodes+edges) via props, bukan dummy `FILMS`.
-- Tombol "Tonton di Surflix" → buka `watchUrl(node.targetJellyfinId)` (pake `useAppConfig` buat base URL).
-- Pertahanin: case Blu-ray 3D, floating, drag-rotate, raycast click, warna garis per `relationship`.
-- Mobile-first: full-width, `touch-action: none` di canvas, cleanup three.js on unmount.
+### `components/connections/connection-graph.tsx` (new)
+Port from **`surflix-reference-graph-prototype.jsx`**. Changes:
+- Accept `data` (nodes+edges) via props, not the dummy `FILMS`.
+- The "Tonton di Surflix" button → opens `watchUrl(node.targetJellyfinId)` (use `useAppConfig` for the base URL).
+- Keep: 3D Blu-ray case, floating, drag-rotate, raycast click, line color per `relationship`.
+- Mobile-first: full-width, `touch-action: none` on the canvas, clean up three.js on unmount.
 
 ### `components/ui/detail-modal.tsx` (edit)
-Tambah tombol/tab "Referensi". Klik → fetch `/api/connections?type=&id=` → render `<ConnectionGraph>`.
-Kalau kosong → empty-state ("Belum ada peta referensi"). **Jangan ubah pola modal existing**
-(bottom sheet mobile / center desktop) — cuma nambah section.
+Add a "Referensi" button/tab. Click → fetch `/api/connections?type=&id=` → render `<ConnectionGraph>`.
+If empty → empty-state ("Belum ada peta referensi"). **Do not change the existing modal pattern**
+(bottom sheet on mobile / centered on desktop) — only add a section.
 
-### `app/(admin)/admin/connections/page.tsx` (baru)
-Review queue: list `PENDING_REVIEW`, tiap item ada poster + judul + relationship + reason +
-tombol Approve/Reject (pola auth & UI niru `/admin/pending`). Plus input buat trigger
-`generate` dari satu film.
+### `app/(admin)/admin/connections/page.tsx` (new)
+Review queue: list `PENDING_REVIEW`, each item has poster + title + relationship + reason +
+Approve/Reject buttons (auth & UI pattern mirrors `/admin/pending`). Plus an input to trigger
+`generate` from a single film.
 
-## 🗂️ Urutan Batch
+## 🗂️ Batch Order
 
 - **Batch 1 (backend core):** `prisma/schema.prisma` (model), `lib/anthropic.ts`,
-  `lib/jellyfin.ts`, `lib/connections.ts`. Jalanin `npx prisma db push` (non-destructive).
+  `lib/jellyfin.ts`, `lib/connections.ts`. Run `npx prisma db push` (non-destructive).
 - **Batch 2 (API):** `/api/admin/connections/generate`, `/api/admin/connections`, `/api/connections`.
 - **Batch 3 (UI):** `components/connections/connection-graph.tsx` (port prototype),
-  integrasi `detail-modal.tsx`, `app/(admin)/admin/connections/page.tsx`.
-- **Batch 4 (nanti):** Path-mode (toggle urutan tontonan kronologis).
+  `detail-modal.tsx` integration, `app/(admin)/admin/connections/page.tsx`.
+- **Batch 4 (later):** Path-mode (toggle for chronological watch order).
 
-## ✅ Konvensi (dari CLAUDE.md)
+## ✅ Conventions (from CLAUDE.md)
 
-- Guest **tidak pernah** memicu LLM. Admin-triggered only.
-- `String` bukan enum (SQLite). cuid + index.
-- Jangan bump versi `package.json`.
-- Commit descriptive (`Batch 1: film connection schema + llm pipeline`).
-- Jangan refactor pola existing tanpa diskusi.
-- `npx prisma db push --accept-data-loss` cuma kalau yakin non-destructive.
-- Env baru jangan di-commit: `ANTHROPIC_API_KEY`, `JELLYFIN_API_KEY`.
+- Guests **never** trigger the LLM. Admin-triggered only.
+- `String` not enum (SQLite). cuid + index.
+- Do not bump the `package.json` version.
+- Descriptive commits (`Batch 1: film connection schema + llm pipeline`).
+- Do not refactor existing patterns without discussion.
+- `npx prisma db push --accept-data-loss` only if you are sure it is non-destructive.
+- Do not commit new env vars: `ANTHROPIC_API_KEY`, `JELLYFIN_API_KEY`.

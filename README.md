@@ -1,16 +1,16 @@
 # 🎬 Surflix · Request Hub
 
-Custom request platform untuk Jellyfin di Surdilamak. Bridge antara user keluarga/teman dengan Jellyseerr, dengan admin approval flow.
+Custom request platform for Jellyfin at Surdilamak. A bridge between family/friend users and Jellyseerr, with an admin approval flow.
 
-## ✨ Fitur
+## ✨ Features
 
 - 🎨 Apple-style UI (cinematic dark, frosted glass, SF Pro typography)
 - 📱 Responsive mobile-first
 - 🔍 Search & browse via Jellyseerr API
 - 📊 Real-time status (Pending → Approved → Downloading → Available)
-- 👨‍💼 Admin approval flow (semua request review dulu sebelum di-forward ke Jellyseerr)
-- 📧 Email magic link (no password buat guest)
-- 📨 Telegram notification ke admin
+- 👨‍💼 Admin approval flow (every request is reviewed first before being forwarded to Jellyseerr)
+- 📧 Email magic link (no password for guests)
+- 📨 Telegram notification to the admin
 - 🚦 Rate limiting per IP
 
 ## 🏗️ Stack
@@ -18,35 +18,35 @@ Custom request platform untuk Jellyfin di Surdilamak. Bridge antara user keluarg
 - **Next.js 14** (App Router) + TypeScript
 - **Tailwind CSS** + custom Apple theme
 - **Prisma** + **SQLite**
-- **Iron Session** untuk admin auth
-- **Resend** untuk email
-- **Telegram Bot API** untuk notif
+- **Iron Session** for admin auth
+- **Resend** for email
+- **Telegram Bot API** for notifications
 
 ## 🚀 Setup
 
-### 1. Persiapan
+### 1. Preparation
 
-Sebelum start, lo butuh:
+Before you start, you need:
 
-1. **Jellyseerr API key** — Settings → General → API Key di Jellyseerr
-2. **Resend account** — daftar di [resend.com](https://resend.com), generate API key
+1. **Jellyseerr API key** — Settings → General → API Key in Jellyseerr
+2. **Resend account** — sign up at [resend.com](https://resend.com), generate an API key
 3. **Telegram bot**:
-   - Chat `@BotFather`, ketik `/newbot`, ikutin instruksi, save token-nya
-   - Chat `@userinfobot` buat dapet chat ID lo
-4. **Domain** — `request.surflix.my.id` di-point ke Unraid server lo
+   - Chat with `@BotFather`, type `/newbot`, follow the instructions, save the token
+   - Chat with `@userinfobot` to get your chat ID
+4. **Domain** — `request.surflix.my.id` pointed at your Unraid server
 
 ### 2. Generate Password Hash
 
 ```bash
 node scripts/gen-password.js
-# Ketik password admin, copy hash ke .env
+# Type the admin password, copy the hash into .env
 ```
 
 ### 3. Setup .env
 
 ```bash
 cp .env.example .env
-# Edit .env, isi semua values
+# Edit .env, fill in all values
 ```
 
 ### 4. Build & Run
@@ -55,7 +55,7 @@ cp .env.example .env
 docker compose up -d --build
 ```
 
-Cek log:
+Check the logs:
 ```bash
 docker compose logs -f surflix
 ```
@@ -63,28 +63,28 @@ docker compose logs -f surflix
 ### 5. Reverse Proxy Config
 
 #### SWAG / Nginx Proxy Manager
-Tambahin proxy host baru:
+Add a new proxy host:
 - Domain: `request.surflix.my.id`
 - Forward: `http://<unraid-ip>:3737`
 - SSL: Auto (LetsEncrypt)
 
 #### Traefik
-Labels udah disiapin di docker-compose.yml, tinggal uncomment.
+Labels are already prepared in docker-compose.yml, just uncomment them.
 
 ### 6. Jellyseerr Webhook Setup
 
-Di Jellyseerr → Settings → Notifications → Webhook:
+In Jellyseerr → Settings → Notifications → Webhook:
 - **Webhook URL**: `https://request.surflix.my.id/api/webhooks/jellyseerr`
-- **Authorization Header**: `Bearer <WEBHOOK_SECRET>` (sama dengan di .env)
+- **Authorization Header**: `Bearer <WEBHOOK_SECRET>` (same as in .env)
 - **Notification Types**: enable Media Available, Media Failed, Media Partially Available
 
-## 🗂️ Struktur Project
+## 🗂️ Project Structure
 
 ```
 surflix/
 ├── app/
-│   ├── (guest)/              # Halaman public buat guest
-│   ├── (admin)/              # Halaman admin (auth required)
+│   ├── (guest)/              # Public pages for guests
+│   ├── (admin)/              # Admin pages (auth required)
 │   ├── api/                  # Backend API routes
 │   │   ├── search/           # Search via Jellyseerr
 │   │   ├── trending/         # Trending media (cached)
@@ -156,17 +156,17 @@ npm run db:studio
 
 ## 📦 Backup
 
-Database SQLite di-store di `./data/surflix.db`. Backup folder ini secara berkala.
+The SQLite database is stored at `./data/surflix.db`. Back up this folder regularly.
 
-Di Unraid, tambahin folder ke CA Backup plugin.
+On Unraid, add the folder to the CA Backup plugin.
 
 ## 🐛 Troubleshooting
 
-- **Jellyseerr "ECONNREFUSED"**: Cek `JELLYSEERR_URL` — harus pake hostname container, bukan IP host. Atau pastiin Jellyseerr & Surflix di Docker network yang sama.
-- **Email gak terkirim**: Cek `RESEND_API_KEY` valid, dan domain sender udah di-verify di Resend dashboard.
-- **Telegram gak ada notif**: Pastikan `TELEGRAM_ADMIN_CHAT_ID` benar (no @username, harus chat ID numerik).
-- **Webhook gagal**: Cek `WEBHOOK_SECRET` sama di Jellyseerr & Surflix .env.
+- **Jellyseerr "ECONNREFUSED"**: Check `JELLYSEERR_URL` — it must use the container hostname, not the host IP. Or make sure Jellyseerr & Surflix are on the same Docker network.
+- **Email not sent**: Check that `RESEND_API_KEY` is valid and the sender domain has been verified in the Resend dashboard.
+- **No Telegram notifications**: Make sure `TELEGRAM_ADMIN_CHAT_ID` is correct (no @username, it must be a numeric chat ID).
+- **Webhook failed**: Check that `WEBHOOK_SECRET` is the same in Jellyseerr & Surflix .env.
 
-## 📝 Lisensi
+## 📝 License
 
 Internal use, MIT licensed.

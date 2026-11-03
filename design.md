@@ -1,473 +1,473 @@
 # Surflix — Design System
 
-> Satu dokumen untuk empat permukaan: **landing** (`lp-`), **Request Hub** (`rq-`), **PortalBar** (`pb-`), dan **Surflix Reference** (`ref-`). Admin (`ad-`) mengikuti bahasa yang sama tetapi tidak dipakai tamu.
+> One document for four surfaces: **landing** (`lp-`), **Request Hub** (`rq-`), **PortalBar** (`pb-`), and **Surflix Reference** (`ref-`). Admin (`ad-`) follows the same language but is not used by guests.
 >
-> Struktur dokumen mengikuti [design-system-skill](https://github.com/albertzhangz10/design-system-skill). Nilai di sini **dibaca dari CSS yang berjalan**, bukan diinginkan — kalau kode berubah, perbarui tabelnya.
+> The document structure follows [design-system-skill](https://github.com/albertzhangz10/design-system-skill). The values here are **read from the running CSS**, not aspirational — if the code changes, update the tables.
 >
-> Aturan induk yang berlaku di semua permukaan: **ubin datar, satu radius, tanpa gradien, tanpa bayangan pada benda diam, tanpa garis tipis, tanpa kaca, tanpa emoji.**
+> Master rule that applies on every surface: **flat tiles, one radius, no gradients, no shadows on resting objects, no hairlines, no glass, no emoji.**
 >
-> Terakhir diaudit: 2026-10-22.
+> Last audited: 2026-10-22.
 
 ---
 
 ## 1. Colors
 
-> Setiap warna di bawah disertai **di mana ia dipakai**. Kalau sebuah token tidak punya kalimat itu, ia belum terpakai — dan itu ditandai.
-> Angka kontras **diukur**, bukan ditaksir. Ambang WCAG AA: 4,5:1 untuk teks normal, 3:1 untuk teks besar (≥24px biasa / ≥18,7px tebal) dan untuk komponen antarmuka.
+> Every color below comes with **where it is used**. If a token has no such sentence, it is not used yet — and that is flagged.
+> Contrast figures are **measured**, not estimated. WCAG AA thresholds: 4.5:1 for normal text, 3:1 for large text (≥24px regular / ≥18.7px bold) and for interface components.
 
-### Skala aksen
+### Accent scale
 
-Satu warna untuk seluruh portal, **#ff5200**, dengan enam langkah turunan. Dipakai hanya untuk aksi utama dan penanda "kamu di sini" — jangan jadi warna dekorasi.
+One color for the whole portal, **#ff5200**, with six derived steps. Used only for the primary action and the "you are here" marker — never as a decorative color.
 
-| Token | Hex | Kontras | Dipakai untuk |
+| Token | Hex | Contrast | Used for |
 |---|---|---|---|
-| `{colors.accent-tint}` | `#fff1ea` | tinta `{colors.ink}` di atasnya 12,6:1 | Latar sangat lembut di permukaan terang. **Belum terpakai** — tersedia untuk pita sorot dan baris terpilih |
-| `{colors.accent-soft}` | `#ffe7dc` | tinta `{colors.ink}` di atasnya 11,7:1 | Latar lembut, lencana, baris terpilih. **Belum terpakai** |
-| `{colors.accent}` | `#ff5200` | 5,97:1 di bidang gelap · **3,25:1 di putih** | Isian tombol utama, pill navigasi aktif, penanda terpilih, titik "Start here" di panggung gelap |
-| `{colors.accent-hover}` | `#ff6a26` | 6,79:1 di bidang gelap | Hover tombol utama. Arahnya **menerang**, karena tiga dari empat permukaan berlatar gelap |
-| `{colors.accent-active}` | `#e04800` | 4,71:1 di bidang gelap | Keadaan ditekan |
-| `{colors.accent-text}` | `#b83a00` | **5,76:1 di putih** | Teks dan tautan beraksen **di permukaan terang**. Dipakai di `.ref-saga-pairs a:hover` |
-| `{colors.accent-ink}` | `#0d0d0f` | — | Tinta **di atas** aksen. Jangan putih: `#ffffff` di atas `#ff5200` cuma 2,8:1 |
+| `{colors.accent-tint}` | `#fff1ea` | `{colors.ink}` ink on top of it 12.6:1 | Very soft background on light surfaces. **Not used yet** — available for highlight strips and selected rows |
+| `{colors.accent-soft}` | `#ffe7dc` | `{colors.ink}` ink on top of it 11.7:1 | Soft background, badges, selected rows. **Not used yet** |
+| `{colors.accent}` | `#ff5200` | 5.97:1 on dark fields · **3.25:1 on white** | Primary button fill, active navigation pill, selected marker, the "Start here" dot on the dark stage |
+| `{colors.accent-hover}` | `#ff6a26` | 6.79:1 on dark fields | Primary button hover. It goes **lighter**, because three of the four surfaces have dark backgrounds |
+| `{colors.accent-active}` | `#e04800` | 4.71:1 on dark fields | Pressed state |
+| `{colors.accent-text}` | `#b83a00` | **5.76:1 on white** | Accent-colored text and links **on light surfaces**. Used in `.ref-saga-pairs a:hover` |
+| `{colors.accent-ink}` | `#0d0d0f` | — | Ink **on top of** the accent. Never white: `#ffffff` on `#ff5200` is only 2.8:1 |
 
-**Aturan yang paling mudah dilanggar:** `{colors.accent}` di atas putih hanya **3,25:1**. Aman untuk isian tombol dan judul besar, **tidak aman untuk teks ukuran normal** — pakai `{colors.accent-text}`. Ini sudah pernah terjadi: tautan 15px di indeks Watch order memakai `{colors.accent}` dan gagal AA sampai diperbaiki 2026-10-23.
+**The rule that is easiest to break:** `{colors.accent}` on white is only **3.25:1**. Safe for button fills and large headings, **not safe for normal-size text** — use `{colors.accent-text}`. This has already happened: the 15px link in the Watch order index used `{colors.accent}` and failed AA until it was fixed on 2026-10-23.
 
-### Permukaan gelap — landing, Request Hub, PortalBar
+### Dark surfaces — landing, Request Hub, PortalBar
 
-| Token | Hex | Dipakai untuk |
+| Token | Hex | Used for |
 |---|---|---|
-| `{colors.bg}` | `#0d0d0f` | Latar halaman |
-| `{colors.surface}` | `#17171a` | Ubin, kartu |
-| `{colors.raised}` | `#232327` | Ubin di atas ubin, **isian tombol sekunder**, keadaan hover |
-| `{colors.ink}` | `#ffffff` | Teks utama |
-| `{colors.muted}` | `#a3a3ab` | Teks sekunder, placeholder |
-| `{colors.paper}` / `{colors.paper-ink}` | `#ffffff` / `#0d0d0f` | Blok terang di dalam halaman gelap (landing) |
+| `{colors.bg}` | `#0d0d0f` | Page background |
+| `{colors.surface}` | `#17171a` | Tiles, cards |
+| `{colors.raised}` | `#232327` | Tile on top of a tile, **secondary button fill**, hover state |
+| `{colors.ink}` | `#ffffff` | Primary text |
+| `{colors.muted}` | `#a3a3ab` | Secondary text, placeholder |
+| `{colors.paper}` / `{colors.paper-ink}` | `#ffffff` / `#0d0d0f` | Light blocks inside a dark page (landing) |
 
-### Surflix Reference — permukaan terang
+### Surflix Reference — light surface
 
-Satu-satunya permukaan terang, dan tintanya **navy, bukan hitam**.
+The only light surface, and its ink is **navy, not black**.
 
-| Token | Hex | Dipakai untuk |
+| Token | Hex | Used for |
 |---|---|---|
-| `{colors.bg}` | `#ffffff` | Latar halaman |
-| `{colors.surface}` | `#f4f4f2` | Blok netral, isian tombol sekunder |
-| `{colors.ink}` | `#1f2b4d` | Teks utama |
-| `{colors.muted}` | `#6a7186` | Teks sekunder |
-| `{colors.field-1}` | `#05070a` | **Bidang gelap**: hero, panggung 3D, panggung Watch order, Galaxy |
-| `{colors.field-1-ink}` / `{colors.field-1-muted}` | `#ffffff` / `#a9aebd` | Teks di atas bidang gelap |
-| `{colors.field-2}` / `{colors.field-2-ink}` | `#e3e1dc` / `#1f2b4d` | Bidang krem untuk bagian "cara kerja" |
+| `{colors.bg}` | `#ffffff` | Page background |
+| `{colors.surface}` | `#f4f4f2` | Neutral blocks, secondary button fill |
+| `{colors.ink}` | `#1f2b4d` | Primary text |
+| `{colors.muted}` | `#6a7186` | Secondary text |
+| `{colors.field-1}` | `#05070a` | **Dark field**: hero, 3D stage, Watch order stage, Galaxy |
+| `{colors.field-1-ink}` / `{colors.field-1-muted}` | `#ffffff` / `#a9aebd` | Text on top of the dark field |
+| `{colors.field-2}` / `{colors.field-2-ink}` | `#e3e1dc` / `#1f2b4d` | Cream field for the "how it works" section |
 
-### Semantik — Request Hub
+### Semantic — Request Hub
 
-| Token | Hex | Arti |
+| Token | Hex | Meaning |
 |---|---|---|
-| `{colors.green}` | `#30d158` | Tersedia / selesai |
-| `{colors.blue}` | `#64d2ff` | Sedang diproses |
-| `{colors.yellow}` | `#ffd60a` | Menunggu |
-| `{colors.red}` | `#ff6961` | Gagal / ditolak |
+| `{colors.green}` | `#30d158` | Available / done |
+| `{colors.blue}` | `#64d2ff` | Being processed |
+| `{colors.yellow}` | `#ffd60a` | Waiting |
+| `{colors.red}` | `#ff6961` | Failed / rejected |
 
-### Jenis hubungan — Reference
+### Relationship types — Reference
 
-Tujuh warna untuk tujuh jenis koneksi, dipakai di peta 3D, Galaxy, dan legenda jalur Watch order. **Jangan dipakai untuk hal lain** — begitu dipinjam untuk keperluan lain, legendanya berhenti bermakna.
+Seven colors for seven connection types, used in the 3D map, Galaxy, and the Watch order lane legend. **Do not use them for anything else** — once they are borrowed for another purpose, the legend stops meaning anything.
 
-| Token | Hex | Hubungan |
+| Token | Hex | Relationship |
 |---|---|---|
 | `{colors.rel-homage}` | `#f7941d` | Homage |
-| `{colors.rel-inspired}` | `#4f8ff0` | Terinspirasi |
-| `{colors.rel-visual}` | `#8a8576` | Meminjam tampilan |
-| `{colors.rel-remake}` | `#1f9d7d` | Diceritakan ulang |
-| `{colors.rel-universe}` | `#7b859a` | Semesta sama |
-| `{colors.rel-director}` | `#9b59d0` | Sutradara sama |
-| `{colors.rel-talent}` | `#e0405f` | Pemain sama |
+| `{colors.rel-inspired}` | `#4f8ff0` | Inspired by |
+| `{colors.rel-visual}` | `#8a8576` | Borrows the look |
+| `{colors.rel-remake}` | `#1f9d7d` | Retold |
+| `{colors.rel-universe}` | `#7b859a` | Same universe |
+| `{colors.rel-director}` | `#9b59d0` | Same director |
+| `{colors.rel-talent}` | `#e0405f` | Same cast |
 
 ## 2. Typography
 
-| Permukaan | Font |
+| Surface | Font |
 |---|---|
 | Landing, Request Hub | **Bricolage Grotesque** |
 | Surflix Reference | **Schibsted Grotesk** |
-| PortalBar | mewarisi dari halaman induknya |
+| PortalBar | inherits from its parent page |
 
-Dua permukaan punya **karakter berbeda dan itu disengaja**: landing adalah papan ubin dengan skala sedang, Reference adalah portal editorial dengan tipe display besar. Jangan "menyeragamkan" keduanya.
+The two surfaces have **different characters, and that is deliberate**: landing is a tile board with a medium scale, Reference is an editorial portal with large display type. Do not "unify" them.
 
-### Reference — skala
+### Reference — scale
 
-| Token | Ukuran | Dipakai untuk |
+| Token | Size | Used for |
 |---|---|---|
-| `--step-display` | `clamp(2.75rem, 1rem + 5.2vw, 5rem)` → 44–80px | **Judul setiap halaman (h1). Satu ukuran untuk semuanya.** |
-| `--step-head` | `clamp(2rem, 1.3rem + 3.2vw, 4rem)` → 32–64px | Judul bagian besar |
-| `--step-lead` | `clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem)` → 20–26px | Kalimat pembuka di bawah judul halaman; juga h2 kartu |
-| `--step-body` | `clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem)` → 17–19px | Teks isi |
-| `--step-small` | `clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem)` → 13–14px | Keterangan, meta |
+| `--step-display` | `clamp(2.75rem, 1rem + 5.2vw, 5rem)` → 44–80px | **Title of every page (h1). One size for all of them.** |
+| `--step-head` | `clamp(2rem, 1.3rem + 3.2vw, 4rem)` → 32–64px | Large section headings |
+| `--step-lead` | `clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem)` → 20–26px | Opening sentence below the page title; also card h2 |
+| `--step-body` | `clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem)` → 17–19px | Body text |
+| `--step-small` | `clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem)` → 13–14px | Captions, meta |
 
-Berat: 800 untuk display dan judul, 600 untuk penekanan, 400–500 untuk isi. Jarak huruf `-0.05em` pada display, `-0.03em` pada judul, 0 pada isi.
+Weight: 800 for display and headings, 600 for emphasis, 400–500 for body. Letter spacing `-0.05em` on display, `-0.03em` on headings, 0 on body.
 
-> **Jangan menulis `font-size` baru untuk judul halaman.** Sampai 2026-10-22 ada lima aturan h1 terpisah di `referensi.css` (63px–107px di layar 1440) yang lahir satu per satu. Semuanya sekarang menunjuk `--step-display`.
+> **Do not write a new `font-size` for a page title.** Until 2026-10-22 there were five separate h1 rules in `referensi.css` (63px–107px at a 1440 screen) that were born one at a time. They all point to `--step-display` now.
 
-**Pengecualian yang disengaja:** `.ref-core-sub` (subjudul hero beranda) tetap 18px, bukan `--step-lead`. Hero itu komposisi terkurung di dalam cincin poster dengan `min-height: 5.4em` untuk teks berganti; membesarkannya mendorong kotak pencarian menabrak poster.
+**Deliberate exception:** `.ref-core-sub` (the home hero subtitle) stays at 18px, not `--step-lead`. That hero is a composition enclosed inside the poster ring with `min-height: 5.4em` for rotating text; enlarging it pushes the search box into the posters.
 
-### Line-height — diaudit 2026-10-23
+### Line-height — audited 2026-10-23
 
-Bukan satu angka untuk semuanya. Tiga kelompok, masing-masing punya alasan:
+Not one number for everything. Three groups, each with its own reason:
 
-| Kelompok | Rasio | Contoh |
+| Group | Ratio | Examples |
 |---|---|---|
-| **Display** | 0,88–1,0 | `.ref-display` (44–80px), `.ref-how-word`. Tipe sebesar ini memang dirapatkan; 1,5 akan membuatnya tercerai-berai |
-| **Judul dan label** | 1,05–1,3 | Judul bagian 1,05–1,1, judul kartu 1,2–1,25, label satu baris 1,0. Judul kartu sengaja rapat karena panjangnya satu sampai dua baris |
-| **Prosa yang dibaca** | **1,45–1,5** | Nilai akar `.ref-root` 1,5; `.ref-caption` 1,5; `.ref-core-sub` 1,45 |
+| **Display** | 0.88–1.0 | `.ref-display` (44–80px), `.ref-how-word`. Type this large is meant to be tight; 1.5 would make it fall apart |
+| **Headings and labels** | 1.05–1.3 | Section headings 1.05–1.1, card headings 1.2–1.25, single-line labels 1.0. Card headings are deliberately tight because they run one to two lines |
+| **Prose that is read** | **1.45–1.5** | Root value `.ref-root` 1.5; `.ref-caption` 1.5; `.ref-core-sub` 1.45 |
 
-> Sebelum audit, akar memakai 1,4 dan `.ref-caption` — prosa 19px selebar 60ch, teks paling banyak dibaca di beranda — memakai **1,3**. Keduanya di bawah ambang keterbacaan. Dinaikkan; elemen yang memang perlu rapat sudah menimpanya sendiri sejak awal, jadi tidak ada yang ikut melar.
+> Before the audit, the root used 1.4 and `.ref-caption` — 19px prose 60ch wide, the most-read text on the home page — used **1.3**. Both were below the readability threshold. They were raised; elements that need to be tight already overrode it themselves from the start, so nothing else stretched.
 
-### Memotong judul: jangan andalkan line-clamp (2026-10-23)
+### Truncating titles: do not rely on line-clamp (2026-10-23)
 
-**`-webkit-line-clamp` sudah tidak bisa dipakai sebagai dasar tata letak.** Chrome 155 membuang mode warisannya: `display: -webkit-box` dipetakan ke `flow-root`, jadi clamp-nya **mati tanpa error** — teksnya tetap mengalir ke baris ketiga dan cuma terpotong `overflow: hidden`, yang menyisakan separuh baris di bawah kotaknya. Penggantinya, `line-clamp` standar, **belum ada di sana** (`CSS.supports('line-clamp','2')` → `false`). Jadi untuk sementara tidak ada mekanisme pemotongan baris yang jalan di semua browser.
+**`-webkit-line-clamp` can no longer be used as a layout basis.** Chrome 155 dropped its legacy mode: `display: -webkit-box` is mapped to `flow-root`, so the clamp **dies without any error** — the text still flows onto a third line and is only cut off by `overflow: hidden`, leaving half a line below the box. The replacement, standard `line-clamp`, **is not there yet** (`CSS.supports('line-clamp','2')` → `false`). So for now there is no line-truncation mechanism that works in every browser.
 
-Cara memeriksanya, karena `getComputedStyle` saja menipu (stylesheet-nya terlihat benar):
+How to check, because `getComputedStyle` alone is misleading (the stylesheet looks correct):
 
 ```js
 getComputedStyle(el).display                        // 'flow-root' = clamp mati
 const r = document.createRange(); r.selectNodeContents(el);
-r.getClientRects().length                           // jumlah baris yang benar-benar dirender
-el.scrollHeight > el.clientHeight                   // true = ada yang terpotong
+r.getClientRects().length                           // number of lines actually rendered
+el.scrollHeight > el.clientHeight                   // true = something is clipped
 ```
 
-Dua jalan yang dipakai sekarang, pilih sesuai peran judulnya:
+Two approaches are in use now; pick one according to the title's role:
 
-| Peran judul | Pola | Contoh |
+| Title role | Pattern | Example |
 |---|---|---|
-| Penanda di mozaik rapat | satu baris, `white-space: nowrap` + `text-overflow: ellipsis` — tidak butuh clamp | `.lp-strip` (landing) |
-| Isi utama halaman | **tampil utuh**, `min-height` dua baris untuk keseragaman, boleh tumbuh | `.ref-new-strip` (Just added) |
+| Marker in a tight mosaic | one line, `white-space: nowrap` + `text-overflow: ellipsis` — no clamp needed | `.lp-strip` (landing) |
+| Main page content | **shown in full**, two-line `min-height` for uniformity, allowed to grow | `.ref-new-strip` (Just added) |
 
-Kalau judulnya boleh tumbuh, kartunya harus disejajarkan — lihat **Kartu → Kartu Just added**.
+If the title is allowed to grow, the cards must be aligned — see **Cards → Just added card**.
 
-### Reference — pemakaian
+### Reference — usage
 
-| Elemen | Token |
+| Element | Token |
 |---|---|
-| Judul halaman (semua halaman) | `--step-display` |
-| Kalimat pembuka hero | `--step-lead` |
-| Judul kartu / panel | `--step-lead`, berat 800 |
-| Teks isi | `--step-body` |
-| Label kartu peta, meta, keterangan | 13px (di bawah `--step-small`; peta bukan teks baca) |
+| Page title (all pages) | `--step-display` |
+| Hero opening sentence | `--step-lead` |
+| Card / panel title | `--step-lead`, weight 800 |
+| Body text | `--step-body` |
+| Map card labels, meta, captions | 13px (below `--step-small`; the map is not reading text) |
 
-### Landing — skala
+### Landing — scale
 
-| Ukuran | Dipakai untuk |
+| Size | Used for |
 |---|---|
-| 40px | h1 dan judul ubin |
-| 64px | `.lp-head`, judul bagian |
-| `--step-fig` 56–92px | **Angka statistik** ("723 film"), bukan judul |
+| 40px | h1 and tile titles |
+| 64px | `.lp-head`, section headings |
+| `--step-fig` 56–92px | **Statistic numbers** ("723 film"), not headings |
 
 ---
 
 ## 3. Shape
 
-### Skala radius
+### Radius scale
 
-| Token | Nilai | Dipakai untuk | Jumlah pemakaian |
+| Token | Value | Used for | Usage count |
 |---|---|---|---|
-| `{rounded.none}` | 0px | Pita penuh-layar: hero, panggung, footer | — |
-| `{rounded.xs}` | 4px | Lencana kecil, penanda | 4 |
-| `{rounded.sm}` | 6px | Lencana status Request Hub, thumbnail daftar | 5 |
-| `{rounded.md}` | **8px** | **Nilai utama**: tombol, ubin, kartu, isian, dropdown | 13 |
-| `{rounded.full}` | 999px | Pill navigasi, lencana status, cakram tombol putar | 14 |
+| `{rounded.none}` | 0px | Full-screen bands: hero, stage, footer | — |
+| `{rounded.xs}` | 4px | Small badges, markers | 4 |
+| `{rounded.sm}` | 6px | Request Hub status badges, list thumbnails | 5 |
+| `{rounded.md}` | **8px** | **The main value**: buttons, tiles, cards, inputs, dropdowns | 13 |
+| `{rounded.full}` | 999px | Navigation pills, status badges, play-button discs | 14 |
 
-Ritmenya 4 / 6 / 8 / pill. **Kalau butuh radius baru, kemungkinan besar komponennya yang salah**, bukan skalanya yang kurang.
+The rhythm is 4 / 6 / 8 / pill. **If you need a new radius, most likely the component is wrong**, not that the scale is missing a step.
 
 ## 4. Elevation
 
-Portal ini **datar**. Hanya ada dua tingkat.
+This portal is **flat**. There are only two levels.
 
-| Level | Bayangan | Dipakai untuk |
+| Level | Shadow | Used for |
 |---|---|---|
-| 0 | tidak ada | Semua benda diam: ubin, kartu, panel, tombol |
-| 1 | `0 18px 44px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.2)` | **Hanya** benda melayang di atas halaman — saat ini cuma panel hasil pencarian |
+| 0 | none | All resting objects: tiles, cards, panels, buttons |
+| 1 | `0 18px 44px rgba(0,0,0,.35), 0 2px 6px rgba(0,0,0,.2)` | **Only** objects floating above the page — currently just the search results panel |
 
-Kedalaman dinyatakan lewat **warna permukaan** (`bg` → `surface` → `raised`), bukan bayangan.
+Depth is expressed through **surface color** (`bg` → `surface` → `raised`), not shadows.
 
 ---
 
 ## 5. Interaction States
 
-| Status | Tombol utama | Tombol sekunder |
+| State | Primary button | Secondary button |
 |---|---|---|
 | Rest | `accent` + `accent-ink` | `surface`/`raised` + `ink` |
-| Hover | `accent-hover` `#ff6a26`, naik 2px | satu langkah lebih terang |
-| Pressed | `accent-active` `#e04800`, `scale(.98)` | satu langkah lagi |
-| Disabled | `surface` + `muted`, `cursor: not-allowed`, tanpa transform | `opacity: .4` |
-| Focus | `outline: 3px solid var(--accent); outline-offset: 3px` (global `.ref-root :focus-visible`) | sama |
+| Hover | `accent-hover` `#ff6a26`, rises 2px | one step lighter |
+| Pressed | `accent-active` `#e04800`, `scale(.98)` | one more step |
+| Disabled | `surface` + `muted`, `cursor: not-allowed`, no transform | `opacity: .4` |
+| Focus | `outline: 3px solid var(--accent); outline-offset: 3px` (global `.ref-root :focus-visible`) | same |
 
-Target sentuh minimal **44px**; tombol standar `min-height: 48px`.
+Minimum touch target **44px**; standard buttons `min-height: 48px`.
 
-> Sampai 2026-10-22 tombol Reference **tidak punya perubahan warna sama sekali** saat hover — `transition` menyebut `background` tetapi tidak ada nilai yang didefinisikan, jadi transisinya mati. Dan tidak ada tombol sekunder. Keduanya sekarang ada dan nilainya mengikuti `.rq-btn-*` di Request Hub.
+> Until 2026-10-22 Reference buttons had **no color change at all** on hover — `transition` named `background` but no value was defined, so the transition was dead. And there was no secondary button. Both exist now, and their values follow `.rq-btn-*` in Request Hub.
 
 ---
 
 ## 6. Layout
 
-### Skala spasi
+### Spacing scale
 
-**Aturan dua tingkat, ditegakkan 2026-10-23:**
+**Two-tier rule, enforced 2026-10-23:**
 
-1. **Spasi tata letak (gap, margin antar blok, padding kontainer) harus kelipatan 4px.** Tidak ada pengecualian. Sudah diperiksa satu per satu dan 114 nilai disnap ke grid.
-2. **Detail sejajar boleh 1–3px** — padding lencana, geseran optis ikon, jarak rambut. Memaksa grid 4px pada lencana setinggi 18px menghasilkan benda yang salah, bukan benda yang rapi.
+1. **Layout spacing (gap, margin between blocks, container padding) must be a multiple of 4px.** No exceptions. Checked one by one, and 114 values were snapped to the grid.
+2. **Inline details may be 1–3px** — badge padding, optical icon offsets, hairline gaps. Forcing a 4px grid on an 18px-tall badge produces the wrong object, not a tidy one.
 
-Ilustrasi tiruan antarmuka di landing (`.lp-ui*`) **dikecualikan**: itu gambar sebuah aplikasi, bukan aplikasinya.
+The mock interface illustration on landing (`.lp-ui*`) is **excluded**: it is a picture of an app, not the app itself.
 
-Nilai di bawah diambil dari hitungan pemakaian nyata di kelima berkas CSS, bukan dari cita-cita.
+The values below are taken from a count of real usage across all five CSS files, not from aspiration.
 
-| Token | Nilai | Dipakai untuk | Jumlah |
+| Token | Value | Used for | Count |
 |---|---|---|---|
-| `{spacing.xxs}` | 4px | Jarak antar lencana, gap ikon-teks | 25 |
-| `{spacing.xs}` | **8px** | **Paling sering**: gap grid, padding dalam pill | 51 |
-| `{spacing.sm}` | 12px | Padding tombol kecil, gap antar baris | 40 |
-| `{spacing.md}` | 16px | Padding kartu, margin tepi telepon | 39 |
-| `{spacing.lg}` | 24px | Gap antar kartu, padding panel | 27 |
-| `{spacing.xl}` | 40px | Jarak antar blok di dalam satu bagian | 13 |
-| `{spacing.xxl}` | 64px | Jarak antar bagian | 9 |
-| `{spacing.section}` | 80px | Nafas antar bab halaman | 9 |
+| `{spacing.xxs}` | 4px | Gap between badges, icon-text gap | 25 |
+| `{spacing.xs}` | **8px** | **Most frequent**: grid gap, inner padding of pills | 51 |
+| `{spacing.sm}` | 12px | Small button padding, gap between rows | 40 |
+| `{spacing.md}` | 16px | Card padding, phone edge margin | 39 |
+| `{spacing.lg}` | 24px | Gap between cards, panel padding | 27 |
+| `{spacing.xl}` | 40px | Space between blocks within one section | 13 |
+| `{spacing.xxl}` | 64px | Space between sections | 9 |
+| `{spacing.section}` | 80px | Breathing room between page chapters | 9 |
 
-Margin tepi global Reference: `--margin: clamp(16px, 2.2vw, 32px)` — 16px di telepon, 32px di layar lebar.
+Global edge margin for Reference: `--margin: clamp(16px, 2.2vw, 32px)` — 16px on phones, 32px on wide screens.
 
-### Grid dan lebar isi
+### Grid and content width
 
-| Permukaan | Lebar isi | Margin tepi |
+| Surface | Content width | Edge margin |
 |---|---|---|
-| Landing | penuh | `--m: 20px` |
-| Request Hub | `rq-wrap` 1280px | sama |
-| Reference | penuh | `--margin` |
+| Landing | full | `--m: 20px` |
+| Request Hub | `rq-wrap` 1280px | same |
+| Reference | full | `--margin` |
 
-### Ritme vertikal — dirombak 2026-10-23
+### Vertical rhythm — overhauled 2026-10-23
 
-Sebelumnya ritme vertikal Reference ditulis sebagai **14 pasang `clamp()` yang masing-masing lahir sendiri**: 160/100, 100/120, 160/160, 104/80, 96, 88/0, 72, 40… Tidak ada dua halaman yang bernafas sama, dan `clamp()` pada viewport menengah menghasilkan nilai seperti **86,4px dan 100,8px** — melanggar grid 4px yang ditegakkan di tempat lain.
+Previously the vertical rhythm of Reference was written as **14 `clamp()` pairs, each born on its own**: 160/100, 100/120, 160/160, 104/80, 96, 88/0, 72, 40… No two pages breathed the same, and `clamp()` at mid viewports produced values like **86.4px and 100.8px** — violating the 4px grid enforced elsewhere.
 
-Sekarang empat token, nilainya **tetap** (bukan clamp), dengan satu langkah turun di bawah 1024px:
+Now there are four tokens with **fixed** values (not clamp), with one step down below 1024px:
 
-| Token | ≥1024px | <1024px | Dipakai untuk |
+| Token | ≥1024px | <1024px | Used for |
 |---|---|---|---|
-| `--pad-top` | **64px** | 40px | Bilah portal → awal blok isi. Setiap halaman. |
-| `--gap-block` | **40px** | 32px | Antar blok **di dalam satu bidang warna** (kepala → panggung) |
-| `--gap-section` | **80px** | 56px | Pergantian bidang / antar bagian |
-| `--gap-chapter` | **120px** | 80px | Bab naratif panjang (beranda Reference) |
+| `--pad-top` | **64px** | 40px | Portal bar → start of the content block. Every page. |
+| `--gap-block` | **40px** | 32px | Between blocks **within one color field** (header → stage) |
+| `--gap-section` | **80px** | 56px | Change of field / between sections |
+| `--gap-chapter` | **120px** | 80px | Long narrative chapters (Reference home) |
 
-Aturannya: **blok isi selalu mulai 64px di bawah bilah.** Apa yang muncul pertama boleh berbeda — bilah pencarian, tautan kembali, atau langsung judulnya; itu isi, bukan spasi.
+The rule: **the content block always starts 64px below the bar.** What appears first may differ — search bar, back link, or the title directly; that is content, not spacing.
 
-Di batas bidang gelap → putih, kedua padding bertumpuk. Pembagiannya tetap: blok di atas menutup dengan `--gap-block` (40px), bagian di bawah membuka dengan `--gap-section` (80px). Totalnya 120px di setiap batas — dulu 168px di Watch order, 86px di peta film.
+At a dark → white field boundary, the two paddings stack. The split is fixed: the block above closes with `--gap-block` (40px), the section below opens with `--gap-section` (80px). The total is 120px at every boundary — it used to be 168px on Watch order and 86px on the film map.
 
-### Baris utilitas di atas judul
+### Utility row above the title
 
-Halaman isi standar punya satu baris di atas judul: bilah pencarian (indeks Watch order, peta film) atau tautan kembali (halaman saga). **Tingginya 44px di ketiganya**, jarak ke judul 28px, sehingga judul mendarat di titik yang persis sama.
+A standard content page has one row above the title: a search bar (Watch order index, film map) or a back link (saga page). **Its height is 44px in all three**, with 28px to the title, so the title lands at exactly the same point.
 
-| Halaman | Judul dari bilah | Catatan |
+| Page | Title from bar | Notes |
 |---|---|---|
-| Indeks Watch order | **196px** | bilah pencarian |
-| Halaman saga | **196px** | tautan kembali |
-| Peta satu film | **196px** | bilah pencarian |
-| Just added | 210px | tidak punya baris utilitas; judul dipusatkan terhadap kartu unggulan |
-| Beranda Reference | 243px | hero penuh, judul dipusatkan di dalam cincin poster |
-| Galaxy | 48px | judul melayang di atas kanvas setinggi layar |
+| Watch order index | **196px** | search bar |
+| Saga page | **196px** | back link |
+| Single film map | **196px** | search bar |
+| Just added | 210px | has no utility row; the title is centered against the featured card |
+| Reference home | 243px | full hero, title centered inside the poster ring |
+| Galaxy | 48px | title floats over a screen-height canvas |
 
-> Sampai 2026-10-23 angkanya 184 / 164 / 184 / 392 / 243 / 48, karena tautan kembali cuma setinggi barisnya (23px) sementara bilah pencarian 44px. 44px sekaligus target sentuh yang benar untuk tautan kembali.
+> Until 2026-10-23 the numbers were 184 / 164 / 184 / 392 / 243 / 48, because the back link was only as tall as its line (23px) while the search bar was 44px. 44px is also the correct touch target for a back link.
 >
-> **Dua pengecualian terakhir disengaja.** Beranda memusatkan judulnya di dalam cincin poster; Galaxy menghamparkannya di atas kanvas setinggi layar — memaksa 64px ke keduanya merusak komposisinya, bukan merapikannya. Just added memakai `align-items: center`: `end` menenggelamkan judul ke 355px, `start` meninggalkan rongga 200px di sebelah poster unggulan.
+> **The last two exceptions are deliberate.** Home centers its title inside the poster ring; Galaxy spreads it over a screen-height canvas — forcing 64px on both ruins their composition rather than tidying it. Just added uses `align-items: center`: `end` sinks the title to 355px, `start` leaves a 200px gap next to the featured poster.
 
-### Menandai halaman yang sedang dibuka
+### Marking the page currently open
 
-**Setiap tautan navigasi lokal wajib menyetel `aria-current="page"` saat halamannya aktif**, termasuk saat pengunjung berada di halaman anaknya — `/timeline/mcu` menyalakan "Watch order", `/movie/299537` menyalakan "All maps". Gayanya sudah ada di `portal-bar.css` (`.pb-nav a[aria-current='page']`).
+**Every local navigation link must set `aria-current="page"` when its page is active**, including when the visitor is on a child page — `/timeline/mcu` lights up "Watch order", `/movie/299537` lights up "All maps". The styling already exists in `portal-bar.css` (`.pb-nav a[aria-current='page']`).
 
-> Sampai 2026-10-23 `PortalHeader` milik Reference tidak menyetelnya sama sekali, jadi dari bilah atas pengunjung tidak bisa tahu ia sedang di halaman mana. `TopNav` milik Request Hub sudah benar sejak awal. Ini kegagalan **Trunk Test** — uji dasar: dari halaman mana pun, bisakah orang menjawab "saya di mana"?
+> Until 2026-10-23 Reference's `PortalHeader` did not set it at all, so from the top bar a visitor could not tell which page they were on. Request Hub's `TopNav` was correct from the start. This is a **Trunk Test** failure — the basic test: from any page, can a person answer "where am I"?
 
-### Titik henti
+### Breakpoints
 
-**1023px** — panel samping berhenti melayang dan menumpuk di bawah panggung. **767px** — PortalBar menyembunyikan logo, nama portal, dan tautan lokal; tombol melebar penuh.
+**1023px** — the side panel stops floating and stacks below the stage. **767px** — PortalBar hides the logo, portal name, and local links; buttons stretch to full width.
 
-### Pola panggung (Reference)
+### Stage pattern (Reference)
 
-Ketiga pandangan — peta film 3D, Watch order, dan Galaxy — memakai **satu pola yang sama**:
+All three views — 3D film map, Watch order, and Galaxy — use **one and the same pattern**:
 
-- Panggung memakai **seluruh lebar**, tidak dipotong kolom apa pun.
-- Panel keterangan **melayang**: `position: absolute; right: var(--margin); top: 24px`, lebar `min(380px, …)`.
-- Supaya panel tidak menimbun apa pun, **semua perhitungan pemusatan di JS memakai "area terpakai"** = lebar panggung dikurangi jejak panel. Lihat `insetOf()` di `saga-stage.tsx` dan `panelInset()` di `connection-graph.tsx`; keduanya mengembalikan 0 saat panel statis, jadi satu kode melayani dua tata letak.
-- Peta 3D tambahan: kameranya **digeser** sejauh setengah jejak panel, karena cincinnya terpusat dan tidak bisa digeser pengguna.
+- The stage uses the **full width**, not cut by any column.
+- The caption panel **floats**: `position: absolute; right: var(--margin); top: 24px`, width `min(380px, …)`.
+- So that the panel does not bury anything, **all centering calculations in JS use the "usable area"** = stage width minus the panel footprint. See `insetOf()` in `saga-stage.tsx` and `panelInset()` in `connection-graph.tsx`; both return 0 when the panel is static, so one piece of code serves two layouts.
+- Additionally for the 3D map: the camera is **shifted** by half the panel footprint, because its ring is centered and cannot be panned by the user.
 
-> Sampai 2026-10-22 panel mengambil kolom grid 400px, jadi panggungnya terpotong selebar itu (1040px dari 1440px).
+> Until 2026-10-22 the panel took a 400px grid column, so the stage was cut by that much (1040px out of 1440px).
 
-**Jangan merebut gesture roda di peta 3D.** Panggungnya di tengah halaman yang perlu di-scroll; Galaxy boleh karena ia setinggi layar penuh.
+**Do not capture the wheel gesture on the 3D map.** Its stage sits in the middle of a page that needs to scroll; Galaxy may because it is the full screen height.
 
 ## 7. Motion
 
-| Hal | Nilai |
+| Item | Value |
 |---|---|
-| Easing | `cubic-bezier(0.16, 1, 0.3, 1)` (token `--ease`, sama di semua permukaan) |
-| Tombol, hover | `0.18s` |
-| Masuknya elemen | `0.8s` dengan jeda bertingkat 110ms |
-| Munculnya canvas Galaxy | `1.2s` |
+| Easing | `cubic-bezier(0.16, 1, 0.3, 1)` (token `--ease`, same on all surfaces) |
+| Buttons, hover | `0.18s` |
+| Element entrance | `0.8s` with a staggered delay of 110ms |
+| Galaxy canvas appearing | `1.2s` |
 
-Semua animasi dimatikan di bawah `@media (prefers-reduced-motion: reduce)`.
+All animation is turned off under `@media (prefers-reduced-motion: reduce)`.
 
 ---
 
 ## 8. Components
 
-> Katalog ini menulis **apa yang ada di kode**, bukan apa yang diinginkan. Kalau satu jenis komponen punya versi berbeda di tiap permukaan, itu ditulis apa adanya beserta **spesifikasi kanonnya** — target yang dituju kalau komponen itu disentuh lagi.
+> This catalog writes **what is in the code**, not what is wanted. If one type of component has a different version on each surface, it is written as it is, along with its **canonical spec** — the target to aim for when that component is touched again.
 >
-> Temuan utama audit 2026-10-23: Surflix **tidak kekurangan komponen**. Ia punya semua jenis yang dibutuhkan, tetapi tiga dari empat permukaan membangun versinya sendiri-sendiri. Yang benar-benar dipakai bersama baru PortalBar.
+> Main finding of the 2026-10-23 audit: Surflix is **not short of components**. It has every type it needs, but three of the four surfaces build their own versions. Only PortalBar is truly shared.
 
-### Tombol
+### Buttons
 
-**Kanon:** tinggi minimum **48px**, radius `{rounded.md}` 8px, teks 16px berat **600**, target sentuh ≥44px. Hover menerang, ditekan menggelap, nonaktif jadi netral.
+**Canon:** minimum height **48px**, radius `{rounded.md}` 8px, 16px text at weight **600**, touch target ≥44px. Hover goes lighter, pressed goes darker, disabled goes neutral.
 
-**`btn-primary`** — aksi utama, usahakan satu per layar
-- Latar `{colors.accent}`, teks `{colors.accent-ink}`, padding `0 22px`.
-- Hover `{colors.accent-hover}` + naik 2px · Ditekan `{colors.accent-active}` + `scale(0.98)` · Nonaktif latar `{colors.surface}` teks `{colors.muted}`.
-- Dipakai: "Watch on Surflix", "Find a title", "Start watching", kirim permintaan.
-- Implementasi: `.ref-btn` (Reference) dan `.rq-btn-primary` (Request Hub). **Disamakan 2026-10-23** — beratnya dulu 500 di Reference dan 600 di Hub, dan Hub menuliskan hex hover langsung alih-alih token.
+**`btn-primary`** — the main action, aim for one per screen
+- Background `{colors.accent}`, text `{colors.accent-ink}`, padding `0 22px`.
+- Hover `{colors.accent-hover}` + rises 2px · Pressed `{colors.accent-active}` + `scale(0.98)` · Disabled background `{colors.surface}` text `{colors.muted}`.
+- Used for: "Watch on Surflix", "Find a title", "Start watching", submit request.
+- Implementation: `.ref-btn` (Reference) and `.rq-btn-primary` (Request Hub). **Aligned 2026-10-23** — the weight used to be 500 in Reference and 600 in Hub, and Hub wrote the hover hex directly instead of using the token.
 
-**`btn-secondary`** — aksi kedua di sebelah aksi utama
-- Latar `{colors.surface}` di permukaan terang, `{colors.raised}` di gelap. Teks `{colors.ink}`. Hover satu langkah lebih terang.
-- Implementasi: `.ref-btn--secondary`, `.rq-btn-secondary`.
+**`btn-secondary`** — the second action next to the primary
+- Background `{colors.surface}` on light surfaces, `{colors.raised}` on dark. Text `{colors.ink}`. Hover one step lighter.
+- Implementation: `.ref-btn--secondary`, `.rq-btn-secondary`.
 
-**`btn-light`** — primary dibalik untuk bidang gelap
-- Latar putih `{colors.field-1-ink}`, teks `{colors.field-1}`. Dipakai saat tombol berdiri di atas hero atau panggung gelap, karena putih lebih menonjol di sana daripada oranye.
-- Implementasi: `.ref-btn--light`.
+**`btn-light`** — primary inverted for dark fields
+- White background `{colors.field-1-ink}`, text `{colors.field-1}`. Used when the button sits on a dark hero or stage, because white stands out more there than orange.
+- Implementation: `.ref-btn--light`.
 
-**`btn-text`** — tautan yang berperilaku seperti tombol
-- Tanpa latar, tanpa border, mewarisi warna teks. Dipakai di daftar tautan footer landing.
-- Implementasi: `.lp-link-btn`.
+**`btn-text`** — a link that behaves like a button
+- No background, no border, inherits the text color. Used in the landing footer link list.
+- Implementation: `.lp-link-btn`.
 
-### Pill dan chip
+### Pills and chips
 
-**`pb-pill`** + **`pb-pill-active`** — pemilih tiga situs dan bahasa
-- Diam: latar transparan, teks `{colors.muted}`, tinggi 38px, radius `{rounded.full}`. Aktif: latar `{colors.accent}`, teks `{colors.accent-ink}`.
-- Satu-satunya komponen yang **benar-benar dipakai bersama** lintas permukaan.
+**`pb-pill`** + **`pb-pill-active`** — selector for the three sites and language
+- Resting: transparent background, text `{colors.muted}`, height 38px, radius `{rounded.full}`. Active: background `{colors.accent}`, text `{colors.accent-ink}`.
+- The only component that is **truly shared** across surfaces.
 
-**`ref-lens`** — kendali tiga pandangan untuk satu judul
-- Peta / Urutan tonton / Galaxy. Aktif `{colors.accent}`; sisanya `opacity: 0.6`, menyala saat hover.
-- Lensa yang tidak berlaku **disembunyikan**; kalau tersisa satu, kendalinya tidak dirender sama sekali.
+**`ref-lens`** — control for the three views of one title
+- Map / Watch order / Galaxy. Active `{colors.accent}`; the rest `opacity: 0.6`, lighting up on hover.
+- A lens that does not apply is **hidden**; if only one remains, the control is not rendered at all.
 
-**`ref-saga-seg`** — sakelar Story / Release
-- Wadah radius `{rounded.md}` berisi dua pill. Muncul **hanya kalau kedua urutan memang berbeda** (`twoOrders`).
+**`ref-saga-seg`** — Story / Release switch
+- A container with radius `{rounded.md}` holding two pills. Appears **only when the two orders actually differ** (`twoOrders`).
 
-**`ref-galaxy-rels`** — penyaring jenis hubungan di Galaxy
-- Tujuh chip, satu per warna hubungan. Merangkap legenda warna — mematikan satu chip meredupkan koneksi jenis itu.
+**`ref-galaxy-rels`** — relationship-type filter in Galaxy
+- Seven chips, one per relationship color. Doubles as the color legend — turning off one chip dims the connections of that type.
 
-### Isian
+### Inputs
 
 **`input-text`**
-- Kanon: tinggi minimum 48px (52px untuk bilah cari), radius `{rounded.md}`, latar `{colors.surface}` di gelap atau `{colors.bg}` di terang, fokus `outline: 2px solid {colors.accent}`.
-- Implementasi: `.rq-input` dan `.ref-search input`. Keduanya setuju soal bentuk tetapi ditulis terpisah.
+- Canon: minimum height 48px (52px for the search bar), radius `{rounded.md}`, background `{colors.surface}` on dark or `{colors.bg}` on light, focus `outline: 2px solid {colors.accent}`.
+- Implementation: `.rq-input` and `.ref-search input`. They agree on shape but are written separately.
 
-**`search-bar`** — isian cari dengan tombol menempel
-- Isian + `btn-primary` menyatu: radius kiri `{rounded.md}`, kanan 0 pada isian, kebalikannya pada tombol.
-- Implementasi: `.ref-search` (hero dan versi ringkas), `.rq-input--search`.
+**`search-bar`** — search input with an attached button
+- Input + `btn-primary` fused together: left radius `{rounded.md}`, right 0 on the input, the reverse on the button.
+- Implementation: `.ref-search` (hero and compact version), `.rq-input--search`.
 
-### Lencana
+### Badges
 
-**`badge`** — penanda status kecil
-- Kanon: radius `{rounded.sm}` 6px, padding `4px 8px`, teks **13px** / line-height 16px (tinggi total pas **24px**, kelipatan 4), berat 500–700, tinta `{colors.accent-ink}` di atas warna status.
-- Implementasi: `.rq-badge-*` (empat warna semantik), `.ref-new-badge`, `.ref-galaxy-wait`. Disamakan pada 2026-10-23 — sebelumnya 11/11/12.
-- **Lencana menempel pada bendanya, bukan pada teksnya.** `.ref-new-badge` dipindahkan ke sudut kiri-atas poster (8px dari tepi) pada 2026-10-23; sebelumnya ia disisipkan inline di dalam paragraf judul, sehingga memecah ritme baris dan terlempar ke baris sendiri setiap kali judulnya panjang.
-- **12px sempat dicoba dan dibatalkan.** Alasan menahannya di 12px adalah "lencana seukuran teks isi berhenti terbaca sebagai penanda sekunder" — tetapi itu satu-satunya pelanggar `small-text` yang tersisa di Just added (16 blok), dan yang membedakan lencana dari teks isi sebenarnya warnanya, bukan ukurannya. Di 13px ia tetap terbaca sebagai lencana dan halaman lulus 0 FAIL.
+**`badge`** — small status marker
+- Canon: radius `{rounded.sm}` 6px, padding `4px 8px`, **13px** text / line-height 16px (total height exactly **24px**, a multiple of 4), weight 500–700, `{colors.accent-ink}` ink on top of the status color.
+- Implementation: `.rq-badge-*` (four semantic colors), `.ref-new-badge`, `.ref-galaxy-wait`. Aligned on 2026-10-23 — previously 11/11/12.
+- **A badge attaches to its object, not to the text.** `.ref-new-badge` was moved to the top-left corner of the poster (8px from the edge) on 2026-10-23; before that it was inserted inline inside the title paragraph, which broke the line rhythm and got thrown onto its own line whenever the title was long.
+- **12px was tried and reversed.** The reason for holding it at 12px was "a badge the same size as body text stops reading as a secondary marker" — but it was the only remaining `small-text` offender on Just added (16 blocks), and what actually distinguishes a badge from body text is its color, not its size. At 13px it still reads as a badge and the page passes with 0 FAIL.
 
-### Kartu
+### Cards
 
-**`tile`** — ubin datar, bahasa dasar landing dan Request Hub
-- Latar `{colors.surface}`, radius `{rounded.md}`, tanpa bayangan, tanpa garis tipis.
-- Implementasi: `.lp-tile`, `.rq-tile`.
+**`tile`** — flat tile, the base language of landing and Request Hub
+- Background `{colors.surface}`, radius `{rounded.md}`, no shadow, no hairline.
+- Implementation: `.lp-tile`, `.rq-tile`.
 
-**`ref-run`** — baris saga di indeks Watch order
-- Nama saga + deretan poster + tautan. Idiom contact sheet yang sama dengan beranda Reference.
+**`ref-run`** — saga row in the Watch order index
+- Saga name + row of posters + link. The same contact sheet idiom as the Reference home.
 
-**`ref-saga-card`** — satu judul di garis waktu
-- Poster 100×150, titik `{colors.accent}` kalau terpilih, keterangan 13px.
-- Di bawah zoom 55% keterangan disembunyikan supaya panggungnya terbaca sebagai peta, bukan daftar.
+**`ref-saga-card`** — one title on the timeline
+- 100×150 poster, `{colors.accent}` dot when selected, 13px caption.
+- Below 55% zoom the caption is hidden so that the stage reads as a map, not a list.
 
-**`ref-saga-ghost`** — judul yang belum ada di library
-- Kotak abu bertuliskan "Not on Surflix" dengan tautan ke Request Hub. Lubangnya ditampilkan, bukan disembunyikan.
+**`ref-saga-ghost`** — a title not yet in the library
+- Gray box reading "Not on Surflix" with a link to Request Hub. The hole is shown, not hidden.
 
-**`ref-panel`** — keterangan melayang di atas panggung
-- `position: absolute`, kanan `{spacing.md}`–32px, atas 24px, lebar `min(380px, …)`, latar `{colors.bg}`, padding `24px 26px 26px`. Di bawah 1024px jadi statis dan menumpuk.
+**`ref-panel`** — caption floating above the stage
+- `position: absolute`, right `{spacing.md}`–32px, top 24px, width `min(380px, …)`, background `{colors.bg}`, padding `24px 26px 26px`. Below 1024px it becomes static and stacks.
 
-**`ref-new-poster`** — kartu Just added, turunan `.lp-frame` milik landing
-- Poster rasio 2/3 + pita judul **di dalam** satu kotak `overflow: hidden` beradius `{rounded.md}`; lencana "New this week" menempel di pojok kiri atas poster, bukan di baris judul.
-- Judulnya tampil utuh, jadi tingginya berbeda-beda. Supaya satu baris grid tidak bertingkat, `li`-nya memakai **subgrid** tiga baris (kartu / keterangan / tautan) dengan `row-gap: 0`; dasar kartu, keterangan, dan tautan jadi sejajar di seluruh baris.
-- Latar kartu disetel `{colors.field-1}` — sewarna pita, bukan `{colors.surface}`. Kalau subgrid meregangkan kartu melebihi poster + pita, sisa ruangnya menyatu dengan pita alih-alih muncul sebagai pias terang.
-- Kolomnya `repeat(auto-fill, minmax(190px, 1fr))`, bukan jumlah tetap: enam kolom tetap menyisakan ~155px per kartu di 1024–1280px, dan judul film membungkus sampai empat baris di lebar itu.
+**`ref-new-poster`** — Just added card, derived from landing's `.lp-frame`
+- 2/3 ratio poster + title strip **inside** one `overflow: hidden` box with radius `{rounded.md}`; the "New this week" badge attaches to the top-left corner of the poster, not to the title row.
+- The title is shown in full, so its height varies. So that one grid row does not become stepped, the `li` uses a three-row **subgrid** (card / caption / link) with `row-gap: 0`; the card bases, captions, and links line up across the whole row.
+- The card background is set to `{colors.field-1}` — the same color as the strip, not `{colors.surface}`. If the subgrid stretches the card beyond poster + strip, the leftover space merges with the strip instead of appearing as a light sliver.
+- The columns are `repeat(auto-fill, minmax(190px, 1fr))`, not a fixed count: six fixed columns leave ~155px per card at 1024–1280px, and film titles wrap to four lines at that width.
 
-### Pita penuh-layar
+### Full-screen bands
 
-**`hero-dark`** — hero di atas `{colors.field-1}`
-- Tinggi `max(100svh, 760px)` untuk beranda Reference; isi terpusat di dalam cincin poster.
-- Implementasi: `.ref-hero`, `.ref-new-intro`, `.lp-hero`.
+**`hero-dark`** — hero on `{colors.field-1}`
+- Height `max(100svh, 760px)` for the Reference home; content centered inside the poster ring.
+- Implementation: `.ref-hero`, `.ref-new-intro`, `.lp-hero`.
 
-**`band-paper`** — pita krem `{colors.field-2}` untuk bagian penjelasan
-- Implementasi: `.ref-how`, `.lp-section--paper`.
+**`band-paper`** — cream band `{colors.field-2}` for explanatory sections
+- Implementation: `.ref-how`, `.lp-section--paper`.
 
-### Navigasi dan footer
+### Navigation and footer
 
-**`pb-bar`** — PortalBar, satu baris sticky
-- Logo + nama portal + tautan lokal + pill tiga situs + pill bahasa. Tinggi minimum 56px. Di bawah 767px logo, nama, dan tautan lokal disembunyikan.
+**`pb-bar`** — PortalBar, one sticky row
+- Logo + portal name + local links + three-site pill + language pill. Minimum height 56px. Below 767px the logo, name, and local links are hidden.
 
-**`footer`** — Implementasi terpisah: `.lp-footer` dan `.ref-footer`. Belum disatukan.
+**`footer`** — Separate implementations: `.lp-footer` and `.ref-footer`. Not yet unified.
 
-### Yang sengaja TIDAK ada
+### Deliberately NOT present
 
-Pembanding PlayStation punya beberapa komponen yang **tidak dibuat** karena tidak ada kebutuhannya: `pagination-dot` (tidak ada halaman berhalaman), `carousel-paddle` (semua rel digulir langsung, bukan dengan tombol), dan `sub-nav` (PortalBar sudah menampung tautan lokal). Jangan membuatnya hanya demi kelengkapan.
+The PlayStation comparison has several components that were **not built** because there is no need for them: `pagination-dot` (there are no paginated pages), `carousel-paddle` (all rails scroll directly, not with buttons), and `sub-nav` (PortalBar already holds the local links). Do not create them just for completeness.
 
 ## 9. Known Gaps
 
-Hal yang **belum** rapi, dicatat supaya tidak terus-menerus ditemukan ulang:
+Things that are **not** yet tidy, recorded so they are not rediscovered over and over:
 
-- ~~Spasi melenceng dari grid 4px~~ — **ditinjau satu per satu dan dibereskan 2026-10-23.** 114 nilai disnap (6→8, 10→12, 14→16, 18→20, 22→24, 26→24, 30→32, 38/42→40, 5→4, 7→8, 9→8, 150→144). Yang tersisa hanya 2px dan 3px sebagai detail sejajar, sesuai aturan dua tingkat di bagian 6.
-- ~~Tiga radius nyasar (99px, 10px, 12px)~~ — **diseragamkan 2026-10-23**. Skalanya kini bersih: 999px (15×), 8px (15×), 6px (5×), 4px (4×), 50% (2×).
-- **Empat permukaan membangun komponen yang sama secara terpisah.** Tombol, isian, lencana, kartu, dan footer masing-masing punya versinya sendiri di `lp-`, `rq-`, `ref-`, dan `ad-`. Yang benar-benar dipakai bersama baru PortalBar. Menyatukannya adalah pekerjaan refaktor berisiko yang belum dilakukan; katalog di bagian 8 menuliskan spesifikasi kanonnya supaya pekerjaan berikutnya menuju ke sana, bukan menjauh.
-- **`{colors.accent-tint}` dan `{colors.accent-soft}` belum terpakai.** Keduanya ditambahkan 2026-10-23 untuk melengkapi skala; belum ada komponen yang memakainya.
-- **Landing dan Reference punya skala tipografi terpisah** (40/64px vs `--step-display` 44–80px). Itu disengaja — papan ubin versus halaman editorial — tetapi belum pernah ditulis sebagai dua skala bernama.
-- **Admin memakai bahasa yang sama tetapi tidak diaudit** seteliti tiga permukaan tamu.
-- **Footer masih tiga implementasi** (`.rq-footer`, `.lp-footer`, `.ref-footer`), tetapi **nilainya kini identik**: padding `64px … 24px` dan `margin-top: auto` di ketiganya. Yang belum adalah menyatukannya jadi satu komponen React; isinya memang berbeda (peta situs vs satu baris), jadi penyatuan berarti satu komponen dengan varian, bukan satu tampilan.
-- **Kontras belum diaudit menyeluruh.** Yang sudah diukur: skala aksen, dan satu kegagalan di tautan 15px yang sudah diperbaiki. Pasangan warna lain belum.
+- ~~Spacing off the 4px grid~~ — **reviewed one by one and fixed 2026-10-23.** 114 values snapped (6→8, 10→12, 14→16, 18→20, 22→24, 26→24, 30→32, 38/42→40, 5→4, 7→8, 9→8, 150→144). Only 2px and 3px remain, as inline details, per the two-tier rule in section 6.
+- ~~Three stray radii (99px, 10px, 12px)~~ — **unified 2026-10-23**. The scale is now clean: 999px (15×), 8px (15×), 6px (5×), 4px (4×), 50% (2×).
+- **Four surfaces build the same components separately.** Buttons, inputs, badges, cards, and footers each have their own version in `lp-`, `rq-`, `ref-`, and `ad-`. Only PortalBar is truly shared. Unifying them is risky refactor work that has not been done; the catalog in section 8 writes out the canonical specs so that the next piece of work heads toward them, not away.
+- **`{colors.accent-tint}` and `{colors.accent-soft}` are not used yet.** Both were added 2026-10-23 to complete the scale; no component uses them yet.
+- **Landing and Reference have separate typography scales** (40/64px vs `--step-display` 44–80px). This is deliberate — tile board versus editorial page — but it has never been written down as two named scales.
+- **Admin uses the same language but has not been audited** as thoroughly as the three guest surfaces.
+- **The footer is still three implementations** (`.rq-footer`, `.lp-footer`, `.ref-footer`), but **their values are now identical**: padding `64px … 24px` and `margin-top: auto` on all three. What remains is merging them into one React component; their content really does differ (site map vs a single line), so merging means one component with variants, not one appearance.
+- **Contrast has not been audited thoroughly.** What has been measured: the accent scale, and one failure on the 15px link that has been fixed. Other color pairs have not.
 
-## 10. Design Tokens — tempatnya
+## 10. Design Tokens — where they live
 
-| Berkas | Isi |
+| File | Contents |
 |---|---|
-| `app/globals.css` | `@theme` Tailwind: token `rq-*` |
-| `app/landing/landing.css` | token `lp-*` dan skala landing |
-| `app/(guest)/request.css` | komponen Request Hub |
-| `app/referensi/referensi.css` | semua token dan komponen Reference |
+| `app/globals.css` | Tailwind `@theme`: `rq-*` tokens |
+| `app/landing/landing.css` | `lp-*` tokens and the landing scale |
+| `app/(guest)/request.css` | Request Hub components |
+| `app/referensi/referensi.css` | all Reference tokens and components |
 | `components/portal-bar.css` | `--pb-*` |
 
-CSS buatan sendiri **tidak berlayer**, jadi selalu menang atas utilitas Tailwind. Jangan menaruh `padding`/`margin` pada override seperti `.rq-root .input-ios` supaya `pl-12` dll tetap berlaku.
+Hand-written CSS is **not layered**, so it always wins over Tailwind utilities. Do not put `padding`/`margin` on overrides like `.rq-root .input-ios`, so that `pl-12` etc. still apply.
 
 ---
 
-## 11. Positif palsu inspector
+## 11. Inspector false positives
 
-`scripts/inspect.mjs` dari taste-skill menandai empat hal yang **bukan cacat** di portal ini:
+`scripts/inspect.mjs` from taste-skill flags four things that are **not defects** in this portal:
 
-| Aturan | Kenapa palsu |
+| Rule | Why it is a false positive |
 |---|---|
-| `few-pictures` | Dua sebab berbeda. Di halaman saga dan peta film poster digambar ke `<canvas>`. Di indeks Watch order ada **167 `<img>` sungguhan** tetapi tetap dilaporkan 0: poster contact sheet terlalu kecil untuk ambang "gambar" milik inspector. Diperiksa 2026-10-23 dengan menghitung `document.querySelectorAll('img')` |
-| `edge-text` | Kartu di luar pandangan tetap punya rect walau sudah dipotong `overflow: hidden` |
-| `body-size` | Di saga besar (28+ judul), label kartu peta 13px jumlahnya melebihi prosanya; teks baca sebenarnya 26px |
-| `late-title` (Galaxy) | `.ref-galaxy-intro` sengaja `pointer-events: none` supaya langitnya tetap bisa digeser dari balik teks; judulnya tetap di atas secara visual (`z-index: 3`) |
+| `few-pictures` | Two different causes. On the saga page and film map the posters are drawn to a `<canvas>`. On the Watch order index there are **167 real `<img>`** but it is still reported as 0: the contact sheet posters are too small for the inspector's "picture" threshold. Checked 2026-10-23 by counting `document.querySelectorAll('img')` |
+| `edge-text` | Cards outside the view still have a rect even though they are clipped by `overflow: hidden` |
+| `body-size` | On large sagas (28+ titles), the 13px map card labels outnumber the prose; the actual reading text is 26px |
+| `late-title` (Galaxy) | `.ref-galaxy-intro` is deliberately `pointer-events: none` so the sky can still be dragged from behind the text; the title is still on top visually (`z-index: 3`) |
 
-`eyebrow` pada halaman saga juga palsu: "← All sagas" itu tautan kembali, bukan kicker.
+`eyebrow` on the saga page is also a false positive: "← All sagas" is a back link, not a kicker.
 
-Jalankan dengan `--allow edge-text,body-size`.
+Run with `--allow edge-text,body-size`.
 
-### Halaman prosa (`/terms`, `/privacy`) dan 404 — 2026-10-23
+### Prose pages (`/terms`, `/privacy`) and 404 — 2026-10-23
 
-Daftar Must-Have inspector dikalibrasi untuk halaman pemasaran SaaS. Di halaman hukum sebagian besar **tidak berlaku**, bukan lolos:
+The inspector's Must-Have list is calibrated for SaaS marketing pages. On legal pages most of it **does not apply**, rather than passing:
 
-| Aturan | Kenapa tidak berlaku |
+| Rule | Why it does not apply |
 |---|---|
-| `few-pictures`, `no-footage` | Halaman syarat tidak punya pokok yang bisa difoto atau difilmkan |
-| `first-action` | Tidak ada tindakan utama untuk dijadikan tombol; tautan kembali sudah cukup |
-| `still-page`, `focal-point` | Dokumen, bukan panggung; judul 40px memang elemen dominannya |
-| `untitled-section` @390px | Lede, daftar, dan kotak penegasan ada **di dalam** bagian berjudul; pemenggalan inspector di layar sempit tidak melihat hierarkinya |
-| `eyebrow`, `small-title` | "← Surflix" tautan kembali; judul dokumen tidak perlu ukuran hero |
-| `off-centre` pada 404 | Diukur 2026-10-23: pembungkus dan bidang warnanya **L293/R1147 di 1440px**, simetris persis. Yang diukur inspector tepi *teks* kartu yang rata kiri dan ragged kanan |
+| `few-pictures`, `no-footage` | A terms page has no subject that could be photographed or filmed |
+| `first-action` | There is no primary action to make into a button; the back link is enough |
+| `still-page`, `focal-point` | A document, not a stage; the 40px title is rightly its dominant element |
+| `untitled-section` @390px | The lede, list, and callout box are **inside** the titled section; the inspector's segmentation on a narrow screen does not see the hierarchy |
+| `eyebrow`, `small-title` | "← Surflix" is a back link; a document title does not need hero size |
+| `off-centre` on 404 | Measured 2026-10-23: the wrapper and its color field are **L293/R1147 at 1440px**, exactly symmetric. What the inspector measured is the edge of the card's *text*, which is left-aligned and ragged-right |
 
-Yang **betul** dan sudah diperbaiki: `hairline` (garis 1px di atas nav footer → dihapus, jarak 80px sudah memisahkan), `empty-screens` (prosa 600px melayang di tengah hitam → ditaruh di atas bidang `--surface` pada ≥1024px), `name-only-title` (lede pada `--step-body` jatuh ke 17.9px di 768px, di bawah ambang 18px → dinaikkan ke `--step-lead`).
+What was **real** and has been fixed: `hairline` (1px line above the footer nav → removed, the 80px spacing already separates), `empty-screens` (600px prose floating in the middle of black → placed on a `--surface` field at ≥1024px), `name-only-title` (the lede at `--step-body` fell to 17.9px at 768px, below the 18px threshold → raised to `--step-lead`).
 
-Jalankan dengan `--allow eyebrow,few-pictures,no-footage,focal-point,still-page,untitled-section,first-action,small-title`.
+Run with `--allow eyebrow,few-pictures,no-footage,focal-point,still-page,untitled-section,first-action,small-title`.
