@@ -230,6 +230,16 @@
     "directors": "Jesse Eisenberg"
   },
   {
+    "tmdbId": 1813355,
+    "mediaType": "movie",
+    "title": "A Story of Derry",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "53e9ca41141e984582ffcb0d33bc376d",
+    "genres": "Drama, Horror, Mystery",
+    "directors": "Tazbah Chavez"
+  },
+  {
     "tmdbId": 4552,
     "mediaType": "movie",
     "title": "A Tale of Two Sisters",
@@ -258,6 +268,26 @@
     "jellyfinId": "02bee7bebe3f0020f69681be74e9e67f",
     "genres": "Drama, Romance",
     "directors": "Adam Shankman, Mary Gail Artz, Barbara Cohen"
+  },
+  {
+    "tmdbId": 897,
+    "mediaType": "movie",
+    "title": "APARAJITO",
+    "originalTitle": "অপরাজিত",
+    "year": 1956,
+    "jellyfinId": "325ac6d0df8b296ed3a668538c798c37",
+    "genres": "Drama",
+    "directors": "Satyajit Ray"
+  },
+  {
+    "tmdbId": 896,
+    "mediaType": "movie",
+    "title": "APUR SANSAR",
+    "originalTitle": "অপুর সংসার",
+    "year": 1959,
+    "jellyfinId": "b1f091b7f195089628905062913bd9ae",
+    "genres": "Drama",
+    "directors": "Satyajit Ray"
   },
   {
     "tmdbId": 122906,
@@ -860,6 +890,16 @@
     "directors": "Stanley Kubrick"
   },
   {
+    "tmdbId": 268,
+    "mediaType": "movie",
+    "title": "Batman",
+    "originalTitle": null,
+    "year": 1989,
+    "jellyfinId": "6b82f72bc773100c065a4a6505f9a4f7",
+    "genres": "Fantasy, Action, Crime",
+    "directors": "Tim Burton"
+  },
+  {
     "tmdbId": 272,
     "mediaType": "movie",
     "title": "Batman Begins",
@@ -868,6 +908,16 @@
     "jellyfinId": "3d69bfb3d6bbcc28be78931ab37c47a2",
     "genres": "Action, Crime, Drama",
     "directors": "Christopher Nolan"
+  },
+  {
+    "tmdbId": 364,
+    "mediaType": "movie",
+    "title": "Batman Returns",
+    "originalTitle": null,
+    "year": 1992,
+    "jellyfinId": "86411c38e23b77f3f189ccbf76cb519d",
+    "genres": "Action, Fantasy",
+    "directors": "Tim Burton"
   },
   {
     "tmdbId": 209112,
@@ -948,6 +998,16 @@
     "jellyfinId": "b77846e90b094c3ef58ee52160e5329c",
     "genres": "Comedy, Drama, Fantasy",
     "directors": "Spike Jonze"
+  },
+  {
+    "tmdbId": 64847,
+    "mediaType": "movie",
+    "title": "Belladonna of Sadness",
+    "originalTitle": "哀しみのベラドンナ",
+    "year": 1973,
+    "jellyfinId": "eef75b7cd77571687581ddea89c44b6f",
+    "genres": "Animation, Drama, Fantasy",
+    "directors": "Eiichi Yamamoto"
   },
   {
     "tmdbId": 285322,
@@ -1458,6 +1518,16 @@
     "jellyfinId": "d8ed7324e6079b2ef02a8c734ce2ad87",
     "genres": "Horror, Drama",
     "directors": "Calvin Morie McCarthy"
+  },
+  {
+    "tmdbId": 3933,
+    "mediaType": "movie",
+    "title": "Corpse Bride",
+    "originalTitle": null,
+    "year": 2005,
+    "jellyfinId": "0230f30833e555407e4dc99f0480185b",
+    "genres": "Romance, Fantasy, Animation",
+    "directors": "Tim Burton, Mike Johnson"
   },
   {
     "tmdbId": 58474,
@@ -3460,6 +3530,16 @@
     "directors": null
   },
   {
+    "tmdbId": 1628071,
+    "mediaType": "movie",
+    "title": "Ip Man: Kung Fu Legend",
+    "originalTitle": "宗师叶问2",
+    "year": 2026,
+    "jellyfinId": "619d0613aa09efb3e8e3120d0ac1a49e",
+    "genres": "Action",
+    "directors": "Li Liming"
+  },
+  {
     "tmdbId": 1116201,
     "mediaType": "movie",
     "title": "Iron Lung",
@@ -3508,6 +3588,26 @@
     "jellyfinId": "dd99fb785095d8872d170de8cb2b8dd8",
     "genres": "Sci-Fi & Fantasy, Crime",
     "directors": null
+  },
+  {
+    "tmdbId": 346364,
+    "mediaType": "movie",
+    "title": "It",
+    "originalTitle": null,
+    "year": 2017,
+    "jellyfinId": "776abe13abb1e7a8da09852d622532b3",
+    "genres": "Horror, Thriller, Drama",
+    "directors": "Andy Muschietti"
+  },
+  {
+    "tmdbId": 474350,
+    "mediaType": "movie",
+    "title": "It Chapter Two",
+    "originalTitle": null,
+    "year": 2019,
+    "jellyfinId": "0a882e37a3685de9d8c76f9a5e1713e6",
+    "genres": "Horror, Thriller, Drama",
+    "directors": "Andy Muschietti"
   },
   {
     "tmdbId": 418078,
@@ -4870,6 +4970,16 @@
     "directors": "Jordan Peele"
   },
   {
+    "tmdbId": 42041,
+    "mediaType": "movie",
+    "title": "Noriko's Dinner Table",
+    "originalTitle": "紀子の食卓",
+    "year": 2005,
+    "jellyfinId": "91b43f396be19423b35d5d06190394a1",
+    "genres": "Drama, Thriller, Horror",
+    "directors": "Sion Sono"
+  },
+  {
     "tmdbId": 89905,
     "mediaType": "tv",
     "title": "Normal People",
@@ -5358,6 +5468,16 @@
     "jellyfinId": "0b30b9192fa594538ccddf1921fa9927",
     "genres": "Anime, past, thriller, torture, violence",
     "directors": "Ken'ichi Shimizu, Masanori Shino"
+  },
+  {
+    "tmdbId": 5801,
+    "mediaType": "movie",
+    "title": "PATHER PANCHALI",
+    "originalTitle": "পথের পাঁচালী",
+    "year": 1955,
+    "jellyfinId": "75f60ec618c551766cca6d27c5d51cb8",
+    "genres": "Drama, History",
+    "directors": "Satyajit Ray"
   },
   {
     "tmdbId": 1417,
@@ -6630,6 +6750,16 @@
     "directors": "Boots Riley"
   },
   {
+    "tmdbId": 967,
+    "mediaType": "movie",
+    "title": "Spartacus",
+    "originalTitle": null,
+    "year": 1960,
+    "jellyfinId": "dda3b2e7cc880caeab0fa254c1ee52d5",
+    "genres": "History, Drama, Adventure",
+    "directors": "Stanley Kubrick"
+  },
+  {
     "tmdbId": 833339,
     "mediaType": "movie",
     "title": "Speak No Evil",
@@ -6998,6 +7128,16 @@
     "jellyfinId": "75bf1fa6729769c901d2690f0c944dd8",
     "genres": "Drama, Comedy, Romance",
     "directors": "Richard Ayoade"
+  },
+  {
+    "tmdbId": 12720,
+    "mediaType": "movie",
+    "title": "Suicide Club",
+    "originalTitle": "自殺サークル",
+    "year": 2001,
+    "jellyfinId": "4a12bb133520d9e1f89b07ad8580c838",
+    "genres": "Drama, Horror, Thriller",
+    "directors": "Sion Sono"
   },
   {
     "tmdbId": 80020,
@@ -7590,6 +7730,16 @@
     "directors": "Takehiko Inoue"
   },
   {
+    "tmdbId": 298618,
+    "mediaType": "movie",
+    "title": "The Flash",
+    "originalTitle": null,
+    "year": 2023,
+    "jellyfinId": "098f892f78e397a96a5255df38a67285",
+    "genres": "Action, Science Fiction, Adventure",
+    "directors": "Andy Muschietti"
+  },
+  {
     "tmdbId": 394117,
     "mediaType": "movie",
     "title": "The Florida Project",
@@ -8158,6 +8308,16 @@
     "jellyfinId": "0352e3b7ab57b2dbe641781e05cc6e48",
     "genres": "Comedy, Crime",
     "directors": "David Zucker"
+  },
+  {
+    "tmdbId": 9479,
+    "mediaType": "movie",
+    "title": "The Nightmare Before Christmas",
+    "originalTitle": null,
+    "year": 1993,
+    "jellyfinId": "7c0e9ef8b1570c6669d573e7c2deb7da",
+    "genres": "Fantasy, Animation, Family",
+    "directors": "Henry Selick"
   },
   {
     "tmdbId": 11036,
@@ -9350,6 +9510,16 @@
     "directors": "Fuminori Kizaki, Michinori Chiba"
   },
   {
+    "tmdbId": 246655,
+    "mediaType": "movie",
+    "title": "X-Men: Apocalypse",
+    "originalTitle": null,
+    "year": 2016,
+    "jellyfinId": "3358f8272ba96bc78986cfd3e2455c8a",
+    "genres": "Science Fiction, Fantasy, Action",
+    "directors": "Bryan Singer"
+  },
+  {
     "tmdbId": 23451,
     "mediaType": "tv",
     "title": "Yaiba: Samurai Legend",
@@ -9398,6 +9568,16 @@
     "jellyfinId": "054f81f8e73c04834cb3b0b05b137da8",
     "genres": "Comedy, Romance",
     "directors": "Nora Ephron"
+  },
+  {
+    "tmdbId": 255661,
+    "mediaType": "tv",
+    "title": "Young Sherlock",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "0f5798f31ded654e4d36772e0cd4cc96",
+    "genres": "Action & Adventure, Mystery",
+    "directors": null
   },
   {
     "tmdbId": 372058,

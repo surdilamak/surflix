@@ -242,3 +242,20 @@ Back to the Future Part III (1990) > Back to the Future Part II (1989) | univers
 # ============ BREAKING BAD ============
 # Better Call Saul > Breaking Bad sudah ada di berkas ini sebagai @spinoff.
 El Camino: A Breaking Bad Movie (2019) > Breaking Bad (2008) | universe | h | @sequel
+
+# ---------- Judul baru 2026-11-03 (diverifikasi ke Wikipedia, bukan ingatan) ----------
+# Noriko's Dinner Table = prekuel Suicide Club ("before, during, and after" - en.wikipedia Noriko's_Dinner_Table).
+# A Story of Derry BUKAN film layar lebar: episode spesial 30 menit serial HBO It: Welcome to Derry
+# (Wikipedia: serial itu "a prequel to the films It (2017) and It Chapter Two (2019)"; spesial dirilis 31 Okt 2026).
+Batman Returns (1992) > Batman (1989) | universe | h | @sequel
+It Chapter Two (2019) > It (2017) | universe | h | @sequel
+Noriko's Dinner Table (2005) > Suicide Club (2001) | universe | h | @prequel
+A Story of Derry (2026) > It (2017) | universe | h | A Story of Derry is a 30-minute special episode of the HBO prequel series It: Welcome to Derry, set long before the events of the It films. || A Story of Derry adalah episode spesial 30 menit dari serial prekuel HBO It: Welcome to Derry, berlatar jauh sebelum peristiwa film It.
+Aparajito (1956) > PATHER PANCHALI (1955) | universe | h | Aparajito continues the story of Pather Panchali, adapted from the end of that novel and the first part of its sequel. || Aparajito melanjutkan kisah Pather Panchali, diadaptasi dari akhir novel itu dan bagian awal novel lanjutannya.
+Apur Sansar (1959) > Aparajito (1956) | universe | h | The World of Apu closes the Apu Trilogy, adapted from the second half of the novel Aparajito. || Apur Sansar menutup Trilogi Apu, diadaptasi dari paruh kedua novel Aparajito.
+# The Flash: Keaton = "an alternate version of the character from 2013-Barry's timeline"; film DCEU ke-13.
+The Flash (2023) > Batman (1989) | universe | h | Michael Keaton plays his Batman from Burton's films again, as an alternate version of the character from another timeline. || Michael Keaton memerankan lagi Batman dari film Burton, sebagai versi alternatif dari garis waktu lain.
+The Flash (2023) > Batman Returns (1992) | universe | h | Keaton's Batman returns, and composer Benjamin Wallfisch quotes Danny Elfman's themes from Batman and Batman Returns throughout. || Batman Keaton kembali, dan komposer Benjamin Wallfisch mengutip tema Danny Elfman dari Batman dan Batman Returns.
+The Flash (2023) > Zack Snyder's Justice League (2021) | universe | h | The Flash is the 13th DCEU film. Barry Allen is a Justice League member, and Henry Allen is recast: Billy Crudup played him in Zack Snyder's Justice League. || The Flash adalah film DCEU ke-13. Barry Allen anggota Justice League, dan Henry Allen diganti pemain: di Zack Snyder's Justice League ia diperankan Billy Crudup.
+The Flash (2023) > Man of Steel (2013) | universe | h | The Flash revisits Man of Steel, bringing back General Zod and Faora in an alternate timeline. || The Flash menengok kembali Man of Steel, menghadirkan lagi Jenderal Zod dan Faora di garis waktu alternatif.
+The Flash (2023) > Batman v Superman - Dawn of Justice (2016) | universe | h | Ben Affleck returns as the original DCEU Batman, introduced in Batman v Superman. || Ben Affleck kembali sebagai Batman DCEU yang asli, yang diperkenalkan di Batman v Superman.

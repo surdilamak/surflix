@@ -1,7 +1,7 @@
 # BACKLOG.md — Surflix
 
 > Hal-hal yang sengaja ditunda. Urut dari yang paling berdampak. Update file ini tiap ada yang selesai atau nambah.
-> Terakhir diupdate: 2026-10-26 (audit koneksi, perbaikan Jellyseerr, tiga saga baru).
+> Terakhir diupdate: 2026-11-03 (18 judul baru, tiga saga baru, Burton masuk saga Batman).
 
 ## 🔴 Tindak lanjut cepat (setelah deploy terakhir)
 
@@ -43,7 +43,19 @@
 
 `Sync library` (admin) → `export-library.js` di prod → salin ke repo → **selaraskan `dev.db` dengan `connections-live.json` lebih dulu** (kalau tidak, ekspor menghapus keputusan audit — 32 status sempat beda) → tulis kurasi → `build-connections.js` → import ke dev.db → `export-connections.js` → `build-sagas.js`. Builder menolak teks di atas **220 karakter**.
 
+## ✅ Selesai 2026-11-03 (18 judul baru dari Jellyfin)
+
+- [x] **Library 946 → 964**, 25 koneksi baru (`connections-live.json` 957 → 982, 12 REJECTED utuh, nol baris lama berubah), tiga saga baru (**It**, **The Apu Trilogy**, **Suicide Club**), Batman +2 judul (lajur Burton, kini tiga kontinuitas), DC on screen +The Flash. 863 / 964 judul terhubung. Seluruh klaim diriset 4 agen paralel dari halaman Wikipedia dan klaim kuncinya diperiksa ulang langsung — bukan dari ingatan. Kandidat yang tidak bisa disumberkan tidak ditulis (daftarnya di bawah).
+- **A Story of Derry (2026) BUKAN film layar lebar**: episode spesial 30 menit serial HBO *It: Welcome to Derry* (TMDB mencatatnya `movie`). Di saga `it` ditandai begitu, dan serialnya muncul sebagai "Not on Surflix" supaya bisa direquest.
+- **Noriko's Dinner Table adalah prekuel Suicide Club** meski rilisnya 2005 ("before, during, and after" — Wikipedia), jadi urutan cerita dan urutan rilisnya terbalik.
+- **Logan ↔ X-Men: Apocalypse sengaja hanya `talent`** (cameo Hugh Jackman), bukan `universe`: letak Logan terhadap garis waktu Fox diperselisihkan Jackman dan Mangold sendiri, dan Days of Future Past tidak ada di library. Jangan dinaikkan jadi saga.
+- **Ditolak karena tidak ada sumber** (jangan diulang tanpa sumber baru): semua "sama-sama Stephen King" untuk The Mist/Shawshank/Carrie/Shining dengan It; Hallorann hanya terbukti di NOVEL It, bukan film 2017; pengaruh Burton's Batman pada Joker/The Batman/Nolan; "Corpse Bride kerabat Nightmare" (Burton hanya bilang "a different movie, a different process"); pengaruh trilogi Apu pada Scorsese/Wes Anderson/Kurosawa (sumbernya menyebut orangnya, bukan film tertentu); Young Sherlock ↔ Sherlock/Conan/film Ritchie (sumber menyebut film Ritchie "unrelated"); Deadpool & Wolverine ↔ Apocalypse.
+- **Kejanggalan data, belum diperbaiki**: `Sherlock` (2010, TMDB 19885) di snapshot punya sutradara "Toshiyuki Yahagi, Ai Yoshimura" — salah metadata dari Jellyfin untuk serial BBC. Tidak merusak apa pun sekarang (keduanya tak ada di `directors.list`), tapi jangan pernah menambahkan nama itu ke daftar sutradara.
+- **Belum dikirim ke produksi**: urutannya import-connections ke prod (dry-run dulu) lalu `connections-live.json` baru; lihat "Cara: update koneksi" langkah 6–7.
+
 ## 🟡 Judul baru yang belum punya peta (2026-10-26)
+
+- [ ] **Tiga dari 18 judul 2026-11-03 masih nol koneksi, dan memang belum bisa disumberkan:** Belladonna of Sadness (dua film Animerama lainnya tak ada di library; riset hanya mencakup Wikipedia, belum kritik majalah), Ip Man: Kung Fu Legend (Wikipedia belum punya halamannya; jangan menebak hubungan ke Kung Fu Master lewat judul Mandarin), Young Sherlock.
 
 - [ ] **18 dari 60 judul terbaru masih nol koneksi.** Tiga franchise sudah ditangani; sisanya bukan franchise jadi perlu hubungan yang dicari satu per satu: Lupin, Dark Matter, Heima, Samsara, Witch Hat Atelier, Modern Family, Titans, Invasion, ODDTAXI, April Story, Chainsmoker Cat, The Tunnel to Summer. Catatan: **Modern Family jadi yatim karena audit** — satu-satunya koneksinya (ke The Office) ditolak sebab tidak bisa disumberkan. Itu konsekuensi yang disetujui, bukan kemunduran.
 

@@ -304,11 +304,17 @@ Spider-Man 3 (2007) | raimi | 2007-05
 The Amazing Spider-Man (2012) | amazing | 2012-07 | Starts over | A reboot, not a sequel: same origin told again with a new cast. || Reboot, bukan sekuel: asal-usul yang sama diceritakan lagi dengan pemain baru.
 The Amazing Spider-Man 2 (2014) | amazing | 2014-05
 
-# ============ BATMAN (Nolan / Reeves) ============
-@saga batman | Batman | Two separate continuities: Nolan's trilogy ends for good, and The Batman starts over. Neither follows the other. || Dua kontinuitas terpisah: trilogi Nolan selesai sepenuhnya, lalu The Batman memulai dari awal. Keduanya tidak saling melanjutkan.
+# ============ BATMAN (Burton / Nolan / Reeves) ============
+# Burton ditambahkan 2026-11-03. Wikipedia: Batman (1989) + Batman Returns (1992) = "initial Batman film
+# series" Warner Bros.; Forever (1995) dan Batman & Robin (1997) menyambung tanpa Burton/Keaton dan tidak
+# ada di library. Tidak ada sumber yang menyatukan kontinuitas ini dengan Nolan atau Reeves.
+@saga batman | Batman | Three separate continuities: Burton's two films, Nolan's trilogy, and The Batman, which starts over. None follows another. || Tiga kontinuitas terpisah: dua film Burton, trilogi Nolan, dan The Batman yang memulai dari awal. Tidak ada yang melanjutkan yang lain.
+@lane burton | Burton's Gotham || Gotham versi Burton
 @lane nolan | The Dark Knight trilogy || Trilogi The Dark Knight
 @lane reeves | Reeves' Gotham || Gotham versi Reeves | fork: Batman Begins (2005)
 
+Batman (1989) | burton | 1989-06
+Batman Returns (1992) | burton | 1992-06 | | Michael Keaton's Batman reappears in The Flash (2023), as a version from another timeline, but that film belongs to the DC on screen saga. || Batman Michael Keaton muncul lagi di The Flash (2023), sebagai versi dari garis waktu lain, tetapi film itu masuk saga DC on screen.
 Batman Begins (2005) | nolan | 2005-06
 The Dark Knight (2008) | nolan | 2008-07
 The Dark Knight Rises (2012) | nolan | 2012-07
@@ -324,9 +330,23 @@ Man of Steel (2013) | dceu | 2013-06
 Batman v Superman - Dawn of Justice (2016) | dceu | 2016-03
 Zack Snyder's Justice League (2021) | dceu | 2021-03 | | Snyder's own four-hour cut of the 2017 film, finished years after he left it. || Potongan empat jam versi Snyder sendiri dari film 2017, diselesaikan bertahun-tahun setelah ia meninggalkannya.
 Peacemaker (2022) | dcu | 2022-01 | Crosses both | Made for the DCEU, then carried into the new DCU: James Gunn kept everything except the season-one finale's Justice League cameo. || Dibuat untuk DCEU lalu dibawa ke DCU baru: James Gunn mempertahankan semuanya kecuali cameo Justice League di akhir musim pertama.
+The Flash (2023) | dceu | 2023-06 | | The 13th DCEU film. Michael Keaton's Batman from Burton's films returns as a version from an alternate timeline. || Film DCEU ke-13. Batman Michael Keaton dari film Burton kembali sebagai versi dari garis waktu alternatif.
 Superman (2025) | dcu | 2025-07 | Chapter One begins
 Supergirl (2026) | dcu | 2026-06
 Lanterns (2026) | dcu | 2026-08 | After Superman | Guy Gardner carries over from Superman (2025), which is how this one is tied to the rest. || Guy Gardner dibawa dari Superman (2025), itu yang menyambungkan serial ini dengan sisanya.
+
+# ============ IT ============
+# Ditambahkan 2026-11-03. "A Story of Derry" BUKAN film layar lebar: episode spesial 30 menit serial HBO
+# It: Welcome to Derry (TMDB mencatatnya sebagai movie). Wikipedia: serial itu "a prequel to the films It
+# (2017) and It Chapter Two (2019)"; spesialnya dirilis 31 Okt 2026. Serialnya tidak ada di library, jadi
+# tampil sebagai "Not on Surflix" dengan tautan ke Request Hub. Tahun-cerita sengaja tidak diisi.
+@saga it | It | The Derry special is a 30-minute episode of an HBO series, not a feature film. The two films tell one story, 27 years apart. || Spesial Derry adalah episode serial HBO berdurasi 30 menit, bukan film layar lebar. Kedua filmnya satu cerita yang dipisah 27 tahun.
+@lane story | The It stories || Kisah It
+
+A Story of Derry (2026) | story | 2026-10 | Centuries before | A 30-minute special episode of It: Welcome to Derry, released on Halloween 2026. || Episode spesial 30 menit dari It: Welcome to Derry, dirilis pada Halloween 2026.
+It: Welcome to Derry (2025) | story | 2025-10 | | The HBO series that prequels both films. || Serial HBO yang menjadi prekuel kedua filmnya.
+It (2017) | story | 2017-09
+It Chapter Two (2019) | story | 2019-09 | 27 years later
 
 # ============ NEON GENESIS EVANGELION ============
 # Tiga film 1997-98 masuk library 2026-10-22 dan isinya tumpang tindih, jadi urutannya penting:
@@ -498,6 +518,8 @@ El Camino: A Breaking Bad Movie (2019) | main | 2019-10 | Minutes after the fina
 @alias Kraven the Hunter (2024) | Sony's Spider-Man Universe
 @alias Pearl (2022) | Ti West's X
 @alias Man of Steel (2013) | DC Universe
+@alias PATHER PANCHALI (1955) | The Apu Trilogy
+@alias Suicide Club (2001) | Suicide Club
 @alias Digimon: Digital Monsters (1999) | Digimon
 @alias Helvetica (2007) | Gary Hustwit's design trilogy
 @alias Reservoir Dogs (1992) | Tarantino's shared universe

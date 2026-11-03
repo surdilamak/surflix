@@ -186,3 +186,15 @@ GANTZ:O (2016) > Gantz: Perfect Answer (2011) | universe | h | @adaptation
 Kraven the Hunter (2024) > Venom: The Last Dance (2024) | universe | h | Both belong to Sony's Spider-Man Universe. || Keduanya bagian dari Sony's Spider-Man Universe.
 Venom: The Last Dance (2024) > Spider-Man: No Way Home (2021) | universe | m | Venom crosses into the same multiverse that No Way Home opened up. || Venom melintas ke multiverse yang sama yang dibuka No Way Home.
 Peacemaker (2022) > Zack Snyder's Justice League (2021) | universe | m | Peacemaker is set in the same DC universe, and Justice League heroes cameo in it. || Peacemaker berlatar di semesta DC yang sama, dan pahlawan Justice League muncul sebagai cameo.
+
+# ---------- Judul baru 2026-11-03 ----------
+# Burton produsen + pencerita Nightmare (sutradara: Henry Selick), ko-sutradara Corpse Bride; Elfman menggarap musik ketiganya.
+The Nightmare Before Christmas (1993) > Batman Returns (1992) | talent | h | Tim Burton directed Batman Returns and conceived and produced Nightmare, which Henry Selick directed. Danny Elfman scored both. || Tim Burton menyutradarai Batman Returns serta menggagas dan memproduseri Nightmare, yang disutradarai Henry Selick. Danny Elfman menggarap musik keduanya.
+Corpse Bride (2005) > The Nightmare Before Christmas (1993) | talent | h | Burton produced Nightmare from his own story, then co-directed Corpse Bride. Danny Elfman composed both scores. || Burton memproduseri Nightmare dari ceritanya sendiri, lalu ikut menyutradarai Corpse Bride. Danny Elfman menggarap musik keduanya.
+# Michael Keaton (kredit dari en.wikipedia Michael_Keaton).
+Spider-Man: Homecoming (2017) > Batman (1989) | talent | h | Michael Keaton stars in both: Batman in Batman, the Vulture in Homecoming. || Michael Keaton membintangi keduanya: Batman di Batman, Vulture di Homecoming.
+Toy Story 3 (2010) > Batman (1989) | talent | h | Michael Keaton plays Batman here and voices Ken in Toy Story 3. || Michael Keaton memerankan Batman di sini dan mengisi suara Ken di Toy Story 3.
+Jackie Brown (1997) > Batman Returns (1992) | talent | h | Michael Keaton stars in both: Batman in Batman Returns, Agent Ray Nicolette in Jackie Brown. || Michael Keaton membintangi keduanya: Batman di Batman Returns, Agen Ray Nicolette di Jackie Brown.
+# Jackman: cameo tanpa kredit sebagai Logan (wujud Weapon X) di Apocalypse (en.wikipedia X-Men:_Apocalypse).
+# SENGAJA bukan `universe`: letak Logan terhadap garis waktu Fox diperselisihkan pembuatnya sendiri.
+Logan (2017) > X-Men: Apocalypse (2016) | talent | h | Hugh Jackman plays Wolverine in both: an uncredited cameo in Apocalypse, in his Weapon X form, and the lead in Logan. || Hugh Jackman memerankan Wolverine di keduanya: cameo tanpa kredit di Apocalypse, dalam wujud Weapon X, dan peran utama di Logan.
