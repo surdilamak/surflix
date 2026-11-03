@@ -113,6 +113,15 @@
   the code folds episodes back to the series via `SeriesId`).
 - Not done yet: marks on the single-film map and Galaxy.
 
+## ✅ Done 2026-11-03 (UX feedback from Evan, first part)
+- Galaxy: the sky waits 2.5 s after the last interaction (pointer leaves, touch ends, selection cleared, fly-to ends) before it turns
+  again, and eases in over 1.2 s instead of jumping to full speed. Measured in headless Chrome: frozen while hovered, still for
+  ~2.5 s after leaving, then moving.
+- Stage frame: the film map and Watch order stage are now a box (lighter fill, hairline border, rounded, inset from the screen edge)
+  so the boundary with the dark header is visible. The Galaxy stays full-bleed on purpose (Evan agreed).
+- Not done, needs a design decision: Galaxy density when zoomed; Overview / Universe / Connection tabs on the film page; renaming
+  "Watch order".
+
 ## 🟡 Follow-ups from the stories pilot
 
 - [x] ~~**Audit the `h` homage, inspired, visual and remake rows**~~ — done 2026-11-03, see the section below.

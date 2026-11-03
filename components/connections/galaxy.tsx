@@ -72,6 +72,10 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
   const dirty = useRef(true);
   const tween = useRef<{ t0: number; from: typeof cam.current; to: typeof cam.current } | null>(null);
   const pointerIn = useRef(false);
+  // the sky only starts turning again this long after the last interaction (ms timestamp), then eases in
+  const turnAfter = useRef(0);
+  const RESUME_DELAY_MS = 2500;
+  const RESUME_EASE_MS = 1200;
   const offRef = useRef(off);
   /** 1 = this dot has no line passing the filter, so it is dimmed */
   const dimRef = useRef<Uint8Array>(new Uint8Array(0));
@@ -149,6 +153,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
   const select = useCallback((i: number | null) => {
     selRef.current = i;
     setSelected(i);
+    turnAfter.current = performance.now() + RESUME_DELAY_MS;
     requestDraw();
   }, []);
 
@@ -385,9 +390,12 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
       const now = performance.now();
       const dt = Math.min((now - lastT) / 1000, 0.1);
       lastT = now;
-      // the sky rotates slowly; stops when something is selected, the cursor is over it, or it is flying
-      if (!reducedMotion && selRef.current === null && !pointerIn.current && !tween.current) {
-        cam.current.rot += dt * 0.028;
+      // the sky rotates slowly; stops when something is selected, the cursor is over it, or it is flying.
+      // After any interaction it waits RESUME_DELAY_MS, then speeds up over RESUME_EASE_MS (no sudden jerk).
+      if (selRef.current !== null || pointerIn.current || tween.current) turnAfter.current = Math.max(turnAfter.current, now + RESUME_DELAY_MS);
+      if (!reducedMotion && selRef.current === null && !pointerIn.current && !tween.current && now >= turnAfter.current) {
+        const ease = Math.min(1, (now - turnAfter.current) / RESUME_EASE_MS);
+        cam.current.rot += dt * 0.028 * ease;
         dirty.current = true;
       }
       if (tween.current) {

@@ -261,7 +261,11 @@
    the stage uses the full width and the panel floats on the right. So that no content
    gets buried under the panel, the centering in JS uses the "usable area" = stage width - panel
    footprint (see insetOf() in saga-stage.tsx and connection-graph.tsx). */
-.ref-stage { position: relative; background: var(--field-1); }
+/* A framed box (lighter fill, hairline border, rounded) so the stage reads as its own object against the dark header. */
+.ref-stage {
+  position: relative; background: #0a0e15; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 16px; overflow: hidden;
+}
+.ref-saga-stage { margin-inline: var(--margin); }
 .ref-stage-view { position: relative; height: clamp(560px, 80svh, 860px); overflow: hidden; }
 .ref-stage-canvas { position: absolute; inset: 0; }
 .ref-stage-canvas canvas { display: block; width: 100%; height: 100%; }
