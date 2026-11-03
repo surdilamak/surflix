@@ -14,6 +14,7 @@ import { REL_COLOR, REL_VAR } from '@/lib/portal-data';
 import { useLang } from './lang-provider';
 import { SearchBox } from './search-box';
 import { LensSwitch } from './lens-switch';
+import { useViewer } from './viewer-provider';
 
 // [tmdbId, mediaType, title, year, jellyfinId, degree, cluster, x, y]
 type N = [number, string, string, number | null, string | null, number, number, number, number];
@@ -42,6 +43,7 @@ const EMPTY: GalaxyData = { rels: [], nodes: [], edges: [] };
 export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; onPreview?: (on: boolean) => void }) {
   const data = input ?? EMPTY;
   const { t, rel } = useLang();
+  const viewer = useViewer();
   const config = useAppConfig();
   const { portalPath } = usePortal();
 
@@ -79,6 +81,10 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
   const offRef = useRef(off);
   /** 1 = this dot has no line passing the filter, so it is dimmed */
   const dimRef = useRef<Uint8Array>(new Uint8Array(0));
+  // titles the signed-in viewer has watched (1/0 per node) and whether to dim them
+  const watchedRef = useRef<Uint8Array>(new Uint8Array(0));
+  const dimSeenRef = useRef(false);
+  const [dimSeen, setDimSeen] = useState(false);
   const groupsRef = useRef<Array<{ x: number; y: number; label: string }>>([]);
 
   const { nodes, edges, rels } = data;
@@ -121,6 +127,17 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
     groupsRef.current = groups.filter((g) => g.n >= 6).slice(0, 12).map(({ x, y, label }) => ({ x, y, label }));
     requestDraw();
   }, [groups]);
+
+  // watched titles get a ring (and can be dimmed to see what is left)
+  useEffect(() => {
+    const w = new Uint8Array(nodes.length);
+    nodes.forEach((n, i) => {
+      if (viewer.isWatched(n[1], n[0])) w[i] = 1;
+    });
+    watchedRef.current = w;
+    dimSeenRef.current = dimSeen && viewer.status === 'in';
+    requestDraw();
+  }, [nodes, viewer, dimSeen]);
 
   // filter: dots whose lines are all turned off are dimmed too
   useEffect(() => {
@@ -332,12 +349,22 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
       for (let i = 0; i < nodes.length; i++) {
         const [x, y] = toScreen(nodes[i][7], nodes[i][8]);
         if (x < -20 || x > w + 20 || y < -20 || y > h + 20) continue;
-        const dim = (focus !== null && !near.has(i)) || dimRef.current[i] === 1;
+        const seen = watchedRef.current[i] === 1;
+        const dim = (focus !== null && !near.has(i)) || dimRef.current[i] === 1 || (seen && dimSeenRef.current);
         ctx.globalAlpha = dim ? 0.16 : 1;
         ctx.fillStyle = PALETTE[nodes[i][6] % PALETTE.length];
         ctx.beginPath();
-        ctx.arc(x, y, screenR(nodes[i][5]), 0, Math.PI * 2);
+        const r = screenR(nodes[i][5]);
+        ctx.arc(x, y, r, 0, Math.PI * 2);
         ctx.fill();
+        if (seen) {
+          // watched: an orange ring around the dot
+          ctx.strokeStyle = '#ff5200';
+          ctx.lineWidth = 1.6;
+          ctx.beginPath();
+          ctx.arc(x, y, r + 2.6, 0, Math.PI * 2);
+          ctx.stroke();
+        }
       }
       ctx.globalAlpha = 1;
 
@@ -605,6 +632,12 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
               : t('galaxy.preview', { n: data.pendingCount ?? 0 })}
           </label>
         )}
+        {viewer.status === 'in' && (
+          <label className="ref-galaxy-preview">
+            <input type="checkbox" checked={dimSeen} onChange={(e) => setDimSeen(e.target.checked)} />
+            {t('galaxy.dimSeen')}
+          </label>
+        )}
         <p>{touch ? t('galaxy.hintTouch') : t('galaxy.hint')} {t('galaxy.size')}</p>
         <p className="ref-galaxy-acts">
           <button type="button" onClick={reset}>{t('galaxy.reset')}</button>
@@ -658,6 +691,11 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
                 {node[3] ? `${node[3]} · ` : ''}
                 {t(node[5] === 1 ? 'galaxy.connection' : 'galaxy.connections', { n: node[5] })}
               </p>
+              {viewer.isWatched(node[1], node[0]) && (
+                <p className="ref-seen-tag">
+                  <span aria-hidden="true">✓</span> {t('viewer.watched')}
+                </p>
+              )}
             </div>
           </div>
 

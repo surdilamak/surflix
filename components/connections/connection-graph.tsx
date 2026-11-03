@@ -16,6 +16,7 @@ import { REL_COLOR, REL_VAR } from '@/lib/portal-data';
 import { REL_ORDER } from '@/lib/i18n';
 import { useLang } from './lang-provider';
 import { WatchLaterButton } from './watch-later-button';
+import { useViewer } from './viewer-provider';
 
 export interface GraphNode {
   id: string;
@@ -117,6 +118,32 @@ function drawCover(c: HTMLCanvasElement, node: GraphNode, poster?: HTMLImageElem
   g.fillRect(0, 0, w, h * 0.3);
 }
 
+/** Orange check badge in the top-right corner of a cover: "you have watched this". */
+function drawWatchedBadge(c: HTMLCanvasElement) {
+  const g = c.getContext('2d')!;
+  const cx = c.width - 70;
+  const cy = 70;
+  g.save();
+  g.fillStyle = 'rgba(0,0,0,0.35)';
+  g.beginPath();
+  g.arc(cx, cy + 4, 50, 0, Math.PI * 2);
+  g.fill();
+  g.fillStyle = '#ff5200';
+  g.beginPath();
+  g.arc(cx, cy, 46, 0, Math.PI * 2);
+  g.fill();
+  g.strokeStyle = '#0d0d0f';
+  g.lineWidth = 11;
+  g.lineCap = 'round';
+  g.lineJoin = 'round';
+  g.beginPath();
+  g.moveTo(cx - 20, cy + 2);
+  g.lineTo(cx - 5, cy + 17);
+  g.lineTo(cx + 22, cy - 15);
+  g.stroke();
+  g.restore();
+}
+
 /** Spine: case blue, title running vertically from the top, year at the bottom. */
 function drawSpine(c: HTMLCanvasElement, node: GraphNode) {
   const w = c.width;
@@ -183,6 +210,10 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
   const [zoomPct, setZoomPct] = useState(100);
 
   const { t, rel, reason, story } = useLang();
+  const viewer = useViewer();
+  // case indexes the viewer has watched, and per-case repaint functions (the badge is painted into the cover texture)
+  const watchedIdx = useRef<Set<number>>(new Set());
+  const coverRefresh = useRef<Array<() => void>>([]);
   // first node = the opened film; the rest are already sorted from strongest reference
   const nodes = data.nodes.slice(0, MAX_NODES);
   const shownIds = new Set(nodes.map((n) => n.id));
@@ -285,6 +316,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
     const anchors: Array<{ anchor: THREE.Group; angle: number; scale: number; target: number; lift: number; liftTarget: number }> = [];
     const hitMeshes: THREE.Object3D[] = [];
 
+    coverRefresh.current = [];
     nodes.forEach((node, i) => {
       // ── case: blue shell + inset cover + spine + back
       const grp = new THREE.Group();
@@ -302,6 +334,14 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
       coverTex.colorSpace = THREE.SRGBColorSpace;
       coverTex.anisotropy = maxAniso;
       textures.push(coverTex);
+      // redraw the whole cover: poster (once loaded) + the "watched" badge when the viewer has seen it
+      let loadedPoster: HTMLImageElement | undefined;
+      const paint = () => {
+        drawCover(coverCanvas, node, loadedPoster);
+        if (watchedIdx.current.has(i)) drawWatchedBadge(coverCanvas);
+        coverTex.needsUpdate = true;
+      };
+      coverRefresh.current[i] = paint;
       const coverMat = new THREE.MeshPhysicalMaterial({ map: coverTex, roughness: 0.42, clearcoat: 0.7, clearcoatRoughness: 0.12 });
       const cover = new THREE.Mesh(new THREE.PlaneGeometry(W - INSET * 2, H - INSET * 2), coverMat);
       cover.position.z = D / 2 + 0.002;
@@ -340,8 +380,8 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
         img.crossOrigin = 'anonymous';
         img.onload = () => {
           if (disposed) return;
-          drawCover(coverCanvas, node, img);
-          coverTex.needsUpdate = true;
+          loadedPoster = img;
+          paint();
         };
         img.src = src; // load failed → keep the color + title cover
       }
@@ -582,6 +622,15 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, jellyfinUrl]);
 
+  // watched badges: repaint the covers whenever the sign-in state or the watched list changes
+  useEffect(() => {
+    watchedIdx.current = new Set(
+      nodes.map((n, i) => (viewer.isWatched(n.mediaType, n.tmdbId) ? i : -1)).filter((i) => i >= 0)
+    );
+    coverRefresh.current.forEach((paint) => paint?.());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewer, data, jellyfinUrl]);
+
   if (nodes.length === 0) return null;
 
   const node = nodes[Math.min(selected, nodes.length - 1)];
@@ -630,6 +679,11 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
           {node.title}
           {node.year ? <small>{node.year}</small> : null}
         </h3>
+        {viewer.isWatched(node.mediaType, node.tmdbId) && (
+          <p className="ref-seen-tag">
+            <span aria-hidden="true">✓</span> {t('viewer.watched')}
+          </p>
+        )}
         <p className={edge && story(edge) ? 'ref-panel-story' : undefined}>
           {edge ? story(edge) ?? reason(edge) : t('stage.default')}
         </p>

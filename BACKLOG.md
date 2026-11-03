@@ -111,7 +111,10 @@
   Tested against the mock only. **Check on the real server:** playlist creation with `UserId` in the body (`POST /Playlists`), that the
   playlist shows under the user's own Playlists in Jellyfin, and that adding a series works (a series may be expanded into episodes;
   the code folds episodes back to the series via `SeriesId`).
-- Not done yet: marks on the single-film map and Galaxy.
+- Watched marks now also appear on: the 3D film map (orange check badge painted into the case cover, repainted when the sign-in state
+  changes), the film page ("Watched" tag, dimmed poster + badge on each "Why they connect" row), the panels, and the Galaxy (orange ring
+  around watched dots, plus a checkbox "Dim the titles I have watched" that only shows when signed in). Signed out, none of it renders.
+  Tested against the mock Jellyfin only.
 
 ## ✅ Done 2026-11-03 (UX feedback from Evan, first part)
 - Galaxy: the sky waits 2.5 s after the last interaction (pointer leaves, touch ends, selection cleared, fly-to ends) before it turns

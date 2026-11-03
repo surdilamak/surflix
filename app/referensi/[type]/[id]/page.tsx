@@ -18,6 +18,7 @@ import { LensSwitch } from '@/components/connections/lens-switch';
 import type { GraphData } from '@/components/connections/connection-graph';
 import type { SagaHere } from '@/lib/connections';
 import { WatchLaterButton } from '@/components/connections/watch-later-button';
+import { useViewer } from '@/components/connections/viewer-provider';
 
 const ConnectionGraph = dynamic(
   () => import('@/components/connections/connection-graph').then((m) => m.ConnectionGraph),
@@ -41,6 +42,7 @@ export default function ReferensiFilmPage() {
   const config = useAppConfig();
   const { portalPath } = usePortal();
   const { t, rel, reason, story } = useLang();
+  const viewer = useViewer();
   const [data, setData] = useState<(GraphData & { saga?: SagaHere | null }) | null>(null);
   const [lib, setLib] = useState<LibTitle | null>(null);
   const [error, setError] = useState(false);
@@ -134,6 +136,9 @@ export default function ReferensiFilmPage() {
           {source.jellyfinId && (
             <WatchLaterButton mediaType={source.mediaType} tmdbId={source.tmdbId} className="ref-btn ref-btn--ghost" />
           )}
+          {viewer.isWatched(source.mediaType, source.tmdbId) && (
+            <span className="ref-seen-tag"><span aria-hidden="true">✓</span> {t('viewer.watched')}</span>
+          )}
         </div>
         <LensSwitch
           current="map"
@@ -186,11 +191,14 @@ export default function ReferensiFilmPage() {
           const src = posterOf(n, jellyfinUrl, 240);
           const mapLink = (n.refCount ?? 0) > 0 ? portalPath(`/${n.mediaType}/${n.tmdbId}`) || '/' : null;
           return (
-            <div key={e.to} className="ref-why-row ref-reveal" style={{ '--d': `${Math.min(i, 5) * 50}ms` } as React.CSSProperties}>
+            <div key={e.to} className="ref-why-row ref-reveal" data-watched={viewer.isWatched(n.mediaType, n.tmdbId) ? '' : undefined} style={{ '--d': `${Math.min(i, 5) * 50}ms` } as React.CSSProperties}>
               <span className="ref-frame">
                 {src && (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={src} alt={n.title} loading="lazy" draggable={false} />
+                )}
+                {viewer.isWatched(n.mediaType, n.tmdbId) && (
+                  <span className="ref-saga-seen" role="img" aria-label={t('viewer.watched')} title={t('viewer.watched')}>✓</span>
                 )}
               </span>
               <div>

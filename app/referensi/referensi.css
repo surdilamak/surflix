@@ -745,3 +745,8 @@
 }
 .ref-saga-signin:hover { background: rgba(255, 255, 255, 0.1); }
 .ref-saga-signin:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* "Watched" marks outside Watch order: tag next to a title, dimmed poster in "Why they connect" */
+.ref-seen-tag { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 8px; font-size: var(--step-small); font-weight: 700; }
+.ref-seen-tag > span { color: var(--accent); }
+.ref-why-row[data-watched] .ref-frame img { filter: saturate(0.55) brightness(0.8); }
