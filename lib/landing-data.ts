@@ -1,7 +1,7 @@
 /**
- * Data buat landing (server component): angka library, poster, satu koneksi nyata yang
- * berganti tiap kunjungan, dan judul-judul yang dipakai di tiap bagian.
- * Murni baca DB (tanpa LLM). Daftar film di-cache 10 menit; pilihan koneksi diacak per request.
+ * Data for the landing (server component): library numbers, posters, one real connection that
+ * changes on each visit, and the titles used in each section.
+ * Pure DB read (no LLM). The film list is cached for 10 minutes; the connection pick is randomized per request.
  */
 import { prisma } from '@/lib/db';
 import { libraryIndex, listConnectedFilms, listSagas } from '@/lib/connections';
@@ -15,7 +15,7 @@ export interface LandingFilm {
   count: number;
 }
 
-/** Satu saga buat gambar kecil "urutan tonton" di landing. */
+/** One saga for the small "watch order" graphic on the landing. */
 export interface LandingSaga {
   id: string;
   name: string;
@@ -23,9 +23,9 @@ export interface LandingSaga {
 }
 
 export interface LandingPair {
-  /** film yang merujuk (yang lebih baru) */
+  /** the referencing film (the newer one) */
   from: LandingFilm;
-  /** film yang dirujuk */
+  /** the referenced film */
   to: LandingFilm;
   relationship: string;
   reason: string;
@@ -64,7 +64,7 @@ async function connected() {
       pairs.push({ from, to, relationship: r.relationship, reason: r.reasonEn, reasonId: r.reason });
     }
   }
-  // satu saga yang posternya lengkap, buat gambar kecil Watch order
+  // one saga whose posters are all available, for the small Watch order graphic
   const sagas = await listSagas(6).catch(() => []);
   const pick = sagas.find((x) => x.entries.filter((e) => e.jellyfinId).length >= 4) ?? null;
   const saga: LandingSaga | null = pick
@@ -108,9 +108,9 @@ async function libraryStats() {
 export async function getLandingData() {
   const [{ movies, series, mapped }, { films, pairs, saga }] = await Promise.all([libraryStats(), connected()]);
 
-  // 2001 membuka mosaik Streaming (subjek tunggal di tengah, terbaca sebagai potongan ubin).
+  // 2001 opens the Streaming mosaic (a single subject in the center, reads as tile pieces).
   const showcase = (await libraryFilm(62)) ?? films[0] ?? null;
-  // Film demo buat alur Request (Dune: Part Two), cadangan: film pertama.
+  // Demo film for the Request flow (Dune: Part Two), fallback: the first film.
   const demo = (await libraryFilm(693134)) ?? films[1] ?? films[0] ?? null;
   const spotlight = pairs.length ? pairs[Math.floor(Math.random() * pairs.length)] : null;
 

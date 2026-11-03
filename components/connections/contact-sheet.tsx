@@ -1,7 +1,7 @@
 /**
- * ContactSheet — satu baris per film: judulnya, lalu film itu sendiri dan film-film yang
- * nyambung ke dia, kecil-kecil dan berurutan seperti rak.
- * Arahkan ke satu frame: yang lain meredup dan alasannya tampil di baris tetap di atas.
+ * ContactSheet — one row per film: its title, then the film itself and the films that
+ * connect to it, small and in sequence like a shelf.
+ * Point at one frame: the others dim and the reason shows in the fixed row above.
  */
 'use client';
 
@@ -13,7 +13,7 @@ import { useLang } from './lang-provider';
 
 interface Active {
   run: string;
-  ref: string | null; // key referensi, atau null kalau yang di-hover film sumbernya
+  ref: string | null; // reference key, or null when the hovered one is the source film
 }
 
 const SHOWN_PER_RUN = 9;
@@ -26,7 +26,7 @@ export function ContactSheet({
   serverId,
 }: {
   films: PortalFilm[];
-  /** semua film yang punya peta (buat nentuin frame mana yang link ke peta, mana ke Jellyfin) */
+  /** all films that have a map (to decide which frames link to the map, which to Jellyfin) */
   allKeys: Set<string>;
   jellyfinUrl?: string;
   serverId?: string;

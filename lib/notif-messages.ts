@@ -1,7 +1,7 @@
 /**
- * Notification message templates untuk status change, dua bahasa.
- * Dipake di hooks/use-request-polling.ts (in-page) + web push (server, lib/push.ts).
- * Payload membawa teks dua bahasa di `i18n`; pengirim memilih lewat pickNotifLang().
+ * Notification message templates for status changes, in two languages.
+ * Used in hooks/use-request-polling.ts (in-page) + web push (server, lib/push.ts).
+ * The payload carries text in two languages in `i18n`; the sender chooses via pickNotifLang().
  */
 
 export type NotifLang = 'en' | 'id';
@@ -11,7 +11,7 @@ export interface NotifPayload {
   body: string;
   url?: string;
   tag?: string;
-  /** teks per bahasa; title/body di atas = Indonesia (perilaku lama) */
+  /** text per language; title/body above = Indonesian (old behavior) */
   i18n?: Record<NotifLang, { title: string; body: string }>;
 }
 
@@ -58,7 +58,7 @@ export function buildStatusChangeNotif(opts: {
   return { title: id.title, body: id.body, url: '/requests', tag: `status-${status}`, i18n: { en, id } };
 }
 
-/** Ambil teks sesuai bahasa; tanpa i18n jatuh ke title/body bawaan. */
+/** Pick the text for the language; without i18n it falls back to the default title/body. */
 export function pickNotifLang(p: NotifPayload, lang: NotifLang): NotifPayload {
   const t = p.i18n?.[lang];
   const { i18n: _drop, ...rest } = p;

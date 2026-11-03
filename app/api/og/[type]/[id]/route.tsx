@@ -1,6 +1,6 @@
 /**
- * GET /api/og/[type]/[id]  → kartu preview 1200x630 satu film (dipakai og:image dan twitter:image).
- * Film yang tidak dikenal jatuh ke kartu umum Reference.
+ * GET /api/og/[type]/[id]  → preview card 1200x630 for one film (used as og:image and twitter:image).
+ * Unknown films fall back to the generic Reference card.
  */
 import { NextRequest } from 'next/server';
 import { getFilmOgData } from '@/lib/connections';

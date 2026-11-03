@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 /**
- * Ekspor FilmConnection dari database aktif ke scripts/connections-live.json.
+ * Export FilmConnection from the active database to scripts/connections-live.json.
  *
- * Ini "foto" keputusan review admin (status APPROVED/REJECTED, koneksi buatan admin,
- * hasil edit). Dipakai sebagai sumber deploy: import-connections.js bisa baca file ini
- * persis seperti connections-seed.json. REJECTED ikut diekspor supaya gak "hidup lagi".
+ * This is a "snapshot" of the admin's review decisions (APPROVED/REJECTED status, admin-created connections,
+ * edits). Used as the deploy source: import-connections.js can read this file
+ * exactly like connections-seed.json. REJECTED rows are exported too so they do not "come back to life".
  *
  *   DATABASE_URL=file:./prisma/dev.db node scripts/export-connections.js
  */

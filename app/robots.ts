@@ -1,6 +1,6 @@
 /**
- * robots.txt sadar-host. Admin, login, dan API tidak pernah diindeks; halaman pribadi tamu
- * (My Requests, verifikasi) juga tidak. Tiap host menunjuk sitemap-nya sendiri.
+ * Host-aware robots.txt. Admin, login, and API are never indexed; guests' private pages
+ * (My Requests, verification) are not either. Each host points to its own sitemap.
  */
 import type { MetadataRoute } from 'next';
 import { headers } from 'next/headers';

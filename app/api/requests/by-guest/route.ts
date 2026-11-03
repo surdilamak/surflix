@@ -1,11 +1,11 @@
 /**
  * GET /api/requests/by-guest?id=<guestId>
  *
- * Get list request by guestId (from cookie/localStorage).
+ * Get list of requests by guestId (from cookie/localStorage).
  * No auth — guestId itself is the proof of ownership.
  *
- * Rationale: guestId di-generate server-side, returned ke client pas first request,
- * client save di localStorage. Cuma client yang punya ID itu yang bisa lookup.
+ * Rationale: guestId is generated server-side, returned to the client on the first request,
+ * client saves it in localStorage. Only a client that has that ID can look it up.
  */
 
 import { NextRequest, NextResponse } from 'next/server';

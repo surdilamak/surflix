@@ -6,7 +6,7 @@
  * - Desktop (>= md): justify-center + items-center → centered modal
  *
  * No separate components, no display switches between mobile/desktop renders
- * (yang ngebreak transition state).
+ * (which would break the transition state).
  */
 'use client';
 
@@ -26,8 +26,8 @@ interface DetailModalProps {
   open: boolean;
   onClose: () => void;
   onRequest: (item: JellyseerrMediaItem) => void;
-  // Optional — kalau di-pass, button "Request Improvement" muncul untuk film yang
-  // sudah AVAILABLE/PROCESSING (mis. minta subtitle Indo, replace file jelek).
+  // Optional — if passed, the "Request Improvement" button shows for films that are
+  // already AVAILABLE/PROCESSING (e.g. asking for Indonesian subtitles, replacing a bad file).
   onRequestImprovement?: (item: JellyseerrMediaItem) => void;
 }
 
@@ -129,7 +129,7 @@ export function DetailModal({ item, open, onClose, onRequest, onRequestImproveme
             }`}
             style={{ maxHeight: isMobile ? '90vh' : 'calc(100vh - 2rem)' }}
           >
-            {/* Drag handle (mobile only) — absolute overlay supaya image bisa fill ke top */}
+            {/* Drag handle (mobile only) — absolute overlay so the image can fill to the top */}
             {isMobile && (
               <div className="pointer-events-none absolute inset-x-0 top-2 z-20 flex justify-center">
                 <div className="h-1 w-9 rounded-rq bg-white/60" />
@@ -177,8 +177,8 @@ function ModalContent({
   const { t } = useLang();
   const jellyfinUrl = config?.jellyfinUrl || '#';
 
-  // Deep-link ke film itu di Jellyfin (bukan cuma home). jellyfinId diambil dari snapshot library;
-  // film yang belum ada di snapshot jatuh ke link home Jellyfin.
+  // Deep-link to that film in Jellyfin (not just home). jellyfinId comes from the library snapshot;
+  // a film not yet in the snapshot falls back to the Jellyfin home link.
   const [jellyfinId, setJellyfinId] = useState<string | null>(null);
   useEffect(() => {
     setJellyfinId(null);
@@ -261,8 +261,8 @@ function ModalContent({
             </button>
           )}
 
-          {/* Secondary CTA: Request Improvement — untuk film yang udah AVAILABLE/PROCESSING.
-              Use case: minta subtitle, complaint kualitas, episode hilang, dll. */}
+          {/* Secondary CTA: Request Improvement — for films that are already AVAILABLE/PROCESSING.
+              Use case: asking for subtitles, quality complaints, missing episodes, etc. */}
           {(isAvailable || isProcessing) && onRequestImprovement && (
             <button
               onClick={() => onRequestImprovement(item)}
@@ -276,7 +276,7 @@ function ModalContent({
           )}
         </div>
 
-        {/* Link ke portal Referensi — muncul kalau film ini punya peta referensi */}
+        {/* Link to the Reference portal — shown if this film has a reference map */}
         {(item.mediaType === 'movie' || item.mediaType === 'tv') && (
           <ReferenceSection
             key={`${item.mediaType}-${item.id}`}

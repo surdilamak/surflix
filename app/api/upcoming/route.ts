@@ -2,13 +2,13 @@
  * GET /api/upcoming
  *
  * TMDB upcoming movies via Jellyseerr.
- * Cached 30 menit.
+ * Cached for 30 minutes.
  */
 
 import { NextResponse } from 'next/server';
 import { jellyseerr } from '@/lib/jellyseerr';
 
-// Wajib dinamis: tanpa ini Next membekukan hasilnya saat build (tanpa Jellyseerr/DB)
+// Must be dynamic: without this Next freezes the result at build time (no Jellyseerr/DB)
 export const dynamic = 'force-dynamic';
 
 let cache: { data: any; expiresAt: number } | null = null;

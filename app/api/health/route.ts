@@ -1,8 +1,8 @@
 /**
  * GET /api/health
  *
- * Healthcheck endpoint untuk Docker.
- * Cek koneksi ke DB dan Jellyseerr.
+ * Healthcheck endpoint for Docker.
+ * Checks the connection to the DB and Jellyseerr.
  */
 
 import { NextResponse } from 'next/server';
@@ -26,7 +26,7 @@ export async function GET() {
     checks.jellyseerr = await jellyseerr.ping();
   } catch {}
 
-  const healthy = checks.db; // DB wajib, Jellyseerr nice-to-have
+  const healthy = checks.db; // DB is required, Jellyseerr is nice-to-have
 
   return NextResponse.json(
     {

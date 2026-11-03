@@ -1,6 +1,6 @@
 /**
- * Efek client buat landing: masuk saat scroll (stagger), shutter foto, hitung naik angka,
- * dan dialog QR kopi. Semua murni transform/opacity/clip-path; reduced-motion: konten langsung tampil.
+ * Client effects for the landing: scroll-in entrance (stagger), photo shutter, number count-up,
+ * and the coffee QR dialog. All purely transform/opacity/clip-path; reduced-motion: content shows immediately.
  */
 'use client';
 
@@ -10,7 +10,7 @@ import { writeLangPref } from '@/lib/lang-pref';
 
 export function LandingFx() {
   useEffect(() => {
-    // Gerak masuk cuma aktif setelah hydration (tanpa script semua konten tetap terlihat).
+    // The entrance motion is only active after hydration (without script all content stays visible).
     document.querySelector('.lp-root')?.classList.add('lp-js');
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const els = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal], [data-shutter]'));
@@ -85,7 +85,7 @@ export function CoffeeButton({ className, children, labels }: { className?: stri
             <button ref={closeRef} type="button" className="lp-modal-close" onClick={() => setOpen(false)} aria-label={labels.close}>
               ×
             </button>
-            {/* QR sudah membawa branding QRIS sendiri; tampil apa adanya. */}
+            {/* The QR already carries its own QRIS branding; shown as is. */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/qr-coffee.png" alt={labels.alt} width={268} height={268} />
             <p>{labels.thanks}</p>
@@ -96,12 +96,12 @@ export function CoffeeButton({ className, children, labels }: { className?: stri
   );
 }
 
-/** Pilihan bahasa landing: tulis cookie bersama, lalu muat ulang HTML server dalam bahasa baru. */
+/** Landing language picker: write the shared cookie, then reload the server HTML in the new language. */
 export function LangToggle({ lang, label }: { lang: 'en' | 'id'; label: string }) {
   const router = useRouter();
   const pick = (l: 'en' | 'id') => {
     writeLangPref(l);
-    // ?lang= di URL akan menimpa cookie; buang supaya pilihan baru berlaku
+    // ?lang= in the URL overrides the cookie; drop it so the new choice takes effect
     const url = new URL(window.location.href);
     if (url.searchParams.has('lang')) {
       url.searchParams.delete('lang');

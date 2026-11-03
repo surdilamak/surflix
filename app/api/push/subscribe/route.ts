@@ -1,8 +1,8 @@
 /**
  * POST /api/push/subscribe
  *
- * Save Web Push subscription untuk guestId (follow alias chain ke canonical).
- * Idempotent — kalau endpoint udah ada, update guestId + lastUsed.
+ * Save Web Push subscription for guestId (follow alias chain to canonical).
+ * Idempotent — if the endpoint already exists, update guestId + lastUsed.
  */
 
 import { NextRequest, NextResponse } from 'next/server';

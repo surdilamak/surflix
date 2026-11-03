@@ -23,7 +23,7 @@ interface RequestFormModalProps {
 
 const GUEST_INFO_KEY = 'surflix_guest_info';
 
-// Quick note suggestions (kunci kamus hub.form.s1..s4; teks catatan ikut bahasa terpilih)
+// Quick note suggestions (dictionary keys hub.form.s1..s4; note text follows the selected language)
 const NOTE_KEYS = ['s1', 's2', 's3', 's4'] as const;
 
 export function RequestFormModal({ item, open, onClose, onSuccess }: RequestFormModalProps) {

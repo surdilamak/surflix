@@ -87,6 +87,12 @@
 - **Admin page:** the connections admin (`/admin/connections`) now shows the specific label and has a "Label" select in both the edit form and the add form (it appears only for relationship types that have kinds; changing the type clears a kind that no longer fits). `update` and `create` validate the kind against the type. The API was exercised end to end against a local database (create, invalid kind rejected with 400, type change clears the old kind, clear back to the default, delete); the form itself was only type-checked and read, not looked at in a browser.
 - **Not done:** `landing` still uses its own coarse `lp.rel.*` labels for the spotlight.
 
+## ✅ Done 2026-11-03 (code comments translated to English)
+
+- [x] **All code comments are English now**, completing the language policy (docs, commits, PRs and comments in English; product copy stays as written). Roughly 480 Indonesian-looking comment lines in 161 files (app, components, lib, api, middleware, scripts, prisma schema, Dockerfile/compose/workflows, shell scripts, the `#` notes in `scripts/curated/*`) were translated by five agents split by directory. Two lines remain on purpose: a quoted example of a user note in `components/ui/request-form-modal.tsx` and a quoted error message in `scripts/export-library.js`.
+- **How it was proven safe:** `scripts/verify-comments-only.mjs` compares every modified file with HEAD after stripping comments (TypeScript printer for ts/tsx/js, comment stripping for css/prisma/sh/yml and the curated data files). All 161 files are comment-only, insertions equal deletions (1219 / 1219), `tsc` is clean, every script passes `node --check`, and re-running the builders produced `connections-seed.json`, `connections-live.json` and `lib/sagas.json` byte for byte identical. Reuse the script for any future bulk comment edit.
+- **Found while checking the admin UI in a real browser (headless Chrome, local database, temporary admin that was deleted afterwards):** the "Label" select in the edit form appears under the relationship select, shows the row's current kind (Brings back for The Flash > Batman) and offers the kinds of the chosen type. This closes the "form not looked at in a browser" note above.
+
 ## 🟡 Follow-ups from the stories pilot
 
 - [x] ~~**Audit the `h` homage, inspired, visual and remake rows**~~ — done 2026-11-03, see the section below.

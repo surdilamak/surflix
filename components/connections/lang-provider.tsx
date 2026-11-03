@@ -1,5 +1,5 @@
 /**
- * LangProvider — bahasa Reference dan Request Hub (EN default, ID pilihan). Pilihan dibagi lewat lib/lang-pref.ts.
+ * LangProvider — language of Reference and Request Hub (EN default, ID optional). The choice is shared via lib/lang-pref.ts.
  */
 'use client';
 
@@ -12,7 +12,7 @@ interface LangCtx {
   setLang: (l: Lang) => void;
   t: (key: string, vars?: Record<string, string | number>) => string;
   rel: (relationship: string, direction?: 'out' | 'in', kind?: string | null) => string;
-  /** Pilih teks alasan sesuai bahasa; Inggris jatuh ke teks Indonesia kalau belum ada. */
+  /** Pick the reason text for the language; English falls back to the Indonesian text if missing. */
   reason: (c: { reason: string; reasonEn?: string | null }) => string;
   /** The one-paragraph explanation in the current language, or null if none is written yet. */
   story: (c: { storyEn?: string | null; story?: string | null }) => string | null;
@@ -24,7 +24,7 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLangState] = useState<Lang>('en');
 
   useEffect(() => {
-    // ?lang=id bisa dibagikan; kalau gak ada, pakai cookie bersama (default English)
+    // ?lang=id is shareable; if absent, use the shared cookie (default English)
     const pick = readLangPref();
     if (pick) setLangState(pick);
   }, []);

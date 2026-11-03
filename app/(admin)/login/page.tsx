@@ -1,7 +1,7 @@
 /**
  * Admin Login (/login)
  *
- * Route group (admin), terpisah dari layout guest. Setelah login sukses langsung ke /admin.
+ * Route group (admin), separate from the guest layout. After a successful login it goes straight to /admin.
  */
 'use client';
 

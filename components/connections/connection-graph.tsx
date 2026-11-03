@@ -1,9 +1,9 @@
 /**
- * ConnectionGraph — peta referensi satu film: case disc 3D di atas bidang gelap.
+ * ConnectionGraph — reference map for one film: 3D disc cases on a dark plane.
  *
- * Film yang dibuka ada di tengah; film-film yang nyambung melayang di cincin miring di
- * sekelilingnya, dihubungkan tali berwarna sesuai jenis hubungan. Ketuk satu case:
- * cincin berputar membawanya ke depan, ia membesar, dan panel menjelaskan kenapa nyambung.
+ * The opened film sits in the center; the connected films float on a tilted ring around
+ * it, linked by cords colored by relation type. Tap a case:
+ * the ring rotates to bring it to the front, it grows, and a panel explains why it connects.
  */
 'use client';
 
@@ -25,7 +25,7 @@ export interface GraphNode {
   poster?: string | null;
   jellyfinId?: string | null;
   isSource: boolean;
-  /** jumlah koneksi film ini (0 = belum ada peta) */
+  /** number of connections for this film (0 = no map yet) */
   refCount?: number;
 }
 
@@ -47,14 +47,14 @@ export interface GraphData {
   edges: GraphEdge[];
 }
 
-// Graph 3D cuma muat belasan case; sisanya ada di daftar di bawahnya.
+// The 3D graph only fits a dozen or so cases; the rest are in the list below it.
 const MAX_NODES = 14;
 
-// Ukuran case (satuan scene): rasio mirip case disc sungguhan
+// Case size (scene units): ratio similar to a real disc case
 const W = 1.5;
 const H = 2.1;
 const D = 0.22;
-const INSET = 0.07; // bingkai plastik yang kelihatan di sekeliling sampul
+const INSET = 0.07; // plastic frame visible around the cover
 
 function accentFor(title: string) {
   let h = 0;
@@ -84,7 +84,7 @@ function wrapText(g: CanvasRenderingContext2D, text: string, x: number, y: numbe
   g.fillText(line, x, y);
 }
 
-/** Sampul: poster (cover-fit) memenuhi muka case. Tanpa poster: warna + judul. */
+/** Cover: poster (cover-fit) fills the case face. Without a poster: color + title. */
 function drawCover(c: HTMLCanvasElement, node: GraphNode, poster?: HTMLImageElement) {
   const w = c.width;
   const h = c.height;
@@ -111,12 +111,12 @@ function drawCover(c: HTMLCanvasElement, node: GraphNode, poster?: HTMLImageElem
     }
   }
 
-  // kilau halus di bagian atas sampul (cetakan glossy)
+  // subtle gloss on the upper part of the cover (glossy print)
   g.fillStyle = 'rgba(255,255,255,0.05)';
   g.fillRect(0, 0, w, h * 0.3);
 }
 
-/** Punggung: biru case, judul tegak lurus dari atas, tahun di bawah. */
+/** Spine: case blue, title running vertically from the top, year at the bottom. */
 function drawSpine(c: HTMLCanvasElement, node: GraphNode) {
   const w = c.width;
   const h = c.height;
@@ -168,7 +168,7 @@ interface ConnectionGraphProps {
   data: GraphData;
   jellyfinUrl?: string;
   serverId?: string;
-  /** path di dalam portal, mis. portalPath('/movie/62') */
+  /** path inside the portal, e.g. portalPath('/movie/62') */
   portalPath?: (p?: string) => string;
 }
 
@@ -179,7 +179,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
   const selectRef = useRef<(i: number) => void>(() => {});
 
   const { t, rel, reason, story } = useLang();
-  // node pertama = film yang dibuka; sisanya sudah diurutkan dari referensi paling kuat
+  // first node = the opened film; the rest are already sorted from strongest reference
   const nodes = data.nodes.slice(0, MAX_NODES);
   const shownIds = new Set(nodes.map((n) => n.id));
   const edges = data.edges.filter((e) => shownIds.has(e.to));
@@ -197,18 +197,18 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setSize(width, height, false); // ukuran diatur CSS (100%), bukan inline px
+    renderer.setSize(width, height, false); // size is set by CSS (100%), not inline px
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.05;
     mount.appendChild(renderer.domElement);
     const el = renderer.domElement;
     el.style.display = 'block';
-    el.style.touchAction = 'pan-y'; // geser horizontal muter, geser vertikal tetap scroll halaman
+    el.style.touchAction = 'pan-y'; // horizontal swipe rotates, vertical swipe still scrolls the page
 
     const scene = new THREE.Scene();
 
-    // Pantulan studio: bikin plastik & sampul glossy kelihatan nyata
+    // Studio reflections: make the plastic & glossy cover look real
     const pmrem = new THREE.PMREMGenerator(renderer);
     const envTex = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
     scene.environment = envTex;
@@ -222,17 +222,17 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
     const tanHalf = Math.tan((38 / 2) * (Math.PI / 180));
     const nTargets = Math.max(nodes.length - 1, 1);
     /**
-     * Panel keterangan melayang di atas sisi kanan panggung. Cincin ini terpusat, jadi kalau
-     * dibiarkan ia akan tertimbun panel. Jejak panel dihitung di sini lalu dipakai dua kali:
-     * untuk memilih jarak kamera, dan untuk menggeser kamera supaya cincin terpusat di area
-     * yang benar-benar terlihat. Nol di telepon, karena di sana panelnya statis di bawah.
+     * The caption panel floats over the right side of the stage. The ring is centered, so if
+     * left alone it would be buried under the panel. The panel footprint is computed here and used twice:
+     * to choose the camera distance, and to shift the camera so the ring is centered in the area
+     * that is actually visible. Zero on phones, because there the panel is static below.
      */
     const panelInset = () => {
       const el = panelRef.current;
       if (!el || getComputedStyle(el).position !== 'absolute') return 0;
       return el.offsetWidth + 40;
     };
-    // tata letak mengikuti bentuk panggung: lebar → cincin melebar; tinggi (HP) → cincin menegak
+    // layout follows the stage shape: wide → ring widens; tall (phone) → ring goes upright
     const aspect0 = Math.max(0.5, (width - panelInset()) / height);
     const wide = aspect0 >= 1.2;
     const rx = wide ? Math.min(3.6 + Math.min(nTargets, 8) * 0.12, aspect0 * 2.3) : 2.1;
@@ -242,11 +242,11 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
       const inset = panelInset();
       const camAspect = width / height;
       const usable = Math.max(0.5, (width - inset) / height);
-      // cukup jauh supaya cincin + case (±1.1) muat di LEBAR TERPAKAI & tinggi panggung
+      // far enough that the ring + cases (±1.1) fit in the USABLE WIDTH & stage height
       const zW = (rx + 1.15) / (tanHalf * usable);
       const zH = (yAmp + 1.75) / tanHalf;
       const z = Math.max(zW, zH, 7);
-      // geser kamera ke kanan setengah jejak panel, supaya cincin bergeser ke kiri di layar
+      // shift the camera right by half the panel footprint, so the ring moves left on screen
       const worldPerPx = (2 * z * tanHalf * camAspect) / width;
       const dx = (inset / 2) * worldPerPx;
       camera.position.set(dx, 1.0, z);
@@ -272,12 +272,12 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
 
     const n = nodes.length;
     const targets = n - 1;
-    // lift/liftTarget = case terangkat sedikit saat disorot, supaya jelas bisa diklik
+    // lift/liftTarget = case rises slightly when highlighted, so it's clear it can be clicked
     const anchors: Array<{ anchor: THREE.Group; angle: number; scale: number; target: number; lift: number; liftTarget: number }> = [];
     const hitMeshes: THREE.Object3D[] = [];
 
     nodes.forEach((node, i) => {
-      // ── case: shell biru + sampul inset + spine + punggung
+      // ── case: blue shell + inset cover + spine + back
       const grp = new THREE.Group();
 
       const body = new THREE.Mesh(new RoundedBoxGeometry(W, H, D, 4, 0.04), shell);
@@ -315,7 +315,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
       grp.add(spine);
       disposables.push(spine.geometry, spineMat);
 
-      // belakang memakai sampul yang sama (satu material, satu tekstur)
+      // the back uses the same cover (one material, one texture)
       const backPlane = new THREE.Mesh(new THREE.PlaneGeometry(W - INSET * 2, H - INSET * 2), coverMat);
       backPlane.rotation.y = Math.PI;
       backPlane.position.z = -D / 2 - 0.002;
@@ -324,7 +324,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
 
       hitMeshes.push(body, cover);
 
-      // poster asli (TMDB / Jellyfin) → gambar ulang sampul begitu ke-load
+      // real poster (TMDB / Jellyfin) → redraw the cover once it loads
       const src = posterSrc(node, jellyfinUrl);
       if (src) {
         const img = new Image();
@@ -334,10 +334,10 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
           drawCover(coverCanvas, node, img);
           coverTex.needsUpdate = true;
         };
-        img.src = src; // gagal load → tetap pakai sampul warna + judul
+        img.src = src; // load failed → keep the color + title cover
       }
 
-      // ── penempatan: sumber di tengah, sisanya di cincin miring
+      // ── placement: source in the center, the rest on a tilted ring
       const anchor = new THREE.Group();
       const base = node.isSource ? 1.18 : 0.96;
       let angle = 0;
@@ -348,7 +348,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
         angle = Math.PI / 2 + (k / Math.max(targets, 1)) * Math.PI * 2 + 0.35;
         anchor.position.set(Math.cos(angle) * rx, -Math.sin(angle) * yAmp + 0.15, Math.sin(angle) * rz);
 
-        // tali: busur dari sumber ke target, warna = jenis hubungan
+        // cord: arc from source to target, color = relation type
         const rel = edgeByNode.get(node.id)?.relationship ?? '';
         const mid = anchor.position.clone().multiplyScalar(0.5);
         mid.y += 1.0;
@@ -364,7 +364,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
       anchor.userData.phase = i * 1.3;
       anchor.scale.setScalar(base);
 
-      // bayangan kontak di bawah case
+      // contact shadow under the case
       const sh = new THREE.Mesh(new THREE.PlaneGeometry(2.6, 1.1), shadowMat);
       sh.rotation.x = -Math.PI / 2;
       sh.position.y = -H / 2 - 0.55;
@@ -376,7 +376,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
       anchors.push({ anchor, angle, scale: base, target: base, lift: 0, liftTarget: 0 });
     });
 
-    // ── seleksi: bawa case ke depan & besarkan
+    // ── selection: bring the case to the front & enlarge it
     let selectedIdx = 0;
     let rotTarget: number | null = null;
     let autorotate = true;
@@ -388,7 +388,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
       });
       if (i > 0) {
         autorotate = false;
-        // posisi sudut a di cincin → bawa ke depan (z maksimum)
+        // angular position a on the ring → bring to the front (max z)
         let t = anchors[i].angle - Math.PI / 2;
         const cur = world.rotation.y;
         const TWO = Math.PI * 2;
@@ -401,7 +401,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
     };
     selectRef.current = apply;
 
-    // ── interaksi
+    // ── interaction
     let dragging = false;
     let lastX = 0;
     let moved = 0;
@@ -483,7 +483,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
       anchors.forEach((a, idx) => {
         a.scale += (a.target - a.scale) * Math.min(0.12 * dt, 1);
         a.anchor.scale.setScalar(a.scale);
-        // case tetap menghadap ke depan (sebagian) walau cincin berputar
+        // cases keep facing front (partially) even as the ring rotates
         a.anchor.rotation.y = idx === 0 ? 0 : -world.rotation.y * 0.82;
         const g = a.anchor.children[0];
         const ph = a.anchor.userData.phase || 0;

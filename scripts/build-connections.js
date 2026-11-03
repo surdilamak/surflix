@@ -1,24 +1,24 @@
 #!/usr/bin/env node
 /**
- * Build scripts/connections-seed.json dari file data kurasi (scripts/curated/*.txt).
+ * Build scripts/connections-seed.json from the curated data files (scripts/curated/*.txt).
  *
- * Peran file (2026-10-21): curated/*.txt = sumber tulisan; connections-seed.json = artefak build (hanya
- * buat diff dan impor lokal); connections-live.json = foto keputusan review dari database lokal dan SATU-SATUNYA
- * file yang diimpor ke production (lihat BACKLOG.md, "Cara: update koneksi").
+ * File roles (2026-10-21): curated/*.txt = source of the writing; connections-seed.json = build artifact (only
+ * for diffing and local import); connections-live.json = snapshot of review decisions from the local database and the ONLY
+ * file imported into production (see BACKLOG.md, "Cara: update koneksi").
  *
- * Format baris (satu koneksi per baris, `#` = komentar):
- *   SUMBER (tahun) > TARGET (tahun) | relasi | h/m | teks
+ * Line format (one connection per line, `#` = comment):
+ *   SOURCE (year) > TARGET (year) | relation | h/m | text
  *
- *   - Arah: SUMBER merujuk / mengikuti TARGET (SUMBER = film yang lebih baru).
- *   - relasi: homage | inspired | visual | remake | universe
- *   - h = terdokumentasi kuat (auto-APPROVED), m = sering dibahas (masuk antrian review)
- *   - teks: "EN || ID"  atau template @sequel @prequel @spinoff @series @universe
+ *   - Direction: SOURCE references / follows TARGET (SOURCE = the newer film).
+ *   - relation: homage | inspired | visual | remake | universe
+ *   - h = strongly documented (auto-APPROVED), m = often discussed (goes into the review queue)
+ *   - text: "EN || ID"  or template @sequel @prequel @spinoff @series @universe
  *           @remake @reboot @film-of-series @adaptation @cut
  *
- * Koneksi sutradara-sama dibuat otomatis dari scripts/curated/directors.list
- * (satu nama per baris; cuma sutradara yang diverifikasi), dirantai per tahun.
+ * Same-director connections are generated automatically from scripts/curated/directors.list
+ * (one name per line; verified directors only), chained by year.
  *
- * Judul divalidasi terhadap scripts/library-seed.json: judul yang gak ketemu = error.
+ * Titles are validated against scripts/library-seed.json: a title that is not found = error.
  */
 
 const fs = require('fs');
@@ -96,7 +96,7 @@ function push(src, tgt, rel, conf, en, id, where, kind = null) {
   });
 }
 
-// ── 1. file data kurasi
+// ── 1. curated data files
 const dir = path.join(root, 'curated');
 // sagas.txt and stories.txt have their own formats and are read elsewhere.
 const NOT_CONNECTION_FILES = new Set(['sagas.txt', 'stories.txt']);
@@ -144,19 +144,19 @@ for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.txt') && !NOT_CON
   });
 }
 
-// ── 2. sutradara yang sama (otomatis, dirantai per tahun)
-// directors.list: satu sutradara per baris. Nama itu KUNCI PENCARIAN ke kolom directors
-// milik Jellyfin, jadi jangan diubah demi tampilan. Opsional:
-//   | +Judul (tahun)  tambah film yang datanya kosong di Jellyfin
-//   | -Judul (tahun)  kecualikan (salah kredit / bukan film penuh)
-//   | as: Nama EN || Nama ID   pakai nama lain di kalimatnya, buat duo sutradara
-//        (mis. "Daniel Kwan | as: Daniel Kwan and Daniel Scheinert || Daniel Kwan dan Daniel Scheinert")
+// ── 2. same director (automatic, chained by year)
+// directors.list: one director per line. That name is the LOOKUP KEY into the directors column
+// of Jellyfin, so do not change it for display purposes. Optional:
+//   | +Title (year)  add a film whose data is empty in Jellyfin
+//   | -Title (year)  exclude (wrong credit / not a full film)
+//   | as: Name EN || Name ID   use a different name in the sentence, for director duos
+//        (e.g. "Daniel Kwan | as: Daniel Kwan and Daniel Scheinert || Daniel Kwan dan Daniel Scheinert")
 const dirFile = path.join(dir, 'directors.list');
 if (fs.existsSync(dirFile)) {
   const lines = fs.readFileSync(dirFile, 'utf8').split('\n').map((x) => x.trim()).filter((x) => x && !x.startsWith('#'));
   for (const line of lines) {
     const [name, ...opts] = line.split('|').map((x) => x.trim());
-    // sisa opsi disatukan lagi: pemisah dwibahasa "||" ikut terpotong oleh split('|')
+    // the remaining options are joined back together: the bilingual "||" separator also gets cut by split('|')
     const asAt = opts.findIndex((o) => o.startsWith('as:'));
     const as = asAt === -1 ? '' : opts.slice(asAt).join('|').slice(3).trim();
     const [shownEn, shownId] = as ? as.split('||').map((x) => x.trim()) : [];
@@ -172,7 +172,7 @@ if (fs.existsSync(dirFile)) {
     for (let i = 1; i < films.length; i++) {
       const a = films[i];
       const b = films[i - 1];
-      // lewati kalau pasangan ini udah terhubung (arah mana pun) lewat franchise/referensi
+      // skip if this pair is already linked (in either direction) via franchise/reference
       if (seen.has(`${a.tmdbId}:${a.mediaType}>${b.tmdbId}`) || seen.has(`${b.tmdbId}:${b.mediaType}>${a.tmdbId}`)) continue;
       push(a, b, 'director', 'h', `Both directed by ${shown}.`, `Keduanya disutradarai ${shownID}.`, `director:${name}`);
     }

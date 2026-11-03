@@ -1,7 +1,7 @@
 /**
  * GET /api/detail?type=movie&id=12345
  *
- * Detailed metadata dari Jellyseerr getMediaDetail.
+ * Detailed metadata from Jellyseerr getMediaDetail.
  * Includes: Director, Cast, Genres, Runtime, Production, etc.
  */
 

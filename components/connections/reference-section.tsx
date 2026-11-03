@@ -1,9 +1,9 @@
 /**
- * ReferenceSection — tombol "Referensi" di detail modal Request Hub.
+ * ReferenceSection — "Referensi" button in the Request Hub detail modal.
  *
- * Portal Referensi dipisah dari Request Hub (reference.surflix.my.id), jadi di sini
- * cuma link keluar. Tombol baru muncul kalau film ini emang punya peta referensi
- * (cek ringan ke /api/connections — approved-only, tanpa LLM).
+ * The Reference Portal is separate from Request Hub (reference.surflix.my.id), so here it's
+ * just an outbound link. The button only appears if this film really has a reference map
+ * (lightweight check against /api/connections — approved-only, no LLM).
  */
 'use client';
 

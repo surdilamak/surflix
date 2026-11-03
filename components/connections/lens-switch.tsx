@@ -1,9 +1,9 @@
 /**
- * LensSwitch — tiga cara memandang SATU judul: petanya, urutan tontonnya, dan posisinya di langit.
+ * LensSwitch — three ways to look at ONE title: its map, its watch order, and its position in the sky.
  *
- * Dipasang di ketiga halaman itu dan selalu menunjuk judul yang sedang dilihat, bukan beranda
- * fiturnya. Lensa yang tidak berlaku tidak ditampilkan: judul tanpa saga tidak punya urutan tonton,
- * judul tanpa koneksi tidak punya peta.
+ * Mounted on all three pages and always points to the title being viewed, not the feature's
+ * home. A lens that doesn't apply is not shown: a title without a saga has no watch order,
+ * a title without connections has no map.
  */
 'use client';
 
@@ -23,7 +23,7 @@ export function LensSwitch({
   current: Lens;
   mediaType: string;
   tmdbId: number;
-  /** id saga kalau judul ini punya urutan tonton; kosong = lensa itu tidak berlaku */
+  /** saga id if this title has a watch order; empty = that lens doesn't apply */
   sagaId?: string | null;
   hasMap?: boolean;
   className?: string;

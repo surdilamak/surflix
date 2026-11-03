@@ -1,7 +1,7 @@
 /**
  * My Requests Page (/requests) — cookie-based
  *
- * Read guestId dari localStorage, fetch request list by guestId.
+ * Read guestId from localStorage, fetch the request list by guestId.
  * Polling-based silent refresh + browser Notification when status changes.
  */
 'use client';
@@ -68,7 +68,7 @@ export default function RequestsPage() {
             };
           }
         } catch {
-          // Notification may throw on iOS / unsupported — gak masalah, polling jalan terus
+          // Notification may throw on iOS / unsupported — not a problem, polling keeps running
         }
       }
     },

@@ -1,4 +1,4 @@
-/** Bagian kecil yang dipakai bersama halaman admin: lencana, poster, kerangka muat, judul halaman. */
+/** Small pieces shared by admin pages: badge, poster, loading skeleton, page title. */
 'use client';
 
 import { Icons } from '@/components/ui/icons';

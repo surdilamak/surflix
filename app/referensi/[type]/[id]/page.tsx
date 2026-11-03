@@ -1,6 +1,6 @@
 /**
- * Portal Referensi — peta satu film: judul besar, panggung 3D, lalu alasan tiap pasangan.
- * Judul yang ada di library tapi belum punya peta mendapat halaman "belum ada peta".
+ * Reference Portal — one film's map: big title, 3D stage, then the reason for each pair.
+ * A title that is in the library but has no map yet gets a "no map yet" page.
  */
 'use client';
 
@@ -34,7 +34,7 @@ interface LibTitle {
 
 export default function ReferensiFilmPage() {
   const params = useParams<{ type: string; id: string }>();
-  // Cuma /movie/<id> & /tv/<id>; selain itu (mis. /admin/...) 404, bukan film kosong
+  // Only /movie/<id> & /tv/<id>; anything else (e.g. /admin/...) is a 404, not an empty film
   if (!['movie', 'tv'].includes(params.type) || !/^\d+$/.test(params.id)) notFound();
 
   const config = useAppConfig();
@@ -76,7 +76,7 @@ export default function ReferensiFilmPage() {
   const sagaHref = (id: string, film?: string) =>
     `${portalPath(`/timeline/${id}`) || `/timeline/${id}`}${film ? `?film=${film}` : ''}`;
 
-  // ── judul ada di library tapi belum punya peta
+  // ── title is in the library but has no map yet
   if (data.nodes.length === 0) {
     return top(
       <>

@@ -1,9 +1,9 @@
 /**
- * Sync snapshot library Jellyfin -> tabel LibraryTitle.
+ * Sync the Jellyfin library snapshot -> LibraryTitle table.
  *
- * Nama file di Jellyfin sering kotor (release group, resolusi). Kalau Name kelihatan kotor,
- * pakai nama folder (tanpa "(tahun)"), lalu OriginalTitle sebagai cadangan.
- * Butuh JELLYFIN_URL + JELLYFIN_API_KEY di server.
+ * File names in Jellyfin are often dirty (release group, resolution). If Name looks dirty,
+ * use the folder name (without "(year)"), then OriginalTitle as a fallback.
+ * Needs JELLYFIN_URL + JELLYFIN_API_KEY on the server.
  */
 
 import { prisma } from '@/lib/db';
@@ -78,9 +78,9 @@ export async function syncLibraryFromJellyfin() {
   return { total: seen.size, created, updated };
 }
 
-// ── Auto-sync (dipicu webhook Jellyseerr MEDIA_AVAILABLE) ──────────────────────
-// Serial bisa nembak banyak event beruntun, jadi digabung: satu sync per jendela
-// debounce. State ada di memori proses (cukup: container ini satu proses Node).
+// ── Auto-sync (triggered by the Jellyseerr MEDIA_AVAILABLE webhook) ──────────────────────
+// A series can fire many events in a row, so they are merged: one sync per
+// debounce window. State lives in process memory (enough: this container is a single Node process).
 const SYNC_DEBOUNCE_MS = 30_000;
 let syncTimer: ReturnType<typeof setTimeout> | null = null;
 let syncRunning = false;
@@ -88,7 +88,7 @@ let syncAgain = false;
 
 async function runScheduledSync() {
   if (syncRunning) {
-    syncAgain = true; // ada event baru pas sync jalan: ulang sekali setelah selesai
+    syncAgain = true; // a new event arrived while the sync was running: run once more after it finishes
     return;
   }
   syncRunning = true;
@@ -107,7 +107,7 @@ async function runScheduledSync() {
   }
 }
 
-/** Jadwalkan sync library (debounce). Aman dipanggil berkali-kali; tidak pernah throw. */
+/** Schedule a library sync (debounced). Safe to call many times; never throws. */
 export function scheduleLibrarySync() {
   if (!process.env.JELLYFIN_URL || !process.env.JELLYFIN_API_KEY) return;
   if (syncTimer) clearTimeout(syncTimer);

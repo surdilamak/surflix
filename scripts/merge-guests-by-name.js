@@ -2,21 +2,21 @@
 /**
  * Merge duplicate Guest records by name (best-effort migration).
  *
- * Konteks: dulu request-form-modal gak ngirim guestId, jadi tiap request bikin
- * Guest record baru — history user nyebar di multiple records (1 request per record).
+ * Context: previously request-form-modal did not send guestId, so every request created
+ * a new Guest record — the user's history was spread across multiple records (1 request per record).
  *
- * Script ini ngerapihinnya:
+ * This script cleans it up:
  *   - Group Guest by lowercase trimmed name
- *   - Untuk group >1 record, pilih canonical = createdAt paling tua
- *   - Move semua Request + Remark dari duplikat ke canonical
- *   - Set Guest.mergedIntoId di duplikat → nunjuk ke canonical
- *     (duplikat NOT deleted biar device dengan stale guestId di localStorage tetep resolve)
+ *   - For groups with >1 record, pick canonical = the oldest createdAt
+ *   - Move all Requests + Remarks from the duplicates to the canonical
+ *   - Set Guest.mergedIntoId on the duplicates → pointing to the canonical
+ *     (duplicates are NOT deleted so devices with a stale guestId in localStorage still resolve)
  *
- * Risk yang user terima: 2 orang beda nama identik akan ke-merge jadi 1.
+ * Risk accepted by the user: 2 different people with identical names will be merged into 1.
  *
- * Cara pakai (Unraid):
+ * Usage (Unraid):
  *   docker exec -it surflix node scripts/merge-guests-by-name.js
- *   # atau dry-run dulu:
+ *   # or dry-run first:
  *   docker exec -it surflix node scripts/merge-guests-by-name.js --dry-run
  */
 

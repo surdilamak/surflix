@@ -1,6 +1,6 @@
 /**
- * AdminShell — kerangka admin: sidebar (desktop) dan bilah atas + menu (telepon).
- * Satu navigasi untuk semua halaman, lencana angka dari AdminProvider.
+ * AdminShell — admin frame: sidebar (desktop) and top bar + menu (phone).
+ * One navigation for all pages, number badges from AdminProvider.
  */
 'use client';
 

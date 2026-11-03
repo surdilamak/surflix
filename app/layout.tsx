@@ -51,7 +51,7 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   maximumScale: 1,
-  viewportFit: 'cover', // supaya env(safe-area-inset-*) bekerja (poni iPhone, mode PWA)
+  viewportFit: 'cover', // so env(safe-area-inset-*) works (iPhone notch, PWA mode)
   themeColor: '#0d0d0f',
   colorScheme: 'dark',
 };

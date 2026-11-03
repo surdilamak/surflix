@@ -11,10 +11,10 @@ const nextConfig = {
       },
     ],
   },
-  // Next 15: dua opsi ini keluar dari `experimental`
+  // Next 15: these two options moved out of `experimental`
   serverExternalPackages: ['@prisma/client', 'prisma', 'web-push'],
-  // web-push pakai dynamic require pattern (setVapidDetails lazy) yang
-  // Next.js trace bisa miss — force include full dep graph ke standalone.
+  // web-push uses a dynamic require pattern (setVapidDetails is lazy) that
+  // Next.js tracing can miss — force include the full dep graph in standalone.
   outputFileTracingIncludes: {
     '/api/**/*': ['./node_modules/web-push/**/*'],
   },

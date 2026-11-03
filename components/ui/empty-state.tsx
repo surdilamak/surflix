@@ -1,5 +1,5 @@
 /**
- * Empty State — pas gak ada data
+ * Empty State — when there is no data
  * Friendly + actionable
  */
 'use client';

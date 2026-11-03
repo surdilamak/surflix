@@ -1,8 +1,8 @@
 /**
  * Admin Settings (/admin/settings)
  *
- * Status semua integrasi dalam satu layar (database, Jellyfin, Jellyseerr dan jenis key-nya, Telegram,
- * Web Push, secret webhook, email), snapshot library dan sinkronisasinya, plus kontrol webhook Telegram.
+ * Status of all integrations on one screen (database, Jellyfin, Jellyseerr and its key type, Telegram,
+ * Web Push, webhook secret, email), the library snapshot and its sync, plus Telegram webhook controls.
  */
 'use client';
 

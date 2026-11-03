@@ -1,10 +1,10 @@
 /**
- * sitemap.xml sadar-host: tiap situs Surflix menerima sitemap-nya sendiri dari satu route.
- *  - reference.*: beranda, Galaxy, Watch order, Just added, SETIAP halaman saga, dan
- *    setiap peta film yang punya koneksi
+ * Host-aware sitemap.xml: each Surflix site gets its own sitemap from one route.
+ *  - reference.*: home, Galaxy, Watch order, Just added, EVERY saga page, and
+ *    every film map that has connections
  *  - apex / www: landing
- *  - request.*: semua halaman publik (beranda, browse, trending, library)
- * (Path berakhiran .xml tidak lewat middleware, jadi host dibaca langsung di sini.)
+ *  - request.*: all public pages (home, browse, trending, library)
+ * (Paths ending in .xml do not go through middleware, so the host is read directly here.)
  */
 import type { MetadataRoute } from 'next';
 import { headers } from 'next/headers';
@@ -19,10 +19,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const origin = `${proto}://${host}`;
 
   if (host.startsWith('reference.')) {
-    // listSagas() adalah daftar yang sama persis dengan yang dirender indeks /timeline,
-    // jadi sitemap dan indeks tidak bisa menyimpang. Halaman saga memuat kurasi tangan
-    // (nama, tip, jalur, urutan cerita, catatan per judul) - isi terkaya di portal ini,
-    // dan sampai 2026-10-23 satu pun tidak ada di sitemap.
+    // listSagas() is exactly the same list that the /timeline index renders,
+    // so the sitemap and the index cannot drift apart. Saga pages carry hand curation
+    // (name, tip, track, story order, per-title notes) - the richest content in this portal,
+    // and until 2026-10-23 not a single one was in the sitemap.
     const [films, sagas] = await Promise.all([
       sitemapFilms().catch(() => []),
       listSagas(0).catch(() => []),
@@ -46,8 +46,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
   }
   if (host.startsWith('request.')) {
-    // /requests dan /verify sengaja TIDAK di sini: keduanya halaman pribadi tamu dan
-    // sudah di-disallow di robots.txt.
+    // /requests and /verify are deliberately NOT here: both are guests' private pages and
+    // are already disallowed in robots.txt.
     return [
       { url: `${origin}/`, changeFrequency: 'weekly', priority: 1 },
       { url: `${origin}/browse`, changeFrequency: 'daily', priority: 0.6 },

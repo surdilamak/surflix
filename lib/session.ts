@@ -1,8 +1,8 @@
 /**
  * Admin Session Management via Iron Session
  *
- * Cookie-based session, encrypted dengan SESSION_SECRET.
- * Cuma untuk admin (Idrus). Guest gak pake session, pake magic link.
+ * Cookie-based session, encrypted with SESSION_SECRET.
+ * Only for the admin (Idrus). Guests do not use a session, they use a magic link.
  */
 
 import { SessionOptions, getIronSession } from 'iron-session';
@@ -21,7 +21,7 @@ export const sessionOptions: SessionOptions = {
     secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
     sameSite: 'lax',
-    maxAge: 60 * 60 * 24 * 7, // 7 hari
+    maxAge: 60 * 60 * 24 * 7, // 7 days
   },
 };
 

@@ -1,6 +1,6 @@
 /**
- * AdminProvider — toast, dialog konfirmasi, dan angka lencana (request menunggu, antrean review) untuk seluruh admin.
- * Satu tempat untuk umpan balik, jadi tiap halaman tidak perlu membuat toast dan confirm() sendiri.
+ * AdminProvider — toast, confirmation dialog, and badge counts (pending requests, review queue) for the whole admin.
+ * One place for feedback, so each page doesn't need to build its own toast and confirm().
  */
 'use client';
 
@@ -26,7 +26,7 @@ interface Ctx {
   refreshCounts: () => Promise<void>;
   toast: (message: string, tone?: 'success' | 'error') => void;
   confirm: (o: ConfirmOpts) => Promise<boolean>;
-  /** fetch JSON dengan penanganan 401 (kembali ke login) */
+  /** fetch JSON with 401 handling (back to login) */
   api: (path: string, init?: RequestInit) => Promise<{ res: Response; data: any }>;
 }
 

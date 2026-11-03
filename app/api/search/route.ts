@@ -1,11 +1,11 @@
 /**
  * GET /api/search?q=...
  *
- * Smart search proxy ke Jellyseerr.
+ * Smart search proxy to Jellyseerr.
  *
- * Parses query untuk auto-detect:
+ * Parses the query to auto-detect:
  * - Year (4-digit) → filter results by release/air date
- * - Person name → expand person hits ke filmography mereka (director, actor)
+ * - Person name → expand person hits to their filmography (director, actor)
  *
  * Examples:
  * - "inception 2010"           → movies titled "inception" released 2010
@@ -72,7 +72,7 @@ export async function GET(req: NextRequest) {
   const titleQuery = rest;
 
   try {
-    // Year-only query (e.g. "2024") → fallback ke discover dengan year filter
+    // Year-only query (e.g. "2024") → fall back to discover with a year filter
     if (year && !titleQuery) {
       const [movies, tv] = await Promise.all([
         jellyseerr.discoverMovies({ year, page }),

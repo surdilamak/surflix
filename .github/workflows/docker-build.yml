@@ -6,7 +6,7 @@ on:
     tags: ['v*']
   pull_request:
     branches: [main]
-  workflow_dispatch: # bisa di-trigger manual dari GitHub UI
+  workflow_dispatch: # can be triggered manually from the GitHub UI
 
 env:
   REGISTRY: ghcr.io

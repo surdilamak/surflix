@@ -1,13 +1,13 @@
 # =====================================================
 # Surflix · Docker Compose
-# Deploy ke Unraid (atau Docker host manapun)
+# Deploy to Unraid (or any Docker host)
 #
-# Cara pakai:
-# 1. Copy .env.example ke .env, isi semua values
+# Usage:
+# 1. Copy .env.example to .env, fill in all values
 # 2. docker compose up -d --build
 #
-# Asumsi: Jellyseerr udah jalan di container 'jellyseerr'
-#         dalam network yang sama (atau adjust JELLYSEERR_URL)
+# Assumption: Jellyseerr is already running in the 'jellyseerr' container
+#         in the same network (or adjust JELLYSEERR_URL)
 # =====================================================
 
 services:
@@ -17,12 +17,12 @@ services:
     restart: unless-stopped
 
     ports:
-      # Expose ke host port 3737 (ganti kalau bentrok)
-      # Reverse proxy akan forward request.surdilamak.my.id ke sini
+      # Expose on host port 3737 (change if it conflicts)
+      # The reverse proxy will forward request.surdilamak.my.id here
       - "3737:3000"
 
     environment:
-      # Load semua dari .env
+      # Load everything from .env
       NODE_ENV: production
       DATABASE_URL: file:/data/surflix.db
       NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL}
@@ -56,13 +56,13 @@ services:
     volumes:
       # Persistent SQLite database
       - ./data:/data
-      # Optional: kalau mau persist Prisma migrations history
+      # Optional: if you want to persist the Prisma migrations history
       # - ./prisma/migrations:/app/prisma/migrations
 
     networks:
       - surflix-net
-      # Pastikan Jellyseerr juga di network ini, atau lo bisa pake
-      # external network yang sama (lihat catatan di bawah)
+      # Make sure Jellyseerr is also on this network, or you can use
+      # the same external network (see the notes below)
 
     healthcheck:
       test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000/api/health"]
@@ -72,7 +72,7 @@ services:
       start_period: 30s
 
     labels:
-      # Untuk Traefik (kalau lo pakai), uncomment baris di bawah:
+      # For Traefik (if you use it), uncomment the lines below:
       # - "traefik.enable=true"
       # - "traefik.http.routers.surflix.rule=Host(`request.surdilamak.my.id`)"
       # - "traefik.http.routers.surflix.entrypoints=websecure"
@@ -85,29 +85,29 @@ networks:
     driver: bridge
 
 # =====================================================
-# CATATAN UNTUK UNRAID
+# NOTES FOR UNRAID
 # =====================================================
 #
 # 1. JELLYSEERR NETWORK
-#    Kalau Jellyseerr lo udah jalan di network sendiri, ada 2 opsi:
+#    If your Jellyseerr is already running on its own network, there are 2 options:
 #
-#    Opsi A — Join Jellyseerr ke network surflix-net:
+#    Option A — Join Jellyseerr to the surflix-net network:
 #      docker network connect surflix_surflix-net jellyseerr
 #
-#    Opsi B — Pake Jellyseerr network sebagai external:
-#      Edit networks block di atas jadi:
+#    Option B — Use the Jellyseerr network as an external network:
+#      Edit the networks block above to:
 #        networks:
 #          jellyseerr_default:
 #            external: true
-#      Dan ubah JELLYSEERR_URL ke http://jellyseerr:5055
+#      And change JELLYSEERR_URL to http://jellyseerr:5055
 #
 # 2. REVERSE PROXY (SWAG / Nginx Proxy Manager)
-#    Tambahin config baru untuk request.surdilamak.my.id
-#    → forward ke http://<unraid-ip>:3737
+#    Add a new config for request.surdilamak.my.id
+#    → forward to http://<unraid-ip>:3737
 #
 # 3. SSL
-#    Auto-handled by reverse proxy lo (LetsEncrypt via SWAG/NPM)
+#    Auto-handled by your reverse proxy (LetsEncrypt via SWAG/NPM)
 #
 # 4. BACKUP
-#    Backup folder ./data untuk save SQLite database.
-#    Bisa pake CA Backup plugin di Unraid.
+#    Back up the ./data folder to save the SQLite database.
+#    You can use the CA Backup plugin on Unraid.

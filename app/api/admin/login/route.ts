@@ -1,8 +1,8 @@
 /**
  * POST /api/admin/login
  *
- * DB-based admin auth. On startup, admin di-bootstrap dari env vars.
- * Multiple admins bisa di-add via /admin/settings (later).
+ * DB-based admin auth. On startup, the admin is bootstrapped from env vars.
+ * Multiple admins can be added via /admin/settings (later).
  */
 
 import { NextRequest, NextResponse } from 'next/server';

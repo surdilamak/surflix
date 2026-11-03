@@ -1,23 +1,23 @@
 /**
- * URL helper buat tiga situs Surflix (landing, Request Hub, Reference). Fungsi murni:
- * dipakai server component (landing) dan hook client (use-portal).
+ * URL helper for the three Surflix sites (landing, Request Hub, Reference). Pure functions:
+ * used by the server component (landing) and the client hook (use-portal).
  *
- * Production: reference.surflix.my.id (portal) dan request.surflix.my.id (hub).
- * Lokal (localhost / IP): portal ada di /referensi, hub di /.
- * Di host reference.*, middleware nge-rewrite semua path ke /referensi/*, jadi path-nya bersih.
+ * Production: reference.surflix.my.id (portal) and request.surflix.my.id (hub).
+ * Local (localhost / IP): the portal is at /referensi, the hub at /.
+ * On the reference.* host, the middleware rewrites all paths to /referensi/*, so the paths stay clean.
  */
 export interface PortalUrls {
-  /** Path di dalam portal, mis. portalPath('/movie/62') */
+  /** Path inside the portal, e.g. portalPath('/movie/62') */
   portalPath: (p?: string) => string;
-  /** Link ke portal Reference dari mana pun (absolute di production) */
+  /** Link to the Reference portal from anywhere (absolute in production) */
   referenceHref: (p?: string) => string;
-  /** Link ke Request Hub dari mana pun */
+  /** Link to the Request Hub from anywhere */
   hubHref: (p?: string) => string;
-  /** Link ke landing (surflix.my.id) */
+  /** Link to the landing (surflix.my.id) */
   homeHref: (p?: string) => string;
 }
 
-/** Root domain dari hostname: reference.x.y / request.x.y / www.x.y / x.y -> x.y. localhost & IP -> undefined. */
+/** Root domain from the hostname: reference.x.y / request.x.y / www.x.y / x.y -> x.y. localhost & IP -> undefined. */
 function rootDomain(hostname: string): string | undefined {
   if (/^\d+\.\d+\.\d+\.\d+$/.test(hostname)) return undefined;
   const stripped = hostname.replace(/^(reference|request|www)\./, '');

@@ -1,8 +1,8 @@
 /**
- * Web Push wrapper — kirim notification ke semua subscription milik 1 guest.
+ * Web Push wrapper — send a notification to all subscriptions belonging to 1 guest.
  *
- * Configured dari env: VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT.
- * Kalau env gak ada, fungsi-fungsi push jadi no-op (silent skip biar gak block flow).
+ * Configured from env: VAPID_PUBLIC_KEY, VAPID_PRIVATE_KEY, VAPID_SUBJECT.
+ * If env is missing, the push functions become no-ops (silent skip so they do not block the flow).
  */
 
 import webpush from 'web-push';
@@ -38,11 +38,11 @@ export function getPublicKey(): string | null {
 }
 
 /**
- * Kirim push notification ke semua subscription milik guest.
- * Resolve canonical Guest dulu, supaya kalau guestId yang dipanggil adalah duplikat
- * pre-merge, notif tetap nyampe ke device-device yang subscribe via canonical.
+ * Send a push notification to all subscriptions belonging to the guest.
+ * Resolve the canonical Guest first, so that if the guestId passed in is a duplicate
+ * from before the merge, the notification still reaches the devices subscribed via the canonical.
  *
- * Subscription yang return 404/410 (expired/unsubscribed) di-delete dari DB.
+ * Subscriptions that return 404/410 (expired/unsubscribed) are deleted from the DB.
  */
 export async function sendPushToGuest(guestId: string, payload: NotifPayload): Promise<void> {
   if (!ensureConfigured()) return;
@@ -55,7 +55,7 @@ export async function sendPushToGuest(guestId: string, payload: NotifPayload): P
   });
   if (subs.length === 0) return;
 
-  // Bahasa tamu: tersimpan di Guest.lang (diisi dari cookie surflix_lang); tamu lama dianggap Indonesia
+  // Guest language: stored in Guest.lang (filled from the surflix_lang cookie); older guests are assumed Indonesian
   const guest = await prisma.guest.findUnique({ where: { id: canonicalId }, select: { lang: true } });
   const body = JSON.stringify(pickNotifLang(payload, guest?.lang === 'en' ? 'en' : 'id'));
 

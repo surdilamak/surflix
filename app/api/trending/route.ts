@@ -1,8 +1,8 @@
 /**
  * GET /api/trending?page=1
  *
- * Trending movies & TV mingguan dari Jellyseerr.
- * Supports pagination (page param). Per-page cache 1 jam.
+ * Weekly trending movies & TV from Jellyseerr.
+ * Supports pagination (page param). Per-page cache of 1 hour.
  */
 
 import { NextRequest, NextResponse } from 'next/server';

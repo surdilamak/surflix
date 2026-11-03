@@ -1,7 +1,7 @@
 #!/bin/bash
 # ===================================================================
 # Surflix Setup Helper
-# Generate semua secrets + create .env file in one go
+# Generate all secrets + create the .env file in one go
 # ===================================================================
 
 set -e

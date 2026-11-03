@@ -1,7 +1,7 @@
 /**
- * Tata letak Galaxy: kelompok lewat label propagation, lalu simulasi gaya
- * (tolak-menolak antar-titik, tarik sepanjang garis, gravitasi lemah ke pusat).
- * Deterministik (PRNG ber-seed) supaya langit gak berubah tiap dimuat.
+ * Galaxy layout: clusters via label propagation, then a force simulation
+ * (repulsion between nodes, attraction along edges, weak gravity toward the center).
+ * Deterministic (seeded PRNG) so the sky does not change on every load.
  */
 
 export interface LayoutNode {
@@ -22,7 +22,7 @@ function mulberry32(seed: number) {
   };
 }
 
-/** Label propagation: tiap titik ikut label yang paling banyak di tetangganya. */
+/** Label propagation: each node takes the label most common among its neighbours. */
 function communities(n: number, edges: LayoutEdge[]): number[] {
   const nb: number[][] = Array.from({ length: n }, () => []);
   for (const e of edges) {
@@ -51,7 +51,7 @@ function communities(n: number, edges: LayoutEdge[]): number[] {
     }
     if (!changed) break;
   }
-  // ID kelompok yang rapi: urut dari yang terbesar
+  // Tidy cluster IDs: ordered from largest
   const size = new Map<number, number>();
   label.forEach((l) => size.set(l, (size.get(l) ?? 0) + 1));
   const order = [...size.entries()].sort((a, b) => b[1] - a[1] || a[0] - b[0]).map(([l]) => l);
@@ -65,7 +65,7 @@ export function layoutGalaxy(nodes: LayoutNode[], edges: LayoutEdge[]) {
   const cluster = communities(n, edges);
   const clusterCount = Math.max(...cluster, 0) + 1;
 
-  // pusat tiap kelompok di spiral sudut emas; kelompok besar lebih dekat ke pusat
+  // center of each cluster on a golden-angle spiral; larger clusters are closer to the center
   const members: number[][] = Array.from({ length: clusterCount }, () => []);
   cluster.forEach((c, i) => members[c].push(i));
 
@@ -85,7 +85,7 @@ export function layoutGalaxy(nodes: LayoutNode[], edges: LayoutEdge[]) {
     }
   });
 
-  const K = 40; // jarak ideal
+  const K = 40; // ideal distance
   const cutoff = 320;
   const dx = new Float64Array(n);
   const dy = new Float64Array(n);
@@ -96,7 +96,7 @@ export function layoutGalaxy(nodes: LayoutNode[], edges: LayoutEdge[]) {
     dx.fill(0);
     dy.fill(0);
 
-    // tolak-menolak
+    // repulsion
     for (let i = 0; i < n; i++) {
       for (let j = i + 1; j < n; j++) {
         let ex = x[i] - x[j];
@@ -109,14 +109,14 @@ export function layoutGalaxy(nodes: LayoutNode[], edges: LayoutEdge[]) {
           d2 = ex * ex + ey * ey + 0.01;
         }
         const d = Math.sqrt(d2);
-        const f = (K * K) / d2; // gaya/jarak
+        const f = (K * K) / d2; // force/distance
         dx[i] += (ex / d) * f * K;
         dy[i] += (ey / d) * f * K;
         dx[j] -= (ex / d) * f * K;
         dy[j] -= (ey / d) * f * K;
       }
     }
-    // tarik sepanjang garis
+    // attraction along edges
     for (const e of edges) {
       const ex = x[e.a] - x[e.b];
       const ey = y[e.a] - y[e.b];
@@ -127,7 +127,7 @@ export function layoutGalaxy(nodes: LayoutNode[], edges: LayoutEdge[]) {
       dx[e.b] += ex * f * 0.9;
       dy[e.b] += ey * f * 0.9;
     }
-    // gravitasi lemah ke pusat + gerak terbatas suhu
+    // weak gravity toward the center + movement limited by temperature
     for (let i = 0; i < n; i++) {
       dx[i] -= x[i] * 0.012;
       dy[i] -= y[i] * 0.012;
@@ -138,7 +138,7 @@ export function layoutGalaxy(nodes: LayoutNode[], edges: LayoutEdge[]) {
     }
   }
 
-  // titik yang terlempar jauh dipadatkan (soft clamp) supaya inti punya ruang dan semua tetap kelihatan
+  // nodes thrown far away are compressed (soft clamp) so the core has room and everything stays visible
   const radii = Array.from({ length: n }, (_, i) => Math.hypot(x[i], y[i])).sort((a, b) => a - b);
   const R = radii[Math.floor(n * 0.93)] || 1;
   for (let i = 0; i < n; i++) {
@@ -150,7 +150,7 @@ export function layoutGalaxy(nodes: LayoutNode[], edges: LayoutEdge[]) {
     }
   }
 
-  // normalisasi ke kira-kira ±1000
+  // normalize to roughly ±1000
   let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
   for (let i = 0; i < n; i++) {
     minX = Math.min(minX, x[i]); maxX = Math.max(maxX, x[i]);

@@ -12,9 +12,9 @@ datasource db {
 }
 
 // =====================================================
-// GUEST: orang-orang yang request film
-// Diidentifikasi via email + nama (no password)
-// Magic link untuk akses halaman "My Requests"
+// GUEST: the people who request films
+// Identified via email + name (no password)
+// Magic link to access the "My Requests" page
 // =====================================================
 model Guest {
   id         String   @id @default(cuid())
@@ -22,11 +22,11 @@ model Guest {
   email      String   @unique
   createdAt  DateTime @default(now())
   lastActive DateTime @default(now())
-  // Bahasa terakhir yang dipilih tamu (cookie surflix_lang): 'en' | 'id'. Null = tamu lama, anggap 'id'.
+  // Last language chosen by the guest (cookie surflix_lang): 'en' | 'id'. Null = old guest, treat as 'id'.
   lang       String?
 
-  // Alias chain: jika Guest ini hasil duplikat (pre-bugfix), `mergedIntoId`
-  // nunjuk ke canonical Guest. APIs ngikutin alias ke root sebelum baca/tulis requests.
+  // Alias chain: if this Guest is a duplicate (pre-bugfix), `mergedIntoId`
+  // points to the canonical Guest. APIs follow the alias to the root before reading/writing requests.
   mergedIntoId String?
   mergedInto   Guest?  @relation("GuestMerge", fields: [mergedIntoId], references: [id], onDelete: SetNull)
   aliases      Guest[] @relation("GuestMerge")
@@ -41,8 +41,8 @@ model Guest {
 }
 
 // =====================================================
-// MAGIC TOKEN: untuk passwordless login guest
-// Token dikirim via email, expired 30 menit
+// MAGIC TOKEN: for passwordless guest login
+// Token is sent via email, expires in 30 minutes
 // =====================================================
 model MagicToken {
   id        String   @id @default(cuid())
@@ -59,13 +59,13 @@ model MagicToken {
 }
 
 // =====================================================
-// REQUEST: permintaan film/series dari guest
+// REQUEST: film/series request from a guest
 // =====================================================
 model Request {
   id        String        @id @default(cuid())
   guestId   String
 
-  // TMDB metadata (cached supaya gak perlu re-fetch)
+  // TMDB metadata (cached so it does not need to be re-fetched)
   tmdbId       Int
   mediaType    String   // "movie" | "tv"
   title        String
@@ -75,16 +75,16 @@ model Request {
   releaseDate  String?
   rating       Float?
 
-  // Status workflow (String, value bisa: PENDING_ADMIN, REJECTED, APPROVED, ON_SCHEDULE, PROCESSING, PARTIALLY_AVAILABLE, AVAILABLE, FAILED)
+  // Status workflow (String, possible values: PENDING_ADMIN, REJECTED, APPROVED, ON_SCHEDULE, PROCESSING, PARTIALLY_AVAILABLE, AVAILABLE, FAILED)
   status       String   @default("PENDING_ADMIN")
   adminNote    String?
-  guestNote    String?  // catatan dari guest (opsional: minta subtitle, replace file jelek, dll)
+  guestNote    String?  // note from the guest (optional: request subtitles, replace a bad file, etc.)
 
-  // Link ke Jellyseerr setelah di-approve
+  // Link to Jellyseerr after approval
   jellyseerrRequestId Int?
   jellyseerrMediaId   Int?
 
-  // Timestamps untuk timeline
+  // Timestamps for the timeline
   requestedAt DateTime  @default(now())
   approvedAt  DateTime?
   rejectedAt  DateTime?
@@ -100,41 +100,41 @@ model Request {
 
 // =====================================================
 // REQUEST STATUS VALUES (just for documentation):
-// PENDING_ADMIN    : baru di-submit guest, nunggu approval admin
-// REJECTED         : di-reject admin
-// APPROVED         : di-approve, lagi di-forward ke Jellyseerr
-// ON_SCHEDULE      : udah di Jellyseerr, nunggu Radarr/Sonarr schedule download
-// PROCESSING       : Radarr/Sonarr lagi active download
-// PARTIALLY_AVAILABLE : sebagian episode udah ada (untuk series)
-// AVAILABLE        : udah ready di Jellyfin
-// FAILED           : gagal di-process
+// PENDING_ADMIN    : just submitted by the guest, waiting for admin approval
+// REJECTED         : rejected by admin
+// APPROVED         : approved, being forwarded to Jellyseerr
+// ON_SCHEDULE      : already in Jellyseerr, waiting for Radarr/Sonarr to schedule the download
+// PROCESSING       : Radarr/Sonarr is actively downloading
+// PARTIALLY_AVAILABLE : some episodes are already available (for series)
+// AVAILABLE        : ready in Jellyfin
+// FAILED           : failed to process
 // =====================================================
 
 // =====================================================
-// REMARK: catatan/improvement request dari guest untuk film yang
-// sudah ada di library (AVAILABLE) atau lagi di-download (PROCESSING).
-// Contoh: "tolong tambah subtitle Indo", "file jelek, replace please".
-// Beda dari Request: Remark gak perlu approve/reject flow, cuma
-// informational ke admin untuk action manual (replace file, add srt, dll).
+// REMARK: note/improvement request from a guest for a film that
+// is already in the library (AVAILABLE) or currently being downloaded (PROCESSING).
+// Example: "tolong tambah subtitle Indo", "file jelek, replace please".
+// Unlike Request: Remark needs no approve/reject flow, it is only
+// informational for the admin to act on manually (replace file, add srt, etc.).
 // =====================================================
 model Remark {
   id        String   @id @default(cuid())
   guestId   String
 
-  // TMDB metadata (snapshot saat remark dibuat)
+  // TMDB metadata (snapshot taken when the remark was created)
   tmdbId       Int
   mediaType    String   // "movie" | "tv"
   title        String
   posterPath   String?
 
-  // Snapshot state media pas remark dibuat — biar admin tau context
-  // "AVAILABLE" atau "PROCESSING" (atau "PARTIALLY_AVAILABLE")
+  // Snapshot of the media state when the remark was created — so the admin knows the context
+  // "AVAILABLE" or "PROCESSING" (or "PARTIALLY_AVAILABLE")
   mediaStatus  String
 
-  // Catatan dari guest (WAJIB untuk remark, beda dari Request.guestNote yang optional)
+  // Note from the guest (REQUIRED for a remark, unlike Request.guestNote which is optional)
   note         String
 
-  // Status workflow: PENDING (baru masuk) → REVIEWED (admin udah liat) → RESOLVED (admin udah action) atau DISMISSED
+  // Status workflow: PENDING (just came in) → REVIEWED (admin has seen it) → RESOLVED (admin has acted) or DISMISSED
   status       String   @default("PENDING")
   adminNote    String?
 
@@ -152,7 +152,7 @@ model Remark {
 }
 
 // =====================================================
-// ADMIN: cuma lo (atau co-admin kalau perlu nanti)
+// ADMIN: only you (or a co-admin if needed later)
 // =====================================================
 model Admin {
   id           String   @id @default(cuid())
@@ -168,7 +168,7 @@ model Admin {
 model RateLimit {
   id        String   @id @default(cuid())
   ipAddress String
-  endpoint  String   // misal "request" atau "magic-link"
+  endpoint  String   // e.g. "request" or "magic-link"
   count     Int      @default(1)
   windowStart DateTime @default(now())
 
@@ -178,8 +178,8 @@ model RateLimit {
 
 // =====================================================
 // PUSH SUBSCRIPTION: Web Push API subscription per device/browser
-// Satu Guest bisa punya banyak subscription (multi-device).
-// Triggered dari webhook Jellyseerr + admin approve/reject.
+// A single Guest can have many subscriptions (multi-device).
+// Triggered from the Jellyseerr webhook + admin approve/reject.
 // =====================================================
 model PushSubscription {
   id        String   @id @default(cuid())
@@ -197,34 +197,34 @@ model PushSubscription {
 }
 
 // =====================================================
-// FILM CONNECTION: peta referensi antar film (homage / inspired / visual)
-// Draft dibikin LLM pas admin trigger, tayang ke guest cuma kalau APPROVED.
-// Guest GAK PERNAH memicu LLM — cuma baca cache ini.
-// Cuma film yang ada di library Jellyfin yang disimpen jadi target.
+// FILM CONNECTION: reference map between films (homage / inspired / visual)
+// Drafts are created by the LLM when the admin triggers it, shown to guests only if APPROVED.
+// Guests NEVER trigger the LLM — they only read this cache.
+// Only films that exist in the Jellyfin library are stored as targets.
 // =====================================================
 model FilmConnection {
   id              String   @id @default(cuid())
 
-  // Film sumber (yang lagi dibuka guest) — harus ada di library
+  // Source film (the one the guest is currently viewing) — must exist in the library
   sourceTmdbId    Int
   sourceMediaType String   // "movie" | "tv"
   sourceTitle     String
-  sourceYear       Int?    // buat portal Referensi (poster/tahun film sumber)
-  sourceJellyfinId String? // Jellyfin itemId film sumber
+  sourceYear       Int?    // for the Referensi portal (poster/year of the source film)
+  sourceJellyfinId String? // Jellyfin itemId of the source film
 
-  // Film target (yang di-refer)
+  // Target film (the one being referenced)
   targetTmdbId     Int
   targetMediaType  String  // "movie" | "tv"
   targetTitle      String
   targetYear       Int?
   targetPoster     String? // TMDB poster path
-  targetJellyfinId String? // Jellyfin itemId buat deep-link nonton
+  targetJellyfinId String? // Jellyfin itemId for the watch deep-link
 
-  // Arah: sumber MEREFERENSIKAN target (sumber = film yang lebih baru / yang meminjam).
+  // Direction: the source REFERENCES the target (source = the newer film / the one borrowing).
   // "homage" | "inspired" | "visual" | "remake" | "universe" | "director" | "talent"
   relationship    String
-  reason          String   // alasan singkat (Indonesia), <= ~160 char
-  reasonEn        String?  // alasan singkat (English) — bahasa utama portal
+  reason          String   // short reason (Indonesian), <= ~160 chars
+  reasonEn        String?  // short reason (English) — the portal's main language
   // One-paragraph explanation (what connects the two titles and what is worth noticing).
   // Optional and additive: rows without one keep showing the short reason above, so the
   // paragraphs can be rolled out gradually. Source: scripts/curated/stories.txt.
@@ -233,7 +233,7 @@ model FilmConnection {
   // Optional finer label for the relationship, e.g. "prequel", "spinoff", "recut" (see REL_KINDS in
   // lib/i18n.ts). Without one the generic label of the relationship type is shown.
   kind            String?
-  confidence     String   @default("medium") // "high" (terdokumentasi) | "medium" (sering dibahas)
+  confidence     String   @default("medium") // "high" (documented) | "medium" (often discussed)
 
   // Status: PENDING_REVIEW -> APPROVED | REJECTED
   status          String   @default("PENDING_REVIEW")
@@ -248,21 +248,21 @@ model FilmConnection {
 }
 
 // =====================================================
-// LIBRARY TITLE: snapshot isi library Jellyfin (film & serial) buat portal Referensi.
-// Dipakai buat search & backoffice (mana yang udah punya referensi, mana yang belum).
-// Di-sync dari Jellyfin (admin) atau di-import dari scripts/library-seed.json.
+// LIBRARY TITLE: snapshot of the Jellyfin library contents (films & series) for the Referensi portal.
+// Used for search & the backoffice (which ones already have references, which do not yet).
+// Synced from Jellyfin (admin) or imported from scripts/library-seed.json.
 // =====================================================
 model LibraryTitle {
   id            String   @id @default(cuid())
   tmdbId        Int
   mediaType     String   // "movie" | "tv"
-  title         String   // judul bersih (nama file Jellyfin sering kotor)
+  title         String   // clean title (Jellyfin file names are often messy)
   originalTitle String?
   year          Int?
   jellyfinId    String
-  genres        String?  // dipisah koma
-  directors     String?  // dipisah koma
-  addedAt       DateTime? // kapan judul masuk Jellyfin (DateCreated); null sampai sync berikutnya
+  genres        String?  // comma-separated
+  directors     String?  // comma-separated
+  addedAt       DateTime? // when the title entered Jellyfin (DateCreated); null until the next sync
   updatedAt     DateTime @updatedAt
 
   @@unique([tmdbId, mediaType])
@@ -271,11 +271,11 @@ model LibraryTitle {
 }
 
 // =====================================================
-// EVENT LOG: audit trail buat debugging
+// EVENT LOG: audit trail for debugging
 // =====================================================
 model EventLog {
   id        String   @id @default(cuid())
-  type      String   // "request.created", "request.approved", dll
+  type      String   // "request.created", "request.approved", etc.
   payload   String   // JSON stringified
   createdAt DateTime @default(now())
 

@@ -1,8 +1,8 @@
 /**
  * GET /api/connections?type=movie|tv&id=<tmdbId>
  *
- * Guest endpoint: koneksi APPROVED buat satu film, format graph (nodes + edges).
- * Murni baca DB — ZERO LLM. Kalau belum ada, return nodes/edges kosong.
+ * Guest endpoint: APPROVED connections for one film, in graph format (nodes + edges).
+ * Pure DB read — ZERO LLM. If there are none yet, return empty nodes/edges.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const graph = await getApprovedConnections(parsed.data.id, parsed.data.type);
-    // "Kamu di sini": kalau judul ini punya urutan tonton, bawa potongannya sekalian
+    // "Kamu di sini": if this title has a watch order, include its excerpt too
     const source = graph.nodes[0];
     const saga = source ? await sagaHere(source.title, source.year).catch(() => null) : null;
     return NextResponse.json({ ...graph, saga });

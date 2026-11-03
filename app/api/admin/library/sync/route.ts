@@ -1,7 +1,7 @@
 /**
  * POST /api/admin/library/sync
  *
- * Admin-only. Tarik daftar film & serial dari Jellyfin ke LibraryTitle (butuh JELLYFIN_URL + KEY).
+ * Admin-only. Pulls the list of films & series from Jellyfin into LibraryTitle (needs JELLYFIN_URL + KEY).
  */
 
 import { NextResponse } from 'next/server';

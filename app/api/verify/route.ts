@@ -2,7 +2,7 @@
  * POST /api/verify
  *
  * Verify magic link token, return short-lived JWT-like token
- * yang bisa dipakai untuk akses /api/requests/me.
+ * that can be used to access /api/requests/me.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
     data: { lastActive: new Date() },
   });
 
-  // Generate session token (JWT) — aktif 7 hari
+  // Generate session token (JWT) — valid for 7 days
   const secret = new TextEncoder().encode(process.env.SESSION_SECRET);
   const sessionToken = await new SignJWT({
     guestId: record.guestId,

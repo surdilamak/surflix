@@ -1,7 +1,7 @@
 /**
  * GET /api/admin/stats
  *
- * Dashboard stats untuk admin panel:
+ * Dashboard stats for the admin panel:
  * - Total requests, by status
  * - Movies/series count
  * - Top requesters
@@ -67,12 +67,12 @@ export async function GET() {
 
   // Recent activity (last 10 events)
   const recentEvents = await prisma.eventLog.findMany({
-    where: { type: { not: 'admin.login' } }, // login admin cuma bikin riuh di daftar aktivitas
+    where: { type: { not: 'admin.login' } }, // admin logins only add noise to the activity list
     orderBy: { createdAt: 'desc' },
     take: 12,
   });
 
-  // Perkaya aktivitas: ambil judul dan nama tamu dari requestId di payload
+  // Enrich activity: get the title and guest name from the requestId in the payload
   const parsed = recentEvents.map((e) => {
     let p: Record<string, any> = {};
     try {

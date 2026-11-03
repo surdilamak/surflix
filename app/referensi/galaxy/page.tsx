@@ -1,5 +1,5 @@
 /**
- * Portal Referensi — Galaxy: seluruh library sebagai satu langit.
+ * Reference Portal — Galaxy: the whole library as one sky.
  */
 'use client';
 

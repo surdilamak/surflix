@@ -1,7 +1,7 @@
 /*
- * PortalBar — satu baris: logo + nama portal, tautan lokal, pill tiga situs, pill bahasa.
- * Pill = bentuk penuh; yang aktif oranye (#ff5200) dengan tinta gelap. Tanpa garis tipis, tanpa kaca.
- * Mewarisi font situs induknya; warna lewat --pb-*.
+ * PortalBar — one line: logo + portal name, local links, three-site pill, language pill.
+ * Pill = fully rounded shape; the active one is orange (#ff5200) with dark ink. No hairlines, no glass.
+ * Inherits the host site's font; colors via --pb-*.
  */
 .pb-bar {
   position: sticky; top: 0; z-index: 60;
@@ -20,7 +20,7 @@
 .pb-bar .pb-mark { display: block; height: 24px; width: auto; }
 .pb-name { display: none; font-size: 17px; font-weight: 700; letter-spacing: -0.02em; white-space: nowrap; }
 
-/* tautan lokal (Home/Trending…, All maps/Galaxy) */
+/* local links (Home/Trending…, All maps/Galaxy) */
 .pb-bar .pb-nav { display: none; gap: 2px; align-items: center; margin-left: 8px; }
 .pb-nav a {
   display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 8px;
@@ -29,7 +29,7 @@
 .pb-nav a:hover { color: var(--pb-ink, #fff); background: var(--pb-hover, rgba(255, 255, 255, 0.06)); }
 .pb-nav a[aria-current='page'] { color: var(--pb-ink, #fff); background: var(--pb-raised, #232327); font-weight: 600; }
 
-/* pill: tiga situs */
+/* pill: three sites */
 .pb-switch {
   display: flex; gap: 2px; padding: 4px; margin-left: auto;
   background: var(--pb-raised, #232327); border-radius: 999px;
@@ -44,7 +44,7 @@
 .pb-switch a[aria-current='page'] { background: var(--pb-accent, #ff5200); color: #0d0d0f; font-weight: 600; }
 .pb-full { display: none; }
 
-/* pill: bahasa */
+/* pill: language */
 .pb-lang { display: inline-flex; gap: 2px; padding: 4px; background: var(--pb-raised, #232327); border-radius: 999px; }
 .pb-lang button {
   min-width: 40px; min-height: 40px; padding: 0 8px; border: 0; border-radius: 999px;
@@ -68,12 +68,12 @@
   .pb-short { display: none; }
   .pb-full { display: inline; }
 }
-/* tablet sempit: tautan lokal yang panjang pindah ke baris sendiri */
+/* narrow tablet: long local links move to their own line */
 @media (min-width: 768px) and (max-width: 1179px) {
   .pb-in { flex-wrap: wrap; row-gap: 0; }
   .pb-bar .pb-nav--long { order: 5; flex-basis: 100%; margin: 0 -12px 8px; }
 }
-/* telepon: pill situs + hamburger; logo, nama, tautan lokal, dan bahasa pindah ke menu */
+/* phone: site pill + hamburger; logo, name, local links, and language move into the menu */
 .pb-burger {
   display: none; flex: 0 0 auto; align-items: center; justify-content: center;
   width: 48px; height: 48px; padding: 0; border: 0; border-radius: 999px; cursor: pointer;

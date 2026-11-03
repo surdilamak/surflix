@@ -54,8 +54,8 @@ export function Footer() {
                 <Icons.ArrowUpRight className="h-4 w-4" />
               </a>
             )}
-            {/* Halaman legal dimiliki apex: homeHref() menunjuk surflix.my.id dari
-                subdomain mana pun, jadi tidak kena redirect. */}
+            {/* Legal pages are owned by the apex: homeHref() points to surflix.my.id from
+                any subdomain, so there is no redirect. */}
             <nav className="rq-small flex flex-wrap gap-x-4 gap-y-1 text-rq-muted md:justify-end">
               <a href={homeHref('/terms')} className="py-2 hover:text-white">{t('hub.footer.terms')}</a>
               <a href={homeHref('/privacy')} className="py-2 hover:text-white">{t('hub.footer.privacy')}</a>

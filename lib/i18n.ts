@@ -1,7 +1,7 @@
 /**
- * i18n portal Referensi: English utama, Indonesia sebagai pilihan.
- * Copy ditulis mengikuti skill copywriting: spesifik, suara penggemar film,
- * tanpa kontras "bukan X tapi Y", tanpa daftar negasi, tanpa tanda seru.
+ * i18n for the Reference portal: English is primary, Indonesian is optional.
+ * Copy is written following the copywriting skill: specific, the voice of a film fan,
+ * no "not X but Y" contrast, no lists of negations, no exclamation marks.
  */
 
 import { hubEn, hubId } from './i18n-hub';
@@ -461,7 +461,7 @@ export function translate(lang: Lang, key: string, vars?: Record<string, string 
   return s;
 }
 
-/** Nama relasi; dengan arah ('out' = film ini merujuk lawannya, 'in' = lawannya merujuk film ini). */
+/** Relationship name; with direction ('out' = this film references the other, 'in' = the other references this film). */
 export function relLabel(lang: Lang, rel: string, direction?: 'out' | 'in', kind?: string | null): string {
   // A finer kind (prequel, spinoff, recut, ...) wins over the generic label of the relationship type.
   if (kind && direction) {

@@ -14,7 +14,7 @@ export function generateToken(): string {
 }
 
 /**
- * Get TMDB image URL dari poster_path
+ * Get TMDB image URL from poster_path
  */
 export function tmdbImage(path: string | null | undefined, size: 'w185' | 'w342' | 'w500' | 'w780' | 'original' = 'w342') {
   if (!path) return null;
@@ -22,7 +22,7 @@ export function tmdbImage(path: string | null | undefined, size: 'w185' | 'w342'
 }
 
 /**
- * Format release date jadi tahun aja
+ * Format release date to just the year
  */
 export function getYear(date: string | null | undefined): string {
   if (!date) return '';
@@ -30,7 +30,7 @@ export function getYear(date: string | null | undefined): string {
 }
 
 /**
- * Map Jellyseerr status (1-5) ke label kita
+ * Map Jellyseerr status (1-5) to our label
  */
 export function jellyseerrStatusLabel(status: number | undefined): {
   label: string;

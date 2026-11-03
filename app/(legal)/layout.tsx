@@ -1,12 +1,12 @@
 /**
- * Layout halaman legal (surflix.my.id/terms, /privacy).
+ * Layout for the legal pages (surflix.my.id/terms, /privacy).
  *
- * Halaman legal dimiliki apex, bukan Request Hub atau Reference: isinya menjelaskan
- * layanan secara keseluruhan, jadi satu salinan untuk ketiga situs. Footer ketiga
- * situs menautnya secara absolut lewat homeHref().
+ * The legal pages are owned by the apex, not Request Hub or Reference: they describe
+ * the service as a whole, so there is one copy for all three sites. The footers of all three
+ * sites link to it absolutely via homeHref().
  *
- * Memakai bahasa visual dan font landing (lp-*), karena ia memang halaman apex.
- * English saja, mengikuti landing — lihat CLAUDE.md, landing belum diterjemahkan.
+ * Uses the landing's visual language and font (lp-*), because it is an apex page.
+ * English only, following the landing — see CLAUDE.md, the landing is not translated yet.
  */
 import localFont from 'next/font/local';
 import '../landing/landing.css';

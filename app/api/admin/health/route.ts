@@ -1,8 +1,8 @@
 /**
  * GET /api/admin/health
  *
- * Status integrasi buat halaman Settings: database, Jellyfin, Jellyseerr (dan apakah key-nya admin),
- * Telegram, Web Push, secret webhook, email, dan snapshot library. Admin-only; tidak pernah mengembalikan nilai rahasia.
+ * Integration status for the Settings page: database, Jellyfin, Jellyseerr (and whether its key is an admin key),
+ * Telegram, Web Push, webhook secret, email, and library snapshot. Admin-only; never returns secret values.
  */
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';

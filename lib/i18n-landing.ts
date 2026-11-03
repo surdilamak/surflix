@@ -1,6 +1,6 @@
 /**
- * Kamus landing (kunci `lp.*`). Landing adalah server component: bahasa dibaca dari cookie
- * `surflix_lang` (dibagi dengan Request Hub dan Reference), jadi HTML pertama sudah dalam bahasa terpilih.
+ * Landing dictionary (`lp.*` keys). Landing is a server component: the language is read from the cookie
+ * `surflix_lang` (shared with Request Hub and Reference), so the first HTML is already in the chosen language.
  */
 type Dict = Record<string, string>;
 

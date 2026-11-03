@@ -1,7 +1,7 @@
 /**
- * Poster Card — komponen utama buat nampilin film/series
- * Auto handle status badge (In Library, Downloading, Pending, dll)
- * Klik untuk buka detail modal.
+ * Poster Card — the main component for displaying films/series
+ * Automatically handles the status badge (In Library, Downloading, Pending, etc.)
+ * Click to open the detail modal.
  */
 'use client';
 
@@ -16,7 +16,7 @@ interface PosterCardProps {
   onClick?: () => void;
   size?: 'sm' | 'md' | 'lg';
   showProgress?: boolean;
-  progress?: number; // 0-100, kalau ada lagi downloading
+  progress?: number; // 0-100, if currently downloading
 }
 
 export function PosterCard({ item, onClick, size = 'md', showProgress, progress }: PosterCardProps) {
@@ -72,7 +72,7 @@ export function PosterCard({ item, onClick, size = 'md', showProgress, progress 
           </div>
         )}
 
-        {/* Progress overlay (untuk downloading) */}
+        {/* Progress overlay (for downloading) */}
         {showProgress && progress !== undefined && (
           <div className="absolute inset-x-0 bottom-0 bg-rq-bg/90 p-2">
             <div className="rq-badge rq-badge-processing mb-1.5">

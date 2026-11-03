@@ -1,15 +1,15 @@
 /**
- * Film Connections — pipeline generate peta referensi
+ * Film Connections — pipeline that generates the reference map
  *
- * ADMIN-TRIGGERED ONLY. Guest cuma baca row `APPROVED` (lihat getApprovedConnections),
- * gak pernah manggil generateConnections().
+ * ADMIN-TRIGGERED ONLY. Guests only read `APPROVED` rows (see getApprovedConnections),
+ * and never call generateConnections().
  *
  * Pipeline:
- *   1. Detail film sumber (Jellyseerr) — harus ada di library Jellyfin
- *   2. LLM -> draft daftar referensi
- *   3. Resolve tiap item ke TMDB (search judul+tahun via Jellyseerr)
- *   4. Filter: cuma yang ADA di library Jellyfin -> targetJellyfinId
- *   5. Upsert PENDING_REVIEW (@@unique cegah duplikat)
+ *   1. Source film detail (Jellyseerr) — must exist in the Jellyfin library
+ *   2. LLM -> draft list of references
+ *   3. Resolve each item to TMDB (search title+year via Jellyseerr)
+ *   4. Filter: only those that EXIST in the Jellyfin library -> targetJellyfinId
+ *   5. Upsert PENDING_REVIEW (@@unique prevents duplicates)
  */
 
 import { prisma } from '@/lib/db';
@@ -43,8 +43,8 @@ function toYear(date: string | null | undefined): number | null {
 }
 
 /**
- * Resolve satu saran LLM ke TMDB lewat Jellyseerr search.
- * Prioritas: mediaType sama + tahun cocok (toleransi ±1). Gagal -> null (di-skip).
+ * Resolve one LLM suggestion to TMDB via Jellyseerr search.
+ * Priority: same mediaType + matching year (tolerance ±1). Failure -> null (skipped).
  */
 async function resolveToTmdb(s: FilmReferenceSuggestion): Promise<ResolvedTarget | null> {
   const search = await jellyseerr.search(s.title);
@@ -64,20 +64,20 @@ async function resolveToTmdb(s: FilmReferenceSuggestion): Promise<ResolvedTarget
 
   if (s.year) {
     const match = candidates.find((c) => c.year !== null && Math.abs(c.year - s.year!) <= 1);
-    return match ?? null; // tahun gak cocok -> mending skip daripada salah film
+    return match ?? null; // year does not match -> better to skip than pick the wrong film
   }
   return candidates[0];
 }
 
 /**
- * Generate draft koneksi buat satu film. Simpan sebagai PENDING_REVIEW.
- * Row existing (APPROVED/REJECTED) gak di-reset statusnya — cuma metadata di-refresh.
+ * Generate draft connections for one film. Save as PENDING_REVIEW.
+ * Existing rows (APPROVED/REJECTED) do not get their status reset — only the metadata is refreshed.
  */
 export async function generateConnections(
   tmdbId: number,
   mediaType: MediaType
 ): Promise<GenerateSummary> {
-  // 1. Film sumber
+  // 1. Source film
   const detail = await jellyseerr.getMediaDetail(mediaType, tmdbId);
   const sourceTitle: string = (detail.title ?? detail.name ?? '').trim();
   if (!sourceTitle) throw new Error('Film sumber gak ketemu di TMDB');
@@ -100,7 +100,7 @@ export async function generateConnections(
   };
 
   for (const s of suggestions) {
-    // 3. Resolve ke TMDB
+    // 3. Resolve to TMDB
     let target: ResolvedTarget | null = null;
     try {
       target = await resolveToTmdb(s);
@@ -116,7 +116,7 @@ export async function generateConnections(
       continue;
     }
 
-    // 4. Harus ada di library Jellyfin
+    // 4. Must exist in the Jellyfin library
     const jellyfinId = library.get(libraryKey(target.mediaType, target.tmdbId));
     if (!jellyfinId) {
       summary.skipped.push({ title: target.title, reason: 'gak ada di library' });
@@ -152,7 +152,7 @@ export async function generateConnections(
         status: 'PENDING_REVIEW',
         source: 'llm',
       },
-      // status/relationship/reason sengaja gak disentuh — jangan timpa hasil review admin
+      // status/relationship/reason are intentionally left untouched — do not overwrite the admin's review result
       update: {
         targetTitle: target.title,
         targetYear: target.year,
@@ -183,7 +183,7 @@ export interface GraphNodeOut {
   year: number | null;
   jellyfinId: string | null;
   isSource: boolean;
-  /** jumlah film yang nyambung ke film ini (0 = belum ada peta) */
+  /** number of films connected to this film (0 = no map yet) */
   refCount: number;
 }
 
@@ -191,7 +191,7 @@ export interface GraphEdgeOut {
   from: string;
   to: string;
   relationship: string;
-  /** "out": film yang dibuka merujuk lawannya; "in": lawannya merujuk film yang dibuka */
+  /** "out": the opened film references the other; "in": the other references the opened film */
   direction: 'out' | 'in';
   reason: string;
   reasonEn: string | null;
@@ -208,9 +208,9 @@ type Row = Awaited<ReturnType<typeof prisma.filmConnection.findMany>>[number];
 const fk = (mediaType: string, tmdbId: number) => `${mediaType}:${tmdbId}`;
 
 /**
- * Per film: lawan-lawannya (dari dua arah), tanpa duplikat.
- * Kalau sepasang film punya dua baris (A->B dan B->A), pakai arah kanonik:
- * film yang lebih baru merujuk film yang lebih lama.
+ * Per film: its counterparts (from both directions), without duplicates.
+ * If a pair of films has two rows (A->B and B->A), use the canonical direction:
+ * the newer film references the older film.
  */
 function buildAdjacency(rows: Row[]) {
   const adj = new Map<string, Map<string, Row>>();
@@ -241,8 +241,8 @@ async function libraryMap(keys: string[]) {
 }
 
 /**
- * Buat guest: peta satu film (nodes + edges) dari koneksi APPROVED, dua arah.
- * Murni baca DB — ZERO LLM. Kalau belum ada -> nodes/edges kosong.
+ * For guests: the map of one film (nodes + edges) from APPROVED connections, both directions.
+ * Pure DB read — ZERO LLM. If there are none yet -> empty nodes/edges.
  */
 export async function getApprovedConnections(tmdbId: number, mediaType: MediaType) {
   const rows = await approvedRows();
@@ -257,7 +257,7 @@ export async function getApprovedConnections(tmdbId: number, mediaType: MediaTyp
   const nodeOf = (key: string, isSource: boolean): GraphNodeOut => {
     const [mt, id] = key.split(':');
     const l = lib.get(key);
-    // cadangan kalau film belum ada di LibraryTitle: ambil dari baris koneksi
+    // fallback if the film is not in LibraryTitle yet: take it from the connection row
     let title = l?.title ?? '';
     let year = l?.year ?? null;
     let jellyfinId = l?.jellyfinId ?? null;
@@ -275,7 +275,7 @@ export async function getApprovedConnections(tmdbId: number, mediaType: MediaTyp
 
   const nodes: GraphNodeOut[] = [nodeOf(me, true)];
   const edges: GraphEdgeOut[] = [];
-  // referensi sinematik duluan, lalu talenta, sutradara, semesta (graph 3D cuma muat belasan)
+  // cinematic references first, then talent, director, universe (the 3D graph only fits a dozen or so)
   const PRIORITY = ['homage', 'inspired', 'visual', 'remake', 'talent', 'director', 'universe'];
   const ordered = [...mine].sort(
     (a, b) => PRIORITY.indexOf(a[1].relationship) - PRIORITY.indexOf(b[1].relationship)
@@ -292,8 +292,8 @@ export async function getApprovedConnections(tmdbId: number, mediaType: MediaTyp
 }
 
 /**
- * Buat portal Referensi: semua film yang punya peta (muncul di koneksi APPROVED, sebagai
- * sumber maupun target), diurutkan dari yang paling banyak nyambung.
+ * For the Reference portal: all films that have a map (appearing in APPROVED connections, as
+ * either source or target), sorted from most connected.
  */
 export async function listConnectedFilms() {
   const rows = await approvedRows();
@@ -322,7 +322,7 @@ export async function listConnectedFilms() {
         kind: r.kind,
       };
     });
-    // skor referensi: hanya hubungan "sinematik" yang dihitung (bukan semesta/sutradara/talenta)
+    // reference score: only "cinematic" relationships count (not universe/director/talent)
     const refScore = refs.filter((r) => ['homage', 'inspired', 'visual', 'remake'].includes(r.relationship)).length;
     return {
       tmdbId: Number(id), mediaType: mt, title: l?.title ?? refs[0]?.title ?? '',
@@ -337,8 +337,8 @@ export async function listConnectedFilms() {
 }
 
 /**
- * Search seluruh library (judul, judul asli, sutradara). Tiap hasil bawa jumlah referensi
- * (0 = belum ada peta) supaya portal bisa bilang "belum dipetakan".
+ * Search the whole library (title, original title, director). Each result carries a reference count
+ * (0 = no map yet) so the portal can say "not mapped yet".
  */
 export async function searchLibrary(q: string, limit = 12) {
   const term = q.trim();
@@ -374,7 +374,7 @@ function adjacencyCounts(rows: Row[]) {
 }
 
 /**
- * Backoffice: seluruh library + status cakupan referensi.
+ * Backoffice: the whole library + reference coverage status.
  */
 export async function libraryCoverage() {
   const [titles, all] = await Promise.all([
@@ -397,7 +397,7 @@ export async function libraryCoverage() {
 
 
 /**
- * Indeks A–Z seluruh library (ringkas): [tmdbId, mediaType, title, year, jumlah koneksi].
+ * A–Z index of the whole library (compact): [tmdbId, mediaType, title, year, connection count].
  */
 export async function libraryIndex() {
   const [titles, rows] = await Promise.all([
@@ -419,7 +419,7 @@ function sortKey(title: string) {
     .toLowerCase();
 }
 
-/** Satu judul dari library (buat halaman "belum ada peta"). */
+/** A single title from the library (for the "no map yet" page). */
 export async function getLibraryTitle(tmdbId: number, mediaType: MediaType) {
   const t = await prisma.libraryTitle.findUnique({ where: { tmdbId_mediaType: { tmdbId, mediaType } } });
   return t
@@ -428,12 +428,12 @@ export async function getLibraryTitle(tmdbId: number, mediaType: MediaType) {
 }
 
 /**
- * Seluruh graf koneksi APPROVED buat halaman Galaxy: satu node per judul yang punya koneksi,
- * satu sisi per pasangan (arah kanonik: yang lebih baru merujuk yang lebih lama).
+ * The whole APPROVED connection graph for the Galaxy page: one node per title that has connections,
+ * one edge per pair (canonical direction: the newer references the older).
  */
 export async function galaxyGraph(opts: { includePending?: boolean } = {}) {
   const approved = await approvedRows();
-  // Pratinjau admin: tambahkan koneksi yang menunggu review (ditandai pending, digambar putus-putus)
+  // Admin preview: add connections awaiting review (marked pending, drawn dashed)
   const rows = opts.includePending
     ? [...approved, ...(await prisma.filmConnection.findMany({ where: { status: 'PENDING_REVIEW' } }))]
     : approved;
@@ -463,7 +463,7 @@ export async function galaxyGraph(opts: { includePending?: boolean } = {}) {
   const edges: Array<{ a: number; b: number; relationship: string; kind: string | null; srcIsA: boolean; pending: boolean }> = [];
   for (const [a, m] of adj) {
     for (const [b, r] of m) {
-      if (a >= b) continue; // tiap pasangan sekali
+      if (a >= b) continue; // each pair once
       edges.push({
         a: index.get(a)!,
         b: index.get(b)!,
@@ -478,9 +478,9 @@ export async function galaxyGraph(opts: { includePending?: boolean } = {}) {
 }
 
 /**
- * Ringkasan ringan satu film buat metadata halaman (judul tab, preview link): judul,
- * tahun, jumlah koneksi APPROVED, satu alasan yang enak dibaca, dan poster TMDB kalau ada.
- * Tidak memuat seluruh graf seperti getApprovedConnections.
+ * Lightweight summary of one film for page metadata (tab title, link preview): title,
+ * year, APPROVED connection count, one readable reason, and the TMDB poster if available.
+ * Does not load the whole graph like getApprovedConnections.
  */
 export async function getFilmMeta(tmdbId: number, mediaType: MediaType) {
   const lib = await prisma.libraryTitle.findUnique({ where: { tmdbId_mediaType: { tmdbId, mediaType } } });
@@ -512,8 +512,8 @@ export async function getFilmMeta(tmdbId: number, mediaType: MediaType) {
 }
 
 /**
- * Data kartu preview (OG image) satu film: ringkasan getFilmMeta plus tiga koneksi terkuat
- * (jenis hubungan, arah, judul lawan) supaya kartunya memperlihatkan peta, bukan cuma poster.
+ * Preview card (OG image) data for one film: the getFilmMeta summary plus the three strongest connections
+ * (relationship type, direction, counterpart title) so the card shows the map, not just the poster.
  */
 export async function getFilmOgData(tmdbId: number, mediaType: MediaType) {
   const meta = await getFilmMeta(tmdbId, mediaType);
@@ -548,7 +548,7 @@ export async function getFilmOgData(tmdbId: number, mediaType: MediaType) {
   return { ...meta, related };
 }
 
-/** Daftar halaman peta untuk sitemap: semua judul yang punya koneksi APPROVED, plus kapan terakhir berubah. */
+/** List of map pages for the sitemap: all titles that have APPROVED connections, plus when they last changed. */
 export async function sitemapFilms() {
   const rows = await approvedRows();
   const latest = new Map<string, Date>();
@@ -566,8 +566,8 @@ export async function sitemapFilms() {
 }
 
 /**
- * Judul yang paling baru masuk Jellyfin (urut addedAt), lengkap dengan jumlah koneksi APPROVED.
- * `pendingBackfill` = ada judul yang addedAt-nya belum terisi (library belum di-sync sejak kolom ini ada).
+ * Titles most recently added to Jellyfin (ordered by addedAt), with their APPROVED connection count.
+ * `pendingBackfill` = some titles have no addedAt filled in yet (the library has not been synced since this column existed).
  */
 export async function recentTitles(limit = 60) {
   const [titles, rows, missing] = await Promise.all([
@@ -611,11 +611,11 @@ interface Bi {
 const SAGAS = sagasData as unknown as SagaFile[];
 const nameKey = (title: string, year: number | null | undefined) => `${title.toLowerCase()}|${year ?? ''}`;
 
-/** judul -> saga yang memuatnya (dibangun sekali per proses) */
+/** title -> the saga that contains it (built once per process) */
 const SAGA_OF = new Map<string, SagaFile>();
 for (const s of SAGAS) for (const e of s.entries) SAGA_OF.set(nameKey(e.title, e.year), s);
 
-/** Seluruh library sekali jalan, dikunci judul+tahun (sagas.json menyimpan nama, bukan tmdbId). */
+/** The whole library in one pass, keyed by title+year (sagas.json stores names, not tmdbId). */
 async function libraryByName() {
   const rows = await prisma.libraryTitle.findMany({
     select: { tmdbId: true, mediaType: true, title: true, year: true, jellyfinId: true },
@@ -636,13 +636,13 @@ export interface SagaEntry {
   when: string | null;
   note: Bi | null;
   release: string;
-  /** posisi di urutan cerita dan di urutan rilis */
+  /** position in the story order and in the release order */
   story: number;
   rel: number;
   tmdbId: number | null;
   mediaType: string | null;
   jellyfinId: string | null;
-  /** jumlah koneksi APPROVED — menentukan apakah judul ini punya peta */
+  /** APPROVED connection count — determines whether this title has a map */
   count: number;
 }
 
@@ -678,15 +678,15 @@ export interface SagaCard {
   name: string;
   kind: 'curated' | 'auto';
   total: number;
-  /** judul yang sudah punya peta koneksi */
+  /** title that already has a connection map */
   mapped: number;
   twoOrders: boolean;
   entries: SagaEntry[];
 }
 
 /**
- * Daftar semua saga buat halaman indeks Watch order: urut dari yang terpanjang,
- * dengan beberapa judul pertama (urutan cerita) sebagai poster.
+ * List of all sagas for the Watch order index page: ordered from longest,
+ * with the first few titles (story order) as posters.
  */
 export async function listSagas(postersPerSaga = 9): Promise<SagaCard[]> {
   const [lib, rows] = await Promise.all([libraryByName(), approvedRows()]);
@@ -705,7 +705,7 @@ export async function listSagas(postersPerSaga = 9): Promise<SagaCard[]> {
   }).sort((a, b) => (a.kind === b.kind ? b.total - a.total : a.kind === 'curated' ? -1 : 1));
 }
 
-/** Judul (yang ada di library) -> id saga, buat menautkan peta film & Galaxy ke Watch order. */
+/** Title (that exists in the library) -> saga id, to link the film map & Galaxy to Watch order. */
 export async function sagaMembership() {
   const lib = await libraryByName();
   const out: Record<string, string> = {};
@@ -722,7 +722,7 @@ export interface SagaFull extends Omit<SagaCard, 'entries'> {
   entries: SagaEntry[];
 }
 
-/** Satu saga lengkap buat halaman Watch order. */
+/** One complete saga for the Watch order page. */
 export async function getSaga(id: string): Promise<SagaFull | null> {
   const s = SAGAS.find((x) => x.id === id);
   if (!s) return null;
@@ -751,8 +751,8 @@ export interface SagaHere {
 }
 
 /**
- * "Kamu di sini": posisi satu film di dalam saganya, plus tetangga terdekat di urutan cerita.
- * Dipakai di halaman peta film supaya peta dan Watch order saling menyambung.
+ * "You are here": the position of one film within its saga, plus the nearest neighbours in the story order.
+ * Used on the film map page so the map and Watch order connect to each other.
  */
 export async function sagaHere(title: string, year: number | null, span = 5): Promise<SagaHere | null> {
   const s = SAGA_OF.get(nameKey(title, year));

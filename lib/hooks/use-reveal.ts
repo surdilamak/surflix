@@ -1,6 +1,6 @@
 /**
- * useReveal — entrance saat scroll: elemen `.ref-reveal` masuk (opacity + naik 20px) sekali
- * begitu terlihat. Panggil dengan `ready=true` setelah kontennya ke-render.
+ * useReveal — entrance on scroll: the `.ref-reveal` element enters (opacity + rises 20px) once
+ * it becomes visible. Call with `ready=true` after its content has rendered.
  */
 'use client';
 

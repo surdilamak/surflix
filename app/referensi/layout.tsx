@@ -1,9 +1,9 @@
 /**
- * Portal Referensi layout — terpisah dari Request Hub.
- * Served di reference.surflix.my.id (middleware rewrite ke /referensi/*) atau /referensi di lokal.
+ * Reference Portal layout — separate from Request Hub.
+ * Served at reference.surflix.my.id (middleware rewrites to /referensi/*) or /referensi locally.
  *
- * Arah visual: taste-skill "contact sheet" — Schibsted Grotesk, navy on white,
- * bidang gelap di pembuka, satu aksen tangerine buat aksi utama.
+ * Visual direction: taste-skill "contact sheet" — Schibsted Grotesk, navy on white,
+ * a dark field at the opening, one tangerine accent for the main action.
  */
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
@@ -13,9 +13,9 @@ import { LangProvider } from '@/components/connections/lang-provider';
 import { PortalBar } from '@/components/portal-bar';
 import './referensi.css';
 
-// Font di-vendor ke repo supaya build tidak perlu mengambilnya dari Google.
-// Pengambilan saat build sempat menggagalkan CI tiga kali dalam satu hari.
-// Keduanya variable font berlisensi OFL; satu berkas melayani seluruh rentang berat.
+// Fonts are vendored in the repo so the build does not need to fetch them from Google.
+// Fetching at build time broke CI three times in one day.
+// Both are variable fonts under the OFL license; one file covers the whole weight range.
 const font = localFont({
   src: '../../public/fonts/schibsted-var-latin.woff2',
   weight: '400 800',
@@ -23,7 +23,7 @@ const font = localFont({
 });
 
 export const metadata: Metadata = {
-  // URL absolut buat og:image / canonical (preview link butuh URL penuh)
+  // Absolute URL for og:image / canonical (link previews need the full URL)
   metadataBase: new URL(process.env.NEXT_PUBLIC_REFERENCE_URL || 'https://reference.surflix.my.id'),
   title: 'Surflix Reference: every film leaves a trail',
   description: 'A map of how the films and series on Surflix connect: homages, borrowed looks, shared directors and shared universes.',
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
 export default function ReferensiLayout({ children }: { children: React.ReactNode }) {
   return (
     <div className={`ref-root ${font.className}`}>
-      {/* Konten yang muncul saat scroll tetap kelihatan kalau script gagal */}
+      {/* Content that appears on scroll stays visible if the script fails */}
       <noscript>
         <style>{'.ref-reveal{opacity:1!important;transform:none!important}'}</style>
       </noscript>

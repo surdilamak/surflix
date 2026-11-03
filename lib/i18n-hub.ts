@@ -1,7 +1,7 @@
 /**
- * Kamus Request Hub (kunci `hub.*`) dan bar portal (`pb.*`). Digabung ke lib/i18n.ts supaya
- * satu LangProvider melayani Reference, Request Hub, dan bar di atas keduanya.
- * English utama; Indonesia memakai "kamu" dan kalimat pendek, tanpa tanda seru.
+ * Request Hub dictionary (`hub.*` keys) and portal bar (`pb.*`). Merged into lib/i18n.ts so
+ * one LangProvider serves Reference, Request Hub, and the bar above both.
+ * English is primary; Indonesian uses "kamu" and short sentences, no exclamation marks.
  */
 type Dict = Record<string, string>;
 

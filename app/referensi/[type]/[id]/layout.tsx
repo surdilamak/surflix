@@ -1,6 +1,6 @@
 /**
- * Metadata per film buat halaman peta (judul tab, preview link WhatsApp/X/Slack).
- * Halaman aslinya client-side, jadi metadata-nya dipasang dari layout server ini.
+ * Per-film metadata for the map page (tab title, link preview for WhatsApp/X/Slack).
+ * The page itself is client-side, so the metadata is set from this server layout.
  */
 import type { Metadata } from 'next';
 import { getFilmMeta } from '@/lib/connections';
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
     200
   );
 
-  // Kartu 1200x630 buatan sendiri (poster + jumlah koneksi + tiga koneksi terkuat)
+  // Custom 1200x630 card (poster + connection count + three strongest connections)
   const image = `/api/og/${type}/${id}`;
 
   return {

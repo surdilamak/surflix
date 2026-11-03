@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 /**
- * Generate Bcrypt Hash buat ADMIN_PASSWORD_HASH
+ * Generate Bcrypt Hash for ADMIN_PASSWORD_HASH
  *
- * Cara pakai:
+ * Usage:
  *   node scripts/gen-password.js
- *   → ketik password lo
- *   → copy hash hasilnya ke .env (ADMIN_PASSWORD_HASH=...)
+ *   → type your password
+ *   → copy the resulting hash into .env (ADMIN_PASSWORD_HASH=...)
  */
 
 const bcrypt = require('bcryptjs');

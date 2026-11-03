@@ -1,8 +1,8 @@
 /*
- * Landing — papan ubin (taste-skill direction "dense-tiles").
- * Satu radius, satu pasang margin, satu bentuk tombol. Ubin diisi warna datar, tanpa garis
- * tipis, tanpa gradien, tanpa bayangan di benda diam. Font: Bricolage Grotesque.
- * Semua kelas berawalan lp- supaya tidak bentrok dengan portal Reference.
+ * Landing — tile board (taste-skill direction "dense-tiles").
+ * One radius, one pair of margins, one button shape. Tiles are filled with flat color, no
+ * hairlines, no gradients, no shadows on resting objects. Font: Bricolage Grotesque.
+ * All classes are prefixed lp- so they do not clash with the Reference portal.
  */
 .lp-root {
   --bg: #0d0d0f;
@@ -10,7 +10,7 @@
   --surface-2: #232327;
   --ink: #ffffff;
   --muted: #a3a3ab;
-  --accent: #ff5200; /* oranye logo Surflix */
+  --accent: #ff5200; /* Surflix logo orange */
   --accent-ink: #0d0d0f;
   --paper: #ffffff;
   --paper-ink: #0d0d0f;
@@ -19,7 +19,7 @@
   --r: 8px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* lima langkah ukuran huruf (+ angka besar) */
+  /* five font-size steps (+ big number) */
   --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
   --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
   --step-lead: clamp(1.375rem, 1.1rem + 0.7vw, 1.625rem);
@@ -38,14 +38,14 @@
 .lp-root *, .lp-root *::before, .lp-root *::after { box-sizing: border-box; }
 .lp-root a { color: inherit; text-decoration: none; }
 .lp-root img { display: block; max-width: 100%; }
-:where(.lp-root) :is(h1, h2, h3, p, dl, dd, figure) { margin: 0; } /* specificity nol: aturan lain selalu menang */
+:where(.lp-root) :is(h1, h2, h3, p, dl, dd, figure) { margin: 0; } /* zero specificity: other rules always win */
 .lp-root :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .lp-root ::selection { background: var(--accent); color: var(--accent-ink); }
 
 .lp-head { font-size: var(--step-head); font-weight: 600; letter-spacing: -0.04em; line-height: 0.92; text-wrap: balance; }
 .lp-lead { font-size: var(--step-lead); line-height: 1.25; text-wrap: pretty; }
 
-/* ── Tombol: satu bentuk ── */
+/* ── Buttons: one shape ── */
 .lp-root .lp-btn {
   display: inline-flex; align-items: center; justify-content: center;
   min-height: 48px; padding: 0 24px;
@@ -62,21 +62,21 @@
   .lp-root .lp-btn:hover { transform: translateY(-2px); }
 }
 
-/* ── Bagian ── */
+/* ── Sections ── */
 .lp-section { padding: clamp(96px, 12vw, 200px) var(--m); }
 .lp-section--bg { background: var(--bg); color: var(--ink); }
 .lp-section--paper { background: var(--paper); color: var(--paper-ink); }
 .lp-section--black { background: #000; color: #fff; }
 
-/* ── Gerak masuk: aktif hanya kalau script jalan ── */
+/* ── Entrance motion: only active when script runs ── */
 .lp-js [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); transition-delay: var(--d, 0ms); }
 .lp-js [data-reveal].is-in { opacity: 1; transform: none; }
 @keyframes lp-rise { from { opacity: 0; transform: translateY(28px); } }
 
-/* ═══ Hero: lembar poster dengan satu sel teks ═══ */
+/* ═══ Hero: a poster sheet with one text cell ═══ */
 .lp-hero {
   --H: max(100svh, 640px);
-  --ph: 340px; /* tinggi panel teks = tinggi ruang kosong di kolom 3-4 */
+  --ph: 340px; /* text panel height = height of the empty space in columns 3-4 */
   position: relative; overflow: hidden;
   height: var(--H); padding: var(--m);
   container-type: inline-size;
@@ -91,7 +91,7 @@
 .lp-sheet { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; height: 100%; }
 .lp-col { display: flex; flex-direction: column; gap: 12px; transform: translateY(var(--off, 0px)); }
 .lp-col[data-col="1"] { --off: -90px; }
-/* bingkai pertama kolom 3-4 berakhir 12px di atas panel (panel mulai di 28% tinggi hero) */
+/* the first frame of columns 3-4 ends 12px above the panel (the panel starts at 28% of the hero height) */
 .lp-col[data-col="2"], .lp-col[data-col="3"] { --off: calc(var(--H) * 0.28 - var(--m) - 12px - var(--fh)); }
 .lp-col[data-col="4"] { --off: -20px; }
 .lp-col[data-col="5"] { --off: -70px; }
@@ -132,7 +132,7 @@
 .lp-panel-links a { text-decoration: underline; text-underline-offset: 4px; text-decoration-color: transparent; transition: text-decoration-color 0.2s; }
 .lp-panel-links a:hover { text-decoration-color: currentColor; }
 
-/* ═══ Streaming: satu foto dipotong lintas ubin ═══ */
+/* ═══ Streaming: one photo cut across tiles ═══ */
 .lp-mosaic { container-type: inline-size; overflow: hidden; }
 .lp-mosaic-grid {
   --cw: calc((100cqw - (var(--cols) - 1) * var(--gap)) / var(--cols));
@@ -141,7 +141,7 @@
   display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); gap: var(--gap);
 }
 .lp-tile { position: relative; overflow: hidden; aspect-ratio: 1; border-radius: var(--r); background-color: var(--surface); }
-/* satu foto utuh, dipotong per ubin: tiap <img> seukuran seluruh papan, digeser ke potongannya */
+/* one whole photo, cut per tile: each <img> is the size of the whole board, shifted to its slice */
 .lp-pic { position: absolute; inset: 0; overflow: hidden; transition: transform 0.6s var(--ease); }
 .lp-pic img {
   position: absolute; max-width: none; object-fit: cover;
@@ -163,14 +163,14 @@
 .lp-section.lp-streaming { padding-top: clamp(120px, 14vw, 220px); }
 .lp-intro { max-width: 44ch; margin-bottom: 56px; }
 
-/* shutter: potongan foto membuka dari tepi atas, baris demi baris (menyapu papan dari atas ke bawah) dan
-   menetap dari skala 1.12. Yang bergerak hanya lapisan foto: teks di ubin warna selalu terbaca. */
+/* shutter: the photo slices open from the top edge, row by row (sweeping the board from top to bottom) and
+   settle from scale 1.12. Only the photo layer moves: text on color tiles always stays readable. */
 .lp-js .lp-mosaic[data-shutter] .lp-pic { clip-path: inset(0 0 100% 0); }
 .lp-js .lp-mosaic[data-shutter] .lp-pic img { transform: scale(1.12); }
 .lp-js .lp-mosaic[data-shutter].is-in .lp-pic { clip-path: inset(0); transition: clip-path 0.9s var(--ease) calc(var(--row) * 110ms), transform 0.6s var(--ease); }
 .lp-js .lp-mosaic[data-shutter].is-in .lp-pic img { transform: none; transition: transform 1.5s var(--ease) calc(var(--row) * 110ms); }
 
-/* ═══ Request Hub: tiga ubin yang membesar ═══ */
+/* ═══ Request Hub: three tiles that grow ═══ */
 .lp-grow { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 12px; align-items: end; }
 .lp-grow .lp-head { grid-column: 1 / 8; grid-row: 1; align-self: start; max-width: 12ch; }
 .lp-stage-col--1 { grid-column: 1 / 4; grid-row: 2; }
@@ -187,7 +187,7 @@
 .lp-stage-col p { margin-top: 8px; max-width: 34ch; font-size: var(--step-body); line-height: 1.45; }
 .lp-stage-col .lp-btn { margin-top: 24px; }
 
-/* fragmen antarmuka hub (data-ui): bingkai & radius sendiri diperbolehkan */
+/* hub interface fragments (data-ui): their own frame & radius are allowed */
 .lp-ui { width: 100%; max-width: 300px; display: flex; flex-direction: column; gap: 10px; padding: 14px; background: #fff; color: var(--paper-ink); border-radius: 8px; font-size: var(--step-small); }
 .lp-ui--dark { background: var(--surface); color: #fff; }
 .lp-ui-film { display: flex; align-items: center; gap: 10px; }
@@ -204,7 +204,7 @@
 .lp-ui-ready img { flex: 1 1 0; min-height: 0; width: auto; max-width: 100%; border-radius: 6px; }
 .lp-ui-ready .lp-ui-btn { flex: none; padding: 10px 28px; font-size: var(--step-body); }
 
-/* ═══ Reference: lembar rapat + satu koneksi nyata ═══ */
+/* ═══ Reference: dense sheet + one real connection ═══ */
 .lp-section.lp-reference { padding-bottom: clamp(72px, 9vw, 144px); }
 .lp-ref-top { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); column-gap: 4px; align-items: start; margin-bottom: 64px; }
 .lp-spot { grid-column: 1 / 3; display: flex; gap: 16px; padding: 16px; background: var(--surface-2); border-radius: var(--r); transition: transform 0.25s var(--ease); }
@@ -228,7 +228,7 @@
 .lp-way-go { display: inline-block; margin-top: 16px; font-size: var(--step-small); font-weight: 500; text-decoration: underline; text-underline-offset: 5px; text-decoration-color: transparent; transition: text-decoration-color 0.2s; }
 .lp-way:hover .lp-way-go { text-decoration-color: currentColor; }
 
-/* tiga gambar kecil: masing-masing versi mini dari fiturnya sendiri */
+/* three small images: each a mini version of its own feature */
 .lp-way-art { position: relative; display: flex; height: clamp(152px, 12vw, 176px); border-radius: var(--r); background: var(--bg); overflow: hidden; }
 .lp-way-art em { position: absolute; left: 14px; bottom: 10px; font-size: 13px; font-style: normal; color: var(--muted); }
 .lp-way-art img { border-radius: 4px; background: var(--surface-2); }
@@ -253,7 +253,7 @@
 .lp-masonry a:hover img { opacity: 0.8; }
 .lp-masonry figcaption { margin-top: 8px; font-size: var(--step-small); line-height: 1.3; color: var(--muted); }
 
-/* ═══ Angka: ubin bertingkat ═══ */
+/* ═══ Numbers: stepped tiles ═══ */
 .lp-stats-grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: 8px; height: 70vh; min-height: 520px; align-items: start; }
 .lp-fig { display: flex; flex-direction: column; gap: 12px; padding: 28px; border-radius: var(--r); }
 .lp-fig b { font-size: var(--step-fig); font-weight: 600; letter-spacing: -0.04em; line-height: 0.9; font-variant-numeric: tabular-nums; }
@@ -267,7 +267,7 @@
 .lp-fig--3 { grid-column: 10 / 13; grid-row: 1; margin-top: 26vh; height: 34vh; }
 .lp-stats-h { grid-column: 7 / 10; grid-row: 1; align-self: start; padding-right: 16px; font-size: var(--step-sub); font-weight: 600; letter-spacing: -0.03em; line-height: 1; text-wrap: balance; }
 
-/* ═══ Tentang: foto lebar, ubin warna, fakta ═══ */
+/* ═══ About: wide photo, color tile, facts ═══ */
 .lp-about-lead { margin-top: 24px; max-width: calc(50% - 8px); font-size: var(--step-lead); line-height: 1.3; }
 .lp-about-row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; margin-top: 72px; }
 .lp-about-photo { position: relative; grid-column: 1 / 9; overflow: hidden; aspect-ratio: 16 / 10; border-radius: var(--r); background: var(--surface); }
@@ -280,7 +280,7 @@
 .lp-facts dt { font-size: var(--step-small); color: var(--muted); }
 .lp-facts dd { margin-top: 2px; font-size: var(--step-body); font-weight: 500; }
 
-/* ═══ Ubin aksi ═══ */
+/* ═══ Action tile ═══ */
 .lp-section.lp-cta { overflow: hidden; padding-top: clamp(72px, 9vw, 140px); padding-bottom: clamp(72px, 9vw, 140px); }
 .lp-cta-row { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; height: 360px; }
 .lp-cta-main { grid-column: 3 / 11; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; padding: 40px; background: var(--accent); color: var(--accent-ink); border-radius: var(--r); }
@@ -291,7 +291,7 @@
 .lp-cta-flank--flat { grid-column: 11 / 13; margin-right: calc(-1 * var(--m) - 140px); }
 .lp-cta-flank img { width: 100%; height: 100%; object-fit: cover; }
 
-/* ═══ Footer: nama dibangun besar ═══ */
+/* ═══ Footer: the name built large ═══ */
 .lp-footer { padding: 64px 0 24px; background: var(--bg); }
 .lp-mark { display: flex; align-items: flex-end; gap: 4px; height: 34svh; margin: 64px var(--m) 0; }
 .lp-mark-b {
@@ -316,14 +316,14 @@
 .lp-credit { flex: 1; max-width: 70ch; line-height: 1.4; }
 .lp-credit a { text-decoration: underline; text-underline-offset: 3px; }
 
-/* ═══ QR kopi (satu-satunya benda yang melayang) ═══ */
+/* ═══ Coffee QR (the only floating object) ═══ */
 .lp-modal { position: fixed; inset: 0; z-index: 80; display: grid; place-items: center; padding: 24px; background: rgba(5, 5, 7, 0.9); }
 .lp-modal-card { position: relative; width: min(300px, 100%); padding: 16px; background: var(--paper); color: var(--paper-ink); text-align: center; border-radius: var(--r); animation: lp-rise 0.25s var(--ease); }
 .lp-modal-card img { width: 100%; height: auto; border-radius: 4px; }
 .lp-modal-card p { margin-top: 12px; font-size: var(--step-small); color: #55555d; }
 .lp-modal-close { position: absolute; right: 0; top: -48px; width: 44px; height: 44px; background: none; border: 0; font-size: 32px; line-height: 1; color: #fff; cursor: pointer; }
 
-/* ═══ Tablet: panel jadi blok pertama, lembar tiga kolom ═══ */
+/* ═══ Tablet: panel becomes the first block, three-column sheet ═══ */
 @media (max-width: 1023px) {
   .lp-only-d { display: none; }
   .lp-only-m { display: block; }
@@ -361,7 +361,7 @@
   .lp-cta-flank--flat { grid-column: 12 / 13; margin-right: calc(-1 * var(--m) - 80px); }
 }
 
-/* ═══ Phone: papan sendiri ═══ */
+/* ═══ Phone: its own board ═══ */
 @media (max-width: 767px) {
   .lp-root { --m: 16px; }
   .lp-hero { padding: 8px; }
@@ -419,11 +419,11 @@
   .lp-js .lp-mosaic[data-shutter] .lp-pic img { transform: none; }
 }
 
-/* ── CTA tiga situs: satu bentuk, panah di ujung ── */
+/* ── CTA for the three sites: one shape, arrow at the end ── */
 .lp-root .lp-btn--go::after { content: '→'; margin-left: 12px; }
 .lp-streaming > .lp-btn { display: flex; width: fit-content; margin: 24px var(--m) 0; }
 
-/* ── Pilihan bahasa ── */
+/* ── Language picker ── */
 .lp-lang {
   position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); right: var(--m); z-index: 20;
   display: inline-flex; gap: 2px; padding: 4px; border-radius: 999px; background: var(--surface-2);

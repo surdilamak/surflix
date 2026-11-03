@@ -1,5 +1,5 @@
 /**
- * Skeleton loaders — placeholder pas data loading
+ * Skeleton loaders — placeholder while data is loading
  */
 'use client';
 

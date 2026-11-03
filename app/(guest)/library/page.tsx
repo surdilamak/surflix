@@ -1,11 +1,11 @@
 /**
  * Library Page (/library)
  *
- * Mode:
- * 1. Personal: kalau guest punya request yang status=AVAILABLE,
- *    tampilkan film-film tersebut (auto-detect via localStorage email)
- * 2. Community: tampilkan film yang guest LAIN request & udah available
- * 3. Empty: belum ada email guest sama sekali — minta input
+ * Modes:
+ * 1. Personal: if the guest has requests with status=AVAILABLE,
+ *    show those films (auto-detected via the localStorage email)
+ * 2. Community: show films that OTHER guests requested and that are already available
+ * 3. Empty: there is no guest email at all yet — ask for input
  */
 'use client';
 
@@ -69,7 +69,7 @@ export default function LibraryPage() {
   async function loadLibrary() {
     setMode('loading');
 
-    // Get email dari localStorage
+    // Get email from localStorage
     let email: string | null = null;
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('surflix_guest_info');
@@ -106,7 +106,7 @@ export default function LibraryPage() {
     }
   }
 
-  // Convert LibraryItem ke JellyseerrMediaItem buat modal compatibility
+  // Convert LibraryItem to JellyseerrMediaItem for modal compatibility
   function toMediaItem(item: LibraryItem): JellyseerrMediaItem {
     return {
       id: item.tmdbId,
@@ -180,7 +180,7 @@ export default function LibraryPage() {
             ))}
           </div>
 
-          {/* Community section di bawah personal */}
+          {/* Community section below personal */}
           {communityItems.length > 0 && (
             <section className="mt-10">
               <h2 className="rq-h2 mb-1">{t('hub.library.also')}</h2>

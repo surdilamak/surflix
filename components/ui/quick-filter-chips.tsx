@@ -1,6 +1,6 @@
 /**
- * Quick Filter Tiles — pintasan jenis, era, dan genre
- * Klik ubin → /browse dengan filter yang sudah terpasang
+ * Quick Filter Tiles — shortcuts for type, era, and genre
+ * Click a tile → /browse with the filter already applied
  */
 'use client';
 

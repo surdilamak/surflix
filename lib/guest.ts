@@ -1,8 +1,8 @@
 /**
  * Guest alias resolution helpers.
  *
- * Konteks: Guest record bisa punya `mergedIntoId` (hasil migration merge-guests-by-name).
- * Semua read/write request harus follow alias ke canonical (root) sebelum operasi.
+ * Context: a Guest record can have `mergedIntoId` (result of the merge-guests-by-name migration).
+ * All request reads/writes must follow the alias to the canonical (root) before the operation.
  */
 
 import { prisma } from './db';
@@ -10,9 +10,9 @@ import { prisma } from './db';
 const MAX_HOPS = 10;
 
 /**
- * Resolve guestId ke canonical guestId.
- * Kalau guest gak ada, return null.
- * Kalau guest punya mergedIntoId, follow rantai sampai root.
+ * Resolve guestId to the canonical guestId.
+ * If the guest does not exist, return null.
+ * If the guest has mergedIntoId, follow the chain to the root.
  */
 export async function resolveCanonicalGuestId(guestId: string): Promise<string | null> {
   let currentId = guestId;
@@ -39,7 +39,7 @@ export async function resolveCanonicalGuest(guestId: string) {
   return prisma.guest.findUnique({ where: { id: canonicalId } });
 }
 
-/** Simpan bahasa terakhir tamu (dari cookie surflix_lang) supaya notifikasi server memakai bahasanya. */
+/** Save the guest's last language (from the surflix_lang cookie) so server notifications use their language. */
 export async function touchGuestLang(guestId: string, cookieLang: string | undefined | null): Promise<void> {
   if (cookieLang !== 'en' && cookieLang !== 'id') return;
   await prisma.guest.updateMany({ where: { id: guestId, NOT: { lang: cookieLang } }, data: { lang: cookieLang } }).catch(() => {});

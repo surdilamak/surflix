@@ -1,13 +1,13 @@
 /**
- * useRequestPolling — silently poll /api/requests/by-guest dan fire browser
- * Notification kalau ada status berubah dari yang user terakhir liat.
+ * useRequestPolling — silently poll /api/requests/by-guest and fire a browser
+ * Notification if a status changed from what the user last saw.
  *
  * Behavior:
- * - Poll tiap `intervalMs` ms (default 60s)
- * - Pause kalau tab hidden (Page Visibility API)
- * - Refresh sekali pas tab balik visible
- * - Track last-seen status per request di localStorage biar reload gak re-notif
- * - Cuma fire notif kalau permission granted; gak auto-request — caller yang minta
+ * - Poll every `intervalMs` ms (default 60s)
+ * - Pause when the tab is hidden (Page Visibility API)
+ * - Refresh once when the tab becomes visible again
+ * - Track last-seen status per request in localStorage so a reload does not re-notify
+ * - Only fire a notification if permission is granted; no auto-request — the caller asks
  */
 'use client';
 
@@ -74,8 +74,8 @@ export function useRequestPolling({
       const next: PolledRequest[] = data.requests || [];
 
       // Compare to last seen statuses, gather changes
-      // First-time seen (no prev) tidak dianggap "change" — biar reload device
-      // baru gak nge-spam notif untuk request lama.
+      // First-time seen (no prev) is not counted as a "change" — so reloading on a
+      // new device does not spam notifications for old requests.
       const seen = loadSeen();
       const changes: { request: PolledRequest; previousStatus: string }[] = [];
       const nextSeen: Record<string, string> = { ...seen };
@@ -88,7 +88,7 @@ export function useRequestPolling({
         nextSeen[r.id] = r.status;
       }
 
-      // Cleanup seen entries untuk request yang udah hilang
+      // Clean up seen entries for requests that are gone
       const currentIds = new Set(next.map((r) => r.id));
       for (const id of Object.keys(nextSeen)) {
         if (!currentIds.has(id)) delete nextSeen[id];
@@ -101,7 +101,7 @@ export function useRequestPolling({
         onChangeRef.current?.(changes);
       }
     } catch {
-      // silent fail — gak ganggu UI kalau polling gagal
+      // silent fail — does not disturb the UI if polling fails
     }
   }, [guestId]);
 

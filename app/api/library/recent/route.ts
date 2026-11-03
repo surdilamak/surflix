@@ -1,8 +1,8 @@
 /**
  * GET /api/library/recent?limit=60
  *
- * Judul terbaru di library (halaman "Just added" Reference). Murni baca DB. Kalau ada judul yang tanggal
- * masuknya belum terisi (kolom addedAt baru), jadwalkan satu sync di latar belakang, sekali per proses.
+ * Latest titles in the library ("Just added" page of Reference). Pure DB read. If any title's date
+ * added is not filled in yet (new addedAt column), schedule one background sync, once per process.
  */
 import { NextRequest, NextResponse } from 'next/server';
 import { recentTitles } from '@/lib/connections';

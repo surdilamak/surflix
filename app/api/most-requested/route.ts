@@ -2,17 +2,17 @@
  * GET /api/most-requested
  *
  * Return: aggregate request count per film/series.
- * Status: APPROVED, PROCESSING, AVAILABLE (semua yang pernah di-approve).
- * Min 2 requests buat masuk list.
+ * Status: APPROVED, PROCESSING, AVAILABLE (everything that has ever been approved).
+ * Min 2 requests to make the list.
  */
 
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';
 
-// Wajib dinamis: tanpa ini Next membekukan hasilnya saat build (tanpa Jellyseerr/DB)
+// Must be dynamic: without this Next freezes the result at build time (no Jellyseerr/DB)
 export const dynamic = 'force-dynamic';
 
-// In-memory cache, 10 menit
+// In-memory cache, 10 minutes
 let cache: { data: any; expiresAt: number } | null = null;
 const CACHE_TTL = 10 * 60 * 1000;
 
@@ -36,7 +36,7 @@ export async function GET() {
     // Filter min 2 requests
     const qualified = grouped.filter((g) => g._count.id >= 2);
 
-    // Fetch metadata buat tiap item (ambil dari request pertama yang match)
+    // Fetch metadata for each item (taken from the first matching request)
     const results = await Promise.all(
       qualified.map(async (g) => {
         const req = await prisma.request.findFirst({

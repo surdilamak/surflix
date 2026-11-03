@@ -33,7 +33,7 @@ const errors = [];
 
 // ── 1. curated sagas ────────────────────────────────────────────────────────
 const curated = [];
-const aliases = new Map(); // key(title,year) -> saga name, buat menamai klaster otomatis
+const aliases = new Map(); // key(title,year) -> saga name, used to name automatic clusters
 {
   let cur = null;
   fs.readFileSync(path.join(dir, 'sagas.txt'), 'utf8').split('\n').forEach((raw, n) => {
@@ -41,7 +41,7 @@ const aliases = new Map(); // key(title,year) -> saga name, buat menamai klaster
     if (!line || line.startsWith('#')) return;
     try {
       if (line.startsWith('@saga ')) {
-        // sisa baris disatukan lagi: teks dwibahasa memakai "||", jangan ikut terpotong
+        // the rest of the line is joined back together: bilingual text uses "||", so it must not get cut
         const [slug, name, ...tip] = line.slice(6).split('|').map((x) => x.trim());
         cur = { id: slug, name, tip: bi(tip.join('|')), kind: 'curated', lanes: [], entries: [] };
         curated.push(cur);
@@ -96,7 +96,7 @@ for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.txt') && f !==
       const b = parseTitle(tgt);
       marker.set(`${key(a.title, a.year)}>${key(b.title, b.year)}`, m[1]);
     } catch {
-      /* baris rusak sudah dilaporkan build-connections */
+      /* malformed line already reported by build-connections */
     }
   }
 }
@@ -121,7 +121,7 @@ const pairs = [];
 for (const r of edges) {
   const a = key(r.sourceTitle, r.sourceYear);
   const b = key(r.targetTitle, r.targetYear);
-  if (claimed.has(a) || claimed.has(b)) continue; // curated menang: jangan tarik judulnya keluar
+  if (claimed.has(a) || claimed.has(b)) continue; // curated wins: do not pull its titles out
   meta.set(a, { title: r.sourceTitle, year: r.sourceYear });
   meta.set(b, { title: r.targetTitle, year: r.targetYear });
   pairs.push([a, b, r.relationship]);
@@ -135,7 +135,7 @@ for (const k of meta.keys()) {
   groups.get(root).push(k);
 }
 
-/** Nama klaster: rangkaian kata pembuka terpanjang yang dipakai mayoritas judul; kalau tak ada, judul tertua. */
+/** Cluster name: the longest run of opening words shared by most titles; if there is none, the oldest title. */
 const TRAILING = /\s+(the|a|an|of|and|part|vol\.?|chapter|episode|no|in)$/i;
 const tidy = (s) => {
   let out = s.trim();
@@ -185,24 +185,24 @@ const auto = [];
 for (const keys of groups.values()) {
   if (keys.length < 2) continue;
 
-  // urutan cerita: topologi dari penanda prekuel/sekuel, tahun sebagai pemutus seri
+  // story order: topology from the prequel/sequel markers, year as the tie-breaker
   const before = new Map(keys.map((k) => [k, new Set()]));
   for (const [a, b, relation] of pairs) {
     if (!before.has(a) || !before.has(b) || a === b) continue;
     const m = marker.get(`${a}>${b}`);
-    if (m === 'sequel' || relation === 'remake') before.get(a).add(b); // a lanjutan / versi baru dari b
-    else if (m === 'prequel') before.get(b).add(a); // a mendahului b
+    if (m === 'sequel' || relation === 'remake') before.get(a).add(b); // a is a continuation / new version of b
+    else if (m === 'prequel') before.get(b).add(a); // a comes before b
   }
   const byYear = (a, b) => meta.get(a).year - meta.get(b).year || meta.get(a).title.localeCompare(meta.get(b).title);
   const release = [...keys].sort(byYear);
 
-  // urutan cerita = topologi stabil: ikuti urutan rilis, tapi tahan judul sampai semua pendahulunya keluar
+  // story order = stable topology: follow release order, but hold a title back until all its predecessors are out
   const story = [];
   const done = new Set();
   const pending = [...release];
   while (pending.length) {
     const i = pending.findIndex((k) => [...before.get(k)].every((d) => done.has(d)));
-    const pick = pending.splice(i === -1 ? 0 : i, 1)[0]; // i === -1 cuma kalau datanya melingkar
+    const pick = pending.splice(i === -1 ? 0 : i, 1)[0]; // i === -1 only if the data is circular
     done.add(pick);
     story.push(pick);
   }
@@ -219,7 +219,7 @@ for (const keys of groups.values()) {
   });
 }
 
-// ── 4. tulis ───────────────────────────────────────────────────────────────
+// ── 4. write ───────────────────────────────────────────────────────────────
 if (errors.length) {
   console.error(errors.join('\n'));
   process.exit(1);
@@ -244,11 +244,11 @@ for (const s of sagas) {
   console.log(`  ${s.kind === 'curated' ? '*' : ' '} ${s.id.padEnd(28)} ${String(s.entries.length).padStart(3)} titles${s.twoOrders ? ' · two orders' : ''}`);
 }
 
-// ── Penjaga: judul yatim ────────────────────────────────────────────────────
-// Saga kurasi "mengklaim" judul yang didaftarkan dan mengeluarkannya dari graf. Judul yang
-// terhubung ke saga itu tapi LUPA didaftarkan jadi kehilangan satu-satunya pasangannya, lalu
-// terdampar tanpa saga sama sekali — diam-diam, tanpa error. Sudah kejadian di MCU (Marvel
-// Zombies, Punisher: One Last Kill, Spider-Man: Brand New Day). Jadi dilaporkan di sini.
+// ── Guard: orphan titles ────────────────────────────────────────────────────
+// A curated saga "claims" the titles registered in it and removes them from the graph. A title that
+// is connected to that saga but was FORGOTTEN in the registration loses its only partner, then
+// ends up stranded with no saga at all — silently, with no error. This has already happened in the MCU (Marvel
+// Zombies, Punisher: One Last Kill, Spider-Man: Brand New Day). So it is reported here.
 {
   const live = path.join(__dirname, 'connections-live.json');
   if (fs.existsSync(live)) {

@@ -1,11 +1,11 @@
 #!/bin/bash
 # =====================================================
-# Surflix · One-Line Installer untuk Unraid
+# Surflix · One-Line Installer for Unraid
 #
-# Usage (di Unraid SSH):
+# Usage (in Unraid SSH):
 #   bash <(curl -s https://raw.githubusercontent.com/idrus/surflix/main/install.sh)
 #
-# Atau download dulu terus run:
+# Or download first, then run:
 #   wget https://raw.githubusercontent.com/idrus/surflix/main/install.sh
 #   chmod +x install.sh && ./install.sh
 # =====================================================

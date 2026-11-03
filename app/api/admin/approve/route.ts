@@ -1,8 +1,8 @@
 /**
  * POST /api/admin/approve
  *
- * Admin approve request → forward ke Jellyseerr → status PROCESSING.
- * Jellyseerr akan auto-create di Radarr/Sonarr.
+ * Admin approve request → forward to Jellyseerr → status PROCESSING.
+ * Jellyseerr will auto-create it in Radarr/Sonarr.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -51,7 +51,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 2. Forward ke Jellyseerr
+  // 2. Forward to Jellyseerr
   let jellyseerrResponse;
   try {
     jellyseerrResponse = await jellyseerr.createRequest({
@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  // 3. Update DB — set ON_SCHEDULE karena udah masuk Jellyseerr tapi belum dimulai download
+  // 3. Update DB — set ON_SCHEDULE because it has entered Jellyseerr but the download has not started yet
   const updated = await prisma.request.update({
     where: { id: body.requestId },
     data: {

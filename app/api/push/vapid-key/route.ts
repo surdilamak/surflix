@@ -1,8 +1,8 @@
 /**
  * GET /api/push/vapid-key
  *
- * Returns the VAPID public key untuk browser subscribe ke Web Push.
- * Public key safe untuk di-expose.
+ * Returns the VAPID public key for the browser to subscribe to Web Push.
+ * Public key is safe to expose.
  */
 
 import { NextResponse } from 'next/server';

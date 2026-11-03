@@ -1,6 +1,6 @@
 /**
- * Tautan Request Hub (desktop) — duduk di dalam PortalBar, satu baris dengan logo dan pill situs.
- * Home / Trending / Library / Browse / My Requests (di telepon pindah ke menu hamburger PortalBar).
+ * Request Hub links (desktop) — sit inside PortalBar, on one line with the logo and site pills.
+ * Home / Trending / Library / Browse / My Requests (on phones they move to the PortalBar hamburger menu).
  */
 'use client';
 

@@ -1,14 +1,14 @@
 /**
- * Layout root admin (login + halaman admin): font Bricolage Grotesque dan CSS ad-.
- * Sengaja berdiri sendiri, sama seperti landing dan Request Hub, supaya admin tidak ikut token lama.
+ * Admin root layout (login + admin pages): Bricolage Grotesque font and the ad- CSS.
+ * Deliberately standalone, like the landing and Request Hub, so admin does not inherit the old tokens.
  */
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './admin.css';
 
-// Font di-vendor ke repo supaya build tidak perlu mengambilnya dari Google.
-// Pengambilan saat build sempat menggagalkan CI tiga kali dalam satu hari.
-// Keduanya variable font berlisensi OFL; satu berkas melayani seluruh rentang berat.
+// Fonts are vendored in the repo so the build does not need to fetch them from Google.
+// Fetching at build time broke CI three times in one day.
+// Both are variable fonts under the OFL license; one file covers the whole weight range.
 const font = localFont({
   src: '../../public/fonts/bricolage-var-latin.woff2',
   weight: '400 600',

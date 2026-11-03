@@ -1,5 +1,5 @@
 /**
- * Admin review queue buat FilmConnection.
+ * Admin review queue for FilmConnection.
  *
  * GET  /api/admin/connections?status=&sourceTmdbId=  → list (default PENDING_REVIEW)
  * POST /api/admin/connections { id, action: "approve" | "reject" } → update status
@@ -19,7 +19,7 @@ const STATUSES = ['PENDING_REVIEW', 'APPROVED', 'REJECTED'] as const;
 const listSchema = z.object({
   status: z.enum([...STATUSES, 'ALL']).default('PENDING_REVIEW'),
   sourceTmdbId: z.coerce.number().int().positive().optional(),
-  // "movie:62": semua koneksi film ini, dari dua arah
+  // "movie:62": all connections of this film, in both directions
   film: z.string().regex(/^(movie|tv):\d+$/).optional(),
   confidence: z.enum(['high', 'medium']).optional(),
   limit: z.coerce.number().int().min(1).max(1000).default(300),
@@ -38,7 +38,7 @@ const actionSchema = z.discriminatedUnion('action', [
     // Finer label (see REL_KINDS). undefined = leave as is, null/'' = back to the generic label.
     kind: z.string().trim().max(30).nullable().optional(),
   }),
-  // approve massal buat draft PENDING_REVIEW (opsional: filter confidence)
+  // bulk approve for PENDING_REVIEW drafts (optional: filter by confidence)
   z.object({ action: z.literal('bulk-approve'), confidence: z.enum(['high', 'medium']).optional() }),
 ]);
 
@@ -135,7 +135,7 @@ export async function POST(req: NextRequest) {
         ...(body.reasonEn ? { reasonEn: body.reasonEn } : {}),
         ...(body.reason ? { reason: body.reason } : {}),
         ...(kind !== undefined ? { kind } : {}),
-        source: 'admin', // sudah disentuh admin: seed ulang gak boleh menimpa
+        source: 'admin', // already touched by an admin: re-seeding must not overwrite it
         reviewedAt: new Date(),
       },
     });

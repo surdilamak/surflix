@@ -1,6 +1,6 @@
 /**
- * Icon component — lucide-react wrapper untuk konsistensi
- * Pakai outline style, line weight konsisten (mirip SF Symbols)
+ * Icon component — lucide-react wrapper for consistency
+ * Uses outline style, consistent line weight (similar to SF Symbols)
  */
 'use client';
 

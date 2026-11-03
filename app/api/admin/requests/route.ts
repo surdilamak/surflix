@@ -1,7 +1,7 @@
 /**
  * GET /api/admin/requests
  *
- * Get list of requests untuk admin panel.
+ * Get list of requests for the admin panel.
  * Query params:
  * - status: filter by status (default: PENDING_ADMIN)
  * - limit: max results (default: 50)

@@ -1,9 +1,9 @@
 /**
- * Jellyfin API Client — pure HTTP (no library, konsisten sama lib/telegram.ts)
+ * Jellyfin API Client — pure HTTP (no library, consistent with lib/telegram.ts)
  *
- * Sumber kebenaran "film ini ada di library atau nggak" buat fitur Film Connections.
- * Sengaja pakai Jellyfin langsung, bukan Jellyseerr /media (API key Jellyseerr
- * user-level, lihat known issue #1 di CLAUDE.md).
+ * Source of truth for "is this film in the library or not" for the Film Connections feature.
+ * Deliberately uses Jellyfin directly, not Jellyseerr /media (the Jellyseerr API key is
+ * user-level, see known issue #1 in CLAUDE.md).
  *
  * Header auth: Authorization: MediaBrowser Token="<JELLYFIN_API_KEY>"
  */
@@ -18,7 +18,7 @@ interface JellyfinItem {
   ProviderIds?: Record<string, string>;
 }
 
-// tmdbId bisa bentrok antara movie & tv, jadi key-nya "<mediaType>:<tmdbId>"
+// tmdbId can collide between movie & tv, so the key is "<mediaType>:<tmdbId>"
 export type LibraryTmdbMap = Map<string, string>;
 
 export function libraryKey(mediaType: JellyfinMediaType, tmdbId: number) {
@@ -43,7 +43,7 @@ async function fetchLibrary(): Promise<LibraryTmdbMap> {
     `&Fields=ProviderIds&HasTmdbId=true`;
 
   const res = await fetch(url, {
-    // Jellyfin 12 nolak X-Emby-Token (401); MediaBrowser Authorization jalan di 10.8+ juga
+    // Jellyfin 12 rejects X-Emby-Token (401); MediaBrowser Authorization works on 10.8+ too
     headers: { Authorization: `MediaBrowser Token="${process.env.JELLYFIN_API_KEY}"` },
     signal: AbortSignal.timeout(30000),
   });
@@ -69,7 +69,7 @@ async function fetchLibrary(): Promise<LibraryTmdbMap> {
 
 /**
  * Map library Jellyfin: "<mediaType>:<tmdbId>" -> jellyfinItemId.
- * Di-cache 10 menit (in-memory); request paralel share satu fetch.
+ * Cached for 10 minutes (in-memory); parallel requests share one fetch.
  */
 export async function getLibraryTmdbMap(): Promise<LibraryTmdbMap> {
   if (cache && cache.expiresAt > Date.now()) return cache.map;
@@ -87,7 +87,7 @@ export async function getLibraryTmdbMap(): Promise<LibraryTmdbMap> {
 }
 
 /**
- * Lookup satu film. Return jellyfinItemId, atau null kalau gak ada di library.
+ * Look up one film. Returns jellyfinItemId, or null if it is not in the library.
  */
 export async function findJellyfinId(
   mediaType: JellyfinMediaType,
@@ -100,9 +100,9 @@ export async function findJellyfinId(
 let serverIdCache: string | null = null;
 
 /**
- * ID server Jellyfin (dibutuhin deep-link web client: tanpa serverId, Jellyfin 10.9+/12
- * gak bisa nentuin server dan jatuh ke halaman home).
- * Urutan: env JELLYFIN_SERVER_ID -> /System/Info/Public (endpoint publik, tanpa auth).
+ * Jellyfin server ID (needed by the web client deep-link: without serverId, Jellyfin 10.9+/12
+ * cannot determine the server and falls back to the home page).
+ * Urutan: env JELLYFIN_SERVER_ID -> /System/Info/Public (public endpoint, no auth).
  */
 export async function getServerId(): Promise<string> {
   if (process.env.JELLYFIN_SERVER_ID) return process.env.JELLYFIN_SERVER_ID;
@@ -118,16 +118,16 @@ export async function getServerId(): Promise<string> {
       const id = (await res.json())?.Id;
       if (id) return (serverIdCache = id);
     } catch {
-      // coba base berikutnya
+      // try the next base
     }
   }
   return '';
 }
 
 /**
- * Deep-link nonton di Jellyfin web (whitelabel). Format sama kayak yang dibikin Jellyfin
- * sendiri: #/details?id=<itemId>&serverId=<serverId>.
- * baseUrl & serverId dikirim dari client (lihat /api/config); server fallback ke env.
+ * Watch deep-link in the Jellyfin web (whitelabel). Same format as the one Jellyfin
+ * itself builds: #/details?id=<itemId>&serverId=<serverId>.
+ * baseUrl & serverId are sent from the client (see /api/config); the server falls back to env.
  */
 export function watchUrl(jellyfinItemId: string, baseUrl?: string, serverId?: string): string {
   const base = (baseUrl || process.env.NEXT_PUBLIC_JELLYFIN_URL || '').replace(/\/+$/, '');
@@ -136,7 +136,7 @@ export function watchUrl(jellyfinItemId: string, baseUrl?: string, serverId?: st
 }
 
 /**
- * URL poster (gambar Primary) item Jellyfin. Endpoint gambar publik & CORS-enabled.
+ * Poster URL (Primary image) of a Jellyfin item. The image endpoint is public & CORS-enabled.
  */
 export function posterUrl(jellyfinItemId: string, baseUrl: string, maxWidth = 342): string {
   return `${baseUrl.replace(/\/+$/, '')}/Items/${encodeURIComponent(jellyfinItemId)}/Images/Primary?maxWidth=${maxWidth}`;

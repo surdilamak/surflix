@@ -1,5 +1,5 @@
 /**
- * Guest layout — PortalBar (tautan lokal + situs) + content + Footer
+ * Guest layout — PortalBar (local + site links) + content + Footer
  */
 'use client';
 
@@ -11,9 +11,9 @@ import { Footer } from '@/components/ui/footer';
 import { LangProvider } from '@/components/connections/lang-provider';
 import { PortalBar } from '@/components/portal-bar';
 
-// Font di-vendor ke repo supaya build tidak perlu mengambilnya dari Google.
-// Pengambilan saat build sempat menggagalkan CI tiga kali dalam satu hari.
-// Keduanya variable font berlisensi OFL; satu berkas melayani seluruh rentang berat.
+// Fonts are vendored in the repo so the build does not need to fetch them from Google.
+// Fetching at build time broke CI three times in one day.
+// Both are variable fonts under the OFL license; one file covers the whole weight range.
 const font = localFont({
   src: '../../public/fonts/bricolage-var-latin.woff2',
   weight: '400 600',

@@ -1,8 +1,8 @@
 /**
  * GET /api/library/search?q=
  *
- * Portal Referensi: cari film/serial di library Surflix (judul, judul asli, sutradara).
- * Tiap hasil bawa refCount (0 = belum ada peta). Murni baca DB.
+ * Reference Portal: search films/series in the Surflix library (title, original title, director).
+ * Each result carries refCount (0 = no map yet). Pure DB read.
  */
 
 import { NextRequest, NextResponse } from 'next/server';

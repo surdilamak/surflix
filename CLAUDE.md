@@ -247,7 +247,7 @@ Mobile-first with the `md:` breakpoint (768px+) for desktop. Bottom tab bar on m
 
 When working with Idrus:
 - **Chat language**: Casual Indonesian ("gw" not "saya", "lo" not "Anda")
-- **Written language**: English for everything persisted: docs, commit messages, PR titles/descriptions, code comments (decided 2026-11-03). Existing Indonesian text is translated over time, not rewritten in bulk history.
+- **Written language**: English for everything persisted: docs, commit messages, PR titles/descriptions, code comments (decided 2026-11-03). All existing comments were translated the same day; after any bulk comment edit run `node scripts/verify-comments-only.mjs` to prove no code changed. Existing Indonesian text is translated over time, not rewritten in bulk history.
 - **Tone**: Friendly but pragmatic, not too formal
 - **Product copy is separate**: user-facing strings and the bilingual `EN || ID` curated text stay bilingual, since that is product content, not documentation
 - **Error messages**: Indonesian for user-facing, English for logs

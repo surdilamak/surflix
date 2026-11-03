@@ -1,14 +1,14 @@
 /**
  * Simple Rate Limiter (DB-backed, per IP + endpoint)
  *
- * Window-based: dalam 1 jam, max N requests per IP.
- * Cocok untuk skala kecil. Kalau traffic naik, migrate ke Redis.
+ * Window-based: within 1 hour, max N requests per IP.
+ * Suitable for small scale. If traffic grows, migrate to Redis.
  */
 
 import { prisma } from './db';
 
 const RATE_LIMIT_MAX = parseInt(process.env.RATE_LIMIT_MAX || '10');
-const WINDOW_MS = parseInt(process.env.RATE_LIMIT_WINDOW_MS || '3600000'); // 1 jam
+const WINDOW_MS = parseInt(process.env.RATE_LIMIT_WINDOW_MS || '3600000'); // 1 hour
 
 export interface RateLimitResult {
   allowed: boolean;
@@ -25,7 +25,7 @@ export async function checkRateLimit(params: {
   const now = new Date();
   const windowStart = new Date(Math.floor(now.getTime() / WINDOW_MS) * WINDOW_MS);
 
-  // Cleanup old entries (best effort, jangan block request)
+  // Cleanup old entries (best effort, don't block the request)
   prisma.rateLimit
     .deleteMany({
       where: { windowStart: { lt: new Date(now.getTime() - WINDOW_MS * 2) } },

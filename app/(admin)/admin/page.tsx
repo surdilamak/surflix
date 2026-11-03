@@ -1,8 +1,8 @@
 /**
  * Admin Overview (/admin)
  *
- * Yang perlu perhatian dulu (request menunggu, koneksi menunggu review, unduhan berjalan), lalu angka
- * ringkas, cakupan peta Reference, aktivitas terbaru yang terbaca manusia, dan tamu teraktif.
+ * What needs attention first (pending requests, connections awaiting review, downloads in progress), then
+ * compact numbers, Reference map coverage, recent human-readable activity, and the most active guests.
  */
 'use client';
 
@@ -110,7 +110,7 @@ export default function AdminOverviewPage() {
         </button>
       </PageHead>
 
-      {/* Perlu perhatian */}
+      {/* Needs attention */}
       <div className="ad-grid md:grid-cols-3">
         <Link href="/admin/requests" className={`ad-tile ad-tile--link ${counts.pendingRequests > 0 ? 'ad-tile--accent' : ''}`}>
           <p className="ad-label"><Icons.Inbox /> Requests waiting</p>
@@ -133,7 +133,7 @@ export default function AdminOverviewPage() {
         </Link>
       </div>
 
-      {/* Angka */}
+      {/* Numbers */}
       <h2 className="ad-h2 ad-section-title">Requests</h2>
       <div className="ad-grid grid-cols-2 md:grid-cols-4">
         {[
@@ -175,7 +175,7 @@ export default function AdminOverviewPage() {
         </>
       )}
 
-      {/* Aktivitas + tamu */}
+      {/* Activity + guests */}
       <div className="ad-grid lg:grid-cols-5" style={{ marginTop: 28, gap: 16 }}>
         <section className="lg:col-span-3">
           <h2 className="ad-h2" style={{ marginBottom: 10 }}>Recent activity</h2>

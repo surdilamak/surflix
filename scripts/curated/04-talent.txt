@@ -1,5 +1,5 @@
-# Talenta yang sama: aktor utama, penulis/kreator, studio, penulis novel. Semua faktual (h).
-# ---------- Aktor: rantai per orang (film lebih baru > film lebih lama) ----------
+# Same talent: lead actors, writers/creators, studios, novelists. All factual (h).
+# ---------- Actors: a chain per person (newer film > older film) ----------
 Warrior (2011) > Inception (2010) | talent | h | Tom Hardy stars in both. || Tom Hardy membintangi keduanya.
 Locke (2014) > Warrior (2011) | talent | h | Tom Hardy stars in both. || Tom Hardy membintangi keduanya.
 Dunkirk (2017) > Locke (2014) | talent | h | Tom Hardy stars in both. || Tom Hardy membintangi keduanya.
@@ -135,7 +135,7 @@ Stranger (2017) > Linda Linda Linda (2005) | talent | h | Bae Doona stars in bot
 Vertigo (1958) > It's a Wonderful Life (1946) | talent | h | James Stewart stars in both. || James Stewart membintangi keduanya.
 Nobody 2 (2025) > Better Call Saul (2015) | talent | h | Bob Odenkirk stars in both. || Bob Odenkirk membintangi keduanya.
 
-# ---------- Penulis, kreator, penulis novel ----------
+# ---------- Writers, creators, novelists ----------
 Eternal Sunshine of the Spotless Mind (2004) > Being John Malkovich (1999) | talent | h | Charlie Kaufman wrote both screenplays. || Charlie Kaufman menulis skenario keduanya.
 Westworld (2016) > Memento (2000) | talent | h | Jonathan Nolan co-created Westworld and wrote the short story that Memento is based on. || Jonathan Nolan ikut menciptakan Westworld dan menulis cerita pendek yang menjadi dasar Memento.
 Pluribus (2025) > Better Call Saul (2015) | talent | h | Vince Gilligan co-created Better Call Saul and created Pluribus, with Rhea Seehorn leading both. || Vince Gilligan ikut menciptakan Better Call Saul dan menciptakan Pluribus, dengan Rhea Seehorn sebagai pemeran utama keduanya.
@@ -156,7 +156,7 @@ Kaibutsu (2024) > Shoplifters (2018) | talent | h | Both directed by Hirokazu Ko
 Twin Peaks (1990) > Blue Velvet (1986) | talent | h | David Lynch made both, with Kyle MacLachlan as the curious man poking at small-town darkness. || David Lynch membuat keduanya, dengan Kyle MacLachlan sebagai pria penasaran yang mengorek kegelapan kota kecil.
 1923 (2022) > Yellowstone (2018) | universe/prequel | h | 1923 is a prequel to Yellowstone, set a century earlier in the Dutton family story. || 1923 adalah prekuel Yellowstone, berlatar seabad lebih awal dalam kisah keluarga Dutton.
 
-# ---------- Anime: sutradara, kreator manga, studio ----------
+# ---------- Anime: directors, manga creators, studios ----------
 Samurai Champloo (2004) > Cowboy Bebop (1998) | talent | h | Shinichiro Watanabe directed both. || Shinichiro Watanabe menyutradarai keduanya.
 Lazarus (2025) > Samurai Champloo (2004) | talent | h | Shinichiro Watanabe directed both. || Shinichiro Watanabe menyutradarai keduanya.
 Cyberpunk: Edgerunners (2022) > Gurren Lagann (2007) | talent | h | Hiroyuki Imaishi directed both. || Hiroyuki Imaishi menyutradarai keduanya.
@@ -180,21 +180,21 @@ Slam Dunk (1993) > Dragon Ball Z (1989) | talent | h | Both are Toei Animation s
 Ocean Waves (1994) > Whisper of the Heart (1995) | talent | h | Both are Studio Ghibli films about young people growing up. || Keduanya film Studio Ghibli tentang anak muda yang beranjak dewasa.
 The Red Turtle (2016) > The Tale of The Princess Kaguya (2013) | talent | h | Studio Ghibli produced The Tale of the Princess Kaguya and co-produced The Red Turtle. || Studio Ghibli memproduseri The Tale of the Princess Kaguya dan ikut memproduseri The Red Turtle.
 
-# ---------- Semesta yang belum tercakup ----------
+# ---------- Universes not yet covered ----------
 Ballerina (2025) > John Wick: Chapter 4 (2023) | universe/spinoff | h | Ballerina is set in the John Wick world, between Chapter 3 and Chapter 4. || Ballerina berlatar di dunia John Wick, di antara Chapter 3 dan Chapter 4.
 GANTZ:O (2016) > Gantz: Perfect Answer (2011) | universe | h | @adaptation
 Kraven the Hunter (2024) > Venom: The Last Dance (2024) | universe/shared | h | Both belong to Sony's Spider-Man Universe. || Keduanya bagian dari Sony's Spider-Man Universe.
 Venom: The Last Dance (2024) > Spider-Man: No Way Home (2021) | universe/related | m | Venom: The Last Dance opens with Eddie and Venom back from another universe, and brings back the No Way Home bartender. Tom Holland's Spider-Man does not appear. || Venom: The Last Dance dibuka dengan Eddie dan Venom baru kembali dari semesta lain, dan menghadirkan lagi bartender dari No Way Home. Spider-Man Tom Holland tidak muncul.
 Peacemaker (2022) > Zack Snyder's Justice League (2021) | universe/shared | m | Peacemaker is set in the same DC universe, and Justice League heroes cameo in it. || Peacemaker berlatar di semesta DC yang sama, dan pahlawan Justice League muncul sebagai cameo.
 
-# ---------- Judul baru 2026-11-03 ----------
-# Burton produsen + pencerita Nightmare (sutradara: Henry Selick), ko-sutradara Corpse Bride; Elfman menggarap musik ketiganya.
+# ---------- New titles 2026-11-03 ----------
+# Burton producer + storyteller of Nightmare (director: Henry Selick), co-director of Corpse Bride; Elfman scored all three.
 The Nightmare Before Christmas (1993) > Batman Returns (1992) | talent | h | Tim Burton directed Batman Returns and conceived and produced Nightmare, which Henry Selick directed. Danny Elfman scored both. || Tim Burton menyutradarai Batman Returns serta menggagas dan memproduseri Nightmare, yang disutradarai Henry Selick. Danny Elfman menggarap musik keduanya.
 Corpse Bride (2005) > The Nightmare Before Christmas (1993) | talent | h | Burton produced Nightmare from his own story, then co-directed Corpse Bride. Danny Elfman composed both scores. || Burton memproduseri Nightmare dari ceritanya sendiri, lalu ikut menyutradarai Corpse Bride. Danny Elfman menggarap musik keduanya.
-# Michael Keaton (kredit dari en.wikipedia Michael_Keaton).
+# Michael Keaton (credits from en.wikipedia Michael_Keaton).
 Spider-Man: Homecoming (2017) > Batman (1989) | talent | h | Michael Keaton stars in both: Batman in Batman, the Vulture in Homecoming. || Michael Keaton membintangi keduanya: Batman di Batman, Vulture di Homecoming.
 Toy Story 3 (2010) > Batman (1989) | talent | h | Michael Keaton plays Batman here and voices Ken in Toy Story 3. || Michael Keaton memerankan Batman di sini dan mengisi suara Ken di Toy Story 3.
 Jackie Brown (1997) > Batman Returns (1992) | talent | h | Michael Keaton stars in both: Batman in Batman Returns, Agent Ray Nicolette in Jackie Brown. || Michael Keaton membintangi keduanya: Batman di Batman Returns, Agen Ray Nicolette di Jackie Brown.
-# Jackman: cameo tanpa kredit sebagai Logan (wujud Weapon X) di Apocalypse (en.wikipedia X-Men:_Apocalypse).
-# SENGAJA bukan `universe`: letak Logan terhadap garis waktu Fox diperselisihkan pembuatnya sendiri.
+# Jackman: uncredited cameo as Logan (Weapon X form) in Apocalypse (en.wikipedia X-Men:_Apocalypse).
+# DELIBERATELY not `universe`: where Logan sits relative to the Fox timeline is disputed by its own makers.
 Logan (2017) > X-Men: Apocalypse (2016) | talent | h | Hugh Jackman plays Wolverine in both: an uncredited cameo in Apocalypse, in his Weapon X form, and the lead in Logan. || Hugh Jackman memerankan Wolverine di keduanya: cameo tanpa kredit di Apocalypse, dalam wujud Weapon X, dan peran utama di Logan.

@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /**
- * Import snapshot library Jellyfin (LibraryTitle) dari JSON ke database aktif.
+ * Import Jellyfin library snapshot (LibraryTitle) from JSON into the active database.
  *
- * Aman buat production: cuma upsert tabel LibraryTitle (judul, tahun, jellyfinId, dll).
- * Gak nyentuh tabel lain. Aman dijalanin berulang.
+ * Safe for production: only upserts the LibraryTitle table (title, year, jellyfinId, etc.).
+ * Does not touch other tables. Safe to run repeatedly.
  *
  *   docker exec surflix node scripts/import-library.js scripts/library-seed.json          # dry-run
- *   docker exec surflix node scripts/import-library.js scripts/library-seed.json --apply  # beneran
+ *   docker exec surflix node scripts/import-library.js scripts/library-seed.json --apply  # for real
  */
 
 const fs = require('fs');

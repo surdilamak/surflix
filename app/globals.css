@@ -3,8 +3,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Token Tailwind hanya untuk Request Hub (guest). Landing, Reference, dan Admin punya CSS sendiri
- * (landing.css, referensi.css, admin.css) dan tidak memakai token di sini.
+ * Tailwind tokens are only for Request Hub (guest). Landing, Reference, and Admin have their own CSS
+ * (landing.css, referensi.css, admin.css) and do not use the tokens here.
  */
 @theme {
   --font-sans: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
@@ -40,7 +40,7 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Tailwind 4 memakai currentcolor untuk border; garis yang sengaja dipakai tetap tipis dan netral */
+  /* Tailwind 4 uses currentcolor for borders; lines that are used on purpose stay thin and neutral */
   *, ::after, ::before, ::backdrop, ::file-selector-button {
     border-color: rgba(255, 255, 255, 0.08);
   }

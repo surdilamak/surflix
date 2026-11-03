@@ -1,8 +1,8 @@
 /**
  * GET /api/remarks/by-guest?id=<guestId>
  *
- * Get list remarks (improvement requests) by guestId from cookie/localStorage.
- * Sama pattern dengan /api/requests/by-guest — guestId itself is the proof.
+ * Get list of remarks (improvement requests) by guestId from cookie/localStorage.
+ * Same pattern as /api/requests/by-guest — guestId itself is the proof.
  */
 
 import { NextRequest, NextResponse } from 'next/server';

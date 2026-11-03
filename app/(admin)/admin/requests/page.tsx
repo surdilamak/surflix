@@ -1,8 +1,8 @@
 /**
  * Admin Requests (/admin/requests)
  *
- * Satu tempat untuk semua request tamu: tab Pending (approve/reject, pilih musim, aksi massal)
- * dan History (filter status, cari judul atau tamu). Menggantikan halaman Pending dan History yang terpisah.
+ * One place for all guest requests: the Pending tab (approve/reject, pick seasons, bulk actions)
+ * and History (filter by status, search by title or guest). Replaces the separate Pending and History pages.
  */
 'use client';
 
@@ -286,7 +286,7 @@ function PendingCard({
   const [pickSeasons, setPickSeasons] = useState(false);
   const [seasons, setSeasons] = useState<Set<number>>(new Set());
 
-  // Jumlah musim hanya diambil kalau admin membuka pemilih musim (hemat panggilan Jellyseerr)
+  // Season counts are only fetched when the admin opens the season picker (saves Jellyseerr calls)
   async function openSeasons() {
     setPickSeasons(true);
     if (seasonCount !== null) return;

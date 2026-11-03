@@ -1,7 +1,7 @@
 /**
- * Pilihan bahasa yang dipakai bersama Request Hub dan Reference.
- * Disimpan di cookie `surflix_lang` pada domain induk (mis. .surflix.my.id) supaya pilihan
- * ikut berpindah antar subdomain; localStorage jadi cadangan (lokal / IP tanpa domain induk).
+ * Language preference shared by Request Hub and Reference.
+ * Stored in the `surflix_lang` cookie on the parent domain (e.g. .surflix.my.id) so the choice
+ * carries across subdomains; localStorage is the fallback (local / IP without a parent domain).
  */
 import type { Lang } from './i18n';
 

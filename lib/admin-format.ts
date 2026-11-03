@@ -1,4 +1,4 @@
-/** Format dan peta status yang dipakai halaman admin. */
+/** Formats and status maps used by the admin pages. */
 
 export function ago(iso: string | Date | null | undefined): string {
   if (!iso) return '';

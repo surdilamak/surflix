@@ -4,7 +4,7 @@
  * Capabilities:
  * - Send notification with poster + caption to admin
  * - Inline buttons: Approve / Reject
- * - Webhook callbacks (handled di /api/telegram/webhook)
+ * - Webhook callbacks (handled in /api/telegram/webhook)
  */
 
 const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '';
@@ -52,7 +52,7 @@ function tmdbImage(path: string | null | undefined, size = 'w500'): string | nul
 }
 
 /**
- * Send photo dengan caption HTML
+ * Send photo with HTML caption
  */
 async function sendPhoto(params: {
   chatId: string;
@@ -123,8 +123,8 @@ function escapeHtml(text: string): string {
 }
 
 /**
- * Notify admin tentang request baru
- * Format: poster + caption + buttons | follow-up reply dengan info detail kalau ada note
+ * Notify admin about a new request
+ * Format: poster + caption + buttons | follow-up reply with detailed info if there is a note
  */
 export async function notifyNewRequest(params: {
   requestId: string;
@@ -179,7 +179,7 @@ export async function notifyNewRequest(params: {
     });
   }
 
-  // Reply dengan overview kalau ada (biar nampak detail tanpa cluttering main message)
+  // Reply with the overview if available (so the detail is visible without cluttering the main message)
   const messageId = response?.result?.message_id;
   if (messageId && params.overview) {
     await sendMessage({
@@ -191,9 +191,9 @@ export async function notifyNewRequest(params: {
 }
 
 /**
- * Notify admin tentang remark (improvement request) baru
- * Beda dari notifyNewRequest: gak ada Approve/Reject button (remark butuh action manual),
- * cuma tombol "Open in Surflix" buat liat detail.
+ * Notify admin about a new remark (improvement request)
+ * Different from notifyNewRequest: no Approve/Reject button (a remark needs manual action),
+ * only an "Open in Surflix" button to view the details.
  */
 export async function notifyNewRemark(params: {
   remarkId: string;
@@ -252,7 +252,7 @@ export async function notifyNewRemark(params: {
 }
 
 /**
- * Notify admin kalau ada request yang gagal di Jellyseerr
+ * Notify admin if a request failed in Jellyseerr
  */
 export async function notifyRequestFailed(params: {
   title: string;
@@ -266,7 +266,7 @@ export async function notifyRequestFailed(params: {
 }
 
 /**
- * Update message setelah approve/reject (untuk menghilangkan tombol & update status)
+ * Update the message after approve/reject (to remove the buttons & update the status)
  */
 export async function updateRequestMessage(params: {
   chatId: number | string;

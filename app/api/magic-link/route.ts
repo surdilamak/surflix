@@ -1,9 +1,9 @@
 /**
  * POST /api/magic-link
  *
- * Kirim magic link ke email guest.
- * Cuma email yang udah pernah submit request yang bisa request magic link.
- * Token aktif 30 menit.
+ * Send a magic link to the guest's email.
+ * Only emails that have submitted a request before can request a magic link.
+ * Token is valid for 30 minutes.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -20,7 +20,7 @@ const schema = z.object({
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req.headers);
 
-  // Rate limit ketat buat anti-spam email
+  // Strict rate limit to prevent email spam
   const limit = await checkRateLimit({ ipAddress: ip, endpoint: 'magic-link', max: 5 });
   if (!limit.allowed) {
     return NextResponse.json(
@@ -38,28 +38,28 @@ export async function POST(req: NextRequest) {
 
   const email = body.email.toLowerCase();
 
-  // Cek apakah email ini terdaftar (udah pernah submit request)
+  // Check whether this email is registered (has submitted a request before)
   const guest = await prisma.guest.findUnique({ where: { email } });
 
   if (!guest) {
-    // Jangan kasih tau email gak terdaftar (security)
-    // Return success aja, supaya gak bisa di-enumerate
+    // Don't reveal that the email is not registered (security)
+    // Just return success, so it can't be enumerated
     return NextResponse.json({ success: true, message: 'Kalau email terdaftar, link akan dikirim.' });
   }
 
-  // Invalidate magic tokens yang lama (yang belum dipakai)
+  // Invalidate old magic tokens (the ones not yet used)
   await prisma.magicToken.updateMany({
     where: {
       guestId: guest.id,
       usedAt: null,
       expiresAt: { gt: new Date() },
     },
-    data: { usedAt: new Date() }, // mark as used jadi gak bisa dipakai
+    data: { usedAt: new Date() }, // mark as used so it can't be used
   });
 
-  // Create token baru
+  // Create new token
   const token = generateToken();
-  const expiresAt = new Date(Date.now() + 30 * 60 * 1000); // 30 menit
+  const expiresAt = new Date(Date.now() + 30 * 60 * 1000); // 30 minutes
 
   await prisma.magicToken.create({
     data: {

@@ -1,7 +1,7 @@
 /**
  * GET /api/admin/counts
  *
- * Angka ringan buat lencana di navigasi admin: request menunggu, koneksi menunggu review, unduhan berjalan.
+ * Lightweight numbers for the badges in the admin navigation: pending requests, connections awaiting review, downloads in progress.
  */
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/db';

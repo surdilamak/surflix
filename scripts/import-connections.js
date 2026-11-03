@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 /**
- * Import FilmConnection dari JSON hasil kurasi (scripts/connections-seed.json) ke database aktif.
+ * Import FilmConnection from the curated JSON (scripts/connections-seed.json) into the active database.
  *
- * Aman buat production — aturannya:
- *   - Baris baru dibuat dengan status dari seed (h = APPROVED, m = PENDING_REVIEW).
- *   - Baris yang sudah ada & dibuat seed (source "llm"): teksnya di-refresh (alasan EN/ID,
- *     relasi, confidence, metadata film). STATUS TIDAK PERNAH DIUBAH, jadi approve/reject admin aman.
- *   - Baris yang sudah disentuh admin (source "admin"): dilewati sepenuhnya.
- *   - Baris lama arah-kebalik (B->A) dihapus kalau seed punya A->B dan B->A bukan bagian seed
- *     (hasil seed awal yang ditulis dua arah). Hanya baris source "llm" yang pernah dihapus.
+ * Safe for production — the rules:
+ *   - New rows are created with the status from the seed (h = APPROVED, m = PENDING_REVIEW).
+ *   - Existing rows created by the seed (source "llm"): their text is refreshed (EN/ID reason,
+ *     relationship, confidence, film metadata). STATUS IS NEVER CHANGED, so admin approve/reject is safe.
+ *   - Rows already touched by an admin (source "admin"): skipped entirely.
+ *   - Old reverse-direction rows (B->A) are deleted if the seed has A->B and B->A is not part of the seed
+ *     (a result of the initial seed being written in both directions). Only source "llm" rows are ever deleted.
  *
  *   docker exec surflix node scripts/import-connections.js scripts/connections-seed.json          # dry-run
- *   docker exec surflix node scripts/import-connections.js scripts/connections-seed.json --apply  # beneran
- *   ... connections-live.json --apply --apply-rejections   # juga reject baris yang REJECTED di file (opt-in)
+ *   docker exec surflix node scripts/import-connections.js scripts/connections-seed.json --apply  # for real
+ *   ... connections-live.json --apply --apply-rejections   # also reject rows marked REJECTED in the file (opt-in)
  */
 
 const fs = require('fs');
@@ -57,7 +57,7 @@ const pair = (a) => ({
       // The file is the source of truth for the optional fields, so a row that no longer has a
       // paragraph or kind loses it too (they are omitted from the JSON when empty).
       if (apply) await prisma.filmConnection.update({ where: pair(r), data: { kind: null, storyEn: null, story: null, ...rest } });
-      // Opt-in: baris yang ditandai REJECTED di file (hasil audit fakta) ikut di-reject di database.
+      // Opt-in: rows marked REJECTED in the file (result of a fact audit) are also rejected in the database.
       if (withRejections && status === 'REJECTED' && had.status !== 'REJECTED') {
         stat.rejected++;
         if (apply) {
@@ -66,7 +66,7 @@ const pair = (a) => ({
       }
     }
 
-    // baris lama arah-kebalik (target -> sumber)
+    // old reverse-direction row (target -> source)
     const rev = {
       sourceTmdbId: r.targetTmdbId, sourceMediaType: r.targetMediaType, targetTmdbId: r.sourceTmdbId,
     };

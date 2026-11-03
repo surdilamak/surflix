@@ -50,7 +50,7 @@ COPY --from=builder --chown=surflix:nodejs /app/node_modules/.prisma ./node_modu
 COPY --from=builder --chown=surflix:nodejs /app/node_modules/@prisma ./node_modules/@prisma
 COPY --from=builder --chown=surflix:nodejs /app/node_modules/prisma ./node_modules/prisma
 
-# Copy server-side deps yang Next.js standalone gak auto-trace
+# Copy server-side deps that Next.js standalone does not auto-trace
 COPY --from=builder --chown=surflix:nodejs /app/node_modules/bcryptjs ./node_modules/bcryptjs
 COPY --from=builder --chown=surflix:nodejs /app/node_modules/sharp ./node_modules/sharp
 COPY --from=builder --chown=surflix:nodejs /app/node_modules/@img ./node_modules/@img

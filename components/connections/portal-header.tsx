@@ -1,11 +1,11 @@
 /**
- * PortalHeader — tautan lokal Reference (All maps, Watch order, Galaxy, Just added).
- * Duduk di dalam PortalBar, satu baris dengan logo, nama portal, pill situs, dan pilihan bahasa.
+ * PortalHeader — local Reference links (All maps, Watch order, Galaxy, Just added).
+ * Sits inside PortalBar, on one line with the logo, portal name, site pills, and language choice.
  *
- * Menandai halaman yang sedang dibuka dengan aria-current="page" — gayanya sudah ada di
- * portal-bar.css. Sampai 2026-10-23 tautan ini polos semua, jadi dari bilah atas pengunjung
- * tidak bisa tahu ia sedang di halaman mana (Trunk Test gagal). TopNav milik Request Hub
- * sudah melakukannya sejak awal; bagian ini yang tertinggal.
+ * Marks the currently open page with aria-current="page" — its style already exists in
+ * portal-bar.css. Until 2026-10-23 these links were all plain, so from the top bar a visitor
+ * could not tell which page they were on (Trunk Test failed). The Request Hub's TopNav
+ * has done this from the start; this part lagged behind.
  */
 'use client';
 
@@ -23,14 +23,14 @@ export function PortalHeader() {
   const galaxy = portalPath('/galaxy') || '/galaxy';
   const added = portalPath('/new') || '/new';
 
-  /** Cocok kalau persis sama, atau kalau ini induk dari halaman anaknya (/timeline/mcu). */
+  /** Matches if exactly equal, or if this is the parent of the child page (/timeline/mcu). */
   const on = (href: string) => {
     const base = href.replace(/\/$/, '');
     return pathname === base || pathname.startsWith(base + '/');
   };
   /**
-   * "All maps" menunjuk beranda + jangkar. Ia aktif di beranda DAN di peta satu film,
-   * karena peta film adalah isi dari daftar itu — bukan cabang tersendiri.
+   * "All maps" points to the home page + anchor. It is active on the home page AND on a single film's map,
+   * because a film map is part of that list — not a separate branch.
    */
   const onMaps =
     pathname === home.replace(/\/$/, '') ||

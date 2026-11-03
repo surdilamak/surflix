@@ -1,6 +1,6 @@
 /**
- * Bahasa untuk server component (landing). Cookie `surflix_lang` dibagi dengan Request Hub dan Reference;
- * ?lang=id|en pada URL menang supaya tautan bisa dibagikan. Default English.
+ * Language for server components (landing). The `surflix_lang` cookie is shared with Request Hub and Reference;
+ * ?lang=id|en in the URL wins so links can be shared. Default English.
  */
 import { cookies } from 'next/headers';
 import type { Lang } from './i18n';

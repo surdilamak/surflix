@@ -1,6 +1,6 @@
-# Sutradara dengan >=2 film di library (diverifikasi manual). Koneksi dirantai per tahun rilis.
-# Franchise yang sudah rapat (Russo, Whedon, Jon Watts, Peyton Reed, Peter Jackson, Chad Stahelski,
-# Lucas, dll) sengaja dilewati: mereka sudah terhubung lewat file franchise.
+# Directors with >=2 films in the library (verified manually). Connections are chained by release year.
+# Franchises that are already tightly connected (Russo, Whedon, Jon Watts, Peyton Reed, Peter Jackson, Chad Stahelski,
+# Lucas, etc.) are deliberately skipped: they are already connected through the franchise files.
 Stanley Kubrick
 Christopher Nolan
 Quentin Tarantino | -Kill Bill: The Whole Bloody Affair (2011)

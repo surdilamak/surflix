@@ -1,14 +1,14 @@
 /**
  * POST /api/webhooks/jellyseerr
  *
- * Webhook receiver dari Jellyseerr.
- * Setup di Jellyseerr: Settings → Notifications → Webhook
+ * Webhook receiver from Jellyseerr.
+ * Setup in Jellyseerr: Settings → Notifications → Webhook
  *   URL: https://request.surdilamak.my.id/api/webhooks/jellyseerr
  *   Auth Header: Bearer <WEBHOOK_SECRET>
  *
- * Event yang kita listen:
- * - MEDIA_AVAILABLE → film udah ready di Jellyfin
- * - MEDIA_FAILED → gagal di-download
+ * Events we listen to:
+ * - MEDIA_AVAILABLE → film is already ready in Jellyfin
+ * - MEDIA_FAILED → download failed
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -43,7 +43,7 @@ export async function POST(req: NextRequest) {
   // Verify webhook secret
   const authHeader = req.headers.get('authorization');
   const secret = process.env.WEBHOOK_SECRET;
-  // Tanpa secret, "Bearer undefined" bakal lolos: tolak semua kalau belum di-set.
+  // Without a secret, "Bearer undefined" would get through: reject everything if it isn't set.
   if (!secret || authHeader !== `Bearer ${secret}`) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
@@ -69,13 +69,13 @@ export async function POST(req: NextRequest) {
     },
   });
 
-  // Judul baru masuk library -> segarkan snapshot (search portal + deep-link).
-  // Sebelum early-return di bawah: berlaku juga untuk judul yang bukan dari request Surflix.
+  // A new title entered the library -> refresh the snapshot (portal search + deep-link).
+  // Before the early-return below: also applies to titles that did not come from a Surflix request.
   if (event === 'MEDIA_AVAILABLE' || event === 'MEDIA_PARTIALLY_AVAILABLE') {
     scheduleLibrarySync();
   }
 
-  // Cari request kita berdasarkan tmdbId
+  // Find our request by tmdbId
   const tmdbId = parseInt(media.tmdbId);
   const mediaType = media.media_type;
 
@@ -152,7 +152,7 @@ export async function POST(req: NextRequest) {
       break;
 
     default:
-      // Other events (DOWNLOAD_STARTED dll) — opportunistic upgrade to PROCESSING
+      // Other events (DOWNLOAD_STARTED etc.) — opportunistic upgrade to PROCESSING
       if (event.includes('DOWNLOAD') || event.includes('GRABBED')) {
         for (const r of requests) {
           if (r.status === 'ON_SCHEDULE' || r.status === 'APPROVED') {

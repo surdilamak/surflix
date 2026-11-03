@@ -1,6 +1,6 @@
 /**
- * usePortal — URL helper buat portal Reference <-> Request Hub (logika di lib/portal-urls.ts,
- * dipisah supaya server component juga bisa memakainya).
+ * usePortal — URL helper for the Reference portal <-> Request Hub (logic in lib/portal-urls.ts,
+ * kept separate so server components can use it too).
  */
 'use client';
 
@@ -10,7 +10,7 @@ import { buildPortalUrls, type PortalUrls } from '@/lib/portal-urls';
 export { buildPortalUrls };
 
 export function usePortal(): PortalUrls {
-  // Default aman buat SSR / sebelum mount (sama di server & client biar gak hydration mismatch)
+  // Safe default for SSR / before mount (same on server & client to avoid a hydration mismatch)
   const [urls, setUrls] = useState<PortalUrls>(() => buildPortalUrls('', 'https:'));
 
   useEffect(() => {

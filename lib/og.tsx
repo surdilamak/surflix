@@ -1,7 +1,7 @@
 /**
- * Gambar preview (1200x630) untuk Surflix Reference: poster di kiri, judul, jumlah koneksi, dan tiga
- * koneksi terkuat di kanan. Dipakai route /api/og/[type]/[id] dan /api/og/default.
- * Font Bricolage Grotesque dibaca dari public/fonts (ikut ke image standalone).
+ * Preview image (1200x630) for Surflix Reference: poster on the left, title, connection count, and the three
+ * strongest connections on the right. Used by the /api/og/[type]/[id] and /api/og/default routes.
+ * The Bricolage Grotesque font is read from public/fonts (included in the standalone image).
  */
 import { ImageResponse } from 'next/og';
 import sharp from 'sharp';
@@ -56,7 +56,7 @@ export interface OgFilm {
 
 const clip = (s: string, n: number) => (s.length > n ? `${s.slice(0, n - 1).trimEnd()}…` : s);
 
-/** PNG dari Satori bisa 400 KB+ kalau ada foto; WhatsApp melewatkan preview besar. JPEG mutu 82 hanya sekitar 80 KB. */
+/** A PNG from Satori can be 400 KB+ when there is a photo; WhatsApp skips large previews. JPEG at quality 82 is only about 80 KB. */
 async function asJpeg(res: ImageResponse): Promise<Response> {
   const png = Buffer.from(await res.arrayBuffer());
   const jpg = await sharp(png).flatten({ background: BG }).jpeg({ quality: 82, mozjpeg: true }).toBuffer();

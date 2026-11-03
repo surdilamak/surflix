@@ -1,5 +1,5 @@
 /**
- * Layout /admin/*: guard sesi di server (tanpa kedipan halaman lalu redirect) dan kerangka navigasi.
+ * Layout /admin/*: server-side session guard (no page flash followed by a redirect) and the navigation shell.
  */
 import { redirect } from 'next/navigation';
 import { getSession } from '@/lib/session';

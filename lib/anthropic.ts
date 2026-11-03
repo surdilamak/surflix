@@ -1,8 +1,8 @@
 /**
- * Anthropic (Claude) Integration — pure HTTP (no SDK, konsisten sama lib/telegram.ts)
+ * Anthropic (Claude) Integration — pure HTTP (no SDK, consistent with lib/telegram.ts)
  *
- * SERVER-SIDE ONLY, dan cuma dipanggil dari flow admin (lib/connections.ts).
- * Guest TIDAK PERNAH boleh memicu LLM — hasil disimpen permanen di FilmConnection.
+ * SERVER-SIDE ONLY, and only called from the admin flow (lib/connections.ts).
+ * A guest must NEVER trigger the LLM — results are stored permanently in FilmConnection.
  */
 
 import { z } from 'zod';
@@ -28,7 +28,7 @@ function isConfigured() {
 }
 
 /**
- * Single-turn call ke Messages API, return teks mentah dari model.
+ * Single-turn call to the Messages API, returns the raw text from the model.
  */
 async function complete(params: { system: string; user: string; maxTokens?: number }): Promise<string> {
   if (!isConfigured()) {
@@ -65,13 +65,13 @@ async function complete(params: { system: string; user: string; maxTokens?: numb
 }
 
 /**
- * Parse JSON array dari output model. Strip code fence kalau model bandel nambahin.
+ * Parse a JSON array from the model output. Strip the code fence if the model stubbornly adds one.
  */
 function parseJsonArray(raw: string): unknown[] {
   let text = raw.trim();
   text = text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
 
-  // Fallback: ambil dari '[' pertama sampai ']' terakhir kalau ada prosa nyasar
+  // Fallback: take from the first '[' to the last ']' if there is stray prose
   if (!text.startsWith('[')) {
     const start = text.indexOf('[');
     const end = text.lastIndexOf(']');
@@ -110,8 +110,8 @@ Skema tiap item:
 {"title": "string", "year": 1999, "mediaType": "movie|tv", "relationship": "homage|inspired|visual", "reason": "string"}`;
 
 /**
- * Minta LLM bikin draft daftar referensi buat satu film.
- * Item yang gak lolos validasi di-skip diem-diem (draft ini masih lewat review admin).
+ * Ask the LLM to draft a list of references for one film.
+ * Items that fail validation are skipped silently (this draft still goes through admin review).
  */
 export async function suggestFilmReferences(params: {
   title: string;

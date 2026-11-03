@@ -1,5 +1,5 @@
 /**
- * PortalFooter — satu baris tenang: apa ini, tautan, tahun.
+ * PortalFooter — one calm line: what this is, links, year.
  */
 'use client';
 
@@ -22,9 +22,9 @@ export function PortalFooter() {
             {t('detail.watch')}
           </a>
         )}
-        {/* Halaman legal dimiliki apex, jadi ditaut lewat homeHref(): dari subdomain
-            mana pun ia menunjuk surflix.my.id, bukan reference.surflix.my.id/terms
-            yang akan di-redirect. */}
+        {/* Legal pages are owned by the apex, so they are linked via homeHref(): from any
+            subdomain it points to surflix.my.id, not reference.surflix.my.id/terms
+            which would be redirected. */}
         <a href={homeHref('/terms')}>{t('footer.terms')}</a>
         <a href={homeHref('/privacy')}>{t('footer.privacy')}</a>
         <a href="mailto:admin@surflix.my.id">{t('footer.contact')}</a>

@@ -1,7 +1,7 @@
 /**
  * GET /api/library/index
  *
- * Portal Referensi: indeks A-Z seluruh library + jumlah koneksi per judul. Murni baca DB.
+ * Reference Portal: A-Z index of the whole library + connection count per title. Pure DB read.
  */
 
 import { NextResponse } from 'next/server';

@@ -1,4 +1,4 @@
-/** GET /api/og/default → kartu preview umum Surflix Reference. */
+/** GET /api/og/default → generic Surflix Reference preview card. */
 import { defaultCard } from '@/lib/og';
 
 export const dynamic = 'force-dynamic';

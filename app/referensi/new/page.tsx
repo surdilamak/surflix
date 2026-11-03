@@ -1,6 +1,6 @@
 /**
- * Portal Referensi — Just added: judul terbaru di library, dirender di server supaya poster dan judul
- * sudah ada di HTML pertama (bisa diindeks, cepat tampil). Tampilan dan bahasa ada di JustAddedView.
+ * Reference Portal — Just added: the newest titles in the library, rendered on the server so posters and titles
+ * are already in the first HTML (indexable, fast to show). The view and language live in JustAddedView.
  */
 import type { Metadata } from 'next';
 import { recentTitles } from '@/lib/connections';
@@ -19,7 +19,7 @@ let backfillScheduled = false;
 
 export default async function JustAddedPage() {
   const { titles, pendingBackfill } = await recentTitles(60).catch(() => ({ titles: [], pendingBackfill: false }));
-  // Kolom addedAt baru: kalau belum terisi, isi lewat satu sync latar belakang (sekali per proses)
+  // New addedAt column: if not yet filled, fill it via one background sync (once per process)
   if (pendingBackfill && !backfillScheduled) {
     backfillScheduled = true;
     scheduleLibrarySync();

@@ -1,7 +1,7 @@
 /**
  * GET /api/library/title?type=movie|tv&id=<tmdbId>
  *
- * Satu judul dari library (dipakai halaman "belum ada peta").
+ * A single title from the library (used by the "no map yet" page).
  */
 
 import { NextRequest, NextResponse } from 'next/server';

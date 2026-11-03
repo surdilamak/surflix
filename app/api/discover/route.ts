@@ -28,7 +28,7 @@ export async function GET(req: NextRequest) {
       if (firstYear) params.year = parseInt(firstYear);
     }
     if (network) {
-      // Untuk TV: network parameter, untuk movies: studio parameter
+      // For TV: network parameter, for movies: studio parameter
       if (type === 'tv') {
         params.network = parseInt(network);
       } else {

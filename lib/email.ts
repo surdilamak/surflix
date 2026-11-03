@@ -1,10 +1,10 @@
 /**
  * Email Service via Resend
  *
- * Dipakai untuk:
- * 1. Magic link login guest
- * 2. Notif "Request Available" pas film udah ready di Jellyfin
- * 3. Notif "Request Approved" / "Rejected"
+ * Used for:
+ * 1. Guest login magic link
+ * 2. "Request Available" notification when the film is ready in Jellyfin
+ * 3. "Request Approved" / "Rejected" notification
  */
 
 import { Resend } from 'resend';
@@ -25,7 +25,7 @@ function ensureResend() {
 }
 
 /**
- * Magic link untuk akses My Requests page tanpa password
+ * Magic link to access the My Requests page without a password
  */
 export async function sendMagicLink(params: {
   to: string;
@@ -71,7 +71,7 @@ export async function sendMagicLink(params: {
 }
 
 /**
- * Notif "Approved" — request lo di-terima admin, lagi di-download
+ * "Approved" notification — your request was accepted by the admin, now downloading
  */
 export async function sendApprovalNotification(params: {
   to: string;
@@ -109,7 +109,7 @@ export async function sendApprovalNotification(params: {
 }
 
 /**
- * Notif "Available" — film udah ready, tonton di Jellyfin
+ * "Available" notification — the film is ready, watch it on Jellyfin
  */
 export async function sendAvailableNotification(params: {
   to: string;
@@ -147,7 +147,7 @@ export async function sendAvailableNotification(params: {
 }
 
 /**
- * Notif "Rejected"
+ * "Rejected" notification
  */
 export async function sendRejectionNotification(params: {
   to: string;

@@ -1,10 +1,10 @@
 /**
- * Remark Form Modal — "Request Improvement" untuk film yang udah AVAILABLE/PROCESSING
+ * Remark Form Modal — "Request Improvement" for films that are already AVAILABLE/PROCESSING
  *
- * Beda dari RequestFormModal:
- * - Note WAJIB diisi
- * - Label & copy disesuaikan ke konteks improvement, bukan request baru
- * - Suggestions fokus ke subtitle, replace, missing episodes, audio dubbed
+ * Differences from RequestFormModal:
+ * - Note is REQUIRED
+ * - Label & copy adapted to the improvement context, not a new request
+ * - Suggestions focus on subtitles, replacement, missing episodes, dubbed audio
  */
 'use client';
 
@@ -23,7 +23,7 @@ interface RemarkFormModalProps {
 
 const GUEST_INFO_KEY = 'surflix_guest_info';
 
-// Quick suggestions — fokus ke common improvement requests
+// Quick suggestions — focused on common improvement requests
 const NOTE_KEYS = ['s1', 's2', 's3', 's4', 's5', 's6'] as const;
 
 export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormModalProps) {

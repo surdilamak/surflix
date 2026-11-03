@@ -2,7 +2,7 @@
  * POST /api/admin/connections/generate
  *
  * Admin-only. Body: { tmdbId, mediaType }.
- * Jalanin pipeline LLM -> TMDB -> filter library Jellyfin, simpan PENDING_REVIEW.
+ * Runs the LLM -> TMDB -> Jellyfin library filter pipeline, saves as PENDING_REVIEW.
  */
 
 import { NextRequest, NextResponse } from 'next/server';

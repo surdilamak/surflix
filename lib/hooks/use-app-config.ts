@@ -1,8 +1,8 @@
 /**
- * useAppConfig — fetch runtime config dari /api/config
+ * useAppConfig — fetch runtime config from /api/config
  *
- * Workaround untuk Next.js standalone yang kadang strip NEXT_PUBLIC_* env vars.
- * Cached in module-level singleton biar gak refetch setiap component render.
+ * Workaround for Next.js standalone, which sometimes strips NEXT_PUBLIC_* env vars.
+ * Cached in module-level singleton so it does not refetch on every component render.
  */
 'use client';
 

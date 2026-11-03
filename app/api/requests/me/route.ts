@@ -1,7 +1,7 @@
 /**
  * GET /api/requests/me
  *
- * Get list request untuk guest yang lagi login (via JWT session token).
+ * Get list of requests for the currently logged-in guest (via JWT session token).
  */
 
 import { NextRequest, NextResponse } from 'next/server';

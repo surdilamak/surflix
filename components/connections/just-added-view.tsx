@@ -1,7 +1,7 @@
 /**
- * Portal Referensi — Just added: judul terbaru di library. Yang terbaru memimpin halaman sebagai kartu besar;
- * sisanya satu rak berurutan. Peta yang sudah jadi membuka petanya, yang belum ditandai "Map coming"
- * dan tetap bisa langsung ditonton.
+ * Reference Portal — Just added: newest titles in the library. The newest leads the page as a big card;
+ * the rest form one shelf in sequence. A finished map opens its map, one without is marked "Map coming"
+ * and can still be watched right away.
  */
 'use client';
 
@@ -86,12 +86,12 @@ export function JustAddedView({ rows, jellyfinUrl, serverId, now }: { rows: Row[
                   <a className="ref-new-poster" href={r.count > 0 ? map : watch} {...(r.count > 0 ? {} : { target: '_blank', rel: 'noopener' })}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={posterUrl(r.jellyfinId, jellyfinUrl, 360)} alt={r.title} loading="lazy" width={240} height={360} />
-                    {/* Lencana menempel di poster, bukan di paragraf judul: di dalam judul ia
-                        memecah ritme baris dan terlempar ke baris sendiri kalau judulnya panjang. */}
+                    {/* The badge sits on the poster, not in the title paragraph: inside the title it
+                        breaks the line rhythm and gets thrown onto its own line when the title is long. */}
                     {fresh && <em className="ref-new-badge">{t('new.week')}</em>}
-                    {/* Pita keterangan ikut di dalam kartu membulat, seperti .lp-frame di landing.
-                        Bedanya: landing memotong judul jadi satu baris; di sini judul tampil utuh,
-                        karena di halaman "apa yang baru" judul itu isi utamanya. Lihat .ref-new-strip. */}
+                    {/* The caption strip stays inside the rounded card, like .lp-frame on the landing.
+                        Difference: the landing truncates the title to one line; here the title shows in full,
+                        because on the "what's new" page the title is the main content. See .ref-new-strip. */}
                     <span className="ref-new-strip">
                       {r.title}
                       {r.year ? <small> {r.year}</small> : null}

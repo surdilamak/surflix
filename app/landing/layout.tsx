@@ -1,6 +1,6 @@
 /**
- * Landing layout (surflix.my.id) — papan ubin (direction "dense-tiles" dari taste-skill).
- * Sengaja berdiri sendiri: font, token, dan CSS-nya tidak dipakai bersama portal Reference.
+ * Landing layout (surflix.my.id) — tile board (direction "dense-tiles" from taste-skill).
+ * Deliberately standalone: its fonts, tokens, and CSS are not shared with the Reference portal.
  */
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
@@ -8,9 +8,9 @@ import { translate } from '@/lib/i18n';
 import { getServerLang } from '@/lib/lang-server';
 import './landing.css';
 
-// Font di-vendor ke repo supaya build tidak perlu mengambilnya dari Google.
-// Pengambilan saat build sempat menggagalkan CI tiga kali dalam satu hari.
-// Keduanya variable font berlisensi OFL; satu berkas melayani seluruh rentang berat.
+// Fonts are vendored in the repo so the build does not need to fetch them from Google.
+// Fetching at build time broke CI three times in one day.
+// Both are variable fonts under the OFL license; one file covers the whole weight range.
 const font = localFont({
   src: '../../public/fonts/bricolage-var-latin.woff2',
   weight: '400 600',

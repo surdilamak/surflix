@@ -1,8 +1,8 @@
 /**
  * Admin Bootstrap
  *
- * Run at startup: kalau Admin table kosong dan ENV ADMIN_USERNAME + ADMIN_PASSWORD_HASH
- * ada, auto-create admin record di DB.
+ * Run at startup: if the Admin table is empty and ENV ADMIN_USERNAME + ADMIN_PASSWORD_HASH
+ * are present, auto-create an admin record in the DB.
  */
 
 import { prisma } from './db';
@@ -25,7 +25,7 @@ export async function bootstrapAdmin() {
       });
       console.log(`[Admin Bootstrap] Created admin: ${username}`);
     } else {
-      // Update password kalau berubah di env
+      // Update password if it changed in env
       if (existing.passwordHash !== passwordHash) {
         await prisma.admin.update({
           where: { username },

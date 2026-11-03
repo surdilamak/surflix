@@ -1,5 +1,5 @@
 /**
- * TitleIndex — indeks A–Z seluruh judul di library. Judul tanpa peta dibuat redup.
+ * TitleIndex — A–Z index of all titles in the library. Titles without a map are dimmed.
  */
 'use client';
 

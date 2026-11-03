@@ -1,5 +1,5 @@
 /**
- * Hero Banner — featured/trending #1 dengan backdrop image
+ * Hero Banner — featured/trending #1 with backdrop image
  * Apple TV+ / Plex style
  */
 'use client';

@@ -7,9 +7,9 @@
  * Flow:
  * 1. Validate input + rate limit per IP
  * 2. Upsert guest (by guestId from cookie/body, or create new)
- * 3. Cek udah ada di Jellyseerr/library belum
- * 4. Simpan ke DB dengan status PENDING_ADMIN
- * 5. Send Telegram notif ke admin
+ * 3. Check whether it already exists in Jellyseerr/library
+ * 4. Save to DB with status PENDING_ADMIN
+ * 5. Send Telegram notif to admin
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -56,7 +56,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Input gak valid' }, { status: 400 });
   }
 
-  // 1. Cek di Jellyseerr — udah ada di library?
+  // 1. Check in Jellyseerr — is it already in the library?
   try {
     const detail = await jellyseerr.getMediaDetail(body.mediaType, body.tmdbId);
     if (detail.mediaInfo?.status === JELLYSEERR_STATUS.AVAILABLE) {
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
     console.warn('[Request API] Jellyseerr check failed, proceeding anyway');
   }
 
-  // 2. Get or create guest — follow alias chain to canonical kalau Guest pernah di-merge
+  // 2. Get or create guest — follow alias chain to canonical if the Guest was merged before
   const cookieLang = req.cookies.get('surflix_lang')?.value;
   const lang = cookieLang === 'en' || cookieLang === 'id' ? cookieLang : undefined;
   let guest;
@@ -90,8 +90,8 @@ export async function POST(req: NextRequest) {
   }
 
   if (!guest) {
-    // New guest - email field di-store sebagai unique key, kita pake guestId#timestamp
-    // Karena email field di schema masih unique-required, kita generate dummy email
+    // New guest - email field is stored as a unique key, we use guestId#timestamp
+    // Because the email field in the schema is still unique-required, we generate a dummy email
     const uniqueEmail = `guest-${Date.now()}-${Math.random().toString(36).substring(2, 8)}@cookie.local`;
     guest = await prisma.guest.create({
       data: {
@@ -102,7 +102,7 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  // 3. Cek duplikat di DB kita
+  // 3. Check for duplicates in our DB
   const existing = await prisma.request.findFirst({
     where: {
       guestId: guest.id,

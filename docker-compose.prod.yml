@@ -1,15 +1,15 @@
 # =====================================================
-# Surflix · Production Compose (pakai pre-built image)
+# Surflix · Production Compose (uses pre-built image)
 #
-# Dipakai di Unraid. Image-nya udah di-build di GitHub Actions
-# dan di-push ke GHCR (GitHub Container Registry).
+# Used on Unraid. The image is already built in GitHub Actions
+# and pushed to GHCR (GitHub Container Registry).
 #
-# Cara pakai:
-#   1. Download file ini + .env.example
-#   2. Copy .env.example → .env, isi values
+# Usage:
+#   1. Download this file + .env.example
+#   2. Copy .env.example → .env, fill in the values
 #   3. docker compose -f docker-compose.prod.yml up -d
 #
-# Update ke versi terbaru:
+# Update to the latest version:
 #   docker compose -f docker-compose.prod.yml pull
 #   docker compose -f docker-compose.prod.yml up -d
 # =====================================================
@@ -58,7 +58,7 @@ services:
       VAPID_PRIVATE_KEY: ${VAPID_PRIVATE_KEY}
       VAPID_SUBJECT: ${VAPID_SUBJECT}
 
-      # Film Connections (peta referensi) — LLM cuma dipanggil dari flow admin
+      # Film Connections (reference map) — the LLM is only called from the admin flow
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY}
       ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-sonnet-5-5}
       JELLYFIN_URL: ${JELLYFIN_URL:-http://host.docker.internal:8096}
@@ -69,7 +69,7 @@ services:
 
     networks:
       - surflix-net
-      # Uncomment + ganti dengan nama network Jellyseerr lo:
+      # Uncomment + replace with your Jellyseerr network name:
       # - jellyseerr_default
 
     healthcheck:
@@ -87,6 +87,6 @@ services:
 networks:
   surflix-net:
     driver: bridge
-  # Uncomment kalau pake external network Jellyseerr:
+  # Uncomment if using an external Jellyseerr network:
   # jellyseerr_default:
   #   external: true

@@ -1,8 +1,8 @@
 /**
  * Verify Page (/verify?token=...)
  *
- * User klik magic link dari email → redirect ke sini.
- * Page ini verify token, simpan session, redirect ke /requests
+ * The user clicks the magic link from the email → redirected here.
+ * This page verifies the token, saves the session, and redirects to /requests
  */
 'use client';
 
@@ -12,7 +12,7 @@ import { motion } from 'framer-motion';
 import { Icons } from '@/components/ui/icons';
 import { useLang } from '@/components/connections/lang-provider';
 
-// Wrap inner component dengan Suspense karena useSearchParams butuh suspense boundary
+// Wrap the inner component in Suspense because useSearchParams needs a suspense boundary
 export default function VerifyPage() {
   return (
     <Suspense fallback={<LoadingState />}>

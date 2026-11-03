@@ -1,17 +1,17 @@
 /**
  * POST /api/remark
  *
- * Guest submit "Request Improvement" untuk film yang sudah AVAILABLE atau
- * lagi PROCESSING di library. Contoh use case:
- * - Minta subtitle Indonesia/English
- * - Complaint kualitas file (request replace)
- * - Missing episodes di series
- * - Audio dubbed
+ * Guest submit "Request Improvement" for a film that is already AVAILABLE or
+ * currently PROCESSING in the library. Example use cases:
+ * - Ask for Indonesian/English subtitles
+ * - Complaint about file quality (request replace)
+ * - Missing episodes in a series
+ * - Dubbed audio
  *
- * Beda dari /api/request:
- * - Note WAJIB (gak optional)
- * - Bypass duplicate request check
- * - Film harus EXIST di library/processing (kalau belum ada, redirect ke /api/request)
+ * Different from /api/request:
+ * - Note is REQUIRED (not optional)
+ * - Bypasses the duplicate request check
+ * - Film must EXIST in the library/processing (if not there yet, redirect to /api/request)
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -55,8 +55,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Input gak valid (note min 5 karakter)' }, { status: 400 });
   }
 
-  // 1. Verify film ACTUALLY available/processing di Jellyseerr — kalau belum ada,
-  //    user harusnya submit via /api/request, bukan remark.
+  // 1. Verify film ACTUALLY available/processing in Jellyseerr — if it isn't there yet,
+  //    the user should submit via /api/request, not a remark.
   let mediaStatusLabel = 'AVAILABLE';
   try {
     const detail = await jellyseerr.getMediaDetail(body.mediaType, body.tmdbId);
@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
     }
   } catch (err) {
     console.warn('[Remark API] Jellyseerr check failed, proceeding anyway');
-    // Tetap allow remark — kalau Jellyseerr down, default ke AVAILABLE
+    // Still allow the remark — if Jellyseerr is down, default to AVAILABLE
   }
 
   // 2. Get or create guest — follow alias chain to canonical
@@ -107,7 +107,7 @@ export async function POST(req: NextRequest) {
     });
   }
 
-  // 3. Create remark (no duplicate check — guest boleh kasih multiple remarks)
+  // 3. Create remark (no duplicate check — a guest may give multiple remarks)
   const remark = await prisma.remark.create({
     data: {
       guestId: guest.id,

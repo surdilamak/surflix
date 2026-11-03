@@ -1,7 +1,7 @@
 /**
  * Toast — center horizontal, top-anchored, both mobile & desktop
  *
- * Position: top center via flex container (gak pakai left-1/2 + transform)
+ * Position: top center via flex container (no left-1/2 + transform)
  * Animation: slide down from top + fade
  */
 'use client';

@@ -1,9 +1,9 @@
 /**
- * Landing (surflix.my.id) — satu papan ubin yang memperlihatkan tiga situs Surflix:
- * Streaming (Jellyfin), Request Hub, dan Reference. Tiap bagian adalah miniatur situsnya.
+ * Landing (surflix.my.id) — one tile board showing the three Surflix sites:
+ * Streaming (Jellyfin), Request Hub, and Reference. Each section is a miniature of its site.
  *
- * Server component: poster, angka, dan koneksi nyata datang dari DB di HTML pertama.
- * Routing: middleware.ts me-rewrite host apex surflix.my.id ke /landing.
+ * Server component: posters, numbers, and the real connection come from the DB in the first HTML.
+ * Routing: middleware.ts rewrites the apex host surflix.my.id to /landing.
  */
 import { headers } from 'next/headers';
 import { getLandingData, type LandingFilm } from '@/lib/landing-data';
@@ -16,8 +16,8 @@ import { CoffeeButton, LandingFx, LangToggle } from './landing-fx';
 export const dynamic = 'force-dynamic';
 
 /**
- * Langit kecil buat ubin Galaxy: titik dan garisnya dihitung sekali dengan seed tetap,
- * jadi hasil server dan klien selalu sama (bukan acak per render).
+ * A small sky for the Galaxy tile: the points and lines are computed once with a fixed seed,
+ * so server and client output are always the same (not random per render).
  */
 const sky = (() => {
   const palette = ['#f7941d', '#4f8ff0', '#34c3a0', '#e0405f', '#c77dff', '#d9d4c4', '#ffd166', '#7bdff2'];
@@ -25,7 +25,7 @@ const sky = (() => {
   const rnd = () => ((seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff);
   const dots = Array.from({ length: 54 }, () => {
     const a = rnd() * Math.PI * 2;
-    const d = Math.pow(rnd(), 0.62); // menumpuk di tengah seperti galaksi aslinya
+    const d = Math.pow(rnd(), 0.62); // piles up in the middle like a real galaxy
     return {
       x: +(150 + Math.cos(a) * d * 140).toFixed(1),
       y: +(75 + Math.sin(a) * d * 62).toFixed(1),
@@ -69,7 +69,7 @@ interface Special {
   node: React.ReactNode;
 }
 
-/** Satu foto dipotong lintas ubin; beberapa ubin diganti blok warna (tidak pernah bersebelahan). */
+/** One photo cut across tiles; some tiles are replaced by color blocks (never adjacent). */
 function Mosaic({ cols, rows, img, alt, specials, only }: { cols: number; rows: number; img: string; alt: string; specials: Special[]; only: 'd' | 'm' }) {
   const cells: React.ReactNode[] = [];
   for (let r = 0; r < rows; r++) {
@@ -133,7 +133,7 @@ export default async function LandingPage({ searchParams }: { searchParams?: Pro
 
   const mosaicAlt = showcase ? t('lp.scene', { title: showcase.title }) : '';
 
-  // Hero: enam kolom poster, dibagi bergiliran; kolom 3 dan 4 menyisakan ruang buat panel teks.
+  // Hero: six poster columns, dealt out in turn; columns 3 and 4 leave room for the text panel.
   const columns = Array.from({ length: 6 }, (_, c) => hero.filter((_, i) => i % 6 === c));
   const frame = (f: LandingFilm, idx: number, c: number, row: number) => (
     <a
@@ -170,7 +170,7 @@ export default async function LandingPage({ searchParams }: { searchParams?: Pro
     { row: 5, col: 2, tone: 'accent', node: <a className="lp-tile-action" href={watchHome}>{t('lp.openStreaming')}</a> },
   ];
 
-  // Masonry: enam kolom dengan jumlah berbeda (dasar kolom sengaja tidak rata), rasio gambar bergantian
+  // Masonry: six columns with different counts (column bottoms are deliberately uneven), image ratios alternate
   const ratios = ['2 / 3', '1 / 1', '4 / 5', '3 / 4'];
   const sizes = [4, 3, 4, 3, 3, 3];
   let at = 0;

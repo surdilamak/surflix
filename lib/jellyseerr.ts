@@ -1,10 +1,10 @@
 /**
  * Jellyseerr API Client
  *
- * Wrapper untuk komunikasi ke Jellyseerr API.
- * Internal Docker network, jadi gak perlu HTTPS.
+ * Wrapper for communicating with the Jellyseerr API.
+ * Internal Docker network, so HTTPS is not needed.
  *
- * Reference: https://api-docs.overseerr.dev (Jellyseerr fork dari Overseerr)
+ * Reference: https://api-docs.overseerr.dev (Jellyseerr is a fork of Overseerr)
  */
 
 import axios, { AxiosInstance } from 'axios';
@@ -16,7 +16,7 @@ if (!JELLYSEERR_URL || !JELLYSEERR_API_KEY) {
   console.warn('[Jellyseerr] Missing env vars. Pastikan JELLYSEERR_URL dan JELLYSEERR_API_KEY di-set.');
 }
 
-// Map Jellyseerr mediaInfo.status ke status kita
+// Map Jellyseerr mediaInfo.status to our status
 // 1=Unknown, 2=Pending, 3=Processing, 4=Partially Available, 5=Available
 export const JELLYSEERR_STATUS = {
   UNKNOWN: 1,
@@ -36,8 +36,8 @@ export interface JellyseerrSearchResult {
 export interface JellyseerrMediaItem {
   id: number;
   mediaType: 'movie' | 'tv' | 'person';
-  title?: string;          // untuk movie
-  name?: string;            // untuk tv
+  title?: string;          // for movie
+  name?: string;            // for tv
   overview?: string;
   posterPath?: string;
   backdropPath?: string;
@@ -49,7 +49,7 @@ export interface JellyseerrMediaItem {
   mediaInfo?: {
     id: number;
     tmdbId: number;
-    status: number;         // 1-5, lihat JELLYSEERR_STATUS
+    status: number;         // 1-5, see JELLYSEERR_STATUS
     requests?: any[];
   };
 }
@@ -67,7 +67,7 @@ class JellyseerrClient {
       timeout: 10000,
     });
 
-    // Logger untuk debugging
+    // Logger for debugging
     this.client.interceptors.response.use(
       (res) => res,
       (err) => {
@@ -88,7 +88,7 @@ class JellyseerrClient {
   }
 
   /**
-   * Get trending media (mingguan)
+   * Get trending media (weekly)
    */
   async getTrending(page = 1): Promise<JellyseerrSearchResult> {
     const { data } = await this.client.get('/discover/trending', {
@@ -156,7 +156,7 @@ class JellyseerrClient {
   }
 
   /**
-   * Get detail untuk movie/TV (lebih lengkap dari search)
+   * Get detail for movie/TV (more complete than search)
    */
   async getMediaDetail(mediaType: 'movie' | 'tv', tmdbId: number) {
     const { data } = await this.client.get(`/${mediaType}/${tmdbId}`);
@@ -176,14 +176,14 @@ class JellyseerrClient {
   }
 
   /**
-   * Create request di Jellyseerr.
-   * Karena admin di Surflix udah approve, kita kirim dengan auto-approve flag
-   * (asumsi API key yang dipakai punya privilege admin di Jellyseerr).
+   * Create a request in Jellyseerr.
+   * Because the admin in Surflix has already approved, we send it with the auto-approve flag
+   * (assuming the API key in use has admin privilege in Jellyseerr).
    */
   async createRequest(params: {
     mediaType: 'movie' | 'tv';
     mediaId: number;        // TMDB ID
-    seasons?: number[] | 'all'; // untuk TV
+    seasons?: number[] | 'all'; // for TV
     is4k?: boolean;
   }) {
     const payload: any = {
@@ -201,7 +201,7 @@ class JellyseerrClient {
   }
 
   /**
-   * Get request detail (untuk polling status)
+   * Get request detail (for polling status)
    */
   async getRequest(requestId: number) {
     const { data } = await this.client.get(`/request/${requestId}`);
@@ -209,7 +209,7 @@ class JellyseerrClient {
   }
 
   /**
-   * Get all requests (untuk admin dashboard, optional)
+   * Get all requests (for the admin dashboard, optional)
    */
   async getRequests(params: { take?: number; skip?: number; filter?: string } = {}) {
     const { data } = await this.client.get('/request', { params });
@@ -217,13 +217,13 @@ class JellyseerrClient {
   }
 
   /**
-   * Get media library counts dengan multiple fallback strategy.
+   * Get media library counts with a multiple fallback strategy.
    * 1. Try /media endpoint
-   * 2. Fallback ke /request with filter=available
-   * 3. Final fallback ke local DB
+   * 2. Fallback to /request with filter=available
+   * 3. Final fallback to local DB
    */
   async getMediaCount(): Promise<{ movies: number; tv: number; total: number }> {
-    // Strategy 1: /media endpoint (butuh admin)
+    // Strategy 1: /media endpoint (needs admin)
     try {
       const [movies, tv] = await Promise.all([
         this.client.get('/media', { params: { filter: 'available', mediaType: 'movie', take: 1 } }),
@@ -255,7 +255,7 @@ class JellyseerrClient {
   }
 
   /**
-   * True kalau API key ini milik admin (boleh baca /settings/main). Key user-level dapat 403.
+   * True if this API key belongs to an admin (may read /settings/main). A user-level key gets 403.
    */
   async hasAdminKey(): Promise<boolean> {
     try {
@@ -267,7 +267,7 @@ class JellyseerrClient {
   }
 
   /**
-   * Health check, useful untuk validation di startup
+   * Health check, useful for validation at startup
    */
   async ping(): Promise<boolean> {
     try {

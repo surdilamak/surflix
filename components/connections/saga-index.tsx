@@ -1,7 +1,7 @@
 /**
- * Watch order — indeks: satu baris per saga, persis seperti contact sheet di beranda Reference
- * (judul, rak poster dalam urutan cerita, tautan buka). Pencarian memakai SearchBox yang sama:
- * judul yang punya saga langsung membuka jalurnya, yang tidak punya jatuh ke peta koneksinya.
+ * Watch order — index: one row per saga, just like the contact sheet on the Reference home
+ * (title, poster shelf in story order, open link). Search uses the same SearchBox:
+ * a title with a saga opens its path directly, one without falls back to its connection map.
  */
 'use client';
 
@@ -19,7 +19,7 @@ export function SagaIndex({
   jellyfinUrl,
 }: {
   sagas: SagaCard[];
-  /** "movie:123" -> id saga, buat mengarahkan hasil pencarian */
+  /** "movie:123" -> saga id, to route search results */
   membership: Record<string, string>;
   jellyfinUrl: string;
 }) {
@@ -33,7 +33,7 @@ export function SagaIndex({
 
 
   const titles = sagas.reduce((n, s) => n + s.total, 0);
-  // saga bertiga ke atas dapat rak poster; pasangan dua judul cukup satu daftar padat
+  // sagas of three or more get a poster shelf; a pair of two titles gets just one dense list
   const runs = sagas.filter((s) => s.total > 2);
   const pairs = sagas.filter((s) => s.total === 2);
 
@@ -46,7 +46,7 @@ export function SagaIndex({
             placeholder={t('tl.search')}
             onPick={(r) => {
               const id = membership[`${r.mediaType}:${r.tmdbId}`];
-              if (!id) return false; // tanpa saga: biarkan SearchBox membuka peta judulnya
+              if (!id) return false; // no saga: let SearchBox open the title's map
               router.push(sagaHref(id, `${r.mediaType}:${r.tmdbId}`));
               return true;
             }}

@@ -1,7 +1,7 @@
 /**
- * PortalRing — hero: film-film di rak membentuk cincin elips di sekeliling judul.
- * Arahkan/fokus ke satu frame: yang lain turun ke 45% dan kalimat di tengah diganti
- * dengan nama film itu. Frame = link ke peta filmnya.
+ * PortalRing — hero: the films on the shelf form an elliptical ring around the title.
+ * Hover/focus one frame: the others drop to 45% and the sentence in the middle is replaced
+ * with that film's name. Frame = link to its film map.
  */
 'use client';
 
@@ -12,15 +12,15 @@ import { useLang } from './lang-provider';
 import { SearchBox } from './search-box';
 
 const MAX_FRAMES = 24;
-const RATIO = 0.55; // ry / rx pada layar desktop (310 / 560)
+const RATIO = 0.55; // ry / rx on desktop screens (310 / 560)
 
 /**
- * Sudut parameter elips untuk n titik dengan jarak SAMA sepanjang busur, mulai dari puncak.
- * (Sama sudut ≠ sama jarak: di ujung elips frame akan menumpuk.)
+ * Ellipse parameter angles for n points with EQUAL spacing along the arc, starting from the top.
+ * (Equal angle ≠ equal distance: at the ends of the ellipse the frames would pile up.)
  */
 export function evenAngles(n: number): number[] {
   const STEPS = 720;
-  const A0 = -Math.PI / 2; // puncak
+  const A0 = -Math.PI / 2; // top
   const cum: number[] = [0];
   let px = Math.cos(A0);
   let py = RATIO * Math.sin(A0);
@@ -44,13 +44,13 @@ export function evenAngles(n: number): number[] {
   return out;
 }
 
-/** CSS vars satu frame di cincin: posisi di elips, lebar (tilt ke penonton), kemiringan dasar. */
+/** CSS vars for one frame on the ring: position on the ellipse, width (tilt toward the viewer), base tilt. */
 export function ringFrameStyle(a: number, i: number): React.CSSProperties {
   const cx = Math.cos(a);
   const sy = Math.sin(a);
-  // lebar: 72px di puncak cincin, 98px di sisi & dasar (tilt ke arah penonton)
+  // width: 72px at the top of the ring, 98px at the sides & bottom (tilt toward the viewer)
   const w = 72 + 26 * Math.min(1, 1 + sy);
-  // dasar frame mengikuti lengkung, maksimal 30 derajat
+  // frame base follows the curve, max 30 degrees
   const slope = cx / (-sy || -1e-6);
   const rot = Math.max(-30, Math.min(30, (Math.atan(slope * 0.55) * 180) / Math.PI));
   return {
@@ -68,7 +68,7 @@ export function PortalRing({ films, jellyfinUrl }: { films: PortalFilm[]; jellyf
   const { t } = useLang();
   const [hover, setHover] = useState<PortalFilm | null>(null);
 
-  // `films` sudah diurutkan dari yang referensinya paling kaya
+  // `films` is already sorted from the richest references
   const frames = films.slice(0, MAX_FRAMES);
   const n = frames.length;
   const angles = evenAngles(n);

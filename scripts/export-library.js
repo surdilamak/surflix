@@ -1,31 +1,31 @@
 #!/usr/bin/env node
 /**
- * Ekspor LibraryTitle dari database aktif ke scripts/library-seed.json.
+ * Export LibraryTitle from the active database to scripts/library-seed.json.
  *
- * Pasangan dari import-library.js, dan alasannya penting: build-connections.js MEMVALIDASI
- * setiap judul kurasi terhadap library-seed.json, jadi selama berkas itu basi, judul baru
- * tidak bisa dibuatkan koneksi sama sekali ("judul gak ketemu" = error).
+ * Counterpart of import-library.js, and the reason matters: build-connections.js VALIDATES
+ * every curated title against library-seed.json, so as long as that file is stale, new titles
+ * cannot get connections at all ("judul gak ketemu" = error).
  *
- * Jadi urutan kerja setiap kali ada film/serial baru di Jellyfin:
+ * So the workflow every time there is a new film/series in Jellyfin:
  *
- *   1. Admin -> Settings -> Sync library        (prod membaca Jellyfin, mengisi LibraryTitle)
- *   2. di server:  docker exec surflix node scripts/export-library.js
- *   3. di server:  docker cp surflix:/app/scripts/library-seed.json /tmp/library-seed.json
- *   4. di Mac:     scp root@192.168.68.8:/tmp/library-seed.json scripts/library-seed.json
- *   5. di Mac:     node scripts/build-connections.js   (sekarang judul barunya dikenali)
+ *   1. Admin -> Settings -> Sync library        (prod reads Jellyfin, fills LibraryTitle)
+ *   2. on the server:  docker exec surflix node scripts/export-library.js
+ *   3. on the server:  docker cp surflix:/app/scripts/library-seed.json /tmp/library-seed.json
+ *   4. on the Mac:     scp root@192.168.68.8:/tmp/library-seed.json scripts/library-seed.json
+ *   5. on the Mac:     node scripts/build-connections.js   (now the new titles are recognized)
  *
- * Langkah 3 memakai /tmp, bukan ./scripts: saat SSH ke server posisinya di /root dan
- * folder itu tidak ada di sana, jadi docker cp gagal dengan "invalid output path".
+ * Step 3 uses /tmp, not ./scripts: when you SSH into the server you land in /root and
+ * that folder does not exist there, so docker cp fails with "invalid output path".
  *
- * addedAt sengaja TIDAK diekspor: kolom itu diisi dari Jellyfin saat sync di tiap lingkungan,
- * bukan dibawa-bawa lewat seed. updatedAt juga dibuang karena Prisma mengelolanya sendiri.
+ * addedAt is deliberately NOT exported: that column is filled from Jellyfin at sync time in each environment,
+ * not carried around via the seed. updatedAt is dropped too because Prisma manages it itself.
  *
- * Daftar "judul terbaru" dibaca dari kolom addedAt, BUKAN dari membandingkan berkas lama.
- * Perbandingan berkas cuma benar sekali: jalan pertama menimpa berkas pembandingnya sendiri,
- * jadi jalan kedua selalu bilang "tidak ada yang baru" walau barusan ada judul masuk.
+ * The "newest titles" list is read from the addedAt column, NOT by comparing against the old file.
+ * A file comparison is only correct once: the first run overwrites its own comparison file,
+ * so the second run always says "nothing new" even if a title has just come in.
  *
- *   DATABASE_URL=file:./dev.db node scripts/export-library.js      # lokal
- *   docker exec surflix node scripts/export-library.js             # produksi
+ *   DATABASE_URL=file:./dev.db node scripts/export-library.js      # local
+ *   docker exec surflix node scripts/export-library.js             # production
  */
 
 const fs = require('fs');
@@ -54,7 +54,7 @@ const prisma = new PrismaClient();
   fs.writeFileSync(file, JSON.stringify(rows, null, 2) + '\n');
   console.log(`Diekspor ${rows.length} judul -> ${file} (berkas sebelumnya berisi ${before})`);
 
-  // Judul termuda menurut Jellyfin. Idempoten: aman dijalankan berulang.
+  // Youngest titles according to Jellyfin. Idempotent: safe to run repeatedly.
   const recent = await prisma.libraryTitle.findMany({
     where: { addedAt: { not: null } },
     orderBy: { addedAt: 'desc' },

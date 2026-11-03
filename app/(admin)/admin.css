@@ -1,8 +1,8 @@
 /*
- * Admin — papan ubin, satu bahasa visual dengan landing, Request Hub, dan Reference.
- * Satu radius (8px), satu aksen (#ff5200), ubin datar tanpa kaca, gradien, bayangan, atau garis tipis.
- * Semua kelas berawalan ad- dan dibatasi di .ad-root. CSS ini tanpa layer, jadi menang atas utilitas Tailwind:
- * jangan memasang utilitas yang mengatur properti sama pada elemen ber-kelas ad-.
+ * Admin — tile board, one visual language with the landing, Request Hub, and Reference.
+ * One radius (8px), one accent (#ff5200), flat tiles with no glass, gradients, shadows, or hairlines.
+ * All classes are prefixed ad- and scoped under .ad-root. This CSS has no layer, so it wins over Tailwind utilities:
+ * do not apply utilities that set the same property on ad- classed elements.
  */
 .ad-root {
   --ad-bg: #0d0d0f;
@@ -33,7 +33,7 @@
 .ad-root ::-webkit-scrollbar { width: 8px; height: 8px; }
 .ad-root ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.18); border-radius: var(--ad-r); }
 
-/* ── Tipografi: lima langkah ── */
+/* ── Typography: five steps ── */
 .ad-h1 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; margin: 0; }
 .ad-h2 { font-size: 1.125rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; margin: 0; }
 .ad-text { font-size: 0.9375rem; }
@@ -41,7 +41,7 @@
 .ad-muted { color: var(--ad-muted); }
 .ad-num { font-size: clamp(1.75rem, 1.4rem + 1.2vw, 2.5rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1; font-variant-numeric: tabular-nums; }
 
-/* ── Kerangka ── */
+/* ── Frame ── */
 .ad-shell { display: block; }
 .ad-side { display: none; }
 .ad-top {
@@ -92,7 +92,7 @@
 }
 @media (min-width: 1024px) { .ad-sheet { display: none; } }
 
-/* ── Ubin ── */
+/* ── Tiles ── */
 .ad-tile { background: var(--ad-surface); border-radius: var(--ad-r); padding: 16px; }
 .ad-tile--flush { padding: 0; }
 .ad-tile--accent { background: var(--ad-accent); color: #0d0d0f; }
@@ -105,7 +105,7 @@
 .ad-label svg { width: 16px; height: 16px; }
 .ad-section-title { margin: 28px 0 12px; }
 
-/* ── Tombol: bentuk tunggal, tiga rupa ── */
+/* ── Buttons: a single shape, three looks ── */
 .ad-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 44px; padding: 0 20px;
   border: 0; border-radius: var(--ad-r); background: var(--ad-raised); color: var(--ad-ink);
@@ -125,7 +125,7 @@
 .ad-btn--block { width: 100%; }
 a.ad-btn { text-decoration: none; }
 
-/* ── Chip filter dan tab segmen ── */
+/* ── Filter chips and segmented tabs ── */
 .ad-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 .ad-chip {
   display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 16px; border: 0;
@@ -144,7 +144,7 @@ a.ad-btn { text-decoration: none; }
 .ad-seg button:hover { color: var(--ad-ink); }
 .ad-seg button[aria-pressed='true'] { background: var(--ad-accent); color: #0d0d0f; font-weight: 600; }
 
-/* ── Lencana status: datar, satu bentuk ── */
+/* ── Status badges: flat, one shape ── */
 .ad-badge {
   display: inline-flex; align-items: center; gap: 8px; padding: 3px 8px; border-radius: 6px;
   font-size: 0.75rem; font-weight: 600; line-height: 1.3; white-space: nowrap; background: var(--ad-raised); color: var(--ad-muted);
@@ -156,7 +156,7 @@ a.ad-btn { text-decoration: none; }
 .ad-badge[data-tone='red'] { background: var(--ad-red); color: #0d0d0f; }
 .ad-badge[data-tone='accent'] { background: var(--ad-accent); color: #0d0d0f; }
 
-/* ── Isian ── */
+/* ── Fields ── */
 .ad-field {
   width: 100%; min-height: 44px; padding: 0 16px; border: 0; border-radius: var(--ad-r);
   background: var(--ad-surface); color: var(--ad-ink); font: inherit; font-size: 0.9375rem;
@@ -172,7 +172,7 @@ select.ad-field { appearance: none; background-image: url("data:image/svg+xml,%3
 .ad-search .ad-field { padding-left: 40px; }
 .ad-check { width: 22px; height: 22px; accent-color: var(--ad-accent); flex: 0 0 auto; cursor: pointer; }
 
-/* ── Poster dan baris daftar ── */
+/* ── Posters and list rows ── */
 .ad-poster { width: 56px; aspect-ratio: 2 / 3; border-radius: var(--ad-r); background: var(--ad-raised); overflow: hidden; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; color: var(--ad-muted); }
 .ad-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .ad-poster--lg { width: 88px; }
@@ -192,7 +192,7 @@ select.ad-field { appearance: none; background-image: url("data:image/svg+xml,%3
 .ad-dot[data-tone='yellow'] { background: var(--ad-yellow); }
 .ad-dot[data-tone='red'] { background: var(--ad-red); }
 
-/* ── Bilah aksi massal, toast, dialog ── */
+/* ── Bulk action bar, toast, dialog ── */
 .ad-bulk {
   position: sticky; bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); z-index: 30; display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px;
   margin-top: 12px; padding: 12px 12px; border-radius: var(--ad-r); background: var(--ad-raised);
@@ -207,7 +207,7 @@ select.ad-field { appearance: none; background-image: url("data:image/svg+xml,%3
 .ad-modal-card p { margin: 8px 0 0; }
 .ad-modal-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; margin-top: 20px; }
 
-/* ── Kerangka muat ── */
+/* ── Loading skeleton ── */
 .ad-skel { border-radius: var(--ad-r); background: var(--ad-surface); animation: ad-pulse 1.4s ease-in-out infinite; }
 @keyframes ad-pulse { 50% { opacity: 0.55; } }
 

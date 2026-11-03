@@ -1,15 +1,15 @@
 /**
- * 404 bermerek. Sampai 2026-10-23 tidak ada not-found.tsx sama sekali, jadi tiap
- * salah ketik jatuh ke layar bawaan Next — tulisan hitam di atas putih, tanpa
- * jalan keluar, di situs yang seluruhnya gelap.
+ * Branded 404. Until 2026-10-23 there was no not-found.tsx at all, so every
+ * typo fell through to Next's default screen — black text on white, with no
+ * way out, on a site that is entirely dark.
  *
- * Memakai bahasa visual landing (lp-*) karena ia melayani ketiga host: di
- * reference.* sekalipun, path yang tidak dikenal berakhir di sini.
+ * Uses the landing's visual language (lp-*) because it serves all three hosts: even on
+ * reference.*, an unknown path ends up here.
  *
- * Empat tujuan disajikan sebagai kisi 2x2, bukan daftar berpoin: daftar rata
- * kiri di kolom sempit meninggalkan margin kanan menganga (temuan `off-centre`),
- * dan halaman sependek ini menyisakan separuh layar kosong kalau isinya tidak
- * ditaruh di tengah tegak (`hero-void`).
+ * The four destinations are laid out as a 2x2 grid, not a bulleted list: a left-aligned
+ * list in a narrow column leaves a gaping right margin (finding `off-centre`),
+ * and a page this short leaves half the screen empty unless its content is
+ * vertically centered (`hero-void`).
  */
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';

@@ -1,7 +1,7 @@
 /*
- * Request Hub (guest) — papan ubin, selaras dengan landing tapi lebih tenang karena ini alat kerja.
- * Satu radius (8px), satu warna aksen (#ff5200), ubin datar tanpa kaca, gradien, atau garis tipis.
- * Semua override dibatasi di .rq-root supaya halaman admin tidak ikut berubah.
+ * Request Hub (guest) — tile board, aligned with the landing but calmer because this is a working tool.
+ * One radius (8px), one accent color (#ff5200), flat tiles with no glass, gradients, or hairlines.
+ * All overrides are scoped under .rq-root so the admin pages do not change.
  */
 .rq-root {
   --rq-bg: #0d0d0f;
@@ -13,7 +13,7 @@
   --rq-gap: 8px;
   --rq-r: 8px;
   --rq-ease: cubic-bezier(0.16, 1, 0.3, 1);
-  --rq-margin: clamp(16px, 2.2vw, 32px); /* sama dengan --margin di Reference */
+  --rq-margin: clamp(16px, 2.2vw, 32px); /* same as --margin in Reference */
   --pb-pad: var(--rq-margin);
 
   min-height: 100svh;
@@ -27,12 +27,12 @@
 .rq-root :focus-visible { outline: 2px solid var(--rq-accent); outline-offset: 2px; }
 .rq-root ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.18); border-radius: var(--rq-r); }
 
-/* Lebar isi: nav, halaman, dan footer berbagi satu kolom supaya tepinya sejajar */
-/* Lebar isi: sama dengan Reference (penuh, margin 16–32px). Nav, halaman, dan footer berbagi satu kolom. */
+/* Content width: nav, page, and footer share one column so their edges line up */
+/* Content width: same as Reference (full, 16–32px margin). Nav, page, and footer share one column. */
 .rq-wrap { width: 100%; margin-inline: auto; padding-inline: var(--rq-margin); }
 .rq-wrap.rq-narrow { max-width: 48rem; }
 
-/* Tipografi: lima langkah */
+/* Typography: five steps */
 .rq-title { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); font-weight: 600; letter-spacing: -0.035em; line-height: 1; text-wrap: balance; }
 .rq-h1 { font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
 .rq-h2 { font-size: 1.25rem; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
@@ -40,13 +40,13 @@
 .rq-small { font-size: 0.8125rem; line-height: 1.4; }
 .rq-muted { color: var(--rq-muted); }
 
-/* Ubin */
+/* Tiles */
 .rq-tile { background: var(--rq-surface); border-radius: var(--rq-r); }
 .rq-tile-link { transition: background 0.18s, transform 0.18s var(--rq-ease); }
 .rq-tile-link:hover { background: var(--rq-raised); }
 .rq-tile-link:active { transform: scale(0.98); }
 
-/* Tombol: dua bentuk saja, primer (oranye) dan sekunder (abu) */
+/* Buttons: only two shapes, primary (orange) and secondary (gray) */
 .rq-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
   min-height: 44px; padding: 0 20px;
@@ -65,11 +65,11 @@
 .rq-btn-secondary:hover { background: var(--rq-raised-hover); }
 .rq-btn-secondary:disabled { opacity: 0.4; }
 
-/* Footer: pola yang sama dengan .ref-footer - didorong ke bawah oleh flex, jarak
-   atas dari skala spasi, bukan utilitas Tailwind lepas. */
+/* Footer: same pattern as .ref-footer - pushed to the bottom by flex, top spacing
+   from the spacing scale, not a loose Tailwind utility. */
 .rq-footer { margin-top: auto; padding: 64px 0 24px; }
 
-/* Lencana status: datar, satu bentuk */
+/* Status badges: flat, one shape */
 .rq-badge {
   display: inline-flex; align-items: center; gap: 4px;
   border-radius: 6px; padding: 4px 8px; font-size: 13px; font-weight: 500; line-height: 16px; color: #0d0d0f;
@@ -79,7 +79,7 @@
 .rq-badge-pending { background: #ffd60a; }
 .rq-badge-rejected { background: #ff6961; }
 
-/* Isian */
+/* Fields */
 .rq-input {
   background: var(--rq-surface); border: 0; border-radius: var(--rq-r);
   min-height: 48px; padding: 0 16px; font-size: 0.9375rem; color: #fff;

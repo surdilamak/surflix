@@ -1,10 +1,10 @@
 /**
- * Watch order — panggung satu saga: jalur kiri ke kanan yang bisa digeser, dicubit, dan di-zoom,
- * memakai kerangka panggung yang sama dengan peta 3D satu film (.ref-stage + .ref-panel), supaya
- * Watch order terasa satu portal dengan peta dan Galaxy.
+ * Watch order — one saga's stage: a left-to-right path that can be dragged, pinched, and zoomed,
+ * using the same stage frame as a single film's 3D map (.ref-stage + .ref-panel), so that
+ * Watch order feels like one portal with the map and the Galaxy.
  *
- * Dua urutan: cerita dan rilis. Tombolnya cuma muncul kalau keduanya memang berbeda.
- * Jalur tambahan (serial, spin-off) bercabang dari judul induknya.
+ * Two orders: story and release. The button only appears if the two actually differ.
+ * Extra paths (series, spin-offs) branch off their parent title.
  */
 'use client';
 
@@ -17,18 +17,18 @@ import type { SagaFull, SagaEntry } from '@/lib/connections';
 
 type Mode = 'story' | 'release';
 
-// geometri jalur dalam "world px" (sebelum zoom)
+// path geometry in "world px" (before zoom)
 const COL = 128;
 const CW = 104;
 const PH = 156;
 const RAIL = PH + 20;
 const LANE_H = PH + 20 + 14 + 86;
 const PAD = 72;
-const TOP = 40; // ruang buat label "Start here" di atas jalur
+const TOP = 40; // room for the "Start here" label above the path
 const MIN_K = 0.2;
 const MAX_K = 2.4;
 
-// jalur utama putih, jalur tambahan memakai warna hubungan portal
+// main path is white, extra paths use the portal's relation colors
 const LANE_COLORS = ['#ffffff', 'var(--rel-inspired)', 'var(--rel-remake)', 'var(--rel-homage)', 'var(--rel-director)'];
 
 export function SagaStage({
@@ -38,7 +38,7 @@ export function SagaStage({
   serverId,
 }: {
   saga: SagaFull;
-  /** "movie:123" — judul yang dituju dari peta koneksi atau pencarian */
+  /** "movie:123" — the title targeted from the connection map or search */
   film?: string;
   jellyfinUrl: string;
   serverId?: string;
@@ -48,7 +48,7 @@ export function SagaStage({
 
   const [mode, setMode] = useState<Mode>('story');
   const [picked, setPicked] = useState<string | null>(null);
-  // jarak antar judul melebar kalau saganya pendek, supaya jalurnya mengisi panggung (diukur setelah mount)
+  // spacing between titles widens when the saga is short, so the path fills the stage (measured after mount)
   const [col, setCol] = useState(COL);
   const viewRef = useRef<HTMLDivElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
@@ -66,12 +66,12 @@ export function SagaStage({
   const cardX = useCallback((e: SagaEntry) => PAD + index(e) * col, [index, col]);
   const cardY = useCallback((e: SagaEntry) => TOP + laneOf(e.lane) * LANE_H, [laneOf]);
 
-  // judul yang dituju dari luar (peta film / pencarian)
+  // title targeted from outside (film map / search)
   const wanted = film ? saga.entries.find((e) => e.tmdbId && `${e.mediaType}:${e.tmdbId}` === film) : undefined;
   const start = ordered.find((e) => e.lane === saga.lanes[0]?.id) ?? ordered[0];
   const selected = ordered.find((e) => e.key === picked) ?? wanted ?? start;
 
-  // ── kamera: semua gerak lewat ref + rAF, jangan render ulang React tiap frame
+  // ── camera: all motion goes through refs + rAF, no React re-render every frame
   const cam = useRef({ x: 0, y: 0, k: 1 });
   const tween = useRef<{ t0: number; from: typeof cam.current; to: typeof cam.current } | null>(null);
   const raf = useRef(0);
@@ -81,14 +81,14 @@ export function SagaStage({
     const el = trackRef.current;
     if (!el) return;
     el.style.transform = `translate3d(${cam.current.x}px, ${cam.current.y}px, 0) scale(${cam.current.k})`;
-    // jauh di luar: keterangan jadi bubur, sisakan poster dan titiknya saja
+    // zoomed far out: captions turn to mush, keep only posters and dots
     el.dataset.far = cam.current.k < 0.55 ? '' : 'no';
   }, []);
 
   /**
-   * Lebar jejak panel yang melayang di kanan panggung. Nol di telepon, karena di sana
-   * panelnya statis di bawah panggung. Dipakai supaya kartu tidak pernah dipusatkan ke
-   * tempat yang tertimbun panel.
+   * Width of the footprint of the panel floating on the right of the stage. Zero on phones, because there
+   * the panel is static below the stage. Used so a card is never centered in a
+   * spot buried under the panel.
    */
   const insetOf = useCallback(() => {
     const el = panelRef.current;
@@ -151,7 +151,7 @@ export function SagaStage({
     [apply, clamp, settle]
   );
 
-  /** bawa satu judul ke tengah panggung */
+  /** bring one title to the center of the stage */
   const centerOn = useCallback(
     (e: SagaEntry, k?: number) => {
       const view = viewRef.current;
@@ -186,7 +186,7 @@ export function SagaStage({
     glide({ x: 0, y: 0, k });
   }, [fitK, glide]);
 
-  // ── pasang gestur sekali
+  // ── attach gestures once
   useEffect(() => {
     const view = viewRef.current;
     if (!view) return;
@@ -206,7 +206,7 @@ export function SagaStage({
     const onWheel = (ev: WheelEvent) => {
       ev.preventDefault();
       const r = view.getBoundingClientRect();
-      // cubit di trackpad datang sebagai wheel + ctrlKey; sisanya menggeser jalur
+      // trackpad pinch arrives as wheel + ctrlKey; everything else pans the path
       if (ev.ctrlKey || ev.metaKey) {
         zoomAt(ev.clientX - r.left, ev.clientY - r.top, Math.exp(-ev.deltaY * 0.01));
         return;
@@ -234,8 +234,8 @@ export function SagaStage({
         const [a, b] = [...pointers.values()];
         pinch = Math.hypot(a.x - b.x, a.y - b.y);
       }
-      // sengaja TANPA setPointerCapture: menangkap pointer di panggung bikin klik mendarat
-      // di panggung, bukan di kartunya. Gerakan diikuti lewat window supaya tetap jalan di luar panggung.
+      // deliberately WITHOUT setPointerCapture: capturing the pointer on the stage makes the click land
+      // on the stage, not on the card. Movement is tracked via window so it keeps working outside the stage.
       view.dataset.grabbing = '';
     };
     const onMove = (ev: PointerEvent) => {
@@ -261,7 +261,7 @@ export function SagaStage({
       pointers.delete(ev.pointerId);
       if (pointers.size < 2) pinch = 0;
       if (pointers.size === 0) delete view.dataset.grabbing;
-      // geseran kecil dihitung sebagai klik: biarkan tombol kartu yang menangani
+      // a small drag counts as a click: let the card button handle it
       view.dataset.dragged = moved > 6 ? '' : 'no';
     };
     const onDouble = (ev: MouseEvent) => {
@@ -286,7 +286,7 @@ export function SagaStage({
     };
   }, [apply, clamp, settle, world.h]);
 
-  // ── tampilan awal: pas-kan jalurnya, atau langsung ke judul yang dituju
+  // ── initial view: fit the path, or go straight to the targeted title
   const first = useRef(true);
   useEffect(() => {
     const view = viewRef.current;
@@ -298,8 +298,8 @@ export function SagaStage({
         first.current = false;
         if (wanted) centerOn(wanted, 1);
         else {
-          // mulai dari awal jalur dengan ukuran yang masih terbaca; tombol ⤢ untuk melihat semuanya
-          // saga pendek diperbesar supaya mengisi panggung; yang panjang tetap seukuran baca
+          // start from the beginning of the path at a still-readable size; the ⤢ button shows everything
+          // short sagas are scaled up to fill the stage; long ones stay at reading size
           const k0 = Math.min(1.6, Math.max(1, Math.min((view.clientWidth * 0.86) / world.w, (view.clientHeight * 0.86) / world.h)));
           cam.current = clamp({ x: 0, y: 0, k: k0 });
           apply();
@@ -318,12 +318,12 @@ export function SagaStage({
 
   const choose = (e: SagaEntry) => {
     const view = viewRef.current;
-    if (view?.dataset.dragged === '') return; // barusan menggeser, bukan memilih
+    if (view?.dataset.dragged === '') return; // just dragged, not selecting
     setPicked(e.key);
     centerOn(e);
   };
 
-  // pindah urutan: kartu bergeser sendiri, kamera mengikuti judul yang sedang dipilih
+  // switching order: cards move on their own, the camera follows the selected title
   const swap = (m: Mode) => {
     setMode(m);
     const e = selected;

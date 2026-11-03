@@ -1,8 +1,8 @@
 /**
  * GET /api/connections/films
  *
- * Portal Referensi: daftar film yang punya peta referensi APPROVED.
- * Murni baca DB — ZERO LLM.
+ * Reference Portal: list of films that have an APPROVED reference map.
+ * Pure DB read — ZERO LLM.
  */
 
 import { NextResponse } from 'next/server';

@@ -1,13 +1,13 @@
 /**
- * NotificationToggle — opt-in UI buat browser notifications status request.
+ * NotificationToggle — opt-in UI for browser notifications of request status.
  *
  * Two modes:
- *  - If browser support Web Push (service worker + PushManager) → subscribe ke server
- *    biar notifs jalan walaupun tab tutup.
- *  - Else fallback ke `Notification` API mode — notifs cuma jalan kalau /requests
- *    page kebuka di tab (di-handle hook polling).
+ *  - If the browser supports Web Push (service worker + PushManager) → subscribe to the server
+ *    so notifications work even when the tab is closed.
+ *  - Else fall back to `Notification` API mode — notifications only work while the /requests
+ *    page is open in a tab (handled by the polling hook).
  *
- * Server akan trigger push dari webhook Jellyseerr + admin approve/reject.
+ * The server will trigger push from the Jellyseerr webhook + admin approve/reject.
  */
 'use client';
 
@@ -56,7 +56,7 @@ export function NotificationToggle({ guestId }: NotificationToggleProps) {
       return;
     }
 
-    // permission === 'granted' — cek subscription kalau push supported
+    // permission === 'granted' — check the subscription if push is supported
     if (!PUSH_SUPPORTED) {
       setStatus('granted-no-push');
       return;
@@ -112,7 +112,7 @@ export function NotificationToggle({ guestId }: NotificationToggleProps) {
     try {
       const key = await fetchVapidKey();
       if (!key) {
-        // Server gak ready buat push, jatuh ke mode in-page
+        // Server isn't ready for push, fall back to in-page mode
         setStatus('granted-no-push');
         return;
       }

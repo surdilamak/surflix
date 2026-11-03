@@ -1,9 +1,9 @@
 /**
  * POST /api/telegram/webhook
  *
- * Receive callback_query updates from Telegram saat lo klik tombol Approve/Reject.
+ * Receive callback_query updates from Telegram when you click the Approve/Reject button.
  *
- * Security: Verify dengan secret token in URL query param (registered saat setWebhook).
+ * Security: Verify with a secret token in the URL query param (registered at setWebhook).
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: 'Telegram not configured' }, { status: 503 });
   }
 
-  // Verify secret di URL query param (?secret=XXX)
+  // Verify secret in the URL query param (?secret=XXX)
   const { searchParams } = new URL(req.url);
   const secret = searchParams.get('secret');
   if (WEBHOOK_SECRET && secret !== WEBHOOK_SECRET) {
@@ -44,7 +44,7 @@ export async function POST(req: NextRequest) {
     return handleCallbackQuery(callbackQuery);
   }
 
-  // Handle text messages (kalau lo kirim /start atau perintah lain)
+  // Handle text messages (if you send /start or another command)
   const message = update.message;
   if (message) {
     return handleMessage(message);
@@ -105,7 +105,7 @@ async function handleCallbackQuery(callbackQuery: any) {
     await answerCallbackQuery(callbackQuery.id, 'Approving...');
 
     try {
-      // Forward ke Jellyseerr
+      // Forward to Jellyseerr
       const jellyseerrResponse = await jellyseerr.createRequest({
         mediaType: request.mediaType as 'movie' | 'tv',
         mediaId: request.tmdbId,
@@ -133,7 +133,7 @@ async function handleCallbackQuery(callbackQuery: any) {
         },
       });
 
-      // Update message Telegram
+      // Update the Telegram message
       await updateRequestMessage({
         chatId,
         messageId,
@@ -254,7 +254,7 @@ async function handleRemarkAction(
 
   const newStatus = action === 'remark-resolve' ? 'RESOLVED' : 'REVIEWED';
 
-  // Idempotent: kalau udah resolved, gak bisa "downgrade" ke reviewed
+  // Idempotent: if already resolved, it can't be "downgraded" to reviewed
   if (remark.status === 'RESOLVED' && newStatus === 'REVIEWED') {
     await answerCallbackQuery(callbackQuery.id, 'Udah resolved sebelumnya');
     return NextResponse.json({ ok: true });

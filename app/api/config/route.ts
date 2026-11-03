@@ -1,8 +1,8 @@
 /**
  * GET /api/config
  *
- * Public runtime config. force-dynamic biar Next.js evaluate env setiap request.
- * (Default behavior cache di build time, yang bikin env empty.)
+ * Public runtime config. force-dynamic so Next.js evaluates env on every request.
+ * (Default behavior caches at build time, which leaves env empty.)
  */
 
 import { NextResponse } from 'next/server';

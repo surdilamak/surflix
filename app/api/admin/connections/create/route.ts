@@ -1,8 +1,8 @@
 /**
  * POST /api/admin/connections/create
  *
- * Admin nambah koneksi manual (langsung APPROVED, source = "admin").
- * Arah: source MEREFERENSIKAN target. Kedua film harus ada di LibraryTitle.
+ * Admin adds a connection manually (APPROVED right away, source = "admin").
+ * Direction: source REFERENCES target. Both films must exist in LibraryTitle.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
     relationship: body.relationship,
     kind,
     reasonEn: body.reasonEn,
-    reason: body.reason || body.reasonEn, // belum ada terjemahan: pakai teks yang sama
+    reason: body.reason || body.reasonEn, // no translation yet: use the same text
     confidence: 'high',
     status: 'APPROVED',
     source: 'admin',
@@ -77,7 +77,7 @@ export async function POST(req: NextRequest) {
       },
     },
     create: data,
-    update: data, // admin menimpa draft yang ada
+    update: data, // admin overwrites the existing draft
   });
 
   return NextResponse.json({ success: true, connection });

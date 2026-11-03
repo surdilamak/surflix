@@ -1,5 +1,5 @@
 /**
- * Portal Referensi — beranda: hero cincin + search, contact sheet, cara baca, indeks A–Z.
+ * Reference Portal — home: ring hero + search, contact sheet, how to read, A–Z index.
  */
 'use client';
 
@@ -31,12 +31,12 @@ export default function ReferensiHomePage() {
   if (error) return <p className="ref-empty">{t('detail.error')}</p>;
   if (!films || !config) return <div className="ref-hero" aria-busy="true" />;
 
-  // film dengan referensi sinematik (homage/inspired/visual/remake) jadi bintang beranda
+  // films with cinematic references (homage/inspired/visual/remake) become the stars of the home page
   const featured = films.filter((f) => f.refScore > 0);
   const stars = featured.length >= 8 ? featured : films;
   const allKeys = new Set(films.map((f) => filmKey(f.mediaType, f.tmdbId)));
 
-  // contoh nyata per jenis hubungan, diambil dari data
+  // real examples per relationship type, taken from the data
   const example = (rel: string) => {
     for (const f of films) {
       const r = f.refs.find((x) => x.relationship === rel);

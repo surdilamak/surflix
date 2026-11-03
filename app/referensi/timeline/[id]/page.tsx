@@ -1,6 +1,6 @@
 /**
- * Portal Referensi — Watch order, satu saga: jalurnya digambar di SagaStage.
- * `?film=movie:123` membuka jalur ini langsung pada judul itu (dipakai peta koneksi, Galaxy, pencarian).
+ * Reference Portal — Watch order, one saga: its track is drawn in SagaStage.
+ * `?film=movie:123` opens this track directly at that title (used by the connection map, Galaxy, search).
  */
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';

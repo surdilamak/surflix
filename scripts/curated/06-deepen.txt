@@ -1,9 +1,9 @@
-# Pendalaman peta (2026-10-21): judul yang belum terhubung + referensi baru antar judul yang masih tipis.
-# Aturan: talent/h = tercatat di metadata Jellyfin/TMDB (pemeran utama, penulis, komposer, produser, studio).
-# homage/inspired/visual h = diakui pembuatnya atau terdokumentasi kuat; m = sering dibahas kritikus (masuk antrean review).
-# SUMBER selalu yang lebih baru.
+# Map deepening (2026-10-21): titles not yet connected + new references between titles that are still thinly linked.
+# Rule: talent/h = recorded in Jellyfin/TMDB metadata (lead cast, writer, composer, producer, studio).
+# homage/inspired/visual h = acknowledged by the makers or strongly documented; m = frequently discussed by critics (goes into the review queue).
+# SOURCE is always the newer one.
 
-# ---------- Pemeran utama yang sama ----------
+# ---------- Same lead cast ----------
 The Shining (1980) > 3 Women (1977) | talent | h | Shelley Duvall stars in both, as the anxious heart of each film. || Shelley Duvall membintangi keduanya, sebagai inti kegelisahan di masing-masing film.
 A Real Pain (2024) > Batman v Superman - Dawn of Justice (2016) | talent | h | Jesse Eisenberg stars in both, and also wrote and directed A Real Pain. || Jesse Eisenberg membintangi keduanya, dan juga menulis dan menyutradarai A Real Pain.
 Now You See Me: Now You Don't (2025) > A Real Pain (2024) | talent | h | Jesse Eisenberg stars in both. || Jesse Eisenberg membintangi keduanya.
@@ -93,7 +93,7 @@ Fleabag (2016) > Locke (2014) | talent | m | Andrew Scott plays the Priest acros
 Squid Game (2021) > The Acolyte (2024) | talent | h | Lee Jung-jae stars in both. || Lee Jung-jae membintangi keduanya.
 No Other Choice (2025) > Squid Game (2021) | talent | h | Lee Byung-hun stars in both. || Lee Byung-hun membintangi keduanya.
 
-# ---------- Pembuat dan produser yang sama ----------
+# ---------- Same makers and producers ----------
 Moana (2016) > Tarzan (1999) | talent | h | Composer Mark Mancina scored both. || Komposer Mark Mancina menggarap musik keduanya.
 Tarzan (1999) > Toy Story (1995) | talent | h | Bonnie Arnold produced both. || Bonnie Arnold memproduseri keduanya.
 Attack on Titan (2013) > Solo Leveling (2024) | talent | h | Hiroyuki Sawano composed the music for both. || Hiroyuki Sawano menggubah musik keduanya.
@@ -138,7 +138,7 @@ Until Dawn (2025) > The Idea of You (2024) | talent | m | Ella Rubin leads Until
 Zodiac (2007) > Just Like Heaven (2005) | talent | h | Mark Ruffalo stars in both. || Mark Ruffalo membintangi keduanya.
 Gone Girl (2014) > Just Like Heaven (2005) | talent | h | Reese Witherspoon stars in Just Like Heaven and produced Gone Girl. || Reese Witherspoon membintangi Just Like Heaven dan memproduseri Gone Girl.
 
-# ---------- Referensi sinematik baru ----------
+# ---------- New cinematic references ----------
 Anora (2024) > Pretty Woman (1990) | inspired | h | Sean Baker said he only noticed Anora's resemblance to Pretty Woman when his wife pointed it out during production; he called it possibly subconscious (The Pitch, Nov 2024). || Sean Baker mengaku baru sadar Anora mirip Pretty Woman saat istrinya menunjukkannya di masa produksi, dan menyebutnya mungkin bawah sadar (The Pitch, Nov 2024).
 Shoplifters (2018) > Tokyo Story (1953) | visual | m | Time Out's Geoff Andrew called Kore-eda "a modern-day Ozu"; Kore-eda has acknowledged both Ozu and Naruse as influences (BFI Sight & Sound). || Geoff Andrew (Time Out) menyebut Kore-eda "Ozu masa kini"; Kore-eda sendiri mengakui Ozu dan Naruse sebagai pengaruh (BFI Sight & Sound).
 Saint Maud (2019) > Taxi Driver (1976) | homage | m | Rose Glass has named Taxi Driver as a script influence, saying Maud and Travis Bickle have "a fair amount in common as neurotic antiheroes." || Rose Glass menyebut Taxi Driver sebagai pengaruh skenarionya, dengan mengatakan Maud dan Travis Bickle punya "a fair amount in common as neurotic antiheroes."
@@ -147,7 +147,7 @@ A Girl Walks Home Alone at Night (2014) > Eraserhead (1977) | visual | m | Jon L
 Modern Family (2009) > The Office (2005) | inspired | m | Modern Family adopts the mockumentary format, with talking-head interviews, that The Office popularised on American TV. || Modern Family memakai format mockumentary, dengan wawancara langsung ke kamera, yang dipopulerkan The Office di TV Amerika.
 KPop Demon Hunters (2025) > Spider-Man: Into the Spider-Verse (2018) | visual | m | Critics compare KPop Demon Hunters to Spider-Verse: both come out of Sony's animation studios and blend 3D with stylised, hand-drawn-style effects. || Kritikus membandingkan KPop Demon Hunters dengan Spider-Verse: keduanya lahir dari studio animasi Sony dan memadukan 3D dengan efek bergaya gambar tangan.
 
-# ---------- Studio dan pembuat (putaran kedua) ----------
+# ---------- Studios and makers (second round) ----------
 Rainbow (2010) > Monster (2004) | talent | h | Both were animated at Madhouse and aired on Nippon TV. || Keduanya dianimasikan di Madhouse dan tayang di Nippon TV.
 Death Note (2006) > Beck: Mongolian Chop Squad (2004) | talent | h | Both were animated at Madhouse. || Keduanya dianimasikan di Madhouse.
 Sonny Boy (2021) > Paprika (2006) | talent | m | Both were animated at Madhouse, and both drift through strange, dream-like worlds. || Keduanya dianimasikan di Madhouse, dan keduanya menjelajahi dunia aneh yang seperti mimpi.
@@ -157,15 +157,15 @@ Obsession (2026) > Drop (2025) | talent | h | Both come from Blumhouse. || Kedua
 The Ugly Stepsister (2025) > The House That Jack Built (2018) | talent | m | Zentropa, the company behind Lars von Trier's films, is among the producers of The Ugly Stepsister. || Zentropa, perusahaan di balik film-film Lars von Trier, termasuk produser The Ugly Stepsister.
 Exit 8 (2025) > Gantz: Perfect Answer (2011) | talent | h | Kazunari Ninomiya stars in both. || Kazunari Ninomiya membintangi keduanya.
 
-# Ditulis tangan karena rantai directors.list akan menyebutnya sutradara tunggal,
-# padahal di Evangelion 3.0 dia sutradara kepala dengan tiga sutradara di bawahnya.
+# Written by hand because the directors.list chain would call him the sole director,
+# when in fact on Evangelion 3.0 he is the chief director with three directors under him.
 Shin Kamen Rider (2023) > Evangelion: 3.0 You Can (Not) Redo (2012) | director | h | Hideaki Anno directed Shin Kamen Rider, and was chief director and writer on Evangelion 3.0, which three co-directors shot under him. || Hideaki Anno menyutradarai Shin Kamen Rider, dan jadi sutradara kepala sekaligus penulis Evangelion 3.0 yang digarap tiga sutradara di bawahnya.
 
 # ============ MAKOTO SHINKAI (2026-10-22) ============
-# Sebelumnya empat koneksi Shinkai semuanya cuma "Both directed by Makoto Shinkai".
-# CATATAN: "disaster trilogy" itu sebutan kritikus, BUKAN kata Shinkai. Jangan diklaim.
-# Dan Suzume TIDAK memuat satu pun tokoh Your Name. atau Weathering with You - itu negatif
-# yang sudah dipastikan, bukan sekadar belum ketemu. Jangan ditambahkan nanti.
+# Before this, all four Shinkai connections were just "Both directed by Makoto Shinkai".
+# NOTE: "disaster trilogy" is a critics' term, NOT Shinkai's words. Do not claim it.
+# And Suzume contains NONE of the characters from Your Name. or Weathering with You - that is a
+# confirmed negative, not just something not yet found. Do not add it later.
 Your Name. (2016) > The Garden of Words (2013) | universe/cameo | h | Yukari Yukino, the Garden of Words teacher, also teaches at Mitsuha's school in Your Name, with the same voice actress (Kana Hanazawa). || Yukari Yukino dari The Garden of Words juga mengajar di sekolah Mitsuha di Your Name, dengan pengisi suara yang sama (Kana Hanazawa).
 Suzume (2022) > Your Name. (2016) | talent | h | Masayoshi Tanaka designed the characters and RADWIMPS scored both; Suzume shares no character with Your Name., so the thread is the crew, not the story. || Masayoshi Tanaka merancang tokohnya dan RADWIMPS menggarap musik keduanya; Suzume tidak berbagi tokoh dengan Your Name., jadi benangnya ada di kru, bukan cerita.
 Suzume (2022) > The Garden of Words (2013) | talent | h | Kenichi Tsuchiya was character designer and animation director on The Garden of Words, and animation director again on Suzume. || Kenichi Tsuchiya merancang tokoh sekaligus mengarahkan animasi The Garden of Words, lalu kembali mengarahkan animasi Suzume.
@@ -173,11 +173,11 @@ Your Name. (2016) > Children Who Chase Lost Voices (2011) | talent | h | Takumi 
 Children Who Chase Lost Voices (2011) > 5 Centimeters per Second (2007) | talent | h | Tenmon scored both and Takayo Nishimura designed the characters for both - the pair who defined Shinkai's sound and look before Your Name. || Tenmon menggarap musik keduanya dan Takayo Nishimura merancang tokohnya - dua orang yang membentuk suara dan rupa Shinkai sebelum Your Name.
 
 # ============ STUDIO GHIBLI (2026-10-22) ============
-# Sebelumnya 17 dari 18 koneksi internal Ghibli cuma "Both directed by X". Ghibli itu studio,
-# bukan semesta cerita: tidak ada satu pun dari 23 film yang jadi sekuel film lain. Yang nyata
-# adalah pengarang sumber yang sama, satu spin-off, dan beberapa cameo.
-# Cameo relasinya 'homage' SENGAJA, bukan 'universe' - easter egg bukan semesta bersama, dan
-# 'universe' akan menarik seluruh Ghibli jadi satu saga palsu.
+# Before this, 17 of Ghibli's 18 internal connections were just "Both directed by X". Ghibli is a studio,
+# not a story universe: not one of the 23 films is a sequel to another film. What is real
+# is the same source author, one spin-off, and a few cameos.
+# The cameo relationship is DELIBERATELY 'homage', not 'universe' - an easter egg is not a shared universe, and
+# 'universe' would pull all of Ghibli into one false saga.
 Earwig and the Witch (2021) > Howl's Moving Castle (2004) | talent | h | Ghibli's only repeat foreign author: both adapt a Diana Wynne Jones novel, seventeen years and two directors apart. || Satu-satunya pengarang asing yang dua kali diadaptasi Ghibli: keduanya dari novel Diana Wynne Jones, terpaut tujuh belas tahun dan dua sutradara.
 Porco Rosso (1992) > Nausicaa of the Valley of the Wind (1984) | talent | h | Both come from Miyazaki's own manga: the Nausicaa serial he drew for Animage, and Hikotei Jidai. || Keduanya berasal dari manga Miyazaki sendiri: serial Nausicaa yang ia gambar untuk Animage, dan Hikotei Jidai.
 The Wind Rises (2013) > Porco Rosso (1992) | talent | h | Two Miyazaki films about flight drawn from his own manga - Kaze Tachinu and Hikotei Jidai, both first serialised in modelling magazines. || Dua film Miyazaki tentang terbang yang lahir dari manganya sendiri - Kaze Tachinu dan Hikotei Jidai, sama-sama pertama terbit di majalah model.
@@ -189,8 +189,8 @@ Kiki's Delivery Service (1989) > My Neighbor Totoro (1988) | homage | h | Fans h
 Pom Poko (1994) > Kiki's Delivery Service (1989) | homage | m | Kiki appears in a brief cameo in Pom Poko's night-time monster parade, alongside Totoro and Porco (SoraNews24, 2020). || Kiki muncul sekilas di Pawai Siluman malam hari dalam Pom Poko, bersama Totoro dan Porco (SoraNews24, 2020).
 
 # ============ QUENTIN TARANTINO (2026-10-22) ============
-# Tujuh koneksi internalnya dulu cuma "Both directed by Quentin Tarantino". Lihat sagas.txt
-# untuk pembagian dua semesta dan batasannya - Tarantino cuma menempatkan empat judul sendiri.
+# The seven internal connections used to be just "Both directed by Quentin Tarantino". See sagas.txt
+# for the split into two universes and its limits - Tarantino only places four titles himself.
 The Hateful Eight (2015) > Inglourious Basterds (2009) | universe/related | h | Mobray's real name is revealed as "English" Pete Hicox, sharing a surname with Lt. Archie Hicox in Inglourious Basterds. || Nama asli Mobray terungkap sebagai "English" Pete Hicox, senama dengan Letnan Archie Hicox di Inglourious Basterds.
 The Hateful Eight (2015) > Django Unchained (2012) | inspired | h | Tarantino wrote it first as a Django sequel novel, "Django in White Hell", then dropped him because the story should not have a moral centre. || Tarantino mula-mula menulisnya sebagai novel sekuel Django, "Django in White Hell", lalu mengeluarkannya karena cerita ini tidak seharusnya punya pusat moral.
 Once Upon a Time... in Hollywood (2019) > Pulp Fiction (1994) | homage | m | Red Apple, the made-up cigarette brand from Pulp Fiction's script, gets its own Rick Dalton commercial in the mid-credits of Once Upon a Time... in Hollywood (Wikipedia; Washington Post). || Red Apple, merek rokok rekaan dari naskah Pulp Fiction, mendapat iklan sendiri dengan Rick Dalton di tengah kredit Once Upon a Time... in Hollywood (Wikipedia; Washington Post).
@@ -198,29 +198,29 @@ Kill Bill: Vol. 1 (2003) > Pulp Fiction (1994) | homage | m | A giant Red Apple 
 Death Proof (2007) > Jackie Brown (1997) | homage | m | Acuna Boys, another Tarantino-invented brand, is on Arlene's soda container in Death Proof; in Jackie Brown Sheronda eats takeout from it (Tarantino Archives fan wiki). || Acuna Boys, merek rekaan Tarantino lainnya, ada di wadah soda Arlene di Death Proof; di Jackie Brown, Sheronda makan bungkusan dari sana (wiki penggemar Tarantino Archives).
 Jackie Brown (1997) > Pulp Fiction (1994) | homage | h | Teriyaki Donut, the shop Marsellus walks away from in Pulp Fiction, was added to the Del Amo food court at Tarantino's request. || Teriyaki Donut, kedai yang ditinggalkan Marsellus di Pulp Fiction, sengaja ditambahkan ke food court Del Amo atas permintaan Tarantino.
 
-# ---------- Judul baru 2026-10-23 ----------
-# Weathering with You akhirnya masuk library; inilah film yang mengikat ketiga film Shinkai.
+# ---------- New titles 2026-10-23 ----------
+# Weathering with You finally entered the library; this is the film that ties the three Shinkai films together.
 Weathering with You (2019) > Your Name. (2016) | universe/cameo | h | Taki, Mitsuha, Tessie and Sayaka from Your Name make cameos here. Shinkai said he wanted to see Taki and Mitsuha again before they met. || Taki, Mitsuha, Tessie, dan Sayaka dari Your Name muncul sebagai cameo di sini. Shinkai ingin melihat Taki dan Mitsuha lagi sebelum mereka bertemu.
 Suzume (2022) > Weathering with You (2019) | talent | h | Masayoshi Tanaka designed the characters and RADWIMPS scored both, but Suzume shares no character with the other two. || Masayoshi Tanaka merancang tokohnya dan RADWIMPS menggarap musik keduanya, tetapi Suzume tidak berbagi tokoh dengan dua film lainnya.
 
-# Detective Conan punya filmnya sekarang. Seperti dicatat 2026-10-22: film Conan berdiri
-# sendiri, jadi hubungannya ke serial, bukan rantai antar film.
+# Detective Conan now has its films. As noted 2026-10-22: the Conan films stand
+# alone, so the relationship is to the series, not a chain between films.
 Detective Conan: The Million-Dollar Pentagram (2024) > Meitantei Conan (1996) | universe/film | h | The twenty-seventh Conan film and the highest-grossing of them, built around Kaito Kid and Heiji Hattori together. A self-contained case, like the rest. || Film Conan kedua puluh tujuh sekaligus yang terlaris, dibangun di sekitar Kaito Kid dan Heiji Hattori sekaligus. Kasus yang berdiri sendiri, seperti film lainnya.
 
-# Golden Compass dan serial His Dark Materials sama-sama mengadaptasi novel pertama Philip Pullman.
+# The Golden Compass and the His Dark Materials series both adapt Philip Pullman's first novel.
 His Dark Materials (2019) > The Golden Compass (2007) | remake/adaptation | h | Both adapt Philip Pullman's Northern Lights - the 2007 film got one novel and no sequel, the series got all three. || Keduanya mengadaptasi Northern Lights karya Philip Pullman - film 2007 cuma dapat satu novel tanpa sekuel, serialnya dapat ketiganya.
 
-# Carrie 2026: serial Mike Flanagan dari novel Stephen King 1974 (BUKAN 1976 - itu tahun film
-# De Palma). Kolom directors-nya kosong di Jellyfin, jadi rantai directors.list tidak kena;
-# ditulis tangan.
+# Carrie 2026: Mike Flanagan's series from Stephen King's 1974 novel (NOT 1976 - that is the year of the
+# De Palma film). Its directors column is empty in Jellyfin, so the directors.list chain does not catch it;
+# written by hand.
 Carrie (2026) > Doctor Sleep (2019) | director | h | Mike Flanagan directed Doctor Sleep and developed this one, directing four of its eight episodes. Both adapt Stephen King. || Mike Flanagan menyutradarai Doctor Sleep dan mengembangkan serial ini, menyutradarai empat dari delapan episodenya. Keduanya mengadaptasi Stephen King.
 Carrie (2026) > The Shawshank Redemption (1994) | talent | h | Both come from Stephen King, at opposite ends of his range: a telekinetic teenager and a prison friendship. || Keduanya berasal dari Stephen King, di dua ujung rentangnya: remaja telekinetik dan persahabatan di penjara.
 
-# Animals: film orisinal, Ben Affleck menyutradarai sekaligus membintangi. Matt Damon semula
-# diumumkan jadi pemeran utama lalu mundur dan tetap jadi produser.
+# Animals: an original film, Ben Affleck directs and also stars. Matt Damon was originally
+# announced as the lead, then dropped out and remained a producer.
 Animals (2026) > Gone Girl (2014) | talent | h | Ben Affleck stars in both. || Ben Affleck membintangi keduanya.
 Gone Girl (2014) > Good Will Hunting (1997) | talent | h | Ben Affleck stars in both. || Ben Affleck membintangi keduanya.
 Animals (2026) > Good Will Hunting (1997) | talent | h | Affleck directs and stars; Matt Damon produces, and was announced for the lead before leaving. The two wrote Good Will Hunting together. || Affleck menyutradarai sekaligus membintangi; Matt Damon memproduseri, dan sempat diumumkan jadi pemeran utama sebelum mundur. Keduanya menulis Good Will Hunting bersama.
 
-# Fall (2022) tidak ada di library, jadi sekuelnya tersambung lewat sutradaranya.
+# Fall (2022) is not in the library, so its sequel is connected through its director.
 Fall 2: Deadpoint (2026) > Predestination (2014) | director | h | Both directed by Michael and Peter Spierig - who did not make the first Fall; Scott Mann moved to writing and producing. || Keduanya disutradarai Michael dan Peter Spierig - yang tidak menggarap Fall pertama; Scott Mann pindah ke penulisan dan produksi.

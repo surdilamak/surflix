@@ -1,8 +1,8 @@
 /**
- * Galaxy — seluruh library sebagai langit: satu titik per judul, garis = koneksi.
- * Judul yang berbagi cerita, pembuat, atau tampilan melayang berdekatan (layout dihitung di server).
- * Canvas 2D sendiri (tanpa library): pan, zoom (scroll & cubit), hover, klik buat panel,
- * dan "terbang" ke judul lewat search atau daftar tetangga.
+ * Galaxy — the whole library as a sky: one dot per title, lines = connections.
+ * Titles that share a story, creator, or look float close together (layout computed on the server).
+ * Own 2D canvas (no library): pan, zoom (scroll & pinch), hover, click for the panel,
+ * and "fly" to a title via search or the neighbor list.
  */
 'use client';
 
@@ -23,8 +23,8 @@ export interface GalaxyData {
   rels: string[];
   nodes: N[];
   edges: E[];
-  /** hanya admin: boleh pratinjau koneksi yang menunggu review */
-  /** "movie:123" -> id saga */
+  /** admin only: may preview connections awaiting review */
+  /** "movie:123" -> saga id */
   sagas?: Record<string, string>;
   canPreview?: boolean;
   preview?: boolean;
@@ -59,11 +59,11 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [selected, setSelected] = useState<number | null>(null);
   const [touch, setTouch] = useState(false);
-  /** jenis hubungan yang sedang dimatikan (nama, bukan indeks: tahan kalau data dimuat ulang) */
+  /** relation types currently turned off (name, not index: survives data reloads) */
   const [off, setOff] = useState<Set<string>>(new Set());
   const [listView, setListView] = useState(false);
 
-  // semua state gambar disimpan di ref: gak perlu re-render React tiap frame
+  // all drawing state is kept in refs: no need for a React re-render every frame
   const cam = useRef({ x: 0, y: 0, k: 1, rot: 0 });
   const fitK = useRef(1);
   const size = useRef({ w: 0, h: 0, dpr: 1 });
@@ -73,7 +73,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
   const tween = useRef<{ t0: number; from: typeof cam.current; to: typeof cam.current } | null>(null);
   const pointerIn = useRef(false);
   const offRef = useRef(off);
-  /** 1 = titik ini tidak punya garis yang lolos saringan, jadi diredupkan */
+  /** 1 = this dot has no line passing the filter, so it is dimmed */
   const dimRef = useRef<Uint8Array>(new Uint8Array(0));
   const groupsRef = useRef<Array<{ x: number; y: number; label: string }>>([]);
 
@@ -93,8 +93,8 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
   const indexByKey = useMemo(() => new Map(nodes.map((n, i) => [`${n[1]}:${n[0]}`, i])), [nodes]);
 
   /**
-   * Kelompok hasil label propagation (kolom ke-7 tiap titik). Namanya diambil dari
-   * judul paling banyak koneksi di kelompok itu — jujur, bukan karangan.
+   * Clusters from label propagation (7th column of each dot). Its name is taken from
+   * the title with the most connections in that cluster — honest, not made up.
    */
   const groups = useMemo(() => {
     const by = new Map<number, { n: number; x: number; y: number; best: number; items: number[] }>();
@@ -112,13 +112,13 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
       .map((o) => ({ x: o.x / o.n, y: o.y / o.n, label: nodes[o.best][2], n: o.n, items: o.items }));
   }, [nodes]);
 
-  // yang dipakai saat menggambar: cukup kelompok besar, maksimal 12 nama
+  // what is used when drawing: only big clusters, at most 12 names
   useEffect(() => {
     groupsRef.current = groups.filter((g) => g.n >= 6).slice(0, 12).map(({ x, y, label }) => ({ x, y, label }));
     requestDraw();
   }, [groups]);
 
-  // saringan: titik yang semua garisnya dimatikan ikut diredupkan
+  // filter: dots whose lines are all turned off are dimmed too
   useEffect(() => {
     offRef.current = off;
     const d = new Uint8Array(nodes.length);
@@ -155,7 +155,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
   const flyTo = useCallback((i: number, zoom?: number) => {
     const n = nodes[i];
     const k = zoom ?? Math.max(cam.current.k, fitK.current * 3.2);
-    // kamera hidup di ruang yang sudah diputar: hitung posisi titik dengan rotasi saat ini
+    // the camera lives in the already-rotated space: compute dot positions with the current rotation
     const c = Math.cos(cam.current.rot);
     const sn = Math.sin(cam.current.rot);
     const to = { x: n[7] * c - n[8] * sn, y: n[7] * sn + n[8] * c, k, rot: cam.current.rot };
@@ -168,7 +168,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
     select(null);
   }, [select]);
 
-  // ── setup canvas, loop & input
+  // ── canvas setup, loop & input
   useEffect(() => {
     const wrap = wrapRef.current;
     const canvas = canvasRef.current;
@@ -225,7 +225,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
       return best;
     };
 
-    // ── gambar
+    // ── draw
     const draw = () => {
       const { w, h, dpr } = size.current;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -242,12 +242,12 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
         nb[focus].forEach((x) => near.add(x.other));
       }
 
-      // garis biasa
+      // regular lines
       ctx.lineWidth = 1;
       ctx.strokeStyle = `rgba(122,136,170,${focus !== null ? 0.06 : Math.min(0.28, 0.1 + k * 0.5)})`;
       ctx.beginPath();
       for (const e of edges) {
-        if (e[4] === 1) continue; // koneksi menunggu review digambar terpisah (putus-putus)
+        if (e[4] === 1) continue; // connections awaiting review are drawn separately (dashed)
         if (offRef.current.has(rels[e[2]])) continue;
         if (focus !== null && (e[0] === focus || e[1] === focus)) continue;
         const [x1, y1] = toScreen(nodes[e[0]][7], nodes[e[0]][8]);
@@ -258,7 +258,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
       }
       ctx.stroke();
 
-      // pratinjau admin: koneksi yang menunggu review, putus-putus oranye
+      // admin preview: connections awaiting review, dashed orange
       if (edges.some((e) => e[4] === 1)) {
         ctx.save();
         ctx.setLineDash([5, 5]);
@@ -278,7 +278,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
         ctx.restore();
       }
 
-      // garis milik titik terpilih / disorot, berwarna per jenis hubungan
+      // lines belonging to the selected / highlighted dot, colored per relation type
       if (focus !== null) {
         ctx.lineWidth = 1.7;
         for (const x of nb[focus]) {
@@ -297,7 +297,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
         ctx.globalAlpha = 1;
       }
 
-      // nama kelompok: muncul saat menjauh, hilang saat mendekat (kebalikan label judul)
+      // cluster names: appear when zooming out, disappear when zooming in (opposite of title labels)
       const groupAlpha = focus !== null ? 0 : Math.max(0, Math.min(1, (fitK.current * 2.4 - k) / (fitK.current * 1.5)));
       if (groupAlpha > 0.03) {
         ctx.save();
@@ -306,7 +306,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
         ctx.font = `600 ${Math.round(14 + 4 * groupAlpha)}px ${font}`;
         ctx.lineWidth = 4;
         ctx.strokeStyle = BG;
-        // nama yang saling tumpang tindih dilewati (greedy), sama seperti label judul
+        // names that overlap each other are skipped (greedy), same as title labels
         const taken: Array<[number, number, number, number]> = [];
         for (const g of groupsRef.current) {
           const [x, y] = toScreen(g.x, g.y);
@@ -323,7 +323,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
         ctx.restore();
       }
 
-      // titik
+      // dots
       for (let i = 0; i < nodes.length; i++) {
         const [x, y] = toScreen(nodes[i][7], nodes[i][8]);
         if (x < -20 || x > w + 20 || y < -20 || y > h + 20) continue;
@@ -345,16 +345,16 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
         ctx.stroke();
       }
 
-      // label (greedy, tanpa tumpang tindih).
-      // Saat nama kelompok sedang tampil, label judul ditahan dulu — kalau tidak
-      // keduanya bertumpuk di titik yang sama.
+      // labels (greedy, no overlap).
+      // While cluster names are showing, title labels are held back — otherwise
+      // both pile up on the same dot.
       const degreeCut = k < fitK.current * 1.4 ? 9 : k < fitK.current * 2.5 ? 5 : k < fitK.current * 5 ? 3 : 1;
       const cands: number[] = [];
       if (focus !== null) {
         cands.push(focus);
         near.forEach((i) => i !== focus && cands.push(i));
       } else if (groupAlpha > 0.15) {
-        // nama kelompok yang memimpin
+        // the leading cluster name
       } else {
         for (let i = 0; i < nodes.length; i++) if (nodes[i][5] >= degreeCut) cands.push(i);
         cands.sort((a, b) => nodes[b][5] - nodes[a][5]);
@@ -385,7 +385,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
       const now = performance.now();
       const dt = Math.min((now - lastT) / 1000, 0.1);
       lastT = now;
-      // langit berputar pelan; berhenti kalau ada yang dipilih, kursor di atasnya, atau sedang terbang
+      // the sky rotates slowly; stops when something is selected, the cursor is over it, or it is flying
       if (!reducedMotion && selRef.current === null && !pointerIn.current && !tween.current) {
         cam.current.rot += dt * 0.028;
         dirty.current = true;
@@ -421,7 +421,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
       const [wx, wy] = toWorld(sx, sy);
       const k = Math.max(fitK.current * 0.7, Math.min(fitK.current * 16, cam.current.k * factor));
       cam.current.k = k;
-      // jaga titik di bawah kursor tetap di tempatnya
+      // keep the dot under the cursor in place
       cam.current.x = wx - (sx - size.current.w / 2) / k;
       cam.current.y = wy - (sy - size.current.h / 2) / k;
       tween.current = null;
@@ -510,7 +510,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
     window.addEventListener('keydown', onKey);
     canvas.style.cursor = 'grab';
 
-    // ?select=movie:62 buat link langsung ke satu judul
+    // ?select=movie:62 for a direct link to one title
     const want = new URLSearchParams(window.location.search).get('select');
     if (want && indexByKey.has(want)) {
       const i = indexByKey.get(want)!;
@@ -564,7 +564,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
             placeholder={t('galaxy.search')}
             onPick={(r) => {
               const i = indexByKey.get(`${r.mediaType}:${r.tmdbId}`);
-              if (i === undefined) return false; // judul tanpa peta: buka halamannya
+              if (i === undefined) return false; // title without a map: open its page
               open(i);
               return true;
             }}

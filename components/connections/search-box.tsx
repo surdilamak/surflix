@@ -1,6 +1,6 @@
 /**
- * SearchBox — cari film/serial di library Surflix (judul, judul asli, sutradara).
- * Hasil bawa jumlah koneksi; judul tanpa peta tetap bisa dibuka (halaman "belum ada peta").
+ * SearchBox — search films/series in the Surflix library (title, original title, director).
+ * Results carry the connection count; a title without a map can still be opened (the "no map yet" page).
  */
 'use client';
 
@@ -32,7 +32,7 @@ export function SearchBox({
   placeholder,
 }: {
   variant?: 'hero' | 'compact';
-  /** Kalau diberikan dan mengembalikan true, pilihan dianggap ditangani (gak pindah halaman). */
+  /** If provided and it returns true, the selection is considered handled (no page navigation). */
   onPick?: (r: SearchPick) => boolean | void;
   placeholder?: string;
 }) {
@@ -71,7 +71,7 @@ export function SearchBox({
     };
   }, [q]);
 
-  // tutup saat klik di luar
+  // close on outside click
   useEffect(() => {
     const onDown = (e: MouseEvent) => {
       if (boxRef.current && !boxRef.current.contains(e.target as Node)) setOpen(false);

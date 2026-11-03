@@ -1,11 +1,11 @@
 /**
  * Admin Reference (/admin/connections)
  *
- * Tiga tab:
- *  - Coverage: seluruh library, ditandai mana yang sudah punya peta. Buka satu judul untuk melihat, mengubah,
- *    menghapus, atau menambah koneksi.
- *  - Review queue: koneksi yang belum di-approve (approve satu per satu atau massal, bisa difilter per jenis).
- *  - Rejected: koneksi yang ditolak, bisa dipulihkan.
+ * Three tabs:
+ *  - Coverage: the whole library, marking which titles already have a map. Open a title to view, edit,
+ *    delete, or add connections.
+ *  - Review queue: connections not yet approved (approve one by one or in bulk, filterable by type).
+ *  - Rejected: connections that were rejected, which can be restored.
  */
 'use client';
 

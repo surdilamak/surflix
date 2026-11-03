@@ -1,17 +1,17 @@
-/* ── Halaman legal (apex) ──────────────────────────────────────────────────
-   Prosa, bukan papan ubin. Memakai token .lp-root; yang ditambah di sini cuma
-   ritme bacaan: satu kolom selebar 68ch, ritme vertikal dari design.md
-   (--gap-section 80px antar bagian, --gap-block 40px di dalamnya).
-   Nilai tetap, bukan clamp: clamp menghasilkan nilai di luar grid 4px. */
-/* Di layar lebar prosa duduk di atas bidang --surface, bukan melayang sebagai
-   pita 600px di tengah hitam: inspector membaca dua layar terakhir sebagai tanah
-   kosong (di bawah 20% terisi) dan itu betul - yang terlihat cuma teks tipis.
-   Panel memberi dokumen ini badan tanpa menyentuh lebar bacanya: max-width
-   menghitung 60ch DITAMBAH padding, jadi ukuran bacaan tetap 60 karakter. */
+/* ── Legal pages (apex) ────────────────────────────────────────────────────
+   Prose, not a tile board. Uses the .lp-root tokens; all that is added here is
+   the reading rhythm: a single column 68ch wide, vertical rhythm from design.md
+   (--gap-section 80px between sections, --gap-block 40px inside them).
+   Fixed values, not clamp: clamp produces values off the 4px grid. */
+/* On wide screens the prose sits on a --surface field, rather than floating as a
+   600px ribbon in the middle of black: the inspector read the last two screens as dead
+   space (under 20% filled) and that is right - all you see is thin text.
+   The panel gives this document body without touching its reading width: max-width
+   counts 60ch PLUS padding, so the reading size stays 60 characters. */
 .lg-wrap {
-  /* 60ch, angka yang sama dengan .ref-caption di Reference - jadi lebar baca di
-     seluruh Surflix satu nilai. Diukur: pada 68ch baris terpanjang 82 karakter,
-     lewat dari norma prosa 45-75. */
+  /* 60ch, the same number as .ref-caption in Reference - so the reading width
+     is a single value across Surflix. Measured: at 68ch the longest line was 82 characters,
+     beyond the prose norm of 45-75. */
   box-sizing: border-box;
   width: calc(100% - var(--m) * 2);
   max-width: calc(60ch + 112px);
@@ -20,8 +20,8 @@
   background: var(--surface);
   border-radius: var(--r);
 }
-/* Di bawah 1024px panelnya dilepas: layarnya sendiri sudah jadi bidang, dan
-   padding ganda (margin halaman + padding panel) memangkas lebar baca. */
+/* Below 1024px the panel is dropped: the screen itself is already the field, and
+   double padding (page margin + panel padding) cuts into the reading width. */
 @media (max-width: 1023px) {
   .lg-wrap {
     max-width: 60ch;
@@ -44,12 +44,12 @@
   font-size: var(--step-sub); font-weight: 600; letter-spacing: -0.02em;
   line-height: 1.1;
 }
-/* Baris di bawah judul harus MENGATAKAN ini halaman apa, dan pada 18px ke atas:
-   pada --step-body ukurannya 17.9px di 768px, jadi judul terbaca sebagai nama
-   telanjang (temuan `name-only-title`). --step-lead = 22-26px. */
+/* The line under the title must SAY what page this is, and at 18px or above:
+   at --step-body it is 17.9px at 768px, so the title reads as a bare
+   name (finding `name-only-title`). --step-lead = 22-26px. */
 .lg-lede { margin-top: 20px; font-size: var(--step-lead); line-height: 1.45; color: var(--muted); }
 
-/* Tanggal adalah keterangan, bukan subjudul - tempatnya di bawah lede. */
+/* The date is a caption, not a subtitle - it goes below the lede. */
 .lg-updated { margin-top: 20px; font-size: var(--step-small); color: var(--muted); }
 
 .lg-wrap h2 {
@@ -72,19 +72,19 @@
 }
 .lg-wrap a:not(.lg-back):hover { color: var(--accent); }
 
-/* Kotak penegasan untuk hal yang paling gampang disalahpahami */
-/* Kotak penegasan memakai ukuran huruf PROSA, bukan --step-small: benda yang
-   menegaskan tidak boleh lebih kecil dari yang ditegaskannya, dan huruf kecil
-   memuat lebih banyak karakter per baris (diukur 104, jauh di atas norma). */
+/* Callout box for the things most easily misunderstood */
+/* The callout box uses the PROSE font size, not --step-small: something that
+   emphasizes must not be smaller than what it emphasizes, and small type
+   fits more characters per line (measured 104, far above the norm). */
 .lg-note {
   margin-top: 24px; padding: 20px;
   border-radius: var(--r);
-  background: var(--surface-2); /* sewarna beda dari panel .lg-wrap di desktop */
+  background: var(--surface-2); /* a different shade from the .lg-wrap panel on desktop */
 }
 .lg-note p:first-child { margin-top: 0; }
 
-/* Tanpa border-top: jarak 80px sudah memisahkan, dan garis tipis cuma untuk tabel
-   dan isian form (temuan inspector `hairline`, dan itu benar di sini). */
+/* No border-top: the 80px spacing already separates, and hairlines are only for tables
+   and form fields (inspector finding `hairline`, and that is correct here). */
 .lg-foot {
   margin-top: 80px;
   display: flex; flex-wrap: wrap; gap: 8px 24px;
@@ -92,9 +92,9 @@
 }
 
 /* ── 404 ───────────────────────────────────────────────────────────────────
-   Bukan prosa: halaman pendek, satu layar, isinya ditaruh di tengah tegak agar
-   tidak ada separuh layar kosong di bawahnya, dan empat tujuan jadi kisi 2x2
-   supaya kedua margin ditutup sama rata. */
+   Not prose: a short page, one screen, its content vertically centered so
+   there is no half-empty screen below it, and the four destinations form a 2x2 grid
+   so both margins are closed evenly. */
 .lg-404 {
   box-sizing: border-box;
   min-height: 100svh;

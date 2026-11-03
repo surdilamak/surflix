@@ -1,7 +1,7 @@
 /**
  * GET /api/admin/library
  *
- * Backoffice: seluruh library + status cakupan referensi per judul
+ * Backoffice: the whole library + reference coverage status per title
  * (approved / pending). Admin-only.
  */
 

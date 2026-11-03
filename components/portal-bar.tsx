@@ -1,9 +1,9 @@
 /**
- * PortalBar — satu bar yang sama di atas Request Hub dan Reference, satu baris: logo (ke landing)
- * + nama portal, tautan lokal, pilihan situs (pill, yang aktif oranye) dan pilihan bahasa.
- * Bar-nya menempel di atas (sticky) di semua halaman.
- * Di telepon: pill situs + tombol hamburger; menu hamburger memuat tautan lokal, bahasa, dan
- * tautan ke beranda Surflix. Warna lewat --pb-bg / --pb-ink supaya menyatu dengan bidang gelap tiap situs.
+ * PortalBar — the same single bar on top of Request Hub and Reference, one line: logo (to landing)
+ * + portal name, local links, site choice (pill, the active one orange) and language choice.
+ * The bar sticks to the top (sticky) on all pages.
+ * On phones: site pill + hamburger button; the hamburger menu holds local links, language, and
+ * a link to the Surflix home. Colors via --pb-bg / --pb-ink so it blends into each site's dark surface.
  */
 'use client';
 
@@ -34,7 +34,7 @@ export function PortalBar({
   nav,
 }: {
   current: PortalSite;
-  /** tautan lokal situs (Home/Trending…, All maps/Galaxy) yang duduk di baris yang sama */
+  /** the site's local links (Home/Trending…, All maps/Galaxy) sitting on the same line */
   nav?: React.ReactNode;
 }) {
   const { homeHref, hubHref, referenceHref } = usePortal();
@@ -45,7 +45,7 @@ export function PortalBar({
   const [open, setOpen] = useState(false);
   const streaming = config?.jellyfinUrl || 'https://streaming.surflix.my.id';
 
-  // Tutup menu saat pindah halaman atau menekan Escape
+  // Close the menu on page change or when Escape is pressed
   useEffect(() => setOpen(false), [pathname]);
   useEffect(() => {
     if (!open) return;

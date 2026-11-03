@@ -1,8 +1,8 @@
 /**
  * GET /api/connections/galaxy
  *
- * Portal Referensi: seluruh graf koneksi APPROVED lengkap dengan posisi & kelompok
- * (layout dihitung sekali di server, lalu di-cache). Murni baca DB.
+ * Reference Portal: the whole APPROVED connection graph with positions & clusters
+ * (layout is computed once on the server, then cached). Pure DB read.
  */
 
 import { NextRequest, NextResponse } from 'next/server';
@@ -19,7 +19,7 @@ const cache = new Map<boolean, { key: string; at: number; body: Record<string, u
 
 export async function GET(req: NextRequest) {
   try {
-    // Pratinjau koneksi yang menunggu review hanya untuk admin yang sedang login
+    // Preview of connections awaiting review only for a logged-in admin
     const admin = (await getSession()).isLoggedIn === true;
     const preview = admin && req.nextUrl.searchParams.get('pending') === '1';
     const extra = admin ? { canPreview: true, pendingCount: await prisma.filmConnection.count({ where: { status: 'PENDING_REVIEW' } }) } : {};
@@ -33,7 +33,7 @@ export async function GET(req: NextRequest) {
     const body = {
       rels: RELS,
       preview,
-      // "movie:123" -> id saga, buat tautan Watch order di panel
+      // "movie:123" -> saga id, for the Watch order link in the panel
       sagas,
       // [tmdbId, mediaType, title, year, jellyfinId, degree, cluster, x, y]
       nodes: nodes.map((n, i) => [n.tmdbId, n.mediaType, n.title, n.year, n.jellyfinId, n.degree, cluster[i], pos[i][0], pos[i][1]]),

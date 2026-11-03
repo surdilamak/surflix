@@ -1,5 +1,5 @@
 /**
- * Tipe & helper data portal Referensi (client-safe).
+ * Types & data helpers for the Reference portal (client-safe).
  */
 import { posterUrl } from '@/lib/jellyfin';
 
@@ -31,7 +31,7 @@ export interface PortalFilm {
 
 export type IndexRow = [number, string, string, number | null, number];
 
-/** Warna jenis hubungan (CSS var), dipakai penanda kecil di daftar & caption. */
+/** Relationship type colors (CSS var), used for the small markers in lists & captions. */
 export const REL_VAR: Record<string, string> = {
   homage: 'var(--rel-homage)',
   inspired: 'var(--rel-inspired)',
@@ -42,7 +42,7 @@ export const REL_VAR: Record<string, string> = {
   talent: 'var(--rel-talent)',
 };
 
-/** Warna di panggung 3D (latar gelap). */
+/** Colors on the 3D stage (dark background). */
 export const REL_COLOR: Record<string, string> = {
   homage: '#f7941d',
   inspired: '#4f8ff0',
@@ -55,7 +55,7 @@ export const REL_COLOR: Record<string, string> = {
 
 export const filmKey = (mediaType: string, tmdbId: number) => `${mediaType}:${tmdbId}`;
 
-/** Poster TMDB kalau ada, kalau nggak gambar Primary dari Jellyfin. */
+/** TMDB poster if available, otherwise the Primary image from Jellyfin. */
 export function posterOf(
   f: { poster?: string | null; jellyfinId?: string | null },
   jellyfinUrl: string | undefined,
