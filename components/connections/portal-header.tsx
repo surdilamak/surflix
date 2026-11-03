@@ -12,10 +12,12 @@
 import { usePathname } from 'next/navigation';
 import { usePortal } from '@/lib/hooks/use-portal';
 import { useLang } from './lang-provider';
+import { useViewer } from './viewer-provider';
 
 export function PortalHeader() {
   const { portalPath } = usePortal();
   const { t } = useLang();
+  const viewer = useViewer();
   const pathname = usePathname() || '/';
 
   const home = portalPath('/') || '/';
@@ -50,6 +52,16 @@ export function PortalHeader() {
       <a href={added} aria-current={on(added) ? 'page' : undefined}>
         {t('nav.new')}
       </a>
+      {viewer.status !== 'loading' && (
+        <button
+          type="button"
+          className="ref-viewer-btn"
+          onClick={viewer.status === 'in' ? viewer.logout : viewer.openLogin}
+          title={viewer.status === 'in' ? t('viewer.signout') : undefined}
+        >
+          {viewer.status === 'in' ? t('viewer.hello', { name: viewer.name ?? '' }) : t('viewer.signin')}
+        </button>
+      )}
     </nav>
   );
 }

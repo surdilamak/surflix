@@ -10,6 +10,7 @@ import localFont from 'next/font/local';
 import { PortalHeader } from '@/components/connections/portal-header';
 import { PortalFooter } from '@/components/connections/portal-footer';
 import { LangProvider } from '@/components/connections/lang-provider';
+import { ViewerProvider } from '@/components/connections/viewer-provider';
 import { PortalBar } from '@/components/portal-bar';
 import './referensi.css';
 
@@ -45,9 +46,11 @@ export default function ReferensiLayout({ children }: { children: React.ReactNod
         <style>{'.ref-reveal{opacity:1!important;transform:none!important}'}</style>
       </noscript>
       <LangProvider>
-        <PortalBar current="reference" nav={<PortalHeader />} />
-        {children}
-        <PortalFooter />
+        <ViewerProvider>
+          <PortalBar current="reference" nav={<PortalHeader />} />
+          {children}
+          <PortalFooter />
+        </ViewerProvider>
       </LangProvider>
     </div>
   );

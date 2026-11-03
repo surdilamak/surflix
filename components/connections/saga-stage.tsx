@@ -13,6 +13,7 @@ import { usePortal } from '@/lib/hooks/use-portal';
 import { posterUrl, watchUrl } from '@/lib/jellyfin';
 import { useLang } from './lang-provider';
 import { LensSwitch } from './lens-switch';
+import { useViewer } from './viewer-provider';
 import type { SagaFull, SagaEntry } from '@/lib/connections';
 
 type Mode = 'story' | 'release';
@@ -45,6 +46,7 @@ export function SagaStage({
 }) {
   const { t, lang } = useLang();
   const { portalPath, hubHref } = usePortal();
+  const viewer = useViewer();
 
   const [mode, setMode] = useState<Mode>('story');
   const [picked, setPicked] = useState<string | null>(null);
@@ -69,6 +71,11 @@ export function SagaStage({
   // title targeted from outside (film map / search)
   const wanted = film ? saga.entries.find((e) => e.tmdbId && `${e.mediaType}:${e.tmdbId}` === film) : undefined;
   const start = ordered.find((e) => e.lane === saga.lanes[0]?.id) ?? ordered[0];
+  // first title on the main path that is on Surflix and not yet watched by the signed-in viewer
+  const upNext =
+    viewer.status === 'in'
+      ? ordered.find((e) => e.lane === saga.lanes[0]?.id && e.jellyfinId && !viewer.isWatched(e.mediaType, e.tmdbId))
+      : undefined;
   const selected = ordered.find((e) => e.key === picked) ?? wanted ?? start;
 
   // ── camera: all motion goes through refs + rAF, no React re-render every frame
@@ -368,6 +375,14 @@ export function SagaStage({
             <p className="ref-saga-single">{t('tl.sameOrder')}</p>
           )}
           <p className="ref-saga-count">{t('tl.count', { n: saga.total })}</p>
+          {viewer.status === 'in' &&
+            (upNext ? (
+              <button type="button" className="ref-saga-upnext" onClick={() => choose(upNext)}>
+                {t('viewer.upNext')}: {upNext.title} →
+              </button>
+            ) : (
+              <p className="ref-saga-count">{t('viewer.allDone')}</p>
+            ))}
         </div>
         {saga.lanes.length > 1 && (
           <ul className="ref-legend ref-saga-lanes">
@@ -418,6 +433,7 @@ export function SagaStage({
                   className="ref-saga-card"
                   data-sel={selected?.key === e.key ? '' : undefined}
                   data-missing={e.jellyfinId ? undefined : ''}
+                  data-watched={viewer.isWatched(e.mediaType, e.tmdbId) ? '' : undefined}
                   aria-pressed={selected?.key === e.key}
                   style={{
                     width: CW,
@@ -434,6 +450,9 @@ export function SagaStage({
                       <img src={posterUrl(e.jellyfinId, jellyfinUrl, 220)} alt="" draggable={false} loading="lazy" />
                     ) : (
                       <span className="ref-saga-ghost">{t('tl.missing')}</span>
+                    )}
+                    {viewer.isWatched(e.mediaType, e.tmdbId) && (
+                      <span className="ref-saga-seen" role="img" aria-label={t('viewer.watched')} title={t('viewer.watched')}>✓</span>
                     )}
                   </span>
                   <i className="ref-saga-dot" style={{ top: RAIL - 6 }} />

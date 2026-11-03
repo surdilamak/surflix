@@ -153,6 +153,11 @@ model EventLog {
 - Expiry: 7 days
 - Cleared on logout (`DELETE /api/admin/login`)
 
+### Viewer Session (Reference, optional)
+- Cookie name: `surflix_viewer`; holds only the Jellyfin user id and display name (no password, no Jellyfin token)
+- Sign-in goes through `POST /api/viewer`, which checks the credentials with Jellyfin and revokes the token it gets back; implementation in `lib/viewer-session.ts`, `app/api/viewer/route.ts`
+- Used for the "watched" marks and "Up next" on Watch order; signed out, the portal behaves as before
+
 ### Telegram Webhook Verification
 - `?secret=<WEBHOOK_SECRET>` query param (must match `.env`)
 - Sender verification: `callback_query.from.id === TELEGRAM_ADMIN_CHAT_ID`

@@ -97,6 +97,74 @@ export async function findJellyfinId(
   return map.get(libraryKey(mediaType, tmdbId)) ?? null;
 }
 
+function jellyfinBase() {
+  return (process.env.JELLYFIN_URL || '').replace(/\/+$/, '');
+}
+
+export interface JellyfinViewer {
+  userId: string;
+  name: string;
+}
+
+/**
+ * Check a Jellyfin username + password. Returns the user, or null when the credentials are wrong.
+ * The password is only forwarded to Jellyfin, never stored or logged. The access token Jellyfin
+ * returns is revoked right away: later reads use the server API key with the user id instead,
+ * so Surflix never keeps a token that could act as the user.
+ */
+export async function authenticateUser(username: string, password: string): Promise<JellyfinViewer | null> {
+  if (!isConfigured()) throw new Error('JELLYFIN_URL / JELLYFIN_API_KEY not set');
+  const client = 'MediaBrowser Client="Surflix Reference", Device="Web", DeviceId="surflix-reference", Version="1.0"';
+  const res = await fetch(`${jellyfinBase()}/Users/AuthenticateByName`, {
+    method: 'POST',
+    headers: { Authorization: client, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ Username: username, Pw: password }),
+    signal: AbortSignal.timeout(15000),
+  });
+  if (res.status === 401 || res.status === 400 || res.status === 403) return null;
+  if (!res.ok) throw new Error(`Jellyfin login error ${res.status}`);
+
+  const data = await res.json();
+  const userId: string | undefined = data?.User?.Id;
+  const name: string | undefined = data?.User?.Name;
+  if (!userId || !name) return null;
+
+  // best effort: do not leave a session behind in the user's Jellyfin device list
+  if (data?.AccessToken) {
+    fetch(`${jellyfinBase()}/Sessions/Logout`, {
+      method: 'POST',
+      headers: { Authorization: `${client}, Token="${data.AccessToken}"` },
+      signal: AbortSignal.timeout(5000),
+    }).catch(() => {});
+  }
+  return { userId, name };
+}
+
+/**
+ * Titles this Jellyfin user has finished, as "<mediaType>:<tmdbId>" keys (same keys as the library map).
+ * Uses the server API key to read the user's data; a series counts when Jellyfin marks it played.
+ */
+export async function getPlayedKeys(userId: string): Promise<string[]> {
+  if (!isConfigured()) throw new Error('JELLYFIN_URL / JELLYFIN_API_KEY not set');
+  const url =
+    `${jellyfinBase()}/Users/${encodeURIComponent(userId)}/Items?Recursive=true` +
+    `&IncludeItemTypes=Movie,Series&Fields=ProviderIds&HasTmdbId=true&IsPlayed=true`;
+  const res = await fetch(url, {
+    headers: { Authorization: `MediaBrowser Token="${process.env.JELLYFIN_API_KEY}"` },
+    signal: AbortSignal.timeout(30000),
+  });
+  if (!res.ok) throw new Error(`Jellyfin played-list error ${res.status}`);
+  const items: JellyfinItem[] = (await res.json())?.Items ?? [];
+  const keys: string[] = [];
+  for (const item of items) {
+    const tmdbId = parseInt(item.ProviderIds?.Tmdb ?? '', 10);
+    if (!Number.isFinite(tmdbId)) continue;
+    if (item.Type === 'Movie') keys.push(libraryKey('movie', tmdbId));
+    else if (item.Type === 'Series') keys.push(libraryKey('tv', tmdbId));
+  }
+  return keys;
+}
+
 let serverIdCache: string | null = null;
 
 /**

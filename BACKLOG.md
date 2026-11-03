@@ -93,6 +93,17 @@
 - **How it was proven safe:** `scripts/verify-comments-only.mjs` compares every modified file with HEAD after stripping comments (TypeScript printer for ts/tsx/js, comment stripping for css/prisma/sh/yml and the curated data files). All 161 files are comment-only, insertions equal deletions (1219 / 1219), `tsc` is clean, every script passes `node --check`, and re-running the builders produced `connections-seed.json`, `connections-live.json` and `lib/sagas.json` byte for byte identical. Reuse the script for any future bulk comment edit.
 - **Found while checking the admin UI in a real browser (headless Chrome, local database, temporary admin that was deleted afterwards):** the "Label" select in the edit form appears under the relationship select, shows the row's current kind (Brings back for The Flash > Batman) and offers the kinds of the chosen type. This closes the "form not looked at in a browser" note above.
 
+## ✅ Done 2026-11-03 (Jellyfin sign-in + "watched" marks)
+- Optional sign-in with a Jellyfin account on the Reference portal (header button). `POST /api/viewer` checks the credentials
+  with Jellyfin `/Users/AuthenticateByName`, revokes the token it gets back, and keeps only the Jellyfin user id + name in the
+  encrypted cookie `surflix_viewer` (30 days). The password is never stored or logged. Rate limit: 15 attempts per IP per hour.
+- `GET /api/viewer` returns the titles the user has finished (`/Users/{id}/Items?IsPlayed=true`, read with the server API key).
+- Watch order: watched titles get a check mark and a dimmed poster, plus an "Up next" button (first unwatched title on the main path).
+- Tested against a mock Jellyfin (login ok/wrong, cookie flags, token revoke, marks, "Up next", mobile menu). **Not yet tested
+  against the real server.** Check there: a series with all episodes watched is returned by `IsPlayed=true`; accounts with an
+  empty password; Jellyfin 12 accepts the unauthenticated `MediaBrowser Client=...` header on login.
+- Not done yet: marks on the single-film map and Galaxy, watch-later.
+
 ## 🟡 Follow-ups from the stories pilot
 
 - [x] ~~**Audit the `h` homage, inspired, visual and remake rows**~~ — done 2026-11-03, see the section below.
