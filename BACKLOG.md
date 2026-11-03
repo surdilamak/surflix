@@ -92,7 +92,7 @@
 - [ ] **16 APPROVED rows exist only in `connections-live.json`** (not in `scripts/curated/*.txt` or the seed), so a paragraph cannot attach to them and a rebuild of the seed does not know them. Examples: Coherence > Primer, The Love Witch > Vertigo, The Others > The Sixth Sense, Star Wars > Dune. The Dark Knight > Killing Joke was backported; the rest should be backported (with their text checked) when they get a paragraph. Five more live-only rows are REJECTED, which is expected.
 - [ ] **Talent and director rows (~580) are the one big group not yet audited in full.** The 2026-10-21 audit sampled them (352 of 371 talent and 166 of 169 director correct), so they are the lowest risk. Auditing the rest would mostly confirm.
 - [ ] **Scaling to the other ~950 connections needs per-connection research**, roughly the cost of this pilot times dozens. Talent and director rows are the thinnest on the page but their facts are the sparsest. Consider paragraphs only for connections with something genuinely interesting to say, and keep the one-liner for the rest.
-- [ ] **The 3D map panel was not tested with a long paragraph selected** (only the "Why they connect" list was checked in a browser). The panel scrolls (`overflow: auto`) but should be looked at.
+- [x] ~~**The 3D map panel with a long paragraph selected**~~ — checked 2026-11-03 in headless Chrome (driven over the DevTools protocol, WebGL via SwiftShader): the Batman (1989) paragraph from The Flash fits the desktop panel (about 565px, no scrolling needed, label and buttons visible) and, on a 390px phone, the panel sits under the stage with a readable measure and full-width buttons.
 
 ## 🟡 New titles that don't have a map yet (2026-10-26)
 
