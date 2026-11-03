@@ -119,6 +119,8 @@
   ~2.5 s after leaving, then moving.
 - Stage frame: the film map and Watch order stage are now a box (lighter fill, hairline border, rounded, inset from the screen edge)
   so the boundary with the dark header is visible. The Galaxy stays full-bleed on purpose (Evan agreed).
+- Watch order: the framed stage sits in a dark field (`.ref-saga-field`) so the white page background never shows at its sides or below
+  (the first version of the frame left white strips on this page; the film map was not affected because its stage is inside a dark section).
 - Film map (3D): zoom like Watch order. +/- and reset buttons with a percentage, two-finger pinch on touch screens, and
   Ctrl/⌘ + scroll (trackpad pinch). Plain scroll is deliberately not captured, so the page can still be scrolled past the stage;
   flip `onWheel` in `connection-graph.tsx` if you prefer plain-scroll zoom. 40px gap added below the stage box.

@@ -402,146 +402,149 @@ export function SagaStage({
         )}
       </section>
 
-      <div className="ref-stage ref-saga-stage" style={{ ['--saga-h' as string]: `${world.h + 56}px` }}>
-        <div className="ref-stage-view" ref={viewRef}>
-          <div className="ref-saga-track" ref={trackRef} style={{ width: world.w, height: world.h }}>
-            <svg className="ref-saga-rails" width={world.w} height={world.h} aria-hidden="true">
-              <g key={mode}>
-                {saga.lanes.map((l, i) => {
-                  const own = ordered.filter((e) => e.lane === l.id);
-                  if (!own.length) return null;
-                  const y = TOP + i * LANE_H + RAIL;
-                  const x1 = cardX(own[0]) + CW / 2;
-                  const x2 = cardX(own[own.length - 1]) + CW / 2;
-                  const parent = l.fork ? byKey.get(l.fork) : undefined;
-                  return (
-                    <g key={l.id} stroke={color(i)} fill="none" strokeWidth={3} strokeLinecap="round">
-                      <path d={`M${x1} ${y} H${x2}`} />
-                      {parent && (
-                        <path
-                          d={`M${cardX(parent) + CW / 2} ${cardY(parent) + RAIL} H${cardX(parent) - col / 2 + CW / 2} V${y} H${x1}`}
-                          strokeDasharray="2 9"
-                          strokeLinejoin="round"
-                        />
+      {/* dark field around the framed stage, so the page background never shows at its sides or below */}
+      <div className="ref-saga-field">
+        <div className="ref-stage ref-saga-stage" style={{ ['--saga-h' as string]: `${world.h + 56}px` }}>
+          <div className="ref-stage-view" ref={viewRef}>
+            <div className="ref-saga-track" ref={trackRef} style={{ width: world.w, height: world.h }}>
+              <svg className="ref-saga-rails" width={world.w} height={world.h} aria-hidden="true">
+                <g key={mode}>
+                  {saga.lanes.map((l, i) => {
+                    const own = ordered.filter((e) => e.lane === l.id);
+                    if (!own.length) return null;
+                    const y = TOP + i * LANE_H + RAIL;
+                    const x1 = cardX(own[0]) + CW / 2;
+                    const x2 = cardX(own[own.length - 1]) + CW / 2;
+                    const parent = l.fork ? byKey.get(l.fork) : undefined;
+                    return (
+                      <g key={l.id} stroke={color(i)} fill="none" strokeWidth={3} strokeLinecap="round">
+                        <path d={`M${x1} ${y} H${x2}`} />
+                        {parent && (
+                          <path
+                            d={`M${cardX(parent) + CW / 2} ${cardY(parent) + RAIL} H${cardX(parent) - col / 2 + CW / 2} V${y} H${x1}`}
+                            strokeDasharray="2 9"
+                            strokeLinejoin="round"
+                          />
+                        )}
+                      </g>
+                    );
+                  })}
+                </g>
+              </svg>
+
+              {ordered.map((e) => {
+                const li = laneOf(e.lane);
+                return (
+                  <button
+                    key={e.key}
+                    type="button"
+                    className="ref-saga-card"
+                    data-sel={selected?.key === e.key ? '' : undefined}
+                    data-missing={e.jellyfinId ? undefined : ''}
+                    data-watched={viewer.isWatched(e.mediaType, e.tmdbId) ? '' : undefined}
+                    aria-pressed={selected?.key === e.key}
+                    style={{
+                      width: CW,
+                      transform: `translate3d(${cardX(e)}px, ${cardY(e)}px, 0)`,
+                      ['--lane' as string]: color(li),
+                    }}
+                    onClick={() => choose(e)}
+                    onFocus={() => centerOn(e)}
+                  >
+                    {e.key === start?.key && <span className="ref-saga-start">{t('tl.start')}</span>}
+                    <span className="ref-frame" style={{ height: PH }}>
+                      {e.jellyfinId && jellyfinUrl ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={posterUrl(e.jellyfinId, jellyfinUrl, 220)} alt="" draggable={false} loading="lazy" />
+                      ) : (
+                        <span className="ref-saga-ghost">{t('tl.missing')}</span>
                       )}
-                    </g>
-                  );
-                })}
-              </g>
-            </svg>
+                      {viewer.isWatched(e.mediaType, e.tmdbId) && (
+                        <span className="ref-saga-seen" role="img" aria-label={t('viewer.watched')} title={t('viewer.watched')}>✓</span>
+                      )}
+                    </span>
+                    <i className="ref-saga-dot" style={{ top: RAIL - 6 }} />
+                    <span className="ref-saga-cap">
+                      <b>{e.title}</b>
+                      <small>{mode === 'story' ? e.when ?? released(e.release) : released(e.release)}</small>
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
 
-            {ordered.map((e) => {
-              const li = laneOf(e.lane);
-              return (
-                <button
-                  key={e.key}
-                  type="button"
-                  className="ref-saga-card"
-                  data-sel={selected?.key === e.key ? '' : undefined}
-                  data-missing={e.jellyfinId ? undefined : ''}
-                  data-watched={viewer.isWatched(e.mediaType, e.tmdbId) ? '' : undefined}
-                  aria-pressed={selected?.key === e.key}
-                  style={{
-                    width: CW,
-                    transform: `translate3d(${cardX(e)}px, ${cardY(e)}px, 0)`,
-                    ['--lane' as string]: color(li),
-                  }}
-                  onClick={() => choose(e)}
-                  onFocus={() => centerOn(e)}
-                >
-                  {e.key === start?.key && <span className="ref-saga-start">{t('tl.start')}</span>}
-                  <span className="ref-frame" style={{ height: PH }}>
-                    {e.jellyfinId && jellyfinUrl ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={posterUrl(e.jellyfinId, jellyfinUrl, 220)} alt="" draggable={false} loading="lazy" />
-                    ) : (
-                      <span className="ref-saga-ghost">{t('tl.missing')}</span>
-                    )}
-                    {viewer.isWatched(e.mediaType, e.tmdbId) && (
-                      <span className="ref-saga-seen" role="img" aria-label={t('viewer.watched')} title={t('viewer.watched')}>✓</span>
-                    )}
-                  </span>
-                  <i className="ref-saga-dot" style={{ top: RAIL - 6 }} />
-                  <span className="ref-saga-cap">
-                    <b>{e.title}</b>
-                    <small>{mode === 'story' ? e.when ?? released(e.release) : released(e.release)}</small>
-                  </span>
-                </button>
-              );
-            })}
+            <p className="ref-stage-hint">{t('tl.hint')}</p>
+
+            <div className="ref-saga-zoom">
+              <button type="button" onClick={() => zoomBy(1 / 1.35)} aria-label={t('tl.zoomOut')}>
+                −
+              </button>
+              <span aria-hidden="true">{zoomPct}%</span>
+              <button type="button" onClick={() => zoomBy(1.35)} aria-label={t('tl.zoomIn')}>
+                +
+              </button>
+              <button type="button" onClick={reset} aria-label={t('tl.fit')}>
+                ⤢
+              </button>
+            </div>
           </div>
 
-          <p className="ref-stage-hint">{t('tl.hint')}</p>
+          {selected && (
+            <aside className="ref-panel" ref={panelRef} aria-live="polite">
+              <p className="ref-panel-rel">
+                {t(mode === 'story' ? 'tl.posStory' : 'tl.posRelease', { n: pos, total: saga.total })}
+              </p>
+              <h3>
+                {selected.title}
+                <small>{selected.year}</small>
+              </h3>
+              <p>
+                {[selected.mediaType === 'tv' ? t('tl.series') : null, mode === 'story' ? selected.when : null, t('tl.released', { when: released(selected.release) })]
+                  .filter(Boolean)
+                  .join(' · ')}
+              </p>
+              {selected.note && <p>{selected.note[loc]}</p>}
 
-          <div className="ref-saga-zoom">
-            <button type="button" onClick={() => zoomBy(1 / 1.35)} aria-label={t('tl.zoomOut')}>
-              −
-            </button>
-            <span aria-hidden="true">{zoomPct}%</span>
-            <button type="button" onClick={() => zoomBy(1.35)} aria-label={t('tl.zoomIn')}>
-              +
-            </button>
-            <button type="button" onClick={reset} aria-label={t('tl.fit')}>
-              ⤢
-            </button>
-          </div>
-        </div>
-
-        {selected && (
-          <aside className="ref-panel" ref={panelRef} aria-live="polite">
-            <p className="ref-panel-rel">
-              {t(mode === 'story' ? 'tl.posStory' : 'tl.posRelease', { n: pos, total: saga.total })}
-            </p>
-            <h3>
-              {selected.title}
-              <small>{selected.year}</small>
-            </h3>
-            <p>
-              {[selected.mediaType === 'tv' ? t('tl.series') : null, mode === 'story' ? selected.when : null, t('tl.released', { when: released(selected.release) })]
-                .filter(Boolean)
-                .join(' · ')}
-            </p>
-            {selected.note && <p>{selected.note[loc]}</p>}
-
-            <div className="ref-panel-actions">
-              {selected.jellyfinId ? (
-                <>
-                  <a className="ref-btn" href={watchUrl(selected.jellyfinId, jellyfinUrl, serverId)} target="_blank" rel="noopener">
-                    {t('tl.watch')}
+              <div className="ref-panel-actions">
+                {selected.jellyfinId ? (
+                  <>
+                    <a className="ref-btn" href={watchUrl(selected.jellyfinId, jellyfinUrl, serverId)} target="_blank" rel="noopener">
+                      {t('tl.watch')}
+                    </a>
+                    <WatchLaterButton mediaType={selected.mediaType} tmdbId={selected.tmdbId} />
+                  </>
+                ) : (
+                  <a className="ref-btn" href={hubHref(`/browse?q=${encodeURIComponent(selected.title)}`)}>
+                    {t('tl.request')}
                   </a>
-                  <WatchLaterButton mediaType={selected.mediaType} tmdbId={selected.tmdbId} />
-                </>
-              ) : (
-                <a className="ref-btn" href={hubHref(`/browse?q=${encodeURIComponent(selected.title)}`)}>
-                  {t('tl.request')}
-                </a>
-              )}
-            </div>
+                )}
+              </div>
 
-            {selected.tmdbId && selected.mediaType && (
-              <LensSwitch
-                current="order"
-                mediaType={selected.mediaType}
-                tmdbId={selected.tmdbId}
-                sagaId={saga.id}
-                hasMap={selected.count > 0}
-              />
-            )}
+              {selected.tmdbId && selected.mediaType && (
+                <LensSwitch
+                  current="order"
+                  mediaType={selected.mediaType}
+                  tmdbId={selected.tmdbId}
+                  sagaId={saga.id}
+                  hasMap={selected.count > 0}
+                />
+              )}
 
-            <div className="ref-saga-step">
-              {neighbour(-1) && (
-                <button type="button" onClick={() => choose(neighbour(-1) as SagaEntry)}>
-                  ← {neighbour(-1)?.title}
-                </button>
-              )}
-              {neighbour(1) && (
-                <button type="button" onClick={() => choose(neighbour(1) as SagaEntry)}>
-                  {t('tl.next')}: {neighbour(1)?.title} →
-                </button>
-              )}
-            </div>
-          </aside>
-        )}
+              <div className="ref-saga-step">
+                {neighbour(-1) && (
+                  <button type="button" onClick={() => choose(neighbour(-1) as SagaEntry)}>
+                    ← {neighbour(-1)?.title}
+                  </button>
+                )}
+                {neighbour(1) && (
+                  <button type="button" onClick={() => choose(neighbour(1) as SagaEntry)}>
+                    {t('tl.next')}: {neighbour(1)?.title} →
+                  </button>
+                )}
+              </div>
+            </aside>
+          )}
+        </div>
       </div>
     </>
   );
