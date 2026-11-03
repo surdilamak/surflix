@@ -19,7 +19,7 @@ The Naked Gun (2025) > Naked Gun 33⅓: The Final Insult (1994) | universe | h |
 Scary Movie 2 (2001) > Scary Movie (2000) | universe | h | @sequel
 Scary Movie 3 (2003) > Scary Movie 2 (2001) | universe | h | @sequel
 Scary Movie 4 (2006) > Scary Movie 3 (2003) | universe | h | @sequel
-Scary Movie 5 (2013) > Scary Movie 4 (2006) | universe | h | @sequel
+Scary Movie 5 (2013) > Scary Movie 4 (2006) | universe | h | Scary Movie 5 is a standalone sequel to Scary Movie 4, the only entry without Cindy and Brenda. || Scary Movie 5 adalah sekuel mandiri Scary Movie 4, satu-satunya entri tanpa Cindy dan Brenda.
 Scary Movie (2026) > Scary Movie 5 (2013) | universe | h | Scary Movie (2026) returns to the original characters and bypasses Scary Movie 5, calling itself a spiritual sequel to the first two films. || Scary Movie (2026) kembali ke tokoh-tokoh awal dan melangkahi Scary Movie 5, menyebut dirinya sekuel spiritual dari dua film pertama.
 Teenage Mutant Ninja Turtles II: The Secret of the Ooze (1991) > Teenage Mutant Ninja Turtles (1990) | universe | h | @sequel
 Teenage Mutant Ninja Turtles III (1993) > Teenage Mutant Ninja Turtles II: The Secret of the Ooze (1991) | universe | h | @sequel
@@ -30,25 +30,25 @@ TRON: Ares (2025) > TRON: Legacy (2010) | universe | h | @sequel
 The Devil Wears Prada 2 (2026) > The Devil Wears Prada (2006) | universe | h | @sequel
 Black Phone 2 (2025) > The Black Phone (2022) | universe | h | @sequel
 Peaky Blinders: The Immortal Man (2026) > Peaky Blinders (2013) | universe | h | @sequel
-I Know What You Did Last Summer (2025) > I Know What You Did Last Summer (1997) | universe | h | @sequel
+I Know What You Did Last Summer (2025) > I Know What You Did Last Summer (1997) | universe | h | The 2025 film is the fourth installment and a sequel to I Still Know What You Did Last Summer (1998), not directly to the 1997 film. || Film 2025 ini adalah seri keempat dan sekuel I Still Know What You Did Last Summer (1998), bukan langsung dari film 1997.
 Patlabor 2: The Movie (1993) > Patlabor: The Movie (1989) | universe | h | @sequel
 T2 Trainspotting (2017) > Trainspotting (1996) | universe | h | @sequel
 Ju-On: White Ghost (2009) > Ju-on: The Grudge (2002) | universe | h | @series
 Ju-on: The Beginning of the End (2014) > Ju-On: White Ghost (2009) | universe | h | @series
 Inception: The Cobol Job (2010) > Inception (2010) | universe | h | @prequel
-Kill Bill: The Whole Bloody Affair (2011) > Kill Bill: Vol. 1 (2003) | universe | h | @cut
-Kill Bill: The Whole Bloody Affair (2011) > Kill Bill: Vol. 2 (2004) | universe | h | @cut
+Kill Bill: The Whole Bloody Affair (2011) > Kill Bill: Vol. 1 (2003) | universe | h | The Whole Bloody Affair combines Kill Bill: Vol. 1 and Vol. 2 into a single film. || The Whole Bloody Affair menggabungkan Kill Bill: Vol. 1 dan Vol. 2 menjadi satu film utuh.
+Kill Bill: The Whole Bloody Affair (2011) > Kill Bill: Vol. 2 (2004) | universe | h | The Whole Bloody Affair combines Kill Bill: Vol. 1 and Vol. 2 into a single film. || The Whole Bloody Affair menggabungkan Kill Bill: Vol. 1 dan Vol. 2 menjadi satu film utuh.
 Doctor Sleep (2019) > The Shining (1980) | universe | h | Doctor Sleep adapts Stephen King's sequel and recreates the Overlook Hotel of Kubrick's The Shining. || Doctor Sleep mengadaptasi sekuel Stephen King dan menghidupkan lagi Hotel Overlook dari The Shining karya Kubrick.
 Pearl (2022) > X (2022) | universe | h | @prequel
 Split (2017) > Unbreakable (2000) | universe | h | Split's final scene reveals it shares a universe with Unbreakable. || Adegan akhir Split mengungkap bahwa film itu satu semesta dengan Unbreakable.
-Glass (2019) > Split (2017) | universe | h | Glass brings the heroes of Unbreakable together with the villain of Split. || Glass mempertemukan pahlawan Unbreakable dengan penjahat dari Split.
-Pulp Fiction (1994) > Reservoir Dogs (1992) | universe | h | Vincent Vega and Vic Vega, Mr. Blonde, are brothers - never said on screen, only by Tarantino, who planned a prequel about the pair called Double V Vega. || Vincent Vega dan Vic Vega alias Mr. Blonde itu bersaudara - tidak pernah disebut di layar, cuma oleh Tarantino, yang berencana membuat prekuel tentang mereka berjudul Double V Vega.
-Death Proof (2007) > Kill Bill: Vol. 1 (2003) | universe | h | Sheriff Earl McGraw appears in both Death Proof and Kill Bill. || Sheriff Earl McGraw muncul di Death Proof maupun Kill Bill.
-The Cat Returns (2002) > Whisper of the Heart (1995) | universe | h | A spin-off, not a sequel: Baron Humbert von Gikkingen is the same character, and the cat Muta is Whisper's Moon. Both adapt Aoi Hiiragi manga. || Spin-off, bukan sekuel: Baron Humbert von Gikkingen tokoh yang sama, dan kucing Muta adalah Moon di Whisper. Keduanya mengadaptasi manga Aoi Hiiragi.
+Glass (2019) > Split (2017) | universe | h | Glass is the sequel to Split and the final film of the Unbreakable trilogy, uniting David Dunn and Elijah Price with Kevin Wendell Crumb. || Glass adalah sekuel Split dan film penutup trilogi Unbreakable, mempertemukan David Dunn dan Elijah Price dengan Kevin Wendell Crumb.
+Pulp Fiction (1994) > Reservoir Dogs (1992) | universe | h | Vincent Vega and Vic Vega (Mr. Blonde) are brothers; Tarantino once considered a prequel about them, Double V Vega, but it was never made. || Vincent Vega dan Vic Vega (Mr. Blonde) bersaudara; Tarantino pernah mempertimbangkan prekuel Double V Vega tentang mereka, tetapi tidak pernah dibuat.
+Death Proof (2007) > Kill Bill: Vol. 1 (2003) | universe | h | Michael Parks plays Earl McGraw in both Death Proof and Kill Bill: Vol. 1. || Michael Parks memerankan Earl McGraw di Death Proof maupun Kill Bill: Vol. 1.
+The Cat Returns (2002) > Whisper of the Heart (1995) | universe | h | A spin-off, not a sequel: Baron Humbert von Gikkingen is the same character from Whisper of the Heart. Both films adapt manga by Aoi Hiiragi. || Spin-off, bukan sekuel: Baron Humbert von Gikkingen adalah karakter yang sama dari Whisper of the Heart. Keduanya diadaptasi dari manga karya Aoi Hiiragi.
 Fallen Angels (1995) > Chungking Express (1994) | universe | h | Fallen Angels began as a third story planned for Chungking Express. || Fallen Angels bermula dari cerita ketiga yang direncanakan untuk Chungking Express.
 Objectified (2009) > Helvetica (2007) | universe | h | Objectified is the second film in Gary Hustwit's design trilogy that began with Helvetica. || Objectified adalah film kedua dalam trilogi desain Gary Hustwit yang diawali Helvetica.
 Urbanized (2011) > Objectified (2009) | universe | h | Urbanized completes Gary Hustwit's design trilogy. || Urbanized melengkapi trilogi desain Gary Hustwit.
-Daft Punk Unchained (2015) > Electroma (2006) | universe | h | Daft Punk Unchained documents the duo who made Electroma. || Daft Punk Unchained mendokumentasikan duo yang membuat Electroma.
+Daft Punk Unchained (2015) > Electroma (2006) | universe | h | Daft Punk Unchained is a documentary about Daft Punk, the duo behind Electroma. || Daft Punk Unchained adalah film dokumenter tentang Daft Punk, duo di balik Electroma.
 
 # ============ ANIME: EVANGELION / DIGIMON / LAIN ============
 Evangelion: 1.0 You Are (Not) Alone (2007) > Neon Genesis Evangelion (1995) | universe | h | The Rebuild films retell Neon Genesis Evangelion, starting here. || Film Rebuild menceritakan ulang Neon Genesis Evangelion, dimulai dari film ini.
@@ -56,7 +56,7 @@ Evangelion: 2.0 You Can (Not) Advance (2009) > Evangelion: 1.0 You Are (Not) Alo
 Evangelion: 3.0 You Can (Not) Redo (2012) > Evangelion: 2.0 You Can (Not) Advance (2009) | universe | h | @sequel
 Evangelion: 3.0+1.0 Thrice Upon a Time (2021) > Evangelion: 3.0 You Can (Not) Redo (2012) | universe | h | @sequel
 EVANGELION:3.0(-46h) (2023) > Evangelion: 3.0 You Can (Not) Redo (2012) | universe | h | @prequel
-Digimon Adventure tri. Part 1: Reunion (2015) > Digimon: Digital Monsters (1999) | universe | h | @sequel
+Digimon Adventure tri. Part 1: Reunion (2015) > Digimon: Digital Monsters (1999) | universe | h | Digimon Adventure tri. Part 1: Reunion starts the six-part tri. series, a sequel to Digimon Adventure and Digimon Adventure 02 set six years after the first series. || Digimon Adventure tri. Part 1: Reunion membuka seri enam film tri., sekuel Digimon Adventure dan Digimon Adventure 02 yang berlatar enam tahun setelah serial pertama.
 Digimon Adventure tri. Part 2: Determination (2016) > Digimon Adventure tri. Part 1: Reunion (2015) | universe | h | @sequel
 Digimon Adventure tri. Part 3: Confession (2016) > Digimon Adventure tri. Part 2: Determination (2016) | universe | h | @sequel
 Digimon Adventure tri. Part 4: Loss (2017) > Digimon Adventure tri. Part 3: Confession (2016) | universe | h | @sequel
@@ -72,8 +72,8 @@ Digimon: Digital Monsters (2020) > Digimon: Digital Monsters (1999) | remake | h
 # — the spine —
 Dragon Ball Z (1989) > Dragon Ball (1986) | universe | h | @sequel
 Dragon Ball Super (2015) > Dragon Ball Z (1989) | universe | h | @sequel
-Dragon Ball Daima (2024) > Dragon Ball Super (2015) | universe | h | Daima was made after Dragon Ball Super but is set before it, a year after the Buu arc, inside the ten-year gap that closes Z. || Daima dibuat setelah Dragon Ball Super tetapi berlatar sebelumnya, setahun setelah arc Buu, di dalam jeda sepuluh tahun yang menutup Z.
-Dragon Ball Super: Beerus (2026) > Dragon Ball Super (2015) | universe | h | @series
+Dragon Ball Daima (2024) > Dragon Ball Super (2015) | universe | h | Daima is a side story set one year after the Buu saga, inside the ten-year timeskip that Dragon Ball Super's story also covers. Made after Super, but not a direct prequel. || Daima adalah kisah sampingan yang berlatar setahun setelah saga Buu, di dalam lompatan waktu sepuluh tahun yang juga menjadi latar Dragon Ball Super. Bukan prekuel langsung.
+Dragon Ball Super: Beerus (2026) > Dragon Ball Super (2015) | universe | h | Dragon Ball Super: Beerus is an enhanced remake and remaster of the 2015 Dragon Ball Super anime, with a reconstructed narrative and updated animation. || Dragon Ball Super: Beerus adalah remake dan remaster anime Dragon Ball Super (2015) dengan alur yang disusun ulang dan animasi yang diperbarui.
 
 # — recuts and retellings —
 Dragon Ball Z Kai: The Final Chapters (2009) > Dragon Ball Z (1989) | remake | h | Kai recuts Dragon Ball Z to follow the manga more closely, dropping most of the filler added while the manga was still being written. || Kai memangkas ulang Dragon Ball Z agar lebih setia pada manganya, membuang sebagian besar filler yang ditambahkan selagi manganya masih ditulis.
@@ -84,7 +84,7 @@ Dragon Ball: Sleeping Princess in Devil's Castle (1987) > Dragon Ball (1986) | u
 
 # — Z side films, in the arcs they sit in —
 Dragon Ball Z: Bardock - The Father of Goku (1990) > Dragon Ball Z (1989) | universe | h | @prequel
-Dragon Ball Z: Dead Zone (1989) > Dragon Ball Z (1989) | universe | h | Set just before Raditz arrives: Goku and Piccolo are still enemies and Gohan has no idea what he is. || Berlatar tepat sebelum Raditz datang: Goku dan Piccolo masih musuh dan Gohan belum tahu kekuatannya.
+Dragon Ball Z: Dead Zone (1989) > Dragon Ball Z (1989) | universe | h | A prelude to the Z TV series. Garlic Jr. kidnaps young Gohan for his Dragon Ball, and Goku and Piccolo must team up despite their old rivalry. || Prekuel bagi serial TV Z. Garlic Jr. menculik Gohan kecil demi Dragon Ball-nya, dan Goku serta Piccolo terpaksa bekerja sama meski masih bersaing.
 Dragon Ball Z: The World's Strongest (1990) > Dragon Ball Z (1989) | universe | h | @film-of-series
 Dragon Ball Z: The Tree of Might (1990) > Dragon Ball Z (1989) | universe | h | @film-of-series
 Dragon Ball Z: Lord Slug (1991) > Dragon Ball Z (1989) | universe | h | @film-of-series
@@ -99,7 +99,7 @@ Dragon Ball Z: Fusion Reborn (1995) > Dragon Ball Z (1989) | universe | h | @fil
 Dragon Ball Z: Wrath of the Dragon (1995) > Dragon Ball Z (1989) | universe | h | @film-of-series
 
 # — the two Z films Super folded back into the main story —
-Dragon Ball Z: Battle of Gods (2013) > Dragon Ball Z (1989) | universe | h | @sequel
+Dragon Ball Z: Battle of Gods (2013) > Dragon Ball Z (1989) | universe | h | Dragon Ball Z: Battle of Gods is set during the ten-year timeskip after the Majin Buu saga, at chapter 517 of the original manga. || Dragon Ball Z: Battle of Gods berlatar di lompatan waktu sepuluh tahun setelah saga Majin Buu, pada bab 517 manga aslinya.
 Dragon Ball Z: Resurrection 'F' (2015) > Dragon Ball Z: Battle of Gods (2013) | universe | h | @sequel
 Dragon Ball Super (2015) > Dragon Ball Z: Battle of Gods (2013) | remake | h | Super opens by retelling Battle of Gods across its first arc. || Super dibuka dengan menceritakan ulang Battle of Gods sepanjang arc pertamanya.
 Dragon Ball Super (2015) > Dragon Ball Z: Resurrection 'F' (2015) | remake | h | Super's second arc retells Resurrection 'F'. || Arc kedua Super menceritakan ulang Resurrection 'F'.
@@ -108,10 +108,10 @@ Dragon Ball Super: Broly (2018) > Dragon Ball Z: Broly - The Legendary Super Sai
 Dragon Ball Super: Super Hero (2022) > Dragon Ball Super (2015) | universe | h | @film-of-series
 
 # — branches off the main line —
-Dragon Ball Z: The History of Trunks (1993) > Dragon Ball Z (1989) | universe | h | The alternate future the androids won, where Trunks grew up alone — the timeline he travels back from. || Masa depan alternatif tempat para android menang dan Trunks tumbuh sendirian — garis waktu asal perjalanannya.
+Dragon Ball Z: The History of Trunks (1993) > Dragon Ball Z (1989) | universe | h | A TV special showing the original timeline Trunks comes from: Goku dead of a heart virus, and Trunks trained by Gohan as he tries to defeat Androids 17 and 18. || Spesial TV yang memperlihatkan garis waktu asal Trunks: Goku wafat karena virus jantung, dan Trunks dilatih Gohan saat berusaha mengalahkan Android 17 dan 18.
 Dragon Ball GT (1996) > Dragon Ball Z (1989) | universe | h | Picks up five years after Z ends, but Toriyama did not write it, so it is usually read as a branch rather than the main line. || Melanjutkan lima tahun setelah Z berakhir, tetapi tidak ditulis Toriyama, jadi umumnya dibaca sebagai cabang, bukan garis utama.
-Dragon Ball GT: A Hero's Legacy (1997) > Dragon Ball GT (1996) | universe | h | @film-of-series
-Super Dragon Ball Heroes (2018) > Dragon Ball Super (2015) | universe | h | A promotional series built from card-game what-ifs, outside the main story. || Serial promosi yang dibangun dari skenario andai-andai permainan kartu, di luar cerita utama.
+Dragon Ball GT: A Hero's Legacy (1997) > Dragon Ball GT (1996) | universe | h | A Hero's Legacy is the only Dragon Ball GT TV special, first aired in March 1997 between episodes 41 and 42 of the series. || A Hero's Legacy adalah satu-satunya spesial televisi Dragon Ball GT, tayang Maret 1997 di antara episode 41 dan 42 serial ini.
+Super Dragon Ball Heroes (2018) > Dragon Ball Super (2015) | universe | h | A promotional anime by Toei Animation based on the Super Dragon Ball Heroes card game, adapting the game's Prison Planet arc. || Anime promosi buatan Toei Animation berdasarkan gim kartu Super Dragon Ball Heroes, yang mengadaptasi alur Prison Planet dari gim tersebut.
 Dr. Slump: Arale-chan (1981) > Dragon Ball (1986) | talent | h | Dr. Slump and Dragon Ball share a creator, Akira Toriyama, and Arale makes cameos in Dragon Ball. || Dr. Slump dan Dragon Ball punya kreator yang sama, Akira Toriyama, dan Arale muncul sebagai cameo di Dragon Ball.
 
 # ============ ONE PIECE ============
@@ -130,14 +130,14 @@ One Piece Episode of Merry: The Tale of One More Friend (2013) > One Piece (1999
 One Piece Episode of Sabo: The Three Brothers' Bond - The Miraculous Reunion and the Inherited Will (2015) > One Piece (1999) | remake | h | An abridged remake of Sabo's childhood and the Dressrosa arc, told through Sabo and his sworn brothers Ace and Luffy. || Remake ringkas masa kecil Sabo dan arc Dressrosa, diceritakan lewat Sabo serta saudara angkatnya, Ace dan Luffy.
 
 # — standalone films, placed by who is aboard —
-One Piece: The Movie (2000) > One Piece (1999) | universe | h | Four Straw Hats and a freshly painted Going Merry, so it sits between Syrup Village and the Baratie. || Baru empat anggota dan Going Merry yang catnya masih baru, jadi letaknya antara Syrup Village dan Baratie.
+One Piece: The Movie (2000) > One Piece (1999) | universe | h | Only four Straw Hats are aboard and they still lack a cook, which fits between Syrup Village and the Baratie. || Baru empat Topi Jerami di kapal dan mereka masih belum punya koki, sehingga cocok di antara Syrup Village dan Baratie.
 One Piece: Clockwork Island Adventure (2001) > One Piece (1999) | universe | h | Zoro carries his Loguetown blades and Usopp his goggles, which puts it just before Reverse Mountain. || Zoro membawa pedang Loguetown dan Usopp memakai gogglenya, yang menaruhnya tepat sebelum Reverse Mountain.
 One Piece: Chopper's Kingdom on the Island of Strange Animals (2002) > One Piece (1999) | universe | h | Chopper is aboard but neither Vivi nor Robin is — a gap that barely exists in the series, and the first film to openly contradict it. || Chopper sudah ikut tetapi Vivi maupun Robin tidak ada — celah yang hampir tidak ada di serialnya, dan film pertama yang terang-terangan bertentangan dengannya.
 One Piece: Dead End Adventure (2003) > One Piece (1999) | universe | h | Robin has joined, the crew still sails the Going Merry, and nobody knows their new bounties yet. || Robin sudah bergabung, kru masih memakai Going Merry, dan belum ada yang tahu hadiah buruan baru mereka.
 One Piece: Curse of the Sacred Sword (2004) > One Piece (1999) | universe | h | Here the crew does know its post-Alabasta bounties, which is what places it after Dead End Adventure. || Di sini kru sudah tahu hadiah buruan pasca-Alabasta, itu yang menaruhnya setelah Dead End Adventure.
-One Piece: Baron Omatsuri and the Secret Island (2005) > One Piece (1999) | universe | h | Robin is aboard and the Going Merry is still afloat, which is as close as the film lets anyone place it. || Robin sudah ikut dan Going Merry masih berlayar, cuma sejauh itu filmnya bisa ditempatkan.
-One Piece: Giant Mecha Soldier of Karakuri Castle (2006) > One Piece (1999) | universe | h | Usopp is building the Perfect Clima-Tact in the opening credits, so it is set before Water 7. || Usopp sedang merakit Perfect Clima-Tact di kredit pembuka, jadi berlatar sebelum Water 7.
-One Piece Film: Strong World (2009) > One Piece (1999) | universe | h | Brook's first film and the only one Oda wrote; the crew is complete and the Marines unchanged, so it sits between Thriller Bark and Sabaody. || Film pertama Brook dan satu-satunya yang ditulis Oda; krunya lengkap dan Marinir belum berubah, jadi letaknya antara Thriller Bark dan Sabaody.
+One Piece: Baron Omatsuri and the Secret Island (2005) > One Piece (1999) | universe | h | Robin is already on the crew, but the film gives no exact place in the story. || Robin sudah menjadi anggota kru, tetapi film ini tidak menunjukkan posisi pastinya dalam alur cerita.
+One Piece: Giant Mecha Soldier of Karakuri Castle (2006) > One Piece (1999) | universe | h | Usopp is seen working on the Perfect Clima-Tact in the opening credits; the film does not fit any exact point in the series. || Usopp terlihat mengerjakan Perfect Clima-Tact di opening; film ini tidak punya posisi pasti dalam alur seri.
+One Piece Film: Strong World (2009) > One Piece (1999) | universe | h | Written by Eiichiro Oda himself, this film sits between the Thriller Bark and Sabaody Archipelago arcs: Brook is on the crew and Sengoku and Garp still hold their posts. || Ditulis Eiichiro Oda sendiri, film ini berada di antara arc Thriller Bark dan Sabaody Archipelago: Brook sudah menjadi kru dan Sengoku serta Garp masih menjabat.
 One Piece 3D: Straw Hat Chase (2011) > One Piece (1999) | universe | h | The last film set before the two-year timeskip. || Film terakhir yang berlatar sebelum lompatan waktu dua tahun.
 One Piece Film: Z (2012) > One Piece (1999) | universe | h | The first film after the timeskip: the crew has reached the New World but Law is not with them yet. || Film pertama setelah lompatan waktu: kru sudah sampai New World tetapi Law belum ikut.
 One Piece Film: GOLD (2016) > One Piece (1999) | universe | h | Doflamingo has already fallen and Nami still carries her Sorcery Clima-Tact, placing it between Dressrosa and Zou. || Doflamingo sudah tumbang dan Nami masih memakai Sorcery Clima-Tact, menaruhnya antara Dressrosa dan Zou.
@@ -171,12 +171,12 @@ Pokémon: Lucario and the Mystery of Mew (2005) > Pokemon (1997) | universe | h 
 Pokémon Ranger and the Temple of the Sea (2006) > Pokemon (1997) | universe | h | The fourth and last Hoenn-era film. || Film era Hoenn keempat sekaligus terakhir.
 Pokémon: The Rise of Darkrai (2007) > Pokemon (1997) | universe | h | The first Sinnoh-era film, from the Diamond and Pearl run of the series. || Film era Sinnoh pertama, dari masa Diamond and Pearl serialnya.
 Pokémon: Giratina and the Sky Warrior (2008) > Pokémon: The Rise of Darkrai (2007) | universe | h | @sequel
-Pokémon: Arceus and the Jewel of Life (2009) > Pokémon: Giratina and the Sky Warrior (2008) | universe | h | Closes the one run of films the wiki calls a trilogy: Darkrai, Giratina, then Arceus. || Menutup satu-satunya rangkaian film yang disebut trilogi oleh wikinya: Darkrai, Giratina, lalu Arceus.
+Pokémon: Arceus and the Jewel of Life (2009) > Pokémon: Giratina and the Sky Warrior (2008) | universe | h | A direct sequel to Giratina and the Sky Warrior, and the third of the Diamond and Pearl films that follow on from The Rise of Darkrai. || Sekuel langsung Giratina and the Sky Warrior, dan film ketiga dari rangkaian Diamond and Pearl yang berlanjut dari The Rise of Darkrai.
 Pokémon: Giratina and the Sky Warrior (2008) > Pokemon (1997) | universe | h | A Sinnoh-era film, with Ash travelling alongside Dawn and Brock. || Film era Sinnoh, Ash bepergian bersama Dawn dan Brock.
 Pokémon: Arceus and the Jewel of Life (2009) > Pokemon (1997) | universe | h | A Sinnoh-era film, from the Diamond and Pearl run of the series. || Film era Sinnoh, dari masa Diamond and Pearl serialnya.
 Pokémon: Zoroark - Master of Illusions (2010) > Pokemon (1997) | universe | h | Zoroark is a Unova Pokémon, but this is still a Sinnoh-era film and the last of the four. || Zoroark itu Pokémon Unova, tetapi ini tetap film era Sinnoh dan yang terakhir dari empat film itu.
 Pokémon the Movie: White - Victini and Zekrom (2011) > Pokemon (1997) | universe | h | The first Unova-era film, from the Best Wishes run of the series. || Film era Unova pertama, dari masa Best Wishes serialnya.
-Pokémon the Movie: Black - Victini and Reshiram (2011) > Pokémon the Movie: White - Victini and Zekrom (2011) | universe | h | Two versions of one film released the same day, differing in their legendary and a few scenes — and the dub swaps the labels, so the Japanese Black is the English White. || Dua versi dari satu film yang rilis di hari yang sama, beda legendaris dan beberapa adegan — dan dubnya menukar labelnya, jadi Black versi Jepang adalah White versi Inggris.
+Pokémon the Movie: Black - Victini and Reshiram (2011) > Pokémon the Movie: White - Victini and Zekrom (2011) | universe | h | Two versions of one film released the same day in Japan; they differ in which legendary Pokémon appears and where, plus some other changes. || Dua versi dari satu film yang dirilis di Jepang pada hari yang sama; bedanya ada pada legendaris yang muncul dan di mana ia muncul, ditambah beberapa perubahan lain.
 Pokémon the Movie: Black - Victini and Reshiram (2011) > Pokemon (1997) | universe | h | A Unova-era film, from the Best Wishes run of the series. || Film era Unova, dari masa Best Wishes serialnya.
 Pokémon the Movie: Kyurem vs. the Sword of Justice (2012) > Pokemon (1997) | universe | h | The second Unova-era film, from the Best Wishes run of the series. || Film era Unova kedua, dari masa Best Wishes serialnya.
 Pokémon the Movie: Genesect and the Legend Awakened (2013) > Pokemon (1997) | universe | h | The third and last Unova-era film. || Film era Unova ketiga sekaligus terakhir.
@@ -188,14 +188,14 @@ Pokémon the Movie: Volcanion and the Mechanical Marvel (2016) > Pokemon (1997) 
 Pokémon the Movie: Mewtwo Strikes Back - Evolution (2019) > Pokémon: The First Movie (1998) | remake | h | A CGI remake of the first film, near shot-for-shot with minimal script changes. Its events take place during Pokémon: Indigo League. || Remake CGI film pertama, nyaris adegan per adegan dengan perubahan naskah minimal. Peristiwanya terjadi pada masa Pokémon: Indigo League.
 Pokémon the Movie: Mewtwo Strikes Back - Evolution (2019) > Pokemon (1997) | universe | h | Remakes the first film, so it sits at the Kanto era rather than at its 2019 release. || Me-remake film pertama, jadi posisinya di era Kanto, bukan di tahun rilisnya 2019.
 Pokémon the Movie: I Choose You! (2017) > Pokemon (1997) | remake | h | The 20th-anniversary film, first of the alternate-timeline trilogy: a loose adaptation of the anime's first episode and much of season one, with an original story. || Film ulang tahun ke-20, pembuka trilogi garis waktu alternatif: adaptasi longgar episode pertama dan sebagian besar musim pertama anime, dengan cerita orisinal.
-Pokémon the Movie: The Power of Us (2018) > Pokémon the Movie: I Choose You! (2017) | universe | h | @sequel
+Pokémon the Movie: The Power of Us (2018) > Pokémon the Movie: I Choose You! (2017) | universe | h | Second film of the alternate-timeline trilogy that begins with I Choose You!, billed as its sequel; it tells a new story set in the same alternate timeline. || Film kedua dari trilogi lini masa alternatif yang dibuka I Choose You!, dan disebut sekuelnya; ceritanya baru, tetapi masih berada di lini masa alternatif yang sama.
 Pokémon the Movie: The Power of Us (2018) > Pokemon (1997) | universe | h | An original story in the I Choose You! timeline, not in the TV anime's. || Cerita orisinal di garis waktu I Choose You!, bukan di serial TV.
 Pokémon the Movie: Secrets of the Jungle (2020) > Pokémon the Movie: The Power of Us (2018) | universe | h | The third and last film in the I Choose You! timeline. || Film ketiga sekaligus terakhir di garis waktu I Choose You!.
 Pokémon the Movie: Secrets of the Jungle (2020) > Pokemon (1997) | universe | h | An original story in the I Choose You! timeline, not in the TV anime's. || Cerita orisinal di garis waktu I Choose You!, bukan di serial TV.
 
 # — outside the anime —
-Pokémon Detective Pikachu (2019) > Pokémon: The First Movie (1998) | universe | m | Mewtwo, the villain of the first film, returns here in live action — though this film adapts the 2016 game and fixes no point in the anime's timeline. || Mewtwo, penjahat film pertama, kembali di sini dalam live action — meski film ini mengadaptasi game 2016 dan tidak menentukan titik mana pun di garis waktu animenya.
-The Power of One: The Pokémon 2000 Movie Special (2000) > Pokemon (1997) | universe | h | Not a film but a half-hour promo special aired once on The WB before the second movie opened in America: soundtrack performances and behind-the-scenes, no story. || Bukan film melainkan acara promo setengah jam yang tayang sekali di The WB sebelum film kedua rilis di Amerika: penampilan soundtrack dan di balik layar, tanpa cerita.
+Pokémon Detective Pikachu (2019) > Pokémon: The First Movie (1998) | universe | m | Mewtwo appears in this live-action film as a captive targeted by Howard Clifford for its abilities, in a separate story loosely based on the 2016 Detective Pikachu game. || Mewtwo muncul di film live-action ini sebagai tawanan yang diincar Howard Clifford demi kemampuannya, dalam cerita terpisah yang longgar berdasarkan gim Detective Pikachu 2016.
+The Power of One: The Pokémon 2000 Movie Special (2000) > Pokemon (1997) | universe | h | A music-documentary special tied to the US release of Pokémon: The Movie 2000, not a feature film (TMDB genres: Documentary, Music). || Spesial dokumenter musik yang terkait perilisan AS Pokémon: The Movie 2000, bukan film layar lebar (genre TMDB: Documentary, Music).
 
 # ============ SERIAL: SPIN-OFF / SEQUEL / REMAKE ============
 Better Call Saul (2015) > Breaking Bad (2008) | universe | h | @spinoff
@@ -204,9 +204,9 @@ A Knight of the Seven Kingdoms (2026) > Game of Thrones (2011) | universe | h | 
 Gen V (2023) > The Boys (2019) | universe | h | @spinoff
 Hunter x Hunter (2011) > Hunter × Hunter (1999) | universe | h | @remake
 Fullmetal Alchemist: Brotherhood (2009) > Fullmetal Alchemist (2003) | universe | h | @adaptation
-Rurouni Kenshin (2023) > Rurouni Kenshin (1996) | universe | h | @remake
+Rurouni Kenshin (2023) > Rurouni Kenshin (1996) | universe | h | A new anime adaptation of the same Rurouni Kenshin manga as the 1996 series, by Liden Films. || Adaptasi anime baru dari manga Rurouni Kenshin yang sama dengan serial 1996, dibuat oleh Liden Films.
 Naruto Shippuden (2007) > Naruto (2002) | universe | h | @sequel
-The Twilight Zone (2019) > The Twilight Zone (1959) | universe | h | @reboot
+The Twilight Zone (2019) > The Twilight Zone (1959) | universe | h | A revival of Rod Serling's 1959 anthology series, with Jordan Peele as host and narrator. || Kebangkitan serial antologi Rod Serling tahun 1959, dengan Jordan Peele sebagai pembawa acara dan narator.
 Demon Slayer: Kimetsu no Yaiba Infinity Castle (2025) > Demon Slayer: Kimetsu no Yaiba (2019) | universe | h | @film-of-series
 The First Slam Dunk (2022) > Slam Dunk (1993) | universe | h | @adaptation
 Fever Pitch: The Battle for the Premier League (2022) > Fever Pitch: The Rise of the Premier League (2021) | universe | h | @series
