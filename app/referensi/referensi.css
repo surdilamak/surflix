@@ -209,8 +209,11 @@
 .ref-stage-wrap { position: relative; margin-top: 48px; animation: ref-fade 1s var(--ease) 0.55s backwards; }
 .ref-why { padding: var(--gap-chapter) var(--margin) var(--gap-chapter); }
 .ref-why h2 { font-size: var(--step-head); margin-bottom: 64px; max-width: 14ch; }
-.ref-why-row { display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 24px; align-items: start; }
+.ref-why-row { display: grid; grid-template-columns: 96px minmax(0, 1fr) 176px; gap: 24px; align-items: start; }
 .ref-why-row + .ref-why-row { margin-top: 36px; }
+.ref-why-actions { display: grid; gap: 8px; justify-items: stretch; }
+.ref-why-actions .ref-later { padding: 0 12px; white-space: nowrap; }
+.ref-why-actions .ref-later-err { text-align: center; }
 .ref-why-row .ref-frame { height: 144px; }
 .ref-why-name { font-size: var(--step-lead); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; }
 .ref-why-name small { font-size: var(--step-small); font-weight: 400; color: var(--muted); letter-spacing: 0; margin-left: 8px; }
@@ -244,7 +247,8 @@
   .ref-footer nav { flex-wrap: wrap; gap: 8px 20px; }
   .ref-why-row { grid-template-columns: 72px minmax(0, 1fr); }
   .ref-why-row .ref-frame { height: 108px; }
-  .ref-why-row .ref-btn { grid-column: 1 / -1; width: 100%; }
+  .ref-why-actions { grid-column: 1 / -1; grid-template-columns: 1fr 1fr; }
+  .ref-why-row .ref-btn { width: 100%; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -106,7 +106,7 @@
   an avatar + name menu with Sign out; inside the phone menu it is a full-width row). Watch order also shows a "Sign in to track what
   you watched" button while signed out.
 - **Watch later** (`components/connections/watch-later-button.tsx`, `POST /api/viewer/later`): secondary button next to Watch on Watch
-  order, the film map panel and the film page. It saves to a playlist named "Watch later" owned by the viewer in Jellyfin (created on
+  order, the film map panel, the film page and every row of "Why they connect". Saving a series adds all its episodes (confirmed on the real server). It saves to a playlist named "Watch later" owned by the viewer in Jellyfin (created on
   first use), so it also appears in the Jellyfin apps; click again to remove. Signed out, a click opens the sign-in dialog.
   Tested against the mock only. **Check on the real server:** playlist creation with `UserId` in the body (`POST /Playlists`), that the
   playlist shows under the user's own Playlists in Jellyfin, and that adding a series works (a series may be expanded into episodes;

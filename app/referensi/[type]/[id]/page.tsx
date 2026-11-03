@@ -209,9 +209,12 @@ export default function ReferensiFilmPage() {
                 )}
               </div>
               {n.jellyfinId && (
-                <a className="ref-btn" href={watchUrl(n.jellyfinId, jellyfinUrl, config.jellyfinServerId)} target="_blank" rel="noopener">
-                  {t('detail.tap')}
-                </a>
+                <div className="ref-why-actions">
+                  <a className="ref-btn" href={watchUrl(n.jellyfinId, jellyfinUrl, config.jellyfinServerId)} target="_blank" rel="noopener">
+                    {t('detail.tap')}
+                  </a>
+                  <WatchLaterButton mediaType={n.mediaType} tmdbId={n.tmdbId} />
+                </div>
               )}
             </div>
           );
