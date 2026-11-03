@@ -17,8 +17,8 @@ import { LensSwitch } from './lens-switch';
 
 // [tmdbId, mediaType, title, year, jellyfinId, degree, cluster, x, y]
 type N = [number, string, string, number | null, string | null, number, number, number, number];
-// [a, b, relIndex, srcIsA, pending]
-type E = [number, number, number, number, number?];
+// [a, b, relIndex, srcIsA, pending, kind|null]
+type E = [number, number, number, number, number?, (string | null)?];
 export interface GalaxyData {
   rels: string[];
   nodes: N[];
@@ -80,11 +80,12 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
   const { nodes, edges, rels } = data;
 
   const nb = useMemo(() => {
-    const list: Array<Array<{ other: number; rel: number; edge: number; srcIsMe: boolean; pending: boolean }>> = nodes.map(() => []);
+    const list: Array<Array<{ other: number; rel: number; edge: number; srcIsMe: boolean; pending: boolean; kind: string | null }>> = nodes.map(() => []);
     edges.forEach((e, i) => {
       const pending = e[4] === 1;
-      list[e[0]].push({ other: e[1], rel: e[2], edge: i, srcIsMe: e[3] === 1, pending });
-      list[e[1]].push({ other: e[0], rel: e[2], edge: i, srcIsMe: e[3] !== 1, pending });
+      const kind = e[5] ?? null;
+      list[e[0]].push({ other: e[1], rel: e[2], edge: i, srcIsMe: e[3] === 1, pending, kind });
+      list[e[1]].push({ other: e[0], rel: e[2], edge: i, srcIsMe: e[3] !== 1, pending, kind });
     });
     return list;
   }, [nodes, edges]);
@@ -672,7 +673,7 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
                 <button type="button" onClick={() => open(x.other)}>
                   <span className="ref-mark" style={{ '--c': REL_VAR[rels[x.rel]] } as React.CSSProperties} />
                   <b>{nodes[x.other][2]}</b>
-                  <small>{rel(rels[x.rel], x.srcIsMe ? 'out' : 'in')}</small>
+                  <small>{rel(rels[x.rel], x.srcIsMe ? 'out' : 'in', x.kind)}</small>
                   {x.pending && <em className="ref-galaxy-wait">{t('galaxy.waiting')}</em>}
                 </button>
               </li>

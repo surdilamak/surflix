@@ -37,8 +37,8 @@ export async function GET(req: NextRequest) {
       sagas,
       // [tmdbId, mediaType, title, year, jellyfinId, degree, cluster, x, y]
       nodes: nodes.map((n, i) => [n.tmdbId, n.mediaType, n.title, n.year, n.jellyfinId, n.degree, cluster[i], pos[i][0], pos[i][1]]),
-      // [a, b, relIndex, srcIsA, pending]
-      edges: edges.map((e) => [e.a, e.b, RELS.indexOf(e.relationship), e.srcIsA ? 1 : 0, e.pending ? 1 : 0]),
+      // [a, b, relIndex, srcIsA, pending, kind|null]
+      edges: edges.map((e) => [e.a, e.b, RELS.indexOf(e.relationship), e.srcIsA ? 1 : 0, e.pending ? 1 : 0, e.kind ?? null]),
     };
     cache.set(preview, { key, at: Date.now(), body });
     return NextResponse.json({ ...body, ...extra });

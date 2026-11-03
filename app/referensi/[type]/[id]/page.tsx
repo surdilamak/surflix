@@ -193,7 +193,7 @@ export default function ReferensiFilmPage() {
                 </p>
                 <p className="ref-why-rel">
                   <span className="ref-mark" style={{ '--c': REL_VAR[e.relationship] } as React.CSSProperties} />
-                  {rel(e.relationship, e.direction)}
+                  {rel(e.relationship, e.direction, e.kind)}
                 </p>
                 {story(e) ? (
                   <p className="ref-why-reason ref-why-story">{story(e)}</p>

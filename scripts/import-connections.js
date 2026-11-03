@@ -54,7 +54,9 @@ const pair = (a) => ({
       stat.skippedAdmin++;
     } else {
       stat.refreshed++;
-      if (apply) await prisma.filmConnection.update({ where: pair(r), data: rest });
+      // The file is the source of truth for the optional fields, so a row that no longer has a
+      // paragraph or kind loses it too (they are omitted from the JSON when empty).
+      if (apply) await prisma.filmConnection.update({ where: pair(r), data: { kind: null, storyEn: null, story: null, ...rest } });
       // Opt-in: baris yang ditandai REJECTED di file (hasil audit fakta) ikut di-reject di database.
       if (withRejections && status === 'REJECTED' && had.status !== 'REJECTED') {
         stat.rejected++;

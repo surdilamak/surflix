@@ -14,6 +14,7 @@ export interface PortalRef {
   direction: 'out' | 'in';
   reason: string;
   reasonEn: string | null;
+  kind?: string | null;
 }
 
 export interface PortalFilm {

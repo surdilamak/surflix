@@ -61,11 +61,23 @@ const TEMPLATES = {
 };
 const RELS = new Set(['homage', 'inspired', 'visual', 'remake', 'universe', 'director', 'talent']);
 
+// Optional finer label, written `universe/prequel` in the relationship column. Keep in sync with
+// REL_KINDS in lib/i18n.ts. A kind is only meaningful for these relationship types.
+const KINDS = {
+  universe: ['sequel', 'prequel', 'spinoff', 'series', 'shared', 'crossover', 'cameo', 'reboot', 'film', 'special', 'recut', 'adaptation', 'remake', 'related', 'revival'],
+  remake: ['recut', 'adaptation', 'retelling', 'reboot', 'related'],
+};
+// Template markers imply a kind when the relationship type allows it.
+const TEMPLATE_KIND = {
+  sequel: 'sequel', prequel: 'prequel', spinoff: 'spinoff', series: 'series', universe: 'shared',
+  remake: 'remake', reboot: 'reboot', 'film-of-series': 'film', adaptation: 'adaptation', cut: 'recut',
+};
+
 const errors = [];
 const rows = [];
 const seen = new Set();
 
-function push(src, tgt, rel, conf, en, id, where) {
+function push(src, tgt, rel, conf, en, id, where, kind = null) {
   if (src === tgt) return errors.push(`${where}: sumber = target`);
   const key = `${src.tmdbId}:${src.mediaType}>${tgt.tmdbId}`;
   if (seen.has(key)) return errors.push(`${where}: duplikat ${src.title} > ${tgt.title}`);
@@ -77,7 +89,7 @@ function push(src, tgt, rel, conf, en, id, where) {
     sourceYear: src.year, sourceJellyfinId: src.jellyfinId,
     targetTmdbId: tgt.tmdbId, targetMediaType: tgt.mediaType, targetTitle: tgt.title,
     targetYear: tgt.year, targetJellyfinId: tgt.jellyfinId,
-    relationship: rel, confidence: conf === 'h' ? 'high' : 'medium',
+    relationship: rel, ...(kind ? { kind } : {}), confidence: conf === 'h' ? 'high' : 'medium',
     reason: id, reasonEn: en,
     status: conf === 'h' ? 'APPROVED' : 'PENDING_REVIEW',
     source: 'llm',
@@ -96,7 +108,8 @@ for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.txt') && !NOT_CON
     const where = `${f}:${i + 1}`;
     const parts = line.split('|').map((x) => x.trim());
     if (parts.length < 4) return errors.push(`${where}: format salah`);
-    const [pair, rel, conf, ...rest] = parts;
+    const [pair, relRaw, conf, ...rest] = parts;
+    const [rel, explicitKind] = relRaw.split('/');
     const text = rest.join('|').trim();
     const [a, b] = pair.split('>').map((x) => x.trim());
     if (!a || !b) return errors.push(`${where}: butuh "SUMBER > TARGET"`);
@@ -120,7 +133,14 @@ for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.txt') && !NOT_CON
       en = e;
       id = d;
     }
-    push(src, tgt, rel, conf, en, id, where);
+    let kind = null;
+    if (explicitKind) {
+      if (!(KINDS[rel] || []).includes(explicitKind)) return errors.push(`${where}: kind "${explicitKind}" tidak berlaku untuk relasi "${rel}"`);
+      kind = explicitKind;
+    } else if (text.startsWith('@') && TEMPLATE_KIND[text.slice(1)] && (KINDS[rel] || []).includes(TEMPLATE_KIND[text.slice(1)])) {
+      kind = TEMPLATE_KIND[text.slice(1)];
+    }
+    push(src, tgt, rel, conf, en, id, where, kind);
   });
 }
 

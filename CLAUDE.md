@@ -328,6 +328,10 @@ The list of new titles is read from the `addedAt` column, **not** from comparing
 
 `library-seed.json` is now formatted like the other two seed files, so that adding one title reads as ~10 lines in the diff, not one 500 KB line. `addedAt` is deliberately not exported: that column is filled from Jellyfin at sync time in each environment.
 
+### Finer relationship labels (`kind`, since 2026-11-03)
+
+A `universe` or `remake` row can carry an optional `kind` so the label says what it is ("Prequel to", "Spin-off of", "Brings back", "Recut of", ...) instead of the generic "Follows" / "Remake of". Template markers (`@prequel`, `@spinoff`, `@cut`, ...) set it automatically; for hand-written rows write it in the relationship column: `universe/prequel`, `remake/retelling`. Allowed kinds per type are in `REL_KINDS` (`lib/i18n.ts`), mirrored in `scripts/build-connections.js`; labels are `rel.<type>.<kind>.out/in` in both languages. A row without a kind is fine and keeps the generic label, which is right for rows that simply follow in the story. When you add a connection whose label would mislead (a prequel, a spin-off, a cameo, a recut), give it a kind.
+
 ### One-paragraph stories (`scripts/curated/stories.txt`, since 2026-11-03)
 
 A connection can carry a paragraph (`storyEn` / `story`, optional columns on `FilmConnection`) on top of its short `reason`. The app shows the paragraph where there is room (the "Why they connect" list and the 3D map panel) and keeps using the short reason everywhere that needs one line (metadata/og description, landing spotlight, the contact sheet). A row without a paragraph simply shows its short reason.

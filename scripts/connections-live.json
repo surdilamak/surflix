@@ -128,6 +128,7 @@
     "relationship": "universe",
     "reason": "1923 adalah prekuel Yellowstone, berlatar seabad lebih awal dalam kisah keluarga Dutton.",
     "reasonEn": "1923 is a prequel to Yellowstone, set a century earlier in the Dutton family story.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -337,6 +338,7 @@
     "relationship": "universe",
     "reason": "A Knight of the Seven Kingdoms menceritakan apa yang terjadi sebelum Game of Thrones.",
     "reasonEn": "A Knight of the Seven Kingdoms tells what happened before Game of Thrones.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -375,6 +377,7 @@
     "relationship": "universe",
     "reason": "A Marvel Television Special Presentation - The Punisher: One Last Kill dan Daredevil: Born Again berada di semesta yang sama.",
     "reasonEn": "A Marvel Television Special Presentation - The Punisher: One Last Kill and Daredevil: Born Again are set in the same universe.",
+    "kind": "shared",
     "confidence": "medium",
     "status": "APPROVED",
     "source": "llm"
@@ -453,6 +456,7 @@
     "reasonEn": "A Story of Derry is a 30-minute special episode of the HBO prequel series It: Welcome to Derry, set long before the events of the It films.",
     "storyEn": "This is not a film, whatever the catalogue calls it. A Story of Derry is a thirty-minute special episode of the HBO series It: Welcome to Derry, released as a Halloween surprise on 31 October 2026. The series is a prequel to the two It films, developed by Andy and Barbara Muschietti and Jason Fuchs, who were involved in making them. Where the films follow the Losers Club across 27 years, this episode goes back centuries, to a Native American tribe and a hunt in the western forest, long before Pennywise had a town to haunt.",
     "story": "Ini bukan film, apa pun yang dicatat katalog. A Story of Derry adalah episode spesial berdurasi tiga puluh menit dari serial HBO It: Welcome to Derry, yang dirilis sebagai kejutan Halloween pada 31 Oktober 2026. Serialnya adalah prekuel dua film It, dikembangkan oleh Andy dan Barbara Muschietti serta Jason Fuchs, yang ikut terlibat dalam film-filmnya. Kalau film-filmnya mengikuti Losers Club selama 27 tahun, episode ini mundur berabad-abad, ke sebuah suku asli Amerika dan perburuan di hutan barat, jauh sebelum Pennywise punya kota untuk dihantui.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -472,6 +476,7 @@
     "relationship": "universe",
     "reason": "Episode rangkuman penutup Wano: Momonosuke menjadi Shogun dan kru meninggalkan negeri itu.",
     "reasonEn": "A recap episode closing out Wano: Momonosuke becoming Shogun and the crew leaving the country.",
+    "kind": "special",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -493,6 +498,7 @@
     "reasonEn": "Aparajito continues the story of Pather Panchali, adapted from the end of that novel and the first part of its sequel.",
     "storyEn": "Aparajito is the middle film of Satyajit Ray's Apu Trilogy and the proof that Pather Panchali was no one-off. Ray built it from the end of Bibhutibhushan Bandyopadhyay's novel Pather Panchali and the first third of its sequel, Aparajito, so the film is a bridge between two books as much as between two films. It won the Golden Lion at Venice in 1957, and Akira Kurosawa is on record calling the jury's decision \"absolutely right.\" Watch it after Pather Panchali, not before: it assumes you already know the family.",
     "story": "Aparajito adalah film tengah Trilogi Apu karya Satyajit Ray dan bukti bahwa Pather Panchali bukan keberuntungan sekali. Ray menyusunnya dari akhir novel Pather Panchali karya Bibhutibhushan Bandyopadhyay dan sepertiga awal novel lanjutannya, Aparajito, jadi film ini jembatan antara dua buku sama seperti antara dua film. Film ini meraih Golden Lion di Venesia pada 1957, dan Akira Kurosawa tercatat menyebut keputusan juri itu \"absolutely right.\" Tontonlah setelah Pather Panchali, bukan sebelumnya: ia mengandaikan kamu sudah mengenal keluarga itu.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -512,6 +518,7 @@
     "relationship": "universe",
     "reason": "Apur Sansar menutup Trilogi Apu, diadaptasi dari paruh kedua novel Aparajito.",
     "reasonEn": "The World of Apu closes the Apu Trilogy, adapted from the second half of the novel Aparajito.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -683,6 +690,7 @@
     "relationship": "universe",
     "reason": "Ahsoka melanjutkan kisah yang dibiarkan terbuka oleh Star Wars Rebels.",
     "reasonEn": "Ahsoka continues the story Star Wars Rebels left open.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -723,6 +731,7 @@
     "relationship": "universe",
     "reason": "Alien Resurrection berlatar 200 tahun setelah Alien³, ketika Ellen Ripley dikloning.",
     "reasonEn": "Alien Resurrection is set 200 years after Alien³, when Ellen Ripley is cloned.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -742,6 +751,7 @@
     "relationship": "universe",
     "reason": "Alien: Covenant melanjutkan cerita setelah Prometheus.",
     "reasonEn": "Alien: Covenant picks up the story after Prometheus.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -780,6 +790,7 @@
     "relationship": "universe",
     "reason": "Serial Alien: Earth berlatar dua tahun sebelum peristiwa Alien.",
     "reasonEn": "The series Alien: Earth is set two years before the events of Alien.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -818,6 +829,7 @@
     "relationship": "universe",
     "reason": "Alien: Romulus berlatar di antara Alien dan Aliens.",
     "reasonEn": "Alien: Romulus is set between Alien and Aliens.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -837,6 +849,7 @@
     "relationship": "universe",
     "reason": "Aliens melanjutkan cerita setelah Alien.",
     "reasonEn": "Aliens picks up the story after Alien.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -856,6 +869,7 @@
     "relationship": "universe",
     "reason": "Alien³ melanjutkan cerita setelah Aliens.",
     "reasonEn": "Alien³ picks up the story after Aliens.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -1179,6 +1193,7 @@
     "relationship": "universe",
     "reason": "Ant-Man and the Wasp melanjutkan cerita setelah Ant-Man.",
     "reasonEn": "Ant-Man and the Wasp picks up the story after Ant-Man.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -1198,6 +1213,7 @@
     "relationship": "universe",
     "reason": "Ant-Man and the Wasp: Quantumania melanjutkan cerita setelah Ant-Man and the Wasp.",
     "reasonEn": "Ant-Man and the Wasp: Quantumania picks up the story after Ant-Man and the Wasp.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -1464,6 +1480,7 @@
     "relationship": "universe",
     "reason": "Avatar: Fire and Ash melanjutkan cerita setelah Avatar: The Way of Water.",
     "reasonEn": "Avatar: Fire and Ash picks up the story after Avatar: The Way of Water.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -1483,6 +1500,7 @@
     "relationship": "universe",
     "reason": "Avatar: The Way of Water melanjutkan cerita setelah Avatar.",
     "reasonEn": "Avatar: The Way of Water picks up the story after Avatar.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -1521,6 +1539,7 @@
     "relationship": "universe",
     "reason": "Avengers: Age of Ultron melanjutkan cerita setelah The Avengers.",
     "reasonEn": "Avengers: Age of Ultron picks up the story after The Avengers.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -1540,6 +1559,7 @@
     "relationship": "universe",
     "reason": "Avengers: Endgame melanjutkan cerita setelah Avengers: Infinity War.",
     "reasonEn": "Avengers: Endgame picks up the story after Avengers: Infinity War.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -1616,6 +1636,7 @@
     "relationship": "universe",
     "reason": "Back to the Future Part II melanjutkan cerita setelah Back to the Future.",
     "reasonEn": "Back to the Future Part II picks up the story after Back to the Future.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -1635,6 +1656,7 @@
     "relationship": "universe",
     "reason": "Back to the Future Part III melanjutkan cerita setelah Back to the Future Part II.",
     "reasonEn": "Back to the Future Part III picks up the story after Back to the Future Part II.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -1711,6 +1733,7 @@
     "relationship": "universe",
     "reason": "Ballerina berlatar di dunia John Wick, di antara Chapter 3 dan Chapter 4.",
     "reasonEn": "Ballerina is set in the John Wick world, between Chapter 3 and Chapter 4.",
+    "kind": "spinoff",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -1791,6 +1814,7 @@
     "reasonEn": "Batman Returns picks up the story after Batman.",
     "storyEn": "Batman Returns is the direct sequel to Tim Burton's Batman, with Burton and Michael Keaton both back and Danny Elfman building on his own themes from the first film. It is also the pair of films The Flash would later quote: when Keaton returns in 2023, Benjamin Wallfisch scores him with themes from both. If you are deciding whether to watch the first before the second, the continuity is direct, so yes.",
     "story": "Batman Returns adalah sekuel langsung dari Batman karya Tim Burton, dengan Burton dan Michael Keaton sama-sama kembali dan Danny Elfman mengembangkan tema-temanya sendiri dari film pertama. Pasangan film inilah yang kelak dikutip The Flash: ketika Keaton kembali pada 2023, Benjamin Wallfisch mengiringinya dengan tema dari keduanya. Kalau kamu menimbang apakah film pertama perlu ditonton sebelum yang kedua, kesinambungannya langsung, jadi ya.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -1848,6 +1872,7 @@
     "relationship": "universe",
     "reason": "Batman v Superman - Dawn of Justice melanjutkan cerita setelah Man of Steel.",
     "reasonEn": "Batman v Superman - Dawn of Justice picks up the story after Man of Steel.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -2019,6 +2044,7 @@
     "relationship": "universe",
     "reason": "Better Call Saul adalah spin-off dari Breaking Bad.",
     "reasonEn": "Better Call Saul spins off from Breaking Bad.",
+    "kind": "spinoff",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -2133,6 +2159,7 @@
     "relationship": "universe",
     "reason": "Black Panther: Wakanda Forever melanjutkan cerita setelah Black Panther.",
     "reasonEn": "Black Panther: Wakanda Forever picks up the story after Black Panther.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -2152,6 +2179,7 @@
     "relationship": "universe",
     "reason": "Black Phone 2 melanjutkan cerita setelah The Black Phone.",
     "reasonEn": "Black Phone 2 picks up the story after The Black Phone.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -2171,6 +2199,7 @@
     "relationship": "universe",
     "reason": "Black Widow sebagian besar berlatar pada masa peristiwa Civil War, saat Natasha Romanoff buron dan menghadapi masa lalunya.",
     "reasonEn": "Black Widow is mostly set during the events of Captain America: Civil War, with Natasha Romanoff on the run and confronting her past.",
+    "kind": "shared",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -2304,6 +2333,7 @@
     "relationship": "universe",
     "reason": "Blade Runner 2049 melanjutkan cerita setelah Blade Runner.",
     "reasonEn": "Blade Runner 2049 picks up the story after Blade Runner.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -2589,6 +2619,7 @@
     "relationship": "universe",
     "reason": "Tesseract muncul di adegan pascakredit Thor dan menjadi sumber tenaga rencana Red Skull di Captain America: The First Avenger.",
     "reasonEn": "The Tesseract appears in Thor's post-credits scene and drives the Red Skull's plans in Captain America: The First Avenger.",
+    "kind": "shared",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -2627,6 +2658,7 @@
     "relationship": "universe",
     "reason": "Adegan pasca-kredit Infinity War adalah Nick Fury memanggil Captain Marvel.",
     "reasonEn": "Infinity War's post-credits scene is Nick Fury paging Captain Marvel.",
+    "kind": "shared",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3180,6 +3212,7 @@
     "relationship": "universe",
     "reason": "Daft Punk Unchained adalah film dokumenter tentang Daft Punk, duo di balik Electroma.",
     "reasonEn": "Daft Punk Unchained is a documentary about Daft Punk, the duo behind Electroma.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3199,6 +3232,7 @@
     "relationship": "universe",
     "reason": "Damien: Omen II melanjutkan cerita setelah The Omen.",
     "reasonEn": "Damien: Omen II picks up the story after The Omen.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3218,6 +3252,7 @@
     "relationship": "universe",
     "reason": "Matt Murdock kembali di No Way Home sebelum Daredevil: Born Again.",
     "reasonEn": "Matt Murdock returns in No Way Home before Daredevil: Born Again.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3275,6 +3310,7 @@
     "relationship": "universe",
     "reason": "Deadpool & Wolverine memakai TVA, badan waktu yang diperkenalkan di Loki.",
     "reasonEn": "Deadpool & Wolverine uses the TVA, the time agency introduced in Loki.",
+    "kind": "shared",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3351,6 +3387,7 @@
     "relationship": "universe",
     "reason": "Michael Parks memerankan Earl McGraw di Death Proof maupun Kill Bill: Vol. 1.",
     "reasonEn": "Michael Parks plays Earl McGraw in both Death Proof and Kill Bill: Vol. 1.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3562,6 +3599,7 @@
     "relationship": "universe",
     "reason": "Demon Slayer: Kimetsu no Yaiba Infinity Castle adalah film layar lebar dari serial Demon Slayer: Kimetsu no Yaiba.",
     "reasonEn": "Demon Slayer: Kimetsu no Yaiba Infinity Castle is a feature film from the Demon Slayer: Kimetsu no Yaiba series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3581,6 +3619,7 @@
     "relationship": "universe",
     "reason": "Film Conan kedua puluh tujuh sekaligus yang terlaris, dibangun di sekitar Kaito Kid dan Heiji Hattori sekaligus. Kasus yang berdiri sendiri, seperti film lainnya.",
     "reasonEn": "The twenty-seventh Conan film and the highest-grossing of them, built around Kaito Kid and Heiji Hattori together. A self-contained case, like the rest.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3619,6 +3658,7 @@
     "relationship": "universe",
     "reason": "Digimon Adventure tri. Part 1: Reunion membuka seri enam film tri., sekuel Digimon Adventure dan Digimon Adventure 02 yang berlatar enam tahun setelah serial pertama.",
     "reasonEn": "Digimon Adventure tri. Part 1: Reunion starts the six-part tri. series, a sequel to Digimon Adventure and Digimon Adventure 02 set six years after the first series.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3638,6 +3678,7 @@
     "relationship": "universe",
     "reason": "Digimon Adventure tri. Part 2: Determination melanjutkan cerita setelah Digimon Adventure tri. Part 1: Reunion.",
     "reasonEn": "Digimon Adventure tri. Part 2: Determination picks up the story after Digimon Adventure tri. Part 1: Reunion.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3657,6 +3698,7 @@
     "relationship": "universe",
     "reason": "Digimon Adventure tri. Part 3: Confession melanjutkan cerita setelah Digimon Adventure tri. Part 2: Determination.",
     "reasonEn": "Digimon Adventure tri. Part 3: Confession picks up the story after Digimon Adventure tri. Part 2: Determination.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3676,6 +3718,7 @@
     "relationship": "universe",
     "reason": "Digimon Adventure tri. Part 4: Loss melanjutkan cerita setelah Digimon Adventure tri. Part 3: Confession.",
     "reasonEn": "Digimon Adventure tri. Part 4: Loss picks up the story after Digimon Adventure tri. Part 3: Confession.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3695,6 +3738,7 @@
     "relationship": "universe",
     "reason": "Digimon Adventure tri. Part 5: Coexistence melanjutkan cerita setelah Digimon Adventure tri. Part 4: Loss.",
     "reasonEn": "Digimon Adventure tri. Part 5: Coexistence picks up the story after Digimon Adventure tri. Part 4: Loss.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3714,6 +3758,7 @@
     "relationship": "universe",
     "reason": "Digimon Adventure tri. Part 6: Future melanjutkan cerita setelah Digimon Adventure tri. Part 5: Coexistence.",
     "reasonEn": "Digimon Adventure tri. Part 6: Future picks up the story after Digimon Adventure tri. Part 5: Coexistence.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3733,6 +3778,7 @@
     "relationship": "remake",
     "reason": "Reboot serial 1999: premis dan tokoh utamanya sama, dikisahkan ulang di tahun 2020 sebagai cerita baru di luar kontinuitas aslinya. Bukan sekuel.",
     "reasonEn": "A reboot of the 1999 series: same premise and core kids, retold in 2020 as a new story outside the original's continuity and independent of it, not a sequel.",
+    "kind": "reboot",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3866,6 +3912,7 @@
     "relationship": "universe",
     "reason": "Doctor Sleep mengadaptasi sekuel Stephen King dan menghidupkan lagi Hotel Overlook dari The Shining karya Kubrick.",
     "reasonEn": "Doctor Sleep adapts Stephen King's sequel and recreates the Overlook Hotel of Kubrick's The Shining.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3904,6 +3951,7 @@
     "relationship": "universe",
     "reason": "Doctor Strange dan Captain America: Civil War berada di semesta yang sama.",
     "reasonEn": "Doctor Strange and Captain America: Civil War are set in the same universe.",
+    "kind": "shared",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -3999,6 +4047,7 @@
     "relationship": "universe",
     "reason": "Daima adalah kisah sampingan yang berlatar setahun setelah saga Buu, di dalam lompatan waktu sepuluh tahun yang juga menjadi latar Dragon Ball Super. Bukan prekuel langsung.",
     "reasonEn": "Daima is a side story set one year after the Buu saga, inside the ten-year timeskip that Dragon Ball Super's story also covers. Made after Super, but not a direct prequel.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4018,6 +4067,7 @@
     "relationship": "universe",
     "reason": "Melanjutkan lima tahun setelah Z berakhir, tetapi tidak ditulis Toriyama, jadi umumnya dibaca sebagai cabang, bukan garis utama.",
     "reasonEn": "Picks up five years after Z ends, but Toriyama did not write it, so it is usually read as a branch rather than the main line.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4037,6 +4087,7 @@
     "relationship": "universe",
     "reason": "A Hero's Legacy adalah satu-satunya spesial televisi Dragon Ball GT, tayang Maret 1997 di antara episode 41 dan 42 serial ini.",
     "reasonEn": "A Hero's Legacy is the only Dragon Ball GT TV special, first aired in March 1997 between episodes 41 and 42 of the series.",
+    "kind": "special",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4056,6 +4107,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Super melanjutkan cerita setelah Dragon Ball Z.",
     "reasonEn": "Dragon Ball Super picks up the story after Dragon Ball Z.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4075,6 +4127,7 @@
     "relationship": "remake",
     "reason": "Super dibuka dengan menceritakan ulang Battle of Gods sepanjang arc pertamanya.",
     "reasonEn": "Super opens by retelling Battle of Gods across its first arc.",
+    "kind": "retelling",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4094,6 +4147,7 @@
     "relationship": "remake",
     "reason": "Arc kedua Super menceritakan ulang Resurrection 'F'.",
     "reasonEn": "Super's second arc retells Resurrection 'F'.",
+    "kind": "retelling",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4113,6 +4167,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Super: Beerus adalah remake dan remaster anime Dragon Ball Super (2015) dengan alur yang disusun ulang dan animasi yang diperbarui.",
     "reasonEn": "Dragon Ball Super: Beerus is an enhanced remake and remaster of the 2015 Dragon Ball Super anime, with a reconstructed narrative and updated animation.",
+    "kind": "remake",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4132,6 +4187,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Super: Broly adalah film layar lebar dari serial Dragon Ball Super.",
     "reasonEn": "Dragon Ball Super: Broly is a feature film from the Dragon Ball Super series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4151,6 +4207,7 @@
     "relationship": "remake",
     "reason": "Broly 25 tahun hanya ada di film; ini versi tulis-ulang yang dibawa Toriyama masuk ke cerita utama.",
     "reasonEn": "Broly was a film-only villain for twenty-five years; this is the rewritten version Toriyama brought into the main story.",
+    "kind": "retelling",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4170,6 +4227,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Super: Super Hero adalah film layar lebar dari serial Dragon Ball Super.",
     "reasonEn": "Dragon Ball Super: Super Hero is a feature film from the Dragon Ball Super series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4189,6 +4247,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z melanjutkan cerita setelah Dragon Ball.",
     "reasonEn": "Dragon Ball Z picks up the story after Dragon Ball.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4210,6 +4269,7 @@
     "reasonEn": "Kai recuts Dragon Ball Z to follow the manga more closely, dropping most of the filler added while the manga was still being written.",
     "storyEn": "Dragon Ball Z Kai was made for Z's twentieth anniversary as a recut and remastered version that follows Akira Toriyama's manga more closely. Its origin was commercial: Bandai asked Toriyama for a new Dragon Ball anime to lift merchandise sales, he declined to write a new story, and a version of Z aligned with the manga was made instead. Z had added original material because the anime ran while Toriyama was still writing the manga, and Kai drops most of it. The original Z ran 291 episodes from 1989 to 1996. The Final Chapters, which covers the Majin Buu saga, aired from April 2014 to June 2015, trimmed to 61 episodes in Japan. Kenji Yamamoto's score was replaced with Shunsuke Kikuchi's original Z music after a rights problem with third parties.",
     "story": "Dragon Ball Z Kai dibuat untuk ulang tahun kedua puluh Z sebagai versi sunting dan remaster yang lebih setia pada manga Akira Toriyama. Asalnya komersial: Bandai meminta Toriyama membuat anime Dragon Ball baru untuk mendongkrak penjualan merchandise, ia menolak menulis cerita baru, dan akhirnya dibuat versi Z yang disesuaikan dengan manga. Z menambahkan materi orisinal karena animenya berjalan ketika Toriyama masih menulis manganya, dan Kai membuang sebagian besarnya. Z yang asli tayang 291 episode dari 1989 hingga 1996. The Final Chapters, yang mencakup saga Majin Buu, tayang dari April 2014 hingga Juni 2015, dipangkas menjadi 61 episode di Jepang. Musik gubahan Kenji Yamamoto diganti dengan musik Z asli karya Shunsuke Kikuchi setelah terjadi masalah hak cipta dengan pihak ketiga.",
+    "kind": "recut",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4229,6 +4289,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z: Bardock - The Father of Goku menceritakan apa yang terjadi sebelum Dragon Ball Z.",
     "reasonEn": "Dragon Ball Z: Bardock - The Father of Goku tells what happened before Dragon Ball Z.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4267,6 +4328,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z: Bio-Broly adalah film layar lebar dari serial Dragon Ball Z.",
     "reasonEn": "Dragon Ball Z: Bio-Broly is a feature film from the Dragon Ball Z series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4286,6 +4348,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z: Bio-Broly melanjutkan cerita setelah Dragon Ball Z: Broly - Second Coming.",
     "reasonEn": "Dragon Ball Z: Bio-Broly picks up the story after Dragon Ball Z: Broly - Second Coming.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4305,6 +4368,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z: Bojack Unbound adalah film layar lebar dari serial Dragon Ball Z.",
     "reasonEn": "Dragon Ball Z: Bojack Unbound is a feature film from the Dragon Ball Z series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4324,6 +4388,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z: Broly - Second Coming adalah film layar lebar dari serial Dragon Ball Z.",
     "reasonEn": "Dragon Ball Z: Broly - Second Coming is a feature film from the Dragon Ball Z series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4343,6 +4408,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z: Broly - Second Coming melanjutkan cerita setelah Dragon Ball Z: Broly - The Legendary Super Saiyan.",
     "reasonEn": "Dragon Ball Z: Broly - Second Coming picks up the story after Dragon Ball Z: Broly - The Legendary Super Saiyan.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4362,6 +4428,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z: Broly - The Legendary Super Saiyan adalah film layar lebar dari serial Dragon Ball Z.",
     "reasonEn": "Dragon Ball Z: Broly - The Legendary Super Saiyan is a feature film from the Dragon Ball Z series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4381,6 +4448,7 @@
     "relationship": "universe",
     "reason": "Cooler ditulis sebagai kakak Frieza, jadi filmnya baru masuk akal setelah Namek.",
     "reasonEn": "Cooler is written as Frieza's older brother, so the film only works after Namek.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4400,6 +4468,7 @@
     "relationship": "universe",
     "reason": "Prekuel bagi serial TV Z. Garlic Jr. menculik Gohan kecil demi Dragon Ball-nya, dan Goku serta Piccolo terpaksa bekerja sama meski masih bersaing.",
     "reasonEn": "A prelude to the Z TV series. Garlic Jr. kidnaps young Gohan for his Dragon Ball, and Goku and Piccolo must team up despite their old rivalry.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4419,6 +4488,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z: Fusion Reborn adalah film layar lebar dari serial Dragon Ball Z.",
     "reasonEn": "Dragon Ball Z: Fusion Reborn is a feature film from the Dragon Ball Z series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4438,6 +4508,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z: Lord Slug adalah film layar lebar dari serial Dragon Ball Z.",
     "reasonEn": "Dragon Ball Z: Lord Slug is a feature film from the Dragon Ball Z series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4457,6 +4528,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z: Resurrection 'F' melanjutkan cerita setelah Dragon Ball Z: Battle of Gods.",
     "reasonEn": "Dragon Ball Z: Resurrection 'F' picks up the story after Dragon Ball Z: Battle of Gods.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4476,6 +4548,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z: Super Android 13! adalah film layar lebar dari serial Dragon Ball Z.",
     "reasonEn": "Dragon Ball Z: Super Android 13! is a feature film from the Dragon Ball Z series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4495,6 +4568,7 @@
     "relationship": "universe",
     "reason": "Spesial TV yang memperlihatkan garis waktu asal Trunks: Goku wafat karena virus jantung, dan Trunks dilatih Gohan saat berusaha mengalahkan Android 17 dan 18.",
     "reasonEn": "A TV special showing the original timeline Trunks comes from: Goku dead of a heart virus, and Trunks trained by Gohan as he tries to defeat Androids 17 and 18.",
+    "kind": "special",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4514,6 +4588,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z: The Return of Cooler adalah film layar lebar dari serial Dragon Ball Z.",
     "reasonEn": "Dragon Ball Z: The Return of Cooler is a feature film from the Dragon Ball Z series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4533,6 +4608,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z: The Return of Cooler melanjutkan cerita setelah Dragon Ball Z: Cooler's Revenge.",
     "reasonEn": "Dragon Ball Z: The Return of Cooler picks up the story after Dragon Ball Z: Cooler's Revenge.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4552,6 +4628,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z: The Tree of Might adalah film layar lebar dari serial Dragon Ball Z.",
     "reasonEn": "Dragon Ball Z: The Tree of Might is a feature film from the Dragon Ball Z series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4571,6 +4648,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z: The World's Strongest adalah film layar lebar dari serial Dragon Ball Z.",
     "reasonEn": "Dragon Ball Z: The World's Strongest is a feature film from the Dragon Ball Z series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4590,6 +4668,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball Z: Wrath of the Dragon adalah film layar lebar dari serial Dragon Ball Z.",
     "reasonEn": "Dragon Ball Z: Wrath of the Dragon is a feature film from the Dragon Ball Z series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4609,6 +4688,7 @@
     "relationship": "remake",
     "reason": "Penceritaan ulang sepanjang film dari arc pembuka, dengan para tokoh disusun ulang mengelilingi penjahat baru.",
     "reasonEn": "A film-length retelling of the opening arc, with the cast rearranged around a new villain.",
+    "kind": "retelling",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4628,6 +4708,7 @@
     "relationship": "remake",
     "reason": "Cerita orisinal film yang memakai tokoh dari arc Red Ribbon Army dan Turnamen Bela Diri Dunia, dengan turnamen sebagai latarnya.",
     "reasonEn": "A film-original story that reuses characters from the Red Ribbon Army and World Martial Arts Tournament arcs, with the Tournament as the setting.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4647,6 +4728,7 @@
     "relationship": "universe",
     "reason": "Dragon Ball: Sleeping Princess in Devil's Castle adalah film layar lebar dari serial Dragon Ball.",
     "reasonEn": "Dragon Ball: Sleeping Princess in Devil's Castle is a feature film from the Dragon Ball series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4666,6 +4748,7 @@
     "relationship": "remake",
     "reason": "Dibuat untuk ulang tahun kesepuluh anime-nya: penceritaan ulang alternatif yang mengolah pencarian Dragon Ball pertama Goku lalu alur Red Ribbon Army.",
     "reasonEn": "Made for the anime's tenth anniversary: an alternate retelling that reworks Goku's first Dragon Ball search and then the Red Ribbon Army storyline.",
+    "kind": "retelling",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4818,6 +4901,7 @@
     "relationship": "universe",
     "reason": "Dune: Part Two melanjutkan cerita setelah Dune.",
     "reasonEn": "Dune: Part Two picks up the story after Dune.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4932,6 +5016,7 @@
     "relationship": "remake",
     "reason": "Suntingan ketiga dari rangkuman Death, dengan beberapa adegan penting dikembalikan. Tayang di Revival of Evangelion (1998), disusul The End of Evangelion yang sudah rampung.",
     "reasonEn": "Third edit of the Death recap, with a few plot-crucial shots restored. Shown in 1998's Revival of Evangelion, followed by the finished The End of Evangelion.",
+    "kind": "recut",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4951,6 +5036,7 @@
     "relationship": "universe",
     "reason": "Dirilis bersama sebagai Revival of Evangelion - rangkumannya, jeda empat menit, lalu bagian akhirnya.",
     "reasonEn": "Released together as Revival of Evangelion - the recap, a four-minute intermission, then the ending.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -4970,6 +5056,7 @@
     "relationship": "universe",
     "reason": "EVANGELION:3.0(-46h) menceritakan apa yang terjadi sebelum Evangelion: 3.0 You Can (Not) Redo.",
     "reasonEn": "EVANGELION:3.0(-46h) tells what happened before Evangelion: 3.0 You Can (Not) Redo.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -5084,6 +5171,7 @@
     "relationship": "universe",
     "reason": "El Camino: A Breaking Bad Movie melanjutkan cerita setelah Breaking Bad.",
     "reasonEn": "El Camino: A Breaking Bad Movie picks up the story after Breaking Bad.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -5255,6 +5343,7 @@
     "relationship": "universe",
     "reason": "Film Rebuild menceritakan ulang Neon Genesis Evangelion, dimulai dari film ini.",
     "reasonEn": "The Rebuild films retell Neon Genesis Evangelion, starting here.",
+    "kind": "remake",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -5274,6 +5363,7 @@
     "relationship": "universe",
     "reason": "Evangelion: 2.0 You Can (Not) Advance melanjutkan cerita setelah Evangelion: 1.0 You Are (Not) Alone.",
     "reasonEn": "Evangelion: 2.0 You Can (Not) Advance picks up the story after Evangelion: 1.0 You Are (Not) Alone.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -5293,6 +5383,7 @@
     "relationship": "universe",
     "reason": "Evangelion: 3.0 You Can (Not) Redo melanjutkan cerita setelah Evangelion: 2.0 You Can (Not) Advance.",
     "reasonEn": "Evangelion: 3.0 You Can (Not) Redo picks up the story after Evangelion: 2.0 You Can (Not) Advance.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -5312,6 +5403,7 @@
     "relationship": "universe",
     "reason": "Evangelion: 3.0+1.0 Thrice Upon a Time melanjutkan cerita setelah Evangelion: 3.0 You Can (Not) Redo.",
     "reasonEn": "Evangelion: 3.0+1.0 Thrice Upon a Time picks up the story after Evangelion: 3.0 You Can (Not) Redo.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -5464,6 +5556,7 @@
     "relationship": "universe",
     "reason": "Eyes of Wakanda berlatar di Wakanda, negara dari Black Panther, dan berbagi kontinuitas dengan film-film MCU.",
     "reasonEn": "Eyes of Wakanda is set in Wakanda, the nation from Black Panther, and shares continuity with the MCU films.",
+    "kind": "shared",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -5521,6 +5614,7 @@
     "relationship": "universe",
     "reason": "Fallen Angels bermula dari cerita ketiga yang direncanakan untuk Chungking Express.",
     "reasonEn": "Fallen Angels began as a third story planned for Chungking Express.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -5559,6 +5653,7 @@
     "relationship": "universe",
     "reason": "Fever Pitch: The Battle for the Premier League satu seri dengan Fever Pitch: The Rise of the Premier League.",
     "reasonEn": "Fever Pitch: The Battle for the Premier League belongs to the same series as Fever Pitch: The Rise of the Premier League.",
+    "kind": "series",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -5749,6 +5844,7 @@
     "relationship": "universe",
     "reason": "Fullmetal Alchemist: Brotherhood mengadaptasi sumber yang sama dengan Fullmetal Alchemist.",
     "reasonEn": "Fullmetal Alchemist: Brotherhood adapts the same source as Fullmetal Alchemist.",
+    "kind": "adaptation",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -5768,6 +5864,7 @@
     "relationship": "universe",
     "reason": "GANTZ:O mengadaptasi sumber yang sama dengan Gantz: Perfect Answer.",
     "reasonEn": "GANTZ:O adapts the same source as Gantz: Perfect Answer.",
+    "kind": "adaptation",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -5787,6 +5884,7 @@
     "relationship": "universe",
     "reason": "Gen V adalah spin-off dari The Boys.",
     "reasonEn": "Gen V spins off from The Boys.",
+    "kind": "spinoff",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -5825,6 +5923,7 @@
     "relationship": "universe",
     "reason": "Glass adalah sekuel Split dan film penutup trilogi Unbreakable, mempertemukan David Dunn dan Elijah Price dengan Kevin Wendell Crumb.",
     "reasonEn": "Glass is the sequel to Split and the final film of the Unbreakable trilogy, uniting David Dunn and Elijah Price with Kevin Wendell Crumb.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -6091,6 +6190,7 @@
     "relationship": "universe",
     "reason": "Thanos pertama muncul di adegan tengah-kredit The Avengers sebelum Guardians memperluas sisi kosmiknya.",
     "reasonEn": "Thanos first appears in The Avengers' mid-credits scene before Guardians expands the cosmic side.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -6110,6 +6210,7 @@
     "relationship": "universe",
     "reason": "Guardians of the Galaxy Vol. 2 melanjutkan cerita setelah Guardians of the Galaxy.",
     "reasonEn": "Guardians of the Galaxy Vol. 2 picks up the story after Guardians of the Galaxy.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -6167,6 +6268,7 @@
     "relationship": "universe",
     "reason": "Guardians of the Galaxy Vol. 3 melanjutkan cerita setelah Guardians of the Galaxy Vol. 2.",
     "reasonEn": "Guardians of the Galaxy Vol. 3 picks up the story after Guardians of the Galaxy Vol. 2.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -6224,6 +6326,7 @@
     "relationship": "universe",
     "reason": "Hannibal membayangkan ulang Hannibal Lecter, tokoh dari novel Thomas Harris yang diadaptasi The Silence of the Lambs.",
     "reasonEn": "Hannibal reimagines Hannibal Lecter, the character from Thomas Harris's novels that The Silence of the Lambs adapts.",
+    "kind": "adaptation",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -6395,6 +6498,7 @@
     "relationship": "remake",
     "reason": "Keduanya mengadaptasi Northern Lights karya Philip Pullman - film 2007 cuma dapat satu novel tanpa sekuel, serialnya dapat ketiganya.",
     "reasonEn": "Both adapt Philip Pullman's Northern Lights - the 2007 film got one novel and no sequel, the series got all three.",
+    "kind": "adaptation",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -6490,6 +6594,7 @@
     "relationship": "universe",
     "reason": "House of the Dragon menceritakan apa yang terjadi sebelum Game of Thrones.",
     "reasonEn": "House of the Dragon tells what happened before Game of Thrones.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -6604,6 +6709,7 @@
     "relationship": "universe",
     "reason": "Hunter x Hunter adalah remake dari Hunter × Hunter.",
     "reasonEn": "Hunter x Hunter is a remake of Hunter × Hunter.",
+    "kind": "remake",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -6623,6 +6729,7 @@
     "relationship": "universe",
     "reason": "Film 2025 ini adalah seri keempat dan sekuel I Still Know What You Did Last Summer (1998), bukan langsung dari film 1997.",
     "reasonEn": "The 2025 film is the fourth installment and a sequel to I Still Know What You Did Last Summer (1998), not directly to the 1997 film.",
+    "kind": "series",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -6775,6 +6882,7 @@
     "relationship": "universe",
     "reason": "Inception: The Cobol Job menceritakan apa yang terjadi sebelum Inception.",
     "reasonEn": "Inception: The Cobol Job tells what happened before Inception.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -6946,6 +7054,7 @@
     "relationship": "universe",
     "reason": "Iron Man 2 melanjutkan cerita setelah Iron Man.",
     "reasonEn": "Iron Man 2 picks up the story after Iron Man.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -7003,6 +7112,7 @@
     "relationship": "universe",
     "reason": "It Chapter Two melanjutkan cerita setelah It.",
     "reasonEn": "It Chapter Two picks up the story after It.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -7098,6 +7208,7 @@
     "relationship": "universe",
     "reason": "John Wick: Chapter 2 melanjutkan cerita setelah John Wick.",
     "reasonEn": "John Wick: Chapter 2 picks up the story after John Wick.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -7117,6 +7228,7 @@
     "relationship": "universe",
     "reason": "John Wick: Chapter 3 - Parabellum melanjutkan cerita setelah John Wick: Chapter 2.",
     "reasonEn": "John Wick: Chapter 3 - Parabellum picks up the story after John Wick: Chapter 2.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -7136,6 +7248,7 @@
     "relationship": "universe",
     "reason": "John Wick: Chapter 4 melanjutkan cerita setelah John Wick: Chapter 3 - Parabellum.",
     "reasonEn": "John Wick: Chapter 4 picks up the story after John Wick: Chapter 3 - Parabellum.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -7212,6 +7325,7 @@
     "relationship": "universe",
     "reason": "Ju-On: White Ghost satu seri dengan Ju-on: The Grudge.",
     "reasonEn": "Ju-On: White Ghost belongs to the same series as Ju-on: The Grudge.",
+    "kind": "series",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -7231,6 +7345,7 @@
     "relationship": "universe",
     "reason": "Ju-on: The Beginning of the End satu seri dengan Ju-On: White Ghost.",
     "reasonEn": "Ju-on: The Beginning of the End belongs to the same series as Ju-On: White Ghost.",
+    "kind": "series",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -7345,6 +7460,7 @@
     "relationship": "universe",
     "reason": "Keduanya cuma berbagi nama Kamen Rider: Ryuki serial Heisei yang berdiri sendiri, Black Sun reboot dewasa dari yang 1987.",
     "reasonEn": "They share the Kamen Rider name and nothing else: Ryuki is a self-contained Heisei series, Black Sun an adult reboot of the 1987 one.",
+    "kind": "series",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -7385,6 +7501,7 @@
     "relationship": "universe",
     "reason": "The Whole Bloody Affair menggabungkan Kill Bill: Vol. 1 dan Vol. 2 menjadi satu film utuh.",
     "reasonEn": "The Whole Bloody Affair combines Kill Bill: Vol. 1 and Vol. 2 into a single film.",
+    "kind": "recut",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -7404,6 +7521,7 @@
     "relationship": "universe",
     "reason": "The Whole Bloody Affair menggabungkan Kill Bill: Vol. 1 dan Vol. 2 menjadi satu film utuh.",
     "reasonEn": "The Whole Bloody Affair combines Kill Bill: Vol. 1 and Vol. 2 into a single film.",
+    "kind": "recut",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -7461,6 +7579,7 @@
     "relationship": "universe",
     "reason": "Kill Bill: Vol. 2 melanjutkan cerita setelah Kill Bill: Vol. 1.",
     "reasonEn": "Kill Bill: Vol. 2 picks up the story after Kill Bill: Vol. 1.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -7632,6 +7751,7 @@
     "relationship": "universe",
     "reason": "Keduanya bagian dari Sony's Spider-Man Universe.",
     "reasonEn": "Both belong to Sony's Spider-Man Universe.",
+    "kind": "shared",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -7765,6 +7885,7 @@
     "relationship": "universe",
     "reason": "Lanterns dan Superman berada di semesta yang sama.",
     "reasonEn": "Lanterns and Superman are set in the same universe.",
+    "kind": "shared",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -8301,6 +8422,7 @@
     "relationship": "universe",
     "reason": "Episode rangkuman yang disisipkan di tengah Wano: Bartolomeo dan O-Tama mengulas Gear 5 Luffy melawan Kaidou.",
     "reasonEn": "A recap episode slotted into the Wano run: Bartolomeo and O-Tama go back over Gear 5 Luffy against Kaidou.",
+    "kind": "special",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -8415,6 +8537,7 @@
     "relationship": "universe",
     "reason": "Marvel Zombies berkembang dari episode zombie di What If...?.",
     "reasonEn": "Marvel Zombies grows out of the zombie episode of What If...?.",
+    "kind": "spinoff",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -8835,6 +8958,7 @@
     "relationship": "universe",
     "reason": "Moana 2 melanjutkan cerita setelah Moana.",
     "reasonEn": "Moana 2 picks up the story after Moana.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -9158,6 +9282,7 @@
     "relationship": "universe",
     "reason": "Mufasa: The Lion King menceritakan apa yang terjadi sebelum The Lion King.",
     "reasonEn": "Mufasa: The Lion King tells what happened before The Lion King.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -9310,6 +9435,7 @@
     "relationship": "universe",
     "reason": "Naked Gun 33⅓: The Final Insult melanjutkan cerita setelah The Naked Gun 2 1/2: The Smell of Fear.",
     "reasonEn": "Naked Gun 33⅓: The Final Insult picks up the story after The Naked Gun 2 1/2: The Smell of Fear.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -9329,6 +9455,7 @@
     "relationship": "universe",
     "reason": "Naruto Shippuden melanjutkan cerita setelah Naruto.",
     "reasonEn": "Naruto Shippuden picks up the story after Naruto.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -9348,6 +9475,7 @@
     "relationship": "remake",
     "reason": "Death merangkum episode 1-24 sebagai clip show dengan sedikit animasi baru. Rebirth sekitar 24 menit footage baru, pratinjau The End of Evangelion yang saat itu belum selesai.",
     "reasonEn": "Death recaps episodes 1-24 as a clip show with some new animation. Rebirth is about 24 minutes of new footage previewing The End of Evangelion while it was still unfinished.",
+    "kind": "recut",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -9367,6 +9495,7 @@
     "relationship": "remake",
     "reason": "Menggantikan episode 25 dan 26. Ceritanya bercabang setelah episode 24; ini akhir yang satunya, bukan sekuel dari yang pertama.",
     "reasonEn": "Replaces episodes 25 and 26. The story branches after episode 24; this is the other ending, not a sequel to the first one.",
+    "kind": "retelling",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -9502,6 +9631,7 @@
     "reasonEn": "Noriko's Dinner Table tells what happened before Suicide Club.",
     "storyEn": "Suicide Club opens with fifty-four schoolgirls and a mass suicide the film never explains, only chases, as the police drift toward a shadowy cult. Noriko's Dinner Table is Sion Sono's answer, and it is less a sequel than a way of walking around the same event: it takes place before, during and after the first film, and it stays with a family instead of the investigation. Where Suicide Club turns colder as it goes, this one sits with the generation gap and with how easily a person's identity can be rewritten. By story order it is the prequel, but it lands harder if you have already seen the first.",
     "story": "Suicide Club dibuka dengan lima puluh empat siswi dan bunuh diri massal yang tak pernah dijelaskan, hanya dikejar, sementara polisi perlahan mengarah ke sebuah sekte gelap. Noriko's Dinner Table adalah jawaban Sion Sono, dan ia lebih mirip jalan lain mengitari peristiwa yang sama daripada sekuel: ceritanya berlangsung sebelum, selama, dan sesudah film pertama, dan bertahan di dalam sebuah keluarga, bukan di ruang penyelidikan. Kalau Suicide Club makin dingin seiring berjalan, yang ini tinggal bersama jurang antargenerasi dan betapa mudahnya jati diri seseorang ditulis ulang. Menurut urutan cerita ia prekuel, tapi dampaknya lebih terasa kalau film pertama sudah ditonton.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -9673,6 +9803,7 @@
     "relationship": "universe",
     "reason": "Objectified adalah film kedua dalam trilogi desain Gary Hustwit yang diawali Helvetica.",
     "reasonEn": "Objectified is the second film in Gary Hustwit's design trilogy that began with Helvetica.",
+    "kind": "series",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -9749,6 +9880,7 @@
     "relationship": "universe",
     "reason": "Omen IV: The Awakening melanjutkan cerita setelah The Final Conflict.",
     "reasonEn": "Omen IV: The Awakening picks up the story after The Final Conflict.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -9882,6 +10014,7 @@
     "relationship": "universe",
     "reason": "Berlatar di dalam jeda dua tahun, tanpa kru sama sekali: Luffy berlatih sendirian di Rusukaina bersama Rayleigh.",
     "reasonEn": "Set inside the two-year gap, with no crew at all: Luffy training alone on Rusukaina with Rayleigh.",
+    "kind": "special",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -9901,6 +10034,7 @@
     "relationship": "universe",
     "reason": "Jinbe sudah berlayar bersama kru dan mereka memakai apa yang diajarkan Wano — meski Big Mom masih Kaisar di sini, hal yang sudah dilewati serialnya.",
     "reasonEn": "Jinbe sails with the crew and they use what Wano taught them — though Big Mom is still an Emperor here, which the series had already moved past.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -9920,6 +10054,7 @@
     "relationship": "universe",
     "reason": "Film terakhir yang berlatar sebelum lompatan waktu dua tahun.",
     "reasonEn": "The last film set before the two-year timeskip.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -9939,6 +10074,7 @@
     "relationship": "remake",
     "reason": "Remake ringkas dari beberapa arc East Blue, mengikuti Luffy dan empat kru yang bergabung: Zoro, Usopp, Sanji, dan Nami. Ini spesial TV tahun 2017.",
     "reasonEn": "An abridged remake of several East Blue arcs, following Luffy and the four crewmates who join him: Zoro, Usopp, Sanji and Nami. It is a 2017 TV special.",
+    "kind": "retelling",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -9958,6 +10094,7 @@
     "relationship": "remake",
     "reason": "Menceritakan ulang Water 7 dan Enies Lobby, berakhir pada perpisahan kru dengan Going Merry.",
     "reasonEn": "Retells Water 7 and Enies Lobby, ending on the crew's farewell to the Going Merry.",
+    "kind": "retelling",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -9977,6 +10114,7 @@
     "relationship": "remake",
     "reason": "Remake ringkas arc Arlong Park yang berpusat pada Nami: ia mencuri Going Merry, kembali ke Desa Cocoyashi, dan kru membebaskannya dari Arlong.",
     "reasonEn": "An abridged remake of the Arlong Park arc, centred on Nami: she steals the Going Merry, returns to Cocoyashi Village, and the crew frees it from Arlong.",
+    "kind": "retelling",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -9996,6 +10134,7 @@
     "relationship": "remake",
     "reason": "Remake ringkas masa kecil Sabo dan arc Dressrosa, diceritakan lewat Sabo serta saudara angkatnya, Ace dan Luffy.",
     "reasonEn": "An abridged remake of Sabo's childhood and the Dressrosa arc, told through Sabo and his sworn brothers Ace and Luffy.",
+    "kind": "retelling",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10015,6 +10154,7 @@
     "relationship": "universe",
     "reason": "Spesial ulang tahun ke-25, berlatar di Sabaody pada akhir jeda dua tahun dan diceritakan dari sisi penduduknya.",
     "reasonEn": "The 25th-anniversary special, set on Sabaody at the end of the two-year gap and told from the islanders' side.",
+    "kind": "special",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10034,6 +10174,7 @@
     "relationship": "universe",
     "reason": "Doflamingo sudah tumbang dan Nami masih memakai Sorcery Clima-Tact, menaruhnya antara Dressrosa dan Zou.",
     "reasonEn": "Doflamingo has already fallen and Nami still carries her Sorcery Clima-Tact, placing it between Dressrosa and Zou.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10053,6 +10194,7 @@
     "relationship": "universe",
     "reason": "Ditulis Eiichiro Oda sendiri, film ini berada di antara arc Thriller Bark dan Sabaody Archipelago: Brook sudah menjadi kru dan Sengoku serta Garp masih menjabat.",
     "reasonEn": "Written by Eiichiro Oda himself, this film sits between the Thriller Bark and Sabaody Archipelago arcs: Brook is on the crew and Sengoku and Garp still hold their posts.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10072,6 +10214,7 @@
     "relationship": "universe",
     "reason": "Film pertama setelah lompatan waktu: kru sudah sampai New World tetapi Law belum ikut.",
     "reasonEn": "The first film after the timeskip: the crew has reached the New World but Law is not with them yet.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10091,6 +10234,7 @@
     "relationship": "universe",
     "reason": "Bajak Laut Foxy kembali; kru berlayar sendiri tanpa Law, jadi berlatar sebelum Punk Hazard.",
     "reasonEn": "The Foxy Pirates return; the crew sails alone with no Law aboard, so it is set before Punk Hazard.",
+    "kind": "special",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10110,6 +10254,7 @@
     "relationship": "universe",
     "reason": "Robin sudah menjadi anggota kru, tetapi film ini tidak menunjukkan posisi pastinya dalam alur cerita.",
     "reasonEn": "Robin is already on the crew, but the film gives no exact place in the story.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10129,6 +10274,7 @@
     "relationship": "universe",
     "reason": "Chopper sudah ikut tetapi Vivi maupun Robin tidak ada — celah yang hampir tidak ada di serialnya, dan film pertama yang terang-terangan bertentangan dengannya.",
     "reasonEn": "Chopper is aboard but neither Vivi nor Robin is — a gap that barely exists in the series, and the first film to openly contradict it.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10148,6 +10294,7 @@
     "relationship": "universe",
     "reason": "Zoro membawa pedang Loguetown dan Usopp memakai gogglenya, yang menaruhnya tepat sebelum Reverse Mountain.",
     "reasonEn": "Zoro carries his Loguetown blades and Usopp his goggles, which puts it just before Reverse Mountain.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10167,6 +10314,7 @@
     "relationship": "universe",
     "reason": "Di sini kru sudah tahu hadiah buruan pasca-Alabasta, itu yang menaruhnya setelah Dead End Adventure.",
     "reasonEn": "Here the crew does know its post-Alabasta bounties, which is what places it after Dead End Adventure.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10186,6 +10334,7 @@
     "relationship": "universe",
     "reason": "Robin sudah bergabung, kru masih memakai Going Merry, dan belum ada yang tahu hadiah buruan baru mereka.",
     "reasonEn": "Robin has joined, the crew still sails the Going Merry, and nobody knows their new bounties yet.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10205,6 +10354,7 @@
     "relationship": "universe",
     "reason": "OVA perintis, dibuat setahun sebelum serialnya: cuma Luffy, Zoro, dan Nami yang ada dan tidak ada bagian manga yang diadaptasi.",
     "reasonEn": "The pilot OVA, made a year before the series: only Luffy, Zoro and Nami are aboard and nothing from the manga is adapted.",
+    "kind": "special",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10224,6 +10374,7 @@
     "relationship": "remake",
     "reason": "Penceritaan ulang arc Drum Island dengan Franky, Robin, dan Thousand Sunny, menggantikan Vivi, Karoo, dan Going Merry dari cerita aslinya.",
     "reasonEn": "A retelling of the Drum Island arc in which Franky, Robin and the Thousand Sunny appear, replacing Vivi, Karoo and the Going Merry from the original story.",
+    "kind": "retelling",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10243,6 +10394,7 @@
     "relationship": "universe",
     "reason": "Meski bernama \"Episode of\", ini cerita orisinal, bukan penceritaan ulang; awal mula Luffy cuma muncul sebagai kilas balik di dalamnya.",
     "reasonEn": "Despite the \"Episode of\" name this is an original story, not a retelling; Luffy's beginning appears only as a flashback inside it.",
+    "kind": "special",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10262,6 +10414,7 @@
     "relationship": "universe",
     "reason": "Usopp terlihat mengerjakan Perfect Clima-Tact di opening; film ini tidak punya posisi pasti dalam alur seri.",
     "reasonEn": "Usopp is seen working on the Perfect Clima-Tact in the opening credits; the film does not fit any exact point in the series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10281,6 +10434,7 @@
     "relationship": "universe",
     "reason": "Spesial pendamping berlatar setelah Dressrosa, tayang seminggu sebelum Film: GOLD.",
     "reasonEn": "A tie-in special set after Dressrosa, aired a week before Film: GOLD.",
+    "kind": "special",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10300,6 +10454,7 @@
     "relationship": "universe",
     "reason": "Prekuel, bukan lanjutan: berakhir saat kru mendapat Vivre Card yang membawa mereka ke Gran Tesoro.",
     "reasonEn": "A prequel, not a follow-up: it ends with the crew obtaining the Vivre Card that takes them to Gran Tesoro.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10319,6 +10474,7 @@
     "relationship": "remake",
     "reason": "Penceritaan ulang ringkas arc Alabasta, dirilis sebagai film One Piece kedelapan pada 2007.",
     "reasonEn": "An abridged retelling of the Alabasta arc, released as the eighth One Piece film in 2007.",
+    "kind": "retelling",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10338,6 +10494,7 @@
     "relationship": "universe",
     "reason": "Baru empat Topi Jerami di kapal dan mereka masih belum punya koki, sehingga cocok di antara Syrup Village dan Baratie.",
     "reasonEn": "Only four Straw Hats are aboard and they still lack a cook, which fits between Syrup Village and the Baratie.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10547,6 +10704,7 @@
     "relationship": "universe",
     "reason": "Patlabor 2: The Movie melanjutkan cerita setelah Patlabor: The Movie.",
     "reasonEn": "Patlabor 2: The Movie picks up the story after Patlabor: The Movie.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10566,6 +10724,7 @@
     "relationship": "universe",
     "reason": "Peacemaker berlatar di semesta DC yang sama, dan pahlawan Justice League muncul sebagai cameo.",
     "reasonEn": "Peacemaker is set in the same DC universe, and Justice League heroes cameo in it.",
+    "kind": "shared",
     "confidence": "medium",
     "status": "REJECTED",
     "source": "llm"
@@ -10585,6 +10744,7 @@
     "relationship": "universe",
     "reason": "Peaky Blinders: The Immortal Man melanjutkan cerita setelah Peaky Blinders.",
     "reasonEn": "Peaky Blinders: The Immortal Man picks up the story after Peaky Blinders.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10623,6 +10783,7 @@
     "relationship": "universe",
     "reason": "Pearl menceritakan apa yang terjadi sebelum X.",
     "reasonEn": "Pearl tells what happened before X.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10737,6 +10898,7 @@
     "relationship": "universe",
     "reason": "Film era Johto, dari masa Gold and Silver serialnya.",
     "reasonEn": "A Johto-era film, from the Gold and Silver run of the series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10756,6 +10918,7 @@
     "relationship": "universe",
     "reason": "Film era Johto, dari masa Gold and Silver serialnya.",
     "reasonEn": "A Johto-era film, from the Gold and Silver run of the series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10794,6 +10957,7 @@
     "relationship": "universe",
     "reason": "Mewtwo muncul di film live-action ini sebagai tawanan yang diincar Howard Clifford demi kemampuannya, dalam cerita terpisah yang longgar berdasarkan gim Detective Pikachu 2016.",
     "reasonEn": "Mewtwo appears in this live-action film as a captive targeted by Howard Clifford for its abilities, in a separate story loosely based on the 2016 Detective Pikachu game.",
+    "kind": "related",
     "confidence": "medium",
     "status": "APPROVED",
     "source": "llm"
@@ -10813,6 +10977,7 @@
     "relationship": "universe",
     "reason": "Film era Johto terakhir, rilis berbarengan dengan musim Master Quest.",
     "reasonEn": "The last Johto-era film, released against the Master Quest season.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10832,6 +10997,7 @@
     "relationship": "universe",
     "reason": "Film era Hoenn keempat sekaligus terakhir.",
     "reasonEn": "The fourth and last Hoenn-era film.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10851,6 +11017,7 @@
     "relationship": "universe",
     "reason": "Film era Unova, dari masa Best Wishes serialnya.",
     "reasonEn": "A Unova-era film, from the Best Wishes run of the series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10870,6 +11037,7 @@
     "relationship": "universe",
     "reason": "Dua versi dari satu film yang dirilis di Jepang pada hari yang sama; bedanya ada pada legendaris yang muncul dan di mana ia muncul, ditambah beberapa perubahan lain.",
     "reasonEn": "Two versions of one film released the same day in Japan; they differ in which legendary Pokémon appears and where, plus some other changes.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10889,6 +11057,7 @@
     "relationship": "universe",
     "reason": "Film era Kalos pertama, dari masa XY serialnya.",
     "reasonEn": "The first Kalos-era film, from the XY run of the series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10908,6 +11077,7 @@
     "relationship": "universe",
     "reason": "Film era Unova ketiga sekaligus terakhir.",
     "reasonEn": "The third and last Unova-era film.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10927,6 +11097,7 @@
     "relationship": "universe",
     "reason": "Film era Kalos kedua, dari masa XY serialnya.",
     "reasonEn": "The second Kalos-era film, from the XY run of the series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10946,6 +11117,7 @@
     "relationship": "remake",
     "reason": "Film ulang tahun ke-20, pembuka trilogi garis waktu alternatif: adaptasi longgar episode pertama dan sebagian besar musim pertama anime, dengan cerita orisinal.",
     "reasonEn": "The 20th-anniversary film, first of the alternate-timeline trilogy: a loose adaptation of the anime's first episode and much of season one, with an original story.",
+    "kind": "retelling",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10965,6 +11137,7 @@
     "relationship": "universe",
     "reason": "Film era Unova kedua, dari masa Best Wishes serialnya.",
     "reasonEn": "The second Unova-era film, from the Best Wishes run of the series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -10984,6 +11157,7 @@
     "relationship": "universe",
     "reason": "Me-remake film pertama, jadi posisinya di era Kanto, bukan di tahun rilisnya 2019.",
     "reasonEn": "Remakes the first film, so it sits at the Kanto era rather than at its 2019 release.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11022,6 +11196,7 @@
     "relationship": "universe",
     "reason": "Cerita orisinal di garis waktu I Choose You!, bukan di serial TV.",
     "reasonEn": "An original story in the I Choose You! timeline, not in the TV anime's.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11041,6 +11216,7 @@
     "relationship": "universe",
     "reason": "Film ketiga sekaligus terakhir di garis waktu I Choose You!.",
     "reasonEn": "The third and last film in the I Choose You! timeline.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11060,6 +11236,7 @@
     "relationship": "universe",
     "reason": "Cerita orisinal di garis waktu I Choose You!, bukan di serial TV.",
     "reasonEn": "An original story in the I Choose You! timeline, not in the TV anime's.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11079,6 +11256,7 @@
     "relationship": "universe",
     "reason": "Film kedua dari trilogi lini masa alternatif yang dibuka I Choose You!, dan disebut sekuelnya; ceritanya baru, tetapi masih berada di lini masa alternatif yang sama.",
     "reasonEn": "Second film of the alternate-timeline trilogy that begins with I Choose You!, billed as its sequel; it tells a new story set in the same alternate timeline.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11098,6 +11276,7 @@
     "relationship": "universe",
     "reason": "Film era Kalos ketiga sekaligus terakhir, dan yang terakhir berlatar di kontinuitas serial TV.",
     "reasonEn": "The third and last Kalos-era film, and the last one set in the TV anime's continuity.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11117,6 +11296,7 @@
     "relationship": "universe",
     "reason": "Film era Unova pertama, dari masa Best Wishes serialnya.",
     "reasonEn": "The first Unova-era film, from the Best Wishes run of the series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11136,6 +11316,7 @@
     "relationship": "universe",
     "reason": "Film era Sinnoh, dari masa Diamond and Pearl serialnya.",
     "reasonEn": "A Sinnoh-era film, from the Diamond and Pearl run of the series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11155,6 +11336,7 @@
     "relationship": "universe",
     "reason": "Sekuel langsung Giratina and the Sky Warrior, dan film ketiga dari rangkaian Diamond and Pearl yang berlanjut dari The Rise of Darkrai.",
     "reasonEn": "A direct sequel to Giratina and the Sky Warrior, and the third of the Diamond and Pearl films that follow on from The Rise of Darkrai.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11174,6 +11356,7 @@
     "relationship": "universe",
     "reason": "Film era Hoenn kedua, dari masa Ruby and Sapphire serialnya.",
     "reasonEn": "The second Hoenn-era film, from the Ruby and Sapphire run of the series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11193,6 +11376,7 @@
     "relationship": "universe",
     "reason": "Film era Sinnoh, Ash bepergian bersama Dawn dan Brock.",
     "reasonEn": "A Sinnoh-era film, with Ash travelling alongside Dawn and Brock.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11212,6 +11396,7 @@
     "relationship": "universe",
     "reason": "Pokémon: Giratina and the Sky Warrior melanjutkan cerita setelah Pokémon: The Rise of Darkrai.",
     "reasonEn": "Pokémon: Giratina and the Sky Warrior picks up the story after Pokémon: The Rise of Darkrai.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11231,6 +11416,7 @@
     "relationship": "universe",
     "reason": "Film era Hoenn pertama, dari masa Ruby and Sapphire serialnya.",
     "reasonEn": "The first Hoenn-era film, from the Ruby and Sapphire run of the series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11250,6 +11436,7 @@
     "relationship": "universe",
     "reason": "Film era Hoenn, disatukan ke dalam musim Advanced Battle.",
     "reasonEn": "A Hoenn-era film, bundled into the Advanced Battle season.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11288,6 +11475,7 @@
     "relationship": "universe",
     "reason": "Film pertama, dibuat berbarengan dengan serial Kanto.",
     "reasonEn": "The first film, made alongside the Kanto series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11307,6 +11495,7 @@
     "relationship": "universe",
     "reason": "Film era Sinnoh pertama, dari masa Diamond and Pearl serialnya.",
     "reasonEn": "The first Sinnoh-era film, from the Diamond and Pearl run of the series.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11326,6 +11515,7 @@
     "relationship": "universe",
     "reason": "Zoroark itu Pokémon Unova, tetapi ini tetap film era Sinnoh dan yang terakhir dari empat film itu.",
     "reasonEn": "Zoroark is a Unova Pokémon, but this is still a Sinnoh-era film and the last of the four.",
+    "kind": "film",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11516,6 +11706,7 @@
     "relationship": "universe",
     "reason": "Predator: Badlands menampilkan Weyland-Yutani, korporasi dari film Alien, lewat android Thia dan sebuah tim perusahaan.",
     "reasonEn": "Predator: Badlands features Weyland-Yutani, the corporation from the Alien films, through its android Thia and a company team.",
+    "kind": "related",
     "confidence": "medium",
     "status": "APPROVED",
     "source": "llm"
@@ -11668,6 +11859,7 @@
     "relationship": "universe",
     "reason": "Prometheus menceritakan apa yang terjadi sebelum Alien.",
     "reasonEn": "Prometheus tells what happened before Alien.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11763,6 +11955,7 @@
     "relationship": "universe",
     "reason": "Vincent Vega dan Vic Vega (Mr. Blonde) bersaudara; Tarantino pernah mempertimbangkan prekuel Double V Vega tentang mereka, tetapi tidak pernah dibuat.",
     "reasonEn": "Vincent Vega and Vic Vega (Mr. Blonde) are brothers; Tarantino once considered a prequel about them, Double V Vega, but it was never made.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11877,6 +12070,7 @@
     "relationship": "universe",
     "reason": "Return of the Jedi melanjutkan cerita setelah The Empire Strikes Back.",
     "reasonEn": "Return of the Jedi picks up the story after The Empire Strikes Back.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -11934,6 +12128,7 @@
     "relationship": "universe",
     "reason": "Rogue One berlatar satu minggu sebelum Star Wars dan mengikuti para pemberontak yang mencuri cetak biru Death Star.",
     "reasonEn": "Rogue One is set a week before Star Wars and follows the rebels who steal the Death Star plans.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -12010,6 +12205,7 @@
     "relationship": "universe",
     "reason": "Adaptasi anime baru dari manga Rurouni Kenshin yang sama dengan serial 1996, dibuat oleh Liden Films.",
     "reasonEn": "A new anime adaptation of the same Rurouni Kenshin manga as the 1996 series, by Liden Films.",
+    "kind": "adaptation",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -12090,6 +12286,7 @@
     "reasonEn": "Scary Movie (2026) returns to the original characters and bypasses Scary Movie 5, calling itself a spiritual sequel to the first two films.",
     "storyEn": "Scary Movie 5 is the black sheep of the series: the only entry without Anna Faris's Cindy and Regina Hall's Brenda, and the lowest-grossing and worst-reviewed of them. The 2026 Scary Movie does not pick up from it. It is the sixth film, called a spiritual sequel to the first two, with Faris, Hall and Marlon and Shawn Wayans all back, and the Wayans family writing again for the first time since Scary Movie 2. Marlon Wayans calls it a \"rebooquel,\" which is a fair description: a return to the original characters that steps around the fifth film. This time the targets include Get Out, Longlegs and Sinners.",
     "story": "Scary Movie 5 adalah domba hitam seri ini: satu-satunya entri tanpa Cindy milik Anna Faris dan Brenda milik Regina Hall, sekaligus yang paling sedikit meraup untung dan paling buruk ulasannya. Scary Movie 2026 tidak melanjutkan dari film itu. Ia film keenam, disebut sekuel spiritual dari dua film pertama, dengan Faris, Hall, serta Marlon dan Shawn Wayans semuanya kembali, dan keluarga Wayans menulis lagi untuk pertama kalinya sejak Scary Movie 2. Marlon Wayans menyebutnya \"rebooquel,\" deskripsi yang pas: kembali ke tokoh-tokoh awal sambil melangkahi film kelima. Kali ini sasarannya antara lain Get Out, Longlegs, dan Sinners.",
+    "kind": "series",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -12109,6 +12306,7 @@
     "relationship": "universe",
     "reason": "Scary Movie 2 melanjutkan cerita setelah Scary Movie.",
     "reasonEn": "Scary Movie 2 picks up the story after Scary Movie.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -12128,6 +12326,7 @@
     "relationship": "universe",
     "reason": "Scary Movie 3 melanjutkan cerita setelah Scary Movie 2.",
     "reasonEn": "Scary Movie 3 picks up the story after Scary Movie 2.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -12204,6 +12403,7 @@
     "relationship": "universe",
     "reason": "Scary Movie 4 melanjutkan cerita setelah Scary Movie 3.",
     "reasonEn": "Scary Movie 4 picks up the story after Scary Movie 3.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -12242,6 +12442,7 @@
     "relationship": "universe",
     "reason": "Scary Movie 5 adalah sekuel mandiri Scary Movie 4, satu-satunya entri tanpa Cindy dan Brenda.",
     "reasonEn": "Scary Movie 5 is a standalone sequel to Scary Movie 4, the only entry without Cindy and Brenda.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -12299,6 +12500,7 @@
     "relationship": "universe",
     "reason": "Secret Invasion melanjutkan Skrull dan Nick Fury dari Captain Marvel.",
     "reasonEn": "Secret Invasion picks up the Skrulls and Nick Fury from Captain Marvel.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -12470,6 +12672,7 @@
     "relationship": "universe",
     "reason": "Keduanya lahir dari dorongan ulang tahun kelima puluh Toei untuk menceritakan ulang Rider era Showa, tetapi keduanya karya terpisah dengan kontinuitas sendiri-sendiri, sebuah film dan sebuah serial TV.",
     "reasonEn": "Both came out of Toei's fiftieth-anniversary push to retell the Showa-era Riders, but they are separate works with separate continuities, a film and a TV series.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -12698,6 +12901,7 @@
     "relationship": "universe",
     "reason": "Solo: A Star Wars Story menceritakan apa yang terjadi sebelum Star Wars.",
     "reasonEn": "Solo: A Star Wars Story tells what happened before Star Wars.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -12831,6 +13035,7 @@
     "relationship": "universe",
     "reason": "Spider-Man 2 melanjutkan cerita setelah Spider-Man.",
     "reasonEn": "Spider-Man 2 picks up the story after Spider-Man.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -12850,6 +13055,7 @@
     "relationship": "universe",
     "reason": "Spider-Man 3 melanjutkan cerita setelah Spider-Man 2.",
     "reasonEn": "Spider-Man 3 picks up the story after Spider-Man 2.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -12869,6 +13075,7 @@
     "relationship": "universe",
     "reason": "Spider-Man: Across the Spider-Verse melanjutkan cerita setelah Spider-Man: Into the Spider-Verse.",
     "reasonEn": "Spider-Man: Across the Spider-Verse picks up the story after Spider-Man: Into the Spider-Verse.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -12907,6 +13114,7 @@
     "relationship": "universe",
     "reason": "Spider-Man: Brand New Day melanjutkan cerita setelah Spider-Man: No Way Home.",
     "reasonEn": "Spider-Man: Brand New Day picks up the story after Spider-Man: No Way Home.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13023,6 +13231,7 @@
     "relationship": "universe",
     "reason": "Doc Ock kembali di No Way Home, lagi-lagi diperankan Alfred Molina.",
     "reasonEn": "Doc Ock returns in No Way Home, played again by Alfred Molina.",
+    "kind": "cameo",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13042,6 +13251,7 @@
     "relationship": "universe",
     "reason": "Spider-Man: No Way Home melanjutkan cerita setelah Spider-Man: Far from Home.",
     "reasonEn": "Spider-Man: No Way Home picks up the story after Spider-Man: Far from Home.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13061,6 +13271,7 @@
     "relationship": "universe",
     "reason": "Electro kembali di No Way Home, lagi-lagi diperankan Jamie Foxx.",
     "reasonEn": "Electro returns in No Way Home, played again by Jamie Foxx.",
+    "kind": "cameo",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13194,6 +13405,7 @@
     "relationship": "universe",
     "reason": "Adegan akhir Split mengungkap bahwa film itu satu semesta dengan Unbreakable.",
     "reasonEn": "Split's final scene reveals it shares a universe with Unbreakable.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13327,6 +13539,7 @@
     "relationship": "universe",
     "reason": "Star Wars Rebels melanjutkan cerita setelah Star Wars: The Clone Wars.",
     "reasonEn": "Star Wars Rebels picks up the story after Star Wars: The Clone Wars.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13346,6 +13559,7 @@
     "relationship": "universe",
     "reason": "Star Wars: Andor menceritakan apa yang terjadi sebelum Rogue One: A Star Wars Story.",
     "reasonEn": "Star Wars: Andor tells what happened before Rogue One: A Star Wars Story.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13384,6 +13598,7 @@
     "relationship": "universe",
     "reason": "Star Wars: Episode I - The Phantom Menace menceritakan apa yang terjadi sebelum Star Wars.",
     "reasonEn": "Star Wars: Episode I - The Phantom Menace tells what happened before Star Wars.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13422,6 +13637,7 @@
     "relationship": "universe",
     "reason": "Star Wars: Episode II - Attack of the Clones melanjutkan cerita setelah Star Wars: Episode I - The Phantom Menace.",
     "reasonEn": "Star Wars: Episode II - Attack of the Clones picks up the story after Star Wars: Episode I - The Phantom Menace.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13441,6 +13657,7 @@
     "relationship": "universe",
     "reason": "Star Wars: Episode III - Revenge of the Sith melanjutkan cerita setelah Star Wars: Episode II - Attack of the Clones.",
     "reasonEn": "Star Wars: Episode III - Revenge of the Sith picks up the story after Star Wars: Episode II - Attack of the Clones.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13460,6 +13677,7 @@
     "relationship": "universe",
     "reason": "Maul - Shadow Lord berlatar setelah The Clone Wars dan mengikuti Maul pada masa pemerintahan Kekaisaran Galaksi.",
     "reasonEn": "Star Wars: Maul - Shadow Lord is set after The Clone Wars and follows Maul during the Galactic Empire's reign.",
+    "kind": "spinoff",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13498,6 +13716,7 @@
     "relationship": "universe",
     "reason": "Tales of the Underworld bagian dari antologi Tales dan mengikuti dua pemburu bayaran, Asajj Ventress dan Cad Bane.",
     "reasonEn": "Star Wars: Tales of the Underworld is part of the Tales anthology and follows bounty hunters Asajj Ventress and Cad Bane.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13536,6 +13755,7 @@
     "relationship": "universe",
     "reason": "Star Wars: The Force Awakens melanjutkan cerita setelah Return of the Jedi.",
     "reasonEn": "Star Wars: The Force Awakens picks up the story after Return of the Jedi.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13574,6 +13794,7 @@
     "relationship": "universe",
     "reason": "Star Wars: The Last Jedi melanjutkan cerita setelah Star Wars: The Force Awakens.",
     "reasonEn": "Star Wars: The Last Jedi picks up the story after Star Wars: The Force Awakens.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13612,6 +13833,7 @@
     "relationship": "universe",
     "reason": "Star Wars: The Rise of Skywalker melanjutkan cerita setelah Star Wars: The Last Jedi.",
     "reasonEn": "Star Wars: The Rise of Skywalker picks up the story after Star Wars: The Last Jedi.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13631,6 +13853,7 @@
     "relationship": "universe",
     "reason": "Star Wars: Visions adalah antologi film pendek animasi mandiri dari berbagai studio, berlatar atau terinspirasi dari alam semesta Star Wars.",
     "reasonEn": "Star Wars: Visions is an anthology of self-contained animated shorts by various studios, set in or inspired by the Star Wars universe.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13650,6 +13873,7 @@
     "relationship": "universe",
     "reason": "Visions Presents - The Ninth Jedi adalah spin-off dari Star Wars: Visions.",
     "reasonEn": "Star Wars: Visions Presents - The Ninth Jedi spins off from Star Wars: Visions.",
+    "kind": "spinoff",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13707,6 +13931,7 @@
     "relationship": "universe",
     "reason": "Anime promosi buatan Toei Animation berdasarkan gim kartu Super Dragon Ball Heroes, yang mengadaptasi alur Prison Planet dari gim tersebut.",
     "reasonEn": "A promotional anime by Toei Animation based on the Super Dragon Ball Heroes card game, adapting the game's Prison Planet arc.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13726,6 +13951,7 @@
     "relationship": "universe",
     "reason": "Supergirl dan Superman berada di semesta yang sama.",
     "reasonEn": "Supergirl and Superman are set in the same universe.",
+    "kind": "shared",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13764,6 +13990,7 @@
     "relationship": "universe",
     "reason": "Superman memulai ulang tokohnya di DCU baru garapan James Gunn, meninggalkan kesinambungan Man of Steel alih-alih melanjutkannya.",
     "reasonEn": "Superman reboots the character in James Gunn's new DCU, abandoning the Man of Steel continuity rather than continuing it.",
+    "kind": "reboot",
     "confidence": "medium",
     "status": "APPROVED",
     "source": "llm"
@@ -13878,6 +14105,7 @@
     "relationship": "universe",
     "reason": "T2 Trainspotting melanjutkan cerita setelah Trainspotting.",
     "reasonEn": "T2 Trainspotting picks up the story after Trainspotting.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13918,6 +14146,7 @@
     "relationship": "universe",
     "reason": "THE GHOST IN THE SHELL mengadaptasi sumber yang sama dengan Ghost in the Shell.",
     "reasonEn": "THE GHOST IN THE SHELL adapts the same source as Ghost in the Shell.",
+    "kind": "adaptation",
     "confidence": "medium",
     "status": "APPROVED",
     "source": "llm"
@@ -13937,6 +14166,7 @@
     "relationship": "universe",
     "reason": "TRON: Ares melanjutkan cerita setelah TRON: Legacy.",
     "reasonEn": "TRON: Ares picks up the story after TRON: Legacy.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -13956,6 +14186,7 @@
     "relationship": "universe",
     "reason": "TRON: Legacy melanjutkan cerita setelah Tron.",
     "reasonEn": "TRON: Legacy picks up the story after Tron.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -14051,6 +14282,7 @@
     "relationship": "universe",
     "reason": "Teenage Mutant Ninja Turtles II: The Secret of the Ooze melanjutkan cerita setelah Teenage Mutant Ninja Turtles.",
     "reasonEn": "Teenage Mutant Ninja Turtles II: The Secret of the Ooze picks up the story after Teenage Mutant Ninja Turtles.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -14070,6 +14302,7 @@
     "relationship": "universe",
     "reason": "Teenage Mutant Ninja Turtles III melanjutkan cerita setelah Teenage Mutant Ninja Turtles II: The Secret of the Ooze.",
     "reasonEn": "Teenage Mutant Ninja Turtles III picks up the story after Teenage Mutant Ninja Turtles II: The Secret of the Ooze.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -14146,6 +14379,7 @@
     "relationship": "universe",
     "reason": "The Acolyte berlatar seabad sebelum The Phantom Menace.",
     "reasonEn": "The Acolyte is set a century before The Phantom Menace.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -14184,6 +14418,7 @@
     "relationship": "universe",
     "reason": "The Amazing Spider-Man memulai ulang kisah yang dibuka Spider-Man.",
     "reasonEn": "The Amazing Spider-Man restarts the story that Spider-Man began.",
+    "kind": "reboot",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -14203,6 +14438,7 @@
     "relationship": "universe",
     "reason": "The Amazing Spider-Man 2 melanjutkan cerita setelah The Amazing Spider-Man.",
     "reasonEn": "The Amazing Spider-Man 2 picks up the story after The Amazing Spider-Man.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -14241,6 +14477,7 @@
     "relationship": "universe",
     "reason": "The Avengers menyatukan para pahlawan fase pertama dalam satu tim.",
     "reasonEn": "The Avengers brings the heroes of the first phase onto one team.",
+    "kind": "crossover",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -14260,6 +14497,7 @@
     "relationship": "universe",
     "reason": "The Batman memulai ulang kisah yang dibuka Batman Begins.",
     "reasonEn": "The Batman restarts the story that Batman Begins began.",
+    "kind": "reboot",
     "confidence": "medium",
     "status": "REJECTED",
     "source": "llm"
@@ -14450,6 +14688,7 @@
     "relationship": "universe",
     "reason": "The Book of Boba Fett adalah spin-off dari The Mandalorian.",
     "reasonEn": "The Book of Boba Fett spins off from The Mandalorian.",
+    "kind": "spinoff",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -14545,6 +14784,7 @@
     "relationship": "universe",
     "reason": "Spin-off, bukan sekuel: Baron Humbert von Gikkingen adalah karakter yang sama dari Whisper of the Heart. Keduanya diadaptasi dari manga karya Aoi Hiiragi.",
     "reasonEn": "A spin-off, not a sequel: Baron Humbert von Gikkingen is the same character from Whisper of the Heart. Both films adapt manga by Aoi Hiiragi.",
+    "kind": "spinoff",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -14659,6 +14899,7 @@
     "relationship": "universe",
     "reason": "The Dark Knight melanjutkan cerita setelah Batman Begins.",
     "reasonEn": "The Dark Knight picks up the story after Batman Begins.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -14756,6 +14997,7 @@
     "relationship": "universe",
     "reason": "The Dark Knight Rises melanjutkan cerita setelah The Dark Knight.",
     "reasonEn": "The Dark Knight Rises picks up the story after The Dark Knight.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -14813,6 +15055,7 @@
     "relationship": "universe",
     "reason": "The Devil Wears Prada 2 melanjutkan cerita setelah The Devil Wears Prada.",
     "reasonEn": "The Devil Wears Prada 2 picks up the story after The Devil Wears Prada.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -14967,6 +15210,7 @@
     "relationship": "universe",
     "reason": "The Empire Strikes Back melanjutkan cerita setelah Star Wars.",
     "reasonEn": "The Empire Strikes Back picks up the story after Star Wars.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15024,6 +15268,7 @@
     "relationship": "universe",
     "reason": "The Final Conflict melanjutkan cerita setelah Damien: Omen II.",
     "reasonEn": "The Final Conflict picks up the story after Damien: Omen II.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15045,6 +15290,7 @@
     "reasonEn": "The First Omen tells what happened before The Omen.",
     "storyEn": "The First Omen ends where The Omen begins: a baby boy handed to the American diplomat Robert Thorn, to secretly replace the child his wife supposedly miscarried. In between it threads in the 1976 film's people and sounds. Ralph Ineson plays Father Brennan, the priest Patrick Troughton played in the original, Gregory Peck appears only in an archival photograph, and composer Mark Korven works in themes by Jerry Goldsmith, including \"Ave Satani,\" from the score that won Goldsmith his Oscar. Director Arkasha Stevenson, in her feature debut, has said she loved that the original is \"really a drama, first and foremost\" and that \"it was important for us to not copy\" it.",
     "story": "The First Omen berakhir di titik The Omen dimulai: seorang bayi laki-laki diserahkan kepada diplomat Amerika Robert Thorn, untuk diam-diam menggantikan anak yang konon keguguran dari istrinya. Di antaranya ia menjalin orang-orang dan bunyi dari film 1976. Ralph Ineson memerankan Father Brennan, pastor yang dulu diperankan Patrick Troughton, Gregory Peck hanya hadir lewat foto arsip, dan komposer Mark Korven memasukkan tema Jerry Goldsmith, termasuk \"Ave Satani,\" dari musik yang mengantarkan Goldsmith meraih Oscar. Sutradara Arkasha Stevenson, dalam debut film panjangnya, mengatakan ia menyukai bahwa film aslinya \"really a drama, first and foremost\" dan bahwa \"it was important for us to not copy\" film itu.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15064,6 +15310,7 @@
     "relationship": "universe",
     "reason": "The First Slam Dunk mengadaptasi sumber yang sama dengan Slam Dunk.",
     "reasonEn": "The First Slam Dunk adapts the same source as Slam Dunk.",
+    "kind": "adaptation",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15085,6 +15332,7 @@
     "reasonEn": "Michael Keaton plays his Batman from Burton's films again, as an alternate version of the character from another timeline.",
     "storyEn": "Michael Keaton last played Batman in 1992. The Flash brings him back not as a sequel but as a visitor: a long-retired Bruce Wayne from another timeline, whom Barry finds after his meddling with time scrambles things. The film leans on the Burton films' sound as much as on their star. Composer Benjamin Wallfisch threads Danny Elfman's themes from Batman and Batman Returns through the score, so viewers who grew up on those films hear the connection before they see it. Tim Burton did not direct it, Andy Muschietti did, so read it as an old Batman visiting a new film rather than the 1989 story continuing.",
     "story": "Michael Keaton terakhir memerankan Batman pada 1992. The Flash membawanya kembali bukan sebagai sekuel, melainkan sebagai tamu: Bruce Wayne yang sudah lama pensiun dari garis waktu lain, yang ditemukan Barry setelah ulahnya mengutak-atik waktu mengacaukan segalanya. Filmnya bersandar pada bunyi film-film Burton sama kuatnya dengan bintangnya. Komposer Benjamin Wallfisch menyisipkan tema Danny Elfman dari Batman dan Batman Returns ke seluruh musiknya, sehingga penonton yang tumbuh dengan film-film itu mendengar koneksinya sebelum melihatnya. Tim Burton tidak menyutradarainya, Andy Muschietti yang melakukannya, jadi bacalah ini sebagai Batman lama yang bertamu ke film baru, bukan cerita 1989 yang berlanjut.",
+    "kind": "cameo",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15104,6 +15352,7 @@
     "relationship": "universe",
     "reason": "Batman Keaton kembali, dan komposer Benjamin Wallfisch mengutip tema Danny Elfman dari Batman dan Batman Returns.",
     "reasonEn": "Keaton's Batman returns, and composer Benjamin Wallfisch quotes Danny Elfman's themes from Batman and Batman Returns throughout.",
+    "kind": "cameo",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15123,6 +15372,7 @@
     "relationship": "universe",
     "reason": "Ben Affleck kembali sebagai Batman DCEU yang asli, yang diperkenalkan di Batman v Superman.",
     "reasonEn": "Ben Affleck returns as the original DCEU Batman, introduced in Batman v Superman.",
+    "kind": "cameo",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15161,6 +15411,7 @@
     "relationship": "universe",
     "reason": "The Flash menengok kembali Man of Steel, menghadirkan lagi Jenderal Zod dan Faora di garis waktu alternatif.",
     "reasonEn": "The Flash revisits Man of Steel, bringing back General Zod and Faora in an alternate timeline.",
+    "kind": "cameo",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15180,6 +15431,7 @@
     "relationship": "universe",
     "reason": "The Flash adalah film DCEU ke-13. Barry Allen anggota Justice League, dan Henry Allen diganti pemain: di Zack Snyder's Justice League ia diperankan Billy Crudup.",
     "reasonEn": "The Flash is the 13th DCEU film. Barry Allen is a Justice League member, and Henry Allen is recast: Billy Crudup played him in Zack Snyder's Justice League.",
+    "kind": "shared",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15256,6 +15508,7 @@
     "relationship": "universe",
     "reason": "The Godfather Part II melanjutkan cerita setelah The Godfather.",
     "reasonEn": "The Godfather Part II picks up the story after The Godfather.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15294,6 +15547,7 @@
     "relationship": "universe",
     "reason": "The Godfather Part III melanjutkan cerita setelah The Godfather Part II.",
     "reasonEn": "The Godfather Part III picks up the story after The Godfather Part II.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15427,6 +15681,7 @@
     "relationship": "universe",
     "reason": "Nama asli Mobray terungkap sebagai \"English\" Pete Hicox, senama dengan Letnan Archie Hicox di Inglourious Basterds.",
     "reasonEn": "Mobray's real name is revealed as \"English\" Pete Hicox, sharing a surname with Lt. Archie Hicox in Inglourious Basterds.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15465,6 +15720,7 @@
     "relationship": "universe",
     "reason": "The Hobbit: The Battle of the Five Armies melanjutkan cerita setelah The Hobbit: The Desolation of Smaug.",
     "reasonEn": "The Hobbit: The Battle of the Five Armies picks up the story after The Hobbit: The Desolation of Smaug.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15484,6 +15740,7 @@
     "relationship": "universe",
     "reason": "The Hobbit: The Desolation of Smaug melanjutkan cerita setelah The Hobbit: An Unexpected Journey.",
     "reasonEn": "The Hobbit: The Desolation of Smaug picks up the story after The Hobbit: An Unexpected Journey.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15617,6 +15874,7 @@
     "relationship": "universe",
     "reason": "The Hunger Games: Catching Fire melanjutkan cerita setelah The Hunger Games.",
     "reasonEn": "The Hunger Games: Catching Fire picks up the story after The Hunger Games.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15636,6 +15894,7 @@
     "relationship": "universe",
     "reason": "The Hunger Games: Mockingjay - Part 1 melanjutkan cerita setelah The Hunger Games: Catching Fire.",
     "reasonEn": "The Hunger Games: Mockingjay - Part 1 picks up the story after The Hunger Games: Catching Fire.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15655,6 +15914,7 @@
     "relationship": "universe",
     "reason": "The Hunger Games: Mockingjay - Part 2 melanjutkan cerita setelah The Hunger Games: Mockingjay - Part 1.",
     "reasonEn": "The Hunger Games: Mockingjay - Part 2 picks up the story after The Hunger Games: Mockingjay - Part 1.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15674,6 +15934,7 @@
     "relationship": "universe",
     "reason": "The Hunger Games: The Ballad of Songbirds & Snakes menceritakan apa yang terjadi sebelum The Hunger Games.",
     "reasonEn": "The Hunger Games: The Ballad of Songbirds & Snakes tells what happened before The Hunger Games.",
+    "kind": "prequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -15750,6 +16011,7 @@
     "relationship": "universe",
     "reason": "The Incredible Hulk ditutup dengan Tony Stark menemui Jenderal Ross, mengaitkannya ke Iron Man.",
     "reasonEn": "The Incredible Hulk ends with Tony Stark approaching General Ross, tying it to Iron Man.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -16035,6 +16297,7 @@
     "relationship": "universe",
     "reason": "Cincinnya berpindah ke Frodo sekitar enam puluh tahun setelah Bilbo membawanya pulang, jadi ceritanya berlanjut di sini meski film-film ini keluar lebih dulu.",
     "reasonEn": "The Ring passes to Frodo some sixty years after Bilbo brought it home, so the story continues here even though these films came out first.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -16054,6 +16317,7 @@
     "relationship": "remake",
     "reason": "Film animasi Bakshi (1978) lebih dulu: mencakup The Fellowship of the Ring dan sebagian The Two Towers, lalu berhenti. Sekuelnya tidak pernah dibuat.",
     "reasonEn": "Bakshi's 1978 animated film got there first: it covers The Fellowship of the Ring and part of The Two Towers, then ends. No sequel was ever made.",
+    "kind": "adaptation",
     "confidence": "medium",
     "status": "APPROVED",
     "source": "llm"
@@ -16073,6 +16337,7 @@
     "relationship": "universe",
     "reason": "The Lord of the Rings: The Return of the King melanjutkan cerita setelah The Lord of the Rings: The Two Towers.",
     "reasonEn": "The Lord of the Rings: The Return of the King picks up the story after The Lord of the Rings: The Two Towers.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -16092,6 +16357,7 @@
     "relationship": "universe",
     "reason": "The Lord of the Rings: The Two Towers melanjutkan cerita setelah The Lord of the Rings: The Fellowship of the Ring.",
     "reasonEn": "The Lord of the Rings: The Two Towers picks up the story after The Lord of the Rings: The Fellowship of the Ring.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -16225,6 +16491,7 @@
     "relationship": "universe",
     "reason": "The Mandalorian and Grogu melanjutkan cerita setelah The Mandalorian.",
     "reasonEn": "The Mandalorian and Grogu picks up the story after The Mandalorian.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -16263,6 +16530,7 @@
     "relationship": "universe",
     "reason": "The Marvels melanjutkan cerita setelah Captain Marvel.",
     "reasonEn": "The Marvels picks up the story after Captain Marvel.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -16320,6 +16588,7 @@
     "relationship": "universe",
     "reason": "The Naked Gun melanjutkan cerita setelah Naked Gun 33⅓: The Final Insult.",
     "reasonEn": "The Naked Gun picks up the story after Naked Gun 33⅓: The Final Insult.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -16339,6 +16608,7 @@
     "relationship": "universe",
     "reason": "The Naked Gun 2 1/2: The Smell of Fear melanjutkan cerita setelah The Naked Gun: From the Files of Police Squad!.",
     "reasonEn": "The Naked Gun 2 1/2: The Smell of Fear picks up the story after The Naked Gun: From the Files of Police Squad!.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -16512,6 +16782,7 @@
     "relationship": "universe",
     "reason": "The Penguin adalah spin-off dari The Batman.",
     "reasonEn": "The Penguin spins off from The Batman.",
+    "kind": "spinoff",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -16588,6 +16859,7 @@
     "relationship": "universe",
     "reason": "Spesial dokumenter musik yang terkait perilisan AS Pokémon: The Movie 2000, bukan film layar lebar (genre TMDB: Documentary, Music).",
     "reasonEn": "A music-documentary special tied to the US release of Pokémon: The Movie 2000, not a feature film (TMDB genres: Documentary, Music).",
+    "kind": "special",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -16873,6 +17145,7 @@
     "relationship": "universe",
     "reason": "The Super Mario Galaxy Movie melanjutkan cerita setelah The Super Mario Bros. Movie.",
     "reasonEn": "The Super Mario Galaxy Movie picks up the story after The Super Mario Bros. Movie.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -16987,6 +17260,7 @@
     "relationship": "universe",
     "reason": "Kebangkitan serial antologi Rod Serling tahun 1959, dengan Jordan Peele sebagai pembawa acara dan narator.",
     "reasonEn": "A revival of Rod Serling's 1959 anthology series, with Jordan Peele as host and narrator.",
+    "kind": "revival",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -17293,6 +17567,7 @@
     "relationship": "universe",
     "reason": "Adegan pasca-kredit Iron Man 2 memperlihatkan agen S.H.I.E.L.D. Phil Coulson menemukan sebuah palu besar di New Mexico, yang mengantar ke Thor.",
     "reasonEn": "Iron Man 2's post-credits scene shows S.H.I.E.L.D. agent Phil Coulson discovering a large hammer in New Mexico, leading into Thor.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -17350,6 +17625,7 @@
     "relationship": "universe",
     "reason": "Thor: Love and Thunder adalah sekuel Thor: Ragnarok, film Thor keempat.",
     "reasonEn": "Thor: Love and Thunder is the sequel to Thor: Ragnarok, the fourth Thor film.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -17388,6 +17664,7 @@
     "relationship": "universe",
     "reason": "Doctor Strange muncul sebagai cameo di Thor: Ragnarok.",
     "reasonEn": "Doctor Strange appears in a cameo during Thor: Ragnarok.",
+    "kind": "cameo",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -17445,6 +17722,7 @@
     "relationship": "universe",
     "reason": "Yelena Belova, yang pertama muncul di Black Widow, adalah salah satu antihero yang dipaksa bekerja sama di Thunderbolts*.",
     "reasonEn": "Yelena Belova, who first appeared in Black Widow, is one of the antiheroes forced to work together in Thunderbolts*.",
+    "kind": "related",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -17597,6 +17875,7 @@
     "relationship": "universe",
     "reason": "Toy Story 2 melanjutkan cerita setelah Toy Story.",
     "reasonEn": "Toy Story 2 picks up the story after Toy Story.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -17635,6 +17914,7 @@
     "relationship": "universe",
     "reason": "Toy Story 3 melanjutkan cerita setelah Toy Story 2.",
     "reasonEn": "Toy Story 3 picks up the story after Toy Story 2.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -17654,6 +17934,7 @@
     "relationship": "universe",
     "reason": "Toy Story 4 melanjutkan cerita setelah Toy Story 3.",
     "reasonEn": "Toy Story 4 picks up the story after Toy Story 3.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -17673,6 +17954,7 @@
     "relationship": "universe",
     "reason": "Toy Story 5 melanjutkan cerita setelah Toy Story 4.",
     "reasonEn": "Toy Story 5 picks up the story after Toy Story 4.",
+    "kind": "sequel",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -17958,6 +18240,7 @@
     "relationship": "universe",
     "reason": "Urbanized melengkapi trilogi desain Gary Hustwit.",
     "reasonEn": "Urbanized completes Gary Hustwit's design trilogy.",
+    "kind": "series",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -18015,6 +18298,7 @@
     "relationship": "universe",
     "reason": "Venom: The Last Dance dibuka dengan Eddie dan Venom baru kembali dari semesta lain, dan menghadirkan lagi bartender dari No Way Home. Spider-Man Tom Holland tidak muncul.",
     "reasonEn": "Venom: The Last Dance opens with Eddie and Venom back from another universe, and brings back the No Way Home bartender. Tom Holland's Spider-Man does not appear.",
+    "kind": "related",
     "confidence": "medium",
     "status": "APPROVED",
     "source": "llm"
@@ -18053,6 +18337,7 @@
     "relationship": "universe",
     "reason": "VisionQuest mengikuti White Vision dan memanggil kembali Ultron yang diperankan James Spader dari Age of Ultron.",
     "reasonEn": "VisionQuest follows the White Vision and brings back James Spader's Ultron from Age of Ultron.",
+    "kind": "cameo",
     "confidence": "medium",
     "status": "APPROVED",
     "source": "llm"
@@ -18205,6 +18490,7 @@
     "relationship": "universe",
     "reason": "Taki, Mitsuha, Tessie, dan Sayaka dari Your Name muncul sebagai cameo di sini. Shinkai ingin melihat Taki dan Mitsuha lagi sebelum mereka bertemu.",
     "reasonEn": "Taki, Mitsuha, Tessie and Sayaka from Your Name make cameos here. Shinkai said he wanted to see Taki and Mitsuha again before they met.",
+    "kind": "cameo",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"
@@ -18300,6 +18586,7 @@
     "relationship": "universe",
     "reason": "What If...? membayangkan versi alternatif peristiwa MCU sebagai bagian dari multiverse.",
     "reasonEn": "What If...? imagines alternate versions of MCU events as part of the multiverse.",
+    "kind": "related",
     "confidence": "medium",
     "status": "APPROVED",
     "source": "llm"
@@ -18357,6 +18644,7 @@
     "relationship": "universe",
     "reason": "Trevor Slattery milik Ben Kingsley dari Iron Man 3 kembali di Wonder Man.",
     "reasonEn": "Ben Kingsley's Trevor Slattery from Iron Man 3 returns in Wonder Man.",
+    "kind": "cameo",
     "confidence": "medium",
     "status": "APPROVED",
     "source": "llm"
@@ -18566,6 +18854,7 @@
     "relationship": "universe",
     "reason": "Yukari Yukino dari The Garden of Words juga mengajar di sekolah Mitsuha di Your Name, dengan pengisi suara yang sama (Kana Hanazawa).",
     "reasonEn": "Yukari Yukino, the Garden of Words teacher, also teaches at Mitsuha's school in Your Name, with the same voice actress (Kana Hanazawa).",
+    "kind": "cameo",
     "confidence": "high",
     "status": "APPROVED",
     "source": "llm"

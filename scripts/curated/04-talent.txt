@@ -154,7 +154,7 @@ The Wild Robot (2024) > Lilo & Stitch (2025) | talent | h | Chris Sanders direct
 Mickey 17 (2025) > Parasite (2019) | talent | h | Both directed by Bong Joon-ho. || Keduanya disutradarai Bong Joon-ho.
 Kaibutsu (2024) > Shoplifters (2018) | talent | h | Both directed by Hirokazu Kore-eda. || Keduanya disutradarai Hirokazu Kore-eda.
 Twin Peaks (1990) > Blue Velvet (1986) | talent | h | David Lynch made both, with Kyle MacLachlan as the curious man poking at small-town darkness. || David Lynch membuat keduanya, dengan Kyle MacLachlan sebagai pria penasaran yang mengorek kegelapan kota kecil.
-1923 (2022) > Yellowstone (2018) | universe | h | 1923 is a prequel to Yellowstone, set a century earlier in the Dutton family story. || 1923 adalah prekuel Yellowstone, berlatar seabad lebih awal dalam kisah keluarga Dutton.
+1923 (2022) > Yellowstone (2018) | universe/prequel | h | 1923 is a prequel to Yellowstone, set a century earlier in the Dutton family story. || 1923 adalah prekuel Yellowstone, berlatar seabad lebih awal dalam kisah keluarga Dutton.
 
 # ---------- Anime: sutradara, kreator manga, studio ----------
 Samurai Champloo (2004) > Cowboy Bebop (1998) | talent | h | Shinichiro Watanabe directed both. || Shinichiro Watanabe menyutradarai keduanya.
@@ -181,11 +181,11 @@ Ocean Waves (1994) > Whisper of the Heart (1995) | talent | h | Both are Studio 
 The Red Turtle (2016) > The Tale of The Princess Kaguya (2013) | talent | h | Studio Ghibli produced The Tale of the Princess Kaguya and co-produced The Red Turtle. || Studio Ghibli memproduseri The Tale of the Princess Kaguya dan ikut memproduseri The Red Turtle.
 
 # ---------- Semesta yang belum tercakup ----------
-Ballerina (2025) > John Wick: Chapter 4 (2023) | universe | h | Ballerina is set in the John Wick world, between Chapter 3 and Chapter 4. || Ballerina berlatar di dunia John Wick, di antara Chapter 3 dan Chapter 4.
+Ballerina (2025) > John Wick: Chapter 4 (2023) | universe/spinoff | h | Ballerina is set in the John Wick world, between Chapter 3 and Chapter 4. || Ballerina berlatar di dunia John Wick, di antara Chapter 3 dan Chapter 4.
 GANTZ:O (2016) > Gantz: Perfect Answer (2011) | universe | h | @adaptation
-Kraven the Hunter (2024) > Venom: The Last Dance (2024) | universe | h | Both belong to Sony's Spider-Man Universe. || Keduanya bagian dari Sony's Spider-Man Universe.
-Venom: The Last Dance (2024) > Spider-Man: No Way Home (2021) | universe | m | Venom: The Last Dance opens with Eddie and Venom back from another universe, and brings back the No Way Home bartender. Tom Holland's Spider-Man does not appear. || Venom: The Last Dance dibuka dengan Eddie dan Venom baru kembali dari semesta lain, dan menghadirkan lagi bartender dari No Way Home. Spider-Man Tom Holland tidak muncul.
-Peacemaker (2022) > Zack Snyder's Justice League (2021) | universe | m | Peacemaker is set in the same DC universe, and Justice League heroes cameo in it. || Peacemaker berlatar di semesta DC yang sama, dan pahlawan Justice League muncul sebagai cameo.
+Kraven the Hunter (2024) > Venom: The Last Dance (2024) | universe/shared | h | Both belong to Sony's Spider-Man Universe. || Keduanya bagian dari Sony's Spider-Man Universe.
+Venom: The Last Dance (2024) > Spider-Man: No Way Home (2021) | universe/related | m | Venom: The Last Dance opens with Eddie and Venom back from another universe, and brings back the No Way Home bartender. Tom Holland's Spider-Man does not appear. || Venom: The Last Dance dibuka dengan Eddie dan Venom baru kembali dari semesta lain, dan menghadirkan lagi bartender dari No Way Home. Spider-Man Tom Holland tidak muncul.
+Peacemaker (2022) > Zack Snyder's Justice League (2021) | universe/shared | m | Peacemaker is set in the same DC universe, and Justice League heroes cameo in it. || Peacemaker berlatar di semesta DC yang sama, dan pahlawan Justice League muncul sebagai cameo.
 
 # ---------- Judul baru 2026-11-03 ----------
 # Burton produsen + pencerita Nightmare (sutradara: Henry Selick), ko-sutradara Corpse Bride; Elfman menggarap musik ketiganya.

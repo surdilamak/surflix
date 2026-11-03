@@ -198,6 +198,8 @@ export interface GraphEdgeOut {
   /** One-paragraph explanation; null until one is written (callers fall back to `reason`). */
   storyEn: string | null;
   story: string | null;
+  /** Finer relationship label (prequel, spinoff, ...); null = generic label of the type. */
+  kind: string | null;
   confidence: string;
 }
 
@@ -283,7 +285,7 @@ export async function getApprovedConnections(tmdbId: number, mediaType: MediaTyp
     edges.push({
       from: me, to: other, relationship: r.relationship,
       direction: fk(r.sourceMediaType, r.sourceTmdbId) === me ? 'out' : 'in',
-      reason: r.reason, reasonEn: r.reasonEn, storyEn: r.storyEn, story: r.story, confidence: r.confidence,
+      reason: r.reason, reasonEn: r.reasonEn, storyEn: r.storyEn, story: r.story, kind: r.kind, confidence: r.confidence,
     });
   }
   return { nodes, edges };
@@ -317,6 +319,7 @@ export async function listConnectedFilms() {
         direction: isSrc ? ('out' as const) : ('in' as const),
         reason: r.reason,
         reasonEn: r.reasonEn,
+        kind: r.kind,
       };
     });
     // skor referensi: hanya hubungan "sinematik" yang dihitung (bukan semesta/sutradara/talenta)
@@ -457,7 +460,7 @@ export async function galaxyGraph(opts: { includePending?: boolean } = {}) {
     };
   });
 
-  const edges: Array<{ a: number; b: number; relationship: string; srcIsA: boolean; pending: boolean }> = [];
+  const edges: Array<{ a: number; b: number; relationship: string; kind: string | null; srcIsA: boolean; pending: boolean }> = [];
   for (const [a, m] of adj) {
     for (const [b, r] of m) {
       if (a >= b) continue; // tiap pasangan sekali
@@ -465,6 +468,7 @@ export async function galaxyGraph(opts: { includePending?: boolean } = {}) {
         a: index.get(a)!,
         b: index.get(b)!,
         relationship: r.relationship,
+        kind: r.kind,
         srcIsA: fk(r.sourceMediaType, r.sourceTmdbId) === a,
         pending: !approvedPairs.has(pairKey(r)),
       });

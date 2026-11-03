@@ -11,7 +11,7 @@ interface LangCtx {
   lang: Lang;
   setLang: (l: Lang) => void;
   t: (key: string, vars?: Record<string, string | number>) => string;
-  rel: (relationship: string, direction?: 'out' | 'in') => string;
+  rel: (relationship: string, direction?: 'out' | 'in', kind?: string | null) => string;
   /** Pilih teks alasan sesuai bahasa; Inggris jatuh ke teks Indonesia kalau belum ada. */
   reason: (c: { reason: string; reasonEn?: string | null }) => string;
   /** The one-paragraph explanation in the current language, or null if none is written yet. */
@@ -43,7 +43,7 @@ export function LangProvider({ children }: { children: React.ReactNode }) {
       lang,
       setLang,
       t: (key, vars) => translate(lang, key, vars),
-      rel: (r, d) => rel(lang, r, d),
+      rel: (r, d, k) => rel(lang, r, d, k),
       reason: (c) => (lang === 'en' ? c.reasonEn || c.reason : c.reason || c.reasonEn || ''),
       // No cross-language fallback: a paragraph is written natively per language, and the
       // short reason is the safe fallback when the chosen language has none.

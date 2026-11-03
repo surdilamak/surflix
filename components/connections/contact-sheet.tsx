@@ -48,7 +48,7 @@ export function ContactSheet({
             <>
               <span className="ref-mark" style={{ '--c': REL_VAR[activeRef.relationship] } as React.CSSProperties} />
               <b>{activeRef.title}</b>
-              {activeRef.year ? ` (${activeRef.year})` : ''}: {rel(activeRef.relationship, activeRef.direction)}. {reason(activeRef)}
+              {activeRef.year ? ` (${activeRef.year})` : ''}: {rel(activeRef.relationship, activeRef.direction, activeRef.kind)}. {reason(activeRef)}
             </>
           ) : activeFilm ? (
             t('sheet.film', {
@@ -119,7 +119,7 @@ export function ContactSheet({
                     onMouseLeave={() => setActive(null)}
                     onFocus={() => setActive({ run: key, ref: rk })}
                     onBlur={() => setActive(null)}
-                    aria-label={`${r.title}: ${rel(r.relationship, r.direction)}`}
+                    aria-label={`${r.title}: ${rel(r.relationship, r.direction, r.kind)}`}
                   >
                     {src && (
                       // eslint-disable-next-line @next/next/no-img-element

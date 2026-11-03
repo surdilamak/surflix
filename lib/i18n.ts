@@ -167,6 +167,46 @@ const en: Dict = {
   'rel.remake.in': 'Remade as',
   'rel.universe.out': 'Follows',
   'rel.universe.in': 'Followed by',
+  'rel.universe.sequel.out': "Sequel to",
+  'rel.universe.sequel.in': "Followed by",
+  'rel.universe.prequel.out': "Prequel to",
+  'rel.universe.prequel.in': "Preceded by",
+  'rel.universe.spinoff.out': "Spin-off of",
+  'rel.universe.spinoff.in': "Spun off into",
+  'rel.universe.series.out': "Same series as",
+  'rel.universe.series.in': "Same series as",
+  'rel.universe.shared.out': "Same universe as",
+  'rel.universe.shared.in': "Same universe as",
+  'rel.universe.crossover.out': "Crosses over with",
+  'rel.universe.crossover.in': "Crosses over with",
+  'rel.universe.cameo.out': "Brings back",
+  'rel.universe.cameo.in': "Brought back in",
+  'rel.universe.reboot.out': "Reboot of",
+  'rel.universe.reboot.in': "Rebooted as",
+  'rel.universe.film.out': "Film from the series",
+  'rel.universe.film.in': "Series film",
+  'rel.universe.special.out': "TV special of",
+  'rel.universe.special.in': "Has a TV special",
+  'rel.universe.recut.out': "Recut of",
+  'rel.universe.recut.in': "Recut as",
+  'rel.universe.adaptation.out': "Same source as",
+  'rel.universe.adaptation.in': "Same source as",
+  'rel.universe.remake.out': "Remake of",
+  'rel.universe.remake.in': "Remade as",
+  'rel.remake.recut.out': "Recut of",
+  'rel.remake.recut.in': "Recut as",
+  'rel.remake.adaptation.out': "Same source as",
+  'rel.remake.adaptation.in': "Same source as",
+  'rel.remake.retelling.out': "Retelling of",
+  'rel.remake.retelling.in': "Retold as",
+  'rel.universe.related.out': "Related to",
+  'rel.universe.related.in': "Related to",
+  'rel.universe.revival.out': "Revival of",
+  'rel.universe.revival.in': "Revived as",
+  'rel.remake.reboot.out': "Reboot of",
+  'rel.remake.reboot.in': "Rebooted as",
+  'rel.remake.related.out': "Related to",
+  'rel.remake.related.in': "Related to",
 
   // galaxy
   'galaxy.h1': 'One sky, every title.',
@@ -343,6 +383,46 @@ const id: Dict = {
   'rel.remake.in': 'Di-remake jadi',
   'rel.universe.out': 'Melanjutkan',
   'rel.universe.in': 'Dilanjutkan oleh',
+  'rel.universe.sequel.out': "Sekuel dari",
+  'rel.universe.sequel.in': "Dilanjutkan oleh",
+  'rel.universe.prequel.out': "Prekuel dari",
+  'rel.universe.prequel.in': "Didahului oleh",
+  'rel.universe.spinoff.out': "Spin-off dari",
+  'rel.universe.spinoff.in': "Melahirkan spin-off",
+  'rel.universe.series.out': "Satu seri dengan",
+  'rel.universe.series.in': "Satu seri dengan",
+  'rel.universe.shared.out': "Satu semesta dengan",
+  'rel.universe.shared.in': "Satu semesta dengan",
+  'rel.universe.crossover.out': "Crossover dengan",
+  'rel.universe.crossover.in': "Crossover dengan",
+  'rel.universe.cameo.out': "Menghadirkan kembali",
+  'rel.universe.cameo.in': "Dihadirkan kembali di",
+  'rel.universe.reboot.out': "Reboot dari",
+  'rel.universe.reboot.in': "Di-reboot jadi",
+  'rel.universe.film.out': "Film dari seri",
+  'rel.universe.film.in': "Film layar lebar seri ini",
+  'rel.universe.special.out': "Spesial TV dari",
+  'rel.universe.special.in': "Punya spesial TV",
+  'rel.universe.recut.out': "Suntingan ulang dari",
+  'rel.universe.recut.in': "Disunting ulang jadi",
+  'rel.universe.adaptation.out': "Satu sumber dengan",
+  'rel.universe.adaptation.in': "Satu sumber dengan",
+  'rel.universe.remake.out': "Remake dari",
+  'rel.universe.remake.in': "Di-remake jadi",
+  'rel.remake.recut.out': "Suntingan ulang dari",
+  'rel.remake.recut.in': "Disunting ulang jadi",
+  'rel.remake.adaptation.out': "Satu sumber dengan",
+  'rel.remake.adaptation.in': "Satu sumber dengan",
+  'rel.remake.retelling.out': "Penceritaan ulang dari",
+  'rel.remake.retelling.in': "Diceritakan ulang jadi",
+  'rel.universe.related.out': "Terkait dengan",
+  'rel.universe.related.in': "Terkait dengan",
+  'rel.universe.revival.out': "Kebangkitan dari",
+  'rel.universe.revival.in': "Dibangkitkan jadi",
+  'rel.remake.reboot.out': "Reboot dari",
+  'rel.remake.reboot.in': "Di-reboot jadi",
+  'rel.remake.related.out': "Terkait dengan",
+  'rel.remake.related.in': "Terkait dengan",
 
   'galaxy.h1': 'Satu langit, semua judul.',
   'galaxy.sub': 'Tiap titik adalah film atau serial di Surflix. Garis adalah koneksi, dan judul yang berbagi cerita, pembuat, atau tampilan melayang berdekatan.',
@@ -382,12 +462,23 @@ export function translate(lang: Lang, key: string, vars?: Record<string, string 
 }
 
 /** Nama relasi; dengan arah ('out' = film ini merujuk lawannya, 'in' = lawannya merujuk film ini). */
-export function relLabel(lang: Lang, rel: string, direction?: 'out' | 'in'): string {
+export function relLabel(lang: Lang, rel: string, direction?: 'out' | 'in', kind?: string | null): string {
+  // A finer kind (prequel, spinoff, recut, ...) wins over the generic label of the relationship type.
+  if (kind && direction) {
+    const kk = `rel.${rel}.${kind}.${direction}`;
+    if (DICTS[lang][kk]) return DICTS[lang][kk];
+  }
   if (direction) {
     const k = `rel.${rel}.${direction}`;
     if (DICTS[lang][k]) return DICTS[lang][k];
   }
   return DICTS[lang][`rel.${rel}`] ?? rel;
 }
+
+/** Allowed `kind` values per relationship type (curated syntax: `universe/prequel`). */
+export const REL_KINDS: Record<string, readonly string[]> = {
+  universe: ['sequel', 'prequel', 'spinoff', 'series', 'shared', 'crossover', 'cameo', 'reboot', 'film', 'special', 'recut', 'adaptation', 'remake', 'related', 'revival'],
+  remake: ['recut', 'adaptation', 'retelling', 'reboot', 'related'],
+};
 
 export const REL_ORDER = ['homage', 'inspired', 'visual', 'remake', 'universe', 'director', 'talent'] as const;

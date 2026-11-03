@@ -39,6 +39,7 @@ export interface GraphEdge {
   /** One-paragraph explanation, when one has been written. */
   storyEn?: string | null;
   story?: string | null;
+  kind?: string | null;
 }
 
 export interface GraphData {
@@ -549,7 +550,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
         {edge && (
           <p className="ref-panel-rel">
             <span className="ref-mark" style={{ '--c': REL_VAR[edge.relationship] } as React.CSSProperties} />
-            {rel(edge.relationship, edge.direction)}
+            {rel(edge.relationship, edge.direction, edge.kind)}
           </p>
         )}
         <h3>

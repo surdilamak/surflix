@@ -166,7 +166,7 @@ Shin Kamen Rider (2023) > Evangelion: 3.0 You Can (Not) Redo (2012) | director |
 # CATATAN: "disaster trilogy" itu sebutan kritikus, BUKAN kata Shinkai. Jangan diklaim.
 # Dan Suzume TIDAK memuat satu pun tokoh Your Name. atau Weathering with You - itu negatif
 # yang sudah dipastikan, bukan sekadar belum ketemu. Jangan ditambahkan nanti.
-Your Name. (2016) > The Garden of Words (2013) | universe | h | Yukari Yukino, the Garden of Words teacher, also teaches at Mitsuha's school in Your Name, with the same voice actress (Kana Hanazawa). || Yukari Yukino dari The Garden of Words juga mengajar di sekolah Mitsuha di Your Name, dengan pengisi suara yang sama (Kana Hanazawa).
+Your Name. (2016) > The Garden of Words (2013) | universe/cameo | h | Yukari Yukino, the Garden of Words teacher, also teaches at Mitsuha's school in Your Name, with the same voice actress (Kana Hanazawa). || Yukari Yukino dari The Garden of Words juga mengajar di sekolah Mitsuha di Your Name, dengan pengisi suara yang sama (Kana Hanazawa).
 Suzume (2022) > Your Name. (2016) | talent | h | Masayoshi Tanaka designed the characters and RADWIMPS scored both; Suzume shares no character with Your Name., so the thread is the crew, not the story. || Masayoshi Tanaka merancang tokohnya dan RADWIMPS menggarap musik keduanya; Suzume tidak berbagi tokoh dengan Your Name., jadi benangnya ada di kru, bukan cerita.
 Suzume (2022) > The Garden of Words (2013) | talent | h | Kenichi Tsuchiya was character designer and animation director on The Garden of Words, and animation director again on Suzume. || Kenichi Tsuchiya merancang tokoh sekaligus mengarahkan animasi The Garden of Words, lalu kembali mengarahkan animasi Suzume.
 Your Name. (2016) > Children Who Chase Lost Voices (2011) | talent | h | Takumi Tanji has been Shinkai's art director since Children Who Chase Lost Voices, and painted backgrounds before that. || Takumi Tanji jadi penata artistik Shinkai sejak Children Who Chase Lost Voices, dan sebelumnya melukis latar.
@@ -191,7 +191,7 @@ Pom Poko (1994) > Kiki's Delivery Service (1989) | homage | m | Kiki appears in 
 # ============ QUENTIN TARANTINO (2026-10-22) ============
 # Tujuh koneksi internalnya dulu cuma "Both directed by Quentin Tarantino". Lihat sagas.txt
 # untuk pembagian dua semesta dan batasannya - Tarantino cuma menempatkan empat judul sendiri.
-The Hateful Eight (2015) > Inglourious Basterds (2009) | universe | h | Mobray's real name is revealed as "English" Pete Hicox, sharing a surname with Lt. Archie Hicox in Inglourious Basterds. || Nama asli Mobray terungkap sebagai "English" Pete Hicox, senama dengan Letnan Archie Hicox di Inglourious Basterds.
+The Hateful Eight (2015) > Inglourious Basterds (2009) | universe/related | h | Mobray's real name is revealed as "English" Pete Hicox, sharing a surname with Lt. Archie Hicox in Inglourious Basterds. || Nama asli Mobray terungkap sebagai "English" Pete Hicox, senama dengan Letnan Archie Hicox di Inglourious Basterds.
 The Hateful Eight (2015) > Django Unchained (2012) | inspired | h | Tarantino wrote it first as a Django sequel novel, "Django in White Hell", then dropped him because the story should not have a moral centre. || Tarantino mula-mula menulisnya sebagai novel sekuel Django, "Django in White Hell", lalu mengeluarkannya karena cerita ini tidak seharusnya punya pusat moral.
 Once Upon a Time... in Hollywood (2019) > Pulp Fiction (1994) | homage | m | Red Apple, the made-up cigarette brand from Pulp Fiction's script, gets its own Rick Dalton commercial in the mid-credits of Once Upon a Time... in Hollywood (Wikipedia; Washington Post). || Red Apple, merek rokok rekaan dari naskah Pulp Fiction, mendapat iklan sendiri dengan Rick Dalton di tengah kredit Once Upon a Time... in Hollywood (Wikipedia; Washington Post).
 Kill Bill: Vol. 1 (2003) > Pulp Fiction (1994) | homage | m | A giant Red Apple cigarettes ad, the brand first seen in Pulp Fiction, hangs in the Tokyo airport as the Bride walks past (Mental Floss). || Iklan raksasa rokok Red Apple, merek yang pertama muncul di Pulp Fiction, terpasang di bandara Tokyo saat Si Pengantin lewat (Mental Floss).
@@ -200,15 +200,15 @@ Jackie Brown (1997) > Pulp Fiction (1994) | homage | h | Teriyaki Donut, the sho
 
 # ---------- Judul baru 2026-10-23 ----------
 # Weathering with You akhirnya masuk library; inilah film yang mengikat ketiga film Shinkai.
-Weathering with You (2019) > Your Name. (2016) | universe | h | Taki, Mitsuha, Tessie and Sayaka from Your Name make cameos here. Shinkai said he wanted to see Taki and Mitsuha again before they met. || Taki, Mitsuha, Tessie, dan Sayaka dari Your Name muncul sebagai cameo di sini. Shinkai ingin melihat Taki dan Mitsuha lagi sebelum mereka bertemu.
+Weathering with You (2019) > Your Name. (2016) | universe/cameo | h | Taki, Mitsuha, Tessie and Sayaka from Your Name make cameos here. Shinkai said he wanted to see Taki and Mitsuha again before they met. || Taki, Mitsuha, Tessie, dan Sayaka dari Your Name muncul sebagai cameo di sini. Shinkai ingin melihat Taki dan Mitsuha lagi sebelum mereka bertemu.
 Suzume (2022) > Weathering with You (2019) | talent | h | Masayoshi Tanaka designed the characters and RADWIMPS scored both, but Suzume shares no character with the other two. || Masayoshi Tanaka merancang tokohnya dan RADWIMPS menggarap musik keduanya, tetapi Suzume tidak berbagi tokoh dengan dua film lainnya.
 
 # Detective Conan punya filmnya sekarang. Seperti dicatat 2026-10-22: film Conan berdiri
 # sendiri, jadi hubungannya ke serial, bukan rantai antar film.
-Detective Conan: The Million-Dollar Pentagram (2024) > Meitantei Conan (1996) | universe | h | The twenty-seventh Conan film and the highest-grossing of them, built around Kaito Kid and Heiji Hattori together. A self-contained case, like the rest. || Film Conan kedua puluh tujuh sekaligus yang terlaris, dibangun di sekitar Kaito Kid dan Heiji Hattori sekaligus. Kasus yang berdiri sendiri, seperti film lainnya.
+Detective Conan: The Million-Dollar Pentagram (2024) > Meitantei Conan (1996) | universe/film | h | The twenty-seventh Conan film and the highest-grossing of them, built around Kaito Kid and Heiji Hattori together. A self-contained case, like the rest. || Film Conan kedua puluh tujuh sekaligus yang terlaris, dibangun di sekitar Kaito Kid dan Heiji Hattori sekaligus. Kasus yang berdiri sendiri, seperti film lainnya.
 
 # Golden Compass dan serial His Dark Materials sama-sama mengadaptasi novel pertama Philip Pullman.
-His Dark Materials (2019) > The Golden Compass (2007) | remake | h | Both adapt Philip Pullman's Northern Lights - the 2007 film got one novel and no sequel, the series got all three. || Keduanya mengadaptasi Northern Lights karya Philip Pullman - film 2007 cuma dapat satu novel tanpa sekuel, serialnya dapat ketiganya.
+His Dark Materials (2019) > The Golden Compass (2007) | remake/adaptation | h | Both adapt Philip Pullman's Northern Lights - the 2007 film got one novel and no sequel, the series got all three. || Keduanya mengadaptasi Northern Lights karya Philip Pullman - film 2007 cuma dapat satu novel tanpa sekuel, serialnya dapat ketiganya.
 
 # Carrie 2026: serial Mike Flanagan dari novel Stephen King 1974 (BUKAN 1976 - itu tahun film
 # De Palma). Kolom directors-nya kosong di Jellyfin, jadi rantai directors.list tidak kena;

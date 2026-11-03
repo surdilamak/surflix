@@ -230,6 +230,9 @@ model FilmConnection {
   // paragraphs can be rolled out gradually. Source: scripts/curated/stories.txt.
   storyEn         String?  // paragraph, English (main portal language)
   story           String?  // paragraph, Indonesian
+  // Optional finer label for the relationship, e.g. "prequel", "spinoff", "recut" (see REL_KINDS in
+  // lib/i18n.ts). Without one the generic label of the relationship type is shown.
+  kind            String?
   confidence     String   @default("medium") // "high" (terdokumentasi) | "medium" (sering dibahas)
 
   // Status: PENDING_REVIEW -> APPROVED | REJECTED

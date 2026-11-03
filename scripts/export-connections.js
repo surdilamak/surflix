@@ -23,6 +23,7 @@ const prisma = new PrismaClient();
   const out = rows.map(({ id, createdAt, reviewedAt, ...r }) => {
     if (r.storyEn == null) delete r.storyEn;
     if (r.story == null) delete r.story;
+    if (r.kind == null) delete r.kind;
     return r;
   });
   const file = path.join(__dirname, 'connections-live.json');
