@@ -17,7 +17,7 @@ import { Badge, Empty, PageHead, Poster, Skeletons } from '@/components/admin/ui
 import { useAppConfig } from '@/lib/hooks/use-app-config';
 import { usePortal } from '@/lib/hooks/use-portal';
 import { posterUrl } from '@/lib/jellyfin';
-import { relLabel, REL_ORDER } from '@/lib/i18n';
+import { relLabel, REL_KINDS, REL_ORDER } from '@/lib/i18n';
 import { CONNECTION_STATUS } from '@/lib/admin-format';
 
 interface CoverageTitle {
@@ -54,6 +54,7 @@ interface Conn {
   relationship: string;
   reason: string;
   reasonEn: string | null;
+  kind?: string | null;
   confidence: string;
   status: string;
   source: string;
@@ -421,7 +422,7 @@ function ConnCard({ c, jf, busy, actions }: { c: Conn; jf: (id?: string | null, 
             {c.targetYear && <span className="ad-muted" style={{ fontWeight: 400 }}> {c.targetYear}</span>}
           </p>
           <p className="flex flex-wrap items-center gap-2" style={{ margin: '6px 0' }}>
-            <Badge>{relLabel('en', c.relationship, 'out')}</Badge>
+            <Badge>{relLabel('en', c.relationship, 'out', c.kind)}</Badge>
             {c.confidence === 'medium' && <Badge tone="yellow">Less certain</Badge>}
             {c.source === 'admin' && <span className="ad-small ad-muted">added by you</span>}
           </p>
@@ -441,9 +442,11 @@ function FilmManager({ title, onChanged }: { title: CoverageTitle; onChanged: ()
   const [editing, setEditing] = useState<string | null>(null);
   const [editRel, setEditRel] = useState('');
   const [editText, setEditText] = useState('');
+  const [editKind, setEditKind] = useState('');
 
   const [dir, setDir] = useState<'out' | 'in'>('out');
   const [rel, setRel] = useState<string>('homage');
+  const [kind, setKind] = useState('');
   const [tq, setTq] = useState('');
   const [hits, setHits] = useState<SearchHit[]>([]);
   const [target, setTarget] = useState<SearchHit | null>(null);
@@ -496,7 +499,7 @@ function FilmManager({ title, onChanged }: { title: CoverageTitle; onChanged: ()
     const { res, data } = await api('/api/admin/connections', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id, action: 'update', relationship: editRel, reasonEn: editText }),
+      body: JSON.stringify({ id, action: 'update', relationship: editRel, reasonEn: editText, kind: editKind || null }),
     });
     setBusy(null);
     if (!res.ok) return toast(data.error || 'Failed', 'error');
@@ -518,6 +521,7 @@ function FilmManager({ title, onChanged }: { title: CoverageTitle; onChanged: ()
         source: dir === 'out' ? self : other,
         target: dir === 'out' ? other : self,
         relationship: rel,
+        kind: kind || null,
         reasonEn,
         reason: reasonId || undefined,
       }),
@@ -529,6 +533,7 @@ function FilmManager({ title, onChanged }: { title: CoverageTitle; onChanged: ()
     setTq('');
     setReasonEn('');
     setReasonId('');
+    setKind('');
     await load();
     onChanged();
   }
@@ -555,18 +560,34 @@ function FilmManager({ title, onChanged }: { title: CoverageTitle; onChanged: ()
                     {other}
                     {otherYear && <span className="ad-muted" style={{ fontWeight: 400 }}> {otherYear}</span>}
                   </span>
-                  <span className="ad-muted">{relLabel('en', c.relationship, out ? 'out' : 'in')}</span>
+                  <span className="ad-muted">{relLabel('en', c.relationship, out ? 'out' : 'in', c.kind)}</span>
                   <Badge tone={st.tone}>{st.label}</Badge>
                   {c.source === 'admin' && <span className="ad-muted">added by you</span>}
                 </div>
 
                 {isEditing ? (
                   <div className="grid gap-2" style={{ marginTop: 10 }}>
-                    <select value={editRel} onChange={(e) => setEditRel(e.target.value)} className="ad-field" aria-label="Relationship">
+                    <select
+                      value={editRel}
+                      onChange={(e) => {
+                        setEditRel(e.target.value);
+                        if (!(REL_KINDS[e.target.value] ?? []).includes(editKind)) setEditKind('');
+                      }}
+                      className="ad-field"
+                      aria-label="Relationship"
+                    >
                       {REL_ORDER.map((r) => (
                         <option key={r} value={r}>{relLabel('en', r)}</option>
                       ))}
                     </select>
+                    {(REL_KINDS[editRel] ?? []).length > 0 && (
+                      <select value={editKind} onChange={(e) => setEditKind(e.target.value)} className="ad-field" aria-label="Label">
+                        <option value="">{`Default label: ${relLabel('en', editRel, 'out')}`}</option>
+                        {(REL_KINDS[editRel] ?? []).map((k) => (
+                          <option key={k} value={k}>{relLabel('en', editRel, 'out', k)}</option>
+                        ))}
+                      </select>
+                    )}
                     <textarea value={editText} onChange={(e) => setEditText(e.target.value)} rows={3} className="ad-field" aria-label="Reason" />
                     <div className="flex gap-2">
                       <button type="button" className="ad-btn ad-btn--primary ad-btn--sm" onClick={() => saveEdit(c.id)} disabled={busy === c.id}>Save</button>
@@ -588,7 +609,7 @@ function FilmManager({ title, onChanged }: { title: CoverageTitle; onChanged: ()
                       <button
                         type="button"
                         className="ad-btn ad-btn--sm"
-                        onClick={() => { setEditing(c.id); setEditRel(c.relationship); setEditText(c.reasonEn || c.reason); }}
+                        onClick={() => { setEditing(c.id); setEditRel(c.relationship); setEditText(c.reasonEn || c.reason); setEditKind(c.kind ?? ''); }}
                       >
                         Edit
                       </button>
@@ -609,12 +630,28 @@ function FilmManager({ title, onChanged }: { title: CoverageTitle; onChanged: ()
             <option value="out">{title.title} references the title below</option>
             <option value="in">The title below references {title.title}</option>
           </select>
-          <select value={rel} onChange={(e) => setRel(e.target.value)} className="ad-field" aria-label="Relationship">
+          <select
+            value={rel}
+            onChange={(e) => {
+              setRel(e.target.value);
+              if (!(REL_KINDS[e.target.value] ?? []).includes(kind)) setKind('');
+            }}
+            className="ad-field"
+            aria-label="Relationship"
+          >
             {REL_ORDER.map((r) => (
               <option key={r} value={r}>{relLabel('en', r)}</option>
             ))}
           </select>
         </div>
+        {(REL_KINDS[rel] ?? []).length > 0 && (
+          <select value={kind} onChange={(e) => setKind(e.target.value)} className="ad-field" aria-label="Label">
+            <option value="">{`Default label: ${relLabel('en', rel, 'out')}`}</option>
+            {(REL_KINDS[rel] ?? []).map((k) => (
+              <option key={k} value={k}>{relLabel('en', rel, 'out', k)}</option>
+            ))}
+          </select>
+        )}
 
         <div className="relative">
           {target ? (

@@ -10,6 +10,7 @@ import { z } from 'zod';
 import { prisma } from '@/lib/db';
 import { requireAdmin } from '@/lib/session';
 import { RELATIONSHIPS } from '@/lib/connections';
+import { REL_KINDS } from '@/lib/i18n';
 
 export const dynamic = 'force-dynamic';
 
@@ -34,6 +35,8 @@ const actionSchema = z.discriminatedUnion('action', [
     relationship: z.enum(RELATIONSHIPS).optional(),
     reasonEn: z.string().trim().min(5).max(220).optional(),
     reason: z.string().trim().min(5).max(220).optional(),
+    // Finer label (see REL_KINDS). undefined = leave as is, null/'' = back to the generic label.
+    kind: z.string().trim().max(30).nullable().optional(),
   }),
   // approve massal buat draft PENDING_REVIEW (opsional: filter confidence)
   z.object({ action: z.literal('bulk-approve'), confidence: z.enum(['high', 'medium']).optional() }),
@@ -117,12 +120,21 @@ export async function POST(req: NextRequest) {
   }
 
   if (body.action === 'update') {
+    const rel = body.relationship ?? existing.relationship;
+    const allowed = REL_KINDS[rel] ?? [];
+    let kind: string | null | undefined = body.kind === '' ? null : body.kind;
+    if (kind && !allowed.includes(kind)) {
+      return NextResponse.json({ error: `"${kind}" is not a valid label kind for ${rel}` }, { status: 400 });
+    }
+    // Changing the relationship type can leave the old kind meaningless: clear it unless a new one was sent.
+    if (kind === undefined && body.relationship && existing.kind && !allowed.includes(existing.kind)) kind = null;
     const connection = await prisma.filmConnection.update({
       where: { id: body.id },
       data: {
         ...(body.relationship ? { relationship: body.relationship } : {}),
         ...(body.reasonEn ? { reasonEn: body.reasonEn } : {}),
         ...(body.reason ? { reason: body.reason } : {}),
+        ...(kind !== undefined ? { kind } : {}),
         source: 'admin', // sudah disentuh admin: seed ulang gak boleh menimpa
         reviewedAt: new Date(),
       },

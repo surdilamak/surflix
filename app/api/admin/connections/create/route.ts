@@ -10,6 +10,7 @@ import { z } from 'zod';
 import { prisma } from '@/lib/db';
 import { requireAdmin } from '@/lib/session';
 import { RELATIONSHIPS } from '@/lib/connections';
+import { REL_KINDS } from '@/lib/i18n';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,6 +21,8 @@ const schema = z.object({
   relationship: z.enum(RELATIONSHIPS),
   reasonEn: z.string().trim().min(5).max(220),
   reason: z.string().trim().max(220).optional(),
+  // Finer label (see REL_KINDS); null/'' = the generic label of the relationship type.
+  kind: z.string().trim().max(30).nullable().optional(),
 });
 
 export async function POST(req: NextRequest) {
@@ -39,6 +42,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'A film cannot reference itself' }, { status: 400 });
   }
 
+  const kind = body.kind || null;
+  if (kind && !(REL_KINDS[body.relationship] ?? []).includes(kind)) {
+    return NextResponse.json({ error: `"${kind}" is not a valid label kind for ${body.relationship}` }, { status: 400 });
+  }
+
   const [src, tgt] = await Promise.all([
     prisma.libraryTitle.findUnique({ where: { tmdbId_mediaType: { tmdbId: body.source.tmdbId, mediaType: body.source.mediaType } } }),
     prisma.libraryTitle.findUnique({ where: { tmdbId_mediaType: { tmdbId: body.target.tmdbId, mediaType: body.target.mediaType } } }),
@@ -53,6 +61,7 @@ export async function POST(req: NextRequest) {
     targetTmdbId: tgt.tmdbId, targetMediaType: tgt.mediaType, targetTitle: tgt.title,
     targetYear: tgt.year, targetJellyfinId: tgt.jellyfinId,
     relationship: body.relationship,
+    kind,
     reasonEn: body.reasonEn,
     reason: body.reason || body.reasonEn, // belum ada terjemahan: pakai teks yang sama
     confidence: 'high',
