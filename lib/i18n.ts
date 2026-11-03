@@ -167,7 +167,8 @@ const en: Dict = {
   'detail.galaxy': 'See it in the galaxy',
 
   // stage
-  'stage.hint': 'Drag to rotate. Tap a case to open it.',
+  'stage.hint': 'Drag to rotate, Ctrl/⌘ + scroll or pinch to zoom. Tap a case to open it.',
+  'stage.fit': 'Reset the view',
   'stage.default': 'The title you opened. Everything around it connects to it.',
   'stage.openMap': "Open this title's map",
   'stage.legend': 'Types of connection',
@@ -407,7 +408,8 @@ const id: Dict = {
   'detail.tap': 'Tonton',
   'detail.galaxy': 'Lihat di galaksi',
 
-  'stage.hint': 'Geser untuk memutar. Ketuk case untuk membukanya.',
+  'stage.hint': 'Geser untuk memutar, Ctrl/⌘ + scroll atau cubit untuk zoom. Ketuk case untuk membukanya.',
+  'stage.fit': 'Kembalikan tampilan',
   'stage.default': 'Judul yang sedang kamu buka. Semua yang melayang di sekelilingnya terhubung dengannya.',
   'stage.openMap': 'Buka peta judul ini',
   'stage.legend': 'Jenis koneksi',

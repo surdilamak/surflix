@@ -142,7 +142,7 @@ export default function ReferensiFilmPage() {
           sagaId={saga?.id}
           className="ref-lens--top"
         />
-        <div className="ref-stage-wrap" style={{ margin: '40px 0 0' }}>
+        <div className="ref-stage-wrap" style={{ margin: '40px 0 var(--gap-block)' }}>
           <ConnectionGraph data={data} jellyfinUrl={jellyfinUrl} serverId={config.jellyfinServerId} portalPath={portalPath} />
         </div>
       </section>

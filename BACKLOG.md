@@ -119,6 +119,9 @@
   ~2.5 s after leaving, then moving.
 - Stage frame: the film map and Watch order stage are now a box (lighter fill, hairline border, rounded, inset from the screen edge)
   so the boundary with the dark header is visible. The Galaxy stays full-bleed on purpose (Evan agreed).
+- Film map (3D): zoom like Watch order. +/- and reset buttons with a percentage, two-finger pinch on touch screens, and
+  Ctrl/⌘ + scroll (trackpad pinch). Plain scroll is deliberately not captured, so the page can still be scrolled past the stage;
+  flip `onWheel` in `connection-graph.tsx` if you prefer plain-scroll zoom. 40px gap added below the stage box.
 - Not done, needs a design decision: Galaxy density when zoomed; Overview / Universe / Connection tabs on the film page; renaming
   "Watch order".
 

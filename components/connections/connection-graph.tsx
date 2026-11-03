@@ -178,6 +178,9 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
   const panelRef = useRef<HTMLDivElement>(null);
   const [selected, setSelected] = useState(0);
   const selectRef = useRef<(i: number) => void>(() => {});
+  // zoom controls (buttons) talk to the camera inside the effect through this handle
+  const zoomApi = useRef<{ by: (f: number) => void; reset: () => void }>({ by: () => {}, reset: () => {} });
+  const [zoomPct, setZoomPct] = useState(100);
 
   const { t, rel, reason, story } = useLang();
   // first node = the opened film; the rest are already sorted from strongest reference
@@ -239,6 +242,11 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
     const rx = wide ? Math.min(3.6 + Math.min(nTargets, 8) * 0.12, aspect0 * 2.3) : 2.1;
     const rz = wide ? 2.1 : 1.4;
     const yAmp = wide ? 0.85 : 1.9;
+    // 1 = the whole ring fits; larger = camera moves closer
+    const ZOOM_MIN = 0.6;
+    const ZOOM_MAX = 3.2;
+    let zoom = 1;
+    let zoomTarget = 1;
     const fitCamera = () => {
       const inset = panelInset();
       const camAspect = width / height;
@@ -246,7 +254,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
       // far enough that the ring + cases (±1.1) fit in the USABLE WIDTH & stage height
       const zW = (rx + 1.15) / (tanHalf * usable);
       const zH = (yAmp + 1.75) / tanHalf;
-      const z = Math.max(zW, zH, 7);
+      const z = Math.max(zW, zH, 7) / zoom;
       // shift the camera right by half the panel footprint, so the ring moves left on screen
       const worldPerPx = (2 * z * tanHalf * camAspect) / width;
       const dx = (inset / 2) * worldPerPx;
@@ -416,13 +424,47 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
       return ray.intersectObjects(hitMeshes, false)[0];
     };
 
+    // two fingers = pinch to zoom (one finger still rotates)
+    const touches = new Map<number, { x: number; y: number }>();
+    let pinchDist = 0;
+    const clampZoom = (z: number) => Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, z));
+    zoomApi.current = {
+      by: (f) => {
+        zoomTarget = clampZoom(zoomTarget * f);
+      },
+      reset: () => {
+        zoomTarget = 1;
+      },
+    };
+
     const onDown = (e: PointerEvent) => {
+      touches.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (touches.size === 2) {
+        const [a, b] = [...touches.values()];
+        pinchDist = Math.hypot(a.x - b.x, a.y - b.y);
+        dragging = false;
+        moved = 99; // not a tap
+        return;
+      }
       dragging = true;
       moved = 0;
       lastX = e.clientX;
       rotTarget = null;
     };
     const onMove = (e: PointerEvent) => {
+      const t = touches.get(e.pointerId);
+      if (t) {
+        t.x = e.clientX;
+        t.y = e.clientY;
+      }
+      if (touches.size >= 2) {
+        const [a, b] = [...touches.values()];
+        const d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (pinchDist > 0) zoomTarget = zoom = clampZoom(zoom * (d / pinchDist));
+        pinchDist = d;
+        fitCamera();
+        return;
+      }
       if (dragging) {
         const dx = e.clientX - lastX;
         lastX = e.clientX;
@@ -439,7 +481,15 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
         a.liftTarget = i === hot ? 0.22 : 0;
       });
     };
+    const onWheel = (e: WheelEvent) => {
+      // Ctrl/⌘ + scroll (and trackpad pinch) zooms; plain scroll keeps scrolling the page
+      if (!e.ctrlKey && !e.metaKey) return;
+      e.preventDefault();
+      zoomTarget = clampZoom(zoomTarget * Math.exp(-e.deltaY * 0.0022));
+    };
     const onUp = (e: PointerEvent) => {
+      touches.delete(e.pointerId);
+      if (touches.size < 2) pinchDist = 0;
       if (dragging && moved < 6) {
         const hit = pick(e.clientX, e.clientY);
         if (hit) apply(hit.object.userData.nodeIndex);
@@ -447,7 +497,9 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
       dragging = false;
       el.style.cursor = 'grab';
     };
-    const onCancel = () => {
+    const onCancel = (e: PointerEvent) => {
+      touches.delete(e.pointerId);
+      if (touches.size < 2) pinchDist = 0;
       dragging = false;
     };
     const onLeave = () => {
@@ -458,6 +510,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
     el.style.cursor = 'grab';
     el.addEventListener('pointerleave', onLeave);
     el.addEventListener('pointerdown', onDown);
+    el.addEventListener('wheel', onWheel, { passive: false });
     window.addEventListener('pointermove', onMove);
     window.addEventListener('pointerup', onUp);
     window.addEventListener('pointercancel', onCancel);
@@ -493,6 +546,12 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
         g.rotation.z = Math.sin(t * 0.5 + ph) * 0.025;
       });
 
+      if (Math.abs(zoomTarget - zoom) > 0.0005) {
+        zoom += (zoomTarget - zoom) * Math.min(0.16 * dt, 1);
+        fitCamera();
+        setZoomPct(Math.round(zoom * 100));
+      }
+
       renderer.render(scene, camera);
     });
 
@@ -511,6 +570,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
       ro.disconnect();
       el.removeEventListener('pointerleave', onLeave);
       el.removeEventListener('pointerdown', onDown);
+      el.removeEventListener('wheel', onWheel);
       window.removeEventListener('pointermove', onMove);
       window.removeEventListener('pointerup', onUp);
       window.removeEventListener('pointercancel', onCancel);
@@ -541,7 +601,19 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
             </li>
           ))}
         </ul>
-        <p className="ref-stage-hint">
+        <div className="ref-saga-zoom">
+          <button type="button" onClick={() => zoomApi.current.by(1 / 1.35)} aria-label={t('tl.zoomOut')}>
+            −
+          </button>
+          <span aria-hidden="true">{zoomPct}%</span>
+          <button type="button" onClick={() => zoomApi.current.by(1.35)} aria-label={t('tl.zoomIn')}>
+            +
+          </button>
+          <button type="button" onClick={() => zoomApi.current.reset()} aria-label={t('stage.fit')}>
+            ⤢
+          </button>
+        </div>
+        <p className="ref-stage-hint" style={zoomPct > 105 ? { opacity: 0 } : undefined}>
           {t('stage.hint')}
           {hiddenCount > 0 && <> {t('detail.more', { n: hiddenCount })}</>}
         </p>
