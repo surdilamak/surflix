@@ -39,7 +39,7 @@ export default function ReferensiFilmPage() {
 
   const config = useAppConfig();
   const { portalPath } = usePortal();
-  const { t, rel, reason } = useLang();
+  const { t, rel, reason, story } = useLang();
   const [data, setData] = useState<(GraphData & { saga?: SagaHere | null }) | null>(null);
   const [lib, setLib] = useState<LibTitle | null>(null);
   const [error, setError] = useState(false);
@@ -195,7 +195,11 @@ export default function ReferensiFilmPage() {
                   <span className="ref-mark" style={{ '--c': REL_VAR[e.relationship] } as React.CSSProperties} />
                   {rel(e.relationship, e.direction)}
                 </p>
-                <p className="ref-why-reason">{reason(e)}</p>
+                {story(e) ? (
+                  <p className="ref-why-reason ref-why-story">{story(e)}</p>
+                ) : (
+                  <p className="ref-why-reason">{reason(e)}</p>
+                )}
               </div>
               {n.jellyfinId && (
                 <a className="ref-btn" href={watchUrl(n.jellyfinId, jellyfinUrl, config.jellyfinServerId)} target="_blank" rel="noopener">

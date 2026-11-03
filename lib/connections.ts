@@ -195,6 +195,9 @@ export interface GraphEdgeOut {
   direction: 'out' | 'in';
   reason: string;
   reasonEn: string | null;
+  /** One-paragraph explanation; null until one is written (callers fall back to `reason`). */
+  storyEn: string | null;
+  story: string | null;
   confidence: string;
 }
 
@@ -280,7 +283,7 @@ export async function getApprovedConnections(tmdbId: number, mediaType: MediaTyp
     edges.push({
       from: me, to: other, relationship: r.relationship,
       direction: fk(r.sourceMediaType, r.sourceTmdbId) === me ? 'out' : 'in',
-      reason: r.reason, reasonEn: r.reasonEn, confidence: r.confidence,
+      reason: r.reason, reasonEn: r.reasonEn, storyEn: r.storyEn, story: r.story, confidence: r.confidence,
     });
   }
   return { nodes, edges };

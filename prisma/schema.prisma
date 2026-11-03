@@ -225,7 +225,12 @@ model FilmConnection {
   relationship    String
   reason          String   // alasan singkat (Indonesia), <= ~160 char
   reasonEn        String?  // alasan singkat (English) — bahasa utama portal
-  confidence      String   @default("medium") // "high" (terdokumentasi) | "medium" (sering dibahas)
+  // One-paragraph explanation (what connects the two titles and what is worth noticing).
+  // Optional and additive: rows without one keep showing the short reason above, so the
+  // paragraphs can be rolled out gradually. Source: scripts/curated/stories.txt.
+  storyEn         String?  // paragraph, English (main portal language)
+  story           String?  // paragraph, Indonesian
+  confidence     String   @default("medium") // "high" (terdokumentasi) | "medium" (sering dibahas)
 
   // Status: PENDING_REVIEW -> APPROVED | REJECTED
   status          String   @default("PENDING_REVIEW")

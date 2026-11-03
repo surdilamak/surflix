@@ -86,7 +86,9 @@ function push(src, tgt, rel, conf, en, id, where) {
 
 // ── 1. file data kurasi
 const dir = path.join(root, 'curated');
-for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.txt') && x !== 'sagas.txt').sort()) {
+// sagas.txt and stories.txt have their own formats and are read elsewhere.
+const NOT_CONNECTION_FILES = new Set(['sagas.txt', 'stories.txt']);
+for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.txt') && !NOT_CONNECTION_FILES.has(x)).sort()) {
   const lines = fs.readFileSync(path.join(dir, f), 'utf8').split('\n');
   lines.forEach((raw, i) => {
     const line = raw.trim();
@@ -157,6 +159,49 @@ if (fs.existsSync(dirFile)) {
   }
 }
 
+// ── 3. one-paragraph stories (scripts/curated/stories.txt)
+// Format, one connection per line (a `#` line above it holds that paragraph's sources):
+//   SOURCE (year) > TARGET (year) | English paragraph || Paragraf Indonesia
+// The pair must already exist with the SAME direction as in the curated files above. A paragraph
+// is optional per connection: rows without one keep showing their short reason in the app.
+// Written natively per language (not a literal translation). Every factual sentence needs a
+// source quoted in the comment above it; interpretation is fine, invented facts are not.
+const STORY_MIN = 200;
+const STORY_MAX = 1100;
+const storyFile = path.join(dir, 'stories.txt');
+let storyCount = 0;
+if (fs.existsSync(storyFile)) {
+  const byPair = new Map(rows.map((r) => [`${r.sourceMediaType}:${r.sourceTmdbId}>${r.targetMediaType}:${r.targetTmdbId}`, r]));
+  const seenStory = new Set();
+  fs.readFileSync(storyFile, 'utf8').split('\n').forEach((raw, i) => {
+    const line = raw.trim();
+    if (!line || line.startsWith('#')) return;
+    const where = `stories.txt:${i + 1}`;
+    const bar = line.indexOf('|');
+    if (bar === -1) return errors.push(`${where}: format salah (butuh "SUMBER > TARGET | EN || ID")`);
+    const [a, b] = line.slice(0, bar).split('>').map((x) => x.trim());
+    const text = line.slice(bar + 1).trim();
+    const src = a && resolve(a);
+    const tgt = b && resolve(b);
+    if (!src) return errors.push(`${where}: gak ketemu di library: "${a}"`);
+    if (!tgt) return errors.push(`${where}: gak ketemu di library: "${b}"`);
+    const key = `${src.mediaType}:${src.tmdbId}>${tgt.mediaType}:${tgt.tmdbId}`;
+    const row = byPair.get(key);
+    if (!row) return errors.push(`${where}: koneksi ${src.title} > ${tgt.title} belum ada (cek arahnya)`);
+    if (seenStory.has(key)) return errors.push(`${where}: paragraf ganda untuk ${src.title} > ${tgt.title}`);
+    seenStory.add(key);
+    const parts = text.split('||').map((x) => x.trim());
+    if (parts.length !== 2 || !parts[0] || !parts[1]) return errors.push(`${where}: butuh tepat satu "||" antara EN dan ID`);
+    for (const [lang, s] of [['EN', parts[0]], ['ID', parts[1]]]) {
+      if (s.length < STORY_MIN) errors.push(`${where}: paragraf ${lang} cuma ${s.length} char (min ${STORY_MIN}), ${src.title} > ${tgt.title}`);
+      if (s.length > STORY_MAX) errors.push(`${where}: paragraf ${lang} ${s.length} char (maks ${STORY_MAX}), ${src.title} > ${tgt.title}`);
+    }
+    row.storyEn = parts[0];
+    row.story = parts[1];
+    storyCount++;
+  });
+}
+
 if (errors.length) {
   console.error(`${errors.length} MASALAH:\n` + errors.map((e) => '  - ' + e).join('\n'));
   if (!process.argv.includes('--force')) process.exit(1);
@@ -167,3 +212,4 @@ const by = (k) => rows.reduce((m, r) => ((m[r[k]] = (m[r[k]] || 0) + 1), m), {})
 console.log(`OK: ${rows.length} koneksi`, by('relationship'), by('status'));
 const touched = new Set(rows.flatMap((r) => [`${r.sourceMediaType}:${r.sourceTmdbId}`, `${r.targetMediaType}:${r.targetTmdbId}`]));
 console.log(`judul terhubung: ${touched.size} / ${library.length}`);
+if (storyCount) console.log(`paragraf: ${storyCount} koneksi punya paragraf`);

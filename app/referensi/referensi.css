@@ -216,6 +216,8 @@
 .ref-why-name small { font-size: var(--step-small); font-weight: 400; color: var(--muted); letter-spacing: 0; margin-left: 8px; }
 .ref-why-rel { margin-top: 8px; font-size: var(--step-small); font-weight: 600; }
 .ref-why-reason { margin-top: 12px; max-width: 56ch; }
+/* One-paragraph explanation: a little more air than the one-line reason, same measure. */
+.ref-why-story { line-height: 1.55; max-width: 62ch; }
 
 .ref-empty { padding: 160px var(--margin); text-align: center; color: var(--muted); }
 
@@ -281,6 +283,8 @@
 .ref-panel h3 { font-size: var(--step-lead); font-weight: 800; letter-spacing: -0.03em; line-height: 1.08; }
 .ref-panel h3 small { margin-left: 12px; font-size: var(--step-small); font-weight: 400; letter-spacing: 0; color: var(--muted); }
 .ref-panel > p:not(.ref-panel-rel) { margin-top: 12px; font-size: 16px; line-height: 1.4; }
+/* Paragraph form: the panel scrolls (overflow:auto), so keep the type readable, not smaller. */
+.ref-panel > p.ref-panel-story { line-height: 1.55; }
 .ref-panel-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 20px; }
 .ref-panel-link { font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
 .ref-panel-link:hover { opacity: 0.7; }

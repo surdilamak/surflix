@@ -83,7 +83,7 @@ const claimed = new Set(curated.flatMap((s) => s.entries.map((e) => key(e.title,
 // ── 2. story markers from the curated connection files ──────────────────────
 // "Aliens (1986) > Alien (1979) | universe | h | @sequel"  ->  Alien comes before Aliens
 const marker = new Map();
-for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.txt') && f !== 'sagas.txt')) {
+for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.txt') && f !== 'sagas.txt' && f !== 'stories.txt')) {
   for (const raw of fs.readFileSync(path.join(dir, file), 'utf8').split('\n')) {
     const line = raw.trim();
     if (!line || line.startsWith('#') || !line.includes('>')) continue;

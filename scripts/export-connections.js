@@ -19,7 +19,12 @@ const prisma = new PrismaClient();
   const rows = await prisma.filmConnection.findMany({
     orderBy: [{ sourceTitle: 'asc' }, { targetTitle: 'asc' }],
   });
-  const out = rows.map(({ id, createdAt, reviewedAt, ...r }) => r);
+  // storyEn/story are optional: leave them out when empty so the file stays free of null noise.
+  const out = rows.map(({ id, createdAt, reviewedAt, ...r }) => {
+    if (r.storyEn == null) delete r.storyEn;
+    if (r.story == null) delete r.story;
+    return r;
+  });
   const file = path.join(__dirname, 'connections-live.json');
   fs.writeFileSync(file, JSON.stringify(out, null, 2) + '\n');
   const by = (k) => out.reduce((m, r) => ((m[r[k]] = (m[r[k]] || 0) + 1), m), {});

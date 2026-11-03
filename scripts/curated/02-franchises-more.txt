@@ -20,7 +20,7 @@ Scary Movie 2 (2001) > Scary Movie (2000) | universe | h | @sequel
 Scary Movie 3 (2003) > Scary Movie 2 (2001) | universe | h | @sequel
 Scary Movie 4 (2006) > Scary Movie 3 (2003) | universe | h | @sequel
 Scary Movie 5 (2013) > Scary Movie 4 (2006) | universe | h | @sequel
-Scary Movie (2026) > Scary Movie 5 (2013) | universe | h | @sequel
+Scary Movie (2026) > Scary Movie 5 (2013) | universe | h | Scary Movie (2026) returns to the original characters and bypasses Scary Movie 5, calling itself a spiritual sequel to the first two films. || Scary Movie (2026) kembali ke tokoh-tokoh awal dan melangkahi Scary Movie 5, menyebut dirinya sekuel spiritual dari dua film pertama.
 Teenage Mutant Ninja Turtles II: The Secret of the Ooze (1991) > Teenage Mutant Ninja Turtles (1990) | universe | h | @sequel
 Teenage Mutant Ninja Turtles III (1993) > Teenage Mutant Ninja Turtles II: The Secret of the Ooze (1991) | universe | h | @sequel
 Blade Runner 2049 (2017) > Blade Runner (1982) | universe | h | @sequel
@@ -76,7 +76,7 @@ Dragon Ball Daima (2024) > Dragon Ball Super (2015) | universe | h | Daima was m
 Dragon Ball Super: Beerus (2026) > Dragon Ball Super (2015) | universe | h | @series
 
 # — recuts and retellings —
-Dragon Ball Z Kai: The Final Chapters (2009) > Dragon Ball Z (1989) | remake | h | Kai recuts Dragon Ball Z to follow the manga, dropping the filler the weekly schedule once needed. || Kai memangkas ulang Dragon Ball Z agar mengikuti manganya, membuang filler yang dulu dibutuhkan jadwal mingguan.
+Dragon Ball Z Kai: The Final Chapters (2009) > Dragon Ball Z (1989) | remake | h | Kai recuts Dragon Ball Z to follow the manga more closely, dropping most of the filler added while the manga was still being written. || Kai memangkas ulang Dragon Ball Z agar lebih setia pada manganya, membuang sebagian besar filler yang ditambahkan selagi manganya masih ditulis.
 Dragon Ball: The Path to Power (1996) > Dragon Ball (1986) | remake | h | Made for the series' tenth anniversary: the same first adventure, animated again from the start. || Dibuat untuk ulang tahun kesepuluh serial: petualangan pertama yang sama, dianimasikan ulang dari awal.
 Dragon Ball: Curse of the Blood Rubies (1986) > Dragon Ball (1986) | remake | h | A film-length retelling of the opening arc, with the cast rearranged around a new villain. || Penceritaan ulang sepanjang film dari arc pembuka, dengan para tokoh disusun ulang mengelilingi penjahat baru.
 Dragon Ball: Mystical Adventure (1988) > Dragon Ball (1986) | remake | h | A film-length retelling of the Red Ribbon arc, set at a tournament instead. || Penceritaan ulang sepanjang film dari arc Red Ribbon, kali ini berlatar turnamen.

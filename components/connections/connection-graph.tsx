@@ -36,6 +36,9 @@ export interface GraphEdge {
   direction: 'out' | 'in';
   reason: string;
   reasonEn?: string | null;
+  /** One-paragraph explanation, when one has been written. */
+  storyEn?: string | null;
+  story?: string | null;
 }
 
 export interface GraphData {
@@ -174,7 +177,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
   const [selected, setSelected] = useState(0);
   const selectRef = useRef<(i: number) => void>(() => {});
 
-  const { t, rel, reason } = useLang();
+  const { t, rel, reason, story } = useLang();
   // node pertama = film yang dibuka; sisanya sudah diurutkan dari referensi paling kuat
   const nodes = data.nodes.slice(0, MAX_NODES);
   const shownIds = new Set(nodes.map((n) => n.id));
@@ -553,7 +556,9 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
           {node.title}
           {node.year ? <small>{node.year}</small> : null}
         </h3>
-        <p>{edge ? reason(edge) : t('stage.default')}</p>
+        <p className={edge && story(edge) ? 'ref-panel-story' : undefined}>
+          {edge ? story(edge) ?? reason(edge) : t('stage.default')}
+        </p>
         <div className="ref-panel-actions">
           {node.jellyfinId && jellyfinUrl && (
             <a className="ref-btn" href={watchUrl(node.jellyfinId, jellyfinUrl, serverId)} target="_blank" rel="noopener">

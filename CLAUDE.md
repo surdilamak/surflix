@@ -328,6 +328,16 @@ The list of new titles is read from the `addedAt` column, **not** from comparing
 
 `library-seed.json` is now formatted like the other two seed files, so that adding one title reads as ~10 lines in the diff, not one 500 KB line. `addedAt` is deliberately not exported: that column is filled from Jellyfin at sync time in each environment.
 
+### One-paragraph stories (`scripts/curated/stories.txt`, since 2026-11-03)
+
+A connection can carry a paragraph (`storyEn` / `story`, optional columns on `FilmConnection`) on top of its short `reason`. The app shows the paragraph where there is room (the "Why they connect" list and the 3D map panel) and keeps using the short reason everywhere that needs one line (metadata/og description, landing spotlight, the contact sheet). A row without a paragraph simply shows its short reason.
+
+- **Format**, one connection per line: `SOURCE (year) > TARGET (year) | English paragraph || Paragraf Indonesia`. The pair must already exist with the same direction in the other curated files; a pair that only lives in `connections-live.json` has to be backported to `curated/*.txt` first.
+- **Rules**: every factual sentence is backed by a quoted source in the `#` comment above it; no invented quotes; no "critics say" without a named critic; no claims about intent unless quoted; each language is written natively. Interpretation is welcome, invented facts are not. `build-connections.js` enforces 200–1100 characters and exactly one `||`.
+- **Pipeline** is unchanged: `build-connections.js` -> import into `dev.db` -> `export-connections.js` (omits empty story fields, so `connections-live.json` has no null noise) -> commit. In production the columns appear on their own because the container runs `prisma db push` at start.
+- **Do not** let `stories.txt` be read as a connection file: `build-connections.js` and `build-sagas.js` both skip it explicitly.
+- **Research method that worked**: one agent per 3-4 pairs, each returning ranked facts with exact quotes and a "do not claim" list, then write the paragraph yourself and re-check each claim against the quotes. Treat any existing short text for a pair as unverified until a source confirms it; most of the `h` homage/inspired rows checked so far were overstated.
+
 ### Pulling review decisions back from prod (`connections-live.json`)
 
 `connections-live.json` is a "snapshot" of admin review decisions (APPROVED/REJECTED, admin-created connections, edits). It ships inside the image, but it is **not automatically loaded into the DB** — and conversely, decisions Idrus makes in `/admin/connections` do not automatically come back to the repo.

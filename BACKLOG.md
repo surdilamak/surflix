@@ -1,7 +1,7 @@
 # BACKLOG.md — Surflix
 
 > Things deliberately deferred. Ordered from most impactful. Update this file whenever something gets done or added.
-> Last updated: 2026-11-03 (18 new titles, three new sagas, Burton added to the Batman saga).
+> Last updated: 2026-11-03 (18 new titles, three new sagas, one-paragraph stories pilot).
 
 ## 🔴 Quick follow-ups (after the last deploy)
 
@@ -52,6 +52,21 @@
 - **Rejected for lack of a source** (do not repeat without a new source): all the "both are Stephen King" links for The Mist/Shawshank/Carrie/Shining with It; Hallorann is only proven in the NOVEL It, not the 2017 film; the influence of Burton's Batman on Joker/The Batman/Nolan; "Corpse Bride is a relative of Nightmare" (Burton only said "a different movie, a different process"); the influence of the Apu trilogy on Scorsese/Wes Anderson/Kurosawa (the source names the people, not a specific film); Young Sherlock ↔ Sherlock/Conan/Ritchie's films (the source calls Ritchie's films "unrelated"); Deadpool & Wolverine ↔ Apocalypse.
 - **Data oddity, not yet fixed**: `Sherlock` (2010, TMDB 19885) in the snapshot has the director "Toshiyuki Yahagi, Ai Yoshimura" — wrong metadata from Jellyfin for the BBC series. It breaks nothing right now (neither is in `directors.list`), but never add that name to the director list.
 - **Not yet shipped to production**: the order is import-connections to prod (dry-run first), then the new `connections-live.json`; see "How to: update connections" steps 6–7.
+
+## ✅ Done 2026-11-03 (one-paragraph stories, pilot of 23)
+
+- [x] **Connections can now carry a one-paragraph explanation** (`storyEn` / `story`, both optional) instead of a single line. 23 connections have one so far, written in a film-critic voice in English and Indonesian (each language written natively, not translated). Rows without a paragraph keep showing their short reason, so this rolls out gradually. Source of truth: `scripts/curated/stories.txt` (format and rules are in its header; `build-connections.js` rejects unknown or reversed pairs, paragraphs outside 200–1100 characters, and a missing `||`).
+- **Why this exists:** 553 of 970 approved connections were under 60 characters (talent median 30, director 32, universe 73). Visitors could not tell what a connection was or why it was interesting.
+- **Rules for writing a paragraph:** every factual sentence needs a source quoted in the comment above its line (Wikipedia page or a named interview); no invented quotes; no "critics say" without a named critic; no claim about what a filmmaker intended unless quoted; interpretation is allowed but has to read as interpretation. Leave a fact out rather than soften it.
+- **Seven live short texts were wrong or unsourced and were corrected** (found while researching the pilot): Scary Movie > Scary Movie 5 (said it "picks up after" the fifth film; it is a spiritual sequel to the first two and skips it), Akira > Blade Runner (Mizutani's remark was about one background, from a single secondary source), Decision to Leave > Vertigo (Park's "subconsciously" quote is about Hitchcock in general), Saint Maud > Taxi Driver (the "lonely, self-appointed saviour" wording was not Glass's), Kiki > Totoro ("per Ghibli's own theatre programme" had no source; the cameo is a fan observation), Dragon Ball Z Kai > Dragon Ball Z (the "weekly schedule" reason is unsourced), The Dark Knight > Batman: The Killing Joke (Ledger only said the comic was "handed to me" and "explains… not too much").
+
+## 🟡 Follow-ups from the stories pilot
+
+- [ ] **Audit the `h` (high-confidence) homage, inspired, visual and remake rows (~97) before writing more paragraphs.** The 2026-10-26 audit only covered `medium` rows plus talent and director; of seven of these `h` rows sampled during the pilot, six were wrong or overstated. A polished paragraph on top of a bad claim is worse than a short true sentence.
+- [ ] **Relation labels can contradict a paragraph.** The Flash > Batman (1989) is labelled "Follows" (universe, direction out) while its paragraph says it is not a sequel. The label comes from the relationship type alone. Decide whether `universe` needs a softer label, or a per-row label override, before scaling.
+- [ ] **16 APPROVED rows exist only in `connections-live.json`** (not in `scripts/curated/*.txt` or the seed), so a paragraph cannot attach to them and a rebuild of the seed does not know them. Examples: Coherence > Primer, The Love Witch > Vertigo, The Others > The Sixth Sense, Star Wars > Dune. The Dark Knight > Killing Joke was backported; the rest should be backported (with their text checked) when they get a paragraph. Five more live-only rows are REJECTED, which is expected.
+- [ ] **Scaling to the other ~950 connections needs per-connection research**, roughly the cost of this pilot times dozens. Talent and director rows are the thinnest on the page but their facts are the sparsest. Consider paragraphs only for connections with something genuinely interesting to say, and keep the one-liner for the rest.
+- [ ] **The 3D map panel was not tested with a long paragraph selected** (only the "Why they connect" list was checked in a browser). The panel scrolls (`overflow: auto`) but should be looked at.
 
 ## 🟡 New titles that don't have a map yet (2026-10-26)
 
