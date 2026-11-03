@@ -102,7 +102,16 @@
 - Tested against a mock Jellyfin (login ok/wrong, cookie flags, token revoke, marks, "Up next", mobile menu). **Not yet tested
   against the real server.** Check there: a series with all episodes watched is returned by `IsPlayed=true`; accounts with an
   empty password; Jellyfin 12 accepts the unauthenticated `MediaBrowser Client=...` header on login.
-- Not done yet: marks on the single-film map and Galaxy, watch-later.
+- Account entry moved to the far right of the top bar (`components/connections/account-menu.tsx`: "Sign in" button with icon, then
+  an avatar + name menu with Sign out; inside the phone menu it is a full-width row). Watch order also shows a "Sign in to track what
+  you watched" button while signed out.
+- **Watch later** (`components/connections/watch-later-button.tsx`, `POST /api/viewer/later`): secondary button next to Watch on Watch
+  order, the film map panel and the film page. It saves to a playlist named "Watch later" owned by the viewer in Jellyfin (created on
+  first use), so it also appears in the Jellyfin apps; click again to remove. Signed out, a click opens the sign-in dialog.
+  Tested against the mock only. **Check on the real server:** playlist creation with `UserId` in the body (`POST /Playlists`), that the
+  playlist shows under the user's own Playlists in Jellyfin, and that adding a series works (a series may be expanded into episodes;
+  the code folds episodes back to the series via `SeriesId`).
+- Not done yet: marks on the single-film map and Galaxy.
 
 ## 🟡 Follow-ups from the stories pilot
 

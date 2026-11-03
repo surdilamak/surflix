@@ -1,14 +1,14 @@
 /**
  * Viewer (Jellyfin account) endpoints for the Reference portal.
  *
- *   GET    -> { loggedIn:false } or { loggedIn:true, name, played:["movie:123", ...] }
+ *   GET    -> { loggedIn:false } or { loggedIn:true, name, played:[...], later:[...] } (keys like "movie:123")
  *   POST   -> { username, password } checked against Jellyfin, sets the viewer cookie
  *   DELETE -> clears the cookie
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import { authenticateUser, getPlayedKeys } from '@/lib/jellyfin';
+import { authenticateUser, getPlayedKeys, getWatchLater } from '@/lib/jellyfin';
 import { getViewerSession } from '@/lib/viewer-session';
 import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 
@@ -22,14 +22,20 @@ export async function GET() {
   if (!session.userId || !session.name) {
     return NextResponse.json({ loggedIn: false }, { headers: NO_STORE });
   }
-  try {
-    const played = await getPlayedKeys(session.userId);
-    return NextResponse.json({ loggedIn: true, name: session.name, played }, { headers: NO_STORE });
-  } catch (err) {
-    console.error('[viewer] played list failed:', err);
-    // still signed in, just without marks: the page works the same as signed out
-    return NextResponse.json({ loggedIn: true, name: session.name, played: [], degraded: true }, { headers: NO_STORE });
-  }
+  // each list fails on its own: still signed in, just without those marks
+  const [played, later] = await Promise.all([
+    getPlayedKeys(session.userId).catch((err) => {
+      console.error('[viewer] played list failed:', err);
+      return [] as string[];
+    }),
+    getWatchLater(session.userId)
+      .then((s) => [...s.entries.keys()])
+      .catch((err) => {
+        console.error('[viewer] watch-later list failed:', err);
+        return [] as string[];
+      }),
+  ]);
+  return NextResponse.json({ loggedIn: true, name: session.name, played, later }, { headers: NO_STORE });
 }
 
 export async function POST(req: NextRequest) {

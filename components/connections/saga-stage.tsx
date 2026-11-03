@@ -14,6 +14,7 @@ import { posterUrl, watchUrl } from '@/lib/jellyfin';
 import { useLang } from './lang-provider';
 import { LensSwitch } from './lens-switch';
 import { useViewer } from './viewer-provider';
+import { WatchLaterButton } from './watch-later-button';
 import type { SagaFull, SagaEntry } from '@/lib/connections';
 
 type Mode = 'story' | 'release';
@@ -375,6 +376,11 @@ export function SagaStage({
             <p className="ref-saga-single">{t('tl.sameOrder')}</p>
           )}
           <p className="ref-saga-count">{t('tl.count', { n: saga.total })}</p>
+          {viewer.status === 'out' && (
+            <button type="button" className="ref-saga-signin" onClick={viewer.openLogin}>
+              {t('viewer.signin')}
+            </button>
+          )}
           {viewer.status === 'in' &&
             (upNext ? (
               <button type="button" className="ref-saga-upnext" onClick={() => choose(upNext)}>
@@ -499,9 +505,12 @@ export function SagaStage({
 
             <div className="ref-panel-actions">
               {selected.jellyfinId ? (
-                <a className="ref-btn" href={watchUrl(selected.jellyfinId, jellyfinUrl, serverId)} target="_blank" rel="noopener">
-                  {t('tl.watch')}
-                </a>
+                <>
+                  <a className="ref-btn" href={watchUrl(selected.jellyfinId, jellyfinUrl, serverId)} target="_blank" rel="noopener">
+                    {t('tl.watch')}
+                  </a>
+                  <WatchLaterButton mediaType={selected.mediaType} tmdbId={selected.tmdbId} />
+                </>
               ) : (
                 <a className="ref-btn" href={hubHref(`/browse?q=${encodeURIComponent(selected.title)}`)}>
                   {t('tl.request')}

@@ -15,6 +15,7 @@ import { posterUrl, watchUrl } from '@/lib/jellyfin';
 import { REL_COLOR, REL_VAR } from '@/lib/portal-data';
 import { REL_ORDER } from '@/lib/i18n';
 import { useLang } from './lang-provider';
+import { WatchLaterButton } from './watch-later-button';
 
 export interface GraphNode {
   id: string;
@@ -566,6 +567,7 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
               {t('detail.watch')}
             </a>
           )}
+          {node.jellyfinId && jellyfinUrl && <WatchLaterButton mediaType={node.mediaType} tmdbId={node.tmdbId} />}
           {hasOwnMap && portalPath && (
             <a className="ref-panel-link" href={portalPath(`/${node.mediaType}/${node.tmdbId}`) || '/'}>
               {t('stage.openMap')}

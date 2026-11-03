@@ -683,15 +683,6 @@
 }
 
 /* ── Viewer: Jellyfin sign-in + "watched" marks ── */
-.ref-viewer-btn {
-  min-height: 36px; padding: 0 12px; border: 0; border-radius: 8px; background: none;
-  color: var(--pb-muted, #a3a3ab); font: inherit; font-size: 14px; cursor: pointer; white-space: nowrap;
-  transition: color 0.2s, background 0.2s;
-}
-.ref-viewer-btn:hover { color: var(--pb-ink, #fff); background: var(--pb-hover, rgba(255, 255, 255, 0.06)); }
-.ref-viewer-btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-.pb-panel .ref-viewer-btn { min-height: 48px; padding: 0 12px; font-size: 17px; text-align: left; }
-
 .ref-viewer-dialog {
   position: fixed; inset: 0; margin: auto; max-height: calc(100svh - 32px); overflow: auto;
   width: min(420px, calc(100vw - 32px)); padding: 28px; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 12px;
@@ -728,3 +719,21 @@
   font: inherit; font-weight: 700; cursor: pointer;
 }
 .ref-saga-upnext:focus-visible { outline: 3px solid #fff; outline-offset: 2px; }
+
+/* Watch later: secondary action next to Watch */
+.ref-root .ref-btn--ghost { background: rgba(255, 255, 255, 0.12); color: var(--field-1-ink); }
+.ref-root .ref-btn--ghost:hover { background: rgba(255, 255, 255, 0.2); }
+.ref-root .ref-btn--ghost:active { background: rgba(255, 255, 255, 0.28); }
+.ref-root .ref-later { gap: 8px; }
+.ref-root .ref-later[aria-pressed='true'] { box-shadow: inset 0 0 0 2px var(--accent); }
+.ref-root .ref-btn--ghost.ref-later[aria-pressed='true'] { color: var(--accent); }
+.ref-root .ref-later:disabled { cursor: wait; }
+.ref-later-err { font-size: 14px; font-weight: 600; color: #d93025; }
+.ref-later-err:empty { display: none; }
+.ref-detail-actions .ref-later-err { color: #ff8a80; }
+.ref-saga-signin {
+  min-height: 44px; padding: 0 16px; border: 1px solid rgba(255, 255, 255, 0.4); border-radius: 8px; background: none;
+  color: var(--field-1-ink); font: inherit; font-weight: 600; cursor: pointer; transition: background 0.2s;
+}
+.ref-saga-signin:hover { background: rgba(255, 255, 255, 0.1); }
+.ref-saga-signin:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }

@@ -17,6 +17,7 @@ import { SearchBox } from '@/components/connections/search-box';
 import { LensSwitch } from '@/components/connections/lens-switch';
 import type { GraphData } from '@/components/connections/connection-graph';
 import type { SagaHere } from '@/lib/connections';
+import { WatchLaterButton } from '@/components/connections/watch-later-button';
 
 const ConnectionGraph = dynamic(
   () => import('@/components/connections/connection-graph').then((m) => m.ConnectionGraph),
@@ -93,6 +94,9 @@ export default function ReferensiFilmPage() {
               {t('detail.watch')}
             </a>
           )}
+          {lib?.jellyfinId && (
+            <WatchLaterButton mediaType={params.type} tmdbId={Number(params.id)} className="ref-btn ref-btn--ghost" />
+          )}
           <a className="ref-btn ref-btn--light" href={`${portalPath('/') || '/'}#peta`}>
             {t('detail.back')}
           </a>
@@ -126,6 +130,9 @@ export default function ReferensiFilmPage() {
             <a className="ref-btn" href={watchUrl(source.jellyfinId, jellyfinUrl, config.jellyfinServerId)} target="_blank" rel="noopener">
               {t('detail.watch')}
             </a>
+          )}
+          {source.jellyfinId && (
+            <WatchLaterButton mediaType={source.mediaType} tmdbId={source.tmdbId} className="ref-btn ref-btn--ghost" />
           )}
         </div>
         <LensSwitch

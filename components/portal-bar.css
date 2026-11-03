@@ -110,3 +110,39 @@
 @media (prefers-reduced-motion: reduce) {
   .pb-switch a, .pb-lang button, .pb-nav a { transition: none; }
 }
+
+/* account entry (Reference): far right of the bar, set apart from the page links */
+.pb-account { position: relative; display: none; flex: 0 0 auto; }
+.pb-account--wait { display: none; width: 96px; height: 40px; }
+.pb-account-btn {
+  display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 14px; border-radius: 999px;
+  border: 1px solid var(--pb-line, rgba(255, 255, 255, 0.28)); background: transparent; color: var(--pb-ink, #fff);
+  font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; white-space: nowrap;
+  transition: background 0.18s, border-color 0.18s;
+}
+.pb-account-btn:hover { background: var(--pb-hover, rgba(255, 255, 255, 0.08)); border-color: var(--pb-ink, #fff); }
+.pb-account-btn--user { padding-left: 4px; }
+.pb-account-avatar {
+  display: grid; place-items: center; width: 30px; height: 30px; border-radius: 50%;
+  background: var(--pb-accent, #ff5200); color: #0d0d0f; font-size: 14px; font-weight: 800;
+}
+.pb-account-name { max-width: 120px; overflow: hidden; text-overflow: ellipsis; }
+.pb-account-pop {
+  position: absolute; right: 0; top: calc(100% + 8px); z-index: 20; min-width: 200px; padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 12px; background: var(--pb-raised, #232327);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45);
+}
+.pb-account-who { margin: 0; padding: 8px 12px; font-size: 13px; color: var(--pb-muted, #a3a3ab); }
+.pb-account-pop button {
+  display: block; width: 100%; min-height: 40px; padding: 0 12px; border: 0; border-radius: 8px; background: none;
+  color: var(--pb-ink, #fff); font: inherit; font-size: 14px; text-align: left; cursor: pointer;
+}
+.pb-account-pop button:hover { background: var(--pb-hover, rgba(255, 255, 255, 0.08)); }
+@media (min-width: 768px) {
+  .pb-in > .pb-account { display: block; }
+  .pb-in > .pb-account--wait { display: block; }
+}
+/* inside the phone menu */
+.pb-account--inline { display: block; padding: 4px 0 8px; }
+.pb-account--inline .pb-account-btn { width: 100%; min-height: 48px; justify-content: flex-start; font-size: 16px; }
+.pb-account--inline .pb-account-who { padding: 4px 12px 8px; font-size: 14px; }

@@ -13,6 +13,10 @@ interface ViewerCtx {
   name: string | null;
   /** true if the viewer is signed in AND has finished this title */
   isWatched: (mediaType: string | null | undefined, tmdbId: number | null | undefined) => boolean;
+  /** true if the viewer is signed in AND saved this title to Watch later */
+  isSaved: (mediaType: string | null | undefined, tmdbId: number | null | undefined) => boolean;
+  /** Save or unsave. Signed out, this opens the sign-in dialog instead. Resolves false if the request failed. */
+  toggleLater: (mediaType: string, tmdbId: number) => Promise<boolean>;
   openLogin: () => void;
   logout: () => Promise<void>;
 }
@@ -24,20 +28,23 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
   const [status, setStatus] = useState<ViewerCtx['status']>('loading');
   const [name, setName] = useState<string | null>(null);
   const [played, setPlayed] = useState<Set<string>>(new Set());
+  const [later, setLater] = useState<Set<string>>(new Set());
   const [open, setOpen] = useState(false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-  const apply = useCallback((d: { loggedIn?: boolean; name?: string; played?: string[] }) => {
+  const apply = useCallback((d: { loggedIn?: boolean; name?: string; played?: string[]; later?: string[] }) => {
     if (d.loggedIn) {
       setStatus('in');
       setName(d.name ?? null);
       setPlayed(new Set(d.played ?? []));
+      setLater(new Set(d.later ?? []));
     } else {
       setStatus('out');
       setName(null);
       setPlayed(new Set());
+      setLater(new Set());
     }
   }, []);
 
@@ -91,18 +98,60 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  const openLogin = useCallback(() => {
+    setError(null);
+    setOpen(true);
+  }, []);
+
+  const toggleLater = useCallback(
+    async (mediaType: string, tmdbId: number) => {
+      if (status !== 'in') {
+        openLogin();
+        return true;
+      }
+      const key = `${mediaType}:${tmdbId}`;
+      const save = !later.has(key);
+      const flip = (on: boolean) =>
+        setLater((prev) => {
+          const next = new Set(prev);
+          if (on) next.add(key);
+          else next.delete(key);
+          return next;
+        });
+      flip(save); // optimistic; rolled back below if the request fails
+      try {
+        const res = await fetch('/api/viewer/later', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ mediaType, tmdbId, save }),
+        });
+        if (res.status === 401) {
+          flip(!save);
+          await refresh(); // session expired: the header now shows signed out
+          openLogin();
+          return true;
+        }
+        if (!res.ok) throw new Error(String(res.status));
+        return true;
+      } catch {
+        flip(!save);
+        return false;
+      }
+    },
+    [status, later, openLogin, refresh]
+  );
+
   const value = useMemo<ViewerCtx>(
     () => ({
       status,
       name,
       isWatched: (mt, id) => status === 'in' && !!mt && !!id && played.has(`${mt}:${id}`),
-      openLogin: () => {
-        setError(null);
-        setOpen(true);
-      },
+      isSaved: (mt, id) => status === 'in' && !!mt && !!id && later.has(`${mt}:${id}`),
+      toggleLater,
+      openLogin,
       logout,
     }),
-    [status, name, played, logout]
+    [status, name, played, later, toggleLater, openLogin, logout]
   );
 
   return (

@@ -32,8 +32,13 @@ function LangPills({ className }: { className?: string }) {
 export function PortalBar({
   current,
   nav,
+  account,
+  accountPanel,
 }: {
   current: PortalSite;
+  /** account entry at the far right of the bar (desktop) and its version inside the phone menu */
+  account?: React.ReactNode;
+  accountPanel?: React.ReactNode;
   /** the site's local links (Home/Trending…, All maps/Galaxy) sitting on the same line */
   nav?: React.ReactNode;
 }) {
@@ -98,6 +103,8 @@ export function PortalBar({
 
         <LangPills className="pb-lang" />
 
+        {account}
+
         <button
           type="button"
           className="pb-burger"
@@ -121,6 +128,7 @@ export function PortalBar({
           <button type="button" className="pb-scrim" aria-label={t('pb.close')} onClick={() => setOpen(false)} />
           <div className="pb-panel" id={menuId}>
             {nav}
+            {accountPanel}
             <div className="pb-panel-foot">
               <LangPills className="pb-lang pb-lang--panel" />
               <a href={homeHref('/')} className="pb-home-link">

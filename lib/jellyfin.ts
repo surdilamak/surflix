@@ -165,6 +165,92 @@ export async function getPlayedKeys(userId: string): Promise<string[]> {
   return keys;
 }
 
+const WATCH_LATER = 'Watch later';
+
+/** The user's "Watch later" playlist in Jellyfin: its id (null if never created) and saved titles. */
+export interface WatchLaterState {
+  playlistId: string | null;
+  /** "<mediaType>:<tmdbId>" -> playlist entry ids (a series can be expanded into several episode entries) */
+  entries: Map<string, string[]>;
+}
+
+function apiHeaders() {
+  return { Authorization: `MediaBrowser Token="${process.env.JELLYFIN_API_KEY}"` };
+}
+
+/**
+ * Read the user's "Watch later" playlist. Entries that Jellyfin expanded into episodes are folded back
+ * to their series key, so the button state matches what the visitor saved.
+ */
+export async function getWatchLater(userId: string): Promise<WatchLaterState> {
+  if (!isConfigured()) throw new Error('JELLYFIN_URL / JELLYFIN_API_KEY not set');
+  const uid = encodeURIComponent(userId);
+  const listRes = await fetch(
+    `${jellyfinBase()}/Users/${uid}/Items?Recursive=true&IncludeItemTypes=Playlist`,
+    { headers: apiHeaders(), signal: AbortSignal.timeout(15000) }
+  );
+  if (!listRes.ok) throw new Error(`Jellyfin playlist list error ${listRes.status}`);
+  const lists: Array<{ Id: string; Name?: string }> = (await listRes.json())?.Items ?? [];
+  const playlist = lists.find((l) => (l.Name ?? '').trim().toLowerCase() === WATCH_LATER.toLowerCase());
+  const state: WatchLaterState = { playlistId: playlist?.Id ?? null, entries: new Map() };
+  if (!playlist) return state;
+
+  const res = await fetch(
+    `${jellyfinBase()}/Playlists/${encodeURIComponent(playlist.Id)}/Items?UserId=${uid}&Fields=ProviderIds`,
+    { headers: apiHeaders(), signal: AbortSignal.timeout(15000) }
+  );
+  if (!res.ok) throw new Error(`Jellyfin playlist items error ${res.status}`);
+  const items: Array<JellyfinItem & { PlaylistItemId?: string; SeriesId?: string }> = (await res.json())?.Items ?? [];
+
+  let byJellyfinId: Map<string, string> | null = null;
+  for (const item of items) {
+    if (!item.PlaylistItemId) continue;
+    let key: string | null = null;
+    const tmdbId = parseInt(item.ProviderIds?.Tmdb ?? '', 10);
+    if (Number.isFinite(tmdbId) && (item.Type === 'Movie' || item.Type === 'Series')) {
+      key = libraryKey(item.Type === 'Movie' ? 'movie' : 'tv', tmdbId);
+    } else if (item.SeriesId) {
+      if (!byJellyfinId) {
+        byJellyfinId = new Map();
+        for (const [k, id] of await getLibraryTmdbMap()) byJellyfinId.set(id, k);
+      }
+      key = byJellyfinId.get(item.SeriesId) ?? null;
+    }
+    if (!key) continue;
+    state.entries.set(key, [...(state.entries.get(key) ?? []), item.PlaylistItemId]);
+  }
+  return state;
+}
+
+/** Add one library title to the user's "Watch later" playlist (creating the playlist on first use). */
+export async function addToWatchLater(userId: string, jellyfinItemId: string, state: WatchLaterState): Promise<void> {
+  const headers = { ...apiHeaders(), 'Content-Type': 'application/json' };
+  let res: Response;
+  if (!state.playlistId) {
+    res = await fetch(`${jellyfinBase()}/Playlists`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ Name: WATCH_LATER, Ids: [jellyfinItemId], UserId: userId, MediaType: 'Video' }),
+      signal: AbortSignal.timeout(15000),
+    });
+  } else {
+    res = await fetch(
+      `${jellyfinBase()}/Playlists/${encodeURIComponent(state.playlistId)}/Items?Ids=${encodeURIComponent(jellyfinItemId)}&UserId=${encodeURIComponent(userId)}`,
+      { method: 'POST', headers: apiHeaders(), signal: AbortSignal.timeout(15000) }
+    );
+  }
+  if (!res.ok) throw new Error(`Jellyfin add to playlist error ${res.status}`);
+}
+
+/** Remove saved entries from the user's "Watch later" playlist. */
+export async function removeFromWatchLater(playlistId: string, entryIds: string[]): Promise<void> {
+  const res = await fetch(
+    `${jellyfinBase()}/Playlists/${encodeURIComponent(playlistId)}/Items?EntryIds=${entryIds.map(encodeURIComponent).join(',')}`,
+    { method: 'DELETE', headers: apiHeaders(), signal: AbortSignal.timeout(15000) }
+  );
+  if (!res.ok) throw new Error(`Jellyfin remove from playlist error ${res.status}`);
+}
+
 let serverIdCache: string | null = null;
 
 /**
