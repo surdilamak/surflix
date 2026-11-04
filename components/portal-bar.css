@@ -137,6 +137,13 @@
   display: block; width: 100%; min-height: 40px; padding: 0 12px; border: 0; border-radius: 8px; background: none;
   color: var(--pb-ink, #fff); font: inherit; font-size: 14px; text-align: left; cursor: pointer;
 }
+.pb-account-pop a {
+  display: flex; align-items: center; min-height: 40px; padding: 0 12px; border-radius: 8px; color: var(--pb-ink, #fff);
+  font-size: 14px; text-decoration: none;
+}
+.pb-account-pop a:hover { background: var(--pb-hover, rgba(255, 255, 255, 0.08)); }
+.pb-account-note { margin: 0; padding: 4px 12px 8px; font-size: 12px; line-height: 1.4; color: var(--pb-muted, #a3a3ab); }
+a.pb-account-btn { text-decoration: none; }
 .pb-account-pop button:hover { background: var(--pb-hover, rgba(255, 255, 255, 0.08)); }
 @media (min-width: 768px) {
   .pb-in > .pb-account { display: block; }

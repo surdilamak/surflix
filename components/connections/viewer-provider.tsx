@@ -12,6 +12,8 @@ import './viewer-dialog.css';
 interface ViewerCtx {
   status: 'loading' | 'out' | 'in';
   name: string | null;
+  /** how they signed in: 'form' = Surflix sign-in form, 'jellyfin' = the Jellyfin plugin cookie (ends only by signing out of Jellyfin) */
+  via: 'form' | 'jellyfin' | null;
   /** true if the viewer is signed in AND has finished this title */
   isWatched: (mediaType: string | null | undefined, tmdbId: number | null | undefined) => boolean;
   /** true if the viewer is signed in AND saved this title to Watch later */
@@ -28,6 +30,7 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
   const { t } = useLang();
   const [status, setStatus] = useState<ViewerCtx['status']>('loading');
   const [name, setName] = useState<string | null>(null);
+  const [via, setVia] = useState<'form' | 'jellyfin' | null>(null);
   const [played, setPlayed] = useState<Set<string>>(new Set());
   const [later, setLater] = useState<Set<string>>(new Set());
   const [open, setOpen] = useState(false);
@@ -35,15 +38,17 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
   const [error, setError] = useState<string | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-  const apply = useCallback((d: { loggedIn?: boolean; name?: string; played?: string[]; later?: string[] }) => {
+  const apply = useCallback((d: { loggedIn?: boolean; name?: string; via?: 'form' | 'jellyfin'; played?: string[]; later?: string[] }) => {
     if (d.loggedIn) {
       setStatus('in');
       setName(d.name ?? null);
+      setVia(d.via ?? 'form');
       setPlayed(new Set(d.played ?? []));
       setLater(new Set(d.later ?? []));
     } else {
       setStatus('out');
       setName(null);
+      setVia(null);
       setPlayed(new Set());
       setLater(new Set());
     }
@@ -146,13 +151,14 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
     () => ({
       status,
       name,
+      via,
       isWatched: (mt, id) => status === 'in' && !!mt && !!id && played.has(`${mt}:${id}`),
       isSaved: (mt, id) => status === 'in' && !!mt && !!id && later.has(`${mt}:${id}`),
       toggleLater,
       openLogin,
       logout,
     }),
-    [status, name, played, later, toggleLater, openLogin, logout]
+    [status, name, via, played, later, toggleLater, openLogin, logout]
   );
 
   return (

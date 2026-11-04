@@ -1,7 +1,7 @@
 /**
  * Viewer (Jellyfin account) endpoints for the Reference portal.
  *
- *   GET    -> { loggedIn:false } or { loggedIn:true, name, played:[...], later:[...] } (keys like "movie:123")
+ *   GET    -> { loggedIn:false } or { loggedIn:true, name, via:'form'|'jellyfin', played:[...], later:[...] } (keys like "movie:123")
  *   POST   -> { username, password } checked against Jellyfin, sets the viewer cookie
  *   DELETE -> clears the cookies (own session and the Jellyfin plugin cookie)
  *
@@ -37,7 +37,7 @@ export async function GET() {
         return [] as string[];
       }),
   ]);
-  return NextResponse.json({ loggedIn: true, name: session.name, played, later }, { headers: NO_STORE });
+  return NextResponse.json({ loggedIn: true, name: session.name, via: session.via, played, later }, { headers: NO_STORE });
 }
 
 export async function POST(req: NextRequest) {

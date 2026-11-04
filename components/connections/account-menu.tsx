@@ -7,10 +7,15 @@
 import { useEffect, useId, useRef, useState } from 'react';
 import { useLang } from './lang-provider';
 import { useViewer } from './viewer-provider';
+import { useAppConfig } from '@/lib/hooks/use-app-config';
 
 export function AccountMenu({ inline = false }: { inline?: boolean }) {
   const { t } = useLang();
   const viewer = useViewer();
+  const config = useAppConfig();
+  const streaming = config?.jellyfinUrl || 'https://streaming.surflix.my.id';
+  // signed in through Jellyfin: signing out here would not end anything, so point to Jellyfin
+  const viaJellyfin = viewer.via === 'jellyfin';
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const menuId = useId();
@@ -53,9 +58,15 @@ export function AccountMenu({ inline = false }: { inline?: boolean }) {
     return (
       <div className="pb-account pb-account--inline">
         <p className="pb-account-who">{t('viewer.signedInAs', { name })}</p>
-        <button type="button" className="pb-account-btn" onClick={viewer.logout}>
-          {t('viewer.signout')}
-        </button>
+        {viaJellyfin ? (
+          <a className="pb-account-btn" href={streaming} target="_blank" rel="noopener">
+            {t('viewer.signoutJellyfin')}
+          </a>
+        ) : (
+          <button type="button" className="pb-account-btn" onClick={viewer.logout}>
+            {t('viewer.signout')}
+          </button>
+        )}
       </div>
     );
   }
@@ -79,16 +90,25 @@ export function AccountMenu({ inline = false }: { inline?: boolean }) {
       {open && (
         <div className="pb-account-pop" id={menuId} role="menu">
           <p className="pb-account-who">{t('viewer.signedInAs', { name })}</p>
-          <button
-            type="button"
-            role="menuitem"
-            onClick={() => {
-              setOpen(false);
-              viewer.logout();
-            }}
-          >
-            {t('viewer.signout')}
-          </button>
+          {viaJellyfin ? (
+            <>
+              <a role="menuitem" href={streaming} target="_blank" rel="noopener" onClick={() => setOpen(false)}>
+                {t('viewer.signoutJellyfin')}
+              </a>
+              <p className="pb-account-note">{t('viewer.viaJellyfin')}</p>
+            </>
+          ) : (
+            <button
+              type="button"
+              role="menuitem"
+              onClick={() => {
+                setOpen(false);
+                viewer.logout();
+              }}
+            >
+              {t('viewer.signout')}
+            </button>
+          )}
         </div>
       )}
     </div>

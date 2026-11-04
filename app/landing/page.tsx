@@ -182,7 +182,7 @@ export default async function LandingPage({ searchParams }: { searchParams?: Pro
   return (
     <LandingViewer>
       <LandingFx />
-      <LandingAccount labels={{ signin: t('lp.signin'), signout: t('lp.signout'), as: t('lp.signedAs', { name: '{name}' }) }} />
+      <LandingAccount streamingHref={watchHome} labels={{ signin: t('lp.signin'), signout: t('lp.signout'), signoutJellyfin: t('lp.signoutJellyfin'), as: t('lp.signedAs', { name: '{name}' }) }} />
       <LangToggle lang={lang} label={t('lp.lang')} />
 
       {/* ── Hero: a sheet of posters with one text cell ─────────────────────── */}

@@ -20,7 +20,7 @@ export function LandingViewer({ children }: { children: React.ReactNode }) {
 export { WatchLink as LandingWatch };
 
 /** Sign in / account chip next to the language picker. Labels come from the server translation. */
-export function LandingAccount({ labels }: { labels: { signin: string; signout: string; as: string } }) {
+export function LandingAccount({ labels, streamingHref }: { labels: { signin: string; signout: string; signoutJellyfin: string; as: string }; streamingHref: string }) {
   const viewer = useViewer();
   if (viewer.status === 'loading') return null;
   if (viewer.status === 'out') {
@@ -33,7 +33,11 @@ export function LandingAccount({ labels }: { labels: { signin: string; signout: 
   return (
     <span className="lp-account lp-account--in">
       <span className="lp-account-name">{labels.as.replace('{name}', viewer.name ?? '')}</span>
-      <button type="button" onClick={viewer.logout}>{labels.signout}</button>
+      {viewer.via === 'jellyfin' ? (
+        <a href={streamingHref} target="_blank" rel="noopener">{labels.signoutJellyfin}</a>
+      ) : (
+        <button type="button" onClick={viewer.logout}>{labels.signout}</button>
+      )}
     </span>
   );
 }

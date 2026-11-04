@@ -36,10 +36,11 @@ export async function getViewerSession() {
  * Who is looking: the Surflix sign-in (own cookie) first, otherwise the cookie from the Jellyfin plugin.
  * null = anonymous.
  */
-export async function getViewer(): Promise<{ userId: string; name: string } | null> {
+export async function getViewer(): Promise<{ userId: string; name: string; via: 'form' | 'jellyfin' } | null> {
   const session = await getViewerSession();
-  if (session.userId && session.name) return { userId: session.userId, name: session.name };
-  return verifySsoCookie((await cookies()).get(SSO_COOKIE)?.value);
+  if (session.userId && session.name) return { userId: session.userId, name: session.name, via: 'form' };
+  const sso = verifySsoCookie((await cookies()).get(SSO_COOKIE)?.value);
+  return sso ? { ...sso, via: 'jellyfin' } : null;
 }
 
 /** Sign out here: drop our session and the plugin cookie (otherwise the plugin cookie would sign them straight back in). */

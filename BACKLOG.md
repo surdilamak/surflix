@@ -163,6 +163,11 @@
   `/Sessions/Logout` clears it; a cookie issued by the real server passes the Node verifier. Not verified: the real domain/Secure behaviour behind the production
   reverse proxy (local test used `SURFLIX_SSO_DOMAIN=localhost`, `SURFLIX_SSO_SECURE=false`), and the Jellyfin web UI in a browser (curl only).
 
+- Wording rule (Idrus, 2026-11-04): visitor-facing text never says "Jellyfin"; it says "streaming" or "Surflix streaming" (sign-in dialog, errors, Watch later hint,
+  sign-out menu). Internal key names such as `viewer.signoutJellyfin` keep the old name. The admin pages and developer docs may still say Jellyfin.
+- The account menu follows how the visitor signed in: through the plugin cookie it shows "Sign out of streaming" (links to the streaming site, since signing out
+  only on Surflix would not end the session); through the Surflix form it shows "Sign out".
+
 ## 🟡 Follow-ups from the stories pilot
 
 - [x] ~~**Audit the `h` homage, inspired, visual and remake rows**~~ — done 2026-11-03, see the section below.

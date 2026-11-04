@@ -444,6 +444,6 @@
 .lp-account--in { cursor: default; padding-right: 6px; }
 .lp-account--in:hover { background: var(--surface-2); color: var(--ink); }
 .lp-account-name { max-width: 22ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.lp-account--in button { min-height: 36px; padding: 0 12px; border: 0; border-radius: 999px; background: var(--ink); color: var(--bg); font: inherit; font-weight: 600; cursor: pointer; }
+.lp-account--in a, .lp-account--in button { display: inline-flex; align-items: center; text-decoration: none; min-height: 36px; padding: 0 12px; border: 0; border-radius: 999px; background: var(--ink); color: var(--bg); font: inherit; font-weight: 600; cursor: pointer; }
 @media (max-width: 480px) { .lp-account-name { display: none; } }
 .lp-lang button[aria-pressed='true'] { background: var(--ink); color: var(--bg); }
