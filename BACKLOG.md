@@ -150,6 +150,19 @@
   stop Google from seeing the noindex. Idrus's steps: Search Console -> Removals -> New request -> "Remove all URLs with this prefix" for
   `reference.`, `request.` and the apex; then check Pages after a few days.
 
+## ✅ Done 2026-11-04 (one sign-in for Jellyfin + Surflix: plugin, status: tested on a local Jellyfin 12.2, not yet installed on the real server)
+- Landing page got a Sign in / account chip next to the language picker (`app/landing/landing-viewer.tsx`).
+- `jellyfin-plugin/Surflix.Sso` (C#, .NET 10, ABI 12.0.0.0; the production server is Jellyfin 12.2.0): an MVC result filter sets the signed cookie `surflix_sso`
+  (user id + name, HMAC-SHA256) for `SURFLIX_SSO_DOMAIN` on sign-in, renews/sets it for already signed-in browsers, removes it on `/Sessions/Logout`.
+  Surflix reads it in `lib/sso-cookie.ts` / `getViewer()` (needs `SSO_SHARED_SECRET`, same value as `SURFLIX_SSO_SECRET` on Jellyfin).
+  Install steps: `jellyfin-plugin/README.md`. CI: `.github/workflows/jellyfin-plugin.yml` (artifact `surflix-sso-plugin`).
+- Verified: builds against the 12.0.0 packages; loads in a real Jellyfin 12.2 (`Loaded plugin: Surflix SSO 1.0.0.0`); a cookie made by the C# code is accepted
+  by the Node verifier (and expired, wrong-secret and tampered cookies are rejected); `/api/viewer` and `/api/viewer/later` honour it.
+- Verified on a real local Jellyfin 12.2.0 (tarball + Jellyfin ffmpeg, plugin folder copied in): sign-in sets the cookie (HttpOnly, SameSite=Lax, domain from env,
+  30 days); an existing session without the cookie gets it on its next request; a fresh valid cookie is not reset; anonymous and API-key requests set nothing;
+  `/Sessions/Logout` clears it; a cookie issued by the real server passes the Node verifier. Not verified: the real domain/Secure behaviour behind the production
+  reverse proxy (local test used `SURFLIX_SSO_DOMAIN=localhost`, `SURFLIX_SSO_SECURE=false`), and the Jellyfin web UI in a browser (curl only).
+
 ## 🟡 Follow-ups from the stories pilot
 
 - [x] ~~**Audit the `h` homage, inspired, visual and remake rows**~~ — done 2026-11-03, see the section below.

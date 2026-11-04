@@ -434,4 +434,16 @@
   transition: background 0.18s, color 0.18s;
 }
 .lp-lang button:hover { color: var(--ink); }
+.lp-account {
+  position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); right: calc(var(--m) + 124px); z-index: 20;
+  display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 16px; border: 0; border-radius: 999px;
+  background: var(--surface-2); color: var(--ink); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.lp-account:hover { background: var(--ink); color: var(--bg); }
+.lp-account:focus-visible, .lp-account button:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.lp-account--in { cursor: default; padding-right: 6px; }
+.lp-account--in:hover { background: var(--surface-2); color: var(--ink); }
+.lp-account-name { max-width: 22ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lp-account--in button { min-height: 36px; padding: 0 12px; border: 0; border-radius: 999px; background: var(--ink); color: var(--bg); font: inherit; font-weight: 600; cursor: pointer; }
+@media (max-width: 480px) { .lp-account-name { display: none; } }
 .lp-lang button[aria-pressed='true'] { background: var(--ink); color: var(--bg); }

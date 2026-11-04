@@ -1,0 +1,30 @@
+name: Build Jellyfin plugin (Surflix SSO)
+
+on:
+  push:
+    branches: [main]
+    paths: ['jellyfin-plugin/**', '.github/workflows/jellyfin-plugin.yml']
+  pull_request:
+    paths: ['jellyfin-plugin/**']
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Build
+        working-directory: jellyfin-plugin/Surflix.Sso
+        run: dotnet build -c Release
+      - name: Package (folder name must be "Surflix SSO_<version>")
+        run: |
+          mkdir -p "pkg/Surflix SSO_1.0.0.0"
+          cp jellyfin-plugin/Surflix.Sso/bin/Release/net10.0/Surflix.Sso.dll "pkg/Surflix SSO_1.0.0.0/"
+          cp jellyfin-plugin/Surflix.Sso/meta.json "pkg/Surflix SSO_1.0.0.0/"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: surflix-sso-plugin
+          path: pkg

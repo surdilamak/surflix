@@ -1,0 +1,12 @@
+{
+  "guid": "95fe8944-61e8-45c7-8fbf-f0172a4e1249",
+  "name": "Surflix SSO",
+  "description": "Shares your Jellyfin sign-in with the Surflix Request Hub and Reference.",
+  "overview": "Sets a signed cookie for the Surflix domain when someone signs in to Jellyfin.",
+  "owner": "Surflix",
+  "category": "General",
+  "version": "1.0.0.0",
+  "targetAbi": "12.0.0.0",
+  "status": "Active",
+  "autoUpdate": false
+}

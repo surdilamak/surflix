@@ -7,6 +7,7 @@
 
 import { SessionOptions, getIronSession } from 'iron-session';
 import { cookies } from 'next/headers';
+import { SSO_COOKIE, verifySsoCookie } from './sso-cookie';
 
 export interface ViewerSession {
   userId?: string;
@@ -29,4 +30,27 @@ export const viewerSessionOptions: SessionOptions = {
 
 export async function getViewerSession() {
   return getIronSession<ViewerSession>(await cookies(), viewerSessionOptions);
+}
+
+/**
+ * Who is looking: the Surflix sign-in (own cookie) first, otherwise the cookie from the Jellyfin plugin.
+ * null = anonymous.
+ */
+export async function getViewer(): Promise<{ userId: string; name: string } | null> {
+  const session = await getViewerSession();
+  if (session.userId && session.name) return { userId: session.userId, name: session.name };
+  return verifySsoCookie((await cookies()).get(SSO_COOKIE)?.value);
+}
+
+/** Sign out here: drop our session and the plugin cookie (otherwise the plugin cookie would sign them straight back in). */
+export async function clearViewer() {
+  (await getViewerSession()).destroy();
+  const jar = await cookies();
+  if (jar.get(SSO_COOKIE)) {
+    jar.set(SSO_COOKIE, '', {
+      maxAge: 0,
+      path: '/',
+      ...(process.env.VIEWER_COOKIE_DOMAIN ? { domain: process.env.VIEWER_COOKIE_DOMAIN } : {}),
+    });
+  }
 }

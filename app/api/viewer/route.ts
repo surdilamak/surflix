@@ -3,13 +3,15 @@
  *
  *   GET    -> { loggedIn:false } or { loggedIn:true, name, played:[...], later:[...] } (keys like "movie:123")
  *   POST   -> { username, password } checked against Jellyfin, sets the viewer cookie
- *   DELETE -> clears the cookie
+ *   DELETE -> clears the cookies (own session and the Jellyfin plugin cookie)
+ *
+ * Signed in = own cookie (form login) OR a valid `surflix_sso` cookie from the Jellyfin plugin (lib/sso-cookie.ts).
  */
 
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
 import { authenticateUser, getPlayedKeys, getWatchLater } from '@/lib/jellyfin';
-import { getViewerSession } from '@/lib/viewer-session';
+import { clearViewer, getViewer, getViewerSession } from '@/lib/viewer-session';
 import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 
 export const dynamic = 'force-dynamic';
@@ -18,8 +20,8 @@ const schema = z.object({ username: z.string().min(1).max(100), password: z.stri
 const NO_STORE = { 'Cache-Control': 'private, no-store' };
 
 export async function GET() {
-  const session = await getViewerSession();
-  if (!session.userId || !session.name) {
+  const session = await getViewer();
+  if (!session) {
     return NextResponse.json({ loggedIn: false }, { headers: NO_STORE });
   }
   // each list fails on its own: still signed in, just without those marks
@@ -68,7 +70,6 @@ export async function POST(req: NextRequest) {
 }
 
 export async function DELETE() {
-  const session = await getViewerSession();
-  session.destroy();
+  await clearViewer();
   return NextResponse.json({ ok: true }, { headers: NO_STORE });
 }

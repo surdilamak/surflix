@@ -15,3 +15,7 @@ prisma/dev.db*
 next-env.d.ts
 tsconfig.tsbuildinfo
 package-lock.json
+
+# Jellyfin plugin build output
+jellyfin-plugin/**/bin/
+jellyfin-plugin/**/obj/

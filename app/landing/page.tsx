@@ -12,7 +12,7 @@ import { buildPortalUrls } from '@/lib/portal-urls';
 import { translate } from '@/lib/i18n';
 import { getServerLang } from '@/lib/lang-server';
 import { CoffeeButton, LandingFx, LangToggle } from './landing-fx';
-import { LandingViewer, LandingWatch } from './landing-viewer';
+import { LandingAccount, LandingViewer, LandingWatch } from './landing-viewer';
 
 export const dynamic = 'force-dynamic';
 
@@ -182,6 +182,7 @@ export default async function LandingPage({ searchParams }: { searchParams?: Pro
   return (
     <LandingViewer>
       <LandingFx />
+      <LandingAccount labels={{ signin: t('lp.signin'), signout: t('lp.signout'), as: t('lp.signedAs', { name: '{name}' }) }} />
       <LangToggle lang={lang} label={t('lp.lang')} />
 
       {/* ── Hero: a sheet of posters with one text cell ─────────────────────── */}

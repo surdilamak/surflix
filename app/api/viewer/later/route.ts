@@ -14,7 +14,7 @@ import {
   libraryKey,
   removeFromWatchLater,
 } from '@/lib/jellyfin';
-import { getViewerSession } from '@/lib/viewer-session';
+import { getViewer } from '@/lib/viewer-session';
 
 export const dynamic = 'force-dynamic';
 
@@ -26,8 +26,8 @@ const schema = z.object({
 const NO_STORE = { 'Cache-Control': 'private, no-store' };
 
 export async function POST(req: NextRequest) {
-  const session = await getViewerSession();
-  if (!session.userId) return NextResponse.json({ error: 'signin' }, { status: 401, headers: NO_STORE });
+  const session = await getViewer();
+  if (!session) return NextResponse.json({ error: 'signin' }, { status: 401, headers: NO_STORE });
 
   let body;
   try {
