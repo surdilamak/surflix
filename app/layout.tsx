@@ -8,6 +8,8 @@ const SITE_DESCRIPTION =
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  // Private site: not for search engines (the X-Robots-Tag header in next.config.js covers non-HTML too)
+  robots: { index: false, follow: false, nocache: true },
   title: SITE_TITLE,
   description: SITE_DESCRIPTION,
   manifest: '/manifest.json',

@@ -21,6 +21,9 @@ export const viewerSessionOptions: SessionOptions = {
     httpOnly: true,
     sameSite: 'lax',
     maxAge: 60 * 60 * 24 * 30, // 30 days
+    // Optional, e.g. ".surflix.my.id": one sign-in then works on the landing, Request Hub and Reference hosts.
+    // Unset (local dev, single host): the cookie stays on the host that set it.
+    ...(process.env.VIEWER_COOKIE_DOMAIN ? { domain: process.env.VIEWER_COOKIE_DOMAIN } : {}),
   },
 };
 

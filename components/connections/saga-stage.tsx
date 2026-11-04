@@ -15,6 +15,7 @@ import { useLang } from './lang-provider';
 import { LensSwitch } from './lens-switch';
 import { useViewer } from './viewer-provider';
 import { WatchLaterButton } from './watch-later-button';
+import { WatchButton } from './watch-link';
 import type { SagaFull, SagaEntry } from '@/lib/connections';
 
 type Mode = 'story' | 'release';
@@ -508,9 +509,9 @@ export function SagaStage({
               <div className="ref-panel-actions">
                 {selected.jellyfinId ? (
                   <>
-                    <a className="ref-btn" href={watchUrl(selected.jellyfinId, jellyfinUrl, serverId)} target="_blank" rel="noopener">
+                    <WatchButton href={watchUrl(selected.jellyfinId, jellyfinUrl, serverId)}>
                       {t('tl.watch')}
-                    </a>
+                    </WatchButton>
                     <WatchLaterButton mediaType={selected.mediaType} tmdbId={selected.tmdbId} />
                   </>
                 ) : (

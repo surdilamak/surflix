@@ -16,6 +16,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { tmdbImage, getYear, jellyseerrStatusLabel } from '@/lib/utils';
 import { useAppConfig } from '@/lib/hooks/use-app-config';
 import { watchUrl } from '@/lib/jellyfin';
+import { WatchLink } from '@/components/connections/watch-link';
 import { Icons } from './icons';
 import { ReferenceSection } from '@/components/connections/reference-section';
 import { JellyseerrMediaItem } from '@/lib/jellyseerr';
@@ -234,17 +235,12 @@ function ModalContent({
         </div>
         <div className="flex flex-col gap-2">
           {isAvailable ? (
-            <a
-              href={watchHref}
-              target="_blank"
-              rel="noopener"
-              className="rq-btn rq-btn-primary w-full"
-            >
+            <WatchLink href={watchHref} className="rq-btn rq-btn-primary w-full" signInText={t('viewer.watchSignin')}>
               <span className="inline-flex items-center justify-center gap-1.5">
                 <Icons.Play className="h-4 w-4" />
                 {t('hub.detail.watch')}
               </span>
-            </a>
+            </WatchLink>
           ) : isProcessing ? (
             <button disabled className="rq-btn rq-btn-secondary w-full">
               <span className="inline-flex items-center justify-center gap-1.5">

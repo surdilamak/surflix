@@ -15,6 +15,7 @@ import { useLang } from './lang-provider';
 import { SearchBox } from './search-box';
 import { LensSwitch } from './lens-switch';
 import { useViewer } from './viewer-provider';
+import { WatchButton } from './watch-link';
 
 // [tmdbId, mediaType, title, year, jellyfinId, degree, cluster, x, y]
 type N = [number, string, string, number | null, string | null, number, number, number, number];
@@ -701,9 +702,9 @@ export function Galaxy({ data: input, onPreview }: { data: GalaxyData | null; on
 
           <div className="ref-galaxy-actions">
             {node[4] && config?.jellyfinUrl && (
-              <a className="ref-btn" href={watchUrl(node[4], config.jellyfinUrl, config.jellyfinServerId)} target="_blank" rel="noopener">
+              <WatchButton href={watchUrl(node[4], config.jellyfinUrl, config.jellyfinServerId)}>
                 {t('detail.watch')}
-              </a>
+              </WatchButton>
             )}
             <LensSwitch
               current="galaxy"

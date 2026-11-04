@@ -9,6 +9,8 @@ import './request.css';
 import { TopNav } from '@/components/ui/top-nav';
 import { Footer } from '@/components/ui/footer';
 import { LangProvider } from '@/components/connections/lang-provider';
+import { ViewerProvider } from '@/components/connections/viewer-provider';
+import { AccountMenu } from '@/components/connections/account-menu';
 import { PortalBar } from '@/components/portal-bar';
 
 // Fonts are vendored in the repo so the build does not need to fetch them from Google.
@@ -42,9 +44,11 @@ export default function GuestLayout({ children }: { children: React.ReactNode })
       style={{ ['--rq-font' as string]: font.style.fontFamily }}
     >
       <LangProvider>
-        <PortalBar current="hub" nav={<TopNav pendingCount={pendingCount} />} />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <ViewerProvider>
+          <PortalBar current="hub" nav={<TopNav pendingCount={pendingCount} />} account={<AccountMenu />} accountPanel={<AccountMenu inline />} />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </ViewerProvider>
       </LangProvider>
     </div>
   );

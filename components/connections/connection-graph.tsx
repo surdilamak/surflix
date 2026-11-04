@@ -16,6 +16,7 @@ import { REL_COLOR, REL_VAR } from '@/lib/portal-data';
 import { REL_ORDER } from '@/lib/i18n';
 import { useLang } from './lang-provider';
 import { WatchLaterButton } from './watch-later-button';
+import { WatchButton } from './watch-link';
 import { useViewer } from './viewer-provider';
 
 export interface GraphNode {
@@ -689,9 +690,9 @@ export function ConnectionGraph({ data, jellyfinUrl, serverId, portalPath }: Con
         </p>
         <div className="ref-panel-actions">
           {node.jellyfinId && jellyfinUrl && (
-            <a className="ref-btn" href={watchUrl(node.jellyfinId, jellyfinUrl, serverId)} target="_blank" rel="noopener">
+            <WatchButton href={watchUrl(node.jellyfinId, jellyfinUrl, serverId)}>
               {t('detail.watch')}
-            </a>
+            </WatchButton>
           )}
           {node.jellyfinId && jellyfinUrl && <WatchLaterButton mediaType={node.mediaType} tmdbId={node.tmdbId} />}
           {hasOwnMap && portalPath && (

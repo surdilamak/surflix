@@ -9,6 +9,7 @@ import { usePortal } from '@/lib/hooks/use-portal';
 import { useReveal } from '@/lib/hooks/use-reveal';
 import { posterUrl, watchUrl } from '@/lib/jellyfin';
 import { useLang } from '@/components/connections/lang-provider';
+import { WatchLink } from '@/components/connections/watch-link';
 
 export interface Row {
   tmdbId: number;
@@ -21,6 +22,19 @@ export interface Row {
 }
 
 const WEEK = 7 * 24 * 3600 * 1000;
+
+/** Poster: opens the film's map when it has one, otherwise Jellyfin (signed-in viewers only). */
+function PosterLink({ mapped, map, watch, children }: { mapped: boolean; map: string; watch: string; children: React.ReactNode }) {
+  return mapped ? (
+    <a className="ref-new-poster" href={map}>
+      {children}
+    </a>
+  ) : (
+    <WatchLink className="ref-new-poster" href={watch}>
+      {children}
+    </WatchLink>
+  );
+}
 
 export function JustAddedView({ rows, jellyfinUrl, serverId, now }: { rows: Row[]; jellyfinUrl: string; serverId?: string; now: number }) {
   const { t, lang } = useLang();
@@ -50,10 +64,10 @@ export function JustAddedView({ rows, jellyfinUrl, serverId, now }: { rows: Row[
 
         {lead && (
           <article className="ref-new-lead">
-            <a className="ref-new-poster" href={lead.count > 0 ? links(lead).map : links(lead).watch} {...(lead.count > 0 ? {} : { target: '_blank', rel: 'noopener' })}>
+            <PosterLink mapped={lead.count > 0} map={links(lead).map} watch={links(lead).watch}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={posterUrl(lead.jellyfinId, jellyfinUrl, 480)} alt={lead.title} width={320} height={480} />
-            </a>
+            </PosterLink>
             <div>
               <p className="ref-new-flag">{t('new.newest')}</p>
               <h2>
@@ -66,7 +80,7 @@ export function JustAddedView({ rows, jellyfinUrl, serverId, now }: { rows: Row[
               </p>
               <p className="ref-new-links">
                 {lead.count > 0 && <a href={links(lead).map}>{t('new.openMap')}</a>}
-                <a href={links(lead).watch} target="_blank" rel="noopener">{t('new.watch')}</a>
+                <WatchLink href={links(lead).watch} signInText={t('viewer.watchSignin')}>{t('new.watch')}</WatchLink>
               </p>
             </div>
           </article>
@@ -83,7 +97,7 @@ export function JustAddedView({ rows, jellyfinUrl, serverId, now }: { rows: Row[
               const fresh = now - +new Date(r.addedAt) < WEEK;
               return (
                 <li key={`${r.mediaType}-${r.tmdbId}`} className="ref-reveal" style={{ '--d': `${(i % 6) * 50}ms` } as React.CSSProperties}>
-                  <a className="ref-new-poster" href={r.count > 0 ? map : watch} {...(r.count > 0 ? {} : { target: '_blank', rel: 'noopener' })}>
+                  <PosterLink mapped={r.count > 0} map={map} watch={watch}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={posterUrl(r.jellyfinId, jellyfinUrl, 360)} alt={r.title} loading="lazy" width={240} height={360} />
                     {/* The badge sits on the poster, not in the title paragraph: inside the title it
@@ -96,14 +110,14 @@ export function JustAddedView({ rows, jellyfinUrl, serverId, now }: { rows: Row[
                       {r.title}
                       {r.year ? <small> {r.year}</small> : null}
                     </span>
-                  </a>
+                  </PosterLink>
                   <p className="ref-new-meta" data-mapped={r.count > 0 ? '' : undefined}>
                     {state(r)}
                     <span> · {t('new.added', { when: addedLabel(r.addedAt) })}</span>
                   </p>
                   <p className="ref-new-links">
                     {r.count > 0 && <a href={map}>{t('new.openMap')}</a>}
-                    <a href={watch} target="_blank" rel="noopener">{t('new.watch')}</a>
+                    <WatchLink href={watch} signInText={t('viewer.watchSignin')}>{t('new.watch')}</WatchLink>
                   </p>
                 </li>
               );

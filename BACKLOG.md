@@ -130,6 +130,26 @@
 - Not done, needs a design decision: Galaxy density when zoomed; Overview / Universe / Connection tabs on the film page; renaming
   "Watch order".
 
+## ✅ Done 2026-11-04 (private site: no indexing, Watch needs sign-in)
+- Why: the site is for family and friends, but it had been registered with Google (Oct 23) and advertised its catalog to search engines
+  (930 Reference URLs in the sitemap, titles readable anonymously via `/api/library/index`).
+- Every response now carries `X-Robots-Tag: noindex, nofollow, noarchive` (`next.config.js`, so it covers `/api` and images) and the root
+  layout sets `robots: noindex`.
+- Reference: every Watch link/button is gated (`components/connections/watch-link.tsx`). Anonymous visitors see "Sign in to watch" (the
+  Jellyfin URL is not in the page until they are signed in); posters of unmapped titles open the sign-in dialog; Watch later only shows
+  when signed in. Covered: film page (3 places), film map panel, Galaxy panel, Watch order panel, home contact sheet, Just added.
+- Same day, second step ("everything, not only Reference"): the Request Hub detail modal (`components/ui/detail-modal.tsx`) and the landing
+  hero posters (`app/landing/landing-viewer.tsx`) use the same gate. The Hub layout now has the `ViewerProvider` and the account menu; the
+  landing is wrapped in `LandingViewer`. The sign-in dialog CSS moved to `components/connections/viewer-dialog.css` so it works on all three sites.
+- Optional env `VIEWER_COOKIE_DOMAIN=.surflix.my.id` (`lib/viewer-session.ts`): without it the sign-in cookie is host-only, so a visitor signs in
+  once per site (landing, Hub, Reference). With it, one sign-in covers all three.
+- NOT covered on purpose: top bar "Streaming", footer "Watch on Surflix", landing "Open streaming" and the Hub library "Open Jellyfin" point
+  at the Jellyfin login page, which is the door itself. The catalog stays readable through Reference (titles, search, `/api/library/index`)
+  for anyone who has the link; Jellyfin stays behind its own login.
+- **Phase 2 (after Google has dropped the pages, weeks):** `robots.ts` -> `Disallow: /`, delete the sitemap routes. Doing it earlier would
+  stop Google from seeing the noindex. Idrus's steps: Search Console -> Removals -> New request -> "Remove all URLs with this prefix" for
+  `reference.`, `request.` and the apex; then check Pages after a few days.
+
 ## 🟡 Follow-ups from the stories pilot
 
 - [x] ~~**Audit the `h` homage, inspired, visual and remake rows**~~ — done 2026-11-03, see the section below.

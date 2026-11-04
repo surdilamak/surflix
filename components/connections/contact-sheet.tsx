@@ -10,6 +10,7 @@ import { usePortal } from '@/lib/hooks/use-portal';
 import { watchUrl } from '@/lib/jellyfin';
 import { filmKey, posterOf, REL_VAR, type PortalFilm, type PortalRef } from '@/lib/portal-data';
 import { useLang } from './lang-provider';
+import { useViewer } from './viewer-provider';
 
 interface Active {
   run: string;
@@ -33,6 +34,7 @@ export function ContactSheet({
 }) {
   const { portalPath } = usePortal();
   const { t, rel, reason } = useLang();
+  const viewer = useViewer();
   const [active, setActive] = useState<Active | null>(null);
 
   const activeFilm = active ? films.find((f) => filmKey(f.mediaType, f.tmdbId) === active.run) : null;
@@ -102,9 +104,11 @@ export function ContactSheet({
                 const rk = filmKey(r.mediaType, r.tmdbId);
                 const src = posterOf(r, jellyfinUrl, 240);
                 const toMap = allKeys.has(rk);
+                // an unmapped title's poster opens it in Jellyfin: only for a signed-in viewer, otherwise sign-in
+                const gated = !toMap && !!r.jellyfinId && !!jellyfinUrl && viewer.status !== 'in';
                 const link = toMap
                   ? portalPath(`/${r.mediaType}/${r.tmdbId}`) || '/'
-                  : r.jellyfinId && jellyfinUrl
+                  : r.jellyfinId && jellyfinUrl && !gated
                     ? watchUrl(r.jellyfinId, jellyfinUrl, serverId)
                     : '#';
                 return (
@@ -112,8 +116,9 @@ export function ContactSheet({
                     key={rk}
                     className="ref-frame"
                     href={link}
-                    target={toMap ? undefined : '_blank'}
-                    rel={toMap ? undefined : 'noopener'}
+                    target={toMap || gated ? undefined : '_blank'}
+                    rel={toMap || gated ? undefined : 'noopener'}
+                    onClick={gated ? (e) => { e.preventDefault(); viewer.openLogin(); } : undefined}
                     data-on={active?.run === key && active.ref === rk ? '' : undefined}
                     onMouseEnter={() => setActive({ run: key, ref: rk })}
                     onMouseLeave={() => setActive(null)}

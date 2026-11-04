@@ -7,6 +7,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
 import { useLang } from './lang-provider';
+import './viewer-dialog.css';
 
 interface ViewerCtx {
   status: 'loading' | 'out' | 'in';

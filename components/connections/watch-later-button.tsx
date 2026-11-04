@@ -22,7 +22,8 @@ export function WatchLaterButton({
   const viewer = useViewer();
   const [busy, setBusy] = useState(false);
   const [failed, setFailed] = useState(false);
-  if (!mediaType || !tmdbId) return null;
+  // signed out, the "Sign in to watch" button next to it is the single entry point
+  if (!mediaType || !tmdbId || viewer.status !== 'in') return null;
 
   const saved = viewer.isSaved(mediaType, tmdbId);
 

@@ -18,6 +18,7 @@ import { LensSwitch } from '@/components/connections/lens-switch';
 import type { GraphData } from '@/components/connections/connection-graph';
 import type { SagaHere } from '@/lib/connections';
 import { WatchLaterButton } from '@/components/connections/watch-later-button';
+import { WatchButton } from '@/components/connections/watch-link';
 import { useViewer } from '@/components/connections/viewer-provider';
 
 const ConnectionGraph = dynamic(
@@ -92,9 +93,9 @@ export default function ReferensiFilmPage() {
         </p>
         <div className="ref-detail-actions" style={{ display: 'flex', flexWrap: 'wrap', gap: 12 }}>
           {lib?.jellyfinId && (
-            <a className="ref-btn" href={watchUrl(lib.jellyfinId, jellyfinUrl, config.jellyfinServerId)} target="_blank" rel="noopener">
+            <WatchButton href={watchUrl(lib.jellyfinId, jellyfinUrl, config.jellyfinServerId)}>
               {t('detail.watch')}
-            </a>
+            </WatchButton>
           )}
           {lib?.jellyfinId && (
             <WatchLaterButton mediaType={params.type} tmdbId={Number(params.id)} className="ref-btn ref-btn--ghost" />
@@ -129,9 +130,9 @@ export default function ReferensiFilmPage() {
         <p className="ref-detail-sub">{sub}</p>
         <div className="ref-detail-actions" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '12px 28px' }}>
           {source.jellyfinId && (
-            <a className="ref-btn" href={watchUrl(source.jellyfinId, jellyfinUrl, config.jellyfinServerId)} target="_blank" rel="noopener">
+            <WatchButton href={watchUrl(source.jellyfinId, jellyfinUrl, config.jellyfinServerId)}>
               {t('detail.watch')}
-            </a>
+            </WatchButton>
           )}
           {source.jellyfinId && (
             <WatchLaterButton mediaType={source.mediaType} tmdbId={source.tmdbId} className="ref-btn ref-btn--ghost" />
@@ -218,9 +219,9 @@ export default function ReferensiFilmPage() {
               </div>
               {n.jellyfinId && (
                 <div className="ref-why-actions">
-                  <a className="ref-btn" href={watchUrl(n.jellyfinId, jellyfinUrl, config.jellyfinServerId)} target="_blank" rel="noopener">
+                  <WatchButton href={watchUrl(n.jellyfinId, jellyfinUrl, config.jellyfinServerId)}>
                     {t('detail.tap')}
-                  </a>
+                  </WatchButton>
                   <WatchLaterButton mediaType={n.mediaType} tmdbId={n.tmdbId} />
                 </div>
               )}

@@ -1,4 +1,9 @@
 /**
+ * NOTE (2026-11-04): the site is private and every response carries `X-Robots-Tag: noindex` (next.config.js).
+ * Crawling is deliberately still allowed and the sitemaps are still served: Google has to fetch a page to
+ * see its noindex and drop it from the index. Once Search Console shows the pages gone, switch this to
+ * `Disallow: /` and remove the sitemap routes (see BACKLOG.md, "Private site").
+ *
  * Host-aware robots.txt. Admin, login, and API are never indexed; guests' private pages
  * (My Requests, verification) are not either. Each host points to its own sitemap.
  */

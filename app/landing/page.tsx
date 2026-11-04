@@ -12,6 +12,7 @@ import { buildPortalUrls } from '@/lib/portal-urls';
 import { translate } from '@/lib/i18n';
 import { getServerLang } from '@/lib/lang-server';
 import { CoffeeButton, LandingFx, LangToggle } from './landing-fx';
+import { LandingViewer, LandingWatch } from './landing-viewer';
 
 export const dynamic = 'force-dynamic';
 
@@ -136,7 +137,7 @@ export default async function LandingPage({ searchParams }: { searchParams?: Pro
   // Hero: six poster columns, dealt out in turn; columns 3 and 4 leave room for the text panel.
   const columns = Array.from({ length: 6 }, (_, c) => hero.filter((_, i) => i % 6 === c));
   const frame = (f: LandingFilm, idx: number, c: number, row: number) => (
-    <a
+    <LandingWatch
       key={`${f.mediaType}${f.tmdbId}`}
       className="lp-frame"
       href={watchFilm(f)}
@@ -150,7 +151,7 @@ export default async function LandingPage({ searchParams }: { searchParams?: Pro
         {f.title}
         {yearOf(f)}
       </span>
-    </a>
+    </LandingWatch>
   );
 
   const showcaseDesktop: Special[] = [
@@ -179,7 +180,7 @@ export default async function LandingPage({ searchParams }: { searchParams?: Pro
   const coffeeLabels = { title: t('lp.coffee'), alt: t('lp.coffee.alt'), thanks: t('lp.coffee.thanks'), close: t('lp.close') };
 
   return (
-    <>
+    <LandingViewer>
       <LandingFx />
       <LangToggle lang={lang} label={t('lp.lang')} />
 
@@ -524,6 +525,6 @@ export default async function LandingPage({ searchParams }: { searchParams?: Pro
           <a className="lp-btn lp-btn--small" href="#top">{t('lp.top')}</a>
         </div>
       </footer>
-    </>
+    </LandingViewer>
   );
 }
