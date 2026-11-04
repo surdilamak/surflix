@@ -110,6 +110,8 @@ Mystic River (2003) > The Shawshank Redemption (1994) | talent | h | Tim Robbins
 Into the Wild (2007) > Mystic River (2003) | talent | h | Sean Penn won an Oscar starring in Mystic River and directed Into the Wild. || Sean Penn memenangi Oscar lewat Mystic River dan menyutradarai Into the Wild.
 Hotel Rwanda (2004) > Iron Man 2 (2010) | talent | h | Don Cheadle stars in both. || Don Cheadle membintangi keduanya.
 Green Book (2018) > Moonlight (2016) | talent | h | Mahershala Ali won Best Supporting Actor for both films. || Mahershala Ali memenangi Aktor Pendukung Terbaik lewat kedua film ini.
+# Added 2026-11-04. Your Mother Your Mother Your Mother (en.wikipedia lead): "which stars Mahershala Ali, John Cho, Giancarlo Esposito, ..."; Green Book (lead): "Starring Viggo Mortensen and Mahershala Ali".
+Your Mother Your Mother Your Mother (2026) > Green Book (2018) | talent | h | Mahershala Ali stars in both. || Mahershala Ali membintangi keduanya.
 Green Book (2018) > The Lord of the Rings: The Return of the King (2003) | talent | h | Viggo Mortensen stars in both. || Viggo Mortensen membintangi keduanya.
 American History X (1998) > Fight Club (1999) | talent | h | Edward Norton stars in both. || Edward Norton membintangi keduanya.
 Meet Joe Black (1998) > Se7en (1995) | talent | h | Brad Pitt stars in both. || Brad Pitt membintangi keduanya.

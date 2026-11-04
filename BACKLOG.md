@@ -43,6 +43,19 @@
 
 `Sync library` (admin) → `export-library.js` on prod → copy to the repo → **align `dev.db` with `connections-live.json` first** (otherwise the export wipes out audit decisions — 32 statuses once differed) → write the curation → `build-connections.js` → import into dev.db → `export-connections.js` → `build-sagas.js`. The builder rejects text longer than **220 characters**.
 
+## ✅ Done 2026-11-04 (3 new titles: library 964 → 967)
+
+- [x] **Library 964 → 967**, 5 new connections (`connections-live.json` 982 → 987, 21 REJECTED unchanged, no old row changed), 857 / 967 titles connected.
+  New titles: *IT: Welcome to Derry* (tv, 2025), *Resident Evil* (2026), *Your Mother Your Mother Your Mother* (2026).
+- *IT: Welcome to Derry* is now a normal card in the **It** saga (it was "Not on Surflix"). Rows: series > It and series > It Chapter Two as `universe/prequel`
+  (en.wikipedia: "Serving as a prequel to the films It (2017) and It Chapter Two (2019)"), and A Story of Derry > series as `universe/special`.
+- *Resident Evil* (2026) joins Weapons through the director list (Zach Cregger added to `directors.list`).
+- *Your Mother Your Mother Your Mother* > Green Book as `talent` (Mahershala Ali; en.wikipedia lead of each film names him as a star).
+- **Not written, on purpose** (no source or no library title): Resident Evil vs the 2002-2021 films (none in the library, and Wikipedia says Cregger "had not seen any of the previous Resident Evil films");
+  Resident Evil vs Evil Dead II (Cregger said the film "would resemble Evil Dead II" but that film is not in the library); Austin Abrams link RE-Weapons (the pair already exists as a director row);
+  Your Mother vs the unproduced Marvel *Blade* (not a library title); Esposito/Cho/Tillman links (supporting billing, one cast member each in the library).
+- Not yet shipped to production: Dockge Update, then `import-connections.js scripts/connections-live.json` (dry-run: expect `created: 5`, `skippedAdmin: 0`, `pruned: 0`), then `--apply`.
+
 ## ✅ Done 2026-11-03 (18 new titles from Jellyfin)
 
 - [x] **Library 946 → 964**, 25 new connections (`connections-live.json` 957 → 982, 12 REJECTED intact, zero old rows changed), three new sagas (**It**, **The Apu Trilogy**, **Suicide Club**), Batman +2 titles (Burton lane, now three continuities), DC on screen +The Flash. 863 / 964 titles connected. All claims were researched by 4 parallel agents from Wikipedia pages and the key claims were re-checked directly — not from memory. Candidates that could not be sourced were not written (list below).

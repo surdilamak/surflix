@@ -338,8 +338,8 @@ Lanterns (2026) | dcu | 2026-08 | After Superman | Guy Gardner carries over from
 # ============ IT ============
 # Added 2026-11-03. "A Story of Derry" is NOT a feature film: it is a 30-minute special episode of the HBO series
 # It: Welcome to Derry (TMDB lists it as a movie). Wikipedia: the series is "a prequel to the films It
-# (2017) and It Chapter Two (2019)"; the special was released 31 Oct 2026. The series is not in the library, so it
-# appears as "Not on Surflix" with a link to the Request Hub. The in-story year is deliberately left empty.
+# (2017) and It Chapter Two (2019)"; the special was released 31 Oct 2026. The series was not in the library at first
+# (shown as "Not on Surflix"); it was added 2026-11-04 and is now a normal card. The in-story year is deliberately left empty.
 @saga it | It | The Derry special is a 30-minute episode of an HBO series, not a feature film. The two films tell one story, 27 years apart. || Spesial Derry adalah episode serial HBO berdurasi 30 menit, bukan film layar lebar. Kedua filmnya satu cerita yang dipisah 27 tahun.
 @lane story | The It stories || Kisah It
 

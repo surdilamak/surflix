@@ -248,6 +248,11 @@ El Camino: A Breaking Bad Movie (2019) > Breaking Bad (2008) | universe | h | @s
 Batman Returns (1992) > Batman (1989) | universe | h | @sequel
 It Chapter Two (2019) > It (2017) | universe | h | @sequel
 Noriko's Dinner Table (2005) > Suicide Club (2001) | universe | h | @prequel
+# IT: Welcome to Derry entered the library 2026-11-04. en.wikipedia It_-_Welcome_to_Derry (lead): "Serving as a prequel to the films It (2017)
+# and It Chapter Two (2019)"; "premiered on HBO on October 26, 2025"; "A special prequel episode was released to HBO Max on October 31, 2026."
+IT: Welcome to Derry (2025) > It (2017) | universe/prequel | h | @prequel
+IT: Welcome to Derry (2025) > It Chapter Two (2019) | universe/prequel | h | @prequel
+A Story of Derry (2026) > IT: Welcome to Derry (2025) | universe/special | h | A Story of Derry is a special episode of It: Welcome to Derry, released to HBO Max on 31 October 2026. || A Story of Derry adalah episode spesial dari It: Welcome to Derry, dirilis di HBO Max pada 31 Oktober 2026.
 A Story of Derry (2026) > It (2017) | universe/prequel | h | A Story of Derry is a 30-minute special episode of the HBO prequel series It: Welcome to Derry, set long before the events of the It films. || A Story of Derry adalah episode spesial 30 menit dari serial prekuel HBO It: Welcome to Derry, berlatar jauh sebelum peristiwa film It.
 Aparajito (1956) > PATHER PANCHALI (1955) | universe/sequel | h | Aparajito continues the story of Pather Panchali, adapted from the end of that novel and the first part of its sequel. || Aparajito melanjutkan kisah Pather Panchali, diadaptasi dari akhir novel itu dan bagian awal novel lanjutannya.
 Apur Sansar (1959) > Aparajito (1956) | universe/sequel | h | The World of Apu closes the Apu Trilogy, adapted from the second half of the novel Aparajito. || Apur Sansar menutup Trilogi Apu, diadaptasi dari paruh kedua novel Aparajito.

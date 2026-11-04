@@ -3390,6 +3390,16 @@
     "directors": "Shinichiro Ushijima"
   },
   {
+    "tmdbId": 200875,
+    "mediaType": "tv",
+    "title": "IT: Welcome to Derry",
+    "originalTitle": null,
+    "year": 2025,
+    "jellyfinId": "8110955d20cc89420297ef75d10d4157",
+    "genres": "Drama, Mystery",
+    "directors": null
+  },
+  {
     "tmdbId": 2832,
     "mediaType": "movie",
     "title": "Identity",
@@ -6188,6 +6198,16 @@
     "jellyfinId": "978b2e5ca85eadc8de3ad63c97ce2505",
     "genres": "Crime, Thriller",
     "directors": "Quentin Tarantino"
+  },
+  {
+    "tmdbId": 1423191,
+    "mediaType": "movie",
+    "title": "Resident Evil",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "5e0355fefff619f7f38bf06f06cfd1bc",
+    "genres": "Horror, Science Fiction, Adventure",
+    "directors": "Zach Cregger"
   },
   {
     "tmdbId": 1892,
@@ -9578,6 +9598,16 @@
     "jellyfinId": "0f5798f31ded654e4d36772e0cd4cc96",
     "genres": "Action & Adventure, Mystery",
     "directors": null
+  },
+  {
+    "tmdbId": 1437396,
+    "mediaType": "movie",
+    "title": "Your Mother Your Mother Your Mother",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "28ab67aa3fe828d20cb408ed42816d8e",
+    "genres": "Action, Crime, Drama, Thriller",
+    "directors": "Bassam Tariq"
   },
   {
     "tmdbId": 372058,
