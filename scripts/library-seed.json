@@ -36,7 +36,7 @@
     "originalTitle": null,
     "year": 2022,
     "jellyfinId": "5191d59d02ec133fa33a92434995e513",
-    "genres": "Mystery, Drama",
+    "genres": "Drama, Mystery",
     "directors": null
   },
   {
@@ -78,6 +78,16 @@
     "jellyfinId": "98255feeb5b11a4c9199c931f0c354ac",
     "genres": "Horror, Thriller, Science Fiction",
     "directors": "Nia DaCosta"
+  },
+  {
+    "tmdbId": 20453,
+    "mediaType": "movie",
+    "title": "3 Idiots",
+    "originalTitle": null,
+    "year": 2009,
+    "jellyfinId": "7afc1d27d4b1f2239286a55dc2bb5812",
+    "genres": "Drama, Comedy",
+    "directors": "Rajkumar Hirani"
   },
   {
     "tmdbId": 41662,
@@ -186,7 +196,7 @@
     "originalTitle": null,
     "year": 2026,
     "jellyfinId": "aeb2ba2a9c3f61183bf0b4b7063a3232",
-    "genres": "Drama, Sci-Fi & Fantasy, Action & Adventure",
+    "genres": "Action & Adventure, Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -316,7 +326,7 @@
     "originalTitle": null,
     "year": 2025,
     "jellyfinId": "5eb03adca9b5031e9fa48fde4c9d9372",
-    "genres": "Drama, Crime",
+    "genres": "Crime, Drama",
     "directors": null
   },
   {
@@ -360,6 +370,16 @@
     "directors": "Charlotte Wells"
   },
   {
+    "tmdbId": 138501,
+    "mediaType": "tv",
+    "title": "Agatha All Along",
+    "originalTitle": null,
+    "year": 2024,
+    "jellyfinId": "d742f67235a13d4e0b44f70aa2a979ca",
+    "genres": "Mystery, Sci-Fi & Fantasy",
+    "directors": null
+  },
+  {
     "tmdbId": 296206,
     "mediaType": "tv",
     "title": "Agent Kim Reactivated",
@@ -376,7 +396,7 @@
     "originalTitle": null,
     "year": 2023,
     "jellyfinId": "5dcf1244f5fd865193b7338b650e935b",
-    "genres": "Sci-Fi & Fantasy, Action & Adventure, Drama",
+    "genres": "Action & Adventure, Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -426,7 +446,7 @@
     "originalTitle": null,
     "year": 2025,
     "jellyfinId": "43c77f2cac38f6bfe273f46e8bcfe67c",
-    "genres": "Sci-Fi & Fantasy, Drama",
+    "genres": "Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -1086,7 +1106,7 @@
     "originalTitle": null,
     "year": 2011,
     "jellyfinId": "418be33ac2445bf8eb5406223ca1d29b",
-    "genres": "Sci-Fi & Fantasy, Drama, Mystery",
+    "genres": "Drama, Mystery, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -1186,7 +1206,7 @@
     "originalTitle": null,
     "year": 2023,
     "jellyfinId": "07923a50e1fc7bae39711973dfd7279a",
-    "genres": "Crime, Mystery, Sci-Fi & Fantasy, Drama",
+    "genres": "Crime, Drama, Mystery, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -1226,7 +1246,7 @@
     "originalTitle": null,
     "year": 2008,
     "jellyfinId": "df6fff597c4cd451e83ff87dff3cd71a",
-    "genres": "Drama, Crime",
+    "genres": "Crime, Drama",
     "directors": null
   },
   {
@@ -1288,6 +1308,16 @@
     "jellyfinId": "02a8cbe00eb455260f2f2d9695c86062",
     "genres": "Drama, Music, Romance",
     "directors": "Siân Heder"
+  },
+  {
+    "tmdbId": 1431,
+    "mediaType": "tv",
+    "title": "CSI: Crime Scene Investigation",
+    "originalTitle": null,
+    "year": 2000,
+    "jellyfinId": "b93401814c85c0d658446fbaeb01c1a3",
+    "genres": "Crime, Drama, Mystery",
+    "directors": null
   },
   {
     "tmdbId": 517814,
@@ -1366,7 +1396,7 @@
     "originalTitle": null,
     "year": 2026,
     "jellyfinId": "46012a4afe361bcc12a2ab9edfb0d9c3",
-    "genres": "Mystery, Drama, Sci-Fi & Fantasy",
+    "genres": "Drama, Mystery, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -1378,6 +1408,16 @@
     "jellyfinId": "5fec8afde974edf4e7cd6679d048c35f",
     "genres": "Adventure, Fantasy, Animation, Action, Family",
     "directors": "Hayao Miyazaki"
+  },
+  {
+    "tmdbId": 1218925,
+    "mediaType": "movie",
+    "title": "Chainsaw Man - The Movie: Reze Arc",
+    "originalTitle": "劇場版 チェンソーマン レゼ篇",
+    "year": 2025,
+    "jellyfinId": "059f10834bf4be3dd510f601d9148d7e",
+    "genres": "Animation, Action, Romance, Fantasy",
+    "directors": "Tatsuya Yoshihara"
   },
   {
     "tmdbId": 312949,
@@ -1626,7 +1666,7 @@
     "originalTitle": null,
     "year": 2025,
     "jellyfinId": "5656e2e3da015eae6d7a14825f782b11",
-    "genres": "Drama, Crime",
+    "genres": "Crime, Drama",
     "directors": null
   },
   {
@@ -1636,7 +1676,7 @@
     "originalTitle": null,
     "year": 2017,
     "jellyfinId": "45848b64164623814c4829773cf651d4",
-    "genres": "Crime, Drama, Sci-Fi & Fantasy, Mystery",
+    "genres": "Crime, Drama, Mystery, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -1646,7 +1686,7 @@
     "originalTitle": null,
     "year": 2024,
     "jellyfinId": "69c361e6f70b8a81fc16b0fe0f070c70",
-    "genres": "Sci-Fi & Fantasy, Drama",
+    "genres": "Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -2606,7 +2646,7 @@
     "originalTitle": null,
     "year": 2025,
     "jellyfinId": "5bd351ddf1f03c8491ca4276f76fe9b4",
-    "genres": "Animation, Action & Adventure, Sci-Fi & Fantasy",
+    "genres": "Action & Adventure, Animation, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -2636,8 +2676,8 @@
     "originalTitle": null,
     "year": 2022,
     "jellyfinId": "5a818604a27e15b046b58c9acfdb0bfe",
-    "genres": "Mystery, Drama, Sci-Fi & Fantasy",
-    "directors": "John Griffin"
+    "genres": "Drama, Mystery, Sci-Fi & Fantasy",
+    "directors": null
   },
   {
     "tmdbId": 1101412,
@@ -2740,6 +2780,16 @@
     "directors": null
   },
   {
+    "tmdbId": 359724,
+    "mediaType": "movie",
+    "title": "Ford v Ferrari",
+    "originalTitle": null,
+    "year": 2019,
+    "jellyfinId": "9df5f5e507ede75a6e2404a411122ecd",
+    "genres": "Drama, History, Action",
+    "directors": "James Mangold"
+  },
+  {
     "tmdbId": 13,
     "mediaType": "movie",
     "title": "Forrest Gump",
@@ -2768,6 +2818,16 @@
     "jellyfinId": "82904684a66a103b80c9a951e2a2a901",
     "genres": "Comedy, Drama, Mystery",
     "directors": "Lenny Abrahamson"
+  },
+  {
+    "tmdbId": 209867,
+    "mediaType": "tv",
+    "title": "Frieren: Beyond Journey's End",
+    "originalTitle": "葬送のフリーレン",
+    "year": 2023,
+    "jellyfinId": "7dcf766ceea2f19eff5641a7a49fcd6c",
+    "genres": "Fantasy, Drama, Animation, Adventure, Anime",
+    "directors": null
   },
   {
     "tmdbId": 260823,
@@ -2840,13 +2900,23 @@
     "directors": "Yasushi Kawamura, Keiichi Sato"
   },
   {
+    "tmdbId": 231801,
+    "mediaType": "tv",
+    "title": "GET JIRO",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "9d61c700602490488dc97a22268a905c",
+    "genres": "Action & Adventure, Animation",
+    "directors": null
+  },
+  {
     "tmdbId": 1399,
     "mediaType": "tv",
     "title": "Game of Thrones",
     "originalTitle": null,
     "year": 2011,
     "jellyfinId": "bbaee51efd76c550ba8946abd8136fa2",
-    "genres": "Sci-Fi & Fantasy, Drama, Action & Adventure",
+    "genres": "Action & Adventure, Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -2930,6 +3000,16 @@
     "directors": null
   },
   {
+    "tmdbId": 98,
+    "mediaType": "movie",
+    "title": "Gladiator",
+    "originalTitle": null,
+    "year": 2000,
+    "jellyfinId": "3657bf2e28d7d62c0a40e0a2a190c6ff",
+    "genres": "Action, Drama, Adventure",
+    "directors": "Ridley Scott"
+  },
+  {
     "tmdbId": 450465,
     "mediaType": "movie",
     "title": "Glass",
@@ -2946,7 +3026,7 @@
     "originalTitle": null,
     "year": 2019,
     "jellyfinId": "da9d08343aebcf334c95a1f345717f4e",
-    "genres": "Drama, Crime",
+    "genres": "Crime, Drama",
     "directors": null
   },
   {
@@ -3116,7 +3196,7 @@
     "originalTitle": null,
     "year": 2013,
     "jellyfinId": "87b99b8b9c4e28a472450082f8eedcea",
-    "genres": "Drama, Crime",
+    "genres": "Crime, Drama",
     "directors": null
   },
   {
@@ -3220,13 +3300,23 @@
     "directors": "Claire Denis"
   },
   {
+    "tmdbId": 543753,
+    "mediaType": "movie",
+    "title": "High Society",
+    "originalTitle": "상류사회",
+    "year": 2018,
+    "jellyfinId": "1237c089cf00925255fa899042cc704d",
+    "genres": "Drama",
+    "directors": "Byun Hyuk"
+  },
+  {
     "tmdbId": 68507,
     "mediaType": "tv",
     "title": "His Dark Materials",
     "originalTitle": null,
     "year": 2019,
     "jellyfinId": "e9a94cc9b99cd0a115af2ed326209ade",
-    "genres": "Sci-Fi & Fantasy, Drama, Action & Adventure",
+    "genres": "Action & Adventure, Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -3286,7 +3376,7 @@
     "originalTitle": null,
     "year": 2022,
     "jellyfinId": "c40e0450738aa504ee2282a1c3de5400",
-    "genres": "Sci-Fi & Fantasy, Drama, Action & Adventure",
+    "genres": "Action & Adventure, Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -3306,7 +3396,7 @@
     "originalTitle": null,
     "year": 2010,
     "jellyfinId": "1d72f62c4297fa77e742bbb335c320df",
-    "genres": "Drama, Comedy",
+    "genres": "Comedy, Drama",
     "directors": null
   },
   {
@@ -3378,6 +3468,16 @@
     "jellyfinId": "7d6e14a85ae5040bb5d3b29d43cbcdad",
     "genres": "Horror, Mystery, Thriller",
     "directors": "Jennifer Kaytin Robinson, Ashley Marks"
+  },
+  {
+    "tmdbId": 1317149,
+    "mediaType": "movie",
+    "title": "I Swear",
+    "originalTitle": null,
+    "year": 2025,
+    "jellyfinId": "6bb4a8a0e0caed3f42aa79d6cbc80182",
+    "genres": "Drama, History",
+    "directors": "Kirk Jones"
   },
   {
     "tmdbId": 504253,
@@ -3526,7 +3626,7 @@
     "originalTitle": null,
     "year": 2021,
     "jellyfinId": "737f9c8d9c2d5cdeba7dcad13592f034",
-    "genres": "Sci-Fi & Fantasy, Drama",
+    "genres": "Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -3536,7 +3636,7 @@
     "originalTitle": null,
     "year": 2021,
     "jellyfinId": "1b027e8df73ad0d94af7bda457fa1294",
-    "genres": "Animation, Sci-Fi & Fantasy, Action & Adventure, Drama",
+    "genres": "Action & Adventure, Animation, Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -3596,7 +3696,7 @@
     "originalTitle": null,
     "year": 2025,
     "jellyfinId": "dd99fb785095d8872d170de8cb2b8dd8",
-    "genres": "Sci-Fi & Fantasy, Crime",
+    "genres": "Crime, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -3866,7 +3966,7 @@
     "originalTitle": null,
     "year": 1996,
     "jellyfinId": "a56b9c38c926ae5f4971a1b59aa8e1c7",
-    "genres": "Family, Comedy, Kids",
+    "genres": "Comedy, Family, Kids",
     "directors": null
   },
   {
@@ -3986,7 +4086,7 @@
     "originalTitle": null,
     "year": 2021,
     "jellyfinId": "22d035f3f9b29c0d7f63655162b0b9fd",
-    "genres": "Sci-Fi & Fantasy, Drama, Action & Adventure",
+    "genres": "Action & Adventure, Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -4118,6 +4218,16 @@
     "jellyfinId": "711298cb137648bee49c4c20dabcc295",
     "genres": "Comedy, Music, Drama",
     "directors": "Nobuhiro Yamashita"
+  },
+  {
+    "tmdbId": 334543,
+    "mediaType": "movie",
+    "title": "Lion",
+    "originalTitle": null,
+    "year": 2016,
+    "jellyfinId": "c090f10012e5a726856af264e6fc63f9",
+    "genres": "Drama",
+    "directors": "Garth Davis"
   },
   {
     "tmdbId": 331482,
@@ -4356,7 +4466,7 @@
     "originalTitle": null,
     "year": 2026,
     "jellyfinId": "45d0b57b84f21f1893e48d9b91042e5f",
-    "genres": "Drama, Comedy",
+    "genres": "Comedy, Drama",
     "directors": null
   },
   {
@@ -4468,6 +4578,16 @@
     "jellyfinId": "bd25727dbfe39548c14057e896b97a62",
     "genres": "Mystery, Thriller",
     "directors": "Christopher Nolan"
+  },
+  {
+    "tmdbId": 11423,
+    "mediaType": "movie",
+    "title": "Memories of Murder",
+    "originalTitle": "살인의 추억",
+    "year": 2003,
+    "jellyfinId": "ea92f51487ca1ed5a6a1274acc3264e7",
+    "genres": "Crime, Drama, Thriller",
+    "directors": "Bong Joon Ho"
   },
   {
     "tmdbId": 19,
@@ -4800,6 +4920,16 @@
     "directors": "P.J. Hogan"
   },
   {
+    "tmdbId": 26022,
+    "mediaType": "movie",
+    "title": "My Name Is Khan",
+    "originalTitle": null,
+    "year": 2010,
+    "jellyfinId": "8925a51a6448458ddcedf5d81a9e7813",
+    "genres": "Drama, Romance",
+    "directors": "Karan Johar"
+  },
+  {
     "tmdbId": 8392,
     "mediaType": "movie",
     "title": "My Neighbor Totoro",
@@ -5076,7 +5206,7 @@
     "originalTitle": null,
     "year": 2022,
     "jellyfinId": "69fd635e81f59ac720e9de74f3b5d121",
-    "genres": "Sci-Fi & Fantasy, Action & Adventure, Drama",
+    "genres": "Action & Adventure, Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -5138,6 +5268,16 @@
     "jellyfinId": "c29a2d101ab6ba2d07becacb134a95d3",
     "genres": "Horror, Mystery, Thriller, TV Movie",
     "directors": "Jorge Montesi, Dominique Othenin-Girard"
+  },
+  {
+    "tmdbId": 335,
+    "mediaType": "movie",
+    "title": "Once Upon a Time in the West",
+    "originalTitle": "C'era una volta il West",
+    "year": 1968,
+    "jellyfinId": "b39b54d86f27378cdec6797b8dc32088",
+    "genres": "Drama, Western",
+    "directors": "Sergio Leone"
   },
   {
     "tmdbId": 466272,
@@ -5490,6 +5630,16 @@
     "directors": "Satyajit Ray"
   },
   {
+    "tmdbId": 458220,
+    "mediaType": "movie",
+    "title": "Palmer",
+    "originalTitle": null,
+    "year": 2021,
+    "jellyfinId": "d61ec37211667b0b41b364827c12e18e",
+    "genres": "Drama",
+    "directors": "Fisher Stevens"
+  },
+  {
     "tmdbId": 1417,
     "mediaType": "movie",
     "title": "Pan's Labyrinth",
@@ -5576,7 +5726,7 @@
     "originalTitle": null,
     "year": 2022,
     "jellyfinId": "1b22dde7a95be25812c5d72a07b5043b",
-    "genres": "Action & Adventure, Sci-Fi & Fantasy, Drama",
+    "genres": "Action & Adventure, Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -5586,7 +5736,7 @@
     "originalTitle": null,
     "year": 2013,
     "jellyfinId": "9eea4665d91e40fceca1cde9e3f882b5",
-    "genres": "Drama, Crime",
+    "genres": "Crime, Drama",
     "directors": null
   },
   {
@@ -5657,7 +5807,7 @@
     "year": 2025,
     "jellyfinId": "40ab192e88a80c956d8c25e41a16f553",
     "genres": "Drama, Sci-Fi & Fantasy",
-    "directors": "Kathryn Wamego"
+    "directors": null
   },
   {
     "tmdbId": 91997,
@@ -6326,8 +6476,8 @@
     "originalTitle": "S라인",
     "year": 2025,
     "jellyfinId": "85feb2934fc43b792beb166c6d0ba03c",
-    "genres": "Sci-Fi & Fantasy, Drama, Mystery",
-    "directors": "Ahn Ju-young"
+    "genres": "Drama, Mystery, Sci-Fi & Fantasy",
+    "directors": "Studio Animation Toho"
   },
   {
     "tmdbId": 575776,
@@ -6450,6 +6600,16 @@
     "directors": "Ingmar Bergman"
   },
   {
+    "tmdbId": 424,
+    "mediaType": "movie",
+    "title": "Schindler's List",
+    "originalTitle": null,
+    "year": 1993,
+    "jellyfinId": "27e98ee19b0751d3430315281e89333b",
+    "genres": "Drama, History, War",
+    "directors": "Steven Spielberg"
+  },
+  {
     "tmdbId": 1159559,
     "mediaType": "movie",
     "title": "Scream 7",
@@ -6476,7 +6636,7 @@
     "originalTitle": null,
     "year": 2023,
     "jellyfinId": "3a59a9c7f9e5ba2b18fc8296d839bd76",
-    "genres": "Drama, Sci-Fi & Fantasy, Action & Adventure",
+    "genres": "Action & Adventure, Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -6486,7 +6646,7 @@
     "originalTitle": null,
     "year": 2024,
     "jellyfinId": "c804ceabf7a76dc9958aec42ee76f6b8",
-    "genres": "Animation, Sci-Fi & Fantasy, Action & Adventure",
+    "genres": "Action & Adventure, Animation, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -6577,7 +6737,7 @@
     "year": 2010,
     "jellyfinId": "5ad67761879bd96575cdf85a77e3087e",
     "genres": "detective, murder, present",
-    "directors": "Toshiyuki Yahagi, Ai Yoshimura"
+    "directors": null
   },
   {
     "tmdbId": 813477,
@@ -6626,7 +6786,7 @@
     "originalTitle": null,
     "year": 2023,
     "jellyfinId": "15674011eee7e1a94177dbd806279ddf",
-    "genres": "Sci-Fi & Fantasy, Drama",
+    "genres": "Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -6956,7 +7116,7 @@
     "originalTitle": "오징어 게임",
     "year": 2021,
     "jellyfinId": "c89383bcf4e77f947a70fbe4501ecab5",
-    "genres": "Action & Adventure, Mystery, Drama",
+    "genres": "Action & Adventure, Drama, Mystery",
     "directors": null
   },
   {
@@ -6986,7 +7146,7 @@
     "originalTitle": null,
     "year": 2022,
     "jellyfinId": "363b5893c60ededa1121477602223190",
-    "genres": "Sci-Fi & Fantasy, Action & Adventure, Drama",
+    "genres": "Action & Adventure, Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -7036,7 +7196,7 @@
     "originalTitle": null,
     "year": 2024,
     "jellyfinId": "88530fb88b85ceccdb7416bbcced2049",
-    "genres": "Action & Adventure, Sci-Fi & Fantasy, Family",
+    "genres": "Action & Adventure, Family, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -7046,7 +7206,7 @@
     "originalTitle": null,
     "year": 2025,
     "jellyfinId": "41278d0fd17d0d5134804043241f86bf",
-    "genres": "Animation, Sci-Fi & Fantasy, Crime, Action & Adventure",
+    "genres": "Action & Adventure, Animation, Crime, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -7056,7 +7216,7 @@
     "originalTitle": null,
     "year": 2008,
     "jellyfinId": "292c84997ed237bcd751b3719dda27a7",
-    "genres": "Action & Adventure, Sci-Fi & Fantasy, Animation",
+    "genres": "Action & Adventure, Animation, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -7127,7 +7287,7 @@
     "year": 2017,
     "jellyfinId": "527b601663469e66c8cdf43ef980c0a5",
     "genres": "Crime, Drama, Mystery",
-    "directors": "Park Hyeon-seok"
+    "directors": null
   },
   {
     "tmdbId": 31713,
@@ -7446,7 +7606,7 @@
     "originalTitle": null,
     "year": 2022,
     "jellyfinId": "f58f6ddb1cb680ad8a5764f97ee471ca",
-    "genres": "Drama, Comedy",
+    "genres": "Comedy, Drama",
     "directors": null
   },
   {
@@ -7506,7 +7666,7 @@
     "originalTitle": null,
     "year": 2019,
     "jellyfinId": "7a5c252572a2d131658a21b43e960d75",
-    "genres": "Sci-Fi & Fantasy, Action & Adventure",
+    "genres": "Action & Adventure, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -7656,7 +7816,7 @@
     "originalTitle": "동궁",
     "year": 2026,
     "jellyfinId": "4d0d9d3482aa67648eb1611b55eb0c47",
-    "genres": "Mystery, Action & Adventure, Sci-Fi & Fantasy, Drama",
+    "genres": "Action & Adventure, Drama, Mystery, Sci-Fi & Fantasy",
     "directors": "Choi Jung-kyu"
   },
   {
@@ -7687,7 +7847,7 @@
     "year": 2025,
     "jellyfinId": "3104ffb83594794ea999a6ed639b44b1",
     "genres": "Action & Adventure, Drama, Sci-Fi & Fantasy",
-    "directors": null
+    "directors": "Bruno Stagnaro"
   },
   {
     "tmdbId": 63639,
@@ -7708,6 +7868,16 @@
     "jellyfinId": "e808767105f34188c94ef268594a48a1",
     "genres": "Drama",
     "directors": "Steven Spielberg"
+  },
+  {
+    "tmdbId": 88396,
+    "mediaType": "tv",
+    "title": "The Falcon and the Winter Soldier",
+    "originalTitle": null,
+    "year": 2021,
+    "jellyfinId": "0322c560458fc9d88c4a3472465cfbd6",
+    "genres": "Action & Adventure, Drama, Sci-Fi & Fantasy",
+    "directors": null
   },
   {
     "tmdbId": 600354,
@@ -7840,6 +8010,16 @@
     "directors": "Chris Weitz"
   },
   {
+    "tmdbId": 429,
+    "mediaType": "movie",
+    "title": "The Good, the Bad and the Ugly",
+    "originalTitle": "Il buono, il brutto, il cattivo",
+    "year": 1966,
+    "jellyfinId": "237da7570a9d56aac1da96e14ecc5c9d",
+    "genres": "Western",
+    "directors": "Sergio Leone"
+  },
+  {
     "tmdbId": 950396,
     "mediaType": "movie",
     "title": "The Gorge",
@@ -7848,6 +8028,16 @@
     "jellyfinId": "58841a0b63e7d3ed6656dbfe1f3f6539",
     "genres": "Romance, Science Fiction, Thriller",
     "directors": "Scott Derrickson"
+  },
+  {
+    "tmdbId": 120467,
+    "mediaType": "movie",
+    "title": "The Grand Budapest Hotel",
+    "originalTitle": null,
+    "year": 2014,
+    "jellyfinId": "bec45926809c24728e339432916b89e9",
+    "genres": "Comedy, Drama",
+    "directors": "Wes Anderson"
   },
   {
     "tmdbId": 316029,
@@ -7868,6 +8058,16 @@
     "jellyfinId": "1fc4728849c53350cfc427ee2e6b8f37",
     "genres": "Adventure, Drama, Fantasy",
     "directors": "David Lowery"
+  },
+  {
+    "tmdbId": 497,
+    "mediaType": "movie",
+    "title": "The Green Mile",
+    "originalTitle": null,
+    "year": 1999,
+    "jellyfinId": "916e3e45dd00d27043f45e16c72e0a25",
+    "genres": "Fantasy, Drama, Crime",
+    "directors": "Frank Darabont"
   },
   {
     "tmdbId": 69478,
@@ -8090,6 +8290,16 @@
     "directors": "Francine Maisler, Yorgos Lanthimos"
   },
   {
+    "tmdbId": 313346,
+    "mediaType": "tv",
+    "title": "The Laid-Off Cheat-Granting Mage Enjoys a Second Lease on Life",
+    "originalTitle": "Tsuihou Sareta Cheat Fuyo Majutsushi wa Kimama na Second Life wo Ouka Suru.: Ore wa Buki dake ja Naku, Arayuru Mono ni \"Kyouka Point\" wo Fuyo Dekiru shi, Ore no Ishi de Itsudemo Kouka wo Kaijo Dekiru kedo, Nokotta Hitotachi Daijoubu?",
+    "year": 2026,
+    "jellyfinId": "7610eff33668d79f04fbc734db842d9d",
+    "genres": "Adventure, Anime, Comedy, Fantasy, Slice of Life",
+    "directors": null
+  },
+  {
     "tmdbId": 522039,
     "mediaType": "movie",
     "title": "The Last Black Man in San Francisco",
@@ -8200,6 +8410,16 @@
     "directors": "Peter Jackson"
   },
   {
+    "tmdbId": 84773,
+    "mediaType": "tv",
+    "title": "The Lord of the Rings: The Rings of Power",
+    "originalTitle": null,
+    "year": 2022,
+    "jellyfinId": "a02b873e0e12aaaffa10acd67f45789c",
+    "genres": "Action & Adventure, Sci-Fi & Fantasy",
+    "directors": null
+  },
+  {
     "tmdbId": 121,
     "mediaType": "movie",
     "title": "The Lord of the Rings: The Two Towers",
@@ -8246,7 +8466,7 @@
     "originalTitle": null,
     "year": 2019,
     "jellyfinId": "9382a9cc53352f82aa09bd9251880f36",
-    "genres": "Sci-Fi & Fantasy, Action & Adventure, Drama",
+    "genres": "Action & Adventure, Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -8356,8 +8576,18 @@
     "originalTitle": null,
     "year": 2016,
     "jellyfinId": "148592de976665ef1e6a8dde5b23910d",
-    "genres": "Sci-Fi & Fantasy, Mystery, Drama",
+    "genres": "Drama, Mystery, Sci-Fi & Fantasy",
     "directors": null
+  },
+  {
+    "tmdbId": 1368337,
+    "mediaType": "movie",
+    "title": "The Odyssey",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "991564125bb1395a37ff94a614895c16",
+    "genres": "Adventure, Action, Fantasy",
+    "directors": "Christopher Nolan"
   },
   {
     "tmdbId": 2316,
@@ -8416,8 +8646,18 @@
     "originalTitle": null,
     "year": 2024,
     "jellyfinId": "677ec6aa11183bf5f98eded3a873a8f8",
-    "genres": "Drama, Crime",
+    "genres": "Crime, Drama",
     "directors": null
+  },
+  {
+    "tmdbId": 307478,
+    "mediaType": "tv",
+    "title": "The Perfect Lie",
+    "originalTitle": "라이어",
+    "year": 2026,
+    "jellyfinId": "6500bf7a590b60b02bebf8bbe631e30b",
+    "genres": "Drama, Crime, Mystery",
+    "directors": "Cho Young-min"
   },
   {
     "tmdbId": 95403,
@@ -8426,7 +8666,7 @@
     "originalTitle": null,
     "year": 2022,
     "jellyfinId": "67afb97329490f0a1601672e9134fc3e",
-    "genres": "Sci-Fi & Fantasy, Drama",
+    "genres": "Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -8438,6 +8678,16 @@
     "jellyfinId": "a4d0190098ff547db1e1dc7bbc97239e",
     "genres": "Drama",
     "directors": "Stephen Chbosky"
+  },
+  {
+    "tmdbId": 423,
+    "mediaType": "movie",
+    "title": "The Pianist",
+    "originalTitle": null,
+    "year": 2002,
+    "jellyfinId": "c57ac42666cd9b18eae4907e429b1bb0",
+    "genres": "Drama, War",
+    "directors": "Roman Polanski"
   },
   {
     "tmdbId": 250307,
@@ -8500,6 +8750,16 @@
     "directors": "Michael Dudok de Wit"
   },
   {
+    "tmdbId": 279246,
+    "mediaType": "tv",
+    "title": "The Remarried Empress",
+    "originalTitle": "재혼 황후",
+    "year": 2026,
+    "jellyfinId": "bc9607281e25fa8f203e879f12c2a5f1",
+    "genres": "Drama, Sci-Fi & Fantasy",
+    "directors": null
+  },
+  {
     "tmdbId": 1278950,
     "mediaType": "movie",
     "title": "The Ritual",
@@ -8526,7 +8786,7 @@
     "originalTitle": null,
     "year": 2018,
     "jellyfinId": "429762170e625085da226b85e9c0c319",
-    "genres": "Crime, Drama, Comedy",
+    "genres": "Comedy, Crime, Drama",
     "directors": null
   },
   {
@@ -8606,7 +8866,7 @@
     "originalTitle": null,
     "year": 1989,
     "jellyfinId": "cc341cdef626b64bf8cf8b8a23d186cc",
-    "genres": "Family, Animation, Comedy",
+    "genres": "Animation, Comedy, Family",
     "directors": null
   },
   {
@@ -8736,7 +8996,7 @@
     "originalTitle": null,
     "year": 1959,
     "jellyfinId": "57bf30df5e7c432518a176d74c85b871",
-    "genres": "Sci-Fi & Fantasy, Mystery, Drama",
+    "genres": "Drama, Mystery, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -8746,7 +9006,7 @@
     "originalTitle": null,
     "year": 2019,
     "jellyfinId": "782319ff3aeda4310910932c9276f86c",
-    "genres": "Sci-Fi & Fantasy, Mystery, Drama",
+    "genres": "Drama, Mystery, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -8837,7 +9097,7 @@
     "year": 2021,
     "jellyfinId": "b3667e2c58b2b0d7eb38a84d1900d258",
     "genres": "Comedy, Drama, Mystery",
-    "directors": "Meredith Tucker, Non Jungmeier"
+    "directors": null
   },
   {
     "tmdbId": 1184918,
@@ -8876,7 +9136,7 @@
     "originalTitle": null,
     "year": 2019,
     "jellyfinId": "a7949cd98a33cbb5e0d0fc7e50a0cd31",
-    "genres": "Sci-Fi & Fantasy, Drama, Action & Adventure",
+    "genres": "Action & Adventure, Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -9006,7 +9266,7 @@
     "originalTitle": null,
     "year": 2018,
     "jellyfinId": "1949466e6ef595910cea12a2d93ccfd9",
-    "genres": "Drama, Action & Adventure, Sci-Fi & Fantasy",
+    "genres": "Action & Adventure, Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -9280,6 +9540,16 @@
     "directors": "Kelly Marcel"
   },
   {
+    "tmdbId": 1283515,
+    "mediaType": "movie",
+    "title": "Verity",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "3cf167357e7173a3ed7f2d77e3e3ab02",
+    "genres": "Mystery, Thriller",
+    "directors": "Michael Showalter"
+  },
+  {
     "tmdbId": 426,
     "mediaType": "movie",
     "title": "Vertigo",
@@ -9296,7 +9566,7 @@
     "originalTitle": null,
     "year": 2026,
     "jellyfinId": "85e97d37f58947d3df33e2aa8055cc1d",
-    "genres": "Sci-Fi & Fantasy, Drama",
+    "genres": "Drama, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -9306,7 +9576,27 @@
     "originalTitle": null,
     "year": 2026,
     "jellyfinId": "8a24da81e299fa50baa6271d0245868e",
-    "genres": "Drama, Comedy",
+    "genres": "Comedy, Drama",
+    "directors": null
+  },
+  {
+    "tmdbId": 10681,
+    "mediaType": "movie",
+    "title": "WALL·E",
+    "originalTitle": null,
+    "year": 2008,
+    "jellyfinId": "f52f3bea1afdce84fc086cd09f8a3191",
+    "genres": "Animation, Family, Science Fiction",
+    "directors": "Andrew Stanton"
+  },
+  {
+    "tmdbId": 85271,
+    "mediaType": "tv",
+    "title": "WandaVision",
+    "originalTitle": null,
+    "year": 2021,
+    "jellyfinId": "02a20d1bbd261174e015ca4743abd385",
+    "genres": "Drama, Mystery, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -9386,7 +9676,7 @@
     "originalTitle": null,
     "year": 2022,
     "jellyfinId": "6101bd41f386aafc3fb381402fcb612d",
-    "genres": "Sci-Fi & Fantasy, Mystery, Comedy",
+    "genres": "Comedy, Mystery, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -9416,7 +9706,7 @@
     "originalTitle": null,
     "year": 2021,
     "jellyfinId": "2b1e4278966d2106a031c581ef4901b9",
-    "genres": "Animation, Action & Adventure, Sci-Fi & Fantasy",
+    "genres": "Action & Adventure, Animation, Sci-Fi & Fantasy",
     "directors": null
   },
   {
@@ -9438,6 +9728,16 @@
     "jellyfinId": "08029f00d1f7bff88b864b6908513765",
     "genres": "Animation, Drama, Family, Mystery",
     "directors": "Hiromasa Yonebayashi"
+  },
+  {
+    "tmdbId": 244786,
+    "mediaType": "movie",
+    "title": "Whiplash",
+    "originalTitle": null,
+    "year": 2014,
+    "jellyfinId": "bfae024b8016b8fa538972dc617fa728",
+    "genres": "Drama, Music, Thriller",
+    "directors": "Damien Chazelle"
   },
   {
     "tmdbId": 37797,
@@ -9556,7 +9856,7 @@
     "originalTitle": null,
     "year": 2018,
     "jellyfinId": "10279482e77c8ceb7a17818ac8fbe86f",
-    "genres": "Western, Drama",
+    "genres": "Drama, Western",
     "directors": null
   },
   {
