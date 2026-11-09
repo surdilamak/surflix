@@ -1,8 +1,8 @@
-/* Sign-in dialog shared by Reference, Request Hub and the landing page (each defines --accent differently, so fallbacks are set). */
+/* Sign-in dialog shared by Reference, Request Hub and the landing page (Request Hub has no --accent, so the fallbacks are the Surflix orange #ff5200 and its dark ink). */
 .ref-viewer-dialog {
   position: fixed; inset: 0; margin: auto; max-height: calc(100svh - 32px); overflow: auto;
   width: min(420px, calc(100vw - 32px)); padding: 28px; border: 1px solid rgba(255, 255, 255, 0.14); border-radius: 12px;
-  background: #11151c; color: #fff;
+  background: #17171a; color: #fff;
 }
 .ref-viewer-dialog::backdrop { background: rgba(0, 0, 0, 0.65); }
 .ref-viewer-dialog form { display: grid; gap: 16px; }
@@ -11,9 +11,9 @@
 .ref-viewer-dialog label { display: grid; gap: 6px; font-size: 14px; font-weight: 600; }
 .ref-viewer-dialog input {
   min-height: 44px; padding: 0 12px; border: 1px solid rgba(255, 255, 255, 0.24); border-radius: 8px;
-  background: #0b0e13; color: #fff; font: inherit; font-size: 16px;
+  background: #0d0d0f; color: #fff; font: inherit; font-size: 16px;
 }
-.ref-viewer-dialog input:focus-visible { outline: 3px solid var(--accent, #f7941d); outline-offset: 1px; }
+.ref-viewer-dialog input:focus-visible { outline: 3px solid var(--accent, #ff5200); outline-offset: 1px; }
 .ref-viewer-dialog small { font-size: 13px; line-height: 1.45; color: rgba(255, 255, 255, 0.6); }
 .ref-viewer-dialog .ref-viewer-error { color: #ff8a80; font-weight: 600; }
 .ref-viewer-actions { display: flex; justify-content: flex-end; gap: 12px; }
@@ -21,6 +21,6 @@
   min-height: 44px; padding: 0 20px; border: 0; border-radius: 8px; background: rgba(255, 255, 255, 0.1);
   color: #fff; font: inherit; font-weight: 600; cursor: pointer;
 }
-.ref-viewer-actions button[type='submit'] { background: var(--accent, #f7941d); color: var(--accent-ink, #111); }
+.ref-viewer-actions button[type='submit'] { background: var(--accent, #ff5200); color: var(--accent-ink, #0d0d0f); }
 .ref-viewer-actions button:disabled { opacity: 0.6; cursor: wait; }
-.ref-viewer-actions button:focus-visible { outline: 3px solid var(--accent, #f7941d); outline-offset: 2px; }
+.ref-viewer-actions button:focus-visible { outline: 3px solid var(--accent, #ff5200); outline-offset: 2px; }

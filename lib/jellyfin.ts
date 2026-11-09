@@ -8,6 +8,8 @@
  * Header auth: Authorization: MediaBrowser Token="<JELLYFIN_API_KEY>"
  */
 
+import { prisma } from './db';
+
 const CACHE_TTL_MS = 10 * 60 * 1000;
 
 export type JellyfinMediaType = 'movie' | 'tv';
@@ -181,24 +183,27 @@ function apiHeaders() {
 /**
  * Read the user's "Watch later" playlist. Entries that Jellyfin expanded into episodes are folded back
  * to their series key, so the button state matches what the visitor saved.
+ *
+ * The playlist id comes from our own table, never from a search by name: Jellyfin lists public playlists
+ * to every user, so finding "Watch later" by name returned someone else's list.
  */
 export async function getWatchLater(userId: string): Promise<WatchLaterState> {
   if (!isConfigured()) throw new Error('JELLYFIN_URL / JELLYFIN_API_KEY not set');
   const uid = encodeURIComponent(userId);
-  const listRes = await fetch(
-    `${jellyfinBase()}/Users/${uid}/Items?Recursive=true&IncludeItemTypes=Playlist`,
-    { headers: apiHeaders(), signal: AbortSignal.timeout(15000) }
-  );
-  if (!listRes.ok) throw new Error(`Jellyfin playlist list error ${listRes.status}`);
-  const lists: Array<{ Id: string; Name?: string }> = (await listRes.json())?.Items ?? [];
-  const playlist = lists.find((l) => (l.Name ?? '').trim().toLowerCase() === WATCH_LATER.toLowerCase());
-  const state: WatchLaterState = { playlistId: playlist?.Id ?? null, entries: new Map() };
-  if (!playlist) return state;
+  const stored = await prisma.watchLaterList.findUnique({ where: { jellyfinUserId: userId } });
+  const state: WatchLaterState = { playlistId: stored?.playlistId ?? null, entries: new Map() };
+  if (!stored) return state;
 
   const res = await fetch(
-    `${jellyfinBase()}/Playlists/${encodeURIComponent(playlist.Id)}/Items?UserId=${uid}&Fields=ProviderIds`,
+    `${jellyfinBase()}/Playlists/${encodeURIComponent(stored.playlistId)}/Items?UserId=${uid}&Fields=ProviderIds`,
     { headers: apiHeaders(), signal: AbortSignal.timeout(15000) }
   );
+  if (res.status === 404 || res.status === 400) {
+    // the playlist was deleted in Jellyfin: forget it, a new private one is created on the next save
+    await prisma.watchLaterList.delete({ where: { jellyfinUserId: userId } }).catch(() => {});
+    state.playlistId = null;
+    return state;
+  }
   if (!res.ok) throw new Error(`Jellyfin playlist items error ${res.status}`);
   const items: Array<JellyfinItem & { PlaylistItemId?: string; SeriesId?: string }> = (await res.json())?.Items ?? [];
 
@@ -230,7 +235,8 @@ export async function addToWatchLater(userId: string, jellyfinItemId: string, st
     res = await fetch(`${jellyfinBase()}/Playlists`, {
       method: 'POST',
       headers,
-      body: JSON.stringify({ Name: WATCH_LATER, Ids: [jellyfinItemId], UserId: userId, MediaType: 'Video' }),
+      // IsPublic defaults to true in Jellyfin: without false, every account would see (and could edit) it
+      body: JSON.stringify({ Name: WATCH_LATER, Ids: [jellyfinItemId], UserId: userId, MediaType: 'Video', IsPublic: false }),
       signal: AbortSignal.timeout(15000),
     });
   } else {
@@ -240,6 +246,15 @@ export async function addToWatchLater(userId: string, jellyfinItemId: string, st
     );
   }
   if (!res.ok) throw new Error(`Jellyfin add to playlist error ${res.status}`);
+  if (!state.playlistId) {
+    const created: { Id?: string } = await res.json().catch(() => ({}));
+    if (!created.Id) throw new Error('Jellyfin did not return the new playlist id');
+    await prisma.watchLaterList.upsert({
+      where: { jellyfinUserId: userId },
+      create: { jellyfinUserId: userId, playlistId: created.Id },
+      update: { playlistId: created.Id },
+    });
+  }
 }
 
 /** Remove saved entries from the user's "Watch later" playlist. */

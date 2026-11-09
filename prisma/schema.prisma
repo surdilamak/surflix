@@ -285,3 +285,14 @@ model EventLog {
   @@index([type])
   @@index([createdAt])
 }
+
+// =====================================================
+// WATCH LATER: each signed-in account's own private "Watch later" playlist in Jellyfin.
+// The id is stored here and never looked up by name: Jellyfin shows public playlists to everyone,
+// so a lookup by name made all accounts share one list.
+// =====================================================
+model WatchLaterList {
+  jellyfinUserId String   @id
+  playlistId     String
+  createdAt      DateTime @default(now())
+}
