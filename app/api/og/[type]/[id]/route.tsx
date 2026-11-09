@@ -6,6 +6,7 @@ import { NextRequest } from 'next/server';
 import { getFilmOgData } from '@/lib/connections';
 import { posterOf } from '@/lib/portal-data';
 import { defaultCard, filmCard } from '@/lib/og';
+import { getTitleFacts, scoreLine } from '@/lib/title-facts';
 
 export const dynamic = 'force-dynamic';
 
@@ -18,5 +19,15 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ typ
 
   const base = (process.env.JELLYFIN_URL || process.env.NEXT_PUBLIC_JELLYFIN_URL || '').replace(/\/+$/, '');
   const posterUrl = posterOf({ poster: d.poster, jellyfinId: d.jellyfinId }, base || undefined, 342);
-  return filmCard({ title: d.title, year: d.year, connections: d.connections, posterUrl, related: d.related });
+  // a title without a map shows its scores and synopsis instead of an empty card
+  const facts = d.connections === 0 ? await getTitleFacts(type as 'movie' | 'tv', Number(id)).catch(() => null) : null;
+  return filmCard({
+    title: d.title,
+    year: d.year,
+    connections: d.connections,
+    posterUrl,
+    related: d.related,
+    scores: facts ? scoreLine(facts.scores, true) : undefined,
+    synopsis: facts?.overview ?? undefined,
+  });
 }

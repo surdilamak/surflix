@@ -20,6 +20,7 @@ import type { SagaHere } from '@/lib/connections';
 import { WatchLaterButton } from '@/components/connections/watch-later-button';
 import { WatchButton } from '@/components/connections/watch-link';
 import { useViewer } from '@/components/connections/viewer-provider';
+import { TitleAbout, TitleFacts, TitleScores } from '@/components/connections/title-facts';
 
 const ConnectionGraph = dynamic(
   () => import('@/components/connections/connection-graph').then((m) => m.ConnectionGraph),
@@ -104,6 +105,7 @@ export default function ReferensiFilmPage() {
             {t('detail.back')}
           </a>
         </div>
+        {lib && <TitleFacts type={params.type} id={params.id} />}
         <div className="ref-detail-search">
           <SearchBox variant="compact" />
         </div>
@@ -128,6 +130,7 @@ export default function ReferensiFilmPage() {
           <span className="ref-line"><span>{source.title}</span></span>
         </h1>
         <p className="ref-detail-sub">{sub}</p>
+        <TitleScores type={source.mediaType} id={source.tmdbId} />
         <div className="ref-detail-actions" style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '12px 28px' }}>
           {source.jellyfinId && (
             <WatchButton href={watchUrl(source.jellyfinId, jellyfinUrl, config.jellyfinServerId)}>
@@ -151,6 +154,7 @@ export default function ReferensiFilmPage() {
         <div className="ref-stage-wrap" style={{ margin: '40px 0 var(--gap-block)' }}>
           <ConnectionGraph data={data} jellyfinUrl={jellyfinUrl} serverId={config.jellyfinServerId} portalPath={portalPath} />
         </div>
+        <TitleAbout type={source.mediaType} id={source.tmdbId} />
       </section>
 
       {saga && (

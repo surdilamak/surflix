@@ -198,6 +198,30 @@
 .ref-footer nav a:hover { opacity: 0.6; }
 .ref-footer > :last-child { text-align: right; }
 
+/* ── Title facts: synopsis + scores (film page without a map) ── */
+.ref-facts { margin-top: var(--gap-block); max-width: 880px; display: grid; gap: 28px; animation: ref-fade 0.8s var(--ease) 0.6s backwards; }
+.ref-detail-top > .ref-scores { margin-top: 20px; }
+.ref-detail-top > .ref-scores + .ref-detail-actions { margin-top: 20px; }
+.ref-detail-top > .ref-scores li { min-width: 0; grid-auto-flow: column; align-items: baseline; gap: 8px; padding: 8px 14px; }
+.ref-detail-top > .ref-scores li { flex: 0 0 auto; }
+.ref-detail-top > .ref-scores b { font-size: var(--step-body); }
+.ref-facts--about { margin-top: 0; padding-bottom: var(--gap-chapter); }
+.ref-facts + .ref-detail-search { margin-top: var(--gap-block); }
+.ref-facts--wait { min-height: 220px; animation: none; }
+.ref-scores { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.ref-scores li { display: grid; gap: 2px; min-width: 112px; padding: 14px 16px; border-radius: 8px; background: rgba(255, 255, 255, 0.08); }
+.ref-scores b { font-size: var(--step-lead); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+.ref-scores small { margin-left: 2px; font-size: var(--step-small); font-weight: 500; color: var(--field-1-muted); }
+.ref-scores span { font-size: var(--step-small); color: var(--field-1-muted); }
+.ref-facts-text h2 { margin: 0 0 8px; font-size: var(--step-small); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; color: var(--field-1-muted); }
+.ref-facts-text p { margin: 0; max-width: 62ch; font-size: var(--step-body); line-height: 1.55; }
+.ref-facts-text .ref-facts-tag { margin-bottom: 8px; font-style: italic; color: var(--field-1-muted); }
+.ref-facts-meta { margin: 0; display: grid; gap: 12px; }
+.ref-facts-meta > div { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 16px; font-size: var(--step-body); line-height: 1.4; }
+.ref-facts-meta dt { color: var(--field-1-muted); }
+.ref-facts-meta dd { margin: 0; }
+@media (max-width: 560px) { .ref-facts-meta > div { grid-template-columns: 1fr; gap: 2px; } .ref-facts > .ref-scores li { flex: 1 1 calc(50% - 8px); } }
+
 /* ── Single film page ── */
 .ref-detail-top { position: relative; background: var(--field-1); color: var(--field-1-ink); padding: var(--pad-top) var(--margin) 0; }
 .ref-back { display: inline-block; font-size: 15px; font-weight: 600; color: var(--field-1-muted); transition: color 0.2s; }

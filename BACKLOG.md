@@ -43,6 +43,12 @@
 
 `Sync library` (admin) → `export-library.js` on prod → copy to the repo → **align `dev.db` with `connections-live.json` first** (otherwise the export wipes out audit decisions — 32 statuses once differed) → write the curation → `build-connections.js` → import into dev.db → `export-connections.js` → `build-sagas.js`. The builder rejects text longer than **220 characters**.
 
+## ✅ Done 2026-11-09 (landing bar, title facts, link preview)
+- **Landing uses the shared `PortalBar`** (logo, Reference / Request Hub / Streaming pill, EN/ID, account) instead of the floating language and account chips that overlapped the hero. No site pill is active on the landing (`current` is optional now). The duplicate logo inside the hero panel is gone, and the hero height subtracts the bar.
+- **Film page without a map shows facts** (`components/connections/title-facts.tsx`, `/api/title-facts`, `lib/title-facts.ts`): synopsis, tagline, runtime, genres, director/creators, cast and scores. TMDB comes from Jellyseerr; IMDb and Rotten Tomatoes from Jellyseerr `ratingscombined` (best effort); Metacritic, IMDb votes and RT only when `OMDB_API_KEY` is set (free key at omdbapi.com). A score without a source is left out.
+- **Link preview for titles without a map**: `og:description` is the score line plus the start of the synopsis, and the 1200x630 card shows scores and synopsis instead of "map in progress". Titles with a map are unchanged.
+- **Film pages with a map get the same facts** (information order: title, then the score chips, then Watch buttons, then the map, then the synopsis and details below the map, then saga and "Why they connect"). Scores sit under the title because "is it good?" is the first question; the longer text sits below the map so the map stays first.
+
 ## ✅ Done 2026-11-04 (3 new titles: library 964 → 967)
 
 - [x] **Library 964 → 967**, 5 new connections (`connections-live.json` 982 → 987, 21 REJECTED unchanged, no old row changed), 857 / 967 titles connected.

@@ -32,6 +32,7 @@ services:
       # Jellyseerr (internal Docker network)
       JELLYSEERR_URL: ${JELLYSEERR_URL:-http://jellyseerr:5055}
       JELLYSEERR_API_KEY: ${JELLYSEERR_API_KEY}
+      OMDB_API_KEY: ${OMDB_API_KEY:-}
 
       # Auth
       SESSION_SECRET: ${SESSION_SECRET}

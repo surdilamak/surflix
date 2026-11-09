@@ -16,12 +16,20 @@ import './portal-bar.css';
 
 export type PortalSite = 'hub' | 'reference';
 
-function LangPills({ className }: { className?: string }) {
+function LangPills({ className, onChange }: { className?: string; onChange?: (l: 'en' | 'id') => void }) {
   const { t, lang, setLang } = useLang();
   return (
     <span className={className} role="group" aria-label={t('pb.lang')}>
       {(['en', 'id'] as const).map((l) => (
-        <button key={l} type="button" onClick={() => setLang(l)} aria-pressed={lang === l}>
+        <button
+          key={l}
+          type="button"
+          onClick={() => {
+            setLang(l);
+            onChange?.(l);
+          }}
+          aria-pressed={lang === l}
+        >
           {l.toUpperCase()}
         </button>
       ))}
@@ -34,8 +42,12 @@ export function PortalBar({
   nav,
   account,
   accountPanel,
+  onLangChange,
 }: {
-  current: PortalSite;
+  /** the site the visitor is on; leave out on the landing page, where no site pill is active */
+  current?: PortalSite;
+  /** called after the language is picked (the landing page re-renders its server text here) */
+  onLangChange?: (l: 'en' | 'id') => void;
   /** account entry at the far right of the bar (desktop) and its version inside the phone menu */
   account?: React.ReactNode;
   accountPanel?: React.ReactNode;
@@ -84,7 +96,7 @@ export function PortalBar({
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/logo-mark.png" alt="" width={24} height={24} className="pb-mark" />
         </a>
-        <span className="pb-name">{current === 'hub' ? t('pb.hub') : t('pb.reference')}</span>
+        {current && <span className="pb-name">{current === 'hub' ? t('pb.hub') : t('pb.reference')}</span>}
 
         {nav}
 
@@ -93,7 +105,7 @@ export function PortalBar({
             <a
               key={it.key}
               href={it.href}
-              aria-current={it.site === current ? 'page' : undefined}
+              aria-current={current && it.site === current ? 'page' : undefined}
               {...(it.external ? { target: '_blank', rel: 'noopener' } : {})}
             >
               {it.label}
@@ -101,7 +113,7 @@ export function PortalBar({
           ))}
         </nav>
 
-        <LangPills className="pb-lang" />
+        <LangPills className="pb-lang" onChange={onLangChange} />
 
         {account}
 
@@ -130,7 +142,7 @@ export function PortalBar({
             {nav}
             {accountPanel}
             <div className="pb-panel-foot">
-              <LangPills className="pb-lang pb-lang--panel" />
+              <LangPills className="pb-lang pb-lang--panel" onChange={onLangChange} />
               <a href={homeHref('/')} className="pb-home-link">
                 {t('pb.home')}
               </a>

@@ -4,6 +4,7 @@
  */
 import type { Metadata } from 'next';
 import { getFilmMeta } from '@/lib/connections';
+import { getTitleFacts, scoreLine } from '@/lib/title-facts';
 
 export const dynamic = 'force-dynamic';
 
@@ -21,10 +22,15 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const label = meta.year ? `${meta.title} (${meta.year})` : meta.title;
   const n = meta.connections;
   const title = n > 0 ? `${label}: ${n} ${n === 1 ? 'connection' : 'connections'} · Surflix Reference` : `${label} · Surflix Reference`;
+  // A title without a map still gets a useful preview: scores and the start of the synopsis
+  const facts = n === 0 ? await getTitleFacts(type as 'movie' | 'tv', Number(id)).catch(() => null) : null;
+  const scores = facts ? scoreLine(facts.scores) : '';
   const description = clip(
-    meta.connections > 0
-      ? `${label} connects to ${meta.connections} other ${meta.connections === 1 ? 'title' : 'titles'} on Surflix.${meta.reason ? ` ${meta.reason}` : ''}`
-      : `${label} is on Surflix. Its connection map is still being drawn.`,
+    n > 0
+      ? `${label} connects to ${n} other ${n === 1 ? 'title' : 'titles'} on Surflix.${meta.reason ? ` ${meta.reason}` : ''}`
+      : facts?.overview
+        ? `${scores ? `${scores}. ` : ''}${facts.overview}`
+        : `${label} is on Surflix. Its connection map is still being drawn.`,
     200
   );
 

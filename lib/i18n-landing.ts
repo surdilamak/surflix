@@ -7,11 +7,6 @@ type Dict = Record<string, string>;
 export const landingEn: Dict = {
   'lp.meta.title': 'Surflix: a private cinema for friends and family',
   'lp.meta.desc': 'Hand-picked films and series to watch, a request desk for what is missing, and a map of how titles connect. No ads, no tracking.',
-  'lp.lang': 'Language',
-  'lp.signin': 'Sign in',
-  'lp.signout': 'Sign out',
-  'lp.signoutJellyfin': 'Sign out of streaming',
-  'lp.signedAs': 'Signed in as {name}',
   'lp.rel.homage': 'Homage',
   'lp.rel.inspired': 'Inspired',
   'lp.rel.visual': 'Borrowed look',
@@ -102,11 +97,6 @@ export const landingEn: Dict = {
 export const landingId: Dict = {
   'lp.meta.title': 'Surflix: bioskop pribadi untuk teman dan keluarga',
   'lp.meta.desc': 'Film dan serial pilihan untuk ditonton, meja request untuk yang belum ada, dan peta hubungan antar judul. Tanpa iklan, tanpa pelacakan.',
-  'lp.lang': 'Bahasa',
-  'lp.signin': 'Masuk',
-  'lp.signout': 'Keluar',
-  'lp.signoutJellyfin': 'Keluar dari streaming',
-  'lp.signedAs': 'Masuk sebagai {name}',
   'lp.rel.homage': 'Penghormatan',
   'lp.rel.inspired': 'Terinspirasi',
   'lp.rel.visual': 'Tampilan pinjaman',

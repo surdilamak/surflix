@@ -15,6 +15,7 @@
   --paper: #ffffff;
   --paper-ink: #0d0d0f;
   --m: 20px;
+  --pb-pad: var(--m); /* the shared top bar lines up with the page margin */
   --gap: 8px;
   --r: 8px;
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -75,7 +76,7 @@
 
 /* ═══ Hero: a poster sheet with one text cell ═══ */
 .lp-hero {
-  --H: max(100svh, 640px);
+  --H: max(calc(100svh - 60px), 600px); /* minus the top bar */
   --ph: 340px; /* text panel height = height of the empty space in columns 3-4 */
   position: relative; overflow: hidden;
   height: var(--H); padding: var(--m);
@@ -125,8 +126,7 @@
   background: var(--paper); color: var(--paper-ink); border-radius: var(--r);
   animation: lp-rise 0.9s var(--ease) 0.25s backwards;
 }
-.lp-logo { height: 28px; width: auto; }
-.lp-panel h1 { margin-top: 20px; max-width: 16ch; font-size: var(--step-sub); font-weight: 500; line-height: 1.05; letter-spacing: -0.03em; text-wrap: balance; }
+.lp-panel h1 { margin-top: 0; max-width: 16ch; font-size: var(--step-sub); font-weight: 500; line-height: 1.05; letter-spacing: -0.03em; text-wrap: balance; }
 .lp-panel .lp-btn { margin-top: 24px; }
 .lp-panel-links { margin: auto 0 0; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: var(--step-small); font-weight: 500; }
 .lp-panel-links a { text-decoration: underline; text-underline-offset: 4px; text-decoration-color: transparent; transition: text-decoration-color 0.2s; }
@@ -367,8 +367,7 @@
   .lp-hero { padding: 8px; }
   .lp-stage { --cw: calc((100cqw - 8px) / 2); gap: 8px; }
   .lp-panel { min-height: 40svh; padding: 20px; }
-  .lp-logo { height: 7vw; min-height: 24px; }
-  .lp-panel h1 { margin-top: 20px; }
+  .lp-panel h1 { margin-top: 0; }
   .lp-panel .lp-btn { width: 100%; margin-top: 20px; }
   .lp-panel-links { margin-top: 24px; }
   .lp-ref-ways { grid-template-columns: minmax(0, 1fr); gap: 8px; }
@@ -422,28 +421,3 @@
 /* ── CTA for the three sites: one shape, arrow at the end ── */
 .lp-root .lp-btn--go::after { content: '→'; margin-left: 12px; }
 .lp-streaming > .lp-btn { display: flex; width: fit-content; margin: 24px var(--m) 0; }
-
-/* ── Language picker ── */
-.lp-lang {
-  position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); right: var(--m); z-index: 20;
-  display: inline-flex; gap: 2px; padding: 4px; border-radius: 999px; background: var(--surface-2);
-}
-.lp-lang button {
-  min-width: 44px; min-height: 40px; padding: 0 8px; border: 0; border-radius: 999px; cursor: pointer;
-  background: transparent; color: var(--muted); font: inherit; font-size: 13px; font-weight: 600; letter-spacing: 0.02em;
-  transition: background 0.18s, color 0.18s;
-}
-.lp-lang button:hover { color: var(--ink); }
-.lp-account {
-  position: absolute; top: calc(env(safe-area-inset-top, 0px) + 12px); right: calc(var(--m) + 124px); z-index: 20;
-  display: inline-flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 16px; border: 0; border-radius: 999px;
-  background: var(--surface-2); color: var(--ink); font: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
-}
-.lp-account:hover { background: var(--ink); color: var(--bg); }
-.lp-account:focus-visible, .lp-account button:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
-.lp-account--in { cursor: default; padding-right: 6px; }
-.lp-account--in:hover { background: var(--surface-2); color: var(--ink); }
-.lp-account-name { max-width: 22ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.lp-account--in a, .lp-account--in button { display: inline-flex; align-items: center; text-decoration: none; min-height: 36px; padding: 0 12px; border: 0; border-radius: 999px; background: var(--ink); color: var(--bg); font: inherit; font-weight: 600; cursor: pointer; }
-@media (max-width: 480px) { .lp-account-name { display: none; } }
-.lp-lang button[aria-pressed='true'] { background: var(--ink); color: var(--bg); }

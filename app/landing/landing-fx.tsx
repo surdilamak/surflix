@@ -5,8 +5,6 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { writeLangPref } from '@/lib/lang-pref';
 
 export function LandingFx() {
   useEffect(() => {
@@ -93,29 +91,5 @@ export function CoffeeButton({ className, children, labels }: { className?: stri
         </div>
       )}
     </>
-  );
-}
-
-/** Landing language picker: write the shared cookie, then reload the server HTML in the new language. */
-export function LangToggle({ lang, label }: { lang: 'en' | 'id'; label: string }) {
-  const router = useRouter();
-  const pick = (l: 'en' | 'id') => {
-    writeLangPref(l);
-    // ?lang= in the URL overrides the cookie; drop it so the new choice takes effect
-    const url = new URL(window.location.href);
-    if (url.searchParams.has('lang')) {
-      url.searchParams.delete('lang');
-      window.history.replaceState(null, '', url.pathname + url.search + url.hash);
-    }
-    router.refresh();
-  };
-  return (
-    <span className="lp-lang" role="group" aria-label={label}>
-      {(['en', 'id'] as const).map((l) => (
-        <button key={l} type="button" onClick={() => pick(l)} aria-pressed={lang === l}>
-          {l.toUpperCase()}
-        </button>
-      ))}
-    </span>
   );
 }

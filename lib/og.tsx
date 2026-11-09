@@ -52,6 +52,9 @@ export interface OgFilm {
   connections: number;
   posterUrl: string | null;
   related: Array<{ relationship: string; direction: 'out' | 'in'; title: string; year: number | null }>;
+  /** for a title without a map: a one-line score summary and the start of the synopsis */
+  scores?: string;
+  synopsis?: string;
 }
 
 const clip = (s: string, n: number) => (s.length > n ? `${s.slice(0, n - 1).trimEnd()}…` : s);
@@ -100,12 +103,15 @@ export async function filmCard(f: OgFilm): Promise<Response> {
                   {f.connections} {f.connections === 1 ? 'connection' : 'connections'}
                 </span>
               ) : (
-                <span style={{ display: 'flex' }}>map in progress</span>
+                <span style={{ display: 'flex' }}>{f.scores ? clip(f.scores, 52) : 'map in progress'}</span>
               )}
             </div>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {f.related.length === 0 && f.synopsis ? (
+              <div style={{ display: 'flex', fontSize: 30, lineHeight: 1.35, color: INK }}>{clip(f.synopsis, 210)}</div>
+            ) : null}
             {f.related.map((r, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', fontSize: 28, marginTop: i ? 14 : 0 }}>
                 <div style={{ display: 'flex', width: 14, height: 14, borderRadius: 14, background: REL_COLOR[r.relationship] ?? MUTED, marginRight: 16, flexShrink: 0 }} />

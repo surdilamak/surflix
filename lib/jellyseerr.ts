@@ -163,6 +163,12 @@ class JellyseerrClient {
     return data;
   }
 
+  /** Rotten Tomatoes and IMDb scores (Jellyseerr 2.x); throws if this server version does not have it. */
+  async getCombinedRatings(mediaType: 'movie' | 'tv', tmdbId: number) {
+    const { data } = await this.client.get(`/${mediaType}/${tmdbId}/ratingscombined`, { timeout: 4000 });
+    return data;
+  }
+
   /**
    * Fetch combined movie + TV credits for a person (director/actor lookup).
    * Returns both `cast` (acting credits) and `crew` (directing/writing/producing).

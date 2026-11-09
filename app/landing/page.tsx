@@ -11,8 +11,8 @@ import { getServerId, posterUrl, watchUrl } from '@/lib/jellyfin';
 import { buildPortalUrls } from '@/lib/portal-urls';
 import { translate } from '@/lib/i18n';
 import { getServerLang } from '@/lib/lang-server';
-import { CoffeeButton, LandingFx, LangToggle } from './landing-fx';
-import { LandingAccount, LandingViewer, LandingWatch } from './landing-viewer';
+import { CoffeeButton, LandingFx } from './landing-fx';
+import { LandingBar, LandingViewer, LandingWatch } from './landing-viewer';
 
 export const dynamic = 'force-dynamic';
 
@@ -182,8 +182,7 @@ export default async function LandingPage({ searchParams }: { searchParams?: Pro
   return (
     <LandingViewer>
       <LandingFx />
-      <LandingAccount streamingHref={watchHome} labels={{ signin: t('lp.signin'), signout: t('lp.signout'), signoutJellyfin: t('lp.signoutJellyfin'), as: t('lp.signedAs', { name: '{name}' }) }} />
-      <LangToggle lang={lang} label={t('lp.lang')} />
+      <LandingBar />
 
       {/* ── Hero: a sheet of posters with one text cell ─────────────────────── */}
       <section id="top" className="lp-hero" aria-label="Surflix">
@@ -203,8 +202,6 @@ export default async function LandingPage({ searchParams }: { searchParams?: Pro
           </div>
 
           <div className="lp-panel">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img className="lp-logo" src="/logo-wordmark.png" alt="" width={102} height={28} />
             <h1>{t('lp.h1')}</h1>
             <a className="lp-btn" href={watchHome}>{t('lp.start')}</a>
             <p className="lp-panel-links">
