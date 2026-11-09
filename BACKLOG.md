@@ -43,6 +43,12 @@
 
 `Sync library` (admin) → `export-library.js` on prod → copy to the repo → **align `dev.db` with `connections-live.json` first** (otherwise the export wipes out audit decisions — 32 statuses once differed) → write the curation → `build-connections.js` → import into dev.db → `export-connections.js` → `build-sagas.js`. The builder rejects text longer than **220 characters**.
 
+## ✅ Done 2026-11-09 (Request Hub needs a Surflix account)
+- **Only signed-in Surflix accounts can send a request or a remark.** `POST /api/request` and `POST /api/remark` answer 401 (`needsLogin`) without a viewer (`getViewer()`: own sign-in or the Jellyfin plugin cookie). The name is no longer taken from the form: it is the account name, and the form shows it read only (`ViewerNameField`). Signed out, the form is replaced by a sign-in card (`SignInGate`) that opens the same sign-in dialog.
+- **Guest linking**: `Guest.jellyfinUserId` (nullable, unique; added by `prisma db push` at container start). `lib/viewer-guest.ts` finds the account's guest, or adopts the browser's earlier `guestId` if that guest belongs to nobody yet (so old history is kept), or creates one. A guestId that belongs to another account is never adopted. `GET /api/viewer` returns `guestId`, and the provider stores it in localStorage when missing, so My Requests follows the account to another device.
+- Browsing and reading stay open to everyone; only submitting is gated. The "My Requests" page of a signed-out browser still reads its stored guestId.
+- Not changed: admin, Telegram text, push notifications.
+
 ## ✅ Done 2026-11-09 (landing bar, title facts, link preview)
 - **Landing uses the shared `PortalBar`** (logo, Reference / Request Hub / Streaming pill, EN/ID, account) instead of the floating language and account chips that overlapped the hero. No site pill is active on the landing (`current` is optional now). The duplicate logo inside the hero panel is gone, and the hero height subtracts the bar.
 - **Film page without a map shows facts** (`components/connections/title-facts.tsx`, `/api/title-facts`, `lib/title-facts.ts`): synopsis, tagline, runtime, genres, director/creators, cast and scores. TMDB comes from Jellyseerr; IMDb and Rotten Tomatoes from Jellyseerr `ratingscombined` (best effort); Metacritic, IMDb votes and RT only when `OMDB_API_KEY` is set (free key at omdbapi.com). A score without a source is left out.

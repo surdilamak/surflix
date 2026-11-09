@@ -13,6 +13,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Icons } from './icons';
 import { JellyseerrMediaItem } from '@/lib/jellyseerr';
 import { useLang } from '@/components/connections/lang-provider';
+import { useViewer } from '@/components/connections/viewer-provider';
+import { SignInGate, ViewerNameField } from './viewer-gate';
 
 interface RemarkFormModalProps {
   item: JellyseerrMediaItem | null;
@@ -28,7 +30,7 @@ const NOTE_KEYS = ['s1', 's2', 's3', 's4', 's5', 's6'] as const;
 
 export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormModalProps) {
   const { t } = useLang();
-  const [name, setName] = useState('');
+  const viewer = useViewer();
   const [note, setNote] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -38,8 +40,6 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
       const saved = localStorage.getItem(GUEST_INFO_KEY);
       if (saved) {
         try {
-          const { name: n } = JSON.parse(saved);
-          if (n) setName(n);
         } catch {}
       }
       setNote('');
@@ -51,12 +51,8 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
   async function handleSubmit() {
     setError(null);
 
-    if (!name.trim()) {
-      setError(t('hub.form.nameRequired'));
-      return;
-    }
-    if (name.trim().length < 2) {
-      setError(t('hub.form.nameMin'));
+    if (viewer.status !== 'in') {
+      viewer.openLogin();
       return;
     }
     if (!note.trim()) {
@@ -85,7 +81,6 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          guestName: name.trim(),
           guestId,
           note: note.trim(),
           tmdbId: item.id,
@@ -98,6 +93,12 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
 
       const data = await res.json();
 
+      if (res.status === 401) {
+        setLoading(false);
+        viewer.openLogin();
+        return;
+      }
+
       if (!res.ok) {
         setError(data.error || t('hub.remark.failed'));
         setLoading(false);
@@ -106,7 +107,7 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
 
       localStorage.setItem(
         GUEST_INFO_KEY,
-        JSON.stringify({ name: name.trim(), guestId: data.guestId })
+        JSON.stringify({ name: viewer.name ?? '', guestId: data.guestId })
       );
 
       onSuccess();
@@ -162,18 +163,11 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
               </button>
             </div>
 
+            {viewer.status !== 'in' ? (
+              <SignInGate />
+            ) : (
             <div className="space-y-3">
-              <div>
-                <label className="rq-small mb-2 block text-rq-muted">{t('hub.form.name')}</label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder={t('hub.form.namePh')}
-                  className="rq-input w-full"
-                  maxLength={50}
-                />
-              </div>
+              <ViewerNameField />
 
               <div>
                 <label className="rq-small mb-2 block text-rq-muted">
@@ -230,6 +224,7 @@ export function RemarkFormModal({ item, open, onClose, onSuccess }: RemarkFormMo
                 {t('hub.remark.foot')}
               </p>
             </div>
+            )}
             </motion.div>
           </div>
         </>

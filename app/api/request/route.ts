@@ -1,8 +1,8 @@
 /**
  * POST /api/request
  *
- * Guest submit request film/series — name only, no email.
- * Identification via guestId (returned in response, saved to localStorage).
+ * Submit a request for a film/series. Only signed-in Surflix accounts (401 otherwise); the name comes from
+ * the account. The guestId returned in the response is saved to localStorage so My Requests keeps working.
  *
  * Flow:
  * 1. Validate input + rate limit per IP
@@ -19,10 +19,12 @@ import { jellyseerr, JELLYSEERR_STATUS } from '@/lib/jellyseerr';
 import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 import { notifyNewRequest } from '@/lib/telegram';
 import { getYear } from '@/lib/utils';
-import { resolveCanonicalGuestId } from '@/lib/guest';
+import { getViewer } from '@/lib/viewer-session';
+import { guestForViewer } from '@/lib/viewer-guest';
 
 const requestSchema = z.object({
-  guestName: z.string().min(2).max(50),
+  // the name is no longer taken from the form: it comes from the signed-in account
+  guestName: z.string().optional(),
   guestId: z.string().optional(),
   guestNote: z.string().max(200).optional(),
   tmdbId: z.number().int().positive(),
@@ -46,6 +48,15 @@ export async function POST(req: NextRequest) {
         resetAt: limit.resetAt,
       },
       { status: 429 }
+    );
+  }
+
+  // Only signed-in Surflix accounts can submit
+  const viewer = await getViewer();
+  if (!viewer) {
+    return NextResponse.json(
+      { error: 'Masuk dulu dengan akun Surflix untuk mengirim ini.', needsLogin: true },
+      { status: 401 }
     );
   }
 
@@ -75,32 +86,10 @@ export async function POST(req: NextRequest) {
     console.warn('[Request API] Jellyseerr check failed, proceeding anyway');
   }
 
-  // 2. Get or create guest — follow alias chain to canonical if the Guest was merged before
+  // 2. The guest is the signed-in account (the earlier browser history is adopted the first time)
   const cookieLang = req.cookies.get('surflix_lang')?.value;
   const lang = cookieLang === 'en' || cookieLang === 'id' ? cookieLang : undefined;
-  let guest;
-  if (body.guestId) {
-    const canonicalId = await resolveCanonicalGuestId(body.guestId);
-    if (canonicalId) {
-      guest = await prisma.guest.update({
-        where: { id: canonicalId },
-        data: { name: body.guestName, lastActive: new Date(), ...(lang ? { lang } : {}) },
-      });
-    }
-  }
-
-  if (!guest) {
-    // New guest - email field is stored as a unique key, we use guestId#timestamp
-    // Because the email field in the schema is still unique-required, we generate a dummy email
-    const uniqueEmail = `guest-${Date.now()}-${Math.random().toString(36).substring(2, 8)}@cookie.local`;
-    guest = await prisma.guest.create({
-      data: {
-        name: body.guestName,
-        email: uniqueEmail,
-        ...(lang ? { lang } : {}),
-      },
-    });
-  }
+  const guest = await guestForViewer(viewer, body.guestId, lang);
 
   // 3. Check for duplicates in our DB
   const existing = await prisma.request.findFirst({

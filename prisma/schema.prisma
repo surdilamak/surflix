@@ -24,6 +24,9 @@ model Guest {
   lastActive DateTime @default(now())
   // Last language chosen by the guest (cookie surflix_lang): 'en' | 'id'. Null = old guest, treat as 'id'.
   lang       String?
+  // Set when the guest is a signed-in Surflix account (the streaming user id). Requests and remarks
+  // are only accepted from signed-in accounts; the first one adopts the guest's earlier browser history.
+  jellyfinUserId String? @unique
 
   // Alias chain: if this Guest is a duplicate (pre-bugfix), `mergedIntoId`
   // points to the canonical Guest. APIs follow the alias to the root before reading/writing requests.

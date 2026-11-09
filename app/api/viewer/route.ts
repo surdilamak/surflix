@@ -1,7 +1,7 @@
 /**
  * Viewer (Jellyfin account) endpoints for the Reference portal.
  *
- *   GET    -> { loggedIn:false } or { loggedIn:true, name, via:'form'|'jellyfin', played:[...], later:[...] } (keys like "movie:123")
+ *   GET    -> { loggedIn:false } or { loggedIn:true, name, via:'form'|'jellyfin', played:[...], later:[...], guestId } (keys like "movie:123")
  *   POST   -> { username, password } checked against Jellyfin, sets the viewer cookie
  *   DELETE -> clears the cookies (own session and the Jellyfin plugin cookie)
  *
@@ -13,6 +13,8 @@ import { z } from 'zod';
 import { authenticateUser, getPlayedKeys, getWatchLater } from '@/lib/jellyfin';
 import { clearViewer, getViewer, getViewerSession } from '@/lib/viewer-session';
 import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
+import { prisma } from '@/lib/db';
+import { resolveCanonicalGuestId } from '@/lib/guest';
 
 export const dynamic = 'force-dynamic';
 
@@ -37,7 +39,10 @@ export async function GET() {
         return [] as string[];
       }),
   ]);
-  return NextResponse.json({ loggedIn: true, name: session.name, via: session.via, played, later }, { headers: NO_STORE });
+  // the Request Hub guest linked to this account (so My Requests follows the account to another device)
+  const linked = await prisma.guest.findUnique({ where: { jellyfinUserId: session.userId }, select: { id: true } }).catch(() => null);
+  const guestId = linked ? await resolveCanonicalGuestId(linked.id).catch(() => null) : null;
+  return NextResponse.json({ loggedIn: true, name: session.name, via: session.via, played, later, guestId }, { headers: NO_STORE });
 }
 
 export async function POST(req: NextRequest) {

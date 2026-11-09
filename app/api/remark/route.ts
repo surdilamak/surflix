@@ -1,7 +1,7 @@
 /**
  * POST /api/remark
  *
- * Guest submit "Request Improvement" for a film that is already AVAILABLE or
+ * Signed-in account submits "Request Improvement" for a film that is already AVAILABLE or
  * currently PROCESSING in the library. Example use cases:
  * - Ask for Indonesian/English subtitles
  * - Complaint about file quality (request replace)
@@ -21,10 +21,12 @@ import { jellyseerr, JELLYSEERR_STATUS } from '@/lib/jellyseerr';
 import { checkRateLimit, getClientIp } from '@/lib/rate-limit';
 import { notifyNewRemark } from '@/lib/telegram';
 import { getYear } from '@/lib/utils';
-import { resolveCanonicalGuestId } from '@/lib/guest';
+import { getViewer } from '@/lib/viewer-session';
+import { guestForViewer } from '@/lib/viewer-guest';
 
 const remarkSchema = z.object({
-  guestName: z.string().min(2).max(50),
+  // the name is no longer taken from the form: it comes from the signed-in account
+  guestName: z.string().optional(),
   guestId: z.string().optional(),
   note: z.string().min(5).max(200),
   tmdbId: z.number().int().positive(),
@@ -45,6 +47,15 @@ export async function POST(req: NextRequest) {
         resetAt: limit.resetAt,
       },
       { status: 429 }
+    );
+  }
+
+  // Only signed-in Surflix accounts can submit
+  const viewer = await getViewer();
+  if (!viewer) {
+    return NextResponse.json(
+      { error: 'Masuk dulu dengan akun Surflix untuk mengirim ini.', needsLogin: true },
+      { status: 401 }
     );
   }
 
@@ -82,30 +93,10 @@ export async function POST(req: NextRequest) {
     // Still allow the remark — if Jellyseerr is down, default to AVAILABLE
   }
 
-  // 2. Get or create guest — follow alias chain to canonical
+  // 2. The guest is the signed-in account (the earlier browser history is adopted the first time)
   const cookieLang = req.cookies.get('surflix_lang')?.value;
   const lang = cookieLang === 'en' || cookieLang === 'id' ? cookieLang : undefined;
-  let guest;
-  if (body.guestId) {
-    const canonicalId = await resolveCanonicalGuestId(body.guestId);
-    if (canonicalId) {
-      guest = await prisma.guest.update({
-        where: { id: canonicalId },
-        data: { name: body.guestName, lastActive: new Date(), ...(lang ? { lang } : {}) },
-      });
-    }
-  }
-
-  if (!guest) {
-    const uniqueEmail = `guest-${Date.now()}-${Math.random().toString(36).substring(2, 8)}@cookie.local`;
-    guest = await prisma.guest.create({
-      data: {
-        name: body.guestName,
-        email: uniqueEmail,
-        ...(lang ? { lang } : {}),
-      },
-    });
-  }
+  const guest = await guestForViewer(viewer, body.guestId, lang);
 
   // 3. Create remark (no duplicate check — a guest may give multiple remarks)
   const remark = await prisma.remark.create({

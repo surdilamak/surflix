@@ -38,8 +38,14 @@ export function ViewerProvider({ children }: { children: React.ReactNode }) {
   const [error, setError] = useState<string | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-  const apply = useCallback((d: { loggedIn?: boolean; name?: string; via?: 'form' | 'jellyfin'; played?: string[]; later?: string[] }) => {
+  const apply = useCallback((d: { loggedIn?: boolean; name?: string; via?: 'form' | 'jellyfin'; played?: string[]; later?: string[]; guestId?: string | null }) => {
     if (d.loggedIn) {
+      // a new device: pick up the Request Hub history of this account so My Requests is not empty
+      try {
+        if (d.guestId && !JSON.parse(localStorage.getItem('surflix_guest_info') || '{}').guestId) {
+          localStorage.setItem('surflix_guest_info', JSON.stringify({ name: d.name ?? '', guestId: d.guestId }));
+        }
+      } catch {}
       setStatus('in');
       setName(d.name ?? null);
       setVia(d.via ?? 'form');

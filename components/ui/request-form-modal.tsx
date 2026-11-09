@@ -13,6 +13,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Icons } from './icons';
 import { JellyseerrMediaItem } from '@/lib/jellyseerr';
 import { useLang } from '@/components/connections/lang-provider';
+import { useViewer } from '@/components/connections/viewer-provider';
+import { SignInGate, ViewerNameField } from './viewer-gate';
 
 interface RequestFormModalProps {
   item: JellyseerrMediaItem | null;
@@ -28,7 +30,7 @@ const NOTE_KEYS = ['s1', 's2', 's3', 's4'] as const;
 
 export function RequestFormModal({ item, open, onClose, onSuccess }: RequestFormModalProps) {
   const { t } = useLang();
-  const [name, setName] = useState('');
+  const viewer = useViewer();
   const [guestId, setGuestId] = useState<string | undefined>(undefined);
   const [note, setNote] = useState('');
   const [loading, setLoading] = useState(false);
@@ -40,8 +42,7 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
       const saved = localStorage.getItem(GUEST_INFO_KEY);
       if (saved) {
         try {
-          const { name: n, guestId: gid } = JSON.parse(saved);
-          if (n) setName(n);
+          const { guestId: gid } = JSON.parse(saved);
           if (gid) setGuestId(gid);
         } catch {}
       }
@@ -57,12 +58,8 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
   async function handleSubmit() {
     setError(null);
 
-    if (!name.trim()) {
-      setError(t('hub.form.nameRequired'));
-      return;
-    }
-    if (name.trim().length < 2) {
-      setError(t('hub.form.nameMin'));
+    if (viewer.status !== 'in') {
+      viewer.openLogin();
       return;
     }
     if (!item) return;
@@ -74,7 +71,6 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          guestName: name.trim(),
           guestId,
           guestNote: note.trim() || undefined,
           tmdbId: item.id,
@@ -90,6 +86,12 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
 
       const data = await res.json();
 
+      if (res.status === 401) {
+        setLoading(false);
+        viewer.openLogin();
+        return;
+      }
+
       if (!res.ok) {
         setError(data.error || t('hub.form.failed'));
         setLoading(false);
@@ -97,7 +99,7 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
       }
 
       localStorage.setItem(GUEST_INFO_KEY, JSON.stringify({
-        name: name.trim(),
+        name: viewer.name ?? '',
         guestId: data.guestId,
       }));
 
@@ -152,19 +154,11 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
               </button>
             </div>
 
+            {viewer.status !== 'in' ? (
+              <SignInGate />
+            ) : (
             <div className="space-y-3">
-              <div>
-                <label className="rq-small mb-2 block text-rq-muted">{t('hub.form.name')}</label>
-                <input
-                  type="text"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  placeholder={t('hub.form.namePh')}
-                  className="rq-input w-full"
-                  maxLength={50}
-                  autoFocus
-                />
-              </div>
+              <ViewerNameField />
 
               {/* Notes section */}
               {!showNoteField ? (
@@ -245,6 +239,7 @@ export function RequestFormModal({ item, open, onClose, onSuccess }: RequestForm
                 {t('hub.form.cookie')}
               </p>
             </div>
+            )}
             </motion.div>
           </div>
         </>
