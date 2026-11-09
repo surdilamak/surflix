@@ -7,7 +7,8 @@
  *  - Jellyseerr (`/movie/:id`, `/tv/:id`): synopsis, runtime, genres, cast, TMDB score, IMDb id.
  *  - OMDb (only when OMDB_API_KEY is set): IMDb rating + votes, Metascore, Rotten Tomatoes. This is the
  *    only source of the Metacritic score.
- *  - Jellyseerr `/:type/:id/ratingscombined` (no key needed): Rotten Tomatoes and IMDb. Best effort.
+ *  - Jellyseerr `/movie/:id/ratingscombined` (movies only, slow): Rotten Tomatoes and IMDb, asked only
+ *    when OMDb lacks them. Best effort.
  * A source that fails or is missing simply leaves its score out; nothing here may break the page.
  */
 
@@ -95,10 +96,13 @@ async function lookup(type: 'movie' | 'tv', id: number): Promise<TitleFacts | nu
     const avg = num(d.voteAverage);
     if (avg != null && avg > 0) scores.tmdb = { value: avg, votes: num(d.voteCount) };
 
-    // Both rating sources run at the same time; OMDb wins where both have a value (it is the only
-    // one with Metacritic), Jellyseerr fills what OMDb lacks.
+    // OMDb first (it is the only source of Metacritic and is fast). Jellyseerr's `ratingscombined` is slow
+    // (it fetches the scores from outside) and exists for movies only, so it is asked only for a movie
+    // where OMDb did not return both IMDb and Rotten Tomatoes.
     const imdbId: string | undefined = d.externalIds?.imdbId || d.mediaInfo?.imdbId;
-    const [omdb, js] = await Promise.all([imdbId ? fromOmdb(imdbId) : Promise.resolve({} as TitleFacts['scores']), fromJellyseerrRatings(type, id)]);
+    const omdb: TitleFacts['scores'] = imdbId ? await fromOmdb(imdbId) : {};
+    const needFallback = type === 'movie' && !(omdb.imdb && omdb.rottenTomatoes);
+    const js: TitleFacts['scores'] = needFallback ? await fromJellyseerrRatings(type, id) : {};
     Object.assign(scores, js, omdb);
     if (js.rottenTomatoes && omdb.rottenTomatoes) scores.rottenTomatoes = { ...js.rottenTomatoes, ...omdb.rottenTomatoes };
 
