@@ -60,7 +60,16 @@ export function PortalBar({
   const pathname = usePathname();
   const menuId = useId();
   const [open, setOpen] = useState(false);
+  // transparent at the top of the page, a glass layer once the page has scrolled (like the RomM header)
+  const [scrolled, setScrolled] = useState(false);
   const streaming = config?.jellyfinUrl || 'https://streaming.surflix.my.id';
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
   // Close the menu on page change or when Escape is pressed
   useEffect(() => setOpen(false), [pathname]);
@@ -88,7 +97,7 @@ export function PortalBar({
   ];
 
   return (
-    <div className="pb-bar" data-open={open ? '' : undefined}>
+    <div className="pb-bar" data-open={open ? '' : undefined} data-scrolled={scrolled ? '' : undefined}>
       <div className="pb-in">
         <a href={homeHref('/')} className="pb-logo" aria-label={t('pb.home')}>
           {/* eslint-disable-next-line @next/next/no-img-element */}

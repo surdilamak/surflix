@@ -93,3 +93,8 @@ textarea.rq-input { padding-block: 12px; }
 @media (prefers-reduced-motion: reduce) {
   .rq-root *, .rq-root *::before, .rq-root *::after { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
 }
+
+/* page-to-page fade inside the Hub (see template.tsx) */
+.rq-page-in { animation: rq-page-in 0.22s cubic-bezier(0.23, 1, 0.32, 1); }
+@keyframes rq-page-in { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .rq-page-in { animation: none; } }

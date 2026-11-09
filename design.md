@@ -6,6 +6,8 @@
 >
 > Master rule that applies on every surface: **flat tiles, one radius, no gradients, no shadows on resting objects, no hairlines, no glass, no emoji.**
 >
+> One exception, decided 2026-11-09: the shared top bar (`pb-`) is transparent at the top of the page and gets a glass layer (90% of the site colour, `blur(20px)`) once the page scrolls, fading in over 0.22s. Pages crossfade on navigation (`@view-transition`, Hub also fades client-side route changes). Nothing else may use glass.
+>
 > Last audited: 2026-10-22.
 
 ---

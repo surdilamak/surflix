@@ -61,6 +61,10 @@
   display: flex;
   flex-direction: column;
   background: var(--bg);
+  /* the top bar is 90% opaque: keep the dark field behind it at the top of the page, not the white body */
+  background-image: linear-gradient(var(--field-1), var(--field-1));
+  background-repeat: no-repeat;
+  background-size: 100% 160px;
   color: var(--ink);
   font-size: var(--step-body);
   line-height: 1.5;  /* prose; elements that need to be tight override it themselves */

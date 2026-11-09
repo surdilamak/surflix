@@ -76,7 +76,7 @@
 
 /* ═══ Hero: a poster sheet with one text cell ═══ */
 .lp-hero {
-  --H: max(calc(100svh - 92px), 600px); /* minus the top bar */
+  --H: max(calc(100svh - 76px), 600px); /* minus the top bar */
   --ph: 340px; /* text panel height = height of the empty space in columns 3-4 */
   position: relative; overflow: hidden;
   height: var(--H); padding: 0 var(--m) var(--m); /* the bar above carries the top gap */

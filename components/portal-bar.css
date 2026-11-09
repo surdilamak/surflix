@@ -5,10 +5,25 @@
  */
 .pb-bar {
   position: sticky; top: 0; z-index: 60;
-  background: var(--pb-bg, #0d0d0f);
+  background: transparent; /* the glass layer below fades in once the page scrolls */
   color: var(--pb-ink, #fff);
+  view-transition-name: pb-bar; /* the bar stays put while the page crossfades on navigation */
   font-size: 14px; line-height: 1.2; font-weight: 500; letter-spacing: 0;
 }
+/* Glass layer: invisible at the top of the page, 90% of the site colour with a blur once scrolled. */
+.pb-bar::before {
+  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: color-mix(in srgb, var(--pb-bg, #0d0d0f) 90%, transparent);
+  -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
+  opacity: 0; transition: opacity 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pb-bar[data-scrolled]::before, .pb-bar[data-open]::before { opacity: 1; }
+
+/* Page-to-page navigation: a short crossfade of the content (browsers without support just load the page). */
+@view-transition { navigation: auto; }
+::view-transition-group(root) { animation-duration: 0.22s; animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+::view-transition-group(pb-bar) { animation: none; }
+
 .pb-in {
   display: flex; align-items: center; gap: 12px;
   width: 100%; max-width: var(--pb-max, none); margin-inline: auto;
@@ -57,7 +72,7 @@
 .pb-bar :focus-visible { outline: 2px solid var(--pb-accent, #ff5200); outline-offset: 2px; }
 
 @media (min-width: 768px) {
-  .pb-in { min-height: 0; padding-block: 24px; padding-inline: var(--pb-pad, 24px); gap: 16px; } /* 8-point grid: 24 above and 24 below */
+  .pb-in { min-height: 0; padding-block: 16px; padding-inline: var(--pb-pad, 24px); gap: 16px; } /* 8-point grid: 16 above and 16 below */
   .pb-bar .pb-wordmark { display: block; }
   .pb-bar .pb-mark { display: none; }
   .pb-name { display: inline; }
@@ -108,7 +123,8 @@
   .pb-home-link { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 8px; color: var(--pb-muted, #a3a3ab); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .pb-switch a, .pb-lang button, .pb-nav a { transition: none; }
+  .pb-switch a, .pb-lang button, .pb-nav a, .pb-bar::before { transition: none; }
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
 
 /* account entry (Reference): far right of the bar, set apart from the page links */
