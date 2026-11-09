@@ -34,22 +34,25 @@ export interface TitleFacts {
 const TTL_OK = 6 * 60 * 60 * 1000;
 const TTL_MISS = 5 * 60 * 1000;
 const cache = new Map<string, { data: TitleFacts | null; expiresAt: number }>();
+/** concurrent callers (page metadata, the OG image, the client) share one lookup */
+const inflight = new Map<string, Promise<TitleFacts | null>>();
 
 const num = (v: unknown): number | null => {
   const n = typeof v === 'string' ? parseFloat(v) : typeof v === 'number' ? v : NaN;
   return Number.isFinite(n) ? n : null;
 };
 
-async function fromOmdb(imdbId: string, scores: TitleFacts['scores']): Promise<void> {
+async function fromOmdb(imdbId: string): Promise<TitleFacts['scores']> {
+  const scores: TitleFacts['scores'] = {};
   const key = process.env.OMDB_API_KEY;
-  if (!key) return;
+  if (!key) return scores;
   try {
     const res = await fetch(`https://www.omdbapi.com/?i=${encodeURIComponent(imdbId)}&apikey=${encodeURIComponent(key)}`, {
-      signal: AbortSignal.timeout(4000),
+      signal: AbortSignal.timeout(3000),
     });
-    if (!res.ok) return;
+    if (!res.ok) return scores;
     const d = await res.json();
-    if (d.Response === 'False') return;
+    if (d.Response === 'False') return scores;
     const imdb = num(d.imdbRating);
     if (imdb != null) scores.imdb = { value: imdb, votes: d.imdbVotes && d.imdbVotes !== 'N/A' ? String(d.imdbVotes) : null };
     const meta = num(d.Metascore);
@@ -60,13 +63,15 @@ async function fromOmdb(imdbId: string, scores: TitleFacts['scores']): Promise<v
   } catch {
     /* leave the scores out */
   }
+  return scores;
 }
 
-async function fromJellyseerrRatings(type: 'movie' | 'tv', id: number, scores: TitleFacts['scores']): Promise<void> {
+async function fromJellyseerrRatings(type: 'movie' | 'tv', id: number): Promise<TitleFacts['scores']> {
+  const scores: TitleFacts['scores'] = {};
   try {
     const data = await jellyseerr.getCombinedRatings(type, id);
     const rt = data?.rt;
-    if (rt && !scores.rottenTomatoes) {
+    if (rt) {
       const critics = num(rt.criticsScore);
       const audience = num(rt.audienceScore);
       if (critics != null || audience != null) {
@@ -74,18 +79,14 @@ async function fromJellyseerrRatings(type: 'movie' | 'tv', id: number, scores: T
       }
     }
     const imdb = num(data?.imdb?.criticsScore);
-    if (imdb != null && !scores.imdb) scores.imdb = { value: imdb, votes: null };
+    if (imdb != null) scores.imdb = { value: imdb, votes: null };
   } catch {
     /* leave the scores out */
   }
+  return scores;
 }
 
-export async function getTitleFacts(type: 'movie' | 'tv', id: number): Promise<TitleFacts | null> {
-  const key = `${type}-${id}`;
-  const hit = cache.get(key);
-  if (hit && hit.expiresAt > Date.now()) return hit.data;
-
-  let facts: TitleFacts | null = null;
+async function lookup(type: 'movie' | 'tv', id: number): Promise<TitleFacts | null> {
   try {
     const d = await jellyseerr.getMediaDetail(type, id);
     const crew: Array<{ job?: string; name: string }> = d.credits?.crew || [];
@@ -94,12 +95,14 @@ export async function getTitleFacts(type: 'movie' | 'tv', id: number): Promise<T
     const avg = num(d.voteAverage);
     if (avg != null && avg > 0) scores.tmdb = { value: avg, votes: num(d.voteCount) };
 
+    // Both rating sources run at the same time; OMDb wins where both have a value (it is the only
+    // one with Metacritic), Jellyseerr fills what OMDb lacks.
     const imdbId: string | undefined = d.externalIds?.imdbId || d.mediaInfo?.imdbId;
-    // OMDb first (it is the only one with Metacritic); Jellyseerr only fills what is still missing
-    if (imdbId) await fromOmdb(imdbId, scores);
-    await fromJellyseerrRatings(type, id, scores);
+    const [omdb, js] = await Promise.all([imdbId ? fromOmdb(imdbId) : Promise.resolve({} as TitleFacts['scores']), fromJellyseerrRatings(type, id)]);
+    Object.assign(scores, js, omdb);
+    if (js.rottenTomatoes && omdb.rottenTomatoes) scores.rottenTomatoes = { ...js.rottenTomatoes, ...omdb.rottenTomatoes };
 
-    facts = {
+    return {
       title: d.title || d.name || '',
       tagline: d.tagline || null,
       overview: d.overview || null,
@@ -113,10 +116,25 @@ export async function getTitleFacts(type: 'movie' | 'tv', id: number): Promise<T
     };
   } catch (err) {
     console.error('[title-facts]', (err as Error).message);
+    return null;
   }
+}
 
-  cache.set(key, { data: facts, expiresAt: Date.now() + (facts ? TTL_OK : TTL_MISS) });
-  return facts;
+export function getTitleFacts(type: 'movie' | 'tv', id: number): Promise<TitleFacts | null> {
+  const key = `${type}-${id}`;
+  const hit = cache.get(key);
+  if (hit && hit.expiresAt > Date.now()) return Promise.resolve(hit.data);
+  let p = inflight.get(key);
+  if (!p) {
+    p = lookup(type, id)
+      .then((facts) => {
+        cache.set(key, { data: facts, expiresAt: Date.now() + (facts ? TTL_OK : TTL_MISS) });
+        return facts;
+      })
+      .finally(() => inflight.delete(key));
+    inflight.set(key, p);
+  }
+  return p;
 }
 
 /**

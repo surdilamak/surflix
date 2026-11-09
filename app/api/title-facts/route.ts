@@ -20,5 +20,5 @@ export async function GET(req: NextRequest) {
   if (!parsed.success) return NextResponse.json({ error: 'Invalid params' }, { status: 400 });
   const facts = await getTitleFacts(parsed.data.type, parsed.data.id);
   if (!facts) return NextResponse.json({ error: 'No details available' }, { status: 404 });
-  return NextResponse.json(facts, { headers: { 'Cache-Control': 'public, max-age=300' } });
+  return NextResponse.json(facts, { headers: { 'Cache-Control': 'public, max-age=300, s-maxage=21600, stale-while-revalidate=86400' } });
 }

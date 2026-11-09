@@ -20,7 +20,7 @@ import type { SagaHere } from '@/lib/connections';
 import { WatchLaterButton } from '@/components/connections/watch-later-button';
 import { WatchButton } from '@/components/connections/watch-link';
 import { useViewer } from '@/components/connections/viewer-provider';
-import { TitleAbout, TitleFacts, TitleScores } from '@/components/connections/title-facts';
+import { prefetchTitleFacts, TitleAbout, TitleFacts, TitleScores } from '@/components/connections/title-facts';
 
 const ConnectionGraph = dynamic(
   () => import('@/components/connections/connection-graph').then((m) => m.ConnectionGraph),
@@ -50,6 +50,8 @@ export default function ReferensiFilmPage() {
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    // the facts do not depend on the map data: ask for them now instead of after it arrives
+    if (['movie', 'tv'].includes(params.type) && /^\d+$/.test(params.id)) prefetchTitleFacts(params.type, params.id);
     setData(null);
     setLib(null);
     fetch(`/api/connections?type=${params.type}&id=${params.id}`)

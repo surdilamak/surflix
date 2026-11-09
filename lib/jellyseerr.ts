@@ -165,7 +165,7 @@ class JellyseerrClient {
 
   /** Rotten Tomatoes and IMDb scores (Jellyseerr 2.x); throws if this server version does not have it. */
   async getCombinedRatings(mediaType: 'movie' | 'tv', tmdbId: number) {
-    const { data } = await this.client.get(`/${mediaType}/${tmdbId}/ratingscombined`, { timeout: 4000 });
+    const { data } = await this.client.get(`/${mediaType}/${tmdbId}/ratingscombined`, { timeout: 2500 });
     return data;
   }
 

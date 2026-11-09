@@ -76,10 +76,10 @@
 
 /* ═══ Hero: a poster sheet with one text cell ═══ */
 .lp-hero {
-  --H: max(calc(100svh - 60px), 600px); /* minus the top bar */
+  --H: max(calc(100svh - 92px), 600px); /* minus the top bar */
   --ph: 340px; /* text panel height = height of the empty space in columns 3-4 */
   position: relative; overflow: hidden;
-  height: var(--H); padding: var(--m);
+  height: var(--H); padding: 0 var(--m) var(--m); /* the bar above carries the top gap */
   container-type: inline-size;
   background: var(--bg);
 }
@@ -364,7 +364,7 @@
 /* ═══ Phone: its own board ═══ */
 @media (max-width: 767px) {
   .lp-root { --m: 16px; }
-  .lp-hero { padding: 8px; }
+  .lp-hero { padding: 0 8px 8px; }
   .lp-stage { --cw: calc((100cqw - 8px) / 2); gap: 8px; }
   .lp-panel { min-height: 40svh; padding: 20px; }
   .lp-panel h1 { margin-top: 0; }

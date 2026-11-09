@@ -23,6 +23,8 @@ export async function generateMetadata({ params }: { params: Promise<Params> }):
   const n = meta.connections;
   const title = n > 0 ? `${label}: ${n} ${n === 1 ? 'connection' : 'connections'} · Surflix Reference` : `${label} · Surflix Reference`;
   // A title without a map still gets a useful preview: scores and the start of the synopsis
+  // with a map, only warm the cache (the page asks for the facts a moment later); never wait for it
+  if (n > 0) void getTitleFacts(type as 'movie' | 'tv', Number(id)).catch(() => null);
   const facts = n === 0 ? await getTitleFacts(type as 'movie' | 'tv', Number(id)).catch(() => null) : null;
   const scores = facts ? scoreLine(facts.scores) : '';
   const description = clip(

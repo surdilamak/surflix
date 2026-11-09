@@ -25,7 +25,7 @@
   --field-2-ink: #1f2b4d;
   --pb-pad: var(--margin);
   --pb-bg: #05070a;
-  --pb-raised: #1c2233;
+  --pb-raised: #232327; /* same pill and tab fill as the landing and Request Hub */
   --pb-accent: #ff5200;
 
   /* three relationship types: used in the graph (dark) and the markers (light) */
@@ -204,6 +204,7 @@
 .ref-detail-top > .ref-scores + .ref-detail-actions { margin-top: 20px; }
 .ref-detail-top > .ref-scores li { min-width: 0; grid-auto-flow: column; align-items: baseline; gap: 8px; padding: 8px 14px; }
 .ref-detail-top > .ref-scores li { flex: 0 0 auto; }
+.ref-scores--wait { min-height: 40px; }
 .ref-detail-top > .ref-scores b { font-size: var(--step-body); }
 .ref-facts--about { margin-top: 0; padding-bottom: var(--gap-chapter); }
 .ref-facts + .ref-detail-search { margin-top: var(--gap-block); }

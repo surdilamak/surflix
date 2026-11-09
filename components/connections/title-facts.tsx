@@ -30,6 +30,11 @@ function load(type: string, id: string | number): Promise<Facts | null> {
   return p;
 }
 
+/** Start the request early (the page calls this on mount, before its map data has arrived). */
+export function prefetchTitleFacts(type: string, id: string | number): void {
+  void load(type, id);
+}
+
 function useFacts(type: string, id: string | number): Facts | null | undefined {
   const [facts, setFacts] = useState<Facts | null | undefined>(undefined);
   useEffect(() => {
@@ -118,6 +123,8 @@ type Props = { type: string; id: string | number };
 
 export function TitleScores({ type, id }: Props) {
   const facts = useFacts(type, id);
+  // keep the row's space while loading, so the buttons and the map do not jump when the scores arrive
+  if (facts === undefined) return <div className="ref-scores ref-scores--wait" aria-hidden="true" />;
   if (!facts) return null;
   return <ScoreChips facts={facts} />;
 }
