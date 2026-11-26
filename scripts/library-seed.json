@@ -1250,6 +1250,16 @@
     "directors": null
   },
   {
+    "tmdbId": 208208,
+    "mediaType": "tv",
+    "title": "Breaking Bear",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "8073c2fc1743e1831b27e0c131d77c7d",
+    "genres": "Comedy, Animation, Crime",
+    "directors": null
+  },
+  {
     "tmdbId": 1425045,
     "mediaType": "movie",
     "title": "Brick",
@@ -1510,6 +1520,16 @@
     "directors": "James Ward Byrkit"
   },
   {
+    "tmdbId": 1375646,
+    "mediaType": "movie",
+    "title": "Colony",
+    "originalTitle": "군체",
+    "year": 2026,
+    "jellyfinId": "949599e9acfa276bbbf393264832907f",
+    "genres": "Horror, Action, Science Fiction",
+    "directors": "Yeon Sang-ho"
+  },
+  {
     "tmdbId": 25237,
     "mediaType": "movie",
     "title": "Come and See",
@@ -1708,6 +1728,16 @@
     "jellyfinId": "e8ab8870ffa5b0ce6a7f29e8629cb456",
     "genres": "Action, Comedy, Science Fiction",
     "directors": "Shawn Levy"
+  },
+  {
+    "tmdbId": 1671548,
+    "mediaType": "movie",
+    "title": "Dear You",
+    "originalTitle": "给阿嬷的情书",
+    "year": 2026,
+    "jellyfinId": "038ec651f58725753163be7656a1f240",
+    "genres": "Drama, Comedy",
+    "directors": "Lan Hongchun"
   },
   {
     "tmdbId": 13916,
@@ -3050,6 +3080,26 @@
     "directors": "David Fincher"
   },
   {
+    "tmdbId": 1422096,
+    "mediaType": "movie",
+    "title": "Good Boy",
+    "originalTitle": null,
+    "year": 2025,
+    "jellyfinId": "4e8d35d39de4776386ec364da17c096c",
+    "genres": "Horror",
+    "directors": "Ben Leonberg"
+  },
+  {
+    "tmdbId": 1381027,
+    "mediaType": "movie",
+    "title": "Good Boy",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "3c27cb9ba89b73ea98ab209b0fbbaa8d",
+    "genres": "Drama, Mystery, Horror",
+    "directors": "Jan Komasa"
+  },
+  {
     "tmdbId": 489,
     "mediaType": "movie",
     "title": "Good Will Hunting",
@@ -3208,6 +3258,16 @@
     "jellyfinId": "edaf43e5e4b124bb287a7e668327eb28",
     "genres": "Action, Crime, Thriller",
     "directors": "Gareth Evans"
+  },
+  {
+    "tmdbId": 1263337,
+    "mediaType": "movie",
+    "title": "Heart of the Beast",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "4c5eb6ede27fdd47e3bd0fe45d12f5e8",
+    "genres": "Adventure, Thriller",
+    "directors": "David Ayer"
   },
   {
     "tmdbId": 14793,
@@ -3698,6 +3758,16 @@
     "jellyfinId": "dd99fb785095d8872d170de8cb2b8dd8",
     "genres": "Crime, Sci-Fi & Fantasy",
     "directors": null
+  },
+  {
+    "tmdbId": 979,
+    "mediaType": "movie",
+    "title": "Irreversible",
+    "originalTitle": "Irréversible",
+    "year": 2002,
+    "jellyfinId": "7a9a8470f0d7afb3ac09c917d17f79df",
+    "genres": "Drama, Thriller, Crime",
+    "directors": "Gaspar Noé"
   },
   {
     "tmdbId": 346364,
@@ -4280,6 +4350,16 @@
     "directors": "Stanley Kubrick"
   },
   {
+    "tmdbId": 1819503,
+    "mediaType": "movie",
+    "title": "Long Haired Businessmen",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "510a594fbe95b64a9ce97923c32ee9a6",
+    "genres": "Comedy",
+    "directors": "Scott Gairdner"
+  },
+  {
     "tmdbId": 1226578,
     "mediaType": "movie",
     "title": "Longlegs",
@@ -4538,6 +4618,16 @@
     "jellyfinId": "255d6de72cbef6e630457c658bc39117",
     "genres": "Comedy",
     "directors": null
+  },
+  {
+    "tmdbId": 1137844,
+    "mediaType": "movie",
+    "title": "Mayday",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "c96a0a73684c7b636125898a8a5a0d4d",
+    "genres": "Action, Comedy",
+    "directors": "Jonathan Goldstein, John Francis Daley"
   },
   {
     "tmdbId": 297,
@@ -5620,6 +5710,16 @@
     "directors": "Ken'ichi Shimizu, Masanori Shino"
   },
   {
+    "tmdbId": 1400837,
+    "mediaType": "movie",
+    "title": "Other Mommy",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "7111cbc1eb0b9b0a2b038f2df383ea0b",
+    "genres": "Horror",
+    "directors": "Rob Savage"
+  },
+  {
     "tmdbId": 5801,
     "mediaType": "movie",
     "title": "PATHER PANCHALI",
@@ -5648,6 +5748,16 @@
     "jellyfinId": "412a61ae0bcdc7a31b1666b174ac1e56",
     "genres": "Fantasy, Drama, War",
     "directors": "Guillermo del Toro"
+  },
+  {
+    "tmdbId": 11293,
+    "mediaType": "movie",
+    "title": "Paper Moon",
+    "originalTitle": null,
+    "year": 1973,
+    "jellyfinId": "60708c6c7bbeda1d63a25107205362e4",
+    "genres": "Comedy, Crime, Drama",
+    "directors": "Peter Bogdanovich"
   },
   {
     "tmdbId": 4977,
@@ -6130,6 +6240,16 @@
     "directors": "Hayao Miyazaki"
   },
   {
+    "tmdbId": 1483525,
+    "mediaType": "movie",
+    "title": "Possible Love",
+    "originalTitle": "가능한 사랑",
+    "year": 2026,
+    "jellyfinId": "8b6efe3354c74e762bb4c8559864b50e",
+    "genres": "Drama, Romance",
+    "directors": "Lee Chang-dong"
+  },
+  {
     "tmdbId": 1242898,
     "mediaType": "movie",
     "title": "Predator: Badlands",
@@ -6198,6 +6318,16 @@
     "jellyfinId": "964d23558144cc74bbe3313a1e4fa273",
     "genres": "Science Fiction, Drama, Thriller",
     "directors": "Shane Carruth"
+  },
+  {
+    "tmdbId": 1375441,
+    "mediaType": "movie",
+    "title": "Primetime",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "ce1134b636d47da6d0d1706ddc4e98e5",
+    "genres": "Thriller, Drama",
+    "directors": "Lance Oppenheim"
   },
   {
     "tmdbId": 128,
@@ -6668,6 +6798,16 @@
     "jellyfinId": "e60dea3d64cd89b2a4cc7847be379085",
     "genres": "Horror, Thriller, Comedy",
     "directors": "Sam Raimi"
+  },
+  {
+    "tmdbId": 1503762,
+    "mediaType": "movie",
+    "title": "Sense and Sensibility",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "376f54e25735c9e115a8305a92b447e1",
+    "genres": "Drama, Romance",
+    "directors": "Georgia Oakley"
   },
   {
     "tmdbId": 1124566,
@@ -7510,6 +7650,16 @@
     "directors": "Stuart Gillard"
   },
   {
+    "tmdbId": 1240889,
+    "mediaType": "movie",
+    "title": "Teenage Sex and Death at Camp Miasma",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "418eecb21f79a65d9349a6a397d1d855",
+    "genres": "Comedy, Horror, Romance",
+    "directors": "Jane Schoenbrun"
+  },
+  {
     "tmdbId": 577922,
     "mediaType": "movie",
     "title": "Tenet",
@@ -7638,6 +7788,16 @@
     "jellyfinId": "72a9d9a0563e7b54763e263005b78a76",
     "genres": "Horror, Thriller, Crime, Drama",
     "directors": "Scott Derrickson"
+  },
+  {
+    "tmdbId": 291507,
+    "mediaType": "tv",
+    "title": "The Body",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "1e4bba3534a38e26c7590f66b9c02c8f",
+    "genres": "Mystery, Drama",
+    "directors": null
   },
   {
     "tmdbId": 115036,
@@ -8370,6 +8530,16 @@
     "directors": "Jon Favreau"
   },
   {
+    "tmdbId": 582,
+    "mediaType": "movie",
+    "title": "The Lives of Others",
+    "originalTitle": "Das Leben der Anderen",
+    "year": 2006,
+    "jellyfinId": "5a58b2530caf80d9bce4526c12bf394e",
+    "genres": "Drama, Thriller",
+    "directors": "Florian Henckel von Donnersmarck"
+  },
+  {
     "tmdbId": 254320,
     "mediaType": "movie",
     "title": "The Lobster",
@@ -8700,6 +8870,16 @@
     "directors": null
   },
   {
+    "tmdbId": 97367,
+    "mediaType": "movie",
+    "title": "The Place Beyond the Pines",
+    "originalTitle": null,
+    "year": 2013,
+    "jellyfinId": "c06aad34170e3ad9e4841c1d17d36445",
+    "genres": "Drama, Crime",
+    "directors": "Derek Cianfrance"
+  },
+  {
     "tmdbId": 1177411,
     "mediaType": "movie",
     "title": "The Portrait",
@@ -8888,6 +9068,16 @@
     "jellyfinId": "4d979e8fd4a2fbabc7a5c3c4d5cddb66",
     "genres": "History, Drama",
     "directors": "Benny Safdie"
+  },
+  {
+    "tmdbId": 1281331,
+    "mediaType": "movie",
+    "title": "The Social Reckoning",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "3dba91197f52c966ad62426428e85295",
+    "genres": "Drama, Thriller",
+    "directors": "Aaron Sorkin"
   },
   {
     "tmdbId": 1398,
@@ -9228,6 +9418,16 @@
     "jellyfinId": "eee933cf8ce89235400141e15919b2b7",
     "genres": "Action, Adventure, Fantasy",
     "directors": "Alan Taylor"
+  },
+  {
+    "tmdbId": 17835,
+    "mediaType": "movie",
+    "title": "Threads",
+    "originalTitle": null,
+    "year": 1984,
+    "jellyfinId": "a8b676a9bd2272b62a02bf31a110be92",
+    "genres": "War, Drama, Science Fiction",
+    "directors": "Mick Jackson"
   },
   {
     "tmdbId": 359940,
@@ -9750,6 +9950,16 @@
     "directors": "Yoshifumi Kondo"
   },
   {
+    "tmdbId": 1195803,
+    "mediaType": "movie",
+    "title": "Wicker",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "a913528e56d7770e5a96b38da1d232ed",
+    "genres": "Romance, Fantasy, Comedy",
+    "directors": "Alex Huston Fischer, Eleanor Wilson"
+  },
+  {
     "tmdbId": 196950,
     "mediaType": "tv",
     "title": "Witch Hat Atelier",
@@ -9878,6 +10088,16 @@
     "jellyfinId": "82c27fe186730f044b2ca9da3100667c",
     "genres": "Crime, Drama, Romance",
     "directors": null
+  },
+  {
+    "tmdbId": 1765072,
+    "mediaType": "movie",
+    "title": "You Can See Everything",
+    "originalTitle": null,
+    "year": 2026,
+    "jellyfinId": "a2aff734f7f999c14c447ef0611a8dad",
+    "genres": "Documentary",
+    "directors": "Nathan Fielder, Lance Oppenheim"
   },
   {
     "tmdbId": 9489,

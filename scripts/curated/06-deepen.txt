@@ -224,3 +224,27 @@ Animals (2026) > Good Will Hunting (1997) | talent | h | Affleck directs and sta
 
 # Fall (2022) is not in the library, so its sequel is connected through its director.
 Fall 2: Deadpoint (2026) > Predestination (2014) | director | h | Both directed by Michael and Peter Spierig - who did not make the first Fall; Scott Mann moved to writing and producing. || Keduanya disutradarai Michael dan Peter Spierig - yang tidak menggarap Fall pertama; Scott Mann pindah ke penulisan dan produksi.
+
+# 2026-11-26 batch (22 new titles, library 1019). Sources: en.wikipedia.org pages, fetched 2026-11-26.
+# Irreversible > Memento: en.wikipedia.org/wiki/Irréversible, Production: "Gaspar Noé first found financing for the new title after he
+# pitched the story to be told in reverse, in order to capitalize on the popularity of Christopher Nolan's film Memento (2000)."
+# DELIBERATELY not claimed: that Noé named Memento as an artistic influence (his listed influence for reverse order is Betrayal, 1983),
+# or that the structure is the same (Memento alternates reverse and chronological scenes; Irreversible is reversed throughout).
+Irreversible (2002) > Memento (2000) | inspired | m | Noé found financing for Irréversible by pitching it in reverse order, to capitalise on the popularity of Nolan's Memento. || Noé mendapat dana untuk Irréversible dengan mengusulkan ceritanya disusun mundur, untuk memanfaatkan popularitas Memento karya Nolan.
+# Breaking Bear > Breaking Bad: en.wikipedia.org/wiki/Breaking_Bear: "...it parodies mobster films and other crime fiction, including the
+# television series Breaking Bad." Plot: grizzly siblings and a school teacher "team up... to cook meth in order to raise enough money to save their home."
+# DELIBERATELY not claimed: that it parodies only Breaking Bad (Deadline's 2022 announcement names Yogi Bear and The Sopranos), or any shared cast/crew.
+Breaking Bear (2026) > Breaking Bad (2008) | homage | m | Breaking Bear parodies crime fiction, Breaking Bad among it: grizzly siblings and a teacher cook meth to save their home. || Breaking Bear memparodikan fiksi kriminal, termasuk Breaking Bad: kakak-adik beruang grizzly dan seorang guru memasak sabu demi menyelamatkan rumah mereka.
+# Place Beyond the Pines: en.wikipedia.org/wiki/The_Place_Beyond_the_Pines lead: "Starring Ryan Gosling, Bradley Cooper, Eva Mendes..."; Drive page: "The film stars Ryan Gosling".
+The Place Beyond the Pines (2013) > Drive (2011) | talent | h | Ryan Gosling stars in both. || Ryan Gosling membintangi keduanya.
+# Heart of the Beast (2026): en.wikipedia.org/wiki/Heart_of_the_Beast_(film): Brad Pitt plays James Belmont (lead); "Damien Chazelle and Olivia
+# Hamilton produced the film through their label Wild Chickens Productions". Moneyball page: "It stars Brad Pitt..." (lead). La La Land: "written and directed by Damien Chazelle".
+Heart of the Beast (2026) > Moneyball (2011) | talent | h | Brad Pitt stars in both. || Brad Pitt membintangi keduanya.
+Heart of the Beast (2026) > La La Land (2016) | talent | h | Damien Chazelle directed La La Land and produced Heart of the Beast. || Damien Chazelle menyutradarai La La Land dan memproduseri Heart of the Beast.
+# The Social Reckoning: en.wikipedia.org/wiki/The_Social_Reckoning: "written, co-produced, and directed by Aaron Sorkin." Moneyball page:
+# "directed by Bennett Miller and adapted by Steven Zaillian and Aaron Sorkin." DELIBERATELY not claimed: that Sorkin wrote Moneyball alone (he did a rewrite with a shared credit).
+The Social Reckoning (2026) > Moneyball (2011) | talent | h | Aaron Sorkin wrote and directed this, and shares the adapted-screenplay credit on Moneyball with Steven Zaillian. || Aaron Sorkin menulis dan menyutradarai film ini, dan berbagi kredit skenario adaptasi Moneyball dengan Steven Zaillian.
+# Possible Love: en.wikipedia.org/wiki/Possible_Love: "Cho Yeo-jeong as Lee Ye-ji"; Parasite page: "Cho Yeo-jeong as Choi Yeon-gyo (최연교), the Park family matriarch".
+Possible Love (2026) > Parasite (2019) | talent | h | Cho Yeo-jeong appears in both: the Park family matriarch in Parasite, Lee Ye-ji here. || Cho Yeo-jeong tampil di keduanya: ibu keluarga Park di Parasite, Lee Ye-ji di film ini.
+# You Can See Everything: en.wikipedia.org/wiki/You_Can_See_Everything: Amanda Seyfried plays Holmes in reenactments and appears as herself (agent read of both pages).
+You Can See Everything (2026) > The Testament of Ann Lee (2025) | talent | m | Amanda Seyfried is in both: the lead of Ann Lee, and Elizabeth Holmes in the reenactments here. || Amanda Seyfried ada di keduanya: pemeran utama Ann Lee, dan Elizabeth Holmes dalam adegan rekonstruksi di sini.
